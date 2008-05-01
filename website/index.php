@@ -25,7 +25,7 @@
 <br><b><u>Affected version(s)</u></b>: 1.8.2
 <br><b>Solution:</b>
 <br>Please download the fixed SQLite DLLs from CVS or build the SQLite DLL yourself.
-<br><b>Fixed in CVS</b>
+<br><b>Fixed in 1.8.3</b>
 </p></li>
 
 <li><p><b><u>Symptom</u></b>: Wrong type of transaction is issued in method <b>wxSQLite3Database::Begin</b> when requesting an exclusive transaction.

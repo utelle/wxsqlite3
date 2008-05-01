@@ -168,7 +168,7 @@ int main(int argc, char** argv)
       db.Open(gszFile);
     }
 
-    cout << endl << "emp table exists=" << (db.TableExists(_T("emp")) ? "TRUE":"FALSE") << endl;
+    cout << endl << "emp table exists=" << (db.TableExists(_T("EmP")) ? "TRUE":"FALSE") << endl;
     cout << endl << "Creating emp table" << endl;
     db.ExecuteUpdate(_T("create table emp(empno int, empname char(20));"));
     cout << endl << "emp table exists=" << (db.TableExists(_T("emp")) ? "TRUE":"FALSE") << endl;
@@ -433,6 +433,14 @@ int main(int argc, char** argv)
       char* readBlobData = (char*) memBuffer.GetData();
       cout << "Incremental BLOB of size " << blobSize << " with value <"
            << readBlobData << "> at offset " << offset << endl;
+    }
+
+    cout << endl << "Database limits" << endl;
+    wxSQLite3LimitType limitType;
+    for (limitType = WXSQLITE_LIMIT_LENGTH; limitType <= WXSQLITE_LIMIT_VARIABLE_NUMBER; ++limitType)
+    {
+      cout << (const char*) wxSQLite3Database::LimitTypeToString(limitType).mb_str()
+           << ": " << db.GetLimit(limitType) << endl;
     }
 
     cout << endl << "End of tests" << endl;

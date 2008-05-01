@@ -30,6 +30,8 @@
 //              2008-01-05  - Added support for shared cache mode
 //                            Added support for access to original SQL statement
 //                            for prepared statements (requires SQLite 3.5.3 or above)
+//              2008-04-27  - Upgrade to SQLite3 version 3.5.8
+//                            Fixed several minor issues in the build files
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -72,6 +74,14 @@
 \section version Version history
 
 <dl>
+<dt><b>1.8.4</b> - <i>April 2008</i></dt>
+<dd>
+Upgrade to SQLite version 3.5.8<br>
+Added support for accessing database limits<br>
+Changed method TableExists to check a table name case insensitive<br>
+Fixed several minor issues in the build files.
+
+</dd>
 <dt><b>1.8.3</b> - <i>January 2008</i></dt>
 <dd>
 Added support for shared cache mode<br>

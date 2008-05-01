@@ -8,11 +8,10 @@
 # for more info about autoconf and the autoconf macros.
 # ======================================================================================
 
-
-
 # Init this configure script with basic info about the component
 # (DON'T PUT ANYTHING BEFORE AC_INIT, JUST COMMENTS)
-AC_INIT([wxSqlite3], [1.0], [mymail@myserver.com])
+AC_INIT([wxSqlite3], [1.8.4], [utelle@sourceforge.net])
+AC_CONFIG_AUX_DIR(build)
 
 # ENABLES/DISABLES THE DEBUG MODE FOR THIS CONFIGURE SCRIPT
 #DBG_CONFIGURE=1
@@ -21,8 +20,6 @@ AC_INIT([wxSqlite3], [1.0], [mymail@myserver.com])
 # script from this configure.ac file since wxcode.m4 is required....
 m4_include(../../../build/autoconf/wxcode.m4)
 WXCODE_INIT
-
-
 
 
 ## CONFIGURE OPTIONS
@@ -40,11 +37,10 @@ WXCODE_OPTIONS([debug,unicode,shared,toolkit,wxshared,wxversion])
 
 AC_ARG_WITH([sqlite3_prefix],
                 AC_HELP_STRING([--with-sqlite3-prefix],
-                        [Prefix where sqlite3 is installed (optional; default is ./sqlite3)]),, 
-                [with_sqlite3_prefix=./sqlite3])
+                        [Prefix where sqlite3 is installed (optional; default is /usr/local)]),, 
+                [with_sqlite3_prefix=/usr/local])
 SQLITE3_DIR=$with_sqlite3_prefix
 AC_SUBST(SQLITE3_DIR)
-
 
 
 ## CONFIGURE CHECKS
