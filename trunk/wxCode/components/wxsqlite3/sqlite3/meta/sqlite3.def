@@ -1,7 +1,6 @@
 EXPORTS
 sqlite3_aggregate_context
 sqlite3_aggregate_count
-sqlite3_apis
 sqlite3_auto_extension
 sqlite3_bind_blob
 sqlite3_bind_double
@@ -51,6 +50,7 @@ sqlite3_column_value
 sqlite3_commit_hook
 sqlite3_complete
 sqlite3_complete16
+sqlite3_context_db_handle
 sqlite3_create_collation
 sqlite3_create_collation16
 sqlite3_create_collation_v2
@@ -81,6 +81,7 @@ sqlite3_interrupt
 sqlite3_last_insert_rowid
 sqlite3_libversion
 sqlite3_libversion_number
+sqlite3_limit
 sqlite3_load_extension
 sqlite3_malloc
 sqlite3_memory_alarm
@@ -104,6 +105,7 @@ sqlite3_prepare16_v2
 sqlite3_prepare_v2
 sqlite3_profile
 sqlite3_progress_handler
+sqlite3_randomness
 sqlite3_realloc
 sqlite3_release_memory
 sqlite3_reset
@@ -112,6 +114,7 @@ sqlite3_result_blob
 sqlite3_result_double
 sqlite3_result_error
 sqlite3_result_error16
+sqlite3_result_error_code
 sqlite3_result_error_nomem
 sqlite3_result_error_toobig
 sqlite3_result_int
@@ -132,6 +135,7 @@ sqlite3_soft_heap_limit
 sqlite3_sql
 sqlite3_step
 sqlite3_table_column_metadata
+sqlite3_test_control
 sqlite3_thread_cleanup
 sqlite3_threadsafe
 sqlite3_total_changes

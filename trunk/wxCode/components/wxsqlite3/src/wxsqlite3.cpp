@@ -1945,10 +1945,12 @@ wxSQLite3Statement wxSQLite3Database::PrepareStatement(const char* sql)
 
 bool wxSQLite3Database::TableExists(const wxString& tableName)
 {
-  wxString sql;
-  sql << _T("select count(*) from sqlite_master where type='table' and name='") << tableName << _T("'"); 
-  int rc = ExecuteScalar(sql); 
-  return (rc > 0);
+  wxSQLite3Statement stmt = PrepareStatement("select count(*) from sqlite_master where type='table' and name like ?");
+  stmt.Bind(1, tableName);
+  wxSQLite3ResultSet resultSet = stmt.ExecuteQuery();
+  long value = 0;
+  resultSet.GetAsString(0).ToLong(&value);
+  return (value > 0);
 }
 
 bool wxSQLite3Database::CheckSyntax(const wxString& sql)
@@ -2057,7 +2059,7 @@ int wxSQLite3Database::ExecuteScalar(const char* sql)
 
   long value = 0;
   resultSet.GetAsString(0).ToLong(&value);
-  return value;
+  return (int) value;
 }
 
 wxSQLite3Table wxSQLite3Database::GetTable(const wxString& sql)
@@ -2434,6 +2436,75 @@ void wxSQLite3Database::ReKey(const wxMemoryBuffer& newKey)
   wxUnusedVar(newKey);
   throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NOCODEC);
 #endif
+}
+
+int wxSQLite3Database::GetLimit(wxSQLite3LimitType id)
+{
+  int value = -1;
+#if SQLITE_VERSION_NUMBER >= 3005008
+  CheckDatabase();
+  if (id >= WXSQLITE_LIMIT_LENGTH && id <= WXSQLITE_LIMIT_VARIABLE_NUMBER)
+  {
+    value = sqlite3_limit((sqlite3 *) m_db, id, -1);
+  }
+#else
+  wxUnusedVar(id);
+#endif
+  return value;
+}
+
+int wxSQLite3Database::SetLimit(wxSQLite3LimitType id, int newValue)
+{
+  int value = -1;
+#if SQLITE_VERSION_NUMBER >= 3005008
+  CheckDatabase();
+  if (id >= WXSQLITE_LIMIT_LENGTH && id <= WXSQLITE_LIMIT_VARIABLE_NUMBER)
+  {
+    value = sqlite3_limit((sqlite3 *) m_db, id, newValue);
+  }
+#else
+  wxUnusedVar(id);
+  wxUnusedVar(newValue);
+#endif
+  return value;
+}
+
+static const wxChar* limitCodeString[] =
+{ _T("SQLITE_LIMIT_LENGTH"),              _T("SQLITE_LIMIT_SQL_LENGTH"),
+  _T("SQLITE_LIMIT_COLUMN"),              _T("SQLITE_LIMIT_EXPR_DEPTH"),
+  _T("SQLITE_LIMIT_COMPOUND_SELECT"),     _T("SQLITE_LIMIT_VDBE_OP"),
+  _T("SQLITE_LIMIT_FUNCTION_ARG"),        _T("SQLITE_LIMIT_ATTACHED"),
+  _T("SQLITE_LIMIT_LIKE_PATTERN_LENGTH"), _T("SQLITE_LIMIT_VARIABLE_NUMBER")
+};
+
+
+/* static */
+wxString wxSQLite3Database::LimitTypeToString(wxSQLite3LimitType type)
+{
+  const wxChar* limitString = _T("Unknown");
+  if (type >= WXSQLITE_LIMIT_LENGTH && type <= WXSQLITE_LIMIT_VARIABLE_NUMBER)
+  {
+    limitString = limitCodeString[type];
+  }
+  return wxString(limitString);
+}
+
+bool wxSQLite3Database::Randomness(int n, wxMemoryBuffer& random)
+{
+  bool ok = false;
+#if SQLITE_VERSION_NUMBER >= 3005008
+  if (n > 0)
+  {
+    void* buffer = random.GetWriteBuf(n);
+    sqlite3_randomness(n, buffer);
+    random.UngetWriteBuf(n);
+    ok = true;
+  }
+#else
+  wxUnusedVar(n);
+  wxUnusedVar(random);
+#endif
+  return ok;
 }
 
 // ----------------------------------------------------------------------------

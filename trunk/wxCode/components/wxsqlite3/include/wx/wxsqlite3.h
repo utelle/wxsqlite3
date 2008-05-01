@@ -44,6 +44,25 @@ enum wxSQLite3TransactionType
   WXSQLITE_TRANSACTION_EXCLUSIVE
 };
 
+enum wxSQLite3LimitType
+{
+  WXSQLITE_LIMIT_LENGTH              = 0,
+  WXSQLITE_LIMIT_SQL_LENGTH          = 1,
+  WXSQLITE_LIMIT_COLUMN              = 2,
+  WXSQLITE_LIMIT_EXPR_DEPTH          = 3,
+  WXSQLITE_LIMIT_COMPOUND_SELECT     = 4,
+  WXSQLITE_LIMIT_VDBE_OP             = 5,
+  WXSQLITE_LIMIT_FUNCTION_ARG        = 6,
+  WXSQLITE_LIMIT_ATTACHED            = 7,
+  WXSQLITE_LIMIT_LIKE_PATTERN_LENGTH = 8,
+  WXSQLITE_LIMIT_VARIABLE_NUMBER     = 9
+};
+
+inline void operator++(wxSQLite3LimitType& value)
+{
+  value = wxSQLite3LimitType(value+1);
+}
+
 /// SQL exception
 class WXDLLIMPEXP_SQLITE3 wxSQLite3Exception
 {
@@ -1781,6 +1800,43 @@ public:
   * \return TRUE if database is encrypted, FALSE otherwise
   */
   bool IsEncrypted() const { return m_isEncrypted; }
+
+  /// Query the value of a database limit
+  /**
+  * This method allows to query several database limits. Consult the SQLite
+  * documentation for further explanation.
+  *
+  * \param id The identifier of the limit to be queried
+  * \return the current value of the queried limit
+  */
+  int GetLimit(wxSQLite3LimitType id);
+
+  /// Change a database limit to a new value
+  /**
+  * This method allows to change several database limits. Consult the SQLite
+  * documentation for further explanation.
+  *
+  * \param id The identifier of the limit to be queried
+  * \param newValue The new value of the limit to be set
+  * \return the previous value of the specified limit
+  */
+  int SetLimit(wxSQLite3LimitType id, int newValue);
+
+  /// Convert database limit type to string
+  /**
+  * \param type The database limit type to be converted to string representation.
+  */
+  static wxString LimitTypeToString(wxSQLite3LimitType type);
+
+  /// Get random bytes
+  /**
+  * SQLite contains a high-quality pseudo-random number generator.
+  * This method allows to access it for application specofoc purposes.
+  *
+  * \param n The amount of random bytes to be created
+  * \param random A memory buffer containing the random bytes on return
+  */
+  static bool Randomness(int n, wxMemoryBuffer& random);
 
   /// Enable or disable SQLite shared cache
   /**

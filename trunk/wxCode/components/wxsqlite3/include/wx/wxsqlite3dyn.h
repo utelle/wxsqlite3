@@ -57,6 +57,7 @@ DYNFUNC(return, int,                   sqlite3_column_type,           (sqlite3_s
 DYNFUNC(return, void *,                sqlite3_commit_hook,           (sqlite3 *db, int (*xCallback)(void*), void *pArg), (db, xCallback, pArg));
 DYNFUNC(return, int,                   sqlite3_complete,              (const char *sql), (sql));
 // DYNFUNC(return, int,                   sqlite3_complete16,            (const void *sql), (sql));
+//DYNFUNC(return, sqlite3 *,             sqlite3_context_db_handle,     (sqlite3_context* ctx) (ctx));
 DYNFUNC(return, int,                   sqlite3_create_collation,      (sqlite3 *db, const char *zName, int eTextRep, void*v, int(*xCompare)(void*,int,const void*,int,const void*)), (db, zName, eTextRep, v, xCompare));
 // DYNFUNC(return, int,                   sqlite3_create_collation16,    (sqlite3 *db, const char *zName, int eTextRep, void*v, int(*xCompare)(void*,int,const void*,int,const void*)), (db, zName, eTextRep, v, xCompare));
 DYNFUNC(return, int,                   sqlite3_create_function,       (sqlite3 *db, const char *zFunctionName, int nArg, int eTextRep, void*v, void (*xFunc)(sqlite3_context*,int,sqlite3_value**), void (*xStep)(sqlite3_context*,int,sqlite3_value**), void (*xFinal)(sqlite3_context*)), (db, zFunctionName, nArg, eTextRep, v, xFunc, xStep, xFinal));
@@ -80,9 +81,10 @@ DYNFUNC(return, int,                   sqlite3_get_table,             (sqlite3 *
 // DYNFUNC(return, int,                   sqlite3_global_recover,        (), ());
 DYNFUNC(;, void,                       sqlite3_interrupt,             (sqlite3 *db), (db));
 DYNFUNC(return, sqlite_int64,          sqlite3_last_insert_rowid,     (sqlite3 *db), (db));
-DYNFUNC(return, int,                   sqlite3_load_extension,        (sqlite3 *db, const char *zFile, const char *zProc, char **pzErrMsg), (db, zFile, zProc, pzErrMsg));
 DYNFUNC(return, const char *,          sqlite3_libversion,            (void), ());
 // DYNFUNC(return, int,                   sqlite3_libversion_number,     (void), ());
+DYNFUNC(return, int,                   sqlite3_limit,                 (sqlite3 *db, int id, int newVal), (db, id, newVal));
+DYNFUNC(return, int,                   sqlite3_load_extension,        (sqlite3 *db, const char *zFile, const char *zProc, char **pzErrMsg), (db, zFile, zProc, pzErrMsg));
 // DYNFUNC(return, char *,                sqlite3_mprintf,               (const char *zFormat,...), (zFormat,...));
 DYNFUNC(return, int,                   sqlite3_open,                  (const char *filename, sqlite3 **ppDb), (filename, ppDb));
 // DYNFUNC(return, int,                   sqlite3_open16,                (const void *filename, sqlite3 **ppDb), (filename, ppDb));
@@ -90,6 +92,7 @@ DYNFUNC(return, int,                   sqlite3_open_v2,               (const cha
 DYNFUNC(return, int,                   sqlite3_prepare_v2,            (sqlite3 *db, const char *zSql, int nBytes, sqlite3_stmt **ppStmt, const char **pzTail), (db, zSql, nBytes, ppStmt, pzTail));
 // DYNFUNC(return, int,                   sqlite3_prepare16_v2,          (sqlite3 *db, const void *zSql, int nBytes, sqlite3_stmt **ppStmt, const void **pzTail), (db, zSql, nBytes, ppStmt, pzTail));
 // DYNFUNC(;, void,                       sqlite3_progress_handler,      (sqlite3 *db, int nOps, int (*xProgress)(void*), void *pArg), (db, nOps, xProgress, pArg));
+DYNFUNC(;, void,                       sqlite3_randomness,            (int N, void *P) (N, P));
 DYNFUNC(return, int,                   sqlite3_reset,                 (sqlite3_stmt *pStmt), (pStmt));
 DYNFUNC(;, void,                       sqlite3_result_blob,           (sqlite3_context *pCtx, const void *z, int n, void (*xDel)(void *)), (pCtx, z, n, xDel));
 DYNFUNC(;, void,                       sqlite3_result_double,         (sqlite3_context *pCtx, double rVal), (pCtx, rVal));

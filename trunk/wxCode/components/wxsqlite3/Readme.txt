@@ -2,14 +2,14 @@ wxSQLite3 component info
 ------------------------
 
 Website:      http://wxcode.sourceforge.net/components/wxsqlite3
-Version:      1.8.2
+Version:      1.8.4
 Description:
 wxSQLite3 is a C++ wrapper around the public domain SQLite 3.x database
 and is specifically designed for use in programs based on the wxWidgets
 library.
 
 wxSQLite3 does not try to hide the underlying database, in contrary
-almost all special features of the current SQLite3 version 3.5.4 are
+almost all special features of the current SQLite3 version 3.5.7 are
 supported, like for example the creation of user defined scalar or
 aggregate functions.
 
@@ -25,6 +25,14 @@ tools operate in Unicode or UTF-8 mode.
 Version history
 ---------------
 
+ 1.8.4 - Upgrade to SQLite version 3.5.8
+         Added support for accessing database limits
+         Changed method TableExists to check a table name case insensitive
+         Fixed several minor issues in the build files
+ 1.8.3 - Added support for shared cache mode
+         Added support for access to original SQL statement for prepared statements
+         (requires SQLite 3.5.3 or above)
+         Fixed broken SQLite DLLs
  1.8.2 - Upgrade to SQLite version 3.5.4
          Fixed a bug in in wxSQLite3Database::Begin (wrong transaction type)
  1.8.1 - Fixed a bug in in wxSQLite3Database::Close (resetting flag m_isEncrypted)
@@ -86,7 +94,7 @@ a) wxMSW
 
 When building on win32, you can use the makefiles in the BUILD folder.
 
-SQLite version 3.5.4 DLL is included. The included link library was
+SQLite version 3.5.7 DLL is included. The included link library was
 built with MS Visual C++ 6. For other compilers it can be necessary to
 regenerate the link library based on the sqlite.def file in the LIB
 folder.
@@ -137,13 +145,22 @@ ROOT folder or you can recreate the configure script doing:
   make
  
 Type "./configure --help" for more info.
+
+Note: Recreating the configure script requires the following prerequisites:
+- automake 1.9.6 or higher
+- bakefile 0.2.3
+- wxCode autoconf and bakefile files (to be downloaded from CVS or SVN)
+
 The autoconf-based systems also support a "make install" target which
 builds the library and then copies the headers of the component to
 /usr/local/include and the lib to /usr/local/lib.
 
-SQLite version 3.5.4 is NOT included. You have to download the current
+SQLite version 3.5.7 is NOT included. You have to download the current
 version of SQLite from http://www.sqlite.org and to install it on your
 system before you can install wxSQLite3.
+
+Use the configure option --with-sqlite3-prefix to specify the path to your
+SQLite3 installation.
 
 
 Optional Meta Data support
