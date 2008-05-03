@@ -21,11 +21,18 @@
 
 	<br/><?php write_h1("Known bugs"); ?>
 <p><ul>
+<li><p><b><u>Symptom</u></b>: Method <b><i>TableExists</i></b> sometimes fails to find a table due to case sensitive search.
+<br><b><u>Affected version(s)</u></b>: 1.4.1 &#150; 1.8.3
+<br><b>Solution:</b>
+<br>Upgrade to version 1.8.4.<br>
+<br><b>Fixed in version 1.8.4</b>
+</p></li>
+
 <li><p><b><u>Symptom</u></b>: Included Windows SQLite DLLs and SQLite shell crash on initialization due to build error in FTS3 extension.
 <br><b><u>Affected version(s)</u></b>: 1.8.2
 <br><b>Solution:</b>
 <br>Please download the fixed SQLite DLLs from CVS or build the SQLite DLL yourself.
-<br><b>Fixed in 1.8.3</b>
+<br><b>Fixed in version 1.8.3</b>
 </p></li>
 
 <li><p><b><u>Symptom</u></b>: Wrong type of transaction is issued in method <b>wxSQLite3Database::Begin</b> when requesting an exclusive transaction.
