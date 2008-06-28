@@ -32,6 +32,7 @@
 //                            for prepared statements (requires SQLite 3.5.3 or above)
 //              2008-04-27  - Upgrade to SQLite3 version 3.5.8
 //                            Fixed several minor issues in the build files
+//              2008-06-28  - Upgrade to SQLite3 version 3.5.9
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -74,6 +75,14 @@
 \section version Version history
 
 <dl>
+<dt><b>1.8.5</b> - <i>June 2008</i></dt>
+<dd>
+Upgrade to SQLite version 3.5.9<br>
+Integration of the optional key based encryption support into SQLite
+has been made easier. Changes to original SQLite source files
+are no longer necessary.
+
+</dd>
 <dt><b>1.8.4</b> - <i>April 2008</i></dt>
 <dd>
 Upgrade to SQLite version 3.5.8<br>
