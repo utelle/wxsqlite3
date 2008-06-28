@@ -102,6 +102,8 @@ int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
 #else
         sqlite3pager_set_codec(sqlite3BtreePager(db->aDb[nDb].pBt), sqlite3Codec, codec);
 #endif
+        db->aDb[nDb].pAux = codec;
+        db->aDb[nDb].xFreeAux = sqlite3pager_free_codecarg;
       }
       else
       {
@@ -124,6 +126,8 @@ int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
 #else
     sqlite3pager_set_codec(sqlite3BtreePager(db->aDb[nDb].pBt), sqlite3Codec, codec);
 #endif
+    db->aDb[nDb].pAux = codec;
+    db->aDb[nDb].xFreeAux = sqlite3pager_free_codecarg;
   }
   return SQLITE_OK;
 }
@@ -176,6 +180,8 @@ int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
 #else
     sqlite3pager_set_codec(pPager, sqlite3Codec, codec);
 #endif
+    db->aDb[0].pAux = codec;
+    db->aDb[0].xFreeAux = sqlite3pager_free_codecarg;
   }
   else if (zKey == NULL || nKey == 0)
   {
@@ -278,7 +284,9 @@ int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
 #else
     sqlite3pager_set_codec(pPager, NULL, NULL);
 #endif
-    delete codec;
+    db->aDb[0].pAux = NULL;
+    db->aDb[0].xFreeAux = NULL;
+    sqlite3pager_free_codecarg(codec);
   }
   return rc;
 }
