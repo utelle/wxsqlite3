@@ -58,6 +58,9 @@ WX_DEBUG := $(shell $(WX_CONFIG) --selected-config | cut -d '-' -f 3 | sed 's/de
 # Version of the wx library to build against. 
 WX_VERSION := 28
 
+# Build this wxCode component as DLL or as static library? [0,1]
+SHARED := $(shell if test -z `$(WX_CONFIG) --selected-config | cut -d '-' -f 5`; then echo 1; else echo 0; fi)
+
 # If 1 then the SQLite library will be loaded dynamically at run time [1,0]
 USE_DYNAMIC_SQLITE3_LOAD := 0
 
@@ -137,51 +140,57 @@ endif
 ifeq ($(WX_SHARED),1)
 WX_CONFIG_SHARED_FLAG = --static=no
 endif
-ifeq ($(WX_SHARED),0)
+ifeq ($(SHARED),0)
 _BUILDDIR_SHARED_SUFFIX = 
 endif
-ifeq ($(WX_SHARED),1)
+ifeq ($(SHARED),1)
 _BUILDDIR_SHARED_SUFFIX = _dll
 endif
-ifeq ($(WX_SHARED),0)
+ifeq ($(SHARED),0)
 __wxsqlite3_lib___depname = \
-	../lib/gcc_$(__wxsqlite3)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a
+	../lib/gcc_$(__wxsqlite3_lib__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a
 endif
-ifeq ($(WX_SHARED),0)
+ifeq ($(SHARED),0)
 __install_wxsqlite3_lib___depname = install_wxsqlite3_lib
 endif
-ifeq ($(WX_SHARED),0)
+ifeq ($(SHARED),0)
 __uninstall_wxsqlite3_lib___depname = uninstall_wxsqlite3_lib
 endif
-ifeq ($(WX_SHARED),0)
+ifeq ($(SHARED),0)
+__wxsqlite3_lib__DIRNAME_SHARED_SUFFIX = lib
+endif
+ifeq ($(SHARED),1)
+__wxsqlite3_lib__DIRNAME_SHARED_SUFFIX = dll
+endif
+ifeq ($(SHARED),0)
 __install_wxsqlite3_lib_headers___depname = install_wxsqlite3_lib_headers
 endif
-ifeq ($(WX_SHARED),0)
+ifeq ($(SHARED),0)
 __uninstall_wxsqlite3_lib_headers___depname = \
 	uninstall_wxsqlite3_lib_headers
 endif
-ifeq ($(WX_SHARED),1)
+ifeq ($(SHARED),1)
 __wxsqlite3_dll___depname = \
-	../lib/gcc_$(__wxsqlite3)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
+	../lib/gcc_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
 endif
-ifeq ($(WX_SHARED),1)
+ifeq ($(SHARED),1)
 __install_wxsqlite3_dll___depname = install_wxsqlite3_dll
 endif
-ifeq ($(WX_SHARED),1)
+ifeq ($(SHARED),1)
 __uninstall_wxsqlite3_dll___depname = uninstall_wxsqlite3_dll
 endif
+ifeq ($(WX_SHARED),0)
+__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX = lib
+endif
 ifeq ($(WX_SHARED),1)
+__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX = dll
+endif
+ifeq ($(SHARED),1)
 __install_wxsqlite3_dll_headers___depname = install_wxsqlite3_dll_headers
 endif
-ifeq ($(WX_SHARED),1)
+ifeq ($(SHARED),1)
 __uninstall_wxsqlite3_dll_headers___depname = \
 	uninstall_wxsqlite3_dll_headers
-endif
-ifeq ($(WX_SHARED),0)
-__wxsqlite3 = lib
-endif
-ifeq ($(WX_SHARED),1)
-__wxsqlite3 = dll
 endif
 ifeq ($(USE_DYNAMIC_SQLITE3_LOAD),0)
 __SQLITE3_DYNAMICLOAD_DEF_p = -DwxUSE_DYNAMIC_SQLITE3_LOAD=0
@@ -239,36 +248,36 @@ uninstall: $(__uninstall_wxsqlite3_lib___depname) $(__uninstall_wxsqlite3_lib_he
 clean: 
 	rm -f gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/*.o
 	rm -f gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/*.d
-	rm -f ../lib/gcc_$(__wxsqlite3)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a
-	rm -f ../lib/gcc_$(__wxsqlite3)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
-	rm -f ../lib/gcc_$(__wxsqlite3)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
+	rm -f ../lib/gcc_$(__wxsqlite3_lib__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a
+	rm -f ../lib/gcc_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
+	rm -f ../lib/gcc_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
 	rm -f ../samples/minimal
 
 test_for_selected_wxbuild: 
 	@$(WX_CONFIG) $(WX_CONFIG_FLAGS)
 
-ifeq ($(WX_SHARED),0)
-../lib/gcc_$(__wxsqlite3)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a: make_dir_wxsqlite3_lib  $(WXSQLITE3_LIB_OBJECTS)
+ifeq ($(SHARED),0)
+../lib/gcc_$(__wxsqlite3_lib__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a: make_dir_wxsqlite3_lib  $(WXSQLITE3_LIB_OBJECTS)
 	rm -f $@
 	$(AR) rcu $@ $(WXSQLITE3_LIB_OBJECTS)
 	$(RANLIB) $@
 endif
 
-ifeq ($(WX_SHARED),0)
+ifeq ($(SHARED),0)
 install_wxsqlite3_lib: 
 	$(INSTALL) -d $(DESTDIR)$(prefix)/lib
-	$(INSTALL) -m 644 ../lib/gcc_$(__wxsqlite3)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a $(DESTDIR)$(prefix)/lib
+	$(INSTALL) -m 644 ../lib/gcc_$(__wxsqlite3_lib__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a $(DESTDIR)$(prefix)/lib
 endif
 
-ifeq ($(WX_SHARED),0)
+ifeq ($(SHARED),0)
 uninstall_wxsqlite3_lib: 
 	rm -f $(DESTDIR)$(prefix)/lib/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a
 endif
 
 make_dir_wxsqlite3_lib: 
-	@mkdir -p ../lib/gcc_$(__wxsqlite3)
+	@mkdir -p ../lib/gcc_$(__wxsqlite3_lib__DIRNAME_SHARED_SUFFIX)
 
-ifeq ($(WX_SHARED),0)
+ifeq ($(SHARED),0)
 install_wxsqlite3_lib_headers: 
 	$(INSTALL) -d $(DESTDIR)$(prefix)
 	for f in $(WXSQLITE3_LIB_HEADERS); do \
@@ -279,35 +288,35 @@ install_wxsqlite3_lib_headers:
 	done
 endif
 
-ifeq ($(WX_SHARED),0)
+ifeq ($(SHARED),0)
 uninstall_wxsqlite3_lib_headers: 
 	for f in $(WXSQLITE3_LIB_HEADERS); do \
 	rm -f $(DESTDIR)$(prefix)/$$f; \
 	done
 endif
 
-ifeq ($(WX_SHARED),1)
-../lib/gcc_$(__wxsqlite3)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so: make_dir_wxsqlite3_dll  $(WXSQLITE3_DLL_OBJECTS)
+ifeq ($(SHARED),1)
+../lib/gcc_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so: make_dir_wxsqlite3_dll  $(WXSQLITE3_DLL_OBJECTS)
 	$(CXX) $(LINK_DLL_FLAGS) -fPIC -o $@ $(WXSQLITE3_DLL_OBJECTS) $(LDFLAGS) $(VAR_1) -L../lib -L$(SQLITE3_DIR)/lib  $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs base`
 endif
 
-ifeq ($(WX_SHARED),1)
+ifeq ($(SHARED),1)
 install_wxsqlite3_dll: 
 	$(INSTALL) -d $(DESTDIR)$(prefix)/lib
-	$(INSTALL) -m 644 ../lib/gcc_$(__wxsqlite3)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so $(DESTDIR)$(prefix)/lib
-	install -c ../lib/gcc_$(__wxsqlite3)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so $(DESTDIR)$(prefix)/lib
+	$(INSTALL) -m 644 ../lib/gcc_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so $(DESTDIR)$(prefix)/lib
+	install -c ../lib/gcc_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so $(DESTDIR)$(prefix)/lib
 endif
 
-ifeq ($(WX_SHARED),1)
+ifeq ($(SHARED),1)
 uninstall_wxsqlite3_dll: 
 	rm -f $(DESTDIR)$(prefix)/lib/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
 	rm -f $(DESTDIR)$(prefix)/lib/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
 endif
 
 make_dir_wxsqlite3_dll: 
-	@mkdir -p ../lib/gcc_$(__wxsqlite3)
+	@mkdir -p ../lib/gcc_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)
 
-ifeq ($(WX_SHARED),1)
+ifeq ($(SHARED),1)
 install_wxsqlite3_dll_headers: 
 	$(INSTALL) -d $(DESTDIR)$(prefix)
 	for f in $(WXSQLITE3_DLL_HEADERS); do \
@@ -318,7 +327,7 @@ install_wxsqlite3_dll_headers:
 	done
 endif
 
-ifeq ($(WX_SHARED),1)
+ifeq ($(SHARED),1)
 uninstall_wxsqlite3_dll_headers: 
 	for f in $(WXSQLITE3_DLL_HEADERS); do \
 	rm -f $(DESTDIR)$(prefix)/$$f; \
@@ -326,7 +335,7 @@ uninstall_wxsqlite3_dll_headers:
 endif
 
 ../samples/minimal: $(MINIMAL_OBJECTS) $(__wxsqlite3_lib___depname)
-	$(CXX) -o $@ $(MINIMAL_OBJECTS) $(LDFLAGS) $(VAR_1) -L../lib  -L$(SQLITE3_DIR)/lib  ../lib/gcc_$(__wxsqlite3)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs base`
+	$(CXX) -o $@ $(MINIMAL_OBJECTS) $(LDFLAGS) $(VAR_1) -L../lib  -L$(SQLITE3_DIR)/lib  ../lib/gcc_$(__wxsqlite3_lib__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs base`
 
 gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/wxsqlite3_lib_wxsqlite3.o: ../src/wxsqlite3.cpp
 	$(CXX) -c -o $@ $(WXSQLITE3_LIB_CXXFLAGS) $(CPPDEPS) $<

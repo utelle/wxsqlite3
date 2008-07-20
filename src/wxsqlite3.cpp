@@ -120,6 +120,9 @@ const wxChar* wxERRMSG_NOINCBLOB     = wxTRANSLATE("Incremental BLOB support not
 
 const wxChar* wxERRMSG_SHARED_CACHE  = wxTRANSLATE("Setting SQLite shared cache mode failed");
 
+const wxChar* wxERRMSG_INITIALIZE    = wxTRANSLATE("Initialization of SQLite failed");
+const wxChar* wxERRMSG_SHUTDOWN      = wxTRANSLATE("Shutdown of SQLite failed");
+
 // ----------------------------------------------------------------------------
 // inline conversion from UTF8 strings to wxStringe
 // ----------------------------------------------------------------------------
@@ -225,7 +228,16 @@ const wxString wxSQLite3Exception::ErrorCodeAsString(int errorCode)
     case SQLITE_IOERR_UNLOCK     : return _T("SQLITE_IOERR_UNLOCK");
     case SQLITE_IOERR_RDLOCK     : return _T("SQLITE_IOERR_RDLOCK");
     case SQLITE_IOERR_DELETE     : return _T("SQLITE_IOERR_DELETE");
+#if SQLITE_VERSION_NUMBER >= 3004000
     case SQLITE_IOERR_BLOCKED    : return _T("SQLITE_IOERR_BLOCKED");
+#endif
+#if SQLITE_VERSION_NUMBER >= 3005001
+    case SQLITE_IOERR_NOMEM      : return _T("SQLITE_IOERR_NOMEM");
+#endif
+#if SQLITE_VERSION_NUMBER >= 3006000
+    case SQLITE_IOERR_ACCESS     : return _T("SQLITE_IOERR_ACCESS");
+    case SQLITE_IOERR_CHECKRESERVEDLOCK : return _T("SQLITE_IOERR_CHECKRESERVEDLOCK");
+#endif
 
     case WXSQLITE_ERROR     : return _T("WXSQLITE_ERROR");
     default                 : return _T("UNKNOWN_ERROR");
@@ -1881,6 +1893,14 @@ void wxSQLite3Database::Close()
 {
   if (m_db)
   {
+#if SQLITE_VERSION_NUMBER >= 3006000
+    // Finalize all unfinalized prepared statements
+    sqlite3_stmt *pStmt;
+    while( (pStmt = sqlite3_next_stmt((sqlite3*) m_db, 0))!=0 )
+    {
+      sqlite3_finalize(pStmt);
+    }
+#endif
     sqlite3_close((sqlite3*) m_db);
     m_db = 0;
     m_isEncrypted = false;
@@ -2489,6 +2509,31 @@ wxString wxSQLite3Database::LimitTypeToString(wxSQLite3LimitType type)
   return wxString(limitString);
 }
 
+/* static */
+void wxSQLite3Database::InitializeSQLite()
+{
+#if SQLITE_VERSION_NUMBER >= 3006000
+  int rc = sqlite3_initialize();
+  if (rc != SQLITE_OK)
+  {
+    throw wxSQLite3Exception(rc, wxERRMSG_INITIALIZE);
+  }
+#endif
+}
+
+/* static */
+void wxSQLite3Database::ShutdownSQLite()
+{
+#if SQLITE_VERSION_NUMBER >= 3006000
+  int rc = sqlite3_shutdown();
+  if (rc != SQLITE_OK)
+  {
+    throw wxSQLite3Exception(rc, wxERRMSG_SHUTDOWN);
+  }
+#endif
+}
+
+/* static */
 bool wxSQLite3Database::Randomness(int n, wxMemoryBuffer& random)
 {
   bool ok = false;

@@ -204,7 +204,11 @@ int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
   if (!rc)
   {
     // Rewrite all pages using the new encryption key (if specified)
-#if (SQLITE_VERSION_NUMBER >= 3003014)
+#if (SQLITE_VERSION_NUMBER >= 3006000)
+    int nPageCount = -1;
+    int rc = sqlite3PagerPagecount(pPager, &nPageCount);
+    Pgno nPage = (Pgno) nPageCount;
+#elif (SQLITE_VERSION_NUMBER >= 3003014)
     Pgno nPage = sqlite3PagerPagecount(pPager);
 #else
     Pgno nPage = sqlite3pager_pagecount(pPager);
