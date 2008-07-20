@@ -83,22 +83,22 @@ MINIMAL_OBJECTS =  \
 @COND_WX_DEBUG_0_WX_UNICODE_1@WXLIBPOSTFIX = u
 @COND_WX_DEBUG_1_WX_UNICODE_0@WXLIBPOSTFIX = d
 @COND_WX_DEBUG_1_WX_UNICODE_1@WXLIBPOSTFIX = ud
-COND_WX_SHARED_0___wxsqlite3_lib___depname = \
+COND_SHARED_0___wxsqlite3_lib___depname = \
 	$(srcdir)/lib/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(LIBEXT)
-@COND_WX_SHARED_0@__wxsqlite3_lib___depname = $(COND_WX_SHARED_0___wxsqlite3_lib___depname)
-@COND_WX_SHARED_0@__install_wxsqlite3_lib___depname = install_wxsqlite3_lib
-@COND_WX_SHARED_0@__uninstall_wxsqlite3_lib___depname = \
-@COND_WX_SHARED_0@	uninstall_wxsqlite3_lib
-@COND_WX_SHARED_0@__install_wxsqlite3_lib_headers___depname \
-@COND_WX_SHARED_0@	= install_wxsqlite3_lib_headers
-@COND_WX_SHARED_0@__uninstall_wxsqlite3_lib_headers___depname \
-@COND_WX_SHARED_0@	= uninstall_wxsqlite3_lib_headers
-COND_WX_SHARED_1___wxsqlite3_dll___depname = \
+@COND_SHARED_0@__wxsqlite3_lib___depname = $(COND_SHARED_0___wxsqlite3_lib___depname)
+@COND_SHARED_0@__install_wxsqlite3_lib___depname = install_wxsqlite3_lib
+@COND_SHARED_0@__uninstall_wxsqlite3_lib___depname = \
+@COND_SHARED_0@	uninstall_wxsqlite3_lib
+@COND_SHARED_0@__install_wxsqlite3_lib_headers___depname = \
+@COND_SHARED_0@	install_wxsqlite3_lib_headers
+@COND_SHARED_0@__uninstall_wxsqlite3_lib_headers___depname = \
+@COND_SHARED_0@	uninstall_wxsqlite3_lib_headers
+COND_SHARED_1___wxsqlite3_dll___depname = \
 	$(srcdir)/lib/$(DLLPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(__wxsqlite3_dll___targetsuf3)
-@COND_WX_SHARED_1@__wxsqlite3_dll___depname = $(COND_WX_SHARED_1___wxsqlite3_dll___depname)
-@COND_WX_SHARED_1@__install_wxsqlite3_dll___depname = install_wxsqlite3_dll
-@COND_WX_SHARED_1@__uninstall_wxsqlite3_dll___depname = \
-@COND_WX_SHARED_1@	uninstall_wxsqlite3_dll
+@COND_SHARED_1@__wxsqlite3_dll___depname = $(COND_SHARED_1___wxsqlite3_dll___depname)
+@COND_SHARED_1@__install_wxsqlite3_dll___depname = install_wxsqlite3_dll
+@COND_SHARED_1@__uninstall_wxsqlite3_dll___depname = \
+@COND_SHARED_1@	uninstall_wxsqlite3_dll
 COND_PLATFORM_MACOSX_1___wxsqlite3_dll___macinstnamecmd = -install_name \
 	$(libdir)/$(DLLPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(__wxsqlite3_dll___targetsuf2)
 @COND_PLATFORM_MACOSX_1@__wxsqlite3_dll___macinstnamecmd = $(COND_PLATFORM_MACOSX_1___wxsqlite3_dll___macinstnamecmd)
@@ -152,10 +152,10 @@ COND_USE_SOSYMLINKS_1___wxsqlite3_dll___so_symlinks_uninst_cmd = rm -f \
 	$(DLLPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(__wxsqlite3_dll___targetsuf2) \
 	$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).$(DLLIMP_SUFFIX)
 @COND_USE_SOSYMLINKS_1@__wxsqlite3_dll___so_symlinks_uninst_cmd = $(COND_USE_SOSYMLINKS_1___wxsqlite3_dll___so_symlinks_uninst_cmd)
-@COND_WX_SHARED_1@__install_wxsqlite3_dll_headers___depname \
-@COND_WX_SHARED_1@	= install_wxsqlite3_dll_headers
-@COND_WX_SHARED_1@__uninstall_wxsqlite3_dll_headers___depname \
-@COND_WX_SHARED_1@	= uninstall_wxsqlite3_dll_headers
+@COND_SHARED_1@__install_wxsqlite3_dll_headers___depname = \
+@COND_SHARED_1@	install_wxsqlite3_dll_headers
+@COND_SHARED_1@__uninstall_wxsqlite3_dll_headers___depname = \
+@COND_SHARED_1@	uninstall_wxsqlite3_dll_headers
 @COND_PLATFORM_MAC_0@__minimal___mac_setfilecmd = @true
 @COND_PLATFORM_MAC_1@__minimal___mac_setfilecmd = \
 @COND_PLATFORM_MAC_1@	$(SETFILE) -t APPL $(srcdir)/samples/minimal$(EXEEXT)
@@ -199,61 +199,61 @@ clean:
 distclean: clean
 	rm -f config.cache config.log config.status bk-deps bk-make-pch shared-ld-sh Makefile
 
-@COND_WX_SHARED_0@$(srcdir)/lib/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(LIBEXT): $(WXSQLITE3_LIB_OBJECTS)
-@COND_WX_SHARED_0@	rm -f $@
-@COND_WX_SHARED_0@	$(AR) $(AROPTIONS) $@ $(WXSQLITE3_LIB_OBJECTS)
-@COND_WX_SHARED_0@	$(RANLIB) $@
+@COND_SHARED_0@$(srcdir)/lib/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(LIBEXT): $(WXSQLITE3_LIB_OBJECTS)
+@COND_SHARED_0@	rm -f $@
+@COND_SHARED_0@	$(AR) $(AROPTIONS) $@ $(WXSQLITE3_LIB_OBJECTS)
+@COND_SHARED_0@	$(RANLIB) $@
 
-@COND_WX_SHARED_0@install_wxsqlite3_lib: 
-@COND_WX_SHARED_0@	$(INSTALL_DIR) $(DESTDIR)$(libdir)
-@COND_WX_SHARED_0@	$(INSTALL_DATA) $(srcdir)/lib/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(LIBEXT) $(DESTDIR)$(libdir)
+@COND_SHARED_0@install_wxsqlite3_lib: 
+@COND_SHARED_0@	$(INSTALL_DIR) $(DESTDIR)$(libdir)
+@COND_SHARED_0@	$(INSTALL_DATA) $(srcdir)/lib/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(LIBEXT) $(DESTDIR)$(libdir)
 
-@COND_WX_SHARED_0@uninstall_wxsqlite3_lib: 
-@COND_WX_SHARED_0@	rm -f $(DESTDIR)$(libdir)/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(LIBEXT)
+@COND_SHARED_0@uninstall_wxsqlite3_lib: 
+@COND_SHARED_0@	rm -f $(DESTDIR)$(libdir)/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(LIBEXT)
 
-@COND_WX_SHARED_0@install_wxsqlite3_lib_headers: 
-@COND_WX_SHARED_0@	$(INSTALL_DIR) $(DESTDIR)$(prefix)
-@COND_WX_SHARED_0@	for f in $(WXSQLITE3_LIB_HEADERS); do \
-@COND_WX_SHARED_0@	if test ! -d $(DESTDIR)$(prefix)/`dirname $$f` ; then \
-@COND_WX_SHARED_0@	$(INSTALL_DIR) $(DESTDIR)$(prefix)/`dirname $$f`; \
-@COND_WX_SHARED_0@	fi; \
-@COND_WX_SHARED_0@	$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(prefix)/$$f; \
-@COND_WX_SHARED_0@	done
+@COND_SHARED_0@install_wxsqlite3_lib_headers: 
+@COND_SHARED_0@	$(INSTALL_DIR) $(DESTDIR)$(prefix)
+@COND_SHARED_0@	for f in $(WXSQLITE3_LIB_HEADERS); do \
+@COND_SHARED_0@	if test ! -d $(DESTDIR)$(prefix)/`dirname $$f` ; then \
+@COND_SHARED_0@	$(INSTALL_DIR) $(DESTDIR)$(prefix)/`dirname $$f`; \
+@COND_SHARED_0@	fi; \
+@COND_SHARED_0@	$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(prefix)/$$f; \
+@COND_SHARED_0@	done
 
-@COND_WX_SHARED_0@uninstall_wxsqlite3_lib_headers: 
-@COND_WX_SHARED_0@	for f in $(WXSQLITE3_LIB_HEADERS); do \
-@COND_WX_SHARED_0@	rm -f $(DESTDIR)$(prefix)/$$f; \
-@COND_WX_SHARED_0@	done
+@COND_SHARED_0@uninstall_wxsqlite3_lib_headers: 
+@COND_SHARED_0@	for f in $(WXSQLITE3_LIB_HEADERS); do \
+@COND_SHARED_0@	rm -f $(DESTDIR)$(prefix)/$$f; \
+@COND_SHARED_0@	done
 
-@COND_WX_SHARED_1@$(srcdir)/lib/$(DLLPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(__wxsqlite3_dll___targetsuf3): $(WXSQLITE3_DLL_OBJECTS)
-@COND_WX_SHARED_1@	$(SHARED_LD_CXX) $@ $(WXSQLITE3_DLL_OBJECTS) $(LDFLAGS) -L$(srcdir)/lib $(__wxsqlite3_dll___macinstnamecmd) $(__wxsqlite3_dll___importlib) $(__wxsqlite3_dll___soname_flags) -L$(SQLITE3_DIR)/lib  $(LIBS) $(__SQLITE3_DEP_p) $(WX_LIBS)
-@COND_WX_SHARED_1@	
-@COND_WX_SHARED_1@	$(__wxsqlite3_dll___so_symlinks_cmd)
+@COND_SHARED_1@$(srcdir)/lib/$(DLLPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(__wxsqlite3_dll___targetsuf3): $(WXSQLITE3_DLL_OBJECTS)
+@COND_SHARED_1@	$(SHARED_LD_CXX) $@ $(WXSQLITE3_DLL_OBJECTS) $(LDFLAGS) -L$(srcdir)/lib $(__wxsqlite3_dll___macinstnamecmd) $(__wxsqlite3_dll___importlib) $(__wxsqlite3_dll___soname_flags) -L$(SQLITE3_DIR)/lib  $(LIBS) $(__SQLITE3_DEP_p) $(WX_LIBS)
+@COND_SHARED_1@	
+@COND_SHARED_1@	$(__wxsqlite3_dll___so_symlinks_cmd)
 
-@COND_WX_SHARED_1@install_wxsqlite3_dll: 
-@COND_WX_SHARED_1@	$(INSTALL_DIR) $(DESTDIR)$(libdir)
-@COND_WX_SHARED_1@	$(INSTALL_DATA) $(srcdir)/lib/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).$(DLLIMP_SUFFIX) $(DESTDIR)$(libdir)
-@COND_WX_SHARED_1@	$(INSTALL_PROGRAM) $(srcdir)/lib/$(DLLPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(__wxsqlite3_dll___targetsuf3) $(DESTDIR)$(libdir)
-@COND_WX_SHARED_1@	(cd $(DESTDIR)$(libdir) ; $(__wxsqlite3_dll___so_symlinks_inst_cmd))
+@COND_SHARED_1@install_wxsqlite3_dll: 
+@COND_SHARED_1@	$(INSTALL_DIR) $(DESTDIR)$(libdir)
+@COND_SHARED_1@	$(INSTALL_DATA) $(srcdir)/lib/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).$(DLLIMP_SUFFIX) $(DESTDIR)$(libdir)
+@COND_SHARED_1@	$(INSTALL_PROGRAM) $(srcdir)/lib/$(DLLPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(__wxsqlite3_dll___targetsuf3) $(DESTDIR)$(libdir)
+@COND_SHARED_1@	(cd $(DESTDIR)$(libdir) ; $(__wxsqlite3_dll___so_symlinks_inst_cmd))
 
-@COND_WX_SHARED_1@uninstall_wxsqlite3_dll: 
-@COND_WX_SHARED_1@	rm -f $(DESTDIR)$(libdir)/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).$(DLLIMP_SUFFIX)
-@COND_WX_SHARED_1@	rm -f $(DESTDIR)$(libdir)/$(DLLPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(__wxsqlite3_dll___targetsuf3)
-@COND_WX_SHARED_1@	(cd $(DESTDIR)$(libdir) ; $(__wxsqlite3_dll___so_symlinks_uninst_cmd))
+@COND_SHARED_1@uninstall_wxsqlite3_dll: 
+@COND_SHARED_1@	rm -f $(DESTDIR)$(libdir)/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).$(DLLIMP_SUFFIX)
+@COND_SHARED_1@	rm -f $(DESTDIR)$(libdir)/$(DLLPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(__wxsqlite3_dll___targetsuf3)
+@COND_SHARED_1@	(cd $(DESTDIR)$(libdir) ; $(__wxsqlite3_dll___so_symlinks_uninst_cmd))
 
-@COND_WX_SHARED_1@install_wxsqlite3_dll_headers: 
-@COND_WX_SHARED_1@	$(INSTALL_DIR) $(DESTDIR)$(prefix)
-@COND_WX_SHARED_1@	for f in $(WXSQLITE3_DLL_HEADERS); do \
-@COND_WX_SHARED_1@	if test ! -d $(DESTDIR)$(prefix)/`dirname $$f` ; then \
-@COND_WX_SHARED_1@	$(INSTALL_DIR) $(DESTDIR)$(prefix)/`dirname $$f`; \
-@COND_WX_SHARED_1@	fi; \
-@COND_WX_SHARED_1@	$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(prefix)/$$f; \
-@COND_WX_SHARED_1@	done
+@COND_SHARED_1@install_wxsqlite3_dll_headers: 
+@COND_SHARED_1@	$(INSTALL_DIR) $(DESTDIR)$(prefix)
+@COND_SHARED_1@	for f in $(WXSQLITE3_DLL_HEADERS); do \
+@COND_SHARED_1@	if test ! -d $(DESTDIR)$(prefix)/`dirname $$f` ; then \
+@COND_SHARED_1@	$(INSTALL_DIR) $(DESTDIR)$(prefix)/`dirname $$f`; \
+@COND_SHARED_1@	fi; \
+@COND_SHARED_1@	$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(prefix)/$$f; \
+@COND_SHARED_1@	done
 
-@COND_WX_SHARED_1@uninstall_wxsqlite3_dll_headers: 
-@COND_WX_SHARED_1@	for f in $(WXSQLITE3_DLL_HEADERS); do \
-@COND_WX_SHARED_1@	rm -f $(DESTDIR)$(prefix)/$$f; \
-@COND_WX_SHARED_1@	done
+@COND_SHARED_1@uninstall_wxsqlite3_dll_headers: 
+@COND_SHARED_1@	for f in $(WXSQLITE3_DLL_HEADERS); do \
+@COND_SHARED_1@	rm -f $(DESTDIR)$(prefix)/$$f; \
+@COND_SHARED_1@	done
 
 $(srcdir)/samples/minimal$(EXEEXT): $(MINIMAL_OBJECTS) $(__wxsqlite3_lib___depname) $(__minimal___win32rc)
 	$(CXX) -o $@ $(MINIMAL_OBJECTS) -L$(srcdir)/lib $(LDFLAGS) -L$(srcdir)/lib  -L$(SQLITE3_DIR)/lib  $(LIBS) -lwxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR) $(__SQLITE3_DEP_p) $(WX_LIBS)

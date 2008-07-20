@@ -69,6 +69,11 @@ WX_MONOLITHIC = 0
 WX_DIR = $(WXWIN)
 !endif
 
+# Build this wxCode component as DLL or as static library? [0,1]
+!ifndef SHARED
+SHARED = 0
+!endif
+
 # If 1 then the SQLite library will be loaded dynamically at run time [1,0]
 !ifndef USE_DYNAMIC_SQLITE3_LOAD
 USE_DYNAMIC_SQLITE3_LOAD = 0
@@ -133,19 +138,19 @@ MINIMAL_OBJECTS =  \
 !if "$(WX_DEBUG)" == "1"
 WX3RDPARTYLIBPOSTFIX = d
 !endif
-!if "$(WX_SHARED)" == "0"
+!if "$(SHARED)" == "0"
 _BUILDDIR_SHARED_SUFFIX = 
 !endif
-!if "$(WX_SHARED)" == "1"
+!if "$(SHARED)" == "1"
 _BUILDDIR_SHARED_SUFFIX = _dll
 !endif
-!if "$(WX_SHARED)" == "0"
+!if "$(SHARED)" == "0"
 __wxsqlite3_lib___depname = \
-	..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
+	..\lib\bcc_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
 !endif
-!if "$(WX_SHARED)" == "1"
+!if "$(SHARED)" == "1"
 __wxsqlite3_dll___depname = \
-	..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll
+	..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll
 !endif
 !if "$(WX_SHARED)" == "0"
 ____WX_SHARED_11_p_1 = 
@@ -158,6 +163,12 @@ __WXUNICODE_DEFINE_p_4 = -d_UNICODE
 !endif
 !if "$(WX_DEBUG)" == "1"
 __WXDEBUG_DEFINE_p_4 = -d__WXDEBUG__
+!endif
+!if "$(SHARED)" == "0"
+____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES = lib
+!endif
+!if "$(SHARED)" == "1"
+____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES = dll
 !endif
 !if "$(USE_DYNAMIC_SQLITE3_LOAD)" == "0"
 __SQLITE3_DYNAMICLOAD_DEF_p = -DwxUSE_DYNAMIC_SQLITE3_LOAD=0
@@ -202,10 +213,10 @@ VAR = -O2
 VAR = -Od
 !endif
 !if "$(WX_SHARED)" == "0"
-____wxsqlite3_4 = lib
+____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES = lib
 !endif
 !if "$(WX_SHARED)" == "1"
-____wxsqlite3_4 = dll
+____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES = dll
 !endif
 !if "$(USE_DYNAMIC_SQLITE3_LOAD)" == "0"
 __SQLITE3_DEP_p = sqlite3.lib
@@ -251,14 +262,14 @@ clean:
 	-if exist bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.obj del bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.obj
 	-if exist bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.res del bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.res
 	-if exist bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.csm del bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.csm
-	-if exist ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib del ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
-	-if exist ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll del ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll
-	-if exist ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.tds del ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.tds
-	-if exist ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ilc del ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ilc
-	-if exist ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ild del ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ild
-	-if exist ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ilf del ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ilf
-	-if exist ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ils del ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ils
-	-if exist ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib del ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
+	-if exist ..\lib\bcc_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib del ..\lib\bcc_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
+	-if exist ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll del ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll
+	-if exist ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.tds del ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.tds
+	-if exist ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ilc del ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ilc
+	-if exist ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ild del ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ild
+	-if exist ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ilf del ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ilf
+	-if exist ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ils del ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.ils
+	-if exist ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib del ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
 	-if exist ..\samples\minimal.exe del ..\samples\minimal.exe
 	-if exist ..\samples\minimal.tds del ..\samples\minimal.tds
 	-if exist ..\samples\minimal.ilc del ..\samples\minimal.ilc
@@ -278,8 +289,8 @@ test_for_selected_wxbuild:
 	@if not exist $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h \
 	exit 1
 
-!if "$(WX_SHARED)" == "0"
-..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib: make_dir_wxsqlite3_lib  $(WXSQLITE3_LIB_OBJECTS)
+!if "$(SHARED)" == "0"
+..\lib\bcc_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib: make_dir_wxsqlite3_lib  $(WXSQLITE3_LIB_OBJECTS)
 	if exist $@ del $@
 	tlib /a /p4096 $@ @&&|
 	$(WXSQLITE3_LIB_OBJECTS)
@@ -287,22 +298,22 @@ test_for_selected_wxbuild:
 !endif
 
 make_dir_wxsqlite3_lib: 
-	if not exist ..\lib\bcc_$(____wxsqlite3_4) mkdir ..\lib\bcc_$(____wxsqlite3_4)
+	if not exist ..\lib\bcc_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES) mkdir ..\lib\bcc_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)
 
-!if "$(WX_SHARED)" == "1"
-..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll: make_dir_wxsqlite3_dll  $(WXSQLITE3_DLL_OBJECTS)
+!if "$(SHARED)" == "1"
+..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll: make_dir_wxsqlite3_dll  $(WXSQLITE3_DLL_OBJECTS)
 	ilink32 -Tpd -q $(LDFLAGS) -L$(BCCDIR)\lib -L$(BCCDIR)\lib\psdk -L$(WX_DIR)$(WXLIBPATH) $(VAR_1) -L..$(WXLIBPATH) -L$(SQLITE3_DIR)\lib @&&|
 	c0d32.obj $(WXSQLITE3_DLL_OBJECTS),$@,, $(__SQLITE3_DEP_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib ole2w32.lib odbc32.lib oleacc.lib import32.lib cw32.lib,,
 |
-	implib -f ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3 $@
+	implib -f ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3 $@
 !endif
 
 make_dir_wxsqlite3_dll: 
-	if not exist ..\lib\bcc_$(____wxsqlite3_4) mkdir ..\lib\bcc_$(____wxsqlite3_4)
+	if not exist ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES) mkdir ..\lib\bcc_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)
 
 ..\samples\minimal.exe: $(MINIMAL_OBJECTS) $(__wxsqlite3_lib___depname)  bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal.res
 	ilink32 -Tpe -q $(LDFLAGS) -L$(BCCDIR)\lib -L$(BCCDIR)\lib\psdk -L$(WX_DIR)$(WXLIBPATH) $(VAR_1) -L..$(WXLIBPATH) -ap -L$(SQLITE3_DIR)\lib @&&|
-	c0x32.obj $(MINIMAL_OBJECTS),$@,, ..\lib\bcc_$(____wxsqlite3_4)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib $(__SQLITE3_DEP_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib ole2w32.lib odbc32.lib oleacc.lib import32.lib cw32.lib,, bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal.res
+	c0x32.obj $(MINIMAL_OBJECTS),$@,, ..\lib\bcc_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib $(__SQLITE3_DEP_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib ole2w32.lib odbc32.lib oleacc.lib import32.lib cw32.lib,, bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal.res
 |
 
 bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\wxsqlite3_lib_wxsqlite3.obj: ..\src\wxsqlite3.cpp

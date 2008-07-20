@@ -2,7 +2,7 @@ wxSQLite3 component info
 ------------------------
 
 Website:      http://wxcode.sourceforge.net/components/wxsqlite3
-Version:      1.8.5
+Version:      1.9.0
 Description:
 wxSQLite3 is a C++ wrapper around the public domain SQLite 3.x database
 and is specifically designed for use in programs based on the wxWidgets
@@ -25,6 +25,14 @@ tools operate in Unicode or UTF-8 mode.
 Version history
 ---------------
 
+ 1.9.0 - Upgrade to SQLite version 3.6.0
+         The optional key based encryption support has been adapted to
+         support SQLite version 3.6.0.
+         Added static methods to initialize and shutdown the SQLite library.
+         Changed build system to support static library build against shared
+         wxWidgets build on Linux.
+         Changed behaviour of Close method of class wxSQLite3Database to
+         finalize all unfinalized prepared statements.
  1.8.5 - Upgrade to SQLite version 3.5.9
          Integration of the optional key based encryption support into SQLite
          has been made easier. Changes to original SQLite source files
@@ -46,11 +54,11 @@ Version history
          Support for SQLite incremental BLOBs
          Changed source code in the SQLite3 encryption extension
          to eliminate several warnings
-		 Changed default wxWidgets version to 2.8.x
-		 Adjusted sources for SQLite encryption support are included
-		 for all SQLite version from 3.3.1 up to 3.5.2
-		 SQLite link libraries for MinGW on Windows are included
-		 Added <code>WXMAKINGLIB_WXSQLITE3</code> compile time option
+         Changed default wxWidgets version to 2.8.x
+         Adjusted sources for SQLite encryption support are included
+         for all SQLite version from 3.3.1 up to 3.5.2
+         SQLite link libraries for MinGW on Windows are included
+         Added <code>WXMAKINGLIB_WXSQLITE3</code> compile time option
          to support building wxSQLite3 as a static library while
          using the shared libraries of wxWidgets.
  1.7.3 - Upgrade to SQLite version 3.3.17
@@ -223,8 +231,8 @@ the wrapper file pager_secure.c which includes the original unmodified
 file pager.c using a #include directive. Add the sources in subdirectory
 codec to the SQLite makefile, replace the reference to pager.c in the
 makefile to pager_secure.c and compile SQLite with option SQLITE_HAS_CODEC
-enabled. This not only works for version 3.5.9 of SQLite but also for older
-versions of SQLite greater or equal version 3.3.10.
+enabled. This not only works for version 3.5.9 and above of SQLite but also
+for older versions of SQLite greater or equal version 3.3.10.
 
 For wxMSW the directory sqlite3/secure contains a special DLL version
 including support for the optional SQLite meta data methods and the

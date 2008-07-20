@@ -93,7 +93,7 @@
   <!-- Library settings                                                  -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-  <lib id="wxsqlite3_lib" template="wxcode-lib" cond="WX_SHARED=='0'">
+  <lib id="wxsqlite3_lib" template="wxcode-lib" cond="SHARED=='0'">
     <define>$(SQLITE3_DYNAMICLOAD_DEF)</define>
     <define>$(SQLITE3_HAVE_METADATA_DEF)</define>
     <define>$(SQLITE3_HAVE_CODEC_DEF)</define>
@@ -101,7 +101,7 @@
     <stdlib>$(SQLITE3_DIR)</stdlib>
   </lib>
 
-  <dll id="wxsqlite3_dll" template="wxcode-dll" cond="WX_SHARED=='1'">
+  <dll id="wxsqlite3_dll" template="wxcode-dll" cond="SHARED=='1'">
     <define>$(SQLITE3_DYNAMICLOAD_DEF)</define>
     <define>$(SQLITE3_HAVE_METADATA_DEF)</define>
     <define>$(SQLITE3_HAVE_CODEC_DEF)</define>

@@ -152,6 +152,7 @@ int main(int argc, char** argv)
 
   try
   {
+    wxSQLite3Database::InitializeSQLite();
     int i, fld;
     time_t tmStart, tmEnd;
     wxSQLite3Database db;
@@ -444,6 +445,7 @@ int main(int argc, char** argv)
     }
 
     cout << endl << "End of tests" << endl;
+    wxSQLite3Database::ShutdownSQLite();
   }
   catch (wxSQLite3Exception& e)
   {

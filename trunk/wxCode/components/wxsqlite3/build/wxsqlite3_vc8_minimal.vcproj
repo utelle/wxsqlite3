@@ -22,7 +22,7 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="DLL Unicode Debug Monolithic|Win32"
+			Name="DLL Unicode Debug Monolithic DLL|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmswud_dll\minimal"
 			ConfigurationType="1"
@@ -116,7 +116,101 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL Unicode Debug Multilib|Win32"
+			Name="DLL Unicode Debug Monolithic Static|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmswud\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="true"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="3"
+				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+				BasicRuntimeChecks="3"
+				DebugInformationFormat="3"
+				Detect64BitPortabilityProblems="true"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmswud\minimal\"
+				ObjectFile="vcmswud\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.lib sqlite3.lib wxmsw28ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="2"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
+				GenerateManifest="true"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DLL Unicode Debug Multilib DLL|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmswud_dll\minimal"
 			ConfigurationType="1"
@@ -210,7 +304,101 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL Unicode Release Monolithic|Win32"
+			Name="DLL Unicode Debug Multilib Static|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmswud\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="true"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="3"
+				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+				BasicRuntimeChecks="3"
+				DebugInformationFormat="3"
+				Detect64BitPortabilityProblems="true"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmswud\minimal\"
+				ObjectFile="vcmswud\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.lib sqlite3.lib wxbase28ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="2"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
+				GenerateManifest="true"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DLL Unicode Release Monolithic DLL|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmswu_dll\minimal"
 			ConfigurationType="1"
@@ -303,7 +491,100 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL Unicode Release Multilib|Win32"
+			Name="DLL Unicode Release Monolithic Static|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmswu\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="2"
+				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXMSW__;_CONSOLE"
+				BasicRuntimeChecks="0"
+				DebugInformationFormat="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmswu\minimal\"
+				ObjectFile="vcmswu\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXMSW__;_CONSOLE"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.lib sqlite3.lib wxmsw28u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="1"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
+				GenerateManifest="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DLL Unicode Release Multilib DLL|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmswu_dll\minimal"
 			ConfigurationType="1"
@@ -396,7 +677,100 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL ANSI Debug Monolithic|Win32"
+			Name="DLL Unicode Release Multilib Static|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmswu\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="2"
+				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXMSW__;_CONSOLE"
+				BasicRuntimeChecks="0"
+				DebugInformationFormat="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmswu\minimal\"
+				ObjectFile="vcmswu\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXMSW__;_CONSOLE"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.lib sqlite3.lib wxbase28u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="1"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
+				GenerateManifest="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DLL ANSI Debug Monolithic DLL|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmswd_dll\minimal"
 			ConfigurationType="1"
@@ -489,7 +863,100 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL ANSI Debug Multilib|Win32"
+			Name="DLL ANSI Debug Monolithic Static|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmswd\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="true"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="3"
+				PreprocessorDefinitions="WXUSINGDLL;__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+				BasicRuntimeChecks="3"
+				DebugInformationFormat="3"
+				Detect64BitPortabilityProblems="true"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmswd\minimal\"
+				ObjectFile="vcmswd\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="WXUSINGDLL;__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.lib sqlite3.lib wxmsw28d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="2"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
+				GenerateManifest="true"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DLL ANSI Debug Multilib DLL|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmswd_dll\minimal"
 			ConfigurationType="1"
@@ -582,7 +1049,100 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL ANSI Release Monolithic|Win32"
+			Name="DLL ANSI Debug Multilib Static|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmswd\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="true"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="3"
+				PreprocessorDefinitions="WXUSINGDLL;__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+				BasicRuntimeChecks="3"
+				DebugInformationFormat="3"
+				Detect64BitPortabilityProblems="true"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmswd\minimal\"
+				ObjectFile="vcmswd\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="WXUSINGDLL;__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.lib sqlite3.lib wxbase28d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="2"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
+				GenerateManifest="true"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DLL ANSI Release Monolithic DLL|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmsw_dll\minimal"
 			ConfigurationType="1"
@@ -674,7 +1234,99 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL ANSI Release Multilib|Win32"
+			Name="DLL ANSI Release Monolithic Static|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmsw\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="2"
+				PreprocessorDefinitions="WXUSINGDLL;__WXMSW__;_CONSOLE"
+				BasicRuntimeChecks="0"
+				DebugInformationFormat="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmsw\minimal\"
+				ObjectFile="vcmsw\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="WXUSINGDLL;__WXMSW__;_CONSOLE"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_lib\wxcode_msw28_wxsqlite3.lib sqlite3.lib wxmsw28.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregex.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="1"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
+				GenerateManifest="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DLL ANSI Release Multilib DLL|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmsw_dll\minimal"
 			ConfigurationType="1"
@@ -766,7 +1418,193 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static Unicode Debug Monolithic|Win32"
+			Name="DLL ANSI Release Multilib Static|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmsw\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="2"
+				PreprocessorDefinitions="WXUSINGDLL;__WXMSW__;_CONSOLE"
+				BasicRuntimeChecks="0"
+				DebugInformationFormat="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmsw\minimal\"
+				ObjectFile="vcmsw\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="WXUSINGDLL;__WXMSW__;_CONSOLE"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_lib\wxcode_msw28_wxsqlite3.lib sqlite3.lib wxbase28.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregex.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="1"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
+				GenerateManifest="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Static Unicode Debug Monolithic DLL|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmswud_dll\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="true"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="3"
+				PreprocessorDefinitions="_UNICODE;__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+				BasicRuntimeChecks="3"
+				DebugInformationFormat="3"
+				Detect64BitPortabilityProblems="true"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmswud_dll\minimal\"
+				ObjectFile="vcmswud_dll\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="_UNICODE;__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_dll\wxcode_msw28ud_wxsqlite3.lib sqlite3.lib wxmsw28ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="2"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
+				GenerateManifest="true"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Static Unicode Debug Monolithic Static|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmswud\minimal"
 			ConfigurationType="1"
@@ -860,7 +1698,101 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static Unicode Debug Multilib|Win32"
+			Name="Static Unicode Debug Multilib DLL|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmswud_dll\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="true"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="3"
+				PreprocessorDefinitions="_UNICODE;__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+				BasicRuntimeChecks="3"
+				DebugInformationFormat="3"
+				Detect64BitPortabilityProblems="true"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmswud_dll\minimal\"
+				ObjectFile="vcmswud_dll\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="_UNICODE;__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_dll\wxcode_msw28ud_wxsqlite3.lib sqlite3.lib wxbase28ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="2"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
+				GenerateManifest="true"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Static Unicode Debug Multilib Static|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmswud\minimal"
 			ConfigurationType="1"
@@ -954,7 +1886,100 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static Unicode Release Monolithic|Win32"
+			Name="Static Unicode Release Monolithic DLL|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmswu_dll\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="2"
+				PreprocessorDefinitions="_UNICODE;__WXMSW__;_CONSOLE"
+				BasicRuntimeChecks="0"
+				DebugInformationFormat="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmswu_dll\minimal\"
+				ObjectFile="vcmswu_dll\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="_UNICODE;__WXMSW__;_CONSOLE"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_dll\wxcode_msw28u_wxsqlite3.lib sqlite3.lib wxmsw28u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="1"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
+				GenerateManifest="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Static Unicode Release Monolithic Static|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmswu\minimal"
 			ConfigurationType="1"
@@ -1047,7 +2072,100 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static Unicode Release Multilib|Win32"
+			Name="Static Unicode Release Multilib DLL|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmswu_dll\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="2"
+				PreprocessorDefinitions="_UNICODE;__WXMSW__;_CONSOLE"
+				BasicRuntimeChecks="0"
+				DebugInformationFormat="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmswu_dll\minimal\"
+				ObjectFile="vcmswu_dll\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="_UNICODE;__WXMSW__;_CONSOLE"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_dll\wxcode_msw28u_wxsqlite3.lib sqlite3.lib wxbase28u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="1"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
+				GenerateManifest="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Static Unicode Release Multilib Static|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmswu\minimal"
 			ConfigurationType="1"
@@ -1140,7 +2258,100 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static ANSI Debug Monolithic|Win32"
+			Name="Static ANSI Debug Monolithic DLL|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmswd_dll\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="true"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="3"
+				PreprocessorDefinitions="__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+				BasicRuntimeChecks="3"
+				DebugInformationFormat="3"
+				Detect64BitPortabilityProblems="true"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmswd_dll\minimal\"
+				ObjectFile="vcmswd_dll\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_dll\wxcode_msw28d_wxsqlite3.lib sqlite3.lib wxmsw28d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="2"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
+				GenerateManifest="true"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Static ANSI Debug Monolithic Static|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmswd\minimal"
 			ConfigurationType="1"
@@ -1233,7 +2444,100 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static ANSI Debug Multilib|Win32"
+			Name="Static ANSI Debug Multilib DLL|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmswd_dll\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="true"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="3"
+				PreprocessorDefinitions="__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+				BasicRuntimeChecks="3"
+				DebugInformationFormat="3"
+				Detect64BitPortabilityProblems="true"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmswd_dll\minimal\"
+				ObjectFile="vcmswd_dll\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="__WXDEBUG__;__WXMSW__;_CONSOLE;_DEBUG"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_dll\wxcode_msw28d_wxsqlite3.lib sqlite3.lib wxbase28d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="2"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
+				GenerateManifest="true"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Static ANSI Debug Multilib Static|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmswd\minimal"
 			ConfigurationType="1"
@@ -1326,7 +2630,99 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static ANSI Release Monolithic|Win32"
+			Name="Static ANSI Release Monolithic DLL|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmsw_dll\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="2"
+				PreprocessorDefinitions="__WXMSW__;_CONSOLE"
+				BasicRuntimeChecks="0"
+				DebugInformationFormat="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmsw_dll\minimal\"
+				ObjectFile="vcmsw_dll\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="__WXMSW__;_CONSOLE"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_dll\wxcode_msw28_wxsqlite3.lib sqlite3.lib wxmsw28.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregex.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="1"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
+				GenerateManifest="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Static ANSI Release Monolithic Static|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmsw\minimal"
 			ConfigurationType="1"
@@ -1418,7 +2814,99 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static ANSI Release Multilib|Win32"
+			Name="Static ANSI Release Multilib DLL|Win32"
+			OutputDirectory="..\samples"
+			IntermediateDirectory="vcmsw_dll\minimal"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
+				AdditionalOptions=""
+				RuntimeLibrary="2"
+				PreprocessorDefinitions="__WXMSW__;_CONSOLE"
+				BasicRuntimeChecks="0"
+				DebugInformationFormat="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="vcmsw_dll\minimal\"
+				ObjectFile="vcmsw_dll\minimal\"
+				ProgramDataBaseFileName="..\samples\minimal.pdb"
+				WarningLevel="4"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\samples;..\sqlite3\include"
+				PreprocessorDefinitions="__WXMSW__;_CONSOLE"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\vc_dll\wxcode_msw28_wxsqlite3.lib sqlite3.lib wxbase28.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregex.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				AdditionalOptions=""
+				OutputFile="..\samples\minimal.exe"
+				LinkIncremental="1"
+				SubSystem="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
+				GenerateManifest="true"
+				ProgramDatabaseFile="..\samples\minimal.pdb"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+				OutputFile="..\samples\wxsqlite3_vc8_minimal.bsc"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Static ANSI Release Multilib Static|Win32"
 			OutputDirectory="..\samples"
 			IntermediateDirectory="vcmsw\minimal"
 			ConfigurationType="1"

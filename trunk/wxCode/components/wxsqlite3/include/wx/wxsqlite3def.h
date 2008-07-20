@@ -33,6 +33,7 @@
 //              2008-04-27  - Upgrade to SQLite3 version 3.5.8
 //                            Fixed several minor issues in the build files
 //              2008-06-28  - Upgrade to SQLite3 version 3.5.9
+//              2008-07-19  - Upgrade to SQLite3 version 3.6.0
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -75,6 +76,18 @@
 \section version Version history
 
 <dl>
+<dt><b>1.9.0</b> - <i>July 2008</i></dt>
+<dd>
+Upgrade to SQLite version 3.6.0<br>
+The optional key based encryption support has been adapted to
+support SQLite version 3.6.0.<br>
+Added static methods to initialize and shutdown the SQLite library.<br>
+Changed build system to support static library build against shared
+wxWidgets build on Linux.<br>
+Changed behaviour of wxSQLite3Database::Close method to finalize
+all unfinalized prepared statements.
+
+</dd>
 <dt><b>1.8.5</b> - <i>June 2008</i></dt>
 <dd>
 Upgrade to SQLite version 3.5.9<br>

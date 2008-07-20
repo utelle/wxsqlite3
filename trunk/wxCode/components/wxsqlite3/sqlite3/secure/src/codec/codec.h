@@ -17,7 +17,15 @@
 extern "C" {
 #endif
 
+#if defined(__BORLANDC__)
+#define __STDC__ 1
+#endif
+
 #include "../sqliteInt.h"
+
+#if defined(__BORLANDC__)
+#undef __STDC__
+#endif
 
 // ATTENTION: Macro similar to that in pager.c
 // TODO: Check in case of new version of SQLite

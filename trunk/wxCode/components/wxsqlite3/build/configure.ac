@@ -10,7 +10,7 @@
 
 # Init this configure script with basic info about the component
 # (DON'T PUT ANYTHING BEFORE AC_INIT, JUST COMMENTS)
-AC_INIT([wxSqlite3], [1.8.4], [utelle@sourceforge.net])
+AC_INIT([wxSqlite3], [1.9.0], [utelle@sourceforge.net])
 AC_CONFIG_AUX_DIR(build)
 
 # ENABLES/DISABLES THE DEBUG MODE FOR THIS CONFIGURE SCRIPT
@@ -31,8 +31,6 @@ WXCODE_INIT
 ## component's bakefile, then you can leave this section as is
 #####################################################################
 
-#AM_OPTIONS_WXCONFIG             # don't touch this macro
-#AM_OPTIONS_WXPRESETS            # don't touch this macro
 WXCODE_OPTIONS([debug,unicode,shared,toolkit,wxshared,wxversion]) 
 
 AC_ARG_WITH([sqlite3_prefix],
@@ -53,7 +51,7 @@ AC_SUBST(SQLITE3_DIR)
 
 WXCODE_CHECKS([2.8.0], [core,base])
 
-WXCODE_ARG_ENABLE([dynamic-load], [Enables the SQLite dynamic load support], [no])
+WXCODE_ARG_ENABLE([dynamic_load], [Enables the SQLite dynamic load support], [no])
 AC_MSG_CHECKING([for the --enable-dynamic-load option])
 if test "$enable_dynamic_load" = "yes"; then
     USE_DYNAMIC_SQLITE3_LOAD=1
@@ -83,7 +81,7 @@ else
     AC_MSG_RESULT([no])
 fi
 
-WXCODE_ARG_ENABLE([load-extension], [Enables the wxSQLite3 loadable extension support (SQLite needs to be compiled with loadable extension support)], [no])
+WXCODE_ARG_ENABLE([load_extension], [Enables the wxSQLite3 loadable extension support (SQLite needs to be compiled with loadable extension support)], [no])
 AC_MSG_CHECKING([for the --enable-load-extension option])
 if test "$enable_load_extension" = "yes"; then
     HAVE_LOAD_EXTENSION=1

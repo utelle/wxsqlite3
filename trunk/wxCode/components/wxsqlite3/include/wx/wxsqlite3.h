@@ -1430,6 +1430,13 @@ public:
   /// Close a SQLite3 database
   /**
   * Take care that all prepared statements have been finalized!
+  * Starting with version 3.6.0 SQLite has support to finialize all unfinalized
+  * prepared statements. The Close method has been changed to take advantage of
+  * this feature. Nevertheless it is recommended to explicitly finalize all
+  * wxSQLite3Statement instances before closing a database.
+  *
+  * NOTE: Finalizing all wxSQLite3Blob instances before closing a database is still required!
+  * 
   */
   void Close();
 
@@ -1827,6 +1834,26 @@ public:
   * \param type The database limit type to be converted to string representation.
   */
   static wxString LimitTypeToString(wxSQLite3LimitType type);
+
+  /// Initialize the SQLite library
+  /**
+  * Starting with SQLite version 3.6.0 there is a new method to initialize
+  * the SQLite library. Currently an explicit call to this method is not
+  * required, but this behaviour might change in the future of SQLite.
+  * Therefore it is recommended to call this method once before accessing
+  * any SQLite databases.
+  */
+  static void InitializeSQLite();
+
+  /// Shutdown the SQLite library
+  /**
+  * Starting with SQLite version 3.6.0 there is a new method to shutdown
+  * the SQLite library. Currently an explicit call to this method is not
+  * required, but this behaviour might change in the future of SQLite.
+  * Therefore it is recommended to call this method once when no further
+  * access to any SQLite databases is required.
+  */
+  static void ShutdownSQLite();
 
   /// Get random bytes
   /**
