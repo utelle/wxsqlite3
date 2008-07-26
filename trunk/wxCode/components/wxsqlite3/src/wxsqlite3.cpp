@@ -1894,12 +1894,16 @@ void wxSQLite3Database::Close()
   if (m_db)
   {
 #if SQLITE_VERSION_NUMBER >= 3006000
+// Unfortunately the following code leads to a crash if the RTree module is used
+// therefore it is disabled for now
+#if 0
     // Finalize all unfinalized prepared statements
     sqlite3_stmt *pStmt;
     while( (pStmt = sqlite3_next_stmt((sqlite3*) m_db, 0))!=0 )
     {
       sqlite3_finalize(pStmt);
     }
+#endif
 #endif
     sqlite3_close((sqlite3*) m_db);
     m_db = 0;
