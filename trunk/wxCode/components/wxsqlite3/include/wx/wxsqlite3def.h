@@ -34,6 +34,7 @@
 //                            Fixed several minor issues in the build files
 //              2008-06-28  - Upgrade to SQLite3 version 3.5.9
 //              2008-07-19  - Upgrade to SQLite3 version 3.6.0
+//              2008-09-04  - Upgrade to SQLite3 version 3.6.2
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -76,6 +77,15 @@
 \section version Version history
 
 <dl>
+<dt><b>1.9.1</b> - <i>September 2008</i></dt>
+<dd>
+Upgrade to SQLite version 3.6.2<br>
+Introduced own step counting for aggregate user functions
+since the sqlite3_aggregate_count function is now deprecated<br>
+Enhanced wxSQLite3Database::TableExists method to query an attached database
+for existence of a table or to query the main database and all attached databases<br>
+
+</dd>
 <dt><b>1.9.0</b> - <i>July 2008</i></dt>
 <dd>
 Upgrade to SQLite version 3.6.0<br>

@@ -238,6 +238,9 @@ const wxString wxSQLite3Exception::ErrorCodeAsString(int errorCode)
     case SQLITE_IOERR_ACCESS     : return _T("SQLITE_IOERR_ACCESS");
     case SQLITE_IOERR_CHECKRESERVEDLOCK : return _T("SQLITE_IOERR_CHECKRESERVEDLOCK");
 #endif
+#if SQLITE_VERSION_NUMBER >= 3006002
+    case SQLITE_IOERR_LOCK     : return _T("SQLITE_IOERR_LOCK");
+#endif
 
     case WXSQLITE_ERROR     : return _T("WXSQLITE_ERROR");
     default                 : return _T("UNKNOWN_ERROR");
@@ -1967,14 +1970,67 @@ wxSQLite3Statement wxSQLite3Database::PrepareStatement(const char* sql)
   return wxSQLite3Statement(m_db, stmt);
 }
 
-bool wxSQLite3Database::TableExists(const wxString& tableName)
+bool wxSQLite3Database::TableExists(const wxString& tableName, const wxString& databaseName)
 {
-  wxSQLite3Statement stmt = PrepareStatement("select count(*) from sqlite_master where type='table' and name like ?");
+  wxString sql;
+  if (databaseName.IsEmpty())
+  {
+    sql = _T("select count(*) from sqlite_master where type='table' and name like ?");
+  }
+  else
+  {
+    sql = wxString(_T("select count(*) from ")) + databaseName + wxString(_T(".sqlite_master where type='table' and name like ?"));
+  }
+  wxSQLite3Statement stmt = PrepareStatement(sql);
   stmt.Bind(1, tableName);
   wxSQLite3ResultSet resultSet = stmt.ExecuteQuery();
   long value = 0;
   resultSet.GetAsString(0).ToLong(&value);
   return (value > 0);
+}
+
+bool wxSQLite3Database::TableExists(const wxString& tableName, wxArrayString& databaseNames)
+{
+  wxArrayString databaseList;
+  GetDatabaseList(databaseList);
+
+  bool found = false;
+  size_t count = databaseList.GetCount();
+  if (count > 0)
+  {
+    size_t j;
+    for (j = 0; j < count; j++)
+    {
+      if (TableExists(tableName, databaseList.Item(j)))
+      {
+        found = true;
+        databaseNames.Add(databaseList.Item(j));
+      }
+    }
+  }
+  return found;
+}
+
+void wxSQLite3Database::GetDatabaseList(wxArrayString& databaseNames)
+{
+  databaseNames.Empty();
+  wxSQLite3ResultSet resultSet = ExecuteQuery("PRAGMA database_list;");
+  while (resultSet.NextRow())
+  {
+    databaseNames.Add(resultSet.GetString(1));
+  }
+}
+
+void wxSQLite3Database::GetDatabaseList(wxArrayString& databaseNames, wxArrayString& databaseFiles)
+{
+  databaseNames.Empty();
+  databaseFiles.Empty();
+  wxSQLite3ResultSet resultSet = ExecuteQuery("PRAGMA database_list;");
+  while (resultSet.NextRow())
+  {
+    databaseNames.Add(resultSet.GetString(1));
+    databaseFiles.Add(resultSet.GetString(2));
+  }
 }
 
 bool wxSQLite3Database::CheckSyntax(const wxString& sql)
@@ -2745,7 +2801,7 @@ int wxSQLite3FunctionContext::GetAggregateCount()
 {
   if (m_isAggregate)
   {
-    return sqlite3_aggregate_count((sqlite3_context*) m_ctx);
+    return m_count;
   }
   else
   {
@@ -2778,6 +2834,8 @@ void wxSQLite3FunctionContext::ExecAggregateStep(void* ctx, int argc, void** arg
 {
   wxSQLite3FunctionContext context(ctx, true, argc, argv);
   wxSQLite3AggregateFunction* func = (wxSQLite3AggregateFunction*) sqlite3_user_data((sqlite3_context*) ctx);
+  func->m_count++;
+  context.m_count = func->m_count;
   func->Aggregate(context);
 }
 
@@ -2786,6 +2844,7 @@ void wxSQLite3FunctionContext::ExecAggregateFinalize(void* ctx)
 {
   wxSQLite3FunctionContext context(ctx, true, 0, NULL);
   wxSQLite3AggregateFunction* func = (wxSQLite3AggregateFunction*) sqlite3_user_data((sqlite3_context*) ctx);
+  context.m_count = func->m_count;
   func->Finalize(context);
 }
 
@@ -2839,7 +2898,7 @@ void wxSQLite3FunctionContext::ExecUpdateHook(void* hook, int type,
 }
 
 wxSQLite3FunctionContext::wxSQLite3FunctionContext(void* ctx, bool isAggregate, int argc, void** argv)
-: m_ctx(ctx), m_isAggregate(isAggregate), m_argc(argc), m_argv(argv)
+: m_ctx(ctx), m_isAggregate(isAggregate), m_count(0), m_argc(argc), m_argv(argv)
 {
 }
 

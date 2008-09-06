@@ -13,7 +13,9 @@
 #ifdef DYNFUNC
 
 DYNFUNC(return, void *,                sqlite3_aggregate_context,     (sqlite3_context *p, int nBytes), (p, nBytes));
+#if SQLITE_VERSION_NUMBER <= 3006000
 DYNFUNC(return, int,                   sqlite3_aggregate_count,       (sqlite3_context *p), (p));
+#endif
 DYNFUNC(return, int,                   sqlite3_bind_blob,             (sqlite3_stmt *pStmt, int i, const void *zData, int nData, void (*xDel)(void*)), (pStmt, i, zData, nData, xDel));
 DYNFUNC(return, int,                   sqlite3_bind_double,           (sqlite3_stmt *pStmt, int i, double rValue), (pStmt, i, rValue));
 DYNFUNC(return, int,                   sqlite3_bind_int,              (sqlite3_stmt *pStmt, int i, int iValue), (pStmt, i, iValue));

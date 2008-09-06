@@ -336,6 +336,7 @@ private:
 
   void*  m_ctx;          ///< SQLite3 context
   bool   m_isAggregate;  ///< Flag whether this is the context of an aggregate function
+  int    m_count;        ///< Aggregate count
   int    m_argc;         ///< Number of arguments
   void** m_argv;         ///< Array of SQLite3 arguments
 };
@@ -365,6 +366,9 @@ class WXDLLIMPEXP_SQLITE3 wxSQLite3AggregateFunction
 {
 public:
   /// Virtual destructor
+  wxSQLite3AggregateFunction() { m_count = 0; }
+
+  /// Virtual destructor
   virtual ~wxSQLite3AggregateFunction() {}
   /// Execute the aggregate of the function
   /**
@@ -381,6 +385,10 @@ public:
   * \param ctx function context which can be used to access arguments and result value
   */
   virtual void Finalize(wxSQLite3FunctionContext& ctx) = 0;
+
+private:
+  int    m_count;        ///< Aggregate count
+  friend class wxSQLite3FunctionContext;
 };
 
 
@@ -1482,10 +1490,35 @@ public:
 
   /// Check whether a table with the given name exists
   /**
+  * Checks the main database or a specific attached database for existence of a table
+  * with a given name.
+  *
   * \param tableName name of the table
+  * \param databaseName optional name of an attached database
   * \return TRUE if the table exists, FALSE otherwise
   */
-  bool TableExists(const wxString& tableName);
+  bool TableExists(const wxString& tableName, const wxString& databaseName = wxEmptyString);
+
+  /// Check whether a table with the given name exists in the main database or any attached database
+  /**
+  * \param tableName name of the table
+  * \param databaseNames list of the names of those databases in which the table exists
+  * \return TRUE if the table exists at least in one database, FALSE otherwise
+  */
+  bool TableExists(const wxString& tableName, wxArrayString& databaseNames);
+
+  /// Get a list containing the names of all attached databases including the main database
+  /**
+  * \param databaseNames contains on return the list of the database names
+  */
+  void GetDatabaseList(wxArrayString& databaseNames);
+
+  /// Get a list containing the names of all attached databases including the main database
+  /**
+  * \param databaseNames contains on return the list of the database names
+  * \param databaseFiles contains on return the list of the database file names
+  */
+  void GetDatabaseList(wxArrayString& databaseNames, wxArrayString& databaseFiles);
 
   /// Check the syntax of an SQL statement given as a wxString
   /**

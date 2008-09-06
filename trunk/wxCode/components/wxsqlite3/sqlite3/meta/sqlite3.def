@@ -60,7 +60,9 @@ sqlite3_create_function16
 sqlite3_create_module
 sqlite3_create_module_v2
 sqlite3_data_count
+sqlite3_db_config
 sqlite3_db_handle
+sqlite3_db_status
 sqlite3_declare_vtab
 sqlite3_enable_load_extension
 sqlite3_enable_shared_cache

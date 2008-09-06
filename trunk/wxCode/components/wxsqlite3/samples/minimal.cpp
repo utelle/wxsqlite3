@@ -57,6 +57,8 @@ public:
     // Set the result
     ctx.SetResult(*(*acc));
 
+    cout << "MyAggregateFunction: count=" << ctx.GetAggregateCount() << endl;
+
     // Important: Free the allocated wxString
     delete *acc;
     *acc = 0;
@@ -174,6 +176,21 @@ int main(int argc, char** argv)
     db.ExecuteUpdate(_T("create table emp(empno int, empname char(20));"));
     cout << endl << "emp table exists=" << (db.TableExists(_T("emp")) ? "TRUE":"FALSE") << endl;
     
+    // Attach the current database under different name and
+    // check table existance in any open database.
+    // The table emp will be found in 'main' and in 'dbattached'
+    db.ExecuteUpdate(wxString(_T("attach database '")) + gszFile + wxString(_T("' as dbattached")));
+    wxArrayString databaseList;
+    db.TableExists(_T("emp"), databaseList);
+    size_t j;
+    cout << endl << "emp table exists in the following databases:" << endl;
+    for (j = 0; j < databaseList.GetCount(); j++)
+    {
+      cout << j << ": " << (const char*) databaseList.Item(j).mb_str(wxConvUTF8) << endl;
+    }
+
+    db.ExecuteUpdate(_T("detach database dbattached"));
+
     // Execute some DML, and print number of rows affected by each one
 
     db.SetUpdateHook(&myCallback);
