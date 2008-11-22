@@ -62,6 +62,7 @@ sqlite3_create_module_v2
 sqlite3_data_count
 sqlite3_db_config
 sqlite3_db_handle
+sqlite3_db_mutex
 sqlite3_db_status
 sqlite3_declare_vtab
 sqlite3_enable_load_extension
@@ -71,6 +72,7 @@ sqlite3_errmsg
 sqlite3_errmsg16
 sqlite3_exec
 sqlite3_expired
+sqlite3_extended_errcode
 sqlite3_extended_result_codes
 sqlite3_file_control
 sqlite3_finalize
@@ -143,6 +145,7 @@ sqlite3_soft_heap_limit
 sqlite3_sql
 sqlite3_status
 sqlite3_step
+sqlite3_stmt_status
 sqlite3_table_column_metadata
 sqlite3_test_control
 sqlite3_thread_cleanup
@@ -169,3 +172,4 @@ sqlite3_vfs_find
 sqlite3_vfs_register
 sqlite3_vfs_unregister
 sqlite3_vmprintf
+sqlite3_win32_mbcs_to_utf8

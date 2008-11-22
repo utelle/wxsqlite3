@@ -1995,5 +1995,83 @@ private:
   static bool  ms_hasIncrementalBlobSupport; ///<  Flag whether wxSQLite3 has support for incremental BLOBs
 };
 
+/// RAII class for managing transactions
+/***
+* This object allows easy managment of transaction. It con only be
+* created on the stack. This guarantees that the destructor is called
+* at the moment it goes out of scope. Usage:
+* \code
+* void doDB(wxSQLite3Database *db)
+* {
+* 	wxSQLite3Transaction t(db);
+* 	doDatabaseOperations();
+* 	t.Commit();
+* }
+* \endcode
+* In case doDatabseOperations() fails by throwing an exception,
+* the transaction is automatically rolled back. If it succedes,
+* Commit() commits the changes to the db and the destructor
+* of Transaction does nothing.
+*/
+class WXDLLIMPEXP_SQLITE3 wxSQLite3Transaction
+{
+public:
+  /// Constructor. Start the Transaction.
+  /**
+    * The constructor starts the transaction. 
+    * \param db Pointer to the open Database. The pointer to the database
+    * is NOT freed on destruction!
+    * \param transactionType Type of the transaction to be opened.
+    */
+  explicit wxSQLite3Transaction(wxSQLite3Database* db, wxSQLite3TransactionType transactionType = WXSQLITE_TRANSACTION_DEFAULT);
+
+  /// Destructor.
+  /**
+    * The destructor does nothing if the changes were already commited (see commit()).
+    * In case the changes were not commited, a call to the destructor rolls back the
+    * transaction.
+    */
+  ~wxSQLite3Transaction();
+
+  /// Commits the transaction
+  /**
+    * Commits the transaction if active. If not, it does nothing.
+    * After the commit, the transaction is not active.
+    */
+  void Commit();
+
+  /// Rolls back the transaction
+  /**
+    * Rolls back the transaction if active. If not, it does nothing.
+    * After the rollback, the transaction is not active.
+    */
+  void Rollback();
+
+  /// Determins wether the transaction is open or not
+  /**
+    * \return TRUE if the constructor successfully opend the transaction, false otherwise.
+    * After committing the transaction, active returns false.
+    */
+  inline bool IsActive()
+  {
+    return m_database != NULL;
+  }
+
+private:
+  /// New operator (May only be created on the stack)
+	static void *operator new(size_t size);
+
+  /// Delete operator (May not be deleted (for symmetry))
+	static void operator delete(void *ptr);
+
+  /// Copy constructor (Must not be copied)
+	wxSQLite3Transaction(const wxSQLite3Transaction&);
+
+  /// Assignment operator (Must not be assigned)
+	wxSQLite3Transaction& operator=(const wxSQLite3Transaction&);
+
+  wxSQLite3Database* m_database; ///< Pointer to the associated database (no ownership)
+};
+
 #endif
 

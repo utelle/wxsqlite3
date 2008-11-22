@@ -2,14 +2,14 @@ wxSQLite3 component info
 ------------------------
 
 Website:      http://wxcode.sourceforge.net/components/wxsqlite3
-Version:      1.9.1
+Version:      1.9.2
 Description:
 wxSQLite3 is a C++ wrapper around the public domain SQLite 3.x database
 and is specifically designed for use in programs based on the wxWidgets
 library.
 
 wxSQLite3 does not try to hide the underlying database, in contrary
-almost all special features of the current SQLite3 version 3.5.9 are
+almost all special features of the current SQLite3 version 3.6.6 are
 supported, like for example the creation of user defined scalar or
 aggregate functions.
 
@@ -25,6 +25,8 @@ tools operate in Unicode or UTF-8 mode.
 Version history
 ---------------
 
+ 1.9.2 - Upgrade to SQLite version 3.6.6
+         Added RAII transaction class (see docs for details)
  1.9.1 - Upgrade to SQLite version 3.6.2
          Introduced own step counting for aggregate user functions
          since the sqlite3_aggregate_count function is now deprecated.
@@ -111,7 +113,7 @@ a) wxMSW
 
 When building on win32, you can use the makefiles in the BUILD folder.
 
-SQLite version 3.6.2 DLL is included. The included link library was
+SQLite version 3.6.6 DLL is included. The included link library was
 built with MS Visual C++ 6. For other compilers it can be necessary to
 regenerate the link library based on the sqlite.def file in the LIB
 folder.
@@ -123,8 +125,11 @@ mingw: dlltool -d sqlite3.def -D sqlite3.dll -l sqlite3.a
 The directory sqlite3/lib contains the original DLL from the SQLite
 distribution.
 
-The directory sqlite3/meta contains a special DLL version including
-support for the optional SQLite meta data methods.
+In prior versions of wxSQLite3 the directory sqlite3/meta contained
+a special DLL version including support for the optional SQLite meta
+data methods. Since meta data support is now enabled in the SQLite binary
+distribution as a default, the DLL has been dropped from the wxSQLite3
+distribution.
 
 To get the sample application to work the SQLite DLL to be used has to
 be copied to the samples directory.
@@ -172,7 +177,7 @@ The autoconf-based systems also support a "make install" target which
 builds the library and then copies the headers of the component to
 /usr/local/include and the lib to /usr/local/lib.
 
-SQLite version 3.6.2 is NOT included. You have to download the current
+SQLite version 3.6.6 is NOT included. You have to download the current
 version of SQLite from http://www.sqlite.org and to install it on your
 system before you can install wxSQLite3.
 
@@ -187,9 +192,6 @@ If you want to use the optional SQLite meta data methods SQLite needs
 to be compiled with SQLITE_ENABLE_COLUMN_METADATA. Additionally the
 preprocessor symbol WXSQLITE3_HAVE_METADATA must be defined when
 compiling wxSQLite3.
-
-For wxMSW the directory sqlite3/meta contains a special DLL version
-including support for the optional SQLite meta data methods.
 
 
 Optional key based database encryption support
@@ -236,7 +238,7 @@ the wrapper file pager_secure.c which includes the original unmodified
 file pager.c using a #include directive. Add the sources in subdirectory
 codec to the SQLite makefile, replace the reference to pager.c in the
 makefile to pager_secure.c and compile SQLite with option SQLITE_HAS_CODEC
-enabled. This not only works for version 3.6.2 and above of SQLite but also
+enabled. This not only works for version 3.6.6 and above of SQLite but also
 for older versions of SQLite greater or equal version 3.3.10.
 
 For wxMSW the directory sqlite3/secure contains a special DLL version
@@ -281,7 +283,7 @@ The following people have contributed to wxSQLite3:
 
 Francesco Montorsi (enhancement of the build system)
 Neville Dastur (enhancement of the method TableExists)
-
+Tobias Langner (RAII class for managing transactions)
 
 Known bugs
 ----------

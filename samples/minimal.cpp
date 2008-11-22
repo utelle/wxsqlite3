@@ -26,6 +26,96 @@
 
 using namespace std;
 
+// Test of RAII transaction class
+
+wxSQLite3Database* initDB(void)
+{
+	wxString testDBName = wxGetCwd() + _T("/test2.db");
+	if (wxFileExists(testDBName))
+	{
+		wxRemoveFile(testDBName);
+	}
+	wxSQLite3Database* db = new wxSQLite3Database();
+	db->Open(testDBName);
+	db->ExecuteUpdate(_T("CREATE TABLE test (col1 INTEGER)"));
+	return db;
+}
+
+void clearDB(wxSQLite3Database* db)
+{
+	assert(db != NULL);
+	db->Close();
+	delete db;
+}
+
+void testTransaction()
+{
+  bool exceptionCaught = false;
+  wxSQLite3Database* db = initDB();
+  try
+  {
+		wxSQLite3Transaction t(db);
+    cout << "AutoCommit? " << !db->GetAutoCommit() << endl;
+		cout << "Transaction active? " << t.IsActive() << endl;
+		db->ExecuteUpdate(_T("INSERT INTO test (col1) VALUES (2)"));
+		t.Commit();
+    cout << "AutoCommit? " << db->GetAutoCommit() << endl;
+		cout << "Transaction not active? " << !t.IsActive() << endl;
+	}
+  catch (...)
+  {
+		cout << "Exception should not happen here" << endl;
+	}
+	// Check whether value exists in table
+	wxSQLite3ResultSet set = db->ExecuteQuery(_T("SELECT * FROM test"));
+	
+	int count = 0;
+	while (set.NextRow())
+	{
+		wxString s = set.GetAsString(0);
+		count++;
+	}
+	set.Finalize();
+	cout << "Is count == 1? " << (count == 1) << endl;
+		
+	// failed transaction
+	try
+	{
+		wxSQLite3Transaction t(db);
+		db->ExecuteUpdate(wxT("INSERT INTO test (col1) VALUES (3)"));
+		throw "Abort commit";
+		t.Commit();
+	}
+  catch (...)
+  {
+		exceptionCaught = true;
+	}
+	if (exceptionCaught)
+  {
+		// check whether the value 3 exists in table
+    // (it shouldn't since the transaction was aborted)
+		set = db->ExecuteQuery(wxT("SELECT * FROM test"));
+	
+		int count = 0;
+		while (set.NextRow())
+		{
+			++count;
+      if (set.GetInt(0) ==3)
+      {
+        cout << "Error! 3 must not exist in table." << endl;
+      }
+		}
+		set.Finalize();
+		cout << "Is count == 1? " << (count==1) << endl;
+	}
+  else
+  {
+		cout << "Exception not caught" << endl;
+	}
+	clearDB(db);
+}
+
+
 // User defined aggregate function
 class MyAggregateFunction : public wxSQLite3AggregateFunction
 {
@@ -143,9 +233,28 @@ public:
   }
 };
 
-int main(int argc, char** argv)
+class Minimal : public wxAppConsole
 {
-  const wxString gszFile = wxGetCwd() + _T("/test.db");
+public:
+  bool OnInit();
+  int OnRun();
+  int OnExit();
+private:
+};
+
+bool Minimal::OnInit()
+{
+  return true;
+}
+
+int Minimal::OnExit()
+{
+  return 0;
+}
+
+int Minimal::OnRun()
+{
+  const wxString dbFile = wxGetCwd() + _T("/test.db");
 
   MyAggregateFunction myAggregate;
   MyAuthorizer myAuthorizer;
@@ -161,14 +270,14 @@ int main(int argc, char** argv)
 
     cout << "SQLite3 Version: " << (const char*) db.GetVersion().mb_str(wxConvUTF8) << endl;
 
-    remove(gszFile.mb_str());
+    wxRemoveFile(dbFile);
     if (wxSQLite3Database::HasEncryptionSupport())
     {
-      db.Open(gszFile, wxString(_T("password")));
+      db.Open(dbFile, wxString(_T("password")));
     }
     else
     {
-      db.Open(gszFile);
+      db.Open(dbFile);
     }
 
     cout << endl << "emp table exists=" << (db.TableExists(_T("EmP")) ? "TRUE":"FALSE") << endl;
@@ -179,7 +288,7 @@ int main(int argc, char** argv)
     // Attach the current database under different name and
     // check table existance in any open database.
     // The table emp will be found in 'main' and in 'dbattached'
-    db.ExecuteUpdate(wxString(_T("attach database '")) + gszFile + wxString(_T("' as dbattached")));
+    db.ExecuteUpdate(wxString(_T("attach database '")) + dbFile + wxString(_T("' as dbattached")));
     wxArrayString databaseList;
     db.TableExists(_T("emp"), databaseList);
     size_t j;
@@ -461,6 +570,9 @@ int main(int argc, char** argv)
            << ": " << db.GetLimit(limitType) << endl;
     }
 
+    cout << endl << "Test of RAII transactions" << endl;
+    testTransaction();
+
     cout << endl << "End of tests" << endl;
     wxSQLite3Database::ShutdownSQLite();
   }
@@ -480,3 +592,4 @@ int main(int argc, char** argv)
   return 0;
 }
 
+IMPLEMENT_APP_CONSOLE(Minimal)
