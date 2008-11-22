@@ -2927,3 +2927,55 @@ wxString wxSQLite3Authorizer::AuthorizationCodeToString(wxSQLite3Authorizer::wxA
   }
   return wxString(authString);
 }
+
+// ----------------------------------------------------------------------------
+// wxSQLite3Transaction
+// ----------------------------------------------------------------------------
+
+wxSQLite3Transaction::wxSQLite3Transaction(wxSQLite3Database* db, wxSQLite3TransactionType transactionType)
+{
+  assert(db != NULL);
+  m_database = db;
+  try
+  {
+    m_database->Begin(transactionType);
+  } 
+  catch (...)
+  {
+    m_database = NULL; // Flag that transaction is not active
+  }
+}
+
+wxSQLite3Transaction::~wxSQLite3Transaction()
+{
+  if (m_database != NULL)
+  {
+    m_database->Rollback();
+  }
+}
+
+void wxSQLite3Transaction::Commit()
+{
+  try
+  {
+    m_database->Commit();
+  }
+  catch (...)
+  {
+    m_database->Rollback();		
+  }
+  m_database = NULL;
+}
+
+void wxSQLite3Transaction::Rollback()
+{
+  try
+  {
+    m_database->Rollback();
+  }
+  catch (...)
+  {
+    m_database->Rollback();		
+  }
+  m_database = NULL;
+}

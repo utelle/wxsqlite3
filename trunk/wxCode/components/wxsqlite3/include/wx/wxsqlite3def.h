@@ -35,6 +35,7 @@
 //              2008-06-28  - Upgrade to SQLite3 version 3.5.9
 //              2008-07-19  - Upgrade to SQLite3 version 3.6.0
 //              2008-09-04  - Upgrade to SQLite3 version 3.6.2
+//              2008-11-22  - Upgrade to SQLite3 version 3.6.6
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -77,6 +78,12 @@
 \section version Version history
 
 <dl>
+<dt><b>1.9.2</b> - <i>November 2008</i></dt>
+<dd>
+Upgrade to SQLite version 3.6.6<br>
+Added RAII transaction class (see docs for details)<br>
+
+</dd>
 <dt><b>1.9.1</b> - <i>September 2008</i></dt>
 <dd>
 Upgrade to SQLite version 3.6.2<br>
@@ -255,6 +262,16 @@ First public release
 </dl>
 
 \author Ulrich Telle (<a href="&#109;&#97;&#105;&#108;&#116;&#111;:&#117;&#108;&#114;&#105;&#99;&#104;&#46;&#116;&#101;&#108;&#108;&#101;&#64;&#103;&#109;&#120;&#46;&#100;&#101;">ulrich DOT telle AT gmx DOT de</a>)
+
+\section ackn Acknowledgements
+
+The following people have contributed to wxSQLite3:
+
+<ul>
+<li>Francesco Montorsi (enhancement of the build system)</li>
+<li>Neville Dastur (enhancement of the method TableExists)</li>
+<li>Tobias Langner (RAII class for managing transactions)</li>
+</ul>
 
  */
 
