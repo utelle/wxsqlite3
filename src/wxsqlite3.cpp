@@ -1024,6 +1024,99 @@ wxLongLong wxSQLite3Table::GetInt64(const wxString& columnName, wxLongLong nullV
   }
 }
 
+// Since SQLite uses internally a locale independent string representation
+// of double values, we need to provide our own conversion procedure using
+// always a point as the decimal separator.
+// The following code duplicates a SQLite utility function with minor modifications.
+
+static double wxSQLite3AtoF(const char *z)
+{
+  int sign = 1;
+  long double v1 = 0.0;
+  int nSignificant = 0;
+  while (isspace(*(unsigned char*)z))
+  {
+    ++z;
+  }
+  if (*z == '-')
+  {
+    sign = -1;
+    ++z;
+  }
+  else if (*z == '+')
+  {
+    ++z;
+  }
+  while (*z == '0')
+  {
+    ++z;
+  }
+  while (isdigit(*(unsigned char*)z))
+  {
+    v1 = v1*10.0 + (*z - '0');
+    ++z;
+    ++nSignificant;
+  }
+  if (*z == '.')
+  {
+    long double divisor = 1.0;
+    ++z;
+    if (nSignificant == 0)
+    {
+      while (*z == '0')
+      {
+        divisor *= 10.0;
+        ++z;
+      }
+    }
+    while (isdigit(*(unsigned char*)z))
+    {
+      if (nSignificant < 18)
+      {
+        v1 = v1*10.0 + (*z - '0');
+        divisor *= 10.0;
+        ++nSignificant;
+      }
+      ++z;
+    }
+    v1 /= divisor;
+  }
+  if (*z=='e' || *z=='E')
+  {
+    int esign = 1;
+    int eval = 0;
+    long double scale = 1.0;
+    ++z;
+    if (*z == '-')
+    {
+      esign = -1;
+      ++z;
+    }
+    else if (*z == '+')
+    {
+      ++z;
+    }
+    while (isdigit(*(unsigned char*)z))
+    {
+      eval = eval*10 + *z - '0';
+      ++z;
+    }
+    while (eval >= 64) { scale *= 1.0e+64; eval -= 64; }
+    while (eval >= 16) { scale *= 1.0e+16; eval -= 16; }
+    while (eval >=  4) { scale *= 1.0e+4;  eval -= 4; }
+    while (eval >=  1) { scale *= 1.0e+1;  eval -= 1; }
+    if (esign < 0)
+    {
+      v1 /= scale;
+    }
+    else
+    {
+      v1 *= scale;
+    }
+  }
+  return (double) ((sign < 0) ? -v1 : v1);
+}
+
 double wxSQLite3Table::GetDouble(int columnIndex, double nullValue /* = 0.0 */)
 {
   if (IsNull(columnIndex))
@@ -1032,24 +1125,19 @@ double wxSQLite3Table::GetDouble(int columnIndex, double nullValue /* = 0.0 */)
   }
   else
   {
-    double value = nullValue;
-    GetAsString(columnIndex).ToDouble(&value);
-    return value;
+    if (columnIndex < 0 || columnIndex > m_cols-1)
+    {
+      throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_INVALID_INDEX);
+    }
+    int nIndex = (m_currentRow*m_cols) + m_cols + columnIndex;
+    return wxSQLite3AtoF(m_results[nIndex]);
   }
 }
 
 double wxSQLite3Table::GetDouble(const wxString& columnName, double nullValue /* = 0.0 */)
 {
-  if (IsNull(columnName))
-  {
-    return nullValue;
-  }
-  else
-  {
-    double value = nullValue;
-    GetAsString(columnName).ToDouble(&value);
-    return value;
-  }
+  int index = FindColumnIndex(columnName);
+  return GetDouble(index, nullValue);
 }
 
 wxString wxSQLite3Table::GetString(int columnIndex, const wxString& nullValue /* = wxEmptyString */)
