@@ -36,6 +36,8 @@
 //              2008-07-19  - Upgrade to SQLite3 version 3.6.0
 //              2008-09-04  - Upgrade to SQLite3 version 3.6.2
 //              2008-11-22  - Upgrade to SQLite3 version 3.6.6
+//              2008-12-18  - Upgrade to SQLite3 version 3.6.7
+//                            Fixed a bug in method wxSQLite3Table::GetDouble
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -78,6 +80,15 @@
 \section version Version history
 
 <dl>
+ 
+<dt><b>1.9.3</b> - <i>December 2008</i></dt>
+<dd>
+Upgrade to SQLite version 3.6.7<br>
+Fixed a bug in method wxSQLite3Table::GetDouble
+(conversion from string to double failed in non-US locales)<br>
+Build system upgraded using Bakefile 0.2.5<br>
+
+</dd>
 <dt><b>1.9.2</b> - <i>November 2008</i></dt>
 <dd>
 Upgrade to SQLite version 3.6.6<br>

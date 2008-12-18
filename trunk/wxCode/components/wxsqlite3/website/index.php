@@ -21,6 +21,13 @@
 
 	<br/><?php write_h1("Known bugs"); ?>
 <p><ul>
+<li><p><b><u>Symptom</u></b>: Method <b><i>wxSQLite3Table::GetDouble</i></b> fails to convert strings to double values in non-US locales.
+<br><b><u>Affected version(s)</u></b>: all up to 1.9.2
+<br><b>Solution:</b>
+<br>Upgrade to version 1.9.3.<br>
+<br><b>Fixed in version 1.9.3</b>
+</p></li>
+
 <li><p><b><u>Symptom</u></b>: Method <b><i>TableExists</i></b> sometimes fails to find a table due to case sensitive search.
 <br><b><u>Affected version(s)</u></b>: 1.4.1 &#150; 1.8.3
 <br><b>Solution:</b>

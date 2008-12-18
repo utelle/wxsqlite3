@@ -282,7 +282,7 @@ int Minimal::OnRun()
 
     cout << endl << "emp table exists=" << (db.TableExists(_T("EmP")) ? "TRUE":"FALSE") << endl;
     cout << endl << "Creating emp table" << endl;
-    db.ExecuteUpdate(_T("create table emp(empno int, empname char(20));"));
+    db.ExecuteUpdate(_T("create table emp(empno int, empname char(20), salary double);"));
     cout << endl << "emp table exists=" << (db.TableExists(_T("emp")) ? "TRUE":"FALSE") << endl;
     
     // Attach the current database under different name and
@@ -305,7 +305,7 @@ int Minimal::OnRun()
     db.SetUpdateHook(&myCallback);
 
     cout << endl << "DML tests" << endl;
-    wxString insertCmd(_T("insert into emp values (7, 'Franz Beckenbauer');"));
+    wxString insertCmd(_T("insert into emp values (7, 'Franz Beckenbauer', 2000.10);"));
     int nRows = db.ExecuteUpdate(insertCmd);
     cout << nRows << " rows inserted" << endl;
 
@@ -335,7 +335,7 @@ int Minimal::OnRun()
     for (i = 0; i < nRowsToCreate; i++)
     {
       char buf[128];
-      sprintf(buf, "insert into emp values (%d, 'Empname%06d');", i, i);
+      sprintf(buf, "insert into emp values (%d, 'Empname%06d', %d.50);", i, i, i);
       db.ExecuteUpdate(buf);
     }
 
@@ -351,13 +351,13 @@ int Minimal::OnRun()
 
     cout << endl << "Auto increment test" << endl;
     db.ExecuteUpdate("drop table emp;");
-    db.ExecuteUpdate("create table emp(empno integer primary key, empname char(20));");
+    db.ExecuteUpdate("create table emp(empno integer primary key, empname char(20), salary double);");
     cout << nRows << " rows deleted" << endl;
 
     for (i = 0; i < 5; i++)
     {
       char buf[128];
-      sprintf(buf, "insert into emp (empname) values ('Empname%06d');", i+1);
+      sprintf(buf, "insert into emp (empname,salary) values ('Empname%06d',%d.57);", i+1,(i+1)*10000);
       db.ExecuteUpdate(buf);
       cout << " primary key: " << db.GetLastRowId().ToLong() << endl;
     }
@@ -438,7 +438,10 @@ int Minimal::OnRun()
       {
         if (!t.IsNull(fld))
         {
-          cout << (const char*) t.GetAsString(fld).mb_str(wxConvUTF8) << "|";
+          if (fld != 2)
+            cout << (const char*) t.GetAsString(fld).mb_str(wxConvUTF8) << "|";
+          else
+            cout << t.GetDouble(fld) << "|";
         }
         else
         {
@@ -501,17 +504,18 @@ int Minimal::OnRun()
     cout << endl << "Transaction test, creating " << nRowsToCreate;
     cout << " rows please wait..." << endl;
     db.ExecuteUpdate("drop table emp;");
-    db.ExecuteUpdate("create table emp(empno int, empname char(20));");
+    db.ExecuteUpdate("create table emp(empno int, empname char(20), salary double);");
     tmStart = time(0);
     db.Begin();
 
-    wxSQLite3Statement stmt2 = db.PrepareStatement("insert into emp values (?, ?);");
+    wxSQLite3Statement stmt2 = db.PrepareStatement("insert into emp values (?, ?, ?);");
     for (i = 0; i < nRowsToCreate; i++)
     {
       char buf[16];
       sprintf(buf, "EmpName%06d", i);
       stmt2.Bind(1, i);
       stmt2.Bind(2, buf);
+      stmt2.Bind(3, (double) (i + 0.5));
       stmt2.ExecuteUpdate();
       stmt2.Reset();
     }

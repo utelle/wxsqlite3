@@ -927,6 +927,11 @@ public:
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column as a string
+  *
+  * \note This method returns values of type <code>double</code>
+  * always using the point character as the decimal separator.
+  * This is SQLite default behaviour. Use method wxSQLite3Table::GetDouble
+  * to apply correct conversion from <code>string</code> to <code>double</code>.
   */
   wxString GetAsString(int columnIndex);
 
@@ -934,6 +939,11 @@ public:
   /**
   * \param columnName name of the column
   * \return value of the column as a string
+  *
+  * \note This method returns values of type <code>double</code>
+  * always using the point character as the decimal separator.
+  * This is SQLite default behaviour. Use method wxSQLite3Table::GetDouble
+  * to apply correct conversion from <code>string</code> to <code>double</code>.
   */
   wxString GetAsString(const wxString& columnName);
 
