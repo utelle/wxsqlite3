@@ -869,6 +869,12 @@ public:
   */
   wxString GetSQL();
 
+  /// Validate associated SQLite database and statement
+  /**
+  * \return TRUE if both, a SQLite database and a SQLite statement, are associated, FALSE otherwise
+  */
+  bool IsOk();
+
 private:
   /// Check the validity of the associated statement
   void CheckStmt();
@@ -1092,6 +1098,12 @@ public:
   */
   void Finalize();
 
+  /// Validate associated SQLite resultset
+  /**
+  * \return TRUE if SQLite resultset is associated, FALSE otherwise
+  */
+  bool IsOk();
+
 private:
     /// Check for valid results
     void CheckResults();
@@ -1309,6 +1321,12 @@ public:
   /**
   */
   void Finalize();
+
+  /// Validate associated SQLite database and statement
+  /**
+  * \return TRUE if both, a SQLite database and a SQLite statement, are associated, FALSE otherwise
+  */
+  bool IsOk();
 
 private:
   /// Check for valid database connection

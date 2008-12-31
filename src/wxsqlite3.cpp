@@ -785,6 +785,11 @@ wxString wxSQLite3ResultSet::GetSQL()
   return sqlString;
 }
 
+bool wxSQLite3ResultSet::IsOk()
+{
+  return (m_db != 0) && (m_stmt != 0);
+}
+
 void wxSQLite3ResultSet::CheckStmt()
 {
   if (m_stmt == 0)
@@ -1277,6 +1282,11 @@ void wxSQLite3Table::SetRow(int row)
   m_currentRow = row;
 }
 
+bool wxSQLite3Table::IsOk()
+{
+  return (m_results != 0);
+}
+
 void wxSQLite3Table::CheckResults()
 {
   if (m_results == 0)
@@ -1650,6 +1660,11 @@ void wxSQLite3Statement::Finalize()
       throw wxSQLite3Exception(rc, UTF8toWxString(localError));
     }
   }
+}
+
+bool wxSQLite3Statement::IsOk()
+{
+  return (m_db != 0) && (m_stmt != 0);
 }
 
 void wxSQLite3Statement::CheckDatabase()
