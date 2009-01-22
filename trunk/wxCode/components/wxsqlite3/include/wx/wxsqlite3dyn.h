@@ -100,7 +100,7 @@ DYNFUNC(return, int,                   sqlite3_open_v2,               (const cha
 DYNFUNC(return, int,                   sqlite3_prepare_v2,            (sqlite3 *db, const char *zSql, int nBytes, sqlite3_stmt **ppStmt, const char **pzTail), (db, zSql, nBytes, ppStmt, pzTail));
 // DYNFUNC(return, int,                   sqlite3_prepare16_v2,          (sqlite3 *db, const void *zSql, int nBytes, sqlite3_stmt **ppStmt, const void **pzTail), (db, zSql, nBytes, ppStmt, pzTail));
 // DYNFUNC(;, void,                       sqlite3_progress_handler,      (sqlite3 *db, int nOps, int (*xProgress)(void*), void *pArg), (db, nOps, xProgress, pArg));
-DYNFUNC(;, void,                       sqlite3_randomness,            (int N, void *P) (N, P));
+DYNFUNC(;, void,                       sqlite3_randomness,            (int N, void *P), (N, P));
 DYNFUNC(return, int,                   sqlite3_reset,                 (sqlite3_stmt *pStmt), (pStmt));
 DYNFUNC(;, void,                       sqlite3_result_blob,           (sqlite3_context *pCtx, const void *z, int n, void (*xDel)(void *)), (pCtx, z, n, xDel));
 DYNFUNC(;, void,                       sqlite3_result_double,         (sqlite3_context *pCtx, double rVal), (pCtx, rVal));
@@ -155,6 +155,11 @@ DYNFUNC(return, const char *,          sqlite3_column_table_name,     (sqlite3_s
 DYNFUNC(return, const char *,          sqlite3_column_origin_name,    (sqlite3_stmt *pStmt, int iCol), (pStmt, iCol));
 // DYNFUNC(return, const void *,          sqlite3_column_origin_name16,  (sqlite3_stmt *pStmt, int iCol), (pStmt, iCol));
 DYNFUNC(return, int,                   sqlite3_table_column_metadata, (sqlite3 *db, const char *zDbName, const char *zTableName, const char *zColumnName, char const **pzDataType, char const **pzCollSeq, int *pNotNull, int *pPrimaryKey, int *pAutoinc), (db, zDbName, zTableName, zColumnName, pzDataType, pzCollSeq, pNotNull, pPrimaryKey, pAutoinc));
+#endif
+
+#if WXSQLITE3_HAVE_CODEC
+DYNFUNC(return, int,                   sqlite3_key,                   (sqlite3 *db, const void *pKey, int nKey), (db, pKey, nKey));
+DYNFUNC(return, int,                   sqlite3_rekey,                 (sqlite3 *db, const void *pKey, int nKey), (db, pKey, nKey));
 #endif
 
 // SQLcrypt API
