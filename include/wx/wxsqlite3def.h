@@ -38,6 +38,9 @@
 //              2008-11-22  - Upgrade to SQLite3 version 3.6.6
 //              2008-12-18  - Upgrade to SQLite3 version 3.6.7
 //                            Fixed a bug in method wxSQLite3Table::GetDouble
+//              2009-01-14  - Upgrade to SQLite3 version 3.6.10
+//                            Added savepoint support
+//                            Added IsOk methods to some classes
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -81,6 +84,15 @@
 
 <dl>
  
+<dt><b>1.9.4</b> - <i>January 2009</i></dt>
+<dd>
+Upgrade to SQLite version 3.6.10<br>
+Added support for savepoints, introduced with SQLite 3.6.8<br>
+Added method IsOk to the classes wxSQLite3Statement, wxSQLite3Table and wxSQLite3ResultSet,
+thus instances of these classes can be checked whether the associated SQLite database or
+statement are valid without throwing an exception.<br>
+
+</dd>
 <dt><b>1.9.3</b> - <i>December 2008</i></dt>
 <dd>
 Upgrade to SQLite version 3.6.7<br>
