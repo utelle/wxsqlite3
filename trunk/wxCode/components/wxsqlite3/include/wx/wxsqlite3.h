@@ -17,8 +17,8 @@
     #pragma interface "wxsqlite3.h"
 #endif
 
-#include <wx/buffer.h>
 #include <wx/datetime.h>
+#include <wx/buffer.h>
 
 #include "wx/wxsqlite3def.h"
 
@@ -423,7 +423,7 @@ public:
     SQLITE_PRAGMA              = 19,   // Pragma Name     1st arg or NULL
     SQLITE_READ                = 20,   // Table Name      Column Name
     SQLITE_SELECT              = 21,   // NULL            NULL
-    SQLITE_TRANSACTION         = 22,   // NULL            NULL
+    SQLITE_TRANSACTION         = 22,   // Operation       NULL
     SQLITE_UPDATE              = 23,   // Table Name      Column Name
     SQLITE_ATTACH              = 24,   // Filename        NULL
     SQLITE_DETACH              = 25,   // Database Name   NULL
@@ -432,8 +432,9 @@ public:
     SQLITE_ANALYZE             = 28,   // Table Name      NULL
     SQLITE_CREATE_VTABLE       = 29,   // Table Name      Module Name
     SQLITE_DROP_VTABLE         = 30,   // Table Name      Module Name
-    SQLITE_FUNCTION            = 31,   // Function Name   NULL
-    SQLITE_MAX_CODE            = SQLITE_FUNCTION
+    SQLITE_FUNCTION            = 31,   // NULL            Function Name
+    SQLITE_SAVEPOINT           = 32,   // Operation       Savepoint Name
+    SQLITE_MAX_CODE            = SQLITE_SAVEPOINT
   };
 
    /// Return codes of the authorizer
@@ -1504,8 +1505,11 @@ public:
 
   /// Rollback transaction
   /**
+  * Rolls back a transaction or optionally to a previously set savepoint
+  *
+  * \param savepointName optional name of a previously set savepoint
   */
-  void Rollback();
+  void Rollback(const wxString& savepointName = wxEmptyString);
   
   /// Get the auto commit state
   /**
@@ -1515,6 +1519,22 @@ public:
   * and reenabled by the next COMMIT or ROLLBACK. 
   */
   bool GetAutoCommit();
+
+  /// Set savepoint
+  /*
+  * Sets a savepoint with a given name
+  *
+  * \param savepointName the name of the savepoint
+  */
+  void Savepoint(const wxString& savepointName);
+
+  /// Release savepoint
+  /*
+  * Releases a savepoint with a given name
+  *
+  * \param savepointName the name of the savepoint
+  */
+  void ReleaseSavepoint(const wxString& savepointName);
 
   /// Check whether a table with the given name exists
   /**
@@ -1972,6 +1992,12 @@ public:
   */
   static bool HasIncrementalBlobSupport();
 
+  /// Check whether wxSQLite3 has support for SQLite savepoints
+  /**
+  * \return TRUE if SQLite savepoints are supported, FALSE otherwise
+  */
+  static bool HasSavepointSupport();
+
 protected:
   /// Access SQLite's internal database handle
   void* GetDatabaseHandle() { return m_db; }
@@ -2021,6 +2047,7 @@ private:
   static bool  ms_hasMetaDataSupport;        ///< Flag whether wxSQLite3 has been compiled with meta data support
   static bool  ms_hasLoadExtSupport;         ///< Flag whether wxSQLite3 has been compiled with loadable extension support
   static bool  ms_hasIncrementalBlobSupport; ///<  Flag whether wxSQLite3 has support for incremental BLOBs
+  static bool  ms_hasSavepointSupport;       ///<  Flag whether wxSQLite3 has support for SQLite savepoints
 };
 
 /// RAII class for managing transactions

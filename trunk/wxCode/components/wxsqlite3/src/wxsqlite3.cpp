@@ -117,6 +117,7 @@ const wxChar* wxERRMSG_NOMETADATA    = wxTRANSLATE("Meta data support not availa
 const wxChar* wxERRMSG_NOCODEC       = wxTRANSLATE("Encryption support not available");
 const wxChar* wxERRMSG_NOLOADEXT     = wxTRANSLATE("Loadable extension support not available");
 const wxChar* wxERRMSG_NOINCBLOB     = wxTRANSLATE("Incremental BLOB support not available");
+const wxChar* wxERRMSG_NOSAVEPOINT   = wxTRANSLATE("Savepoint support not available");
 
 const wxChar* wxERRMSG_SHARED_CACHE  = wxTRANSLATE("Setting SQLite shared cache mode failed");
 
@@ -1886,6 +1887,12 @@ bool wxSQLite3Database::ms_hasIncrementalBlobSupport = true;
 bool wxSQLite3Database::ms_hasIncrementalBlobSupport = false;
 #endif
 
+#if SQLITE_VERSION_NUMBER >= 3006008
+bool wxSQLite3Database::ms_hasSavepointSupport = true;
+#else
+bool wxSQLite3Database::ms_hasSavepointSupport = false;
+#endif
+
 bool
 wxSQLite3Database::HasEncryptionSupport()
 {
@@ -1908,6 +1915,12 @@ bool
 wxSQLite3Database::HasIncrementalBlobSupport()
 {
   return ms_hasIncrementalBlobSupport;
+}
+
+bool
+wxSQLite3Database::HasSavepointSupport()
+{
+  return ms_hasSavepointSupport;
 }
 
 wxSQLite3Database::wxSQLite3Database()
@@ -2043,15 +2056,46 @@ void wxSQLite3Database::Commit()
   ExecuteUpdate("commit transaction");
 }
 
-void wxSQLite3Database::Rollback()
+void wxSQLite3Database::Rollback(const wxString& savepointName)
 {
-  ExecuteUpdate("rollback transaction");
+#if SQLITE_VERSION_NUMBER >= 3006008
+  if (savepointName.IsEmpty())
+  {
+#endif
+    ExecuteUpdate("rollback transaction");
+#if SQLITE_VERSION_NUMBER >= 3006008
+  }
+  else
+  {
+    ExecuteUpdate(wxString(_T("rollback transaction to savepoint "))+savepointName);
+  }
+#endif
 }
 
 bool wxSQLite3Database::GetAutoCommit()
 {
   CheckDatabase();
   return sqlite3_get_autocommit((sqlite3*) m_db) != 0;
+}
+
+void wxSQLite3Database::Savepoint(const wxString& savepointName)
+{
+#if SQLITE_VERSION_NUMBER >= 3006008
+  ExecuteUpdate(wxString(_T("savepoint "))+savepointName);
+#else
+  wxUnusedVar(savepointName);
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NOSAVEPOINT);
+#endif
+}
+
+void wxSQLite3Database::ReleaseSavepoint(const wxString& savepointName)
+{
+#if SQLITE_VERSION_NUMBER >= 3006008
+  ExecuteUpdate(wxString(_T("release savepoint "))+savepointName);
+#else
+  wxUnusedVar(savepointName);
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NOSAVEPOINT);
+#endif
 }
 
 wxSQLite3Statement wxSQLite3Database::PrepareStatement(const wxString& sql)
@@ -3016,7 +3060,7 @@ static const wxChar* authCodeString[] =
   _T("SQLITE_SELECT"),            _T("SQLITE_TRANSACTION"),       _T("SQLITE_UPDATE"), 
   _T("SQLITE_ATTACH"),            _T("SQLITE_DETACH"),            _T("SQLITE_ALTER_TABLE"), 
   _T("SQLITE_REINDEX"),           _T("SQLITE_ANALYZE"),           _T("SQLITE_CREATE_VTABLE"), 
-  _T("SQLITE_DROP_VTABLE"),       _T("SQLITE_FUNCTION")
+  _T("SQLITE_DROP_VTABLE"),       _T("SQLITE_FUNCTION"),          _T("SQLITE_SAVEPOINT")
 };
 
 
