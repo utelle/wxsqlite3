@@ -260,6 +260,7 @@ int Minimal::OnRun()
   MyAuthorizer myAuthorizer;
   MyCallback myCallback;
   MyCollation myCollation;
+  wxSQLite3RegExpOperator myRegExpOp;
 
   try
   {
@@ -335,7 +336,7 @@ int Minimal::OnRun()
     for (i = 0; i < nRowsToCreate; i++)
     {
       char buf[128];
-      sprintf(buf, "insert into emp values (%d, 'Empname%06d', %d.50);", i, i, i);
+      sprintf(buf, "insert into emp values (%d, 'empname%06d', %d.50);", i, i, i);
       db.ExecuteUpdate(buf);
     }
 
@@ -357,7 +358,7 @@ int Minimal::OnRun()
     for (i = 0; i < 5; i++)
     {
       char buf[128];
-      sprintf(buf, "insert into emp (empname,salary) values ('Empname%06d',%d.57);", i+1,(i+1)*10000);
+      sprintf(buf, "insert into emp (empname,salary) values ('empname%06d',%d.57);", i+1,(i+1)*10000);
       db.ExecuteUpdate(buf);
       cout << " primary key: " << db.GetLastRowId().ToLong() << endl;
     }
@@ -461,6 +462,16 @@ int Minimal::OnRun()
       cout << (const char*)(q2.GetString(0).mb_str()) << endl;
     }
 
+    db.CreateFunction(_T("regexp"), 2, myRegExpOp);
+
+    cout << endl << "Regular expression test" << endl;
+    wxSQLite3ResultSet q3 = db.ExecuteQuery("select empname from emp where empname regexp '^[A-Z].*$' order by 1;");
+
+    while (q3.NextRow())
+    {
+      cout << (const char*)(q3.GetString(0).mb_str()) << endl;
+    }
+
     // Test storing/retrieving some binary data, checking
     // it afterwards to make sure it is the same
 
@@ -533,12 +544,36 @@ int Minimal::OnRun()
     db.ExecuteUpdate(_T("insert into testcol values ('berta');"));
     db.ExecuteUpdate(_T("insert into testcol values ('cesar');"));
 
-    wxSQLite3ResultSet q3 = db.ExecuteQuery("select textcol from testcol order by 1 desc;");
+    wxSQLite3ResultSet q4 = db.ExecuteQuery("select textcol from testcol order by 1 desc;");
 
-    while (q3.NextRow())
+    while (q4.NextRow())
     {
-      cout << (const char*)(q3.GetString(0).mb_str()) << endl;
+      cout << (const char*)(q4.GetString(0).mb_str()) << endl;
     }
+
+    if (wxSQLite3Database::HasBackupSupport())
+    {
+      cout << endl << "Backup and restore database" << endl;
+      if (wxSQLite3Database::HasEncryptionSupport())
+      {
+        db.Backup(wxGetCwd() + _T("/test-backup.db"), _T("password"));
+      }
+      else
+      {
+        db.Backup(wxGetCwd() + _T("/test-backup.db"));
+      }
+      cout << endl << "... backup completed." << endl;
+      if (wxSQLite3Database::HasEncryptionSupport())
+      {
+        db.Restore(wxGetCwd() + _T("/test-backup.db"), _T("password"));
+      }
+      else
+      {
+        db.Restore(wxGetCwd() + _T("/test-backup.db"));
+      }
+      cout << endl << "... restore completed." << endl;
+    }
+
     if (wxSQLite3Database::HasEncryptionSupport())
     {
       cout << endl << "Rekey the database (that is, decrypt it)" << endl;

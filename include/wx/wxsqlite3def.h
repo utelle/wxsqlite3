@@ -41,6 +41,9 @@
 //              2009-01-14  - Upgrade to SQLite3 version 3.6.10
 //                            Added savepoint support
 //                            Added IsOk methods to some classes
+//              2009-02-21  - Upgrade to SQLite3 version 3.6.11
+//                            Added user defined function class for REGEXP operator
+//                            Added support for SQLite backup/restore API
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -83,7 +86,14 @@
 \section version Version history
 
 <dl>
- 
+
+<dt><b>1.9.5</b> - <i>February 2009</i></dt>
+<dd>
+Upgrade to SQLite version 3.6.11<br>
+Added user defined function class for REGEXP operator.<br>
+Added support for SQLite backup/restore API, introduced with SQLite 3.6.11<br>
+
+</dd>
 <dt><b>1.9.4</b> - <i>January 2009</i></dt>
 <dd>
 Upgrade to SQLite version 3.6.10<br>
