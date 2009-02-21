@@ -19,6 +19,8 @@
 
 #include <wx/datetime.h>
 #include <wx/buffer.h>
+#include <wx/regex.h>
+#include <wx/string.h>
 
 #include "wx/wxsqlite3def.h"
 
@@ -348,6 +350,9 @@ private:
 class WXDLLIMPEXP_SQLITE3 wxSQLite3ScalarFunction
 {
 public:
+  /// Constructor
+  wxSQLite3ScalarFunction() {}
+
   /// Virtual destructor
   virtual ~wxSQLite3ScalarFunction() {}
   /// Execute the scalar function
@@ -365,7 +370,7 @@ public:
 class WXDLLIMPEXP_SQLITE3 wxSQLite3AggregateFunction
 {
 public:
-  /// Virtual destructor
+  /// Constructor
   wxSQLite3AggregateFunction() { m_count = 0; }
 
   /// Virtual destructor
@@ -1477,6 +1482,94 @@ public:
   */
   void Close();
 
+  /// Backup a SQLite3 database
+  /**
+  * This method is used to overwrite the contents of a database with the contents
+  * of this database. This is useful either for creating backups of the database or
+  * for copying an in-memory database to persistent files. 
+  *
+  * NOTE: Exclusive access is required to the target database for the 
+  * duration of the operation. However the source database is only
+  * read-locked while it is actually being read, it is not locked
+  * continuously for the entire operation. Thus, the backup may be
+  * performed on a live database without preventing other users from
+  * writing to the database for an extended period of time.
+  *
+  * NOTE: If the target database file already exists it must be a valid
+  * SQLite database, in case of an encrypted database the key used for
+  * backup must be the same as the key used for creation.
+  * If this does not hold true, the file should be deleted prior to
+  * performing the backup.
+  *
+  * \param[in] targetFileName Name of the target database file.
+  * \param[in] key Optional database encryption key for the target database.
+  * \param[in] sourceDatabaseName Optional name of the source database (default: 'main').
+  */
+  void Backup(const wxString& targetFileName, const wxString& key = wxEmptyString, const wxString& sourceDatabaseName = wxT("main"));
+
+  /// Backup a SQLite3 database
+  /**
+  * This method is used to overwrite the contents of a database with the contents
+  * of this database. This is useful either for creating backups of the database or
+  * for copying an in-memory database to persistent files. 
+  *
+  * NOTE: Exclusive access is required to the target database for the 
+  * duration of the operation. However the source database is only
+  * read-locked while it is actually being read, it is not locked
+  * continuously for the entire operation. Thus, the backup may be
+  * performed on a live database without preventing other users from
+  * writing to the database for an extended period of time.
+  *
+  * NOTE: If the target database file already exists it must be a valid
+  * SQLite database, in case of an encrypted database the key used for
+  * backup must be the same as the key used for creation.
+  * If this does not hold true, the file should be deleted prior to
+  * performing the backup.
+  *
+  * \param[in] targetFileName Name of the target database file.
+  * \param[in] key Binary database encryption key for the target database.
+  * \param[in] sourceDatabaseName Optional name of the source database (default: 'main').
+  */
+  void Backup(const wxString& targetFileName, const wxMemoryBuffer& key, const wxString& sourceDatabaseName = wxT("main"));
+
+  /// Restore a SQLite3 database
+  /**
+  * This method is used to restore the contents of this database with the contents
+  * of another database. This is useful either for restoring a backup of the database or
+  * for copying a persistent file to an in-memory database.
+  *
+  * NOTE: Exclusive access is required to the target database for the 
+  * duration of the operation. However the source database is only
+  * read-locked while it is actually being read, it is not locked
+  * continuously for the entire operation. Thus, the backup may be
+  * performed on a live database without preventing other users from
+  * writing to the database for an extended period of time.
+  *
+  * \param[in] sourceFileName Name of the source database file.
+  * \param[in] key Optional database encryption key for the source database.
+  * \param[in] targetDatabaseName Optional name of the target database (default: 'main').
+  */
+  void Restore(const wxString& sourceFileName, const wxString& key = wxEmptyString, const wxString& targetDatabaseName = wxT("main"));
+
+  /// Restore a SQLite3 database
+  /**
+  * This method is used to restore the contents of this database with the contents
+  * of another database. This is useful either for restoring a backup of the database or
+  * for copying a persistent file to an in-memory database.
+  *
+  * NOTE: Exclusive access is required to the target database for the 
+  * duration of the operation. However the source database is only
+  * read-locked while it is actually being read, it is not locked
+  * continuously for the entire operation. Thus, the backup may be
+  * performed on a live database without preventing other users from
+  * writing to the database for an extended period of time.
+  *
+  * \param[in] sourceFileName Name of the source database file.
+  * \param[in] key Optional binary database encryption key for the source database.
+  * \param[in] targetDatabaseName Optional name of the target database (default: 'main').
+  */
+  void Restore(const wxString& sourceFileName, const wxMemoryBuffer& key, const wxString& targetDatabaseName = wxT("main"));
+
   /// Begin transaction
   /**
   * In SQLite transactions can be deferred, immediate, or exclusive.
@@ -1998,6 +2091,12 @@ public:
   */
   static bool HasSavepointSupport();
 
+  /// Check whether wxSQLite3 has support for SQLite backup/restore
+  /**
+  * \return TRUE if SQLite backup/restore is supported, FALSE otherwise
+  */
+  static bool HasBackupSupport();
+
 protected:
   /// Access SQLite's internal database handle
   void* GetDatabaseHandle() { return m_db; }
@@ -2046,8 +2145,9 @@ private:
   static bool  ms_hasEncryptionSupport;      ///< Flag whether wxSQLite3 has been compiled with encryption support
   static bool  ms_hasMetaDataSupport;        ///< Flag whether wxSQLite3 has been compiled with meta data support
   static bool  ms_hasLoadExtSupport;         ///< Flag whether wxSQLite3 has been compiled with loadable extension support
-  static bool  ms_hasIncrementalBlobSupport; ///<  Flag whether wxSQLite3 has support for incremental BLOBs
-  static bool  ms_hasSavepointSupport;       ///<  Flag whether wxSQLite3 has support for SQLite savepoints
+  static bool  ms_hasIncrementalBlobSupport; ///< Flag whether wxSQLite3 has support for incremental BLOBs
+  static bool  ms_hasSavepointSupport;       ///< Flag whether wxSQLite3 has support for SQLite savepoints
+  static bool  ms_hasBackupSupport;          ///< Flag whether wxSQLite3 has support for SQLite backup/restore
 };
 
 /// RAII class for managing transactions
@@ -2127,6 +2227,33 @@ private:
 
   wxSQLite3Database* m_database; ///< Pointer to the associated database (no ownership)
 };
+
+
+/// User defined function for REGEXP operator
+/**
+*/
+class WXDLLIMPEXP_SQLITE3 wxSQLite3RegExpOperator : public wxSQLite3ScalarFunction
+{
+public:
+  /// Constructor
+  wxSQLite3RegExpOperator(int flags = wxRE_DEFAULT);
+
+  /// Virtual destructor
+  virtual ~wxSQLite3RegExpOperator();
+
+  /// Execute the scalar function
+  /**
+  * This method is invoked for each appearance of the scalar function in the SQL query.
+  * \param ctx function context which can be used to access arguments and result value
+  */
+  virtual void Execute(wxSQLite3FunctionContext& ctx);
+
+private:
+  wxString m_exprStr; ///< Last regular expression string
+  wxRegEx  m_regEx;   ///< Regular expression cache (currently only 1 instance)
+  int      m_flags;   ///< Flags for regular expression
+};
+
 
 #endif
 
