@@ -1760,7 +1760,7 @@ wxMemoryBuffer& wxSQLite3Blob::Read(wxMemoryBuffer& blobValue, int length, int o
 {
 #if SQLITE_VERSION_NUMBER >= 3004000
   CheckBlob();
-  char* localBuffer = new char[length];
+  char* localBuffer = (char*) blobValue.GetAppendBuf((size_t) length);
   int rc = sqlite3_blob_read((sqlite3_blob*) m_blob, localBuffer, length, offset);
 
   if (rc != SQLITE_OK)
@@ -1769,8 +1769,7 @@ wxMemoryBuffer& wxSQLite3Blob::Read(wxMemoryBuffer& blobValue, int length, int o
     throw wxSQLite3Exception(rc, UTF8toWxString(localError));
   }
 
-  blobValue.AppendData((void*) localBuffer, (size_t) length);
-  delete [] localBuffer;
+  blobValue.UngetAppendBuf((size_t) length);
 #else
   wxUnusedVar(blobValue);
   wxUnusedVar(length);
