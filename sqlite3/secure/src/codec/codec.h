@@ -30,7 +30,7 @@ extern "C" {
 // ATTENTION: Macro similar to that in pager.c
 // TODO: Check in case of new version of SQLite
 #include "../os.h"
-#define PAGER_MJ_PGNO(x) ((PENDING_BYTE/(x))+1)
+#define WX_PAGER_MJ_PGNO(x) ((PENDING_BYTE/(x))+1)
 
 #ifdef __cplusplus
 }  /* End of the 'extern "C"' block */

@@ -11,12 +11,16 @@ void sqlite3_activate_see(const char *info)
 // Free the encryption data structure associated with a pager instance.
 // (called from the modified code in pager.c) 
 extern "C"
-void sqlite3pager_free_codecarg(void *pCodecArg)
+void sqlite3CodecFree(void *pCodecArg)
 {
   if (pCodecArg)
   {
     delete (Codec*) pCodecArg;
   }
+}
+
+void sqlite3CodecSizeChange(void *pArg, int pageSize, int reservedSize)
+{
 }
 
 // Encrypt/Decrypt functionality, called by pager.c
@@ -77,7 +81,17 @@ void* sqlite3Codec(void* pCodecArg, void* data, Pgno nPageNum, int nMode)
   return data;
 }
 
-extern "C" void* sqlite3pager_get_codecarg(Pager *pPager);
+extern "C" void* mySqlite3PagerGetCodec(
+  Pager *pPager
+);
+
+extern "C" void mySqlite3PagerSetCodec(
+  Pager *pPager,
+  void *(*xCodec)(void*,void*,Pgno,int),
+  void (*xCodecSizeChng)(void*,int,int),
+  void (*xCodecFree)(void*),
+  void *pCodec
+);
 
 extern "C"
 int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
@@ -91,19 +105,23 @@ int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
     // No key specified
     if (nDb != 0 && nKey < 0)
     {
-      Codec* mainCodec = (Codec*) sqlite3pager_get_codecarg(sqlite3BtreePager(db->aDb[0].pBt));
+      Codec* mainCodec = (Codec*) mySqlite3PagerGetCodec(sqlite3BtreePager(db->aDb[0].pBt));
       // Attached database, therefore use the key of main database, if main database is encrypted
       if (mainCodec != NULL && mainCodec->IsEncrypted())
       {
         codec->Copy(*mainCodec);
         codec->SetBtree(db->aDb[nDb].pBt);
+#if (SQLITE_VERSION_NUMBER >= 3006016)
+        mySqlite3PagerSetCodec(sqlite3BtreePager(db->aDb[nDb].pBt), sqlite3Codec, sqlite3CodecSizeChange, sqlite3CodecFree, codec);
+#else
 #if (SQLITE_VERSION_NUMBER >= 3003014)
         sqlite3PagerSetCodec(sqlite3BtreePager(db->aDb[nDb].pBt), sqlite3Codec, codec);
 #else
         sqlite3pager_set_codec(sqlite3BtreePager(db->aDb[nDb].pBt), sqlite3Codec, codec);
 #endif
         db->aDb[nDb].pAux = codec;
-        db->aDb[nDb].xFreeAux = sqlite3pager_free_codecarg;
+        db->aDb[nDb].xFreeAux = sqlite3CodecFree;
+#endif
       }
       else
       {
@@ -121,13 +139,17 @@ int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
     codec->GenerateReadKey((const char*) zKey, nKey);
     codec->CopyKey(true);
     codec->SetBtree(db->aDb[nDb].pBt);
+#if (SQLITE_VERSION_NUMBER >= 3006016)
+    mySqlite3PagerSetCodec(sqlite3BtreePager(db->aDb[nDb].pBt), sqlite3Codec, sqlite3CodecSizeChange, sqlite3CodecFree, codec);
+#else
 #if (SQLITE_VERSION_NUMBER >= 3003014)
     sqlite3PagerSetCodec(sqlite3BtreePager(db->aDb[nDb].pBt), sqlite3Codec, codec);
 #else
     sqlite3pager_set_codec(sqlite3BtreePager(db->aDb[nDb].pBt), sqlite3Codec, codec);
 #endif
     db->aDb[nDb].pAux = codec;
-    db->aDb[nDb].xFreeAux = sqlite3pager_free_codecarg;
+    db->aDb[nDb].xFreeAux = sqlite3CodecFree;
+#endif
   }
   return SQLITE_OK;
 }
@@ -155,7 +177,7 @@ int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
   int rc = SQLITE_ERROR;
   Btree* pbt = db->aDb[0].pBt;
   Pager* pPager = sqlite3BtreePager(pbt);
-  Codec* codec = (Codec*) sqlite3pager_get_codecarg(pPager);
+  Codec* codec = (Codec*) mySqlite3PagerGetCodec(pPager);
 
   if ((zKey == NULL || nKey == 0) && (codec == NULL || !codec->IsEncrypted()))
   {
@@ -175,13 +197,17 @@ int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
     codec->SetHasWriteKey(true);
     codec->GenerateWriteKey((const char*) zKey, nKey);
     codec->SetBtree(pbt);
+#if (SQLITE_VERSION_NUMBER >= 3006016)
+    mySqlite3PagerSetCodec(pPager, sqlite3Codec, sqlite3CodecSizeChange, sqlite3CodecFree, codec);
+#else
 #if (SQLITE_VERSION_NUMBER >= 3003014)
     sqlite3PagerSetCodec(pPager, sqlite3Codec, codec);
 #else
     sqlite3pager_set_codec(pPager, sqlite3Codec, codec);
 #endif
     db->aDb[0].pAux = codec;
-    db->aDb[0].xFreeAux = sqlite3pager_free_codecarg;
+    db->aDb[0].xFreeAux = sqlite3CodecFree;
+#endif
   }
   else if (zKey == NULL || nKey == 0)
   {
@@ -214,7 +240,7 @@ int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
     Pgno nPage = sqlite3pager_pagecount(pPager);
 #endif
     int pageSize = sqlite3BtreeGetPageSize(pbt);
-    Pgno nSkip = PAGER_MJ_PGNO(pageSize);
+    Pgno nSkip = WX_PAGER_MJ_PGNO(pageSize);
 #if (SQLITE_VERSION_NUMBER >= 3003014)
     DbPage *pPage;
 #else
@@ -283,6 +309,9 @@ int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
   if (!codec->IsEncrypted())
   {
     // Remove codec for unencrypted database
+#if (SQLITE_VERSION_NUMBER >= 3006016)
+    mySqlite3PagerSetCodec(pPager, NULL, NULL, NULL, NULL);
+#else
 #if (SQLITE_VERSION_NUMBER >= 3003014)
     sqlite3PagerSetCodec(pPager, NULL, NULL);
 #else
@@ -290,7 +319,8 @@ int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
 #endif
     db->aDb[0].pAux = NULL;
     db->aDb[0].xFreeAux = NULL;
-    sqlite3pager_free_codecarg(codec);
+    sqlite3CodecFree(codec);
+#endif
   }
   return rc;
 }
