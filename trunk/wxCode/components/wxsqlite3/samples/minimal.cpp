@@ -260,7 +260,9 @@ int Minimal::OnRun()
   MyAuthorizer myAuthorizer;
   MyCallback myCallback;
   MyCollation myCollation;
+#if wxUSE_REGEX
   wxSQLite3RegExpOperator myRegExpOp;
+#endif
 
   try
   {
@@ -462,6 +464,7 @@ int Minimal::OnRun()
       cout << (const char*)(q2.GetString(0).mb_str()) << endl;
     }
 
+#if wxUSE_REGEX
     db.CreateFunction(_T("regexp"), 2, myRegExpOp);
 
     cout << endl << "Regular expression test" << endl;
@@ -471,6 +474,7 @@ int Minimal::OnRun()
     {
       cout << (const char*)(q3.GetString(0).mb_str()) << endl;
     }
+#endif
 
     // Test storing/retrieving some binary data, checking
     // it afterwards to make sure it is the same
