@@ -2228,6 +2228,7 @@ private:
   wxSQLite3Database* m_database; ///< Pointer to the associated database (no ownership)
 };
 
+#if wxUSE_REGEX
 
 /// User defined function for REGEXP operator
 /**
@@ -2254,6 +2255,7 @@ private:
   int      m_flags;   ///< Flags for regular expression
 };
 
+#endif // wxUSE_REGEX
 
 #endif
 
