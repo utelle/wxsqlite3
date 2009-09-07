@@ -1343,6 +1343,13 @@ wxSQLite3Statement::~wxSQLite3Statement()
 
 wxSQLite3Statement& wxSQLite3Statement::operator=(const wxSQLite3Statement& statement)
 {
+  try
+  {
+    Finalize();
+  }
+  catch (...)
+  {
+  }
   m_db = statement.m_db;
   m_stmt = statement.m_stmt;
   // Only one object can own prepared statement
