@@ -30,14 +30,14 @@ using namespace std;
 
 wxSQLite3Database* initDB(void)
 {
-	wxString testDBName = wxGetCwd() + _T("/test2.db");
+	wxString testDBName = wxGetCwd() + wxT("/test2.db");
 	if (wxFileExists(testDBName))
 	{
 		wxRemoveFile(testDBName);
 	}
 	wxSQLite3Database* db = new wxSQLite3Database();
 	db->Open(testDBName);
-	db->ExecuteUpdate(_T("CREATE TABLE test (col1 INTEGER)"));
+	db->ExecuteUpdate(wxT("CREATE TABLE test (col1 INTEGER)"));
 	return db;
 }
 
@@ -57,7 +57,7 @@ void testTransaction()
 		wxSQLite3Transaction t(db);
     cout << "AutoCommit? " << !db->GetAutoCommit() << endl;
 		cout << "Transaction active? " << t.IsActive() << endl;
-		db->ExecuteUpdate(_T("INSERT INTO test (col1) VALUES (2)"));
+		db->ExecuteUpdate(wxT("INSERT INTO test (col1) VALUES (2)"));
 		t.Commit();
     cout << "AutoCommit? " << db->GetAutoCommit() << endl;
 		cout << "Transaction not active? " << !t.IsActive() << endl;
@@ -67,7 +67,7 @@ void testTransaction()
 		cout << "Exception should not happen here" << endl;
 	}
 	// Check whether value exists in table
-	wxSQLite3ResultSet set = db->ExecuteQuery(_T("SELECT * FROM test"));
+	wxSQLite3ResultSet set = db->ExecuteQuery(wxT("SELECT * FROM test"));
 	
 	int count = 0;
 	while (set.NextRow())
@@ -128,13 +128,13 @@ public:
 
     // Allocate a wxString instance in the first aggregate step
     if (*acc == NULL) {
-      *acc = new wxString(_T(""));
+      *acc = new wxString(wxT(""));
     }
 
     // Concatenate all arguments
     for (int i = 0; i < ctx.GetArgCount(); i++) {
        (*acc)->Append(ctx.GetString(i));
-       (*acc)->Append(_T(" "));
+       (*acc)->Append(wxT(" "));
     }
   }
 
@@ -254,7 +254,7 @@ int Minimal::OnExit()
 
 int Minimal::OnRun()
 {
-  const wxString dbFile = wxGetCwd() + _T("/test.db");
+  const wxString dbFile = wxGetCwd() + wxT("/test.db");
 
   MyAggregateFunction myAggregate;
   MyAuthorizer myAuthorizer;
@@ -271,29 +271,30 @@ int Minimal::OnRun()
     time_t tmStart, tmEnd;
     wxSQLite3Database db;
 
-    cout << "SQLite3 Version: " << (const char*) db.GetVersion().mb_str(wxConvUTF8) << endl;
+    cout << "SQLite3 Version:   " << (const char*) db.GetVersion().mb_str(wxConvUTF8) << endl;
+    cout << "SQLite3 Source Id: " << (const char*) db.GetSourceId().mb_str(wxConvUTF8) << endl;
 
     wxRemoveFile(dbFile);
     if (wxSQLite3Database::HasEncryptionSupport())
     {
-      db.Open(dbFile, wxString(_T("password")));
+      db.Open(dbFile, wxString(wxT("password")));
     }
     else
     {
       db.Open(dbFile);
     }
 
-    cout << endl << "emp table exists=" << (db.TableExists(_T("EmP")) ? "TRUE":"FALSE") << endl;
+    cout << endl << "emp table exists=" << (db.TableExists(wxT("EmP")) ? "TRUE":"FALSE") << endl;
     cout << endl << "Creating emp table" << endl;
-    db.ExecuteUpdate(_T("create table emp(empno int, empname char(20), salary double);"));
-    cout << endl << "emp table exists=" << (db.TableExists(_T("emp")) ? "TRUE":"FALSE") << endl;
+    db.ExecuteUpdate(wxT("create table emp(empno int, empname char(20), salary double);"));
+    cout << endl << "emp table exists=" << (db.TableExists(wxT("emp")) ? "TRUE":"FALSE") << endl;
     
     // Attach the current database under different name and
     // check table existance in any open database.
     // The table emp will be found in 'main' and in 'dbattached'
-    db.ExecuteUpdate(wxString(_T("attach database '")) + dbFile + wxString(_T("' as dbattached")));
+    db.ExecuteUpdate(wxString(wxT("attach database '")) + dbFile + wxString(wxT("' as dbattached")));
     wxArrayString databaseList;
-    db.TableExists(_T("emp"), databaseList);
+    db.TableExists(wxT("emp"), databaseList);
     size_t j;
     cout << endl << "emp table exists in the following databases:" << endl;
     for (j = 0; j < databaseList.GetCount(); j++)
@@ -301,14 +302,14 @@ int Minimal::OnRun()
       cout << j << ": " << (const char*) databaseList.Item(j).mb_str(wxConvUTF8) << endl;
     }
 
-    db.ExecuteUpdate(_T("detach database dbattached"));
+    db.ExecuteUpdate(wxT("detach database dbattached"));
 
     // Execute some DML, and print number of rows affected by each one
 
     db.SetUpdateHook(&myCallback);
 
     cout << endl << "DML tests" << endl;
-    wxString insertCmd(_T("insert into emp values (7, 'Franz Beckenbauer', 2000.10);"));
+    wxString insertCmd(wxT("insert into emp values (7, 'Franz Beckenbauer', 2000.10);"));
     int nRows = db.ExecuteUpdate(insertCmd);
     cout << nRows << " rows inserted" << endl;
 
@@ -378,7 +379,7 @@ int Minimal::OnRun()
       bool notNull;
       bool primaryKey;
       bool autoIncrement;
-      db.GetMetaData(wxEmptyString, _T("emp"), _T("empname"), &dataType, &collation, &notNull, &primaryKey, &autoIncrement);
+      db.GetMetaData(wxEmptyString, wxT("emp"), wxT("empname"), &dataType, &collation, &notNull, &primaryKey, &autoIncrement);
       cout << "Meta data of table 'emp', column 'empname'" << endl 
            << "Data type: " << (const char*) dataType.mb_str(wxConvUTF8)
            << ", Collation: " << (const char*) collation.mb_str(wxConvUTF8)
@@ -454,7 +455,7 @@ int Minimal::OnRun()
       cout << endl;
     }
 
-    db.CreateFunction(_T("myagg"), 1, myAggregate);
+    db.CreateFunction(wxT("myagg"), 1, myAggregate);
 
     cout << endl << "Select statement test" << endl;
     wxSQLite3ResultSet q2 = db.ExecuteQuery("select myagg(empname) from emp order by 1;");
@@ -465,7 +466,7 @@ int Minimal::OnRun()
     }
 
 #if wxUSE_REGEX
-    db.CreateFunction(_T("regexp"), 2, myRegExpOp);
+    db.CreateFunction(wxT("regexp"), 2, myRegExpOp);
 
     cout << endl << "Regular expression test" << endl;
     wxSQLite3ResultSet q3 = db.ExecuteQuery("select empname from emp where empname regexp '^[A-Z].*$' order by 1;");
@@ -498,8 +499,8 @@ int Minimal::OnRun()
     if (q.NextRow())
     {
       int blobLen;
-      const wxString columnName(_T("data"));
-      pbin = q.GetBlob(wxString(_T("data")),blobLen);
+      const wxString columnName(wxT("data"));
+      pbin = q.GetBlob(wxString(wxT("data")),blobLen);
       cout << "Retrieved binary Length: " << blobLen << endl;
     }
 
@@ -542,11 +543,11 @@ int Minimal::OnRun()
     cout << tmEnd-tmStart << " seconds" << endl;
 
     cout << endl << "User Defined Collation Sequence Test" << endl;
-    db.SetCollation(_T("reversed"), &myCollation);
-    db.ExecuteUpdate(_T("create table testcol(textcol char(20) collate reversed);"));
-    db.ExecuteUpdate(_T("insert into testcol values ('anton');"));
-    db.ExecuteUpdate(_T("insert into testcol values ('berta');"));
-    db.ExecuteUpdate(_T("insert into testcol values ('cesar');"));
+    db.SetCollation(wxT("reversed"), &myCollation);
+    db.ExecuteUpdate(wxT("create table testcol(textcol char(20) collate reversed);"));
+    db.ExecuteUpdate(wxT("insert into testcol values ('anton');"));
+    db.ExecuteUpdate(wxT("insert into testcol values ('berta');"));
+    db.ExecuteUpdate(wxT("insert into testcol values ('cesar');"));
 
     wxSQLite3ResultSet q4 = db.ExecuteQuery("select textcol from testcol order by 1 desc;");
 
@@ -560,20 +561,20 @@ int Minimal::OnRun()
       cout << endl << "Backup and restore database" << endl;
       if (wxSQLite3Database::HasEncryptionSupport())
       {
-        db.Backup(wxGetCwd() + _T("/test-backup.db"), _T("password"));
+        db.Backup(wxGetCwd() + wxT("/test-backup.db"), wxT("password"));
       }
       else
       {
-        db.Backup(wxGetCwd() + _T("/test-backup.db"));
+        db.Backup(wxGetCwd() + wxT("/test-backup.db"));
       }
       cout << endl << "... backup completed." << endl;
       if (wxSQLite3Database::HasEncryptionSupport())
       {
-        db.Restore(wxGetCwd() + _T("/test-backup.db"), _T("password"));
+        db.Restore(wxGetCwd() + wxT("/test-backup.db"), wxT("password"));
       }
       else
       {
-        db.Restore(wxGetCwd() + _T("/test-backup.db"));
+        db.Restore(wxGetCwd() + wxT("/test-backup.db"));
       }
       cout << endl << "... restore completed." << endl;
     }
@@ -587,9 +588,9 @@ int Minimal::OnRun()
     if (wxSQLite3Database::HasIncrementalBlobSupport())
     {
       cout << endl << "Incremental BLOB test" << endl;
-      db.ExecuteUpdate(_T("create table testblob(blobkey int, blobdata blob);"));
-      db.ExecuteUpdate(_T("insert into testblob values (1, zeroblob(100));"));
-      wxSQLite3Blob incBlob = db.GetWritableBlob(1, _T("blobdata"), _T("testblob"));
+      db.ExecuteUpdate(wxT("create table testblob(blobkey int, blobdata blob);"));
+      db.ExecuteUpdate(wxT("insert into testblob values (1, zeroblob(100));"));
+      wxSQLite3Blob incBlob = db.GetWritableBlob(1, wxT("blobdata"), wxT("testblob"));
       int blobSize = incBlob.GetSize();
       int offset = 12;
       wxMemoryBuffer memBuffer;
@@ -597,7 +598,7 @@ int Minimal::OnRun()
       memBuffer.AppendData(myData, strlen(myData)+1);
       incBlob.Write(memBuffer, 12);
       incBlob.Finalize();
-      incBlob = db.GetReadOnlyBlob(1, _T("blobdata"), _T("testblob"));
+      incBlob = db.GetReadOnlyBlob(1, wxT("blobdata"), wxT("testblob"));
       incBlob.Read(memBuffer, (int) strlen(myData)+1, 12);
       incBlob.Finalize();
       char* readBlobData = (char*) memBuffer.GetData();
@@ -617,6 +618,8 @@ int Minimal::OnRun()
     testTransaction();
 
     cout << endl << "End of tests" << endl;
+    db.Close();
+    // Before shutdown of SQLite ALL database connections should be closed.
     wxSQLite3Database::ShutdownSQLite();
   }
   catch (wxSQLite3Exception& e)

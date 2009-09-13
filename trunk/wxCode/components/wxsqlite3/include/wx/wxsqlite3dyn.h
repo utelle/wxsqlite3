@@ -127,6 +127,9 @@ DYNFUNC(;, void,                       sqlite3_result_zeroblob,       (sqlite3_c
 DYNFUNC(return, void *,                sqlite3_rollback_hook,         (sqlite3 *db, void (*xCallback)(void*), void *pArg), (db, xCallback, pArg));
 DYNFUNC(return, int,                   sqlite3_set_authorizer,        (sqlite3 *db, int (*xAuth)(void*,int,const char*,const char*,const char*,const char*), void *pArg), (db, xAuth, pArg));
 // DYNFUNC(;, void,                       sqlite3_set_auxdata,           (sqlite3_context *pCtx, int iArg, void *pAux, void (*xDelete)(void*)), (pCtx, iArg, pAux, xDelete));
+#if SQLITE_VERSION_NUMBER >= 3006018
+DYNFUNC(return, const char *,          sqlite3_sourceid,              (void), ());
+#endif
 #if SQLITE_VERSION_NUMBER >= 3006000
 DYNFUNC(return, int,                   sqlite3_shutdown,              (void), ());
 #endif

@@ -147,6 +147,7 @@ sqlite3_shutdown
 sqlite3_sleep
 sqlite3_snprintf
 sqlite3_soft_heap_limit
+sqlite3_sourceid
 sqlite3_sql
 sqlite3_status
 sqlite3_step

@@ -57,8 +57,17 @@ enum wxSQLite3LimitType
   WXSQLITE_LIMIT_FUNCTION_ARG        = 6,
   WXSQLITE_LIMIT_ATTACHED            = 7,
   WXSQLITE_LIMIT_LIKE_PATTERN_LENGTH = 8,
-  WXSQLITE_LIMIT_VARIABLE_NUMBER     = 9
+  WXSQLITE_LIMIT_VARIABLE_NUMBER     = 9,
+  WXSQLITE_LIMIT_TRIGGER_DEPTH       = 10
 };
+
+#define WXSQLITE_OPEN_READONLY         0x00000001
+#define WXSQLITE_OPEN_READWRITE        0x00000002
+#define WXSQLITE_OPEN_CREATE           0x00000004
+#define WXSQLITE_OPEN_NOMUTEX          0x00008000
+#define WXSQLITE_OPEN_FULLMUTEX        0x00010000
+#define WXSQLITE_OPEN_SHAREDCACHE      0x00020000
+#define WXSQLITE_OPEN_PRIVATECACHE     0x00040000
 
 inline void operator++(wxSQLite3LimitType& value)
 {
@@ -1450,8 +1459,11 @@ public:
   * If the database file does not exist, then a new database will be created as needed.
   * \param[in] fileName Name of the database file.
   * \param[in] key Database encryption key.
+  * \param[in] flags Control over the database connection (see http://www.sqlite.org/c3ref/open.html for further information).
+  * Flag values are prefixed by WX to distinguish them from the original SQLite flag values.
   */
-  void Open(const wxString& fileName, const wxString& key = wxEmptyString);
+  void Open(const wxString& fileName, const wxString& key = wxEmptyString, 
+            int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE);
 
   /// Open a SQLite3 database using a binary key
   /**
@@ -1460,8 +1472,11 @@ public:
   * If the database file does not exist, then a new database will be created as needed.
   * \param[in] fileName Name of the database file.
   * \param[in] key Database encryption key.
+  * \param[in] flags Control over the database connection (see http://www.sqlite.org/c3ref/open.html for further information).
+  * Flag values are prefixed by WX to distinguish them from the original SQLite flag values.
   */
-  void Open(const wxString& fileName, const wxMemoryBuffer& key);
+  void Open(const wxString& fileName, const wxMemoryBuffer& key,
+            int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE);
 
   /// Check whether the database has been opened
   /**
@@ -1948,7 +1963,7 @@ public:
   * \param fileName Name of the shared library containing extension.
   * \param entryPoint Name of the entry point.
   */
-  void LoadExtension(const wxString& fileName, const wxString& entryPoint = _T("sqlite3_extension_init"));
+  void LoadExtension(const wxString& fileName, const wxString& entryPoint = wxT("sqlite3_extension_init"));
 
   /// Enable or disable loading of database extensions
   /**
@@ -2060,6 +2075,12 @@ public:
   * \return a string which contains the version number of the library
   */
   static wxString GetVersion();
+
+  /// Get the source id of the underlying SQLite3 library
+  /**
+  * \return a string which contains the source id of the library
+  */
+  static wxString GetSourceId();
 
   /// Check whether wxSQLite3 has been compiled with encryption support
   /**
