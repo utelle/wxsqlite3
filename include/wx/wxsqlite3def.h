@@ -44,6 +44,8 @@
 //              2009-02-21  - Upgrade to SQLite3 version 3.6.11
 //                            Added user defined function class for REGEXP operator
 //                            Added support for SQLite backup/restore API
+//              2009-09-12  - Upgrade to SQLite3 version 3.6.18
+//                            Fixed a potential memory leak in wxSQLite3Statement class
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -87,6 +89,17 @@
 
 <dl>
 
+<dt><b>1.9.6</b> - <i>September 2009</i></dt>
+<dd>
+Upgrade to SQLite version 3.6.18<br>
+Added method to get the SQLite library source id<br>
+Added flags parameter to wxSQLite3Database::Open to allow additional control over the database
+connection (see http://www.sqlite.org/c3ref/open.html for further information)<br>
+Fixed a potential memory leak in wxSQLite3Statement class<br>
+Converted encryption extension from C++ to pure C to make it
+compatible with the SQLite amalgamation.<br>
+
+</dd>
 <dt><b>1.9.5</b> - <i>February 2009</i></dt>
 <dd>
 Upgrade to SQLite version 3.6.11<br>
