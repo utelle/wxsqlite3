@@ -127,8 +127,9 @@ const wxChar* wxERRMSG_SHARED_CACHE  = wxTRANSLATE("Setting SQLite shared cache 
 const wxChar* wxERRMSG_INITIALIZE    = wxTRANSLATE("Initialization of SQLite failed");
 const wxChar* wxERRMSG_SHUTDOWN      = wxTRANSLATE("Shutdown of SQLite failed");
 
-const wxChar* wxERRMSG_SOURCEDB_BUSY = wxTRANSLATE("Source database is busy");
-const wxChar* wxERRMSG_DBOPEN_FAILED = wxTRANSLATE("Database open failed");
+const wxChar* wxERRMSG_SOURCEDB_BUSY   = wxTRANSLATE("Source database is busy");
+const wxChar* wxERRMSG_DBOPEN_FAILED   = wxTRANSLATE("Database open failed");
+const wxChar* wxERRMSG_DBASSIGN_FAILED = wxTRANSLATE("Database assignment failed");
 
 // ----------------------------------------------------------------------------
 // inline conversion from UTF8 strings to wxStringe
@@ -348,20 +349,23 @@ wxSQLite3ResultSet::~wxSQLite3ResultSet()
 
 wxSQLite3ResultSet& wxSQLite3ResultSet::operator=(const wxSQLite3ResultSet& resultSet)
 {
-  try
+  if (this != &resultSet)
   {
-    Finalize();
+    try
+    {
+      Finalize();
+    }
+    catch (...)
+    {
+    }
+    m_stmt = resultSet.m_stmt;
+    // Only one object can own the statement
+    const_cast<wxSQLite3ResultSet&>(resultSet).m_stmt = 0;
+    m_eof = resultSet.m_eof;
+    m_first = resultSet.m_first;
+    m_cols = resultSet.m_cols;
+    m_ownStmt = resultSet.m_ownStmt;
   }
-  catch (...)
-  {
-  }
-  m_stmt = resultSet.m_stmt;
-  // Only one object can own the statement
-  const_cast<wxSQLite3ResultSet&>(resultSet).m_stmt = 0;
-  m_eof = resultSet.m_eof;
-  m_first = resultSet.m_first;
-  m_cols = resultSet.m_cols;
-  m_ownStmt = resultSet.m_ownStmt;
   return *this;
 }
 
@@ -912,19 +916,22 @@ wxSQLite3Table::~wxSQLite3Table()
 
 wxSQLite3Table& wxSQLite3Table::operator=(const wxSQLite3Table& table)
 {
-  try
+  if (this != &table)
   {
-    Finalize();
+    try
+    {
+      Finalize();
+    }
+    catch (...)
+    {
+    }
+    m_results = table.m_results;
+    // Only one object can own the results
+    const_cast<wxSQLite3Table&>(table).m_results = 0;
+    m_rows = table.m_rows;
+    m_cols = table.m_cols;
+    m_currentRow = table.m_currentRow;
   }
-  catch (...)
-  {
-  }
-  m_results = table.m_results;
-  // Only one object can own the results
-  const_cast<wxSQLite3Table&>(table).m_results = 0;
-  m_rows = table.m_rows;
-  m_cols = table.m_cols;
-  m_currentRow = table.m_currentRow;
   return *this;
 }
 
@@ -1343,17 +1350,20 @@ wxSQLite3Statement::~wxSQLite3Statement()
 
 wxSQLite3Statement& wxSQLite3Statement::operator=(const wxSQLite3Statement& statement)
 {
-  try
+  if (this != &statement)
   {
-    Finalize();
+    try
+    {
+      Finalize();
+    }
+    catch (...)
+    {
+    }
+    m_db = statement.m_db;
+    m_stmt = statement.m_stmt;
+    // Only one object can own prepared statement
+    const_cast<wxSQLite3Statement&>(statement).m_stmt = 0;
   }
-  catch (...)
-  {
-  }
-  m_db = statement.m_db;
-  m_stmt = statement.m_stmt;
-  // Only one object can own prepared statement
-  const_cast<wxSQLite3Statement&>(statement).m_stmt = 0;
   return *this;
 }
 
@@ -1721,20 +1731,22 @@ wxSQLite3Blob::wxSQLite3Blob(const wxSQLite3Blob& blob)
 
 wxSQLite3Blob& wxSQLite3Blob::operator=(const wxSQLite3Blob& blob)
 {
-  try
+  if (this != &blob)
   {
-    Finalize();
+    try
+    {
+      Finalize();
+    }
+    catch (...)
+    {
+    }
+    m_db   = blob.m_db;
+    m_blob = blob.m_blob;
+    m_ok   = blob.m_ok;
+    m_writable = blob.m_writable;
+    // only one blob can own the blob handle
+    const_cast<wxSQLite3Blob&>(blob).m_ok = false;
   }
-  catch (...)
-  {
-  }
-  m_db   = blob.m_db;
-  m_blob = blob.m_blob;
-  m_ok   = blob.m_ok;
-  m_writable = blob.m_writable;
-  // only one blob can own the blob handle
-  const_cast<wxSQLite3Blob&>(blob).m_ok = false;
-
   return *this;
 }
 
@@ -1972,9 +1984,19 @@ wxSQLite3Database::~wxSQLite3Database()
 
 wxSQLite3Database& wxSQLite3Database::operator=(const wxSQLite3Database& db)
 {
-  m_db = db.m_db;
-  m_busyTimeoutMs = 60000; // 60 seconds
-  m_isEncrypted = db.m_isEncrypted;
+  if (this != &db)
+  {
+    if (m_db == 0)
+    {
+      m_db = db.m_db;
+      m_busyTimeoutMs = 60000; // 60 seconds
+      m_isEncrypted = db.m_isEncrypted;
+    }
+    else
+    {
+      throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_DBASSIGN_FAILED);
+    }
+  }
   return *this;
 }
 
