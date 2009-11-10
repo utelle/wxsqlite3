@@ -1,12 +1,19 @@
 <?xml version="1.0" ?>
 <makefile>
 
+<!--
+  <set var="USE_UNSTABLE_VERSION">1</set>
+  <set var="WX_VERSION_DEFAULT">29</set>
+-->
+
   <set var="WX_VERSION_DEFAULT">28</set>
 <!--  <set var="WX_UNICODE_DEFAULT">1</set>-->
   <include file="presets/wxcode.bkl"/>
 
   <!-- The wxSQLite3 settings -->
   <!-- ====================== -->
+
+  <set var="COMP_NAME">wxsqlite3</set>
 
   <!-- COMP_SRC lists the component's sources with path relative to ../src -->
   <set var="COMP_SRC">
@@ -21,8 +28,6 @@
 	include/wx/wxsqlite3opt.h
   </set>
   
-  <set var="COMP_NAME">wxsqlite3</set>
-
   <set var="USE_DYNAMIC_SQLITE3_LOAD_DEFAULT">0</set>
   <set var="HAVE_METADATA_DEFAULT">0</set>
   <set var="HAVE_CODEC_DEFAULT">0</set>
@@ -93,7 +98,7 @@
   <!-- Library settings                                                  -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-  <lib id="wxsqlite3_lib" template="wxcode-lib" cond="SHARED=='0'">
+  <lib id="wxsqlite3_lib" template="wxcode-lib" cond="WX_SHARED=='0'">
     <define>$(SQLITE3_DYNAMICLOAD_DEF)</define>
     <define>$(SQLITE3_HAVE_METADATA_DEF)</define>
     <define>$(SQLITE3_HAVE_CODEC_DEF)</define>
@@ -101,7 +106,7 @@
     <stdlib>$(SQLITE3_DIR)</stdlib>
   </lib>
 
-  <dll id="wxsqlite3_dll" template="wxcode-dll" cond="SHARED=='1'">
+  <dll id="wxsqlite3_dll" template="wxcode-dll" cond="WX_SHARED=='1'">
     <define>$(SQLITE3_DYNAMICLOAD_DEF)</define>
     <define>$(SQLITE3_HAVE_METADATA_DEF)</define>
     <define>$(SQLITE3_HAVE_CODEC_DEF)</define>
@@ -115,6 +120,12 @@
     wxsqlite3=wxsqlite3_lib+wxsqlite3_dll
   </set>
 
+  <set var="COMPONENT_LIB">
+    <if cond="FORMAT_SUPPORTS_CONDITIONS=='1' and WX_SHARED=='0'">wxsqlite3_lib</if>
+    <if cond="FORMAT_SUPPORTS_CONDITIONS=='1' and WX_SHARED=='1'">wxsqlite3_dll</if>
+    <if cond="FORMAT_SUPPORTS_CONDITIONS=='0'">wxsqlite3_lib</if>
+  </set>
+
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- Sample(s) settings                                                -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -125,7 +136,7 @@
     <headers>$(fileList('samples/*.h'))</headers>
     <include>$(SRCDIR)/samples</include>
     <dirname>$(SRCDIR)/samples</dirname>
-    <library>wxsqlite3_lib</library>
+    <library>$(COMPONENT_LIB)</library>
     <stdlib>$(SQLITE3_DIR)</stdlib>
     <sys-lib>$(SQLITE3_DEP)</sys-lib>
     <wx-lib>base</wx-lib>
