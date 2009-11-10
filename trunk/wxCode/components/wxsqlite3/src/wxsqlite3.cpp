@@ -2388,6 +2388,31 @@ void wxSQLite3Database::GetDatabaseList(wxArrayString& databaseNames, wxArrayStr
   }
 }
 
+bool wxSQLite3Database::EnableForeignKeySupport(bool enable)
+{
+  if (enable)
+  {
+    ExecuteUpdate("PRAGMA foreign_keys=ON;");
+  }
+  else
+  {
+    ExecuteUpdate("PRAGMA foreign_keys=OFF;");
+  }
+  bool enabled = IsForeignKeySupportEnabled();
+  return (enable && enabled) || (!enable && !enabled);
+}
+
+bool wxSQLite3Database::IsForeignKeySupportEnabled()
+{
+  bool enabled = false;
+  wxSQLite3ResultSet resultSet = ExecuteQuery("PRAGMA foreign_keys;");
+  if (resultSet.NextRow())
+  {
+    enabled = (resultSet.GetInt(0) == 1);
+  }
+  return enabled;
+}
+
 bool wxSQLite3Database::CheckSyntax(const wxString& sql)
 {
   wxCharBuffer strSql = wxConvUTF8.cWC2MB(sql.wc_str(*wxConvCurrent));

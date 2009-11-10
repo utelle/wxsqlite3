@@ -1676,6 +1676,24 @@ public:
   */
   void GetDatabaseList(wxArrayString& databaseNames, wxArrayString& databaseFiles);
 
+  /// Enable or disable foreign key support
+  /**
+  * Starting with SQLite version 3.6.19 foreign key constraints can be enforced.
+  * Foreign key constraints are disabled by default (for backwards compatibility),
+  * so they must be enabled separately for each database connection.
+  * \note Future releases of SQLite might change so that foreign key constraints
+  * are enabled by default. No assumptions should be made about whether or not
+  * foreign keys are enabled by default
+  * \return TRUE if the requested action succeeded, FALSE otherwise
+  */
+  bool EnableForeignKeySupport(bool enable);
+
+  /// Check whether foreign key support is enabled for this database
+  /**
+  * \return TRUE if foreign key support is enabled, FALSE otherwise
+  */
+  bool IsForeignKeySupportEnabled();
+
   /// Check the syntax of an SQL statement given as a wxString
   /**
   * \param sql query string

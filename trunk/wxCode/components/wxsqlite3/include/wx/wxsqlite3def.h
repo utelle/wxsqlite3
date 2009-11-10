@@ -46,6 +46,7 @@
 //                            Added support for SQLite backup/restore API
 //              2009-09-12  - Upgrade to SQLite3 version 3.6.18
 //                            Fixed a potential memory leak in wxSQLite3Statement class
+//              2009-11-07  - Upgrade to SQLite3 version 3.6.20
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -89,6 +90,12 @@
 
 <dl>
 
+<dt><b>1.9.7</b> - <i>November 2009</i></dt>
+<dd>
+Upgrade to SQLite version 3.6.20<br>
+Added methods to query, enable or disable foreign key support<br>
+
+</dd>
 <dt><b>1.9.6</b> - <i>September 2009</i></dt>
 <dd>
 Upgrade to SQLite version 3.6.18<br>
