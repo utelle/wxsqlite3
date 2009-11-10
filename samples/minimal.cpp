@@ -284,6 +284,15 @@ int Minimal::OnRun()
       db.Open(dbFile);
     }
 
+    // Check status of support for foreign key constraints
+    bool foreignKeysEnabled = db.EnableForeignKeySupport(true);
+    cout << endl << "Foreign key constraints are ";
+    if (foreignKeysEnabled)
+      cout << "enabled.";
+    else
+      cout << "not enforced.";
+    cout << endl;
+
     cout << endl << "emp table exists=" << (db.TableExists(wxT("EmP")) ? "TRUE":"FALSE") << endl;
     cout << endl << "Creating emp table" << endl;
     db.ExecuteUpdate(wxT("create table emp(empno int, empname char(20), salary double);"));

@@ -2,14 +2,14 @@ wxSQLite3 component info
 ------------------------
 
 Website:      http://wxcode.sourceforge.net/components/wxsqlite3
-Version:      1.9.6
+Version:      1.9.7
 Description:
 wxSQLite3 is a C++ wrapper around the public domain SQLite 3.x database
 and is specifically designed for use in programs based on the wxWidgets
 library.
 
 wxSQLite3 does not try to hide the underlying database, in contrary
-almost all special features of the current SQLite3 version 3.6.18 are
+almost all special features of the current SQLite3 version 3.6.20 are
 supported, like for example the creation of user defined scalar or
 aggregate functions.
 
@@ -25,6 +25,8 @@ tools operate in Unicode or UTF-8 mode.
 Version history
 ---------------
 
+ 1.9.7 - Upgrade to SQLite version 3.6.20
+         Added methods to query, enable or disable foreign key support
  1.9.6 - Upgrade to SQLite version 3.6.18
          Added method to get the SQLite library source id
          Added flags parameter to wxSQLite3Database::Open to allow
@@ -131,7 +133,7 @@ a) wxMSW
 
 When building on win32, you can use the makefiles in the BUILD folder.
 
-SQLite version 3.6.18 DLL is included. The included link library was
+SQLite version 3.6.20 DLL is included. The included link library was
 built with MS Visual C++ 6. For other compilers it can be necessary to
 regenerate the link library based on the sqlite.def file in the LIB
 folder.
@@ -195,7 +197,7 @@ The autoconf-based systems also support a "make install" target which
 builds the library and then copies the headers of the component to
 /usr/local/include and the lib to /usr/local/lib.
 
-SQLite version 3.6.18 is NOT included. You have to download the current
+SQLite version 3.6.20 is NOT included. You have to download the current
 version of SQLite from http://www.sqlite.org and to install it on your
 system before you can install wxSQLite3.
 
