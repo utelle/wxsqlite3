@@ -130,6 +130,7 @@ const char* wxERRMSG_SHUTDOWN      = wxTRANSLATE("Shutdown of SQLite failed");
 
 const char* wxERRMSG_SOURCEDB_BUSY = wxTRANSLATE("Source database is busy");
 const char* wxERRMSG_DBOPEN_FAILED = wxTRANSLATE("Database open failed");
+const char* wxERRMSG_DBASSIGN_FAILED = wxTRANSLATE("Database assignment failed");
 #else
 const wxChar* wxERRMSG_NODB          = wxTRANSLATE("No Database opened");
 const wxChar* wxERRMSG_NOSTMT        = wxTRANSLATE("Statement not accessible");
