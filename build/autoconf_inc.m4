@@ -102,6 +102,18 @@ dnl ### begin block 20_COND_PLATFORM_WIN32_1[wxsqlite3.bkl] ###
         COND_PLATFORM_WIN32_1=""
     fi
     AC_SUBST(COND_PLATFORM_WIN32_1)
+dnl ### begin block 20_COND_SHARED_0[wxsqlite3.bkl] ###
+    COND_SHARED_0="#"
+    if test "x$SHARED" = "x0" ; then
+        COND_SHARED_0=""
+    fi
+    AC_SUBST(COND_SHARED_0)
+dnl ### begin block 20_COND_SHARED_1[wxsqlite3.bkl] ###
+    COND_SHARED_1="#"
+    if test "x$SHARED" = "x1" ; then
+        COND_SHARED_1=""
+    fi
+    AC_SUBST(COND_SHARED_1)
 dnl ### begin block 20_COND_USE_DYNAMIC_SQLITE3_LOAD_0[wxsqlite3.bkl] ###
     COND_USE_DYNAMIC_SQLITE3_LOAD_0="#"
     if test "x$USE_DYNAMIC_SQLITE3_LOAD" = "x0" ; then
@@ -186,15 +198,3 @@ dnl ### begin block 20_COND_WX_DEBUG_1_WX_UNICODE_1[wxsqlite3.bkl] ###
         COND_WX_DEBUG_1_WX_UNICODE_1=""
     fi
     AC_SUBST(COND_WX_DEBUG_1_WX_UNICODE_1)
-dnl ### begin block 20_COND_WX_SHARED_0[wxsqlite3.bkl] ###
-    COND_WX_SHARED_0="#"
-    if test "x$WX_SHARED" = "x0" ; then
-        COND_WX_SHARED_0=""
-    fi
-    AC_SUBST(COND_WX_SHARED_0)
-dnl ### begin block 20_COND_WX_SHARED_1[wxsqlite3.bkl] ###
-    COND_WX_SHARED_1="#"
-    if test "x$WX_SHARED" = "x1" ; then
-        COND_WX_SHARED_1=""
-    fi
-    AC_SUBST(COND_WX_SHARED_1)

@@ -107,28 +107,28 @@ _BUILDDIR_SHARED_SUFFIX =
 _BUILDDIR_SHARED_SUFFIX = _dll
 !endif
 __wxsqlite3_lib___depname =
-!ifeq WX_SHARED 0
+!ifeq SHARED 0
 __wxsqlite3_lib___depname = &
 	..\lib\wat_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
 !endif
 __wxsqlite3_dll___depname =
-!ifeq WX_SHARED 1
+!ifeq SHARED 1
 __wxsqlite3_dll___depname = &
 	..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll
 !endif
 __COMPONENT_LIB_DEP =
-!ifeq WX_SHARED 0
+!ifeq SHARED 0
 __COMPONENT_LIB_DEP = $(__wxsqlite3_lib___depname)
 !endif
-!ifeq WX_SHARED 1
+!ifeq SHARED 1
 __COMPONENT_LIB_DEP = $(__wxsqlite3_dll___depname)
 !endif
 __COMPONENT_LIB_LIBR =
-!ifeq WX_SHARED 0
+!ifeq SHARED 0
 __COMPONENT_LIB_LIBR = &
 	..\lib\wat_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
 !endif
-!ifeq WX_SHARED 1
+!ifeq SHARED 1
 __COMPONENT_LIB_LIBR = &
 	..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
 !endif
@@ -306,7 +306,7 @@ test_for_selected_wxbuild :
 	@if not exist $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h \
 	exit 1
 
-!ifeq WX_SHARED 0
+!ifeq SHARED 0
 ..\lib\wat_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib :  make_dir_wxsqlite3_lib  $(WXSQLITE3_LIB_OBJECTS)
 	@%create watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\wxsqlite3_lib.lbc
 	@for %i in ($(WXSQLITE3_LIB_OBJECTS)) do @%append watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\wxsqlite3_lib.lbc +%i
@@ -316,7 +316,7 @@ test_for_selected_wxbuild :
 make_dir_wxsqlite3_lib :  
 	if not exist ..\lib\wat_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES) mkdir ..\lib\wat_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)
 
-!ifeq WX_SHARED 1
+!ifeq SHARED 1
 ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll :  make_dir_wxsqlite3_dll  $(WXSQLITE3_DLL_OBJECTS)
 	@%create watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\wxsqlite3_dll.lbc
 	@%append watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\wxsqlite3_dll.lbc option quiet
