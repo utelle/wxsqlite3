@@ -39,15 +39,27 @@ extern "C" {
 
 #include "rijndael.h"
 
+#define CODEC_TYPE_AES128 1
+#define CODEC_TYPE_AES256 2
+
+#ifndef CODEC_TYPE
+#define CODEC_TYPE CODEC_TYPE_AES128
+#endif
+
+#if CODEC_TYPE == CODEC_TYPE_AES256
+#define KEYLENGTH 32
+#define CODEC_SHA_ITER 4001
+#else
 #define KEYLENGTH 16
+#endif
 
 typedef struct _Codec
 {
   int           m_isEncrypted;
   int           m_hasReadKey;
-  unsigned char m_readKey[16];
+  unsigned char m_readKey[KEYLENGTH];
   int           m_hasWriteKey;
-  unsigned char m_writeKey[16];
+  unsigned char m_writeKey[KEYLENGTH];
   Rijndael*     m_aes;
 
   Btree*        m_bt; /* Pointer to B-tree used by DB */
@@ -90,6 +102,10 @@ void CodecRC4(Codec* codec, unsigned char* key, int keylen,
          unsigned char* textout);
 
 void CodecGetMD5Binary(Codec* codec, unsigned char* data, int length, unsigned char* digest);
+
+#if CODEC_TYPE == CODEC_TYPE_AES256
+void CodecGetSHABinary(Codec* codec, unsigned char* data, int length, unsigned char* digest);
+#endif
   
 void CodecGenerateInitialVector(Codec* codec, int seed, unsigned char iv[16]);
 
