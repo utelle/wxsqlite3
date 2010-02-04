@@ -39,6 +39,11 @@
 
 #include "codec.h"
 
+#if CODEC_TYPE == CODEC_TYPE_AES256
+#include "sha2.h"
+#include "sha2.c"
+#endif
+
 /*
 // ----------------
 // MD5 by RSA
@@ -397,12 +402,20 @@ CodecGetMD5Binary(Codec* codec, unsigned char* data, int length, unsigned char* 
   MD5Final(digest,&ctx);
 }
 
+#if CODEC_TYPE == CODEC_TYPE_AES256
+void
+CodecGetSHABinary(Codec* codec, unsigned char* data, int length, unsigned char* digest)
+{
+  sha256(data, (unsigned int) length, digest);
+}
+#endif
+
 #define MODMULT(a, b, c, m, s) q = s / a; s = b * (s - a * q) - c * q; if (s < 0) s += m
 
 void
 CodecGenerateInitialVector(Codec* codec, int seed, unsigned char iv[16])
 {
-  unsigned char initkey[MD5_HASHBYTES];
+  unsigned char initkey[16];
   int j, q;
   int z = seed + 1;
   for (j = 0; j < 4; j++)
@@ -417,13 +430,13 @@ CodecGenerateInitialVector(Codec* codec, int seed, unsigned char iv[16])
 }
 
 void
-CodecAES(Codec* codec, int page, int encrypt, unsigned char encryptionKey[MD5_HASHBYTES],
+CodecAES(Codec* codec, int page, int encrypt, unsigned char encryptionKey[KEYLENGTH],
          unsigned char* datain, int datalen, unsigned char* dataout)
 {
-  unsigned char initial[MD5_HASHBYTES];
-  unsigned char pagekey[MD5_HASHBYTES];
-  unsigned char nkey[MD5_HASHBYTES+4+4];
-  int keyLength = MD5_HASHBYTES;
+  unsigned char initial[16];
+  unsigned char pagekey[KEYLENGTH];
+  unsigned char nkey[KEYLENGTH+4+4];
+  int keyLength = KEYLENGTH;
   int nkeylen = keyLength + 4 + 4;
   int j;
   int direction = (encrypt) ? RIJNDAEL_Direction_Encrypt : RIJNDAEL_Direction_Decrypt;
@@ -444,10 +457,18 @@ CodecAES(Codec* codec, int page, int encrypt, unsigned char encryptionKey[MD5_HA
   nkey[keyLength+6] = 0x6c;
   nkey[keyLength+7] = 0x54;
 
+#if CODEC_TYPE == CODEC_TYPE_AES256
+  CodecGetSHABinary(codec, nkey, nkeylen, pagekey);
+#else
   CodecGetMD5Binary(codec, nkey, nkeylen, pagekey);
+#endif  
   CodecGenerateInitialVector(codec, page, initial);
 
+#if CODEC_TYPE == CODEC_TYPE_AES256
+  RijndaelInit(codec->m_aes, RIJNDAEL_Direction_Mode_CBC, direction, pagekey, RIJNDAEL_Direction_KeyLength_Key32Bytes, initial);
+#else
   RijndaelInit(codec->m_aes, RIJNDAEL_Direction_Mode_CBC, direction, pagekey, RIJNDAEL_Direction_KeyLength_Key16Bytes, initial);
+#endif  
   if (encrypt)
   {
     len = RijndaelBlockEncrypt(codec->m_aes, datain, datalen*8, dataout);
@@ -544,7 +565,7 @@ CodecCopy(Codec* codec, Codec* other)
   codec->m_isEncrypted = other->m_isEncrypted;
   codec->m_hasReadKey  = other->m_hasReadKey;
   codec->m_hasWriteKey = other->m_hasWriteKey;
-  for (j = 0; j < 16; j++)
+  for (j = 0; j < KEYLENGTH; j++)
   {
     codec->m_readKey[j]  = other->m_readKey[j];
     codec->m_writeKey[j] = other->m_writeKey[j];
@@ -559,14 +580,14 @@ CodecCopyKey(Codec* codec, int read2write)
   int j;
   if (read2write)
   {
-    for (j = 0; j < 16; j++)
+    for (j = 0; j < KEYLENGTH; j++)
     {
       codec->m_writeKey[j] = codec->m_readKey[j];
     }
   }
   else
   {
-    for (j = 0; j < 16; j++)
+    for (j = 0; j < KEYLENGTH; j++)
     {
       codec->m_readKey[j] = codec->m_writeKey[j];
     }
@@ -607,6 +628,22 @@ void
 CodecGenerateEncryptionKey(Codec* codec, char* userPassword, int passwordLength, 
                            unsigned char encryptionKey[KEYLENGTH])
 {
+#if CODEC_TYPE == CODEC_TYPE_AES256
+  unsigned char userPad[32];
+  unsigned char digest[KEYLENGTH];
+  int keyLength = KEYLENGTH;
+  int k;
+
+  /* Pad password */
+  CodecPadPassword(codec, userPassword, passwordLength, userPad);
+
+  sha256(userPad, 32, digest);
+  for (k = 0; k < CODEC_SHA_ITER; ++k)
+  {
+    sha256(digest, KEYLENGTH, digest);
+  }
+  memcpy(encryptionKey, digest, keyLength);
+#else
   unsigned char userPad[32];
   unsigned char ownerPad[32];
   unsigned char ownerKey[32];
@@ -659,6 +696,7 @@ CodecGenerateEncryptionKey(Codec* codec, char* userPassword, int passwordLength,
     MD5Final(digest, &ctx);
   }
   memcpy(encryptionKey, digest, keyLength);
+#endif  
 }
 
 void
