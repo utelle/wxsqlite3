@@ -17,6 +17,7 @@
     #pragma interface "wxsqlite3.h"
 #endif
 
+#include <wx/arrstr.h>
 #include <wx/datetime.h>
 #include <wx/buffer.h>
 #include <wx/regex.h>
