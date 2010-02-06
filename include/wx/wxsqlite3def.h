@@ -47,6 +47,7 @@
 //              2009-09-12  - Upgrade to SQLite3 version 3.6.18
 //                            Fixed a potential memory leak in wxSQLite3Statement class
 //              2009-11-07  - Upgrade to SQLite3 version 3.6.20
+//              2010-02-05  - Upgrade to SQLite3 version 3.6.22
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -90,6 +91,13 @@
 
 <dl>
 
+<dt><b>1.9.8</b> - <i>February 2010</i></dt>
+<dd>
+Upgrade to SQLite version 3.6.22<br>
+Fixed a bug when compiling without precompiled header support
+(by including wx/arrstr.h)<br>
+
+</dd>
 <dt><b>1.9.7</b> - <i>November 2009</i></dt>
 <dd>
 Upgrade to SQLite version 3.6.20<br>
