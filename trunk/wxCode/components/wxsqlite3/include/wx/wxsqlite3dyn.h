@@ -16,7 +16,7 @@ DYNFUNC(return, void *,                sqlite3_aggregate_context,     (sqlite3_c
 #if SQLITE_VERSION_NUMBER <= 3006000
 DYNFUNC(return, int,                   sqlite3_aggregate_count,       (sqlite3_context *p), (p));
 #endif
-#if SQLITE_VERSION_NUMBER <= 3006011
+#if SQLITE_VERSION_NUMBER >= 3006011
 DYNFUNC(return, sqlite3_backup*        sqlite3_backup_init            (sqlite3 *pDest, const char *zDestName, sqlite3 *pSource, const char *zSourceName), (pDest, zDestName, pSource, zSourceName));
 DYNFUNC(return, int,                   sqlite3_backup_step            (sqlite3_backup *p, int nPage), (p, nPage));
 DYNFUNC(return, int,                   sqlite3_backup_finish          (sqlite3_backup *p), (p));
@@ -127,13 +127,14 @@ DYNFUNC(;, void,                       sqlite3_result_zeroblob,       (sqlite3_c
 DYNFUNC(return, void *,                sqlite3_rollback_hook,         (sqlite3 *db, void (*xCallback)(void*), void *pArg), (db, xCallback, pArg));
 DYNFUNC(return, int,                   sqlite3_set_authorizer,        (sqlite3 *db, int (*xAuth)(void*,int,const char*,const char*,const char*,const char*), void *pArg), (db, xAuth, pArg));
 // DYNFUNC(;, void,                       sqlite3_set_auxdata,           (sqlite3_context *pCtx, int iArg, void *pAux, void (*xDelete)(void*)), (pCtx, iArg, pAux, xDelete));
-#if SQLITE_VERSION_NUMBER >= 3006018
-DYNFUNC(return, const char *,          sqlite3_sourceid,              (void), ());
-#endif
 #if SQLITE_VERSION_NUMBER >= 3006000
 DYNFUNC(return, int,                   sqlite3_shutdown,              (void), ());
 #endif
+DYNFUNC(return, int,                   sqlite3_sleep,                 (int ms), (ms));
 // DYNFUNC(return, char *,                sqlite3_snprintf,              (int n, char *zBuf, const char *zFormat, ...), (n, zBuf, zFormat, ...));
+#if SQLITE_VERSION_NUMBER >= 3006018
+DYNFUNC(return, const char *,          sqlite3_sourceid,              (void), ());
+#endif
 #if SQLITE_VERSION_NUMBER >= 3005003
 DYNFUNC(return, const char *,          sqlite3_sql,                   (sqlite3_stmt *pStmt), (pStmt));
 #endif
