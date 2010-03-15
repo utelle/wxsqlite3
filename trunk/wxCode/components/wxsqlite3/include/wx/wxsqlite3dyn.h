@@ -17,11 +17,11 @@ DYNFUNC(return, void *,                sqlite3_aggregate_context,     (sqlite3_c
 DYNFUNC(return, int,                   sqlite3_aggregate_count,       (sqlite3_context *p), (p));
 #endif
 #if SQLITE_VERSION_NUMBER >= 3006011
-DYNFUNC(return, sqlite3_backup*        sqlite3_backup_init            (sqlite3 *pDest, const char *zDestName, sqlite3 *pSource, const char *zSourceName), (pDest, zDestName, pSource, zSourceName));
-DYNFUNC(return, int,                   sqlite3_backup_step            (sqlite3_backup *p, int nPage), (p, nPage));
-DYNFUNC(return, int,                   sqlite3_backup_finish          (sqlite3_backup *p), (p));
-DYNFUNC(return, int,                   sqlite3_backup_remaining       (sqlite3_backup *p), (p));
-DYNFUNC(return, int,                   sqlite3_backup_pagecount       (sqlite3_backup *p), (p));
+DYNFUNC(return, sqlite3_backup*,       sqlite3_backup_init,           (sqlite3 *pDest, const char *zDestName, sqlite3 *pSource, const char *zSourceName), (pDest, zDestName, pSource, zSourceName));
+DYNFUNC(return, int,                   sqlite3_backup_step,           (sqlite3_backup *p, int nPage), (p, nPage));
+DYNFUNC(return, int,                   sqlite3_backup_finish,         (sqlite3_backup *p), (p));
+DYNFUNC(return, int,                   sqlite3_backup_remaining,      (sqlite3_backup *p), (p));
+DYNFUNC(return, int,                   sqlite3_backup_pagecount,      (sqlite3_backup *p), (p));
 #endif
 DYNFUNC(return, int,                   sqlite3_bind_blob,             (sqlite3_stmt *pStmt, int i, const void *zData, int nData, void (*xDel)(void*)), (pStmt, i, zData, nData, xDel));
 DYNFUNC(return, int,                   sqlite3_bind_double,           (sqlite3_stmt *pStmt, int i, double rValue), (pStmt, i, rValue));
@@ -64,6 +64,10 @@ DYNFUNC(return, const unsigned char *, sqlite3_column_text,           (sqlite3_s
 // DYNFUNC(return, const void *,          sqlite3_column_text16,         (sqlite3_stmt *pStmt, int iCol), (pStmt, iCol));
 DYNFUNC(return, int,                   sqlite3_column_type,           (sqlite3_stmt *pStmt, int iCol), (pStmt, iCol));
 DYNFUNC(return, void *,                sqlite3_commit_hook,           (sqlite3 *db, int (*xCallback)(void*), void *pArg), (db, xCallback, pArg));
+#if SQLITE_VERSION_NUMBER >= 3006023
+DYNFUNC(return, int,                   sqlite3_compileoption_used,    (const char *zOptName), (zOptName));
+DYNFUNC(return, const char *,          sqlite3_compileoption_get,     (int N), (N));
+#endif
 DYNFUNC(return, int,                   sqlite3_complete,              (const char *sql), (sql));
 // DYNFUNC(return, int,                   sqlite3_complete16,            (const void *sql), (sql));
 //DYNFUNC(return, sqlite3 *,             sqlite3_context_db_handle,     (sqlite3_context* ctx) (ctx));
