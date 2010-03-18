@@ -145,6 +145,17 @@ public:
   */
   const char* Format(const char* format, ...);
 
+  /// Format a SQL statement using SQLite3's printf method
+  /**
+  * This method is like method Format but takes a va_list argument
+  * to pass the statement parameters.
+  *
+  * \param format SQL statement string with formatting options
+  * \param va va_list of statement parameters
+  * \return const char pointer to the resulting statement buffer
+  */
+  const char* wxSQLite3StatementBuffer::FormatV(const char* format, va_list va);
+
   /// Dereference the internal buffer
   /**
   * \return const char pointer to the resulting statement buffer
@@ -2100,6 +2111,31 @@ public:
   * \return a string which contains the source id of the library
   */
   static wxString GetSourceId();
+
+  /// Check SQLite compile option
+  /**
+  * Check whether the compile option with a given name has been used on building SQLite.
+  * The SQLITE_ prefix may be omitted from the option name passed to this method.
+  *
+  * \param optionName name of the compile option to be queried
+  * \return TRUE if the compile option was in use, FALSE otherwise
+  *
+  * \note If the option name is unknown or if the SQLite version is lower than 3.6.23
+  * this method returns FALSE.
+  */
+  static bool CompileOptionUsed(const wxString& optionName);
+
+  /// Get SQLite compile option name
+  /**
+  * Get the name of a SQLite compile option at a given index.
+  * This method allows interating over the list of options that were defined
+  * at compile time. If the option index is out of range, an empty string is returned.
+  * The SQLITE_ prefix is omitted from any strings returned by this method.
+  *
+  * \param optionIndex Index of the compile option 
+  * \return a string containing the name of the n-th
+  */
+  static wxString GetCompileOptionName(int optionIndex);
 
   /// Check whether wxSQLite3 has been compiled with encryption support
   /**

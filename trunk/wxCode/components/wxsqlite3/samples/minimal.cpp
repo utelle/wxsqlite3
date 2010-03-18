@@ -84,7 +84,8 @@ void testTransaction()
 		wxSQLite3Transaction t(db);
 		db->ExecuteUpdate(wxT("INSERT INTO test (col1) VALUES (3)"));
 		throw "Abort commit";
-		t.Commit();
+//  ...
+//  t.Commit();
 	}
   catch (...)
   {
@@ -273,6 +274,16 @@ int Minimal::OnRun()
 
     cout << "SQLite3 Version:   " << (const char*) db.GetVersion().mb_str(wxConvUTF8) << endl;
     cout << "SQLite3 Source Id: " << (const char*) db.GetSourceId().mb_str(wxConvUTF8) << endl;
+
+    int optionIndex;
+    wxString optionName;
+    for (optionIndex = 0; ; ++optionIndex)
+    {
+      optionName = wxSQLite3Database::GetCompileOptionName(optionIndex);
+      if (optionName.IsEmpty()) break;
+      cout << "SQLite3 compile option '" << (const char*) optionName.mb_str(wxConvUTF8)
+           << "'=" << wxSQLite3Database::CompileOptionUsed(optionName) << endl;
+    }
 
     wxRemoveFile(dbFile);
     if (wxSQLite3Database::HasEncryptionSupport())
@@ -504,7 +515,7 @@ int Minimal::OnRun()
 
     q = db.ExecuteQuery("select data from bindata where desc = 'testing';");
 
-    const unsigned char* pbin;
+    const unsigned char* pbin = bin;
     if (q.NextRow())
     {
       int blobLen;

@@ -48,6 +48,7 @@
 //                            Fixed a potential memory leak in wxSQLite3Statement class
 //              2009-11-07  - Upgrade to SQLite3 version 3.6.20
 //              2010-02-05  - Upgrade to SQLite3 version 3.6.22
+//              2010-03-11  - Upgrade to SQLite3 version 3.6.23
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -91,6 +92,14 @@
 
 <dl>
 
+<dt><b>1.9.9</b> - <i>March 2010</i></dt>
+<dd>
+Upgrade to SQLite version 3.6.23<br>
+Fixed a bug when compiling for dynamic loading of SQLite<br>
+Added static methods for accessing the run-time library compilation options diagnostics<br>
+Added mathod FormatV to class wxSQLite3StatementBuffer<br>
+
+</dd>
 <dt><b>1.9.8</b> - <i>February 2010</i></dt>
 <dd>
 Upgrade to SQLite version 3.6.22<br>
