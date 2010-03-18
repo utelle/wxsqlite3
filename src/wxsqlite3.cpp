@@ -337,6 +337,13 @@ const char* wxSQLite3StatementBuffer::Format(const char* format, ...)
   return m_buffer;
 }
 
+const char* wxSQLite3StatementBuffer::FormatV(const char* format, va_list va)
+{
+  Clear();
+  m_buffer = sqlite3_vmprintf(format, va);
+  return m_buffer;
+}
+
 // ----------------------------------------------------------------------------
 // wxSQLite3ResultSet: class providing access to the result set of a query
 // ----------------------------------------------------------------------------
@@ -2673,6 +2680,32 @@ wxString wxSQLite3Database::GetSourceId()
 {
 #if SQLITE_VERSION_NUMBER >= 3006018
   return UTF8toWxString(sqlite3_sourceid());
+#else
+  return wxEmptyString;
+#endif
+}
+
+bool wxSQLite3Database::CompileOptionUsed(const wxString& optionName)
+{
+#if SQLITE_VERSION_NUMBER >= 3006023
+  wxCharBuffer strOption = wxConvUTF8.cWC2MB(optionName.wc_str(*wxConvCurrent));
+  const char* localOption = strOption;
+  return sqlite3_compileoption_used(localOption) == 1;
+#else
+  return false;
+#endif
+}
+
+wxString wxSQLite3Database::GetCompileOptionName(int optionIndex)
+{
+#if SQLITE_VERSION_NUMBER >= 3006023
+  const char* unknownOption = "";
+  const char* optionName = sqlite3_compileoption_get(optionIndex);
+  if (optionName == NULL)
+  {
+    optionName = unknownOption;
+  }
+  return UTF8toWxString(optionName);
 #else
   return wxEmptyString;
 #endif
