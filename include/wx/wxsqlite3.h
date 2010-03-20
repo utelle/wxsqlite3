@@ -154,7 +154,7 @@ public:
   * \param va va_list of statement parameters
   * \return const char pointer to the resulting statement buffer
   */
-  const char* wxSQLite3StatementBuffer::FormatV(const char* format, va_list va);
+  const char* FormatV(const char* format, va_list va);
 
   /// Dereference the internal buffer
   /**
