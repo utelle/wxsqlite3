@@ -192,7 +192,7 @@ public:
                               const wxString& database, const wxString& table,
                               wxLongLong rowid)
   {
-    char* strType;
+    const char* strType;
     cout << "Here is the UPDATE callback" << endl;
     switch (type)
     {
@@ -614,7 +614,7 @@ int Minimal::OnRun()
       int blobSize = incBlob.GetSize();
       int offset = 12;
       wxMemoryBuffer memBuffer;
-      char* myData = "my data";
+      const char* myData = "my data";
       memBuffer.AppendData(myData, strlen(myData)+1);
       incBlob.Write(memBuffer, 12);
       incBlob.Finalize();
