@@ -350,6 +350,7 @@ const char* wxSQLite3StatementBuffer::FormatV(const char* format, va_list va)
 
 wxSQLite3ResultSet::wxSQLite3ResultSet()
 {
+  m_db = 0;
   m_stmt = 0;
   m_eof = true;
   m_first = true;
@@ -359,6 +360,7 @@ wxSQLite3ResultSet::wxSQLite3ResultSet()
 
 wxSQLite3ResultSet::wxSQLite3ResultSet(const wxSQLite3ResultSet& resultSet)
 {
+  m_db = resultSet.m_db;
   m_stmt = resultSet.m_stmt;
   // Only one object can own the statement
   const_cast<wxSQLite3ResultSet&>(resultSet).m_stmt = 0;
@@ -404,6 +406,7 @@ wxSQLite3ResultSet& wxSQLite3ResultSet::operator=(const wxSQLite3ResultSet& resu
     catch (...)
     {
     }
+    m_db = resultSet.m_db;
     m_stmt = resultSet.m_stmt;
     // Only one object can own the statement
     const_cast<wxSQLite3ResultSet&>(resultSet).m_stmt = 0;
