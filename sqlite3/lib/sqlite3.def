@@ -180,4 +180,7 @@ sqlite3_vfs_find
 sqlite3_vfs_register
 sqlite3_vfs_unregister
 sqlite3_vmprintf
+sqlite3_wal_autocheckpoint
+sqlite3_wal_checkpoint
+sqlite3_wal_hook
 sqlite3_win32_mbcs_to_utf8

@@ -1,4 +1,17 @@
+// To enable the extension functions define SQLITE_ENABLE_EXTFUNC on compiling this module
+#ifdef SQLITE_ENABLE_EXTFUNC
+#define sqlite3_open    sqlite3_open_internal
+#define sqlite3_open16  sqlite3_open16_internal
+#define sqlite3_open_v2 sqlite3_open_v2_internal
+#endif
+
 #include "sqlite3.c"
+
+#ifdef SQLITE_ENABLE_EXTFUNC
+#undef sqlite3_open
+#undef sqlite3_open16
+#undef sqlite3_open_v2
+#endif
 
 #ifndef SQLITE_OMIT_DISKIO
 
@@ -40,3 +53,49 @@ void mySqlite3PagerSetCodec(
 
 #endif
 
+#ifdef SQLITE_ENABLE_EXTFUNC
+
+#include "extensionfunctions.c"
+
+SQLITE_API int sqlite3_open(
+  const char *filename,   /* Database filename (UTF-8) */
+  sqlite3 **ppDb          /* OUT: SQLite db handle */
+)
+{
+  int ret = sqlite3_open_internal(filename, ppDb);
+  if (ret == 0)
+  {
+    RegisterExtensionFunctions(*ppDb);
+  }
+  return ret;
+}
+
+SQLITE_API int sqlite3_open16(
+  const void *filename,   /* Database filename (UTF-16) */
+  sqlite3 **ppDb          /* OUT: SQLite db handle */
+)
+{
+  int ret = sqlite3_open16_internal(filename, ppDb);
+  if (ret == 0)
+  {
+    RegisterExtensionFunctions(*ppDb);
+  }
+  return ret;
+}
+
+SQLITE_API int sqlite3_open_v2(
+  const char *filename,   /* Database filename (UTF-8) */
+  sqlite3 **ppDb,         /* OUT: SQLite db handle */
+  int flags,              /* Flags */
+  const char *zVfs        /* Name of VFS module to use */
+)
+{
+  int ret = sqlite3_open_v2_internal(filename, ppDb, flags, zVfs);
+  if (ret == 0)
+  {
+    RegisterExtensionFunctions(*ppDb);
+  }
+  return ret;
+}
+
+#endif
