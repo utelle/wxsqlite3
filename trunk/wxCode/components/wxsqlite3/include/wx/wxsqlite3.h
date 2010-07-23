@@ -20,6 +20,7 @@
 #include <wx/arrstr.h>
 #include <wx/datetime.h>
 #include <wx/buffer.h>
+#include <wx/hashmap.h>
 #include <wx/regex.h>
 #include <wx/string.h>
 
@@ -39,6 +40,7 @@
   typedef long long int wxsqlite_int64;
 #endif
 
+/// Enumeration of transaction types
 enum wxSQLite3TransactionType
 {
   WXSQLITE_TRANSACTION_DEFAULT,
@@ -47,6 +49,7 @@ enum wxSQLite3TransactionType
   WXSQLITE_TRANSACTION_EXCLUSIVE
 };
 
+/// Enumeration of SQLite limitation types
 enum wxSQLite3LimitType
 {
   WXSQLITE_LIMIT_LENGTH              = 0,
@@ -60,6 +63,17 @@ enum wxSQLite3LimitType
   WXSQLITE_LIMIT_LIKE_PATTERN_LENGTH = 8,
   WXSQLITE_LIMIT_VARIABLE_NUMBER     = 9,
   WXSQLITE_LIMIT_TRIGGER_DEPTH       = 10
+};
+
+/// Enumeration of journal modes
+enum wxSQLite3JournalMode
+{
+  WXSQLITE_JOURNALMODE_DELETE     = 0,   // Commit by deleting journal file
+  WXSQLITE_JOURNALMODE_PERSIST    = 1,   // Commit by zeroing journal header
+  WXSQLITE_JOURNALMODE_OFF        = 2,   // Journal omitted.
+  WXSQLITE_JOURNALMODE_TRUNCATE   = 3,   // Commit by truncating journal
+  WXSQLITE_JOURNALMODE_MEMORY     = 4,   // In-memory journal file
+  WXSQLITE_JOURNALMODE_WAL        = 5    // Use write-ahead logging
 };
 
 #define WXSQLITE_OPEN_READONLY         0x00000001
@@ -350,6 +364,10 @@ public:
                              const char* database, const char* table, 
                              wxsqlite_int64 rowid);
 
+  /// Execute the user defined Write Ahead Log hook (internal use only)
+  static int ExecWriteAheadLogHook(void* hook, void* dbHandle, 
+                                   const char* database, int numPages);
+
 private:
   /// Constructor
   wxSQLite3FunctionContext(void* ctx, bool isAggregate, int argc = 0, void** argv = NULL);
@@ -494,6 +512,8 @@ public:
   static wxString AuthorizationCodeToString(wxSQLite3Authorizer::wxAuthorizationCode type);
 };
 
+class WXDLLIMPEXP_FWD_SQLITE3 wxSQLite3Database;
+
 /// Interface for a user defined hook function
 /**
 */
@@ -507,6 +527,9 @@ public:
     SQLITE_INSERT              = 18,
     SQLITE_UPDATE              = 23
   };
+  /// Default constructor
+  wxSQLite3Hook() : m_db(NULL) {}
+
   /// Virtual destructor
   virtual ~wxSQLite3Hook() {}
 
@@ -536,6 +559,36 @@ public:
   virtual void UpdateCallback(wxUpdateType WXUNUSED(type),
                               const wxString& WXUNUSED(database), const wxString& WXUNUSED(table),
                               wxLongLong WXUNUSED(rowid)) {}
+
+  /// Execute the write-ahead log hook callback function
+  /**
+  * Please refer to the SQLite documentation for further information about the
+  * meaning of the parameters.
+  *
+  * \param database Name of the database
+  * \param numPages the number of pages
+  */
+  virtual int WriteAheadLogCallback(const wxString& WXUNUSED(database), 
+                                    int WXUNUSED(numPages)) { return 0; }
+
+  /// Set the associated database
+  /**
+  * For the write-ahead log hook the associated database is set internally.
+  * \param db pointer to the associated database instance
+  */
+  void SetDatabase(wxSQLite3Database* db) { m_db = db; }
+
+  /// Get the associated database
+  /**
+  * For the write-ahead log hook the associated database can be accessed.
+  *
+  * \return pointer to the associated database instance
+  * \note Access to the associated database is only provided for write-ahead log hooks.
+  */
+  wxSQLite3Database* GetDatabase() const { return m_db; }
+
+private:
+  wxSQLite3Database* m_db;
 };
 
 /// Interface for a user defined collation sequence
@@ -1445,6 +1498,171 @@ private:
   bool  m_writable; ///< flag whether the BLOB is writable or read only
 };
 
+/// Represents a named collection
+/**
+* A named collection is designed to facilitate using an array of
+* integers or strings as the right-hand side of an IN operator.
+* So instead of doing a prepared statement like this:
+*
+*     SELECT * FROM table WHERE x IN (?,?,?,...,?);
+*
+* And then binding indivdual integers to each of ? slots, an application
+* can create a named collection object (named "ex1" in the following
+* example), prepare a statement like this:
+*
+*     SELECT * FROM table WHERE x IN ex1;
+*
+* Then bind an array of integer or string values to the ex1 object
+* to run the statement.
+*
+* USAGE:
+*
+* One or more named collection objects can be created as follows:
+*
+*      wxSQLite3IntegerCollection p1, p2, p3;
+*      p1 = db.CreateIntegerCollection("ex1");
+*      p2 = db.CreateIntegerCollection("ex2");
+*      p3 = db.CreateIntegerCollection("ex3");
+*
+* Each call to CreateIntegerCollection generates a new virtual table
+* module and a singleton of that virtual table module in the TEMP
+* database.  Both the module and the virtual table instance use the
+* name given by the second parameter.  The virtual tables can then be
+* used in prepared statements:
+*
+*      SELECT * FROM t1, t2, t3
+*       WHERE t1.x IN ex1
+*         AND t2.y IN ex2
+*         AND t3.z IN ex3;
+*
+* Each integer array is initially empty.  New arrays can be bound to
+* an integer array as follows:
+*
+*     int a1[] = { 1, 2, 3, 4 };
+*     int a2[] = { 5, 6, 7, 8, 9, 10, 11 };
+*     wxArrayInt a3;
+*     // Fill a3
+*     p1.Bind(4, a1);
+*     p2.Bind(7, a2);
+*     p3.Bind(a3);
+*
+* A single named collection object can be rebound multiple times.  But do not
+* attempt to change the bindings of a named collection while it is in the middle
+* of a query.
+*
+* The array that holds the integer or string values is automatically allocated
+* by the Bind method.
+*
+* The named collection object is automatically destroyed when its corresponding
+* virtual table is dropped.  Since the virtual tables are created in the
+* TEMP database, they are automatically dropped when the database connection
+* closes so the application does not normally need to take any special
+* action to free the named collection objects.
+*/
+class WXDLLIMPEXP_SQLITE3 wxSQLite3NamedCollection
+{
+public:
+  /// Constructor
+  wxSQLite3NamedCollection();
+
+  /// Copy constructor
+  wxSQLite3NamedCollection(const wxSQLite3NamedCollection& collection);
+
+  /// Assignement constructor
+  wxSQLite3NamedCollection& operator=(const wxSQLite3NamedCollection& collection);
+
+  /// Constructor (internal use only)
+  wxSQLite3NamedCollection(const wxString& collectionName, void* collectionData);
+
+  /// Destructor
+  virtual ~wxSQLite3NamedCollection();
+
+  /// Get the name of the collection
+  /**
+  * \return the name of the collection
+  */
+  const wxString& GetName() { return m_name; }
+
+protected:
+  wxString m_name; ///< Name of the collection
+  void*    m_data; ///< Reference to the actual array of values representing the collection
+
+  friend class wxSQLite3Database;
+};
+
+/// Represents a named integer value collection
+class WXDLLIMPEXP_SQLITE3 wxSQLite3IntegerCollection : public wxSQLite3NamedCollection
+{
+public:
+  /// Constructor
+  wxSQLite3IntegerCollection();
+
+  /// Copy constructor
+  wxSQLite3IntegerCollection(const wxSQLite3IntegerCollection& collection);
+
+  /// Assignement constructor
+  wxSQLite3IntegerCollection& operator=(const wxSQLite3IntegerCollection& collection);
+
+  /// Constructor (internal use only)
+  wxSQLite3IntegerCollection(const wxString& collectionName, void* collectionData);
+
+  /// Destructor
+  virtual ~wxSQLite3IntegerCollection();
+
+  /// Bind a new array of integer values
+  /**
+  * Bind a new array of integer values to this named collection object.
+  * \param integerCollection array of integer values to be bound
+  * \note Binding values to a named collection after closing the corresponding
+  * database results in undefined behaviour, i.e. the application is likely to crash.
+  */
+  void Bind(const wxArrayInt& integerCollection);
+
+  /// Bind a new array of integer values
+  /**
+  * Bind a new array of integer values to this named collection object.
+  * \param n number of elements in the array
+  * \param integerCollection array of integer values to be bound
+  * \note Binding values to a named collection after closing the corresponding
+  * database results in undefined behaviour, i.e. the application is likely to crash.
+  */
+  void Bind(int n, int* integerCollection);
+
+private:
+  friend class wxSQLite3Database;
+};
+
+/// Represents a named string value collection
+class WXDLLIMPEXP_SQLITE3 wxSQLite3StringCollection : public wxSQLite3NamedCollection
+{
+public:
+  /// Constructor
+  wxSQLite3StringCollection();
+
+  /// Copy constructor
+  wxSQLite3StringCollection(const wxSQLite3StringCollection& collection);
+
+  /// Assignement constructor
+  wxSQLite3StringCollection& operator=(const wxSQLite3StringCollection& collection);
+
+  /// Constructor (internal use only)
+  wxSQLite3StringCollection(const wxString& collectionName, void* collectionData);
+
+  /// Destructor
+  virtual ~wxSQLite3StringCollection();
+
+  /// Bind a new array of integer values
+  /**
+  * Bind a new array of integer values to this named collection object.
+  * \param stringCollection array of integer values to be bound
+  * \note Binding values to a named collection after closing the corresponding
+  * database results in undefined behaviour, i.e. the application is likely to crash.
+  */
+  void Bind(const wxArrayString& stringCollection);
+
+private:
+  friend class wxSQLite3Database;
+};
 
 /// Represents a SQLite3 database object
 class WXDLLIMPEXP_SQLITE3 wxSQLite3Database
@@ -1706,6 +1924,30 @@ public:
   */
   bool IsForeignKeySupportEnabled();
 
+  /// Set SQLite journal mode
+  /**
+  * \param mode the journal mode to be set
+  * \param database the attached database for which the journal mode should be set. If not given then
+  *                 the journal mode of all attached databases is set.
+  * \return the active journal mode
+  * \note The journal mode for an in-memory database  is either MEMORY or OFF and can not be changed
+  * to a different value. An attempt to change the journal mode of an in-memory database to any setting
+  * other than MEMORY or OFF is ignored. Note also that the journal mode cannot be changed while a
+  * transaction is active.
+  * The WAL journaling mode uses a write-ahead log instead of a rollback journal to implement transactions.
+  * The WAL journaling mode is persistent; after being set it stays in effect across multiple database
+  * connections and after closing and reopening the database. A database in WAL journaling mode can only be
+  * accessed by SQLite version 3.7.0 or later.
+  */
+  wxSQLite3JournalMode SetJournalMode(wxSQLite3JournalMode mode, const wxString& database = wxEmptyString);
+
+  /// Get the active SQLite journal mode
+  /**
+  * \param database the attached database for which the journal mode should be queried (default: main)
+  * \return active journal mode
+  */
+  wxSQLite3JournalMode GetJournalMode(const wxString& database = wxEmptyString);
+
   /// Check the syntax of an SQL statement given as a wxString
   /**
   * \param sql query string
@@ -1853,6 +2095,10 @@ public:
 
   /// Get handle to a read only BLOB
   /**
+  * \param rowId
+  * \param columnName
+  * \param tableName
+  * \param dbName
   */
   wxSQLite3Blob GetReadOnlyBlob(wxLongLong rowId, 
                                 const wxString& columnName, 
@@ -1861,6 +2107,10 @@ public:
 
   /// Get handle to a writable BLOB
   /**
+  * \param rowId
+  * \param columnName
+  * \param tableName
+  * \param dbName
   */
   wxSQLite3Blob GetWritableBlob(wxLongLong rowId, 
                                 const wxString& columnName, 
@@ -1869,12 +2119,47 @@ public:
 
   /// Get handle to a BLOB
   /**
+  * \param rowId
+  * \param columnName
+  * \param tableName
+  * \param dbName
+  * \param writable
   */
   wxSQLite3Blob GetBlob(wxLongLong rowId, 
                         const wxString& columnName, 
                         const wxString& tableName, 
                         const wxString& dbName = wxEmptyString,
                         bool writable = true);
+
+  /// Create a named integer value collection
+  /**
+  * Invoke this method to create a specific instance of an integer collection object.
+  * Initially the created collection is empty. Use it's Bind method to actually bind
+  * an array of values to the collection.
+  * \param collectionName name of the collection
+  * \return the new integer collection object.
+  *
+  * Each integer value collection object corresponds to a virtual table in the TEMP table
+  * with a name of collectionName.
+  *
+  * The virtual table will be dropped implicitly when the database connection is closed.
+  */
+  wxSQLite3IntegerCollection CreateIntegerCollection(const wxString& collectionName);
+
+  /// Create a named string value collection
+  /**
+  * Invoke this method to create a specific instance of a string collection object.
+  * Initially the created collection is empty. Use it's Bind method to actually bind
+  * an array of values to the collection.
+  * \param collectionName name of the collection
+  * \return the new string collection object.
+  *
+  * Each integer value collection object corresponds to a virtual table in the TEMP table
+  * with a name of collectionName.
+  *
+  * The virtual table will be dropped implicitly when the database connection is closed.
+  */
+  wxSQLite3StringCollection CreateStringCollection(const wxString& collectionName);
 
   /// Interrupt a long running query
   /**
@@ -1960,6 +2245,34 @@ public:
   * \param updateHook address of an instance of an update callback function
   */
   void SetUpdateHook(wxSQLite3Hook* updateHook);
+
+  /// Create a user-defined Write Ahead Log callback function
+  /**
+  * Registers a callback function object to be invoked whenever a commit has taken place in WAL journal mode.
+  * Registering a NULL function object disables the callback. Only a single Write Ahead Log hook callback
+  * can be registered at a time.
+  * \param walHook address of an instance of a Write Ahead Log callback function
+  */
+  void SetWriteAheadLogHook(wxSQLite3Hook* walHook);
+
+  /// Checkpoint database in write-ahead log mode
+  /**
+  * Causes an optionally named database to be checkpointed.
+  * If no database name is given, then a checkpoint is run on all databases associated with this
+  * database instance. If the database instance is not in write-ahead log mode then this method
+  * is a harmless no-op.
+  * \param database name of a database to be checkpointed
+  */
+  void WriteAheadLogCheckpoint(const wxString& database);
+
+  /// Automatically checkpoint database in write-ahead log mode
+  /**
+  * Causes any database associated with this database instance to automatically checkpoint after
+  * committing a transaction if there are N or more frames in the write-ahead log file.
+  * Passing zero or a negative value as the nFrame parameter disables automatic checkpoints entirely.
+  * \param frameCount frame threshold
+  */
+  void AutoWriteAheadLogCheckpoint(int frameCount);
 
   /// Create a user-defined collation sequence
   /**
@@ -2137,6 +2450,20 @@ public:
   */
   static wxString GetCompileOptionName(int optionIndex);
 
+  /// Convert journal mode to/from string
+  /**
+  * \param mode the wxSQLite3JournalMode enum value signifying the desired journal mode.
+  * \return the string representation of the journal mode
+  */
+  static wxString ConvertJournalMode(wxSQLite3JournalMode mode);
+
+  /// Convert journal mode to/from string
+  /**
+  * \param mode the string representation of the desired journal mode.
+  * \return the enum representation of the journal mode
+  */
+  static wxSQLite3JournalMode ConvertJournalMode(const wxString& mode);
+
   /// Check whether wxSQLite3 has been compiled with encryption support
   /**
   * \return TRUE if encryption support is enabled, FALSE otherwise
@@ -2155,6 +2482,12 @@ public:
   */
   static bool HasLoadExtSupport();
 
+  /// Check whether wxSQLite3 has been compiled with support for named collections
+  /**
+  * \return TRUE if named collection support is enabled, FALSE otherwise
+  */
+  static bool HasNamedCollectionSupport();
+
   /// Check whether wxSQLite3 has support for incremental BLOBs
   /**
   * \return TRUE if incremental BLOB support is available, FALSE otherwise
@@ -2172,6 +2505,12 @@ public:
   * \return TRUE if SQLite backup/restore is supported, FALSE otherwise
   */
   static bool HasBackupSupport();
+
+  /// Check whether wxSQLite3 has support for SQLite write-ahead log
+  /**
+  * \return TRUE if SQLite write-ahead log is supported, FALSE otherwise
+  */
+  static bool HasWriteAheadLogSupport();
 
 protected:
   /// Access SQLite's internal database handle
@@ -2221,9 +2560,11 @@ private:
   static bool  ms_hasEncryptionSupport;      ///< Flag whether wxSQLite3 has been compiled with encryption support
   static bool  ms_hasMetaDataSupport;        ///< Flag whether wxSQLite3 has been compiled with meta data support
   static bool  ms_hasLoadExtSupport;         ///< Flag whether wxSQLite3 has been compiled with loadable extension support
+  static bool  ms_hasNamedCollectionSupport; ///< Flag whether wxSQLite3 has been compiled with support for named collections
   static bool  ms_hasIncrementalBlobSupport; ///< Flag whether wxSQLite3 has support for incremental BLOBs
   static bool  ms_hasSavepointSupport;       ///< Flag whether wxSQLite3 has support for SQLite savepoints
   static bool  ms_hasBackupSupport;          ///< Flag whether wxSQLite3 has support for SQLite backup/restore
+  static bool  ms_hasWriteAheadLogSupport;   ///< Flag whether wxSQLite3 has support for SQLite write-ahead log
 };
 
 /// RAII class for managing transactions

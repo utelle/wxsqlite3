@@ -49,6 +49,7 @@
 //              2009-11-07  - Upgrade to SQLite3 version 3.6.20
 //              2010-02-05  - Upgrade to SQLite3 version 3.6.22
 //              2010-03-11  - Upgrade to SQLite3 version 3.6.23
+//              2010-07-25  - Upgrade to SQLite3 version 3.7.0
 //                            
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -83,15 +84,24 @@
   scalar or aggregate functions.
 
   Since SQLite stores strings in UTF-8 encoding, the wxSQLite3 methods provide automatic conversion
-  between wxStrings and UTF-8 strings. This works best for the \b Unicode builds of \b wxWidgets.
-  In \b ANSI builds the current locale conversion object \b wxConvCurrent is used for conversion
-  to/from UTF-8. Special care has to be taken if external administration tools are used to modify
-  the database contents, since not all of these tools operate in Unicode or UTF-8 mode.
+  between wxStrings and UTF-8 strings. The methods ToUTF8 and FromUTF8 of the wxString class (available
+  since wxWidgets 2.8.4) are used for the conversion. Special care has to be taken if external administration
+  tools are used to modify the database contents, since not all of these tools operate in Unicode or UTF-8 mode.
 
 \section version Version history
 
 <dl>
 
+<dt><b>2.0.0</b> - <i>July 2010</i></dt>
+<dd>
+Upgrade to SQLite version 3.7.0<br>
+Fixed a bug in class wxSQLite3ResultSet<br>
+Added support for SQLite's write-ahead log journal mode<br>
+Added support for named collections (see class wxSQLite3NamedCollection)<br>
+Changed UTF-8 string handling to use methods To/FromUTF8 of the wxString class (requires wxWidgets 2.8.4 or higher)<br>
+Compatible with wxWidgets 2.9.1<br>
+
+</dd>
 <dt><b>1.9.9</b> - <i>March 2010</i></dt>
 <dd>
 Upgrade to SQLite version 3.6.23<br>
@@ -356,6 +366,18 @@ The following people have contributed to wxSQLite3:
   #define WXDLLIMPEXP_SQLITE3 WXIMPORT
 #else // not making nor using DLL
   #define WXDLLIMPEXP_SQLITE3
+#endif
+
+/*
+  GCC warns about using __declspec on forward declarations
+  while MSVC complains about forward declarations without
+  __declspec for the classes later declared with it. To hide this
+  difference a separate macro for forward declarations is defined:
+ */
+#if defined(__WINDOWS__) && defined(__GNUC__)
+  #define WXDLLIMPEXP_FWD_SQLITE3
+#else
+  #define WXDLLIMPEXP_FWD_SQLITE3 WXDLLIMPEXP_SQLITE3
 #endif
 
 #endif // _WX_SQLITE3_DEF_H_

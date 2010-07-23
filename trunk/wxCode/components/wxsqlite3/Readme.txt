@@ -2,14 +2,14 @@ wxSQLite3 component info
 ------------------------
 
 Website:      http://wxcode.sourceforge.net/components/wxsqlite3
-Version:      1.9.9
+Version:      2.0.0
 Description:
 wxSQLite3 is a C++ wrapper around the public domain SQLite 3.x database
 and is specifically designed for use in programs based on the wxWidgets
 library.
 
 wxSQLite3 does not try to hide the underlying database, in contrary
-almost all special features of the current SQLite3 version 3.6.23 are
+almost all special features of the current SQLite3 version 3.7.0 are
 supported, like for example the creation of user defined scalar or
 aggregate functions.
 
@@ -25,6 +25,14 @@ tools operate in Unicode or UTF-8 mode.
 Version history
 ---------------
 
+ 2.0.0 - Upgrade to SQLite version 3.7.0
+         Fixed a bug in class wxSQLite3ResultSet
+         Added support for SQLite's write-ahead log journal mode
+         Added support for named collections
+         (see class wxSQLite3NamedCollection)
+         Changed UTF-8 string handling to use methods To/FromUTF8 of the
+         wxString class (requires wxWidgets 2.8.4 or higher)
+         Compatible with wxWidgets 2.9.1
  1.9.9 - Upgrade to SQLite version 3.6.23
          Fixed a bug when compiling for dynamic loading of SQLite
          Added static methods to class wxSQLite3Database for accessing
@@ -143,7 +151,7 @@ a) wxMSW
 
 When building on win32, you can use the makefiles in the BUILD folder.
 
-SQLite version 3.6.23 DLL is included. The included link library was
+SQLite version 3.7.0 DLL is included. The included link library was
 built with MS Visual C++ 6. For other compilers it can be necessary to
 regenerate the link library based on the sqlite.def file in the LIB
 folder.
@@ -207,7 +215,7 @@ The autoconf-based systems also support a "make install" target which
 builds the library and then copies the headers of the component to
 /usr/local/include and the lib to /usr/local/lib.
 
-SQLite version 3.6.23 is NOT included. You have to download the current
+SQLite version 3.7.0 is NOT included. You have to download the current
 version of SQLite from http://www.sqlite.org and to install it on your
 system before you can install wxSQLite3.
 
@@ -258,19 +266,20 @@ knowledge gained from implementing encryption support for the wxCode
 component wxPdfDocument and from inspecting the source code of
 System.Data.SQLite. The code implementing this feature is available in
 directory sqlite3/secure/src. You may use this code on your own risk.
-The subdirectory codec contains the necessary source files; copy the
-complete subdirectory to the location where the source code of SQLite
-resides on your system.
+The subdirectory codec-c contains the necessary source files; the
+SQLite amalgamation source code is included. Optionally SQLite can be
+compiled including the extension function module created by Liam Healy.
 
-With the release of wxSQLite3 1.9.6 the encryption extension has been
-converted from C++ to pure C and is now compatible with the SQLite
+Starting with the release of wxSQLite3 1.9.6 the encryption extension has
+been converted from C++ to pure C and is now compatible with the SQLite
 amalgamation source distribution. Just compile the file sqlite3secure.c
-which includes all required source files. Note that the SQLite source
-itself is not included in the wxSQLite3 file release.
+which includes all required source files. (The C++ version is still
+included in directory codec, but it is deprecated and it's use is not
+recommended anymore.)
 
-With the release of wxSQLite3 1.9.8 the encryption extension includes
-an experimental implementation of 256 bit AES encryption. The code
-comes without any warranty, use it at your own risk.
+Starting with the release of wxSQLite3 1.9.8 the encryption extension
+includes an experimental implementation of 256 bit AES encryption. The
+code comes without any warranty, use it at your own risk.
 Currently the decision whether to use 128 bit or 256 bit AES encryption
 has to be made at compile time. To enable 256 bit AES encryption define
 CODEC_TYPE=CODEC_TYPE_AES256 (Default: CODEC_TYPE=CODEC_TYPE_AES128).
@@ -304,9 +313,11 @@ SQLITE_ENABLE_FTS3
 SQLITE_ENABLE_FTS3_PARENTHESIS
 SQLITE_ENABLE_RTREE
 
-For wxMSW the directory sqlite3/secure contains a special DLL version
-including support for the optional SQLite meta data methods and the
-optional key based database encryption (128 bit AES).
+For wxMSW the directory sqlite3/secure/aes128 resp. sqlite3/secure/aes128
+contains a special DLL version including support for the optional SQLite
+meta data methods and the optional key based database encryption
+(128 resp. 256 bit AES). The modules FTS3, RTREE and ExtensionFunctions
+are included as well.
 
 
 Using statically linked SQLite library on Windows
@@ -319,13 +330,12 @@ static sqlite3 library. No modifications to wxSQLite3 are required.
 The following steps are required:
 
 - You have to download the complete source code for sqlite from
-  http://www.sqlite.org/download.html. Look for the ZIP archive since
-  it already includes all generated sources and is ready to compile on
-  Windows without the need for additional tools.
+  http://www.sqlite.org/download.html. Look for the SQLite amalganation
+  archive since it already includes all generated sources and is ready
+  to compile without the need for additional tools.
 - Unfortunately no makefile is included. That is, you have to create a
   makefile or project file yourself. You have to build a static library
-  from all C source files except shell.c (which is the stand alone tool
-  for sqlite3) and tclsqlite.c (which is the tcl wrapper).
+  from the amalgamation C source files.
 - Replace the file sqlite3.lib in the wxSQLite3 distribution by the
   sqlite3.lib created as stated above and compile wxSQLite3 as a static
   library.
