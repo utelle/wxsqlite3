@@ -41,4 +41,11 @@
 #define WXSQLITE3_HAVE_LOAD_EXTENSION 0
 #endif
 
+//! To disable support for named collections define WXSQLITE3_USE_NAMED_COLLECTIONS as 0 here.
+//! Attention: if WXSQLITE3_USE_NAMED_COLLECTIONS is defined as 1 (default) SQLite needs to be
+//! compiled without SQLITE_OMIT_VIRTUALTABLE for this to work
+#ifndef WXSQLITE3_USE_NAMED_COLLECTIONS
+#define WXSQLITE3_USE_NAMED_COLLECTIONS 1
+#endif
+
 #endif // _WX_SQLITE3_OPT_H_

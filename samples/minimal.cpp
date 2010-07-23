@@ -256,6 +256,7 @@ int Minimal::OnExit()
 int Minimal::OnRun()
 {
   const wxString dbFile = wxGetCwd() + wxT("/test.db");
+  const wxString dbBackup = wxGetCwd() + wxT("/test-backup.db");
 
   MyAggregateFunction myAggregate;
   MyAuthorizer myAuthorizer;
@@ -272,8 +273,8 @@ int Minimal::OnRun()
     time_t tmStart, tmEnd;
     wxSQLite3Database db;
 
-    cout << "SQLite3 Version:   " << (const char*) db.GetVersion().mb_str(wxConvUTF8) << endl;
-    cout << "SQLite3 Source Id: " << (const char*) db.GetSourceId().mb_str(wxConvUTF8) << endl;
+    cout << "SQLite3 Version:      " << (const char*) db.GetVersion().mb_str(wxConvUTF8) << endl;
+    cout << "SQLite3 Source Id:    " << (const char*) db.GetSourceId().mb_str(wxConvUTF8) << endl;
 
     int optionIndex;
     wxString optionName;
@@ -285,7 +286,10 @@ int Minimal::OnRun()
            << "'=" << wxSQLite3Database::CompileOptionUsed(optionName) << endl;
     }
 
+    // Remove existing sample database files
     wxRemoveFile(dbFile);
+    wxRemoveFile(dbBackup);
+
     if (wxSQLite3Database::HasEncryptionSupport())
     {
       db.Open(dbFile, wxString(wxT("password")));
@@ -295,6 +299,7 @@ int Minimal::OnRun()
       db.Open(dbFile);
     }
 
+    cout << "SQLite3 Journal Mode: " << (const char*) wxSQLite3Database::ConvertJournalMode(db.GetJournalMode()).mb_str(wxConvUTF8) << endl;
     // Check status of support for foreign key constraints
     bool foreignKeysEnabled = db.EnableForeignKeySupport(true);
     cout << endl << "Foreign key constraints are ";
@@ -370,6 +375,34 @@ int Minimal::OnRun()
 
     cout << db.ExecuteScalar("select count(*) from emp;") << " rows in emp table in ";
     cout << tmEnd-tmStart << " seconds" << endl;
+
+    // Demonstrate use of named collection (if available)
+
+    if (db.HasNamedCollectionSupport())
+    {
+      cout << endl << "Named collection test" << endl;
+      wxSQLite3IntegerCollection ic = db.CreateIntegerCollection(wxT("ic"));
+      wxSQLite3StringCollection sc = db.CreateStringCollection(wxT("sc"));
+      int icList[] = { 26, 39, 47, 64 };
+      ic.Bind(4, icList);
+
+      wxSQLite3ResultSet q1 = db.ExecuteQuery("select empname from emp where empno in ic;");
+      while (q1.NextRow())
+      {
+        cout << (const char*)(q1.GetString(0).mb_str()) << endl;
+      }
+
+      wxArrayString scList;
+      scList.Add(wxT("empname000048"));
+      scList.Add(wxT("empname000194"));
+      sc.Bind(scList);
+
+      wxSQLite3ResultSet q2 = db.ExecuteQuery("select empno from emp where empname in sc;");
+      while (q2.NextRow())
+      {
+        cout << q2.GetInt(0) << endl;
+      }
+    }
 
     // Re-create emp table with auto-increment field
 
