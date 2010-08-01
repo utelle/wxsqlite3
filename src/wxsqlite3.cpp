@@ -4110,9 +4110,9 @@ wxSQLite3Database::CreateIntegerCollection(const wxString& collectionName)
   rc = sqlite3_create_module_v2((sqlite3*)m_db, zName, &intarrayModule, p, (void(*)(void*))intarrayFree);
   if (rc == SQLITE_OK)
   {
-    char* zSql = sqlite3_mprintf("CREATE VIRTUAL TABLE temp.%Q USING %Q", zName, zName);
+    wxSQLite3StatementBuffer zBuffer;
+    const char* zSql = zBuffer.Format("CREATE VIRTUAL TABLE temp.%Q USING %Q", zName, zName);
     rc = sqlite3_exec((sqlite3*)m_db, zSql, 0, 0, 0);
-    sqlite3_free(zSql);
   }
   if (rc != SQLITE_OK)
   {
@@ -4208,9 +4208,9 @@ wxSQLite3Database::CreateStringCollection(const wxString& collectionName)
   rc = sqlite3_create_module_v2((sqlite3*)m_db, zName, &chararrayModule, p, (void(*)(void*))chararrayFree);
   if (rc == SQLITE_OK)
   {
-    char* zSql = sqlite3_mprintf("CREATE VIRTUAL TABLE temp.%Q USING %Q", zName, zName);
+    wxSQLite3StatementBuffer zBuffer;
+    const char* zSql = zBuffer.Format("CREATE VIRTUAL TABLE temp.%Q USING %Q", zName, zName);
     rc = sqlite3_exec((sqlite3*)m_db, zSql, 0, 0, 0);
-    sqlite3_free(zSql);
   }
   if (rc != SQLITE_OK)
   {
