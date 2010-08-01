@@ -81,6 +81,7 @@ DYNFUNC(return, int,                   sqlite3_create_module_v2,      (sqlite3 *
 #endif
 // DYNFUNC(return, int,                   sqlite3_data_count,            (sqlite3_stmt *pStmt), (pStmt));
 // DYNFUNC(return, sqlite3 *,             sqlite3_db_handle,             (sqlite3_stmt *pStmt), (pStmt));
+DYNFUNC(return, int,                   sqlite3_declare_vtab,          (sqlite3 *db, const char *zSQL), (db, zSQL));
 DYNFUNC(return, int,                   sqlite3_enable_load_extension, (sqlite3 *db, int onoff), (db, onoff));
 DYNFUNC(return, int,                   sqlite3_enable_shared_cache,   (int enable), (enable));
 // DYNFUNC(return, int,                   sqlite3_errcode,               (sqlite3 *db), (db));
