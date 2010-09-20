@@ -187,7 +187,7 @@ private:
 /**
 * A function context gives user defined scalar or aggregate functions
 * access to function arguments and function results. The "Execute" method
-* resp. the "Aggregate" and "Finalize" methods receive the current 
+* resp. the "Aggregate" and "Finalize" methods receive the current
 * function context as an argument.
 */
 class WXDLLIMPEXP_SQLITE3 wxSQLite3FunctionContext
@@ -333,7 +333,7 @@ public:
   * binary zeros.
   * If this memory is used to store pointers to allocated objects,
   * it is important to free all allocated objects in the "Finalize" method.
-  * 
+  *
   * \param len amount of memory needed in bytes
   * \return pointer to the allocated memory
   */
@@ -360,12 +360,12 @@ public:
   static void ExecRollbackHook(void* hook);
 
   /// Execute the user defined update hook (internal use only)
-  static void ExecUpdateHook(void* hook, int type, 
-                             const char* database, const char* table, 
+  static void ExecUpdateHook(void* hook, int type,
+                             const char* database, const char* table,
                              wxsqlite_int64 rowid);
 
   /// Execute the user defined Write Ahead Log hook (internal use only)
-  static int ExecWriteAheadLogHook(void* hook, void* dbHandle, 
+  static int ExecWriteAheadLogHook(void* hook, void* dbHandle,
                                    const char* database, int numPages);
 
 private:
@@ -568,7 +568,7 @@ public:
   * \param database Name of the database
   * \param numPages the number of pages
   */
-  virtual int WriteAheadLogCallback(const wxString& WXUNUSED(database), 
+  virtual int WriteAheadLogCallback(const wxString& WXUNUSED(database),
                                     int WXUNUSED(numPages)) { return 0; }
 
   /// Set the associated database
@@ -1232,9 +1232,16 @@ public:
 
   /// Execute the query represented by this statement
   /**
+  * \param transferStatementOwnership if TRUE the ownership of the underlying SQLite 
+  * statement object is transferred to the created result set (default: FALSE)
   * \return result set instance
+  * \note the transfer of ownership of the underlying SQLite statement object can be
+  * performed only once. If the transfer of ownership has been requested this
+  * wxSQL3Statement instance isn't usable anymore as soon as the result set is destroyed.
+  * If the transfer of ownership isn't requested the created result set can be used to
+  * retrieve the selected data rows only as long as this wxSQLite3Statement instance exists.
   */
-  wxSQLite3ResultSet ExecuteQuery();
+  wxSQLite3ResultSet ExecuteQuery(bool transferStatementOwnership = false);
 
   /// Get the number of statement parameters
   /**
@@ -1244,7 +1251,7 @@ public:
 
   /// Get the index of a parameter with a given name
   /**
-  * \param paramName 
+  * \param paramName
   * \return the index of the parameter with the given name. The name must match exactly.
   * If there is no parameter with the given name, return 0.
   */
@@ -1370,7 +1377,7 @@ public:
 
   /// Bind parameter to a Zero BLOB value
   /**
-  * Space for a BLOB is reserved and filled with binary zeros for later reference 
+  * Space for a BLOB is reserved and filled with binary zeros for later reference
   * through a BLOB handle.
   *
   * \param paramIndex index of the parameter. The first parameter has an index of 1.
@@ -1380,7 +1387,7 @@ public:
 
   /// Clear all parameter bindings
   /**
-  * Sets all the parameters in the prepared SQL statement back to NULL. 
+  * Sets all the parameters in the prepared SQL statement back to NULL.
   */
   void ClearBindings();
 
@@ -1415,8 +1422,9 @@ private:
   /// Check for valid statement
   void CheckStmt();
 
-  void* m_db;    ///< associated SQLite3 database
-  void* m_stmt;  ///< associated SQLite3 statement
+  void* m_db;            ///< associated SQLite3 database
+  void* m_stmt;          ///< associated SQLite3 statement
+  bool  m_hasOwnership;  ///< flag whether the associated SQLite3 statement is owned
 };
 
 
@@ -1692,7 +1700,7 @@ public:
   * \param[in] flags Control over the database connection (see http://www.sqlite.org/c3ref/open.html for further information).
   * Flag values are prefixed by WX to distinguish them from the original SQLite flag values.
   */
-  void Open(const wxString& fileName, const wxString& key = wxEmptyString, 
+  void Open(const wxString& fileName, const wxString& key = wxEmptyString,
             int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE);
 
   /// Open a SQLite3 database using a binary key
@@ -1723,7 +1731,7 @@ public:
   * wxSQLite3Statement instances before closing a database.
   *
   * NOTE: Finalizing all wxSQLite3Blob instances before closing a database is still required!
-  * 
+  *
   */
   void Close();
 
@@ -1731,9 +1739,9 @@ public:
   /**
   * This method is used to overwrite the contents of a database with the contents
   * of this database. This is useful either for creating backups of the database or
-  * for copying an in-memory database to persistent files. 
+  * for copying an in-memory database to persistent files.
   *
-  * NOTE: Exclusive access is required to the target database for the 
+  * NOTE: Exclusive access is required to the target database for the
   * duration of the operation. However the source database is only
   * read-locked while it is actually being read, it is not locked
   * continuously for the entire operation. Thus, the backup may be
@@ -1756,9 +1764,9 @@ public:
   /**
   * This method is used to overwrite the contents of a database with the contents
   * of this database. This is useful either for creating backups of the database or
-  * for copying an in-memory database to persistent files. 
+  * for copying an in-memory database to persistent files.
   *
-  * NOTE: Exclusive access is required to the target database for the 
+  * NOTE: Exclusive access is required to the target database for the
   * duration of the operation. However the source database is only
   * read-locked while it is actually being read, it is not locked
   * continuously for the entire operation. Thus, the backup may be
@@ -1783,7 +1791,7 @@ public:
   * of another database. This is useful either for restoring a backup of the database or
   * for copying a persistent file to an in-memory database.
   *
-  * NOTE: Exclusive access is required to the target database for the 
+  * NOTE: Exclusive access is required to the target database for the
   * duration of the operation. However the source database is only
   * read-locked while it is actually being read, it is not locked
   * continuously for the entire operation. Thus, the backup may be
@@ -1802,7 +1810,7 @@ public:
   * of another database. This is useful either for restoring a backup of the database or
   * for copying a persistent file to an in-memory database.
   *
-  * NOTE: Exclusive access is required to the target database for the 
+  * NOTE: Exclusive access is required to the target database for the
   * duration of the operation. However the source database is only
   * read-locked while it is actually being read, it is not locked
   * continuously for the entire operation. Thus, the backup may be
@@ -1830,7 +1838,7 @@ public:
   * to write to the database or do a BEGIN IMMEDIATE or BEGIN EXCLUSIVE. Other processes can continue
   * to read from the database, however. An exclusive transaction causes EXCLUSIVE locks to be acquired
   * on all databases. After a BEGIN EXCLUSIVE, it is guaranteed that no other thread or process will
-  * be able to read or write the database until the transaction is complete. 
+  * be able to read or write the database until the transaction is complete.
   *
   * \param[in] transactionType type of transaction (default: DEFERRED).
   */
@@ -1848,13 +1856,13 @@ public:
   * \param savepointName optional name of a previously set savepoint
   */
   void Rollback(const wxString& savepointName = wxEmptyString);
-  
+
   /// Get the auto commit state
   /**
   * Test to see whether or not the database connection is in autocommit mode.
   * \return TRUE if it is and FALSE if not.
   * Autocommit mode is on by default. Autocommit is disabled by a BEGIN statement
-  * and reenabled by the next COMMIT or ROLLBACK. 
+  * and reenabled by the next COMMIT or ROLLBACK.
   */
   bool GetAutoCommit();
 
@@ -2100,9 +2108,9 @@ public:
   * \param tableName
   * \param dbName
   */
-  wxSQLite3Blob GetReadOnlyBlob(wxLongLong rowId, 
-                                const wxString& columnName, 
-                                const wxString& tableName, 
+  wxSQLite3Blob GetReadOnlyBlob(wxLongLong rowId,
+                                const wxString& columnName,
+                                const wxString& tableName,
                                 const wxString& dbName = wxEmptyString);
 
   /// Get handle to a writable BLOB
@@ -2112,9 +2120,9 @@ public:
   * \param tableName
   * \param dbName
   */
-  wxSQLite3Blob GetWritableBlob(wxLongLong rowId, 
-                                const wxString& columnName, 
-                                const wxString& tableName, 
+  wxSQLite3Blob GetWritableBlob(wxLongLong rowId,
+                                const wxString& columnName,
+                                const wxString& tableName,
                                 const wxString& dbName = wxEmptyString);
 
   /// Get handle to a BLOB
@@ -2125,9 +2133,9 @@ public:
   * \param dbName
   * \param writable
   */
-  wxSQLite3Blob GetBlob(wxLongLong rowId, 
-                        const wxString& columnName, 
-                        const wxString& tableName, 
+  wxSQLite3Blob GetBlob(wxLongLong rowId,
+                        const wxString& columnName,
+                        const wxString& tableName,
                         const wxString& dbName = wxEmptyString,
                         bool writable = true);
 
@@ -2221,10 +2229,10 @@ public:
   * \param commitHook address of an instance of a commit callback function
   */
   void SetCommitHook(wxSQLite3Hook* commitHook);
-  
+
   /// Create a user-defined rollback callback function
   /**
-  * Registers a callback function object to be invoked whenever a transaction is rolled back. 
+  * Registers a callback function object to be invoked whenever a transaction is rolled back.
   * Registering a NULL function object disables the callback. Only a single rollback hook callback
   * can be registered at a time.
   *
@@ -2445,7 +2453,7 @@ public:
   * at compile time. If the option index is out of range, an empty string is returned.
   * The SQLITE_ prefix is omitted from any strings returned by this method.
   *
-  * \param optionIndex Index of the compile option 
+  * \param optionIndex Index of the compile option
   * \return a string containing the name of the n-th
   */
   static wxString GetCompileOptionName(int optionIndex);
@@ -2527,7 +2535,7 @@ protected:
   /// Request the instantiation of a user defined collation sequence
   /**
   * This method is called for every undefined collation sequence.
-  * In a derived database class this method should call SetCollation registering an 
+  * In a derived database class this method should call SetCollation registering an
   * appropriate collation class instance.
   * \param collationName name of the collation which is needed for string comparison
   */
@@ -2575,9 +2583,9 @@ private:
 * \code
 * void doDB(wxSQLite3Database *db)
 * {
-* 	wxSQLite3Transaction t(db);
-* 	doDatabaseOperations();
-* 	t.Commit();
+*   wxSQLite3Transaction t(db);
+*   doDatabaseOperations();
+*   t.Commit();
 * }
 * \endcode
 * In case doDatabseOperations() fails by throwing an exception,
@@ -2590,7 +2598,7 @@ class WXDLLIMPEXP_SQLITE3 wxSQLite3Transaction
 public:
   /// Constructor. Start the Transaction.
   /**
-    * The constructor starts the transaction. 
+    * The constructor starts the transaction.
     * \param db Pointer to the open Database. The pointer to the database
     * is NOT freed on destruction!
     * \param transactionType Type of the transaction to be opened.
@@ -2631,16 +2639,16 @@ public:
 
 private:
   /// New operator (May only be created on the stack)
-	static void *operator new(size_t size);
+  static void *operator new(size_t size);
 
   /// Delete operator (May not be deleted (for symmetry))
-	static void operator delete(void *ptr);
+  static void operator delete(void *ptr);
 
   /// Copy constructor (Must not be copied)
-	wxSQLite3Transaction(const wxSQLite3Transaction&);
+  wxSQLite3Transaction(const wxSQLite3Transaction&);
 
   /// Assignment operator (Must not be assigned)
-	wxSQLite3Transaction& operator=(const wxSQLite3Transaction&);
+  wxSQLite3Transaction& operator=(const wxSQLite3Transaction&);
 
   wxSQLite3Database* m_database; ///< Pointer to the associated database (no ownership)
 };
