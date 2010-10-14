@@ -50,7 +50,8 @@
 //              2010-02-05  - Upgrade to SQLite3 version 3.6.22
 //              2010-03-11  - Upgrade to SQLite3 version 3.6.23
 //              2010-07-25  - Upgrade to SQLite3 version 3.7.0
-//                            
+//              2010-10-10  - Upgrade to SQLite3 version 3.7.3
+//
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -67,10 +68,10 @@
   Several solutions already exist to access SQLite databases. To name just a few:
 
   - <a href="http://sourceforge.net/projects/wxsqlite">wxSQLite</a> :
-    This is a wxWidgets wrapper for version 2.8.x of SQLite. 
+    This is a wxWidgets wrapper for version 2.8.x of SQLite.
     SQLite version 3.x has a lot more features - which are not supported by this wrapper.
 
-  - <a href="http://www.codeproject.com/database/CppSQLite.asp">CppSQLite</a> : 
+  - <a href="http://www.codeproject.com/database/CppSQLite.asp">CppSQLite</a> :
     Not wxWidgets specific, but with (partial) support for the newer version 3.x of SQLite.
 
   - <a href="http://wxcode.sf.net">DatabaseLayer</a> :
@@ -92,6 +93,14 @@
 
 <dl>
 
+<dt><b>2.0.1</b> - <i>October 2010</i></dt>
+<dd>
+Upgrade to SQLite version 3.7.3<br>
+Added parameter transferStatementOwnership to method wxSQLite3Statement::ExecuteQuery
+to allow using the returned result set beyond the life time of the wxSQLite3Statement instance<br>
+Eliminated the use of sqlite3_mprintf which caused linker problems when loading SQLite dynamically<br>
+
+</dd>
 <dt><b>2.0.0</b> - <i>July 2010</i></dt>
 <dd>
 Upgrade to SQLite version 3.7.0<br>
