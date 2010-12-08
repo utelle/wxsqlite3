@@ -23,6 +23,7 @@ sqlite3_blob_bytes
 sqlite3_blob_close
 sqlite3_blob_open
 sqlite3_blob_read
+sqlite3_blob_reopen
 sqlite3_blob_write
 sqlite3_busy_handler
 sqlite3_busy_timeout
@@ -157,6 +158,7 @@ sqlite3_sourceid
 sqlite3_sql
 sqlite3_status
 sqlite3_step
+sqlite3_stmt_readonly
 sqlite3_stmt_status
 sqlite3_strnicmp
 sqlite3_table_column_metadata
