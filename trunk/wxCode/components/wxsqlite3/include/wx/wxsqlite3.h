@@ -1404,7 +1404,15 @@ public:
   */
   void Reset();
 
-  /// Finalize the prepared staement
+  /// Determine whether the statement is read-only
+  /**
+  * \return TRUE if the statement is read-only, FALSE otherwise
+  * \since SQLite3 version 3.7.4
+  * \note For SQLite3 version before version 3.7.4 this method returns always FALSE.
+  */
+  bool IsReadOnly();
+
+  /// Finalize the prepared statement
   /**
   */
   void Finalize();
@@ -1490,6 +1498,15 @@ public:
    * \return the BLOB size
   */
   int GetSize();
+
+  /// Rebind the associated BLOB to a new row
+  /**
+   * Please refer to the SQLite documentation for further information
+   * (see function sqlite3_blob_reopen)
+   * \param rowid id of the row to which the BLOB should be rebound
+   * \since SQLite3 version 3.7.4
+  */
+  void Rebind(wxLongLong rowid);
 
   /// Finalize the BLOB
   /**

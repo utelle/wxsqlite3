@@ -51,6 +51,7 @@
 //              2010-03-11  - Upgrade to SQLite3 version 3.6.23
 //              2010-07-25  - Upgrade to SQLite3 version 3.7.0
 //              2010-10-10  - Upgrade to SQLite3 version 3.7.3
+//              2010-12-11  - Upgrade to SQLite3 version 3.7.4
 //
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -93,6 +94,13 @@
 
 <dl>
 
+<dt><b>2.0.2</b> - <i>December 2010</i></dt>
+<dd>
+Upgrade to SQLite version 3.7.4<br>
+Added support for rebinding a BLOB object to a new row<br>
+Added support for determining if an SQL statement writes the database<br>
+
+</dd>
 <dt><b>2.0.1</b> - <i>October 2010</i></dt>
 <dd>
 Upgrade to SQLite version 3.7.3<br>
