@@ -127,6 +127,7 @@ const char* wxERRMSG_NOMETADATA    = wxTRANSLATE("Meta data support not availabl
 const char* wxERRMSG_NOCODEC       = wxTRANSLATE("Encryption support not available");
 const char* wxERRMSG_NOLOADEXT     = wxTRANSLATE("Loadable extension support not available");
 const char* wxERRMSG_NOINCBLOB     = wxTRANSLATE("Incremental BLOB support not available");
+const char* wxERRMSG_NOBLOBREBIND  = wxTRANSLATE("Rebind BLOB support not available");
 const char* wxERRMSG_NOSAVEPOINT   = wxTRANSLATE("Savepoint support not available");
 const char* wxERRMSG_NOBACKUP      = wxTRANSLATE("Backup/restore support not available");
 const char* wxERRMSG_NOWAL         = wxTRANSLATE("Write Ahead Log support not available");
@@ -167,6 +168,7 @@ const wxChar* wxERRMSG_NOMETADATA    = wxTRANSLATE("Meta data support not availa
 const wxChar* wxERRMSG_NOCODEC       = wxTRANSLATE("Encryption support not available");
 const wxChar* wxERRMSG_NOLOADEXT     = wxTRANSLATE("Loadable extension support not available");
 const wxChar* wxERRMSG_NOINCBLOB     = wxTRANSLATE("Incremental BLOB support not available");
+const wxChar* wxERRMSG_NOBLOBREBIND  = wxTRANSLATE("Rebind BLOB support not available");
 const wxChar* wxERRMSG_NOSAVEPOINT   = wxTRANSLATE("Savepoint support not available");
 const wxChar* wxERRMSG_NOBACKUP      = wxTRANSLATE("Backup/restore support not available");
 const wxChar* wxERRMSG_NOWAL         = wxTRANSLATE("Write Ahead Log support not available");
@@ -1746,6 +1748,16 @@ void wxSQLite3Statement::Reset()
   }
 }
 
+bool wxSQLite3Statement::IsReadOnly()
+{
+#if SQLITE_VERSION_NUMBER >= 3007004
+  CheckStmt();
+  return sqlite3_stmt_readonly((sqlite3_stmt*) m_stmt) != 0;
+#else
+  return false;
+#endif
+}
+
 void wxSQLite3Statement::Finalize()
 {
   if (m_stmt && m_hasOwnership)
@@ -1909,6 +1921,22 @@ int wxSQLite3Blob::GetSize()
 #else
   throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NOINCBLOB);
   return 0;
+#endif
+}
+
+void wxSQLite3Blob::Rebind(wxLongLong rowid)
+{
+#if SQLITE_VERSION_NUMBER >= 3007004
+  CheckBlob();
+  int rc = sqlite3_blob_reopen((sqlite3_blob*) m_blob, rowid.GetValue());
+  if (rc != SQLITE_OK)
+  {
+    const char* localError = sqlite3_errmsg((sqlite3*) m_db);
+    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+  }
+#else
+  wxUnusedVar(rowid);
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NOBLOBREBIND);
 #endif
 }
 
