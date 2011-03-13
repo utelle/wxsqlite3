@@ -126,6 +126,14 @@
     <if cond="FORMAT_SUPPORTS_CONDITIONS=='0'">wxsqlite3_lib</if>
   </set>
 
+  <!-- =============================================================== -->
+  <!--                    Misc platform specialities:                  -->
+  <!-- =============================================================== -->
+
+  <if cond="FORMAT=='autoconf'">
+    <include file="mac_bundles.bkl"/>
+  </if>
+
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- Sample(s) settings                                                -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -149,5 +157,34 @@
     <win32-res>samples/minimal.rc</win32-res>
   </wxcode-sample>
 
-</makefile>
+  <template id="wxsqlite3_dbadmin">
+    <app-type>gui</app-type>
+    <sources>$(fileList('dbadmin/*.cpp'))</sources>
+    <headers>$(fileList('dbadmin/*.h'))</headers>
+    <include>$(SRCDIR)/dbadmin</include>
+    <dirname>$(SRCDIR)/dbadmin</dirname>
+    <library>$(COMPONENT_LIB)</library>
+    <stdlib>$(SQLITE3_DIR)</stdlib>
+    <sys-lib>$(SQLITE3_DEP)</sys-lib>
+    <if cond="WX_VERSION_DEFAULT=='28'">
+      <include>$(WX_DIR)/contrib/include</include>
+    </if>
+    <wx-lib>stc</wx-lib>
+    <wx-lib>richtext</wx-lib>
+    <wx-lib>aui</wx-lib>
+    <wx-lib>adv</wx-lib>
+    <wx-lib>net</wx-lib>
+    <wx-lib>xml</wx-lib>
+    <wx-lib>core</wx-lib>
+    <wx-lib>base</wx-lib>
+  </template>
 
+  <wxcode-sample id="dbadmin" template="wxsqlite3_dbadmin">
+    <exename>dbadmin</exename>
+    <win32-res>dbadmin/wxSQLitePlus.rc</win32-res>
+    <if cond="FORMAT=='autoconf'">
+      <wx-mac-app-bundle/>
+    </if>
+  </wxcode-sample>
+
+</makefile>

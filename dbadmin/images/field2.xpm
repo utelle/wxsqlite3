@@ -1,0 +1,34 @@
+/* XPM */
+static char *field2_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 12 1",
+"+ c #FCFEFB",
+"# c #BCDAF9",
+"o c #055AB8",
+". c #0473CE",
+"  c #5197D9",
+"@ c #DBE4F4",
+"O c None",
+"X c #0666C3",
+"% c #B6B5B2",
+"$ c #ABD8FB",
+"& c #044EB2",
+"* c #ABB4B2",
+/* pixels */
+" ......XXXXXXoOO",
+".+++@@@###$$$o%O",
+".###$$$$$$$$$&%O",
+"XXXXooo&&&&&&&%O",
+"*%%%%%%%%%%%%%%O",
+" ......XXXXXXoOO",
+".+++@@@###$$$o%O",
+".###$$$$$$$$$&%O",
+"XXXXooo&&&&&&&%O",
+"*%%%%%%%%%%%%%%O",
+" ......XXXXXXoOO",
+".+++@@@###$$$o%O",
+".###$$$$$$$$$&%O",
+"XXXXooo&&&&&&&%O",
+"*%%%%%%%%%%%%%%O",
+"OOOOOOOOOOOOOOOO"
+};

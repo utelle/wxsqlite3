@@ -52,6 +52,7 @@
 //              2010-07-25  - Upgrade to SQLite3 version 3.7.0
 //              2010-10-10  - Upgrade to SQLite3 version 3.7.3
 //              2010-12-11  - Upgrade to SQLite3 version 3.7.4
+//              2011-02-09  - Upgrade to SQLite3 version 3.7.5
 //
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -94,6 +95,14 @@
 
 <dl>
 
+<dt><b>2.1.0</b> - <i>March 2011</i></dt>
+<dd>
+Upgrade to SQLite version 3.7.5<br>
+Added wxSQLite+, a database administration application written by Fred Cailleau-Lepetit,
+as a GUI sample for wxSQLite3. Minor adjustments were applied to make wxSQLite+
+compatible with wxWidgets 2.9.x. Please note that wxSQLite+ is under GPL license.<br>
+
+</dd>
 <dt><b>2.0.2</b> - <i>December 2010</i></dt>
 <dd>
 Upgrade to SQLite version 3.7.4<br>
@@ -361,6 +370,10 @@ First public release
 \author Ulrich Telle (<a href="&#109;&#97;&#105;&#108;&#116;&#111;:&#117;&#108;&#114;&#105;&#99;&#104;&#46;&#116;&#101;&#108;&#108;&#101;&#64;&#103;&#109;&#120;&#46;&#100;&#101;">ulrich DOT telle AT gmx DOT de</a>)
 
 \section ackn Acknowledgements
+
+Kudos to <b>Fred Cailleau-Lepetit</b> for developing <b>wxSQLite+</b> as a sample demonstrating
+the wxWidgets components <b>wxAUI</b> and <b>wxSQLite3</b> and for allowing it to be included
+in the wxSQLite3 distribution.
 
 The following people have contributed to wxSQLite3:
 

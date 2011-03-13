@@ -1,0 +1,59 @@
+wxSQLite+ (c) F.Cailleau-Lepetit 2007-2009
+
+Version 0.3.0
+* Gestion des BLOB, un bouton dans les cellules permet d'afficher une boite de 
+  dialogue afin d'afficher le contenu du champ.
+* Gestion des fonctions de Backup/Restore
+
+Version 0.2.3
+* Correction bogue sur dialogue filtre, liste de champs parfois incomplète.
+* Correction bogue sur affichage des colonnes avec type WXSQLITE_NULL.
+* Correction bogue sur affichage de la taille des bouttons dans la wxToolBar
+  l'onglet DATA de l'explorateur dans la version Windows.
+* Correction bogue exception levée lors du raffraichissement des colonnes
+  dans la fenêtre d'affichage de la structure de la base de données.
+* Gestion/Affichage des valeurs nulles
+* Correction bogue taille de la fenêtre des paramètres SQL
+* Sauvegarde/restauration de la valeur des paramètres SQL
+* Gestion des bases chiffrées EAS (RSA Data Security license)
+
+Version 0.2.2
+* Première version sous GNU/Linux (correction des bogues sous wxGTK2).
+* Ajout d'un élément de menu contextuel database.
+* Gestion de fin de ligne de commande SQL par point virgule au lieu de ligne vide.
+* Correction de la non prise en compte des commentaires sur les fins de ligne
+  dans l'éditeur SQL pour la détermination de la commande courrante.
+* Correction de l'implémentation de la boite de dialogue préférences.
+* Remplacement du gestionnaire d'événement wxEVT_LEFT_DCLICK par 
+  EVT_TREE_ITEM_ACTIVATED et correction du bogue sur la gestion du flag de HitTest
+* Ajout de possibilité de filtre (clause WHERE) sur l'onglet Data de l'explorateur.
+* Ajout de possibilité de true (clause ORDER BY) sur l'onglet Data de l'explorateur.
+* Correction d'un bogue de raffraichissement de l'arbre si aucun élément sélectionnée.
+* Correction d'un bogue sur l'affichage des coches dans les grilles de l'explorateur.
+
+Version 0.2.1
+* Ouverture d'une base par passage d'argument sur la ligne de commande.
+* Mise en place d'un système de communication Inter Processus, afin d'informer
+  l'instance du programme ouvert précédemment d'un nouvel appel.
+* Gestion du rappel des onglets d'exploration en fonction de la base en plus du
+  nom de l'élément.
+
+Version 0.2.0
+* Gestion de plusieurs bases (ATTACH/DETACH DATABASE).
+* Ajout d'un dialogue d'ajout de colonnes à une table existante.
+* Ajout de mot-clef manquant pour la coloration syntaxique de l'éditeur SQL.
+* Blocage du nom de table dans le dialogue de création d'index  si ce dialogue
+  est ouvert pour une table précise.
+
+Version 0.1.1
+* Ajout de la coloration syntaxique dans l'éditeur de requête du dialogue de
+  création de vue.
+* Ajout de la coloration syntaxique dans l'éditeur de script du dialogue de
+  création de trigger.
+* Prise en compte de la position du curseur pour l'exécution d'une requête si
+  plusieurs requêtes disponibles dans l'éditeur.
+* Modification du contrôle de la requête dans le dialogue de création de vue.
+* Ajout d'un message de confirmation de fermeture de la base ouverte si une
+  transaction a démarré.
+* Correction de la détermination du script à enregistrer dans l'historique des
+  scripts.
