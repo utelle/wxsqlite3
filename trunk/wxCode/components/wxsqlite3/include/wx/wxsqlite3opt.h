@@ -4,7 +4,7 @@
 // Author:      Ulrich Telle
 // Modified by:
 // Created:     2007-02-01
-//                            
+//
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
