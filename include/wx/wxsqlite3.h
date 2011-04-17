@@ -84,6 +84,10 @@ enum wxSQLite3JournalMode
 #define WXSQLITE_OPEN_SHAREDCACHE      0x00020000
 #define WXSQLITE_OPEN_PRIVATECACHE     0x00040000
 
+#define WXSQLITE_CHECKPOINT_PASSIVE 0
+#define WXSQLITE_CHECKPOINT_FULL    1
+#define WXSQLITE_CHECKPOINT_RESTART 2
+
 inline void operator++(wxSQLite3LimitType& value)
 {
   value = wxSQLite3LimitType(value+1);
@@ -1243,6 +1247,14 @@ public:
   */
   wxSQLite3ResultSet ExecuteQuery(bool transferStatementOwnership = false);
 
+  /// Execute a scalar SQL query statement given as a wxString
+  /**
+  * Allows to easily retrieve the result of queries returning a single integer result
+  * like SELECT COUNT(*) FROM table WHERE condition.
+  * \return first column of first row as an int
+  */
+  int ExecuteScalar();
+
   /// Get the number of statement parameters
   /**
   * \return the number of parameters in the prepared statement
@@ -2287,8 +2299,15 @@ public:
   * database instance. If the database instance is not in write-ahead log mode then this method
   * is a harmless no-op.
   * \param database name of a database to be checkpointed
+  * \param mode checkpoint mode, allowed values: WXSQLITE_CHECKPOINT_PASSIVE (default),
+  *             WXSQLITE_CHECKPOINT_FULL, WXSQLITE_CHECKPOINT_RESTART
+  *             (see http://www.sqlite.org/c3ref/wal_checkpoint_v2.html)
+  * \param logFrameCount size of write-ahead log in frames
+  * \param ckptFrameCount number of frames actually checkpointed
+  * \note The frame counts are set to zero if the SQLite version is below 3.7.6.
   */
-  void WriteAheadLogCheckpoint(const wxString& database);
+  void WriteAheadLogCheckpoint(const wxString& database, int mode = WXSQLITE_CHECKPOINT_PASSIVE,
+                               int* logFrameCount = NULL, int* ckptFrameCount = NULL);
 
   /// Automatically checkpoint database in write-ahead log mode
   /**

@@ -53,6 +53,7 @@
 //              2010-10-10  - Upgrade to SQLite3 version 3.7.3
 //              2010-12-11  - Upgrade to SQLite3 version 3.7.4
 //              2011-02-09  - Upgrade to SQLite3 version 3.7.5
+//              2011-04-17  - Upgrade to SQLite3 version 3.7.6.1
 //
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -95,6 +96,13 @@
 
 <dl>
 
+<dt><b>2.1.1</b> - <i>April 2011</i></dt>
+<dd>
+Upgrade to SQLite version 3.7.6.1<br>
+Added convenience method wxSQLite3Statement::ExecuteScalar<br>
+Changed write-ahead log checkpoint method to new version (v2)<br>
+
+</dd>
 <dt><b>2.1.0</b> - <i>March 2011</i></dt>
 <dd>
 Upgrade to SQLite version 3.7.5<br>
