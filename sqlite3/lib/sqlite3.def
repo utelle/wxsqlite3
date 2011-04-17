@@ -36,8 +36,6 @@ sqlite3_column_blob
 sqlite3_column_bytes
 sqlite3_column_bytes16
 sqlite3_column_count
-sqlite3_column_database_name
-sqlite3_column_database_name16
 sqlite3_column_decltype
 sqlite3_column_decltype16
 sqlite3_column_double
@@ -45,10 +43,6 @@ sqlite3_column_int
 sqlite3_column_int64
 sqlite3_column_name
 sqlite3_column_name16
-sqlite3_column_origin_name
-sqlite3_column_origin_name16
-sqlite3_column_table_name
-sqlite3_column_table_name16
 sqlite3_column_text
 sqlite3_column_text16
 sqlite3_column_type
@@ -159,7 +153,6 @@ sqlite3_step
 sqlite3_stmt_readonly
 sqlite3_stmt_status
 sqlite3_strnicmp
-sqlite3_table_column_metadata
 sqlite3_test_control
 sqlite3_thread_cleanup
 sqlite3_threadsafe
@@ -180,7 +173,6 @@ sqlite3_value_text16
 sqlite3_value_text16be
 sqlite3_value_text16le
 sqlite3_value_type
-sqlite3_version
 sqlite3_vfs_find
 sqlite3_vfs_register
 sqlite3_vfs_unregister
@@ -188,5 +180,9 @@ sqlite3_vmprintf
 sqlite3_vsnprintf
 sqlite3_wal_autocheckpoint
 sqlite3_wal_checkpoint
+sqlite3_wal_checkpoint_v2
 sqlite3_wal_hook
 sqlite3_win32_mbcs_to_utf8
+winCurrentTime
+winDlClose
+winDlSym
