@@ -186,6 +186,9 @@ DYNFUNC(return, char *,                sqlite3_vmprintf,              (const cha
 #if SQLITE_VERSION_NUMBER >= 3007000
 DYNFUNC(return, int,                   sqlite3_wal_autocheckpoint,    (sqlite3 *db, int N), (db, N));
 DYNFUNC(return, int,                   sqlite3_wal_checkpoint,        (sqlite3 *db, const char *zDb), (db, zDb));
+#if SQLITE_VERSION_NUMBER >= 3007006
+DYNFUNC(return, int,                   sqlite3_wal_checkpoint_v2,     (sqlite3 *db, const char *zDb, int mode, int* logFrameCount, int* ckptFrameCount), (db, zDb, mode, logFrameCount, ckptFrameCount));
+#endif
 DYNFUNC(return, void *,                sqlite3_wal_hook,              (sqlite3 *db, int (*xCallback)(void *, sqlite3 *, const char*, int), void *pArg), (db, xCallback, pArg));
 #endif
 #if WXSQLITE3_HAVE_METADATA

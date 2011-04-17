@@ -1501,6 +1501,20 @@ wxSQLite3ResultSet wxSQLite3Statement::ExecuteQuery(bool transferStatementOwners
   }
 }
 
+int wxSQLite3Statement::ExecuteScalar()
+{
+  wxSQLite3ResultSet resultSet = ExecuteQuery(true);
+
+  if (resultSet.Eof() || resultSet.GetColumnCount() < 1)
+  {
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_INVALID_QUERY);
+  }
+
+  long value = 0;
+  resultSet.GetAsString(0).ToLong(&value);
+  return (int) value;
+}
+
 int wxSQLite3Statement::GetParamCount()
 {
   CheckStmt();
@@ -2961,13 +2975,20 @@ void wxSQLite3Database::SetWriteAheadLogHook(wxSQLite3Hook* walHook)
 #endif
 }
 
-void wxSQLite3Database::WriteAheadLogCheckpoint(const wxString& database)
+void wxSQLite3Database::WriteAheadLogCheckpoint(const wxString& database, int mode, 
+                                                int* logFrameCount, int* ckptFrameCount)
 {
 #if SQLITE_VERSION_NUMBER >= 3007000
   CheckDatabase();
   wxCharBuffer strDatabase = database.ToUTF8();
   const char* localDatabase = strDatabase;
+#if SQLITE_VERSION_NUMBER >= 3007006
+  int rc = sqlite3_wal_checkpoint_v2((sqlite3*) m_db, localDatabase, mode, logFrameCount, ckptFrameCount);
+#else
   int rc = sqlite3_wal_checkpoint((sqlite3*) m_db, localDatabase);
+  if (logFrameCount  != NULL) *logFrameCount  = 0;
+  if (ckptFrameCount != NULL) *ckptFrameCount = 0;
+#endif
 
   if (rc != SQLITE_OK)
   {
