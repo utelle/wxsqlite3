@@ -54,6 +54,7 @@
 //              2010-12-11  - Upgrade to SQLite3 version 3.7.4
 //              2011-02-09  - Upgrade to SQLite3 version 3.7.5
 //              2011-04-17  - Upgrade to SQLite3 version 3.7.6.1
+//              2011-06-30  - Upgrade to SQLite3 version 3.7.7.1
 //
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -96,6 +97,12 @@
 
 <dl>
 
+<dt><b>2.1.2</b> - <i>July 2011</i></dt>
+<dd>
+Upgrade to SQLite version 3.7.7.1<br>
+Modified wxSQLite3Transaction to make it exception safe<br>
+
+</dd>
 <dt><b>2.1.1</b> - <i>April 2011</i></dt>
 <dd>
 Upgrade to SQLite version 3.7.6.1<br>

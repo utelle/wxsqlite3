@@ -2107,6 +2107,7 @@ wxSQLite3Database::wxSQLite3Database()
   m_db = 0;
   m_busyTimeoutMs = 60000; // 60 seconds
   m_isEncrypted = false;
+  m_lastRollbackRC = 0;
 }
 
 wxSQLite3Database::wxSQLite3Database(const wxSQLite3Database& db)
@@ -2114,6 +2115,7 @@ wxSQLite3Database::wxSQLite3Database(const wxSQLite3Database& db)
   m_db = db.m_db;
   m_busyTimeoutMs = 60000; // 60 seconds
   m_isEncrypted = false;
+  m_lastRollbackRC = db.m_lastRollbackRC;
 }
 
 wxSQLite3Database::~wxSQLite3Database()
@@ -2130,6 +2132,7 @@ wxSQLite3Database& wxSQLite3Database::operator=(const wxSQLite3Database& db)
       m_db = db.m_db;
       m_busyTimeoutMs = 60000; // 60 seconds
       m_isEncrypted = db.m_isEncrypted;
+      m_lastRollbackRC = db.m_lastRollbackRC;
     }
     else
     {
@@ -2423,7 +2426,7 @@ void wxSQLite3Database::Rollback(const wxString& savepointName)
   if (savepointName.IsEmpty())
   {
 #endif
-    ExecuteUpdate("rollback transaction");
+    ExecuteUpdate("rollback transaction", true);
 #if SQLITE_VERSION_NUMBER >= 3006008
   }
   else
@@ -2437,6 +2440,11 @@ bool wxSQLite3Database::GetAutoCommit()
 {
   CheckDatabase();
   return sqlite3_get_autocommit((sqlite3*) m_db) != 0;
+}
+
+int wxSQLite3Database::QueryRollbackState()
+{
+  return m_lastRollbackRC;
 }
 
 void wxSQLite3Database::Savepoint(const wxString& savepointName)
@@ -2663,13 +2671,20 @@ int wxSQLite3Database::ExecuteUpdate(const wxSQLite3StatementBuffer& sql)
   return ExecuteUpdate((const char*) sql);
 }
 
-int wxSQLite3Database::ExecuteUpdate(const char* sql)
+int wxSQLite3Database::ExecuteUpdate(const char* sql, bool saveRC)
 {
   CheckDatabase();
 
   char* localError=0;
 
   int rc = sqlite3_exec((sqlite3*) m_db, sql, 0, 0, &localError);
+  if (saveRC)
+  {
+    if (strncmp(sql, "rollback transaction", 20) == 0)
+    {
+      m_lastRollbackRC = rc;
+    }
+  }
 
   if (rc == SQLITE_OK)
   {
@@ -3630,7 +3645,14 @@ wxSQLite3Transaction::~wxSQLite3Transaction()
 {
   if (m_database != NULL)
   {
-    m_database->Rollback();
+    try
+    {
+      m_database->Rollback();
+    }
+    catch (...)
+    {
+	    // Intentionally do nothing
+    }
   }
 }
 

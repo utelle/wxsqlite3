@@ -1895,6 +1895,17 @@ public:
   */
   bool GetAutoCommit();
 
+  /// Query the return code of the last rollback
+  /**
+  * When using the class wxSQLite3Transaction there is the possibility
+  * that the automatic rollback which is executed in case of an exception
+  * fails. This method allows to query the return code of that operation
+  * to check whether the automatic rollback succeeded or not.
+  * \return the return code of the last rollback.
+  * \note In case of a successful rollback the value 0 is returned.
+  */
+  int QueryRollbackState();
+
   /// Set savepoint
   /*
   * Sets a savepoint with a given name
@@ -2025,7 +2036,7 @@ public:
   * \param sql query string
   * \return the number of database rows that were changed (or inserted or deleted)
   */
-  int ExecuteUpdate(const char* sql);
+  int ExecuteUpdate(const char* sql, bool saveRC = false);
 
   /// Execute a SQL query statement given as a wxString
   /**
@@ -2599,6 +2610,7 @@ private:
   void* m_db;             ///< associated SQLite3 database
   int   m_busyTimeoutMs;  ///< Timeout in milli seconds
   bool  m_isEncrypted;    ///< Flag whether the database is encrypted or not
+  int   m_lastRollbackRC; ///< The return code of the last executed rollback operation
 
   static bool  ms_sharedCacheEnabled;        ///< Flag whether SQLite shared cache is enabled
   static bool  ms_hasEncryptionSupport;      ///< Flag whether wxSQLite3 has been compiled with encryption support
