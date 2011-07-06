@@ -169,6 +169,7 @@ sqlite3_total_changes
 sqlite3_trace
 sqlite3_transfer_bindings
 sqlite3_update_hook
+sqlite3_uri_parameter
 sqlite3_user_data
 sqlite3_value_blob
 sqlite3_value_bytes
@@ -188,11 +189,14 @@ sqlite3_vfs_register
 sqlite3_vfs_unregister
 sqlite3_vmprintf
 sqlite3_vsnprintf
+sqlite3_vtab_config
+sqlite3_vtab_on_conflict
 sqlite3_wal_autocheckpoint
 sqlite3_wal_checkpoint
 sqlite3_wal_checkpoint_v2
 sqlite3_wal_hook
 sqlite3_win32_mbcs_to_utf8
+sqlite3_win32_utf8_to_mbcs
 winCurrentTime
 winDlClose
 winDlSym
