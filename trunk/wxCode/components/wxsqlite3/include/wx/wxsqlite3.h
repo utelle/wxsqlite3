@@ -595,6 +595,29 @@ private:
   wxSQLite3Database* m_db;
 };
 
+/// Interface for a user defined backup progress function
+/**
+*/
+class WXDLLIMPEXP_SQLITE3 wxSQLite3BackupProgress
+{
+public:
+  /// Default constructor
+  wxSQLite3BackupProgress() {}
+
+  /// Virtual destructor
+  virtual ~wxSQLite3BackupProgress() {}
+
+  /// Execute the backup progress callback
+  /**
+  * This method allows an application to display information about the progress of a backup
+  * operation to the user.
+  * \param totalPages total number of pages to copy
+  * \param remainingPages number of pages remaining to be copied
+  * \return TRUE if backup should continue, FALSE otherwise
+  */
+  virtual bool Progress(int WXUNUSED(totalPages), int WXUNUSED(remainingPages)) { return true; }
+};
+
 /// Interface for a user defined collation sequence
 /**
 */
@@ -1787,7 +1810,11 @@ public:
   * \param[in] key Optional database encryption key for the target database.
   * \param[in] sourceDatabaseName Optional name of the source database (default: 'main').
   */
-  void Backup(const wxString& targetFileName, const wxString& key = wxEmptyString, const wxString& sourceDatabaseName = wxT("main"));
+  void Backup(const wxString& targetFileName, const wxString& key = wxEmptyString, 
+              const wxString& sourceDatabaseName = wxT("main"));
+  void Backup(wxSQLite3BackupProgress* progressCallback, 
+              const wxString& targetFileName, const wxString& key = wxEmptyString, 
+              const wxString& sourceDatabaseName = wxT("main"));
 
   /// Backup a SQLite3 database
   /**
@@ -1812,7 +1839,11 @@ public:
   * \param[in] key Binary database encryption key for the target database.
   * \param[in] sourceDatabaseName Optional name of the source database (default: 'main').
   */
-  void Backup(const wxString& targetFileName, const wxMemoryBuffer& key, const wxString& sourceDatabaseName = wxT("main"));
+  void Backup(const wxString& targetFileName, const wxMemoryBuffer& key, 
+              const wxString& sourceDatabaseName = wxT("main"));
+  void Backup(wxSQLite3BackupProgress* progressCallback,
+              const wxString& targetFileName, const wxMemoryBuffer& key, 
+              const wxString& sourceDatabaseName = wxT("main"));
 
   /// Restore a SQLite3 database
   /**
@@ -1831,7 +1862,11 @@ public:
   * \param[in] key Optional database encryption key for the source database.
   * \param[in] targetDatabaseName Optional name of the target database (default: 'main').
   */
-  void Restore(const wxString& sourceFileName, const wxString& key = wxEmptyString, const wxString& targetDatabaseName = wxT("main"));
+  void Restore(const wxString& sourceFileName, const wxString& key = wxEmptyString, 
+               const wxString& targetDatabaseName = wxT("main"));
+  void Restore(wxSQLite3BackupProgress* progressCallback,
+               const wxString& sourceFileName, const wxString& key = wxEmptyString, 
+               const wxString& targetDatabaseName = wxT("main"));
 
   /// Restore a SQLite3 database
   /**
@@ -1850,7 +1885,20 @@ public:
   * \param[in] key Optional binary database encryption key for the source database.
   * \param[in] targetDatabaseName Optional name of the target database (default: 'main').
   */
-  void Restore(const wxString& sourceFileName, const wxMemoryBuffer& key, const wxString& targetDatabaseName = wxT("main"));
+  void Restore(const wxString& sourceFileName, const wxMemoryBuffer& key, 
+               const wxString& targetDatabaseName = wxT("main"));
+  void Restore(wxSQLite3BackupProgress* progressCallback,
+               const wxString& sourceFileName, const wxMemoryBuffer& key, 
+               const wxString& targetDatabaseName = wxT("main"));
+
+  /// Set the page count for backup or restore operations
+  /**
+  * Backup and restore operations perform in slices of a given number of pages.
+  * This method allows to set the size of a slice. The default size is 10 pages.
+  *
+  * \param[in] pageCount number of pages to be copied in one slice.
+  */
+  void SetBackupRestorePageCount(int pageCount);
 
   /// Begin transaction
   /**
@@ -2607,10 +2655,11 @@ private:
   /// Check for valid database connection
   void CheckDatabase();
 
-  void* m_db;             ///< associated SQLite3 database
-  int   m_busyTimeoutMs;  ///< Timeout in milli seconds
-  bool  m_isEncrypted;    ///< Flag whether the database is encrypted or not
-  int   m_lastRollbackRC; ///< The return code of the last executed rollback operation
+  void* m_db;              ///< associated SQLite3 database
+  int   m_busyTimeoutMs;   ///< Timeout in milli seconds
+  bool  m_isEncrypted;     ///< Flag whether the database is encrypted or not
+  int   m_lastRollbackRC;  ///< The return code of the last executed rollback operation
+  int   m_backupPageCount; ///< Number of pages per slice for backup and restore operations
 
   static bool  ms_sharedCacheEnabled;        ///< Flag whether SQLite shared cache is enabled
   static bool  ms_hasEncryptionSupport;      ///< Flag whether wxSQLite3 has been compiled with encryption support

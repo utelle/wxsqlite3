@@ -2,7 +2,7 @@ wxSQLite3 component info
 ------------------------
 
 Website:      http://wxcode.sourceforge.net/components/wxsqlite3
-Version:      2.1.2
+Version:      2.1.3
 Description:
 wxSQLite3 is a C++ wrapper around the public domain SQLite 3.x database
 and is specifically designed for use in programs based on the wxWidgets
@@ -25,6 +25,13 @@ tools operate in Unicode or UTF-8 mode.
 Version history
 ---------------
 
+ 2.1.3 - Corrected default behaviour for attached databases in case of
+         an encrypted main database. (Now the attached database uses the
+         same encryption key as the main database if no explicit key is
+         given. Previously the attached database remained unencrypted.)
+         Added an optional progress callback for metheods Backup & Restore
+         Added method SetBackupRestorePageCount to set the number of pages
+         to be copied in one cycle of the backup/restore process
  2.1.2 - Upgrade to SQLite version 3.7.7.1
          Modified wxSQLite3Transaction class to make it exception safe
  2.1.1 - Upgrade to SQLite version 3.7.6.1
