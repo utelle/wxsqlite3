@@ -2108,6 +2108,7 @@ wxSQLite3Database::wxSQLite3Database()
   m_busyTimeoutMs = 60000; // 60 seconds
   m_isEncrypted = false;
   m_lastRollbackRC = 0;
+  m_backupPageCount = 10;
 }
 
 wxSQLite3Database::wxSQLite3Database(const wxSQLite3Database& db)
@@ -2116,6 +2117,7 @@ wxSQLite3Database::wxSQLite3Database(const wxSQLite3Database& db)
   m_busyTimeoutMs = 60000; // 60 seconds
   m_isEncrypted = false;
   m_lastRollbackRC = db.m_lastRollbackRC;
+  m_backupPageCount = db.m_backupPageCount;
 }
 
 wxSQLite3Database::~wxSQLite3Database()
@@ -2133,6 +2135,7 @@ wxSQLite3Database& wxSQLite3Database::operator=(const wxSQLite3Database& db)
       m_busyTimeoutMs = 60000; // 60 seconds
       m_isEncrypted = db.m_isEncrypted;
       m_lastRollbackRC = db.m_lastRollbackRC;
+      m_backupPageCount = db.m_backupPageCount;
     }
     else
     {
@@ -2222,7 +2225,21 @@ void wxSQLite3Database::Close()
   }
 }
 
-void wxSQLite3Database::Backup(const wxString& targetFileName, const wxString& key, const wxString& sourceDatabaseName)
+static bool
+BackupRestoreCallback(int total, int remaining, wxSQLite3BackupProgress* progressCallback)
+{
+  return progressCallback->Progress(total, remaining);
+}
+
+void wxSQLite3Database::Backup(const wxString& targetFileName, const wxString& key, 
+                               const wxString& sourceDatabaseName)
+{
+  Backup(NULL, targetFileName, key, sourceDatabaseName);
+}
+
+void wxSQLite3Database::Backup(wxSQLite3BackupProgress* progressCallback,
+                               const wxString& targetFileName, const wxString& key, 
+                               const wxString& sourceDatabaseName)
 {
   wxCharBuffer strLocalKey = key.ToUTF8();
   const char* localKey = strLocalKey;
@@ -2231,10 +2248,18 @@ void wxSQLite3Database::Backup(const wxString& targetFileName, const wxString& k
   {
     binaryKey.AppendData((void*) localKey, strlen(localKey));
   }
-  Backup(targetFileName, binaryKey, sourceDatabaseName);
+  Backup(progressCallback, targetFileName, binaryKey, sourceDatabaseName);
 }
 
-void wxSQLite3Database::Backup(const wxString& targetFileName, const wxMemoryBuffer& key, const wxString& sourceDatabaseName)
+void wxSQLite3Database::Backup(const wxString& targetFileName, const wxMemoryBuffer& key, 
+                               const wxString& sourceDatabaseName)
+{
+  Backup(NULL, targetFileName, key, sourceDatabaseName);
+}
+
+void wxSQLite3Database::Backup(wxSQLite3BackupProgress* progressCallback,
+                               const wxString& targetFileName, const wxMemoryBuffer& key, 
+                               const wxString& sourceDatabaseName)
 {
 #if SQLITE_VERSION_NUMBER >= 3006011
   CheckDatabase();
@@ -2278,7 +2303,16 @@ void wxSQLite3Database::Backup(const wxString& targetFileName, const wxMemoryBuf
 
   do
   {
-    rc = sqlite3_backup_step(pBackup, 10);
+    rc = sqlite3_backup_step(pBackup, m_backupPageCount);
+    if (progressCallback != NULL)
+    {
+      if (!BackupRestoreCallback(sqlite3_backup_pagecount(pBackup),
+                                 sqlite3_backup_remaining(pBackup),
+                                 progressCallback))
+      {
+        rc = SQLITE_DONE;
+      }
+    }
 #if 0
     xProgress(sqlite3_backup_remaining(pBackup),
               sqlite3_backup_pagecount(pBackup));
@@ -2308,7 +2342,15 @@ void wxSQLite3Database::Backup(const wxString& targetFileName, const wxMemoryBuf
 #endif
 }
 
-void wxSQLite3Database::Restore(const wxString& sourceFileName, const wxString& key, const wxString& targetDatabaseName)
+void wxSQLite3Database::Restore(const wxString& sourceFileName, const wxString& key, 
+                                const wxString& targetDatabaseName)
+{
+  Restore(NULL, sourceFileName, key, targetDatabaseName);
+}
+
+void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback,
+                                const wxString& sourceFileName, const wxString& key, 
+                                const wxString& targetDatabaseName)
 {
   wxCharBuffer strLocalKey = key.ToUTF8();
   const char* localKey = strLocalKey;
@@ -2317,10 +2359,18 @@ void wxSQLite3Database::Restore(const wxString& sourceFileName, const wxString& 
   {
     binaryKey.AppendData((void*) localKey, strlen(localKey));
   }
-  Restore(sourceFileName, binaryKey, targetDatabaseName);
+  Restore(progressCallback, sourceFileName, binaryKey, targetDatabaseName);
 }
 
-void wxSQLite3Database::Restore(const wxString& sourceFileName, const wxMemoryBuffer& key, const wxString& targetDatabaseName)
+void wxSQLite3Database::Restore(const wxString& sourceFileName, const wxMemoryBuffer& key, 
+                                const wxString& targetDatabaseName)
+{
+  Restore(NULL, sourceFileName, key, targetDatabaseName);
+}
+
+void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback,
+                                const wxString& sourceFileName, const wxMemoryBuffer& key, 
+                                const wxString& targetDatabaseName)
 {
 #if SQLITE_VERSION_NUMBER >= 3006011
   CheckDatabase();
@@ -2363,14 +2413,30 @@ void wxSQLite3Database::Restore(const wxString& sourceFileName, const wxMemoryBu
     sqlite3_close(pSrc);
     throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
   }
-  while ((rc = sqlite3_backup_step(pBackup, 100)) == SQLITE_OK || rc == SQLITE_BUSY)
+
+  do
   {
-    if (rc == SQLITE_BUSY)
+    rc = sqlite3_backup_step(pBackup, m_backupPageCount);
+    if (progressCallback != NULL)
     {
-      if (nTimeout++ >= 3) break;
-      sqlite3_sleep(100);
+      if (!BackupRestoreCallback(sqlite3_backup_pagecount(pBackup),
+                                 sqlite3_backup_remaining(pBackup), progressCallback))
+      {
+        rc = SQLITE_DONE;
+      }
+    }
+    if (rc == SQLITE_BUSY || rc == SQLITE_LOCKED)
+    {
+      if (nTimeout++ >= 20) break;
+      sqlite3_sleep(250);
+    }
+    else
+    {
+      nTimeout = 0;
     }
   }
+  while (rc == SQLITE_OK || rc == SQLITE_BUSY || rc == SQLITE_LOCKED);
+
   sqlite3_backup_finish(pBackup);
   if (rc == SQLITE_DONE)
   {
@@ -2392,6 +2458,11 @@ void wxSQLite3Database::Restore(const wxString& sourceFileName, const wxMemoryBu
   wxUnusedVar(targetDatabaseName);
   throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NOBACKUP);
 #endif
+}
+
+void wxSQLite3Database::SetBackupRestorePageCount(int pageCount)
+{
+  m_backupPageCount = pageCount;
 }
 
 void wxSQLite3Database::Begin(wxSQLite3TransactionType transactionType)
@@ -2426,7 +2497,7 @@ void wxSQLite3Database::Rollback(const wxString& savepointName)
   if (savepointName.IsEmpty())
   {
 #endif
-    ExecuteUpdate("rollback transaction", true);
+    ExecuteUpdate("rollback transaction");
 #if SQLITE_VERSION_NUMBER >= 3006008
   }
   else

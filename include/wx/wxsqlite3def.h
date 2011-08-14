@@ -55,6 +55,7 @@
 //              2011-02-09  - Upgrade to SQLite3 version 3.7.5
 //              2011-04-17  - Upgrade to SQLite3 version 3.7.6.1
 //              2011-06-30  - Upgrade to SQLite3 version 3.7.7.1
+//              2011-08-14  - Progress callback for Backup/Restore added
 //
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -97,6 +98,17 @@
 
 <dl>
 
+<dt><b>2.1.3</b> - <i>August 2011</i></dt>
+<dd>
+Corrected default behaviour for attached databases in case of
+an encrypted main database. (Now the attached database uses the same
+encryption key as the main database if no explicit key is given.
+Previously the attached database remained unencrypted.)<br>
+Added an optional progress callback for metheods Backup and Restore<br>
+Added method SetBackupRestorePageCount to set the number of pages
+to be copied in one cycle of the backup/restore process<br>
+
+</dd>
 <dt><b>2.1.2</b> - <i>July 2011</i></dt>
 <dd>
 Upgrade to SQLite version 3.7.7.1<br>

@@ -107,7 +107,7 @@ int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
   if (zKey == NULL || nKey <= 0)
   {
     /* No key specified */
-    if (nDb != 0 && nKey < 0)
+    if (nDb != 0 && nKey > 0)
     {
       Codec* mainCodec = (Codec*) mySqlite3PagerGetCodec(sqlite3BtreePager(db->aDb[0].pBt));
       /* Attached database, therefore use the key of main database, if main database is encrypted */
@@ -163,9 +163,14 @@ void sqlite3CodecGetKey(sqlite3* db, int nDb, void** zKey, int* nKey)
   /*
   // The unencrypted password is not stored for security reasons
   // therefore always return NULL
+  // If the main database is encrypted a key length of 1 is returned.
+  // In that case an attached database will get the same encryption key
+  // as the main database if no key was explicitly given for the attached database.
   */
+  Codec* mainCodec = (Codec*) mySqlite3PagerGetCodec(sqlite3BtreePager(db->aDb[0].pBt));
+  int keylen = (mainCodec != NULL && CodecIsEncrypted(mainCodec)) ? 1 : 0;
   *zKey = NULL;
-  *nKey = -1;
+  *nKey = keylen;
 }
 
 int sqlite3_key(sqlite3 *db, const void *zKey, int nKey)
