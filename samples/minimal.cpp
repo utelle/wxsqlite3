@@ -234,6 +234,18 @@ public:
   }
 };
 
+class MyProgress : public wxSQLite3BackupProgress
+{
+public:
+  virtual bool Progress(int total, int remaining)
+  {
+    double percent = (total - remaining) / ((double) total) * 100.;
+    cout.precision(2);
+    cout << "Backup/Restore: " << std::fixed << percent << " % completed." << endl;
+    return true;
+  }
+};
+
 class Minimal : public wxAppConsole
 {
 public:
@@ -257,6 +269,9 @@ int Minimal::OnRun()
 {
   const wxString dbFile = wxGetCwd() + wxT("/test.db");
   const wxString dbBackup = wxGetCwd() + wxT("/test-backup.db");
+
+  const char* rawUTF8 = "\xe2\x8c\x88\x30\x2e\x35\x6e\xe2\x8c\x89\x2b\x6e\x2b\x32\x36";
+  wxString tt = wxString::FromUTF8(rawUTF8);
 
   MyAggregateFunction myAggregate;
   MyAuthorizer myAuthorizer;
@@ -611,14 +626,16 @@ int Minimal::OnRun()
 
     if (wxSQLite3Database::HasBackupSupport())
     {
+      db.SetBackupRestorePageCount(100);
+      MyProgress myProgress;
       cout << endl << "Backup and restore database" << endl;
       if (wxSQLite3Database::HasEncryptionSupport())
       {
-        db.Backup(wxGetCwd() + wxT("/test-backup.db"), wxT("password"));
+        db.Backup(&myProgress, wxGetCwd() + wxT("/test-backup.db"), wxT("password"));
       }
       else
       {
-        db.Backup(wxGetCwd() + wxT("/test-backup.db"));
+        db.Backup(&myProgress, wxGetCwd() + wxT("/test-backup.db"));
       }
       cout << endl << "... backup completed." << endl;
       if (wxSQLite3Database::HasEncryptionSupport())
