@@ -4308,7 +4308,7 @@ wxSQLite3StringCollection::operator=(const wxSQLite3StringCollection& collection
 {
   if (this != &collection)
   {
-    wxSQLite3StringCollection::operator=(collection);
+    wxSQLite3NamedCollection::operator=(collection);
   }
   return *this;
 }
