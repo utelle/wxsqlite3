@@ -804,6 +804,12 @@ bool wxSQLite3ResultSet::Eof()
   return m_eof;
 }
 
+bool wxSQLite3ResultSet::CursorMoved()
+{
+  CheckStmt();
+  return !m_first;
+}
+
 bool wxSQLite3ResultSet::NextRow()
 {
   CheckStmt();
@@ -2463,6 +2469,11 @@ void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback,
 void wxSQLite3Database::SetBackupRestorePageCount(int pageCount)
 {
   m_backupPageCount = pageCount;
+}
+
+void wxSQLite3Database::Vacuum()
+{
+  ExecuteUpdate("vacuum");
 }
 
 void wxSQLite3Database::Begin(wxSQLite3TransactionType transactionType)
@@ -4308,7 +4319,7 @@ wxSQLite3StringCollection::operator=(const wxSQLite3StringCollection& collection
 {
   if (this != &collection)
   {
-    wxSQLite3NamedCollection::operator=(collection);
+    wxSQLite3StringCollection::operator=(collection);
   }
   return *this;
 }
