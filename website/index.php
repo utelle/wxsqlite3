@@ -21,6 +21,12 @@
 
 	<br/><?php write_h1("Known bugs"); ?>
 <p><ul>
+<li><p><b><u>Symptom</u></b>: Endless recursion in method <b><i>wxSQLite3StringCollection::operator=</i></b> on assignment.
+<br><b><u>Affected version(s)</u></b>: 2.0.0 &#150;  2.1.3
+<br><b>Solution:</b>
+<br><b>Fixed in wxCode SVN</b>
+</p></li>
+
 <li><p><b><u>Symptom</u></b>: Method <b><i>wxSQLite3Table::GetDouble</i></b> fails to convert strings to double values in non-US locales.
 <br><b><u>Affected version(s)</u></b>: all up to 1.9.2
 <br><b>Solution:</b>

@@ -956,6 +956,12 @@ public:
   */
   bool Eof();
 
+  /// Check whether the cursor has been moved
+  /**
+  * \return TRUE if the cursor has been moved using method NextRow, FALSE otherwise
+  */
+  bool CursorMoved();
+
   /// Retrieve next row of the result set
   /**
   * Advances the cursor to the next row.
@@ -1899,6 +1905,12 @@ public:
   * \param[in] pageCount number of pages to be copied in one slice.
   */
   void SetBackupRestorePageCount(int pageCount);
+
+  /// Vacuum
+  /**
+  * Performs a VACUUM operation on the database.
+  */
+  void Vacuum();
 
   /// Begin transaction
   /**

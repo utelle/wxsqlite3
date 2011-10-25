@@ -994,7 +994,7 @@ static void strfilterFunc(sqlite3_context *context, int argc, sqlite3_value **ar
 ** updates p to point to the character where the match occured.
 ** This is an auxiliary function.
 */
-static int _substr(const char* z1, const char* z2, int s, const char** p){
+static int _substr(const char* z1, const char* z2, int s, CollSeq *pColl, const char** p){
   int c = 0;
   int rVal=-1;
   const char* zt1;
@@ -1017,6 +1017,16 @@ static int _substr(const char* z1, const char* z2, int s, const char** p){
     do{
       c1 = sqliteCharVal((unsigned char *)zt1);
       c2 = sqliteCharVal((unsigned char *)zt2);
+      if (pColl->enc == SQLITE_UTF8){
+        if (pColl->xCmp(pColl->pUser, 1, zt1, 1, zt2) == 0) {
+          c1 = c2;
+        }
+        else {
+          c1 = (c1) ? 1 : 0;
+          c2 = (c2) ? 2 : 0;
+        }
+      }
+      // TODO:  Maybe try and convert the chars to UTF16 and run them thru the collating sequence?
       sqliteNextChar(zt1);
       sqliteNextChar(zt2);
     }while( c1 == c2 && c1 != 0 && c2 != 0 );
@@ -1047,6 +1057,7 @@ static void charindexFunc(sqlite3_context *context, int argc, sqlite3_value **ar
   u8 *z2;                /* s2 string */
   int s=0;
   int rVal=0;
+  CollSeq *pColl = context->pColl;
 
   assert( argc==3 ||argc==2);
 
@@ -1067,7 +1078,7 @@ static void charindexFunc(sqlite3_context *context, int argc, sqlite3_value **ar
     s = 0;
   }
 
-  rVal = _substr((char *)z1,(char *)z2,s,NULL);
+  rVal = _substr((char *)z1,(char *)z2,s,pColl,NULL);
   sqlite3_result_int(context, rVal+1);
 }
 
@@ -1769,14 +1780,14 @@ int RegisterExtensionFunctions(sqlite3 *db){
     { "ceiling",            1, 0, SQLITE_UTF8,    0, ceilFunc },
     { "floor",              1, 0, SQLITE_UTF8,    0, floorFunc },
 
-    { "pi",                 0, 0, SQLITE_UTF8,    1, piFunc },
+    { "pi",                 0, 0, SQLITE_UTF8,    0, piFunc },
 
     { "last_rows_affected", 0, 0, SQLITE_UTF8,    0, lastRowsFunc },
 
     /* string */
     { "replicate",          2, 0, SQLITE_UTF8,    0, replicateFunc },
-    { "charindex",          2, 0, SQLITE_UTF8,    0, charindexFunc },
-    { "charindex",          3, 0, SQLITE_UTF8,    0, charindexFunc },
+    { "charindex",          2, 0, SQLITE_UTF8,    1, charindexFunc },
+    { "charindex",          3, 0, SQLITE_UTF8,    1, charindexFunc },
     { "leftstr",            2, 0, SQLITE_UTF8,    0, leftFunc },
     { "rightstr",           2, 0, SQLITE_UTF8,    0, rightFunc },
 #ifndef HAVE_TRIM
@@ -1821,7 +1832,7 @@ int RegisterExtensionFunctions(sqlite3 *db){
     /* LMH no error checking */
     sqlite3_create_function(db, aFuncs[i].zName, aFuncs[i].nArg,
         aFuncs[i].eTextRep, pArg, aFuncs[i].xFunc, 0, 0);
-#if 0
+#if 1
     if( aFuncs[i].needCollSeq ){
       struct FuncDef *pFunc = sqlite3FindFunction(db, aFuncs[i].zName, 
           strlen(aFuncs[i].zName), aFuncs[i].nArg, aFuncs[i].eTextRep, 0);

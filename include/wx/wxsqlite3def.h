@@ -56,6 +56,7 @@
 //              2011-04-17  - Upgrade to SQLite3 version 3.7.6.1
 //              2011-06-30  - Upgrade to SQLite3 version 3.7.7.1
 //              2011-08-14  - Progress callback for Backup/Restore added
+//              2011-10-25  - Upgrade to SQLite3 version 3.7.8
 //
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -98,6 +99,13 @@
 
 <dl>
 
+<dt><b>2.1.4</b> - <i>October 2011</i></dt>
+<dd>
+Upgrade to SQLite version 3.7.8<br>
+Added method wxSQLite3Database::Vacuum<br>
+Added method wxSQLite3ResultSet::CursorMoved<br>
+
+</dd>
 <dt><b>2.1.3</b> - <i>August 2011</i></dt>
 <dd>
 Corrected default behaviour for attached databases in case of

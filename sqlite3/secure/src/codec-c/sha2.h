@@ -49,50 +49,63 @@
 typedef unsigned char uint8;
 typedef unsigned int  uint32;
 
-#if defined(_MSC_VER)
-#if _MSC_VER >= 1310
-typedef unsigned long long uint64;
-#define li_64(h) 0x##h##ull
+typedef sqlite3_uint64 uint64;
+
+#if defined(_MSC_VER) || defined(__BORLANDC__)
+  #define li_64(h) 0x##h##ui64
 #else
-typedef unsigned __int64 uint64;
-#define li_64(h) 0x##h##ui64
-#endif
+  #define li_64(h) 0x##h##ull
+#endif 
+
+#if 0  // Start of original int64 defines
+
+#if defined(_MSC_VER)
+  #if _MSC_VER >= 1310
+    typedef unsigned long long uint64;
+    #define li_64(h) 0x##h##ull
+  #else
+    typedef unsigned __int64 uint64;
+    #define li_64(h) 0x##h##ui64
+  #endif
 #elif defined(__BORLANDC__) && !defined(__MSDOS__)
-#define li_64(h) 0x##h##ull
-typedef __int64 uint64;
+  #define li_64(h) 0x##h##ull
+  typedef __int64 uint64;
 #elif defined(__sun)
-#if defined(ULONG_MAX) && ULONG_MAX == 0xfffffffful
-#define li_64(h) 0x##h##ull
-typedef unsigned long long uint64;
-#elif defined(ULONG_LONG_MAX) && ULONG_LONG_MAX == 0xfffffffffffffffful
-#define li_64(h) 0x##h##ul
-typedef unsigned long uint64;
-#endif
+  #if defined(ULONG_MAX) && ULONG_MAX == 0xfffffffful
+    #define li_64(h) 0x##h##ull
+    typedef unsigned long long uint64;
+  #elif defined(ULONG_LONG_MAX) && ULONG_LONG_MAX == 0xfffffffffffffffful
+    #define li_64(h) 0x##h##ul
+    typedef unsigned long uint64;
+  #endif
 #elif defined(__MVS__)
-#define li_64(h)    0x##h##ull
-typedef unsigned int long long uint64;
+  #define li_64(h)    0x##h##ull
+  typedef unsigned int long long uint64;
 #elif defined(ULLONG_MAX) && ULLONG_MAX > 4294967295
-#if ULLONG_MAX == 18446744073709551615ull
-#define li_64(h) 0x##h##ull
-typedef unsigned long long uint64;
-#endif
+  #if ULLONG_MAX == 18446744073709551615ull
+    #define li_64(h) 0x##h##ull
+    typedef unsigned long long uint64;
+  #endif
 #elif defined(ULONG_LONG_MAX) && ULONG_LONG_MAX > 4294967295
-#if ULONG_LONG_MAX == 18446744073709551615
-#define li_64(h) 0x##h##ull
-typedef unsigned long long uint64;
-#endif
+  #if ULONG_LONG_MAX == 18446744073709551615
+    #define li_64(h) 0x##h##ull
+    typedef unsigned long long uint64;
+  #endif
 #elif defined(ULONG_MAX) && ULONG_MAX > 4294967295
-#if ULONG_MAX == 18446744073709551615
-#define li_64(h) 0x##h##ul
-typedef unsigned long uint64;
-#endif
+  #if ULONG_MAX == 18446744073709551615
+    #define li_64(h) 0x##h##ul
+    typedef unsigned long uint64;
+  #endif
 #elif defined(UINT_MAX) && UINT_MAX > 4294967295
-#if UINT_MAX == 18446744073709551615
-#define li_64(h) 0x##h##u
-typedef unsigned int uint64;
+  #if UINT_MAX == 18446744073709551615
+    #define li_64(h) 0x##h##u
+    typedef unsigned int uint64;
+  #endif
 #endif
 #endif
-#endif
+
+#endif // End of original int64 defines
+//
 
 #ifdef __cplusplus
 extern "C" {
