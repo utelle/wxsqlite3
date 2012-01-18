@@ -70,8 +70,10 @@ sqlite3_create_module
 sqlite3_create_module_v2
 sqlite3_data_count
 sqlite3_db_config
+sqlite3_db_filename
 sqlite3_db_handle
 sqlite3_db_mutex
+sqlite3_db_release_memory
 sqlite3_db_status
 sqlite3_declare_vtab
 sqlite3_enable_load_extension
@@ -156,6 +158,7 @@ sqlite3_sourceid
 sqlite3_sql
 sqlite3_status
 sqlite3_step
+sqlite3_stmt_busy
 sqlite3_stmt_readonly
 sqlite3_stmt_status
 sqlite3_strnicmp
@@ -167,6 +170,8 @@ sqlite3_total_changes
 sqlite3_trace
 sqlite3_transfer_bindings
 sqlite3_update_hook
+sqlite3_uri_boolean
+sqlite3_uri_int64
 sqlite3_uri_parameter
 sqlite3_user_data
 sqlite3_value_blob
@@ -194,6 +199,3 @@ sqlite3_wal_checkpoint_v2
 sqlite3_wal_hook
 sqlite3_win32_mbcs_to_utf8
 sqlite3_win32_utf8_to_mbcs
-winCurrentTime
-winDlClose
-winDlSym
