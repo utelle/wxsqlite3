@@ -68,7 +68,7 @@ COMPILER_PREFIX = gcc
 WXSQLITE3_LIB_CXXFLAGS = -DHAVE_W32API_H $(____WX_SHARED) -D_UNICODE \
 	$(__WXDEBUG_DEFINE_p) -D__WXMSW__ \
 	-I$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -I$(WX_DIR)\include $(VAR) \
-	$(VAR_3) -W -Wall -I..\include $(__SQLITE3_DYNAMICLOAD_DEF_p) \
+	$(VAR_1) -W -Wall -I..\include $(__SQLITE3_DYNAMICLOAD_DEF_p) \
 	$(__SQLITE3_HAVE_METADATA_DEF_p) $(__SQLITE3_HAVE_CODEC_DEF_p) \
 	$(__SQLITE3_HAVE_LOAD_EXTENSION_DEF_p) -I$(SQLITE3_DIR)\include \
 	$(CPPFLAGS) $(CXXFLAGS)
@@ -77,7 +77,7 @@ WXSQLITE3_LIB_OBJECTS =  \
 WXSQLITE3_DLL_CXXFLAGS = -DHAVE_W32API_H $(____WX_SHARED) -D_UNICODE \
 	$(__WXDEBUG_DEFINE_p) -D__WXMSW__ \
 	-I$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -I$(WX_DIR)\include $(VAR) \
-	$(VAR_3) -W -Wall -I..\include -DWXMAKINGDLL_WXSQLITE3 \
+	$(VAR_1) -W -Wall -I..\include -DWXMAKINGDLL_WXSQLITE3 \
 	$(__SQLITE3_DYNAMICLOAD_DEF_p) $(__SQLITE3_HAVE_METADATA_DEF_p) \
 	$(__SQLITE3_HAVE_CODEC_DEF_p) $(__SQLITE3_HAVE_LOAD_EXTENSION_DEF_p) \
 	-I$(SQLITE3_DIR)\include $(CPPFLAGS) $(CXXFLAGS)
@@ -86,50 +86,11 @@ WXSQLITE3_DLL_OBJECTS =  \
 MINIMAL_CXXFLAGS = -DHAVE_W32API_H $(____WX_SHARED) -D_UNICODE \
 	$(__WXDEBUG_DEFINE_p) -D__WXMSW__ \
 	-I$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -I$(WX_DIR)\include $(VAR) \
-	$(VAR_3) -W -Wall -I..\include -I..\samples -I$(SQLITE3_DIR)\include \
+	$(VAR_1) -W -Wall -I..\include -I..\samples -I$(SQLITE3_DIR)\include \
 	$(CPPFLAGS) $(CXXFLAGS)
 MINIMAL_OBJECTS =  \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal.o \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal_rc.o
-DBADMIN_CXXFLAGS = -DHAVE_W32API_H $(____WX_SHARED) -D_UNICODE \
-	$(__WXDEBUG_DEFINE_p) -D__WXMSW__ \
-	-I$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -I$(WX_DIR)\include $(VAR) \
-	$(VAR_3) -W -Wall -I..\include -I..\dbadmin -I$(SQLITE3_DIR)\include \
-	$(CPPFLAGS) $(CXXFLAGS)
-DBADMIN_OBJECTS =  \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_aboutdlg.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_addcolumn.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_attachdbdlg.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_backrestdlg.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_blobdlg.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_createindex.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_createtable.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_createtrigger.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_createview.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_dbbook.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_describedlg.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_detachdbdlg.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_dropobject.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_encrypkeydlg.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_filterdlg.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_indexbook.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_ipcframe.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_paneldata.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_preferences.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sortdlg.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_specgrid.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sqlbook.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sqleditor.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sqlhistory.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sqlite3table.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sqliteplusframe.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sqlparameters.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_tablebook.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_triggerbook.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_triggerparser.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_viewbook.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_wxsqliteplusapp.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_wxsqliteplus_rc.o
 
 ### Conditionally set variables: ###
 
@@ -149,6 +110,29 @@ endif
 ifeq ($(SHARED),1)
 __wxsqlite3_dll___depname = \
 	..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll
+endif
+ifeq ($(WX_SHARED),0)
+____WX_SHARED_11_p_1 = 
+endif
+ifeq ($(WX_SHARED),1)
+____WX_SHARED_11_p_1 = --define WXUSINGDLL
+endif
+ifeq ($(WX_DEBUG),1)
+__WXDEBUG_DEFINE_p_4 = --define __WXDEBUG__
+endif
+ifeq ($(SHARED),0)
+__COMPONENT_LIB_DEP = $(__wxsqlite3_lib___depname)
+endif
+ifeq ($(SHARED),1)
+__COMPONENT_LIB_DEP = $(__wxsqlite3_dll___depname)
+endif
+ifeq ($(SHARED),0)
+__COMPONENT_LIB_LIBR = \
+	..\lib\gcc_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\libwxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.a
+endif
+ifeq ($(SHARED),1)
+__COMPONENT_LIB_LIBR = \
+	..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\libwxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.a
 endif
 ifeq ($(SHARED),0)
 ____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES = lib
@@ -181,28 +165,13 @@ ifeq ($(HAVE_LOAD_EXTENSION),1)
 __SQLITE3_HAVE_LOAD_EXTENSION_DEF_p = -DWXSQLITE3_HAVE_LOAD_EXTENSION=1
 endif
 ifeq ($(WX_SHARED),0)
-____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES = lib
-endif
-ifeq ($(WX_SHARED),1)
-____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES = dll
-endif
-ifeq ($(WX_SHARED),0)
 ____WX_SHARED = 
 endif
 ifeq ($(WX_SHARED),1)
 ____WX_SHARED = -DWXUSINGDLL
 endif
-ifeq ($(WX_SHARED),0)
-____WX_SHARED_1 = 
-endif
-ifeq ($(WX_SHARED),1)
-____WX_SHARED_1 = --define WXUSINGDLL
-endif
 ifeq ($(WX_DEBUG),1)
 __WXDEBUG_DEFINE_p = -D__WXDEBUG__
-endif
-ifeq ($(WX_DEBUG),1)
-__WXDEBUG_DEFINE_p_0 = --define __WXDEBUG__
 endif
 ifeq ($(WX_DEBUG),0)
 WXLIBPOSTFIX = u
@@ -216,19 +185,11 @@ endif
 ifeq ($(WX_DEBUG),1)
 VAR = -O0
 endif
-ifeq ($(SHARED),0)
-__COMPONENT_LIB_DEP = $(__wxsqlite3_lib___depname)
+ifeq ($(WX_SHARED),0)
+____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES = lib
 endif
-ifeq ($(SHARED),1)
-__COMPONENT_LIB_DEP = $(__wxsqlite3_dll___depname)
-endif
-ifeq ($(SHARED),0)
-__COMPONENT_LIB_LIBR = \
-	..\lib\gcc_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\libwxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.a
-endif
-ifeq ($(SHARED),1)
-__COMPONENT_LIB_LIBR = \
-	..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\libwxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.a
+ifeq ($(WX_SHARED),1)
+____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES = dll
 endif
 ifeq ($(USE_DYNAMIC_SQLITE3_LOAD),0)
 __SQLITE3_DEP_p = -lsqlite3
@@ -240,10 +201,10 @@ ifeq ($(WX_SHARED),1)
 WXLIBPATH = \lib\$(COMPILER_PREFIX)_dll
 endif
 ifeq ($(WX_DEBUG),0)
-VAR_3 = 
+VAR_1 = 
 endif
 ifeq ($(WX_DEBUG),1)
-VAR_3 = -g
+VAR_1 = -g
 endif
 
 
@@ -253,7 +214,7 @@ gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX):
 
 ### Targets: ###
 
-all: test_for_selected_wxbuild $(__wxsqlite3_lib___depname) $(__wxsqlite3_dll___depname) ..\samples\minimal.exe ..\dbadmin\dbadmin.exe
+all: test_for_selected_wxbuild $(__wxsqlite3_lib___depname) $(__wxsqlite3_dll___depname) ..\samples\minimal.exe
 
 clean: 
 	-if exist gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.o del gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.o
@@ -262,7 +223,6 @@ clean:
 	-if exist ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll del ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll
 	-if exist ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\libwxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.a del ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\libwxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.a
 	-if exist ..\samples\minimal.exe del ..\samples\minimal.exe
-	-if exist ..\dbadmin\dbadmin.exe del ..\dbadmin\dbadmin.exe
 
 test_for_selected_wxbuild: 
 	@if not exist $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h \
@@ -288,17 +248,14 @@ make_dir_wxsqlite3_lib:
 
 ifeq ($(SHARED),1)
 ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll: make_dir_wxsqlite3_dll  $(WXSQLITE3_DLL_OBJECTS)
-	$(CXX) $(LINK_DLL_FLAGS) -fPIC -o $@ $(WXSQLITE3_DLL_OBJECTS)  -mthreads -L$(WX_DIR)$(WXLIBPATH) $(VAR_3) -L..$(WXLIBPATH) -Wl,--out-implib=..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\libwxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.a -L$(SQLITE3_DIR)\lib $(LDFLAGS)  $(__SQLITE3_DEP_p) -lwxbase$(WX_VERSION)$(WXLIBPOSTFIX) -lwxtiff$(WX3RDPARTYLIBPOSTFIX) -lwxjpeg$(WX3RDPARTYLIBPOSTFIX) -lwxpng$(WX3RDPARTYLIBPOSTFIX) -lwxzlib$(WX3RDPARTYLIBPOSTFIX) -lwxregex$(WXLIBPOSTFIX) -lwxexpat$(WX3RDPARTYLIBPOSTFIX) -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32
+	$(CXX) $(LINK_DLL_FLAGS) -fPIC -o $@ $(WXSQLITE3_DLL_OBJECTS)  -mthreads -L$(WX_DIR)$(WXLIBPATH) $(VAR_1) -L..$(WXLIBPATH) -Wl,--out-implib=..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\libwxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.a -L$(SQLITE3_DIR)\lib $(LDFLAGS)  $(__SQLITE3_DEP_p) -lwxbase$(WX_VERSION)$(WXLIBPOSTFIX) -lwxtiff$(WX3RDPARTYLIBPOSTFIX) -lwxjpeg$(WX3RDPARTYLIBPOSTFIX) -lwxpng$(WX3RDPARTYLIBPOSTFIX) -lwxzlib$(WX3RDPARTYLIBPOSTFIX) -lwxregex$(WXLIBPOSTFIX) -lwxexpat$(WX3RDPARTYLIBPOSTFIX) -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32
 endif
 
 make_dir_wxsqlite3_dll: 
 	if not exist ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES) mkdir ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)
 
 ..\samples\minimal.exe: $(MINIMAL_OBJECTS) $(__COMPONENT_LIB_DEP) gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal_rc.o
-	$(CXX) -o $@ $(MINIMAL_OBJECTS)  -mthreads -L$(WX_DIR)$(WXLIBPATH) $(VAR_3) -L..$(WXLIBPATH)  -L$(SQLITE3_DIR)\lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) -lwxbase$(WX_VERSION)$(WXLIBPOSTFIX) -lwxtiff$(WX3RDPARTYLIBPOSTFIX) -lwxjpeg$(WX3RDPARTYLIBPOSTFIX) -lwxpng$(WX3RDPARTYLIBPOSTFIX) -lwxzlib$(WX3RDPARTYLIBPOSTFIX) -lwxregex$(WXLIBPOSTFIX) -lwxexpat$(WX3RDPARTYLIBPOSTFIX) -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32
-
-..\dbadmin\dbadmin.exe: $(DBADMIN_OBJECTS) $(__COMPONENT_LIB_DEP) gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_wxsqliteplus_rc.o
-	$(CXX) -o $@ $(DBADMIN_OBJECTS)  -mthreads -L$(WX_DIR)$(WXLIBPATH) $(VAR_3) -L..$(WXLIBPATH) -Wl,--subsystem,windows -mwindows -L$(SQLITE3_DIR)\lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) -lwxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_stc -lwxscintilla$(WX3RDPARTYLIBPOSTFIX) -lwxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_richtext -lwxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_aui -lwxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_adv -lwxbase$(WX_VERSION)$(WXLIBPOSTFIX)_net -lwxbase$(WX_VERSION)$(WXLIBPOSTFIX)_xml -lwxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_core -lwxbase$(WX_VERSION)$(WXLIBPOSTFIX) -lwxtiff$(WX3RDPARTYLIBPOSTFIX) -lwxjpeg$(WX3RDPARTYLIBPOSTFIX) -lwxpng$(WX3RDPARTYLIBPOSTFIX) -lwxzlib$(WX3RDPARTYLIBPOSTFIX) -lwxregex$(WXLIBPOSTFIX) -lwxexpat$(WX3RDPARTYLIBPOSTFIX) -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32
+	$(CXX) -o $@ $(MINIMAL_OBJECTS)  -mthreads -L$(WX_DIR)$(WXLIBPATH) $(VAR_1) -L..$(WXLIBPATH)  -L$(SQLITE3_DIR)\lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) -lwxbase$(WX_VERSION)$(WXLIBPOSTFIX) -lwxtiff$(WX3RDPARTYLIBPOSTFIX) -lwxjpeg$(WX3RDPARTYLIBPOSTFIX) -lwxpng$(WX3RDPARTYLIBPOSTFIX) -lwxzlib$(WX3RDPARTYLIBPOSTFIX) -lwxregex$(WXLIBPOSTFIX) -lwxexpat$(WX3RDPARTYLIBPOSTFIX) -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32
 
 gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\wxsqlite3_lib_wxsqlite3.o: ../src/wxsqlite3.cpp
 	$(CXX) -c -o $@ $(WXSQLITE3_LIB_CXXFLAGS) $(CPPDEPS) $<
@@ -310,106 +267,7 @@ gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal.o: ../samples/mi
 	$(CXX) -c -o $@ $(MINIMAL_CXXFLAGS) $(CPPDEPS) $<
 
 gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal_rc.o: ../samples/minimal.rc
-	windres --use-temp-file -i$< -o$@  --define HAVE_W32API_H $(____WX_SHARED_1) --define _UNICODE $(__WXDEBUG_DEFINE_p_0) --define __WXMSW__ --include-dir $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) --include-dir $(WX_DIR)/include --include-dir ../include --include-dir ../samples --include-dir $(SQLITE3_DIR)\include
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_aboutdlg.o: ../dbadmin/aboutdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_addcolumn.o: ../dbadmin/addcolumn.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_attachdbdlg.o: ../dbadmin/attachdbdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_backrestdlg.o: ../dbadmin/backrestdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_blobdlg.o: ../dbadmin/blobdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_createindex.o: ../dbadmin/createindex.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_createtable.o: ../dbadmin/createtable.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_createtrigger.o: ../dbadmin/createtrigger.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_createview.o: ../dbadmin/createview.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_dbbook.o: ../dbadmin/dbbook.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_describedlg.o: ../dbadmin/describedlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_detachdbdlg.o: ../dbadmin/detachdbdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_dropobject.o: ../dbadmin/dropobject.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_encrypkeydlg.o: ../dbadmin/encrypkeydlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_filterdlg.o: ../dbadmin/filterdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_indexbook.o: ../dbadmin/indexbook.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_ipcframe.o: ../dbadmin/ipcframe.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_paneldata.o: ../dbadmin/paneldata.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_preferences.o: ../dbadmin/preferences.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sortdlg.o: ../dbadmin/sortdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_specgrid.o: ../dbadmin/specgrid.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sqlbook.o: ../dbadmin/sqlbook.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sqleditor.o: ../dbadmin/sqleditor.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sqlhistory.o: ../dbadmin/sqlhistory.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sqlite3table.o: ../dbadmin/sqlite3table.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sqliteplusframe.o: ../dbadmin/sqliteplusframe.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_sqlparameters.o: ../dbadmin/sqlparameters.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_tablebook.o: ../dbadmin/tablebook.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_triggerbook.o: ../dbadmin/triggerbook.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_triggerparser.o: ../dbadmin/triggerparser.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_viewbook.o: ../dbadmin/viewbook.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_wxsqliteplusapp.o: ../dbadmin/wxsqliteplusapp.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\dbadmin_wxsqliteplus_rc.o: ../dbadmin/wxsqliteplus.rc
-	windres --use-temp-file -i$< -o$@  --define HAVE_W32API_H $(____WX_SHARED_1) --define _UNICODE $(__WXDEBUG_DEFINE_p_0) --define __WXMSW__ --include-dir $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) --include-dir $(WX_DIR)/include --include-dir ../include --include-dir ../dbadmin --include-dir $(SQLITE3_DIR)\include
+	windres --use-temp-file -i$< -o$@  --define HAVE_W32API_H $(____WX_SHARED_11_p_1) --define _UNICODE $(__WXDEBUG_DEFINE_p_4) --define __WXMSW__ --include-dir $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) --include-dir $(WX_DIR)/include --include-dir ../include --include-dir ../samples --include-dir $(SQLITE3_DIR)\include
 
 .PHONY: all clean
 

@@ -6,11 +6,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "minimal", "wxsqlite3_vc7_mi
 		{232276B1-3649-593E-9A7B-DF15A0A29B95} = {232276B1-3649-593E-9A7B-DF15A0A29B95}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dbadmin", "wxsqlite3_vc7_dbadmin.vcproj", "{0E62007F-A0B0-50F8-AA62-2B6C255D5101}"
-	ProjectSection(ProjectDependencies) = postProject
-		{232276B1-3649-593E-9A7B-DF15A0A29B95} = {232276B1-3649-593E-9A7B-DF15A0A29B95}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Static Release Static|Win32 = Static Release Static|Win32
@@ -55,22 +50,6 @@ Global
 		{79269A40-0DA8-5CB1-99AB-728543A71F3B}.DLL Debug Static|Win32.Build.0 = DLL Debug Static|Win32
 		{79269A40-0DA8-5CB1-99AB-728543A71F3B}.DLL Debug DLL|Win32.ActiveCfg = DLL Debug DLL|Win32
 		{79269A40-0DA8-5CB1-99AB-728543A71F3B}.DLL Debug DLL|Win32.Build.0 = DLL Debug DLL|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.Static Release Static|Win32.ActiveCfg = Static Release Static|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.Static Release Static|Win32.Build.0 = Static Release Static|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.Static Release DLL|Win32.ActiveCfg = Static Release DLL|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.Static Release DLL|Win32.Build.0 = Static Release DLL|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.Static Debug Static|Win32.ActiveCfg = Static Debug Static|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.Static Debug Static|Win32.Build.0 = Static Debug Static|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.Static Debug DLL|Win32.ActiveCfg = Static Debug DLL|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.Static Debug DLL|Win32.Build.0 = Static Debug DLL|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.DLL Release Static|Win32.ActiveCfg = DLL Release Static|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.DLL Release Static|Win32.Build.0 = DLL Release Static|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.DLL Release DLL|Win32.ActiveCfg = DLL Release DLL|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.DLL Release DLL|Win32.Build.0 = DLL Release DLL|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.DLL Debug Static|Win32.ActiveCfg = DLL Debug Static|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.DLL Debug Static|Win32.Build.0 = DLL Debug Static|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.DLL Debug DLL|Win32.ActiveCfg = DLL Debug DLL|Win32
-		{0E62007F-A0B0-50F8-AA62-2B6C255D5101}.DLL Debug DLL|Win32.Build.0 = DLL Debug DLL|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

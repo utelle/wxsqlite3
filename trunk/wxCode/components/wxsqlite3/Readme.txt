@@ -2,14 +2,14 @@ wxSQLite3 component info
 ------------------------
 
 Website:      http://wxcode.sourceforge.net/components/wxsqlite3
-Version:      2.1.4
+Version:      3.0.0
 Description:
 wxSQLite3 is a C++ wrapper around the public domain SQLite 3.x database
 and is specifically designed for use in programs based on the wxWidgets
 library.
 
 wxSQLite3 does not try to hide the underlying database, in contrary
-almost all special features of the current SQLite3 version 3.7.8 are
+almost all special features of the current SQLite3 version 3.7.10 are
 supported, like for example the creation of user defined scalar or
 aggregate functions.
 
@@ -25,9 +25,22 @@ tools operate in Unicode or UTF-8 mode.
 Version history
 ---------------
 
- 2.1.6 - Upgrade to SQLite version 3.7.8
+ 3.0.0 - Upgrade to SQLite version 3.7.10
          Added method wxSQLite3Database::Vacuum
+         Added method wxSQLite3Database::GetDatabaseFilename
+         Added method wxSQLite3Database::ReleaseMemory
          Added method wxSQLite3ResultSet::CursorMoved
+         Added method wxSQLite3Statement::IsBusy
+         Fixed a bug in method operator= of wxSQLite3StringCollection
+         causing an endless recursion on assignment
+         Dropped the concept of SQLite3 pointer ownership in favor of
+         reference counted pointers allowing much more flexible use
+         of wxSQLite3 classes
+         Modified SQLite3 encryption extension (defining int64 datatype
+         for SHA2 algorithm)
+         Dropped dbadmin sample from build files
+         Added Premake support for SQLite3 library with encryption support
+         and for wxSQLite3 (experimental)
  2.1.3 - Corrected default behaviour for attached databases in case of
          an encrypted main database. (Now the attached database uses the
          same encryption key as the main database if no explicit key is
@@ -182,7 +195,7 @@ a) wxMSW
 
 When building on win32, you can use the makefiles in the BUILD folder.
 
-SQLite version 3.7.8 DLL is included. The included link library was
+SQLite version 3.7.10 DLL is included. The included link library was
 built with MS Visual C++ 6. For other compilers it can be necessary to
 regenerate the link library based on the sqlite.def file in the LIB
 folder.
@@ -246,7 +259,7 @@ The autoconf-based systems also support a "make install" target which
 builds the library and then copies the headers of the component to
 /usr/local/include and the lib to /usr/local/lib.
 
-SQLite version 3.7.8 is NOT included. You have to download the current
+SQLite version 3.7.10 is NOT included. You have to download the current
 version of SQLite from http://www.sqlite.org and to install it on your
 system before you can install wxSQLite3.
 

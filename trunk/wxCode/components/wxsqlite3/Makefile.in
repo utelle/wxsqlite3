@@ -22,7 +22,6 @@ SETFILE = @SETFILE@
 PIC_FLAG = @PIC_FLAG@
 SONAME_FLAG = @SONAME_FLAG@
 STRIP = @STRIP@
-NM = @NM@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_DIR = @INSTALL_DIR@
@@ -31,7 +30,6 @@ srcdir = @srcdir@
 libdir = @libdir@
 DLLPREFIX = @DLLPREFIX@
 LIBS = @LIBS@
-LDFLAGS_GUI = @LDFLAGS_GUI@
 AR = @AR@
 AROPTIONS = @AROPTIONS@
 RANLIB = @RANLIB@
@@ -39,7 +37,6 @@ CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
-WX_VERSION = @WX_VERSION@
 WX_CXXFLAGS = @WX_CXXFLAGS@
 WX_LIBS = @WX_LIBS@
 WX_RESCOMP = @WX_RESCOMP@
@@ -78,49 +75,14 @@ MINIMAL_CXXFLAGS = -I$(srcdir)/include -I$(srcdir)/samples \
 MINIMAL_OBJECTS =  \
 	minimal_minimal.o \
 	$(__minimal___win32rc)
-DBADMIN_CXXFLAGS = -I$(srcdir)/include -I$(srcdir)/dbadmin \
-	-I$(SQLITE3_DIR)/include $(WX_CXXFLAGS) $(CPPFLAGS) $(CXXFLAGS)
-DBADMIN_OBJECTS =  \
-	dbadmin_aboutdlg.o \
-	dbadmin_addcolumn.o \
-	dbadmin_attachdbdlg.o \
-	dbadmin_backrestdlg.o \
-	dbadmin_blobdlg.o \
-	dbadmin_createindex.o \
-	dbadmin_createtable.o \
-	dbadmin_createtrigger.o \
-	dbadmin_createview.o \
-	dbadmin_dbbook.o \
-	dbadmin_describedlg.o \
-	dbadmin_detachdbdlg.o \
-	dbadmin_dropobject.o \
-	dbadmin_encrypkeydlg.o \
-	dbadmin_filterdlg.o \
-	dbadmin_indexbook.o \
-	dbadmin_ipcframe.o \
-	dbadmin_paneldata.o \
-	dbadmin_preferences.o \
-	dbadmin_sortdlg.o \
-	dbadmin_specgrid.o \
-	dbadmin_sqlbook.o \
-	dbadmin_sqleditor.o \
-	dbadmin_sqlhistory.o \
-	dbadmin_sqlite3table.o \
-	dbadmin_sqliteplusframe.o \
-	dbadmin_sqlparameters.o \
-	dbadmin_tablebook.o \
-	dbadmin_triggerbook.o \
-	dbadmin_triggerparser.o \
-	dbadmin_viewbook.o \
-	dbadmin_wxsqliteplusapp.o \
-	$(__dbadmin___win32rc)
 
 ### Conditionally set variables: ###
 
 @COND_DEPS_TRACKING_0@CXXC = $(CXX)
 @COND_DEPS_TRACKING_1@CXXC = $(BK_DEPS) $(CXX)
-@COND_WX_DEBUG_0@WXLIBPOSTFIX = u
-@COND_WX_DEBUG_1@WXLIBPOSTFIX = ud
+@COND_WX_DEBUG_0_WX_UNICODE_1@WXLIBPOSTFIX = u
+@COND_WX_DEBUG_1_WX_UNICODE_0@WXLIBPOSTFIX = d
+@COND_WX_DEBUG_1_WX_UNICODE_1@WXLIBPOSTFIX = ud
 COND_SHARED_0___wxsqlite3_lib___depname = \
 	$(srcdir)/lib/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(LIBEXT)
 @COND_SHARED_0@__wxsqlite3_lib___depname = $(COND_SHARED_0___wxsqlite3_lib___depname)
@@ -215,17 +177,17 @@ COND_USE_SOVERSOLARIS_1___wxsqlite3_dll___so_symlinks_uninst_cmd = rm -f \
 @COND_PLATFORM_MAC_0@__minimal___mac_setfilecmd = @true
 @COND_PLATFORM_MAC_1@__minimal___mac_setfilecmd = \
 @COND_PLATFORM_MAC_1@	$(SETFILE) -t APPL $(srcdir)/samples/minimal$(EXEEXT)
+@COND_SHARED_0@__COMPONENT_LIB_DEP = $(__wxsqlite3_lib___depname)
+@COND_SHARED_1@__COMPONENT_LIB_DEP = $(__wxsqlite3_dll___depname)
+@COND_SHARED_0@__COMPONENT_LIB_LIBR = -L$(srcdir)/lib
+@COND_SHARED_1@__COMPONENT_LIB_LIBR = -L$(srcdir)/lib
+COND_SHARED_0___COMPONENT_LIB_LIBR_1 = \
+	-lwxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)
+@COND_SHARED_0@__COMPONENT_LIB_LIBR_1 = $(COND_SHARED_0___COMPONENT_LIB_LIBR_1)
+COND_SHARED_1___COMPONENT_LIB_LIBR_1 = \
+	-lwxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)
+@COND_SHARED_1@__COMPONENT_LIB_LIBR_1 = $(COND_SHARED_1___COMPONENT_LIB_LIBR_1)
 @COND_PLATFORM_WIN32_1@__minimal___win32rc = minimal_minimal_rc.o
-@COND_PLATFORM_MAC_0@__dbadmin___mac_setfilecmd = @true
-@COND_PLATFORM_MAC_1@__dbadmin___mac_setfilecmd = \
-@COND_PLATFORM_MAC_1@	$(SETFILE) -t APPL $(srcdir)/dbadmin/dbadmin$(EXEEXT)
-COND_PLATFORM_OS2_1___dbadmin___os2_emxbindcmd = $(NM) dbadmin$(EXEEXT) | if \
-	grep -q pmwin.763 ; then emxbind -ep dbadmin$(EXEEXT) ; fi
-@COND_PLATFORM_OS2_1@__dbadmin___os2_emxbindcmd = $(COND_PLATFORM_OS2_1___dbadmin___os2_emxbindcmd)
-@COND_PLATFORM_WIN32_1@__dbadmin___win32rc = dbadmin_wxsqliteplus_rc.o
-@COND_PLATFORM_MACOSX_1@__dbadmin_app_Contents_PkgInfo___depname \
-@COND_PLATFORM_MACOSX_1@	= dbadmin.app/Contents/PkgInfo
-@COND_PLATFORM_MACOSX_1@__dbadmin_bundle___depname = dbadmin_bundle
 @COND_USE_DYNAMIC_SQLITE3_LOAD_0@__SQLITE3_DYNAMICLOAD_DEF_p \
 @COND_USE_DYNAMIC_SQLITE3_LOAD_0@	= -DwxUSE_DYNAMIC_SQLITE3_LOAD=0
 @COND_USE_DYNAMIC_SQLITE3_LOAD_1@__SQLITE3_DYNAMICLOAD_DEF_p \
@@ -240,21 +202,11 @@ COND_PLATFORM_OS2_1___dbadmin___os2_emxbindcmd = $(NM) dbadmin$(EXEEXT) | if \
 @COND_HAVE_LOAD_EXTENSION_0@	= -DWXSQLITE3_HAVE_LOAD_EXTENSION=0
 @COND_HAVE_LOAD_EXTENSION_1@__SQLITE3_HAVE_LOAD_EXTENSION_DEF_p \
 @COND_HAVE_LOAD_EXTENSION_1@	= -DWXSQLITE3_HAVE_LOAD_EXTENSION=1
-@COND_SHARED_0@__COMPONENT_LIB_DEP = $(__wxsqlite3_lib___depname)
-@COND_SHARED_1@__COMPONENT_LIB_DEP = $(__wxsqlite3_dll___depname)
-@COND_SHARED_0@__COMPONENT_LIB_LIBR = -L$(srcdir)/lib
-@COND_SHARED_1@__COMPONENT_LIB_LIBR = -L$(srcdir)/lib
-COND_SHARED_0___COMPONENT_LIB_LIBR_0 = \
-	-lwxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)
-@COND_SHARED_0@__COMPONENT_LIB_LIBR_0 = $(COND_SHARED_0___COMPONENT_LIB_LIBR_0)
-COND_SHARED_1___COMPONENT_LIB_LIBR_0 = \
-	-lwxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)
-@COND_SHARED_1@__COMPONENT_LIB_LIBR_0 = $(COND_SHARED_1___COMPONENT_LIB_LIBR_0)
 @COND_USE_DYNAMIC_SQLITE3_LOAD_0@__SQLITE3_DEP_p = -lsqlite3
 
 ### Targets: ###
 
-all: $(__wxsqlite3_lib___depname) $(__wxsqlite3_dll___depname) $(srcdir)/samples/minimal$(EXEEXT) $(srcdir)/dbadmin/dbadmin$(EXEEXT) $(__dbadmin_bundle___depname)
+all: $(__wxsqlite3_lib___depname) $(__wxsqlite3_dll___depname) $(srcdir)/samples/minimal$(EXEEXT)
 
 install: $(__install_wxsqlite3_lib___depname) $(__install_wxsqlite3_lib_headers___depname) $(__install_wxsqlite3_dll___depname) $(__install_wxsqlite3_dll_headers___depname)
 
@@ -271,8 +223,6 @@ clean:
 	rm -f $(srcdir)/lib/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).$(DLLIMP_SUFFIX)
 	rm -f $(srcdir)/lib/$(LIBPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).$(DLLIMP_SUFFIX) $(srcdir)/lib/$(DLLPREFIX)wxcode_$(WX_PORT)$(WXLIBPOSTFIX)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)$(__wxsqlite3_dll___targetsuf2)
 	rm -f $(srcdir)/samples/minimal$(EXEEXT)
-	rm -f $(srcdir)/dbadmin/dbadmin$(EXEEXT)
-	rm -rf dbadmin.app
 
 distclean: clean
 	rm -f config.cache config.log config.status bk-deps bk-make-pch shared-ld-sh Makefile
@@ -334,37 +284,9 @@ distclean: clean
 @COND_SHARED_1@	done
 
 $(srcdir)/samples/minimal$(EXEEXT): $(MINIMAL_OBJECTS) $(__COMPONENT_LIB_DEP) $(__minimal___win32rc)
-	$(CXX) -o $@ $(MINIMAL_OBJECTS) $(__COMPONENT_LIB_LIBR)  -L$(srcdir)/lib  -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR_0) $(__SQLITE3_DEP_p) $(WX_LIBS) $(LIBS)
+	$(CXX) -o $@ $(MINIMAL_OBJECTS) $(__COMPONENT_LIB_LIBR)  -L$(srcdir)/lib  -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR_1) $(__SQLITE3_DEP_p) $(WX_LIBS) $(LIBS)
 	
 	$(__minimal___mac_setfilecmd)
-
-$(srcdir)/dbadmin/dbadmin$(EXEEXT): $(DBADMIN_OBJECTS) $(__COMPONENT_LIB_DEP) $(__dbadmin___win32rc)
-	$(CXX) -o $@ $(DBADMIN_OBJECTS) $(__COMPONENT_LIB_LIBR)  -L$(srcdir)/lib $(LDFLAGS_GUI) -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR_0) $(__SQLITE3_DEP_p) $(WX_LIBS) $(LIBS)
-	
-	$(__dbadmin___mac_setfilecmd)
-	$(__dbadmin___os2_emxbindcmd)
-
-@COND_PLATFORM_MACOSX_1@dbadmin.app/Contents/PkgInfo: $(srcdir)/dbadmin/dbadmin$(EXEEXT) $(srcdir)/build/Info.plist.in $(srcdir)/build/wxmac.icns
-@COND_PLATFORM_MACOSX_1@	mkdir -p $(srcdir)/dbadmin/dbadmin.app/Contents
-@COND_PLATFORM_MACOSX_1@	mkdir -p $(srcdir)/dbadmin/dbadmin.app/Contents/MacOS
-@COND_PLATFORM_MACOSX_1@	mkdir -p $(srcdir)/dbadmin/dbadmin.app/Contents/Resources
-@COND_PLATFORM_MACOSX_1@	
-@COND_PLATFORM_MACOSX_1@	
-@COND_PLATFORM_MACOSX_1@	sed -e "s/IDENTIFIER/`echo $(srcdir) | sed -e 's,\.\./,,g' | sed -e 's,/,.,g'`/" \
-@COND_PLATFORM_MACOSX_1@	-e "s/EXECUTABLE/dbadmin/" \
-@COND_PLATFORM_MACOSX_1@	-e "s/VERSION/$(WX_VERSION)/" \
-@COND_PLATFORM_MACOSX_1@	$(srcdir)/build/Info.plist.in > $(srcdir)/dbadmin/dbadmin.app/Contents/Info.plist
-@COND_PLATFORM_MACOSX_1@	
-@COND_PLATFORM_MACOSX_1@	
-@COND_PLATFORM_MACOSX_1@	echo -n "APPL????" >$(srcdir)/dbadmin/dbadmin.app/Contents/PkgInfo
-@COND_PLATFORM_MACOSX_1@	
-@COND_PLATFORM_MACOSX_1@	
-@COND_PLATFORM_MACOSX_1@	mv $(srcdir)/dbadmin/dbadmin$(EXEEXT) $(srcdir)/dbadmin/dbadmin.app/Contents/MacOS/dbadmin
-@COND_PLATFORM_MACOSX_1@	
-@COND_PLATFORM_MACOSX_1@	
-@COND_PLATFORM_MACOSX_1@	cp -f $(srcdir)/build/wxmac.icns $(srcdir)/dbadmin/dbadmin.app/Contents/Resources/wxmac.icns
-
-@COND_PLATFORM_MACOSX_1@dbadmin_bundle: $(__dbadmin_app_Contents_PkgInfo___depname)
 
 wxsqlite3_lib_wxsqlite3.o: $(srcdir)/src/wxsqlite3.cpp
 	$(CXXC) -c -o $@ $(WXSQLITE3_LIB_CXXFLAGS) $(srcdir)/src/wxsqlite3.cpp
@@ -378,105 +300,6 @@ minimal_minimal.o: $(srcdir)/samples/minimal.cpp
 minimal_minimal_rc.o: $(srcdir)/samples/minimal.rc
 	$(WX_RESCOMP) -i$< -o$@  --include-dir $(srcdir)/include --include-dir $(srcdir)/samples --include-dir $(SQLITE3_DIR)/include
 
-dbadmin_aboutdlg.o: $(srcdir)/dbadmin/aboutdlg.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/aboutdlg.cpp
-
-dbadmin_addcolumn.o: $(srcdir)/dbadmin/addcolumn.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/addcolumn.cpp
-
-dbadmin_attachdbdlg.o: $(srcdir)/dbadmin/attachdbdlg.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/attachdbdlg.cpp
-
-dbadmin_backrestdlg.o: $(srcdir)/dbadmin/backrestdlg.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/backrestdlg.cpp
-
-dbadmin_blobdlg.o: $(srcdir)/dbadmin/blobdlg.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/blobdlg.cpp
-
-dbadmin_createindex.o: $(srcdir)/dbadmin/createindex.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/createindex.cpp
-
-dbadmin_createtable.o: $(srcdir)/dbadmin/createtable.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/createtable.cpp
-
-dbadmin_createtrigger.o: $(srcdir)/dbadmin/createtrigger.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/createtrigger.cpp
-
-dbadmin_createview.o: $(srcdir)/dbadmin/createview.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/createview.cpp
-
-dbadmin_dbbook.o: $(srcdir)/dbadmin/dbbook.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/dbbook.cpp
-
-dbadmin_describedlg.o: $(srcdir)/dbadmin/describedlg.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/describedlg.cpp
-
-dbadmin_detachdbdlg.o: $(srcdir)/dbadmin/detachdbdlg.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/detachdbdlg.cpp
-
-dbadmin_dropobject.o: $(srcdir)/dbadmin/dropobject.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/dropobject.cpp
-
-dbadmin_encrypkeydlg.o: $(srcdir)/dbadmin/encrypkeydlg.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/encrypkeydlg.cpp
-
-dbadmin_filterdlg.o: $(srcdir)/dbadmin/filterdlg.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/filterdlg.cpp
-
-dbadmin_indexbook.o: $(srcdir)/dbadmin/indexbook.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/indexbook.cpp
-
-dbadmin_ipcframe.o: $(srcdir)/dbadmin/ipcframe.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/ipcframe.cpp
-
-dbadmin_paneldata.o: $(srcdir)/dbadmin/paneldata.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/paneldata.cpp
-
-dbadmin_preferences.o: $(srcdir)/dbadmin/preferences.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/preferences.cpp
-
-dbadmin_sortdlg.o: $(srcdir)/dbadmin/sortdlg.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/sortdlg.cpp
-
-dbadmin_specgrid.o: $(srcdir)/dbadmin/specgrid.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/specgrid.cpp
-
-dbadmin_sqlbook.o: $(srcdir)/dbadmin/sqlbook.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/sqlbook.cpp
-
-dbadmin_sqleditor.o: $(srcdir)/dbadmin/sqleditor.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/sqleditor.cpp
-
-dbadmin_sqlhistory.o: $(srcdir)/dbadmin/sqlhistory.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/sqlhistory.cpp
-
-dbadmin_sqlite3table.o: $(srcdir)/dbadmin/sqlite3table.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/sqlite3table.cpp
-
-dbadmin_sqliteplusframe.o: $(srcdir)/dbadmin/sqliteplusframe.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/sqliteplusframe.cpp
-
-dbadmin_sqlparameters.o: $(srcdir)/dbadmin/sqlparameters.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/sqlparameters.cpp
-
-dbadmin_tablebook.o: $(srcdir)/dbadmin/tablebook.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/tablebook.cpp
-
-dbadmin_triggerbook.o: $(srcdir)/dbadmin/triggerbook.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/triggerbook.cpp
-
-dbadmin_triggerparser.o: $(srcdir)/dbadmin/triggerparser.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/triggerparser.cpp
-
-dbadmin_viewbook.o: $(srcdir)/dbadmin/viewbook.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/viewbook.cpp
-
-dbadmin_wxsqliteplusapp.o: $(srcdir)/dbadmin/wxsqliteplusapp.cpp
-	$(CXXC) -c -o $@ $(DBADMIN_CXXFLAGS) $(srcdir)/dbadmin/wxsqliteplusapp.cpp
-
-dbadmin_wxsqliteplus_rc.o: $(srcdir)/dbadmin/wxsqliteplus.rc
-	$(WX_RESCOMP) -i$< -o$@  --include-dir $(srcdir)/include --include-dir $(srcdir)/dbadmin --include-dir $(SQLITE3_DIR)/include
-
 
 # Include dependency info, if present:
 @IF_GNU_MAKE@-include ./.deps/*.d
@@ -485,4 +308,4 @@ dbadmin_wxsqliteplus_rc.o: $(srcdir)/dbadmin/wxsqliteplus.rc
 	uninstall_wxsqlite3_lib install_wxsqlite3_lib_headers \
 	uninstall_wxsqlite3_lib_headers install_wxsqlite3_dll \
 	uninstall_wxsqlite3_dll install_wxsqlite3_dll_headers \
-	uninstall_wxsqlite3_dll_headers dbadmin_bundle
+	uninstall_wxsqlite3_dll_headers
