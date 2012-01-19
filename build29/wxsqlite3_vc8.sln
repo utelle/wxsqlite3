@@ -7,11 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "minimal", "wxsqlite3_vc8_mi
 		{548E0984-E11D-5C51-85F4-F0E8AA23052A} = {548E0984-E11D-5C51-85F4-F0E8AA23052A}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dbadmin", "wxsqlite3_vc8_dbadmin.vcproj", "{BD37CAB6-3781-55B3-8BAC-0E834366C361}"
-	ProjectSection(ProjectDependencies) = postProject
-		{548E0984-E11D-5C51-85F4-F0E8AA23052A} = {548E0984-E11D-5C51-85F4-F0E8AA23052A}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Static Release Static|Win32 = Static Release Static|Win32
@@ -56,22 +51,6 @@ Global
 		{4CC72E48-54F8-58D2-8CD2-E25B2C3506E0}.DLL Debug Static|Win32.Build.0 = DLL Debug Static|Win32
 		{4CC72E48-54F8-58D2-8CD2-E25B2C3506E0}.DLL Debug DLL|Win32.ActiveCfg = DLL Debug DLL|Win32
 		{4CC72E48-54F8-58D2-8CD2-E25B2C3506E0}.DLL Debug DLL|Win32.Build.0 = DLL Debug DLL|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.Static Release Static|Win32.ActiveCfg = Static Release Static|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.Static Release Static|Win32.Build.0 = Static Release Static|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.Static Release DLL|Win32.ActiveCfg = Static Release DLL|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.Static Release DLL|Win32.Build.0 = Static Release DLL|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.Static Debug Static|Win32.ActiveCfg = Static Debug Static|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.Static Debug Static|Win32.Build.0 = Static Debug Static|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.Static Debug DLL|Win32.ActiveCfg = Static Debug DLL|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.Static Debug DLL|Win32.Build.0 = Static Debug DLL|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.DLL Release Static|Win32.ActiveCfg = DLL Release Static|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.DLL Release Static|Win32.Build.0 = DLL Release Static|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.DLL Release DLL|Win32.ActiveCfg = DLL Release DLL|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.DLL Release DLL|Win32.Build.0 = DLL Release DLL|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.DLL Debug Static|Win32.ActiveCfg = DLL Debug Static|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.DLL Debug Static|Win32.Build.0 = DLL Debug Static|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.DLL Debug DLL|Win32.ActiveCfg = DLL Debug DLL|Win32
-		{BD37CAB6-3781-55B3-8BAC-0E834366C361}.DLL Debug DLL|Win32.Build.0 = DLL Debug DLL|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

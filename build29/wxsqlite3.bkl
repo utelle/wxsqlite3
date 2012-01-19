@@ -157,7 +157,7 @@
     <exename>minimal</exename>
     <win32-res>samples/minimal.rc</win32-res>
   </wxcode-sample>
-
+<!--
   <template id="wxsqlite3_dbadmin">
     <app-type>gui</app-type>
     <sources>$(fileList('dbadmin/*.cpp'))</sources>
@@ -187,5 +187,5 @@
       <wx-mac-app-bundle/>
     </if>
   </wxcode-sample>
-
+-->
 </makefile>

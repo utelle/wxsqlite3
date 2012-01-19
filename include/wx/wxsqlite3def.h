@@ -57,6 +57,7 @@
 //              2011-06-30  - Upgrade to SQLite3 version 3.7.7.1
 //              2011-08-14  - Progress callback for Backup/Restore added
 //              2011-10-25  - Upgrade to SQLite3 version 3.7.8
+//              2012-01-17  - Upgrade to SQLite3 version 3.7.10
 //
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -99,11 +100,18 @@
 
 <dl>
 
-<dt><b>2.1.4</b> - <i>October 2011</i></dt>
+<dt><b>3.0.0</b> - <i>January 2012</i></dt>
 <dd>
-Upgrade to SQLite version 3.7.8<br>
+Upgrade to SQLite version 3.7.10<br>
 Added method wxSQLite3Database::Vacuum<br>
+Added method wxSQLite3Database::GetDatabaseFilename<br>
+Added method wxSQLite3Database::ReleaseMemory<br>
 Added method wxSQLite3ResultSet::CursorMoved<br>
+Added method wxSQLite3Statement::IsBusy<br>
+Fixed a bug in method operator= of wxSQLite3StringCollection
+causing an endless recursion on assignment<br>
+Dropped the concept of SQLite3 pointer ownership in favor of reference
+counted pointers allowing much more flexible use of wxSQLite3 classes<br>
 
 </dd>
 <dt><b>2.1.3</b> - <i>August 2011</i></dt>

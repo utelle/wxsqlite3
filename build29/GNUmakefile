@@ -90,7 +90,7 @@ WX_VERSION_MAJOR = $(shell echo $(WX_VERSION) | cut -c1,1)
 WX_VERSION_MINOR = $(shell echo $(WX_VERSION) | cut -c2,2)
 WX_CONFIG_FLAGS = $(WX_CONFIG_UNICODE_FLAG) $(WX_CONFIG_SHARED_FLAG) \
 	--toolkit=$(WX_PORT) --version=$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)
-WXSQLITE3_LIB_CXXFLAGS = $(VAR) $(VAR_3) -W -Wall -I../include \
+WXSQLITE3_LIB_CXXFLAGS = $(VAR) $(VAR_1) -W -Wall -I../include \
 	$(__SQLITE3_DYNAMICLOAD_DEF_p) $(__SQLITE3_HAVE_METADATA_DEF_p) \
 	$(__SQLITE3_HAVE_CODEC_DEF_p) $(__SQLITE3_HAVE_LOAD_EXTENSION_DEF_p) \
 	-I$(SQLITE3_DIR)/include `$(WX_CONFIG) --cxxflags $(WX_CONFIG_FLAGS)` \
@@ -102,7 +102,7 @@ WXSQLITE3_LIB_HEADERS =  \
 	include/wx/wxsqlite3.h \
 	include/wx/wxsqlite3dyn.h \
 	include/wx/wxsqlite3opt.h
-WXSQLITE3_DLL_CXXFLAGS = $(VAR) $(VAR_3) -W -Wall -I../include \
+WXSQLITE3_DLL_CXXFLAGS = $(VAR) $(VAR_1) -W -Wall -I../include \
 	-DWXMAKINGDLL_WXSQLITE3 $(__SQLITE3_DYNAMICLOAD_DEF_p) \
 	$(__SQLITE3_HAVE_METADATA_DEF_p) $(__SQLITE3_HAVE_CODEC_DEF_p) \
 	$(__SQLITE3_HAVE_LOAD_EXTENSION_DEF_p) -I$(SQLITE3_DIR)/include -fPIC -DPIC \
@@ -114,47 +114,11 @@ WXSQLITE3_DLL_HEADERS =  \
 	include/wx/wxsqlite3.h \
 	include/wx/wxsqlite3dyn.h \
 	include/wx/wxsqlite3opt.h
-MINIMAL_CXXFLAGS = $(VAR) $(VAR_3) -W -Wall -I../include -I../samples \
+MINIMAL_CXXFLAGS = $(VAR) $(VAR_1) -W -Wall -I../include -I../samples \
 	-I$(SQLITE3_DIR)/include `$(WX_CONFIG) --cxxflags $(WX_CONFIG_FLAGS)` \
 	$(CPPFLAGS) $(CXXFLAGS)
 MINIMAL_OBJECTS =  \
 	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/minimal_minimal.o
-DBADMIN_CXXFLAGS = $(VAR) $(VAR_3) -W -Wall -I../include -I../dbadmin \
-	-I$(SQLITE3_DIR)/include `$(WX_CONFIG) --cxxflags $(WX_CONFIG_FLAGS)` \
-	$(CPPFLAGS) $(CXXFLAGS)
-DBADMIN_OBJECTS =  \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_aboutdlg.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_addcolumn.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_attachdbdlg.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_backrestdlg.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_blobdlg.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_createindex.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_createtable.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_createtrigger.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_createview.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_dbbook.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_describedlg.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_detachdbdlg.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_dropobject.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_encrypkeydlg.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_filterdlg.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_indexbook.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_ipcframe.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_paneldata.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_preferences.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sortdlg.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_specgrid.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sqlbook.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sqleditor.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sqlhistory.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sqlite3table.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sqliteplusframe.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sqlparameters.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_tablebook.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_triggerbook.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_triggerparser.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_viewbook.o \
-	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_wxsqliteplusapp.o
 
 ### Conditionally set variables: ###
 
@@ -222,6 +186,20 @@ ifeq ($(SHARED),1)
 __uninstall_wxsqlite3_dll_headers___depname = \
 	uninstall_wxsqlite3_dll_headers
 endif
+ifeq ($(SHARED),0)
+__COMPONENT_LIB_DEP = $(__wxsqlite3_lib___depname)
+endif
+ifeq ($(SHARED),1)
+__COMPONENT_LIB_DEP = $(__wxsqlite3_dll___depname)
+endif
+ifeq ($(SHARED),0)
+__COMPONENT_LIB_LIBR = \
+	../lib/gcc_$(__wxsqlite3_lib__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a
+endif
+ifeq ($(SHARED),1)
+__COMPONENT_LIB_LIBR = \
+	../lib/$(COMPILER_PREFIX)_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
+endif
 ifeq ($(USE_DYNAMIC_SQLITE3_LOAD),0)
 __SQLITE3_DYNAMICLOAD_DEF_p = -DwxUSE_DYNAMIC_SQLITE3_LOAD=0
 endif
@@ -252,28 +230,14 @@ endif
 ifeq ($(WX_DEBUG),1)
 VAR = -O0
 endif
-ifeq ($(SHARED),0)
-__COMPONENT_LIB_DEP = $(__wxsqlite3_lib___depname)
-endif
-ifeq ($(SHARED),1)
-__COMPONENT_LIB_DEP = $(__wxsqlite3_dll___depname)
-endif
-ifeq ($(SHARED),0)
-__COMPONENT_LIB_LIBR = \
-	../lib/gcc_$(__wxsqlite3_lib__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a
-endif
-ifeq ($(SHARED),1)
-__COMPONENT_LIB_LIBR = \
-	../lib/$(COMPILER_PREFIX)_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
-endif
 ifeq ($(USE_DYNAMIC_SQLITE3_LOAD),0)
 __SQLITE3_DEP_p = -lsqlite3
 endif
 ifeq ($(WX_DEBUG),0)
-VAR_3 = 
+VAR_1 = 
 endif
 ifeq ($(WX_DEBUG),1)
-VAR_3 = -g
+VAR_1 = -g
 endif
 
 
@@ -283,7 +247,7 @@ gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX):
 
 ### Targets: ###
 
-all: test_for_selected_wxbuild $(__wxsqlite3_lib___depname) $(__wxsqlite3_dll___depname) ../samples/minimal ../dbadmin/dbadmin
+all: test_for_selected_wxbuild $(__wxsqlite3_lib___depname) $(__wxsqlite3_dll___depname) ../samples/minimal
 
 install: $(__install_wxsqlite3_lib___depname) $(__install_wxsqlite3_lib_headers___depname) $(__install_wxsqlite3_dll___depname) $(__install_wxsqlite3_dll_headers___depname)
 
@@ -296,7 +260,6 @@ clean:
 	rm -f ../lib/$(COMPILER_PREFIX)_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
 	rm -f ../lib/$(COMPILER_PREFIX)_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
 	rm -f ../samples/minimal
-	rm -f ../dbadmin/dbadmin
 
 test_for_selected_wxbuild: 
 	@$(WX_CONFIG) $(WX_CONFIG_FLAGS)
@@ -342,7 +305,7 @@ endif
 
 ifeq ($(SHARED),1)
 ../lib/$(COMPILER_PREFIX)_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so: make_dir_wxsqlite3_dll  $(WXSQLITE3_DLL_OBJECTS)
-	$(CXX) $(LINK_DLL_FLAGS) -fPIC -o $@ $(WXSQLITE3_DLL_OBJECTS)  $(VAR_3) -L../lib -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs base`
+	$(CXX) $(LINK_DLL_FLAGS) -fPIC -o $@ $(WXSQLITE3_DLL_OBJECTS)  $(VAR_1) -L../lib -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs base`
 endif
 
 ifeq ($(SHARED),1)
@@ -380,10 +343,7 @@ uninstall_wxsqlite3_dll_headers:
 endif
 
 ../samples/minimal: $(MINIMAL_OBJECTS) $(__COMPONENT_LIB_DEP)
-	$(CXX) -o $@ $(MINIMAL_OBJECTS)  $(VAR_3) -L../lib  -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs base`
-
-../dbadmin/dbadmin: $(DBADMIN_OBJECTS) $(__COMPONENT_LIB_DEP)
-	$(CXX) -o $@ $(DBADMIN_OBJECTS)  $(VAR_3) -L../lib  -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs stc,richtext,aui,adv,net,xml,core,base`
+	$(CXX) -o $@ $(MINIMAL_OBJECTS)  $(VAR_1) -L../lib  -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs base`
 
 gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/wxsqlite3_lib_wxsqlite3.o: ../src/wxsqlite3.cpp
 	$(CXX) -c -o $@ $(WXSQLITE3_LIB_CXXFLAGS) $(CPPDEPS) $<
@@ -393,102 +353,6 @@ gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/wxsqlite3_dll_wxsqlite3.o: ../src/wxsqli
 
 gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/minimal_minimal.o: ../samples/minimal.cpp
 	$(CXX) -c -o $@ $(MINIMAL_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_aboutdlg.o: ../dbadmin/aboutdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_addcolumn.o: ../dbadmin/addcolumn.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_attachdbdlg.o: ../dbadmin/attachdbdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_backrestdlg.o: ../dbadmin/backrestdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_blobdlg.o: ../dbadmin/blobdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_createindex.o: ../dbadmin/createindex.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_createtable.o: ../dbadmin/createtable.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_createtrigger.o: ../dbadmin/createtrigger.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_createview.o: ../dbadmin/createview.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_dbbook.o: ../dbadmin/dbbook.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_describedlg.o: ../dbadmin/describedlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_detachdbdlg.o: ../dbadmin/detachdbdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_dropobject.o: ../dbadmin/dropobject.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_encrypkeydlg.o: ../dbadmin/encrypkeydlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_filterdlg.o: ../dbadmin/filterdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_indexbook.o: ../dbadmin/indexbook.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_ipcframe.o: ../dbadmin/ipcframe.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_paneldata.o: ../dbadmin/paneldata.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_preferences.o: ../dbadmin/preferences.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sortdlg.o: ../dbadmin/sortdlg.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_specgrid.o: ../dbadmin/specgrid.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sqlbook.o: ../dbadmin/sqlbook.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sqleditor.o: ../dbadmin/sqleditor.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sqlhistory.o: ../dbadmin/sqlhistory.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sqlite3table.o: ../dbadmin/sqlite3table.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sqliteplusframe.o: ../dbadmin/sqliteplusframe.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_sqlparameters.o: ../dbadmin/sqlparameters.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_tablebook.o: ../dbadmin/tablebook.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_triggerbook.o: ../dbadmin/triggerbook.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_triggerparser.o: ../dbadmin/triggerparser.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_viewbook.o: ../dbadmin/viewbook.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
-
-gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/dbadmin_wxsqliteplusapp.o: ../dbadmin/wxsqliteplusapp.cpp
-	$(CXX) -c -o $@ $(DBADMIN_CXXFLAGS) $(CPPDEPS) $<
 
 .PHONY: all install uninstall clean install_wxsqlite3_lib \
 	uninstall_wxsqlite3_lib install_wxsqlite3_lib_headers \

@@ -516,6 +516,10 @@ public:
   static wxString AuthorizationCodeToString(wxSQLite3Authorizer::wxAuthorizationCode type);
 };
 
+class wxSQLite3DatabaseReference;
+class wxSQLite3StatementReference;
+class wxSQLite3BlobReference;
+
 class WXDLLIMPEXP_FWD_SQLITE3 wxSQLite3Database;
 
 /// Interface for a user defined hook function
@@ -648,8 +652,9 @@ public:
   wxSQLite3ResultSet(const wxSQLite3ResultSet& resultSet);
 
   /// Constructor for internal use
-  wxSQLite3ResultSet(void* db, void* stmt,
-                     bool eof, bool first = true, bool ownStmt = true);
+  wxSQLite3ResultSet(wxSQLite3DatabaseReference* db, 
+                     wxSQLite3StatementReference* stmt,
+                     bool eof, bool first = true);
 
   /// Assignment constructor
   wxSQLite3ResultSet& operator=(const wxSQLite3ResultSet& resultSet);
@@ -992,12 +997,14 @@ private:
   /// Check the validity of the associated statement
   void CheckStmt();
 
-  void* m_db;       ///< associated database
-  void* m_stmt;     ///< associated statement
+  /// Finalize the result set (internal)
+  void Finalize(wxSQLite3DatabaseReference* db,wxSQLite3StatementReference* stmt);
+
+  wxSQLite3DatabaseReference*  m_db;   ///< associated database
+  wxSQLite3StatementReference* m_stmt; ///< associated statement
   bool  m_eof;      ///< Flag for end of result set
   bool  m_first;    ///< Flag for first row of the result set
   int   m_cols;     ///< Numver of columns in row set
-  bool  m_ownStmt;  ///< Flag for ownership of the associated statement
 };
 
 
@@ -1250,7 +1257,7 @@ public:
   /// Constructor (internal use only)
   /**
   */
-  wxSQLite3Statement(void* db, void* stmt);
+  wxSQLite3Statement(wxSQLite3DatabaseReference* db, wxSQLite3StatementReference* stmt);
 
   /// Destructor
   /**
@@ -1265,16 +1272,9 @@ public:
 
   /// Execute the query represented by this statement
   /**
-  * \param transferStatementOwnership if TRUE the ownership of the underlying SQLite 
-  * statement object is transferred to the created result set (default: FALSE)
   * \return result set instance
-  * \note the transfer of ownership of the underlying SQLite statement object can be
-  * performed only once. If the transfer of ownership has been requested this
-  * wxSQL3Statement instance isn't usable anymore as soon as the result set is destroyed.
-  * If the transfer of ownership isn't requested the created result set can be used to
-  * retrieve the selected data rows only as long as this wxSQLite3Statement instance exists.
   */
-  wxSQLite3ResultSet ExecuteQuery(bool transferStatementOwnership = false);
+  wxSQLite3ResultSet ExecuteQuery();
 
   /// Execute a scalar SQL query statement given as a wxString
   /**
@@ -1464,6 +1464,12 @@ public:
   */
   bool IsOk();
 
+  /// Determine if a prepared statement has been reset
+  /**
+  * \return TRUE if the prepared statement has been stepped at least once but has not run to completion and/or has not been reset, FALSE otherwise
+  */
+  bool IsBusy();
+
 private:
   /// Check for valid database connection
   void CheckDatabase();
@@ -1471,9 +1477,11 @@ private:
   /// Check for valid statement
   void CheckStmt();
 
-  void* m_db;            ///< associated SQLite3 database
-  void* m_stmt;          ///< associated SQLite3 statement
-  bool  m_hasOwnership;  ///< flag whether the associated SQLite3 statement is owned
+  /// Finalize the result set (internal)
+  void Finalize(wxSQLite3DatabaseReference* db,wxSQLite3StatementReference* stmt);
+
+  wxSQLite3DatabaseReference*  m_db;    ///< associated SQLite3 database
+  wxSQLite3StatementReference* m_stmt;  ///< associated SQLite3 statement
 };
 
 
@@ -1499,7 +1507,7 @@ public:
   /// Constructor (internal use only)
   /**
   */
-  wxSQLite3Blob(void* m_db, void* blobHandle, bool writable);
+  wxSQLite3Blob(wxSQLite3DatabaseReference* m_db, wxSQLite3BlobReference* blobHandle, bool writable);
 
   /// Destructor
   /**
@@ -1558,9 +1566,10 @@ private:
   /// Check for valid BLOB
   void CheckBlob();
 
-  void* m_db;       ///< associated SQLite3 database handle
-  void* m_blob;     ///< associated SQLite3 BLOB handle
-  bool  m_ok;       ///< flag whether the BLOB handle is correctly initialized
+  void Finalize(wxSQLite3DatabaseReference* db, wxSQLite3BlobReference* blob);
+
+  wxSQLite3DatabaseReference* m_db;    ///< associated SQLite3 database handle
+  wxSQLite3BlobReference*     m_blob;  ///< associated SQLite3 BLOB handle
   bool  m_writable; ///< flag whether the BLOB is writable or read only
 };
 
@@ -1783,12 +1792,12 @@ public:
   /// Close a SQLite3 database
   /**
   * Take care that all prepared statements have been finalized!
-  * Starting with version 3.6.0 SQLite has support to finialize all unfinalized
-  * prepared statements. The Close method has been changed to take advantage of
-  * this feature. Nevertheless it is recommended to explicitly finalize all
-  * wxSQLite3Statement instances before closing a database.
   *
-  * NOTE: Finalizing all wxSQLite3Blob instances before closing a database is still required!
+  * NOTE: Starting with version 3.6.0 SQLite has support to finialize all unfinalized
+  * prepared statements. Unfortunately this feature can't be used due to a possible
+  * crash if the RTree module is active.
+  *
+  * NOTE: Finalizing all wxSQLite3Blob instances before closing a database is required!
   *
   */
   void Close();
@@ -2014,6 +2023,12 @@ public:
   */
   void GetDatabaseList(wxArrayString& databaseNames, wxArrayString& databaseFiles);
 
+  /// Return the filename for a database connection
+  /**
+  * \param databaseName contains on return the list of the database names
+  */
+  wxString GetDatabaseFilename(const wxString& databaseName);
+
   /// Enable or disable foreign key support
   /**
   * Starting with SQLite version 3.6.19 foreign key constraints can be enforced.
@@ -2077,22 +2092,28 @@ public:
   */
   bool CheckSyntax(const char* sql);
 
-  /// Execute a insert, update or delete SQL statement given as a wxString
+  /// Execute a data defining or manipulating SQL statement given as a wxString
   /**
+  * Execute a data defining or manipulating SQL statement given as a wxString,
+  * i.e. create, alter, drop, insert, update, delete and so on
   * \param sql query string
   * \return the number of database rows that were changed (or inserted or deleted)
   */
   int ExecuteUpdate(const wxString& sql);
 
-  /// Execute a insert, update or delete SQL statement given as a statement buffer
+  /// Execute a data defining or manipulating SQL statement given as a statement buffer
   /**
+  * Execute a data defining or manipulating SQL statement given as a statement buffer,
+  * i.e. create, alter, drop, insert, update, delete and so on
   * \param sql query string
   * \return the number of database rows that were changed (or inserted or deleted)
   */
   int ExecuteUpdate(const wxSQLite3StatementBuffer& sql);
 
-  /// Execute a insert, update or delete SQL statement given as a utf-8 character string
+  /// Execute a data defining or manipulating SQL statement given as a utf-8 character string
   /**
+  * Execute a data defining or manipulating SQL statement given as a utf-8 character string,
+  * i.e. create, alter, drop, insert, update, delete and so on
   * \param sql query string
   * \return the number of database rows that were changed (or inserted or deleted)
   */
@@ -2476,6 +2497,13 @@ public:
   */
   int SetLimit(wxSQLite3LimitType id, int newValue);
 
+  /// Free memory used by a database connection
+  /**
+  * This method attempts to free as much heap memory as possible from database connection.
+  * Consult the SQLite documentation for further explanation.
+  */
+  void ReleaseMemory();
+
   /// Convert database limit type to string
   /**
   * \param type The database limit type to be converted to string representation.
@@ -2629,7 +2657,7 @@ public:
 
 protected:
   /// Access SQLite's internal database handle
-  void* GetDatabaseHandle() { return m_db; }
+  void* GetDatabaseHandle();
 
   /// Activate the callback for needed collations for this database
   /**
@@ -2667,7 +2695,10 @@ private:
   /// Check for valid database connection
   void CheckDatabase();
 
-  void* m_db;              ///< associated SQLite3 database
+  /// Close associated database
+  void Close(wxSQLite3DatabaseReference* db);
+
+  wxSQLite3DatabaseReference* m_db;  ///< associated SQLite3 database
   int   m_busyTimeoutMs;   ///< Timeout in milli seconds
   bool  m_isEncrypted;     ///< Flag whether the database is encrypted or not
   int   m_lastRollbackRC;  ///< The return code of the last executed rollback operation

@@ -86,7 +86,13 @@ DYNFUNC(return, int,                   sqlite3_create_module,         (sqlite3 *
 DYNFUNC(return, int,                   sqlite3_create_module_v2,      (sqlite3 *db, const char *zName, const sqlite3_module *p, void *pClientData, void(*xDestroy)(void*)), (db, zName, p, pClientData, xDestroy));
 #endif
 // DYNFUNC(return, int,                   sqlite3_data_count,            (sqlite3_stmt *pStmt), (pStmt));
+#if SQLITE_VERSION_NUMBER >= 3007010
+DYNFUNC(return, const char *,          sqlite3_db_filename,           (sqlite3 *db, const char *zDbName), (db, zDbName));
+#endif
 // DYNFUNC(return, sqlite3 *,             sqlite3_db_handle,             (sqlite3_stmt *pStmt), (pStmt));
+#if SQLITE_VERSION_NUMBER >= 3007010
+DYNFUNC(return, int,                   sqlite3_db_release_memory,     (sqlite3 *db), (db));
+#endif
 DYNFUNC(return, int,                   sqlite3_declare_vtab,          (sqlite3 *db, const char *zSQL), (db, zSQL));
 DYNFUNC(return, int,                   sqlite3_enable_load_extension, (sqlite3 *db, int onoff), (db, onoff));
 DYNFUNC(return, int,                   sqlite3_enable_shared_cache,   (int enable), (enable));
@@ -159,6 +165,9 @@ DYNFUNC(return, const char *,          sqlite3_sourceid,              (void), ()
 DYNFUNC(return, const char *,          sqlite3_sql,                   (sqlite3_stmt *pStmt), (pStmt));
 #endif
 DYNFUNC(return, int,                   sqlite3_step,                  (sqlite3_stmt *pStmt), (pStmt));
+#if SQLITE_VERSION_NUMBER >= 3007010
+DYNFUNC(return, int,                   sqlite3_stmt_busy,             (sqlite3_stmt* pStmt), (pStmt));
+#endif
 #if SQLITE_VERSION_NUMBER >= 3007004
 DYNFUNC(return, int,                   sqlite3_stmt_readonly,         (sqlite3_stmt *pStmt), (pStmt));
 #endif
