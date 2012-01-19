@@ -112,6 +112,11 @@ Fixed a bug in method operator= of wxSQLite3StringCollection
 causing an endless recursion on assignment<br>
 Dropped the concept of SQLite3 pointer ownership in favor of reference
 counted pointers allowing much more flexible use of wxSQLite3 classes<br>
+Modified SQLite3 encryption extension (defining int64 datatype
+for SHA2 algorithm)<br>
+Dropped dbadmin sample from build files<br>
+Added Premake support for SQLite3 library with encryption support
+and for wxSQLite3 (experimental)<br>
 
 </dd>
 <dt><b>2.1.3</b> - <i>August 2011</i></dt>
