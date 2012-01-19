@@ -19,7 +19,7 @@ project "sqlite3lib"
   flags { "Unicode", "StaticRuntime" }  
 
   location "build/sqlite3lib"
-  targetname "libsqlite3"
+  targetname "sqlite3"
 
   defines {
     "WIN32",
@@ -88,7 +88,7 @@ project "sqlite3dll"
   flags { "Unicode", "StaticRuntime" }  
 
   location "build/sqlite3dll"
-  targetname "libsqlite3"
+  targetname "sqlite3"
 
   defines {
     "WIN32",
@@ -127,7 +127,7 @@ project "sqlite3dll"
     }
     flags { "Optimize" }  
 
-    configuration "Debug AES256"
+  configuration "Debug AES256"
     targetdir "aes256/dll/debug"
     defines {
       "CODEC_TYPE=CODEC_TYPE_AES256",
