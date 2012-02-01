@@ -492,6 +492,11 @@ const wxString wxSQLite3Exception::ErrorCodeAsString(int errorCode)
     case SQLITE_LOCKED_SHAREDCACHE : return wxT("SQLITE_LOCKED_SHAREDCACHE");
     case SQLITE_BUSY_RECOVERY      : return wxT("SQLITE_BUSY_RECOVERY");
     case SQLITE_CANTOPEN_NOTEMPDIR : return wxT("SQLITE_CANTOPEN_NOTEMPDIR");
+ #endif
+#if SQLITE_VERSION_NUMBER >= 3007007
+    case SQLITE_CORRUPT_VTAB       : return wxT("SQLITE_CORRUPT_VTAB");
+    case SQLITE_READONLY_RECOVERY  : return wxT("SQLITE_READONLY_RECOVERY");
+    case SQLITE_READONLY_CANTLOCK  : return wxT("SQLITE_READONLY_CANTLOCK");
 #endif
 
     case WXSQLITE_ERROR     : return wxT("WXSQLITE_ERROR");
@@ -2019,7 +2024,7 @@ wxString wxSQLite3Statement::GetSQL()
 
 void wxSQLite3Statement::Reset()
 {
-  if (m_stmt)
+  if (m_stmt != NULL && m_stmt->m_isValid)
   {
     int rc = sqlite3_reset(m_stmt->m_stmt);
 
