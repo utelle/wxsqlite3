@@ -2699,6 +2699,7 @@ private:
   void Close(wxSQLite3DatabaseReference* db);
 
   wxSQLite3DatabaseReference* m_db;  ///< associated SQLite3 database
+  bool  m_isOpen;          ///< Flag whether the database is opened or not
   int   m_busyTimeoutMs;   ///< Timeout in milli seconds
   bool  m_isEncrypted;     ///< Flag whether the database is encrypted or not
   int   m_lastRollbackRC;  ///< The return code of the last executed rollback operation

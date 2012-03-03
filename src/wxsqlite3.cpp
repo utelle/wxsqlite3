@@ -122,7 +122,6 @@ const char* wxERRMSG_BIND_DATETIME = wxTRANSLATE("Error binding date/time param"
 const char* wxERRMSG_BIND_NULL     = wxTRANSLATE("Error binding NULL param");
 const char* wxERRMSG_BIND_ZEROBLOB = wxTRANSLATE("Error binding zero blob param");
 const char* wxERRMSG_BIND_CLEAR    = wxTRANSLATE("Error clearing bindings");
-const char* wxERRMSG_NOTOWNED      = wxTRANSLATE("Transfer of statement ownership not possible");
 
 const char* wxERRMSG_NOMETADATA    = wxTRANSLATE("Meta data support not available");
 const char* wxERRMSG_NOCODEC       = wxTRANSLATE("Encryption support not available");
@@ -141,7 +140,9 @@ const char* wxERRMSG_SHUTDOWN      = wxTRANSLATE("Shutdown of SQLite failed");
 
 const char* wxERRMSG_SOURCEDB_BUSY = wxTRANSLATE("Source database is busy");
 const char* wxERRMSG_DBOPEN_FAILED = wxTRANSLATE("Database open failed");
+const char* wxERRMSG_DBCLOSE_FAILED = wxTRANSLATE("Database close failed");
 const char* wxERRMSG_DBASSIGN_FAILED = wxTRANSLATE("Database assignment failed");
+const char* wxERRMSG_FINALIZE_FAILED = wxTRANSLATE("Finalize failed");
 #else
 const wxChar* wxERRMSG_NODB          = wxTRANSLATE("No Database opened");
 const wxChar* wxERRMSG_NOSTMT        = wxTRANSLATE("Statement not accessible");
@@ -163,7 +164,6 @@ const wxChar* wxERRMSG_BIND_DATETIME = wxTRANSLATE("Error binding date/time para
 const wxChar* wxERRMSG_BIND_NULL     = wxTRANSLATE("Error binding NULL param");
 const wxChar* wxERRMSG_BIND_ZEROBLOB = wxTRANSLATE("Error binding zero blob param");
 const wxChar* wxERRMSG_BIND_CLEAR    = wxTRANSLATE("Error clearing bindings");
-const wxChar* wxERRMSG_NOTOWNED      = wxTRANSLATE("Transfer of statement ownership not possible");
 
 const wxChar* wxERRMSG_NOMETADATA    = wxTRANSLATE("Meta data support not available");
 const wxChar* wxERRMSG_NOCODEC       = wxTRANSLATE("Encryption support not available");
@@ -182,7 +182,9 @@ const wxChar* wxERRMSG_SHUTDOWN      = wxTRANSLATE("Shutdown of SQLite failed");
 
 const wxChar* wxERRMSG_SOURCEDB_BUSY   = wxTRANSLATE("Source database is busy");
 const wxChar* wxERRMSG_DBOPEN_FAILED   = wxTRANSLATE("Database open failed");
+const wxChar* wxERRMSG_DBCLOSE_FAILED   = wxTRANSLATE("Database close failed");
 const wxChar* wxERRMSG_DBASSIGN_FAILED = wxTRANSLATE("Database assignment failed");
+const wxChar* wxERRMSG_FINALIZE_FAILED = wxTRANSLATE("Finalize failed");
 #endif
 
 // Critical sections are used to make access to it thread safe if necessary.
@@ -608,7 +610,7 @@ wxSQLite3ResultSet::~wxSQLite3ResultSet()
     {
       try
       {
-        Finalize();
+        Finalize(m_db, m_stmt);
       }
       catch (...)
       {
@@ -1076,20 +1078,40 @@ bool wxSQLite3ResultSet::NextRow()
 
 void wxSQLite3ResultSet::Finalize()
 {
-  CheckStmt();
   Finalize(m_db, m_stmt);
+  if (m_stmt != NULL && m_stmt->DecrementRefCount() == 0)
+  {
+    delete m_stmt;
+  }
+  m_stmt = NULL;
+  if (m_db != NULL && m_db->DecrementRefCount() == 0)
+  {
+    if (m_db->m_isValid)
+    {
+      sqlite3_close(m_db->m_db);
+    }
+    delete m_db;
+  }
+  m_db = NULL;
 }
 
 void wxSQLite3ResultSet::Finalize(wxSQLite3DatabaseReference* db,wxSQLite3StatementReference* stmt)
 {
-  if (db != NULL && db->m_isValid && stmt != NULL && stmt->m_isValid)
+  if (stmt != NULL && stmt->m_isValid)
   {
     int rc = sqlite3_finalize(stmt->m_stmt);
     stmt->Invalidate();
     if (rc != SQLITE_OK)
     {
-      const char* localError = sqlite3_errmsg(db->m_db);
-      throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+      if (db != NULL && db->m_isValid)
+      {
+        const char* localError = sqlite3_errmsg(db->m_db);
+        throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+      }
+      else
+      {
+        throw wxSQLite3Exception(rc, wxERRMSG_FINALIZE_FAILED);
+      }
     }
   }
 }
@@ -1667,7 +1689,7 @@ wxSQLite3Statement::~wxSQLite3Statement()
     {
       try
       {
-        Finalize();
+        Finalize(m_db, m_stmt);
       }
       catch (...)
       {
@@ -2048,20 +2070,40 @@ bool wxSQLite3Statement::IsReadOnly()
 
 void wxSQLite3Statement::Finalize()
 {
-  CheckStmt();
   Finalize(m_db, m_stmt);
+  if (m_stmt != NULL && m_stmt->DecrementRefCount() == 0)
+  {
+    delete m_stmt;
+  }
+  m_stmt = NULL;
+  if (m_db != NULL && m_db->DecrementRefCount() == 0)
+  {
+    if (m_db->m_isValid)
+    {
+      sqlite3_close(m_db->m_db);
+    }
+    delete m_db;
+  }
+  m_db = NULL;
 }
 
 void wxSQLite3Statement::Finalize(wxSQLite3DatabaseReference* db,wxSQLite3StatementReference* stmt)
 {
-  if (db != NULL && db->m_isValid && stmt != NULL && stmt->m_isValid)
+  if (stmt != NULL && stmt->m_isValid)
   {
     int rc = sqlite3_finalize(stmt->m_stmt);
     stmt->Invalidate();
     if (rc != SQLITE_OK)
     {
-      const char* localError = sqlite3_errmsg(db->m_db);
-      throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+      if (db != NULL && db->m_isValid)
+      {
+        const char* localError = sqlite3_errmsg(db->m_db);
+        throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+      }
+      else
+      {
+        throw wxSQLite3Exception(rc, wxERRMSG_FINALIZE_FAILED);
+      }
     }
   }
 }
@@ -2285,8 +2327,15 @@ void wxSQLite3Blob::Finalize(wxSQLite3DatabaseReference* db, wxSQLite3BlobRefere
     blob->Invalidate();
     if (rc != SQLITE_OK)
     {
-      const char* localError = sqlite3_errmsg(db->m_db);
-      throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+      if (db != NULL && db->m_isValid)
+      {
+        const char* localError = sqlite3_errmsg(db->m_db);
+        throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+      }
+      else
+      {
+        throw wxSQLite3Exception(rc, wxERRMSG_FINALIZE_FAILED);
+      }
     }
   }
 #else
@@ -2419,6 +2468,7 @@ wxSQLite3Database::HasWriteAheadLogSupport()
 wxSQLite3Database::wxSQLite3Database()
 {
   m_db = 0;
+  m_isOpen = false;
   m_busyTimeoutMs = 60000; // 60 seconds
   m_isEncrypted = false;
   m_lastRollbackRC = 0;
@@ -2432,8 +2482,9 @@ wxSQLite3Database::wxSQLite3Database(const wxSQLite3Database& db)
   {
     m_db->IncrementRefCount();
   }
+  m_isOpen = db.m_isOpen;
   m_busyTimeoutMs = 60000; // 60 seconds
-  m_isEncrypted = false;
+  m_isEncrypted = db.m_isEncrypted;
   m_lastRollbackRC = db.m_lastRollbackRC;
   m_backupPageCount = db.m_backupPageCount;
 }
@@ -2444,7 +2495,7 @@ wxSQLite3Database::~wxSQLite3Database()
   {
     if (m_db->m_isValid)
     {
-      Close();
+      Close(m_db);
     }
     delete m_db;
   }
@@ -2459,6 +2510,7 @@ wxSQLite3Database& wxSQLite3Database::operator=(const wxSQLite3Database& db)
     if (m_db != NULL)
     {
       m_db->IncrementRefCount();
+      m_isOpen = db.m_isOpen;
       m_busyTimeoutMs = 60000; // 60 seconds
       m_isEncrypted = db.m_isEncrypted;
       m_lastRollbackRC = db.m_lastRollbackRC;
@@ -2535,6 +2587,7 @@ void wxSQLite3Database::Open(const wxString& fileName, const wxMemoryBuffer& key
 
   wxSQLite3DatabaseReference* dbPrev = m_db;
   m_db = new wxSQLite3DatabaseReference(db);
+  m_isOpen = true;
   SetBusyTimeout(m_busyTimeoutMs);
   if (dbPrev != NULL && dbPrev->DecrementRefCount() == 0)
   {
@@ -2544,7 +2597,7 @@ void wxSQLite3Database::Open(const wxString& fileName, const wxMemoryBuffer& key
 
 bool wxSQLite3Database::IsOpen() const
 {
-  return (m_db != NULL && m_db->m_isValid);
+  return (m_db != NULL && m_db->m_isValid && m_isOpen);
 }
 
 void wxSQLite3Database::Close()
@@ -2569,9 +2622,13 @@ void wxSQLite3Database::Close(wxSQLite3DatabaseReference* db)
     }
 #endif
 #endif
-    sqlite3_close(db->m_db);
-    db->Invalidate();
-    m_isEncrypted = false;
+    if (db->m_refCount <= 1)
+    {
+      sqlite3_close(db->m_db);
+      db->Invalidate();
+      m_isEncrypted = false;
+    }
+    m_isOpen = false;
   }
 }
 
@@ -3511,7 +3568,7 @@ void wxSQLite3Database::SetCollationNeededCallback()
 
 void wxSQLite3Database::CheckDatabase()
 {
-  if (m_db == NULL || m_db->m_db == NULL || !m_db->m_isValid)
+  if (m_db == NULL || m_db->m_db == NULL || !m_db->m_isValid || !m_isOpen)
   {
     throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NODB);
   }
