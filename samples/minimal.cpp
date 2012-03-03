@@ -689,6 +689,14 @@ int Minimal::OnRun()
 
     cout << endl << "End of tests" << endl;
     db.Close();
+  }
+  catch (wxSQLite3Exception& e)
+  {
+    cerr << e.GetErrorCode() << ":" << (const char*)(e.GetMessage().mb_str()) << endl;
+  }
+
+  try
+  {
     // Before shutdown of SQLite ALL database connections should be closed.
     wxSQLite3Database::ShutdownSQLite();
   }
@@ -698,7 +706,6 @@ int Minimal::OnRun()
   }
 
   // Loop until user enters q or Q
-
   char c(' ');
   while (c != 'q' && c != 'Q')
   {
