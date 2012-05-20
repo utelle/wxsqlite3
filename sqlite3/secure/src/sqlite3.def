@@ -73,6 +73,7 @@ sqlite3_db_config
 sqlite3_db_filename
 sqlite3_db_handle
 sqlite3_db_mutex
+sqlite3_db_readonly
 sqlite3_db_release_memory
 sqlite3_db_status
 sqlite3_declare_vtab
@@ -163,6 +164,7 @@ sqlite3_step
 sqlite3_stmt_busy
 sqlite3_stmt_readonly
 sqlite3_stmt_status
+sqlite3_stricmp
 sqlite3_strnicmp
 sqlite3_table_column_metadata
 sqlite3_test_control
