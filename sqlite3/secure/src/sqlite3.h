@@ -107,9 +107,9 @@ extern "C" {
 ** [sqlite3_libversion_number()], [sqlite3_sourceid()],
 ** [sqlite_version()] and [sqlite_source_id()].
 */
-#define SQLITE_VERSION        "3.7.10"
-#define SQLITE_VERSION_NUMBER 3007010
-#define SQLITE_SOURCE_ID      "2012-01-16 13:28:40 ebd01a8deffb5024a5d7494eef800d2366d97204"
+#define SQLITE_VERSION        "3.7.12.1"
+#define SQLITE_VERSION_NUMBER 3007012
+#define SQLITE_SOURCE_ID      "2012-05-22 02:45:53 6d326d44fd1d626aae0e8456e5fa2049f1ce0789"
 
 /*
 ** CAPI3REF: Run-Time Library Version Numbers
@@ -458,9 +458,11 @@ SQLITE_API int sqlite3_exec(
 #define SQLITE_LOCKED_SHAREDCACHE      (SQLITE_LOCKED |  (1<<8))
 #define SQLITE_BUSY_RECOVERY           (SQLITE_BUSY   |  (1<<8))
 #define SQLITE_CANTOPEN_NOTEMPDIR      (SQLITE_CANTOPEN | (1<<8))
+#define SQLITE_CANTOPEN_ISDIR          (SQLITE_CANTOPEN | (2<<8))
 #define SQLITE_CORRUPT_VTAB            (SQLITE_CORRUPT | (1<<8))
 #define SQLITE_READONLY_RECOVERY       (SQLITE_READONLY | (1<<8))
 #define SQLITE_READONLY_CANTLOCK       (SQLITE_READONLY | (2<<8))
+#define SQLITE_ABORT_ROLLBACK          (SQLITE_ABORT | (2<<8))
 
 /*
 ** CAPI3REF: Flags For File Open Operations
@@ -716,7 +718,8 @@ struct sqlite3_io_methods {
 ** into an integer that the pArg argument points to. This capability
 ** is used during testing and only needs to be supported when SQLITE_TEST
 ** is defined.
-**
+** <ul>
+** <li>[[SQLITE_FCNTL_SIZE_HINT]]
 ** The [SQLITE_FCNTL_SIZE_HINT] opcode is used by SQLite to give the VFS
 ** layer a hint of how large the database file will grow to be during the
 ** current transaction.  This hint is not guaranteed to be accurate but it
@@ -724,6 +727,7 @@ struct sqlite3_io_methods {
 ** file space based on this hint in order to help writes to the database
 ** file run faster.
 **
+** <li>[[SQLITE_FCNTL_CHUNK_SIZE]]
 ** The [SQLITE_FCNTL_CHUNK_SIZE] opcode is used to request that the VFS
 ** extends and truncates the database file in chunks of a size specified
 ** by the user. The fourth argument to [sqlite3_file_control()] should 
@@ -732,11 +736,13 @@ struct sqlite3_io_methods {
 ** chunks (say 1MB at a time), may reduce file-system fragmentation and
 ** improve performance on some systems.
 **
+** <li>[[SQLITE_FCNTL_FILE_POINTER]]
 ** The [SQLITE_FCNTL_FILE_POINTER] opcode is used to obtain a pointer
 ** to the [sqlite3_file] object associated with a particular database
 ** connection.  See the [sqlite3_file_control()] documentation for
 ** additional information.
 **
+** <li>[[SQLITE_FCNTL_SYNC_OMITTED]]
 ** ^(The [SQLITE_FCNTL_SYNC_OMITTED] opcode is generated internally by
 ** SQLite and sent to all VFSes in place of a call to the xSync method
 ** when the database connection has [PRAGMA synchronous] set to OFF.)^
@@ -747,6 +753,7 @@ struct sqlite3_io_methods {
 ** opcode as doing so may disrupt the operation of the specialized VFSes
 ** that do require it.  
 **
+** <li>[[SQLITE_FCNTL_WIN32_AV_RETRY]]
 ** ^The [SQLITE_FCNTL_WIN32_AV_RETRY] opcode is used to configure automatic
 ** retry counts and intervals for certain disk I/O operations for the
 ** windows [VFS] in order to provide robustness in the presence of
@@ -763,8 +770,9 @@ struct sqlite3_io_methods {
 ** into the array entry, allowing the current retry settings to be
 ** interrogated.  The zDbName parameter is ignored.
 **
+** <li>[[SQLITE_FCNTL_PERSIST_WAL]]
 ** ^The [SQLITE_FCNTL_PERSIST_WAL] opcode is used to set or query the
-** persistent [WAL | Write AHead Log] setting.  By default, the auxiliary
+** persistent [WAL | Write Ahead Log] setting.  By default, the auxiliary
 ** write ahead log and shared memory files used for transaction control
 ** are automatically deleted when the latest connection to the database
 ** closes.  Setting persistent WAL mode causes those files to persist after
@@ -777,6 +785,7 @@ struct sqlite3_io_methods {
 ** WAL mode.  If the integer is -1, then it is overwritten with the current
 ** WAL persistence setting.
 **
+** <li>[[SQLITE_FCNTL_POWERSAFE_OVERWRITE]]
 ** ^The [SQLITE_FCNTL_POWERSAFE_OVERWRITE] opcode is used to set or query the
 ** persistent "powersafe-overwrite" or "PSOW" setting.  The PSOW setting
 ** determines the [SQLITE_IOCAP_POWERSAFE_OVERWRITE] bit of the
@@ -786,11 +795,13 @@ struct sqlite3_io_methods {
 ** mode.  If the integer is -1, then it is overwritten with the current
 ** zero-damage mode setting.
 **
+** <li>[[SQLITE_FCNTL_OVERWRITE]]
 ** ^The [SQLITE_FCNTL_OVERWRITE] opcode is invoked by SQLite after opening
 ** a write transaction to indicate that, unless it is rolled back for some
 ** reason, the entire database file will be overwritten by the current 
 ** transaction. This is used by VACUUM operations.
 **
+** <li>[[SQLITE_FCNTL_VFSNAME]]
 ** ^The [SQLITE_FCNTL_VFSNAME] opcode can be used to obtain the names of
 ** all [VFSes] in the VFS stack.  The names are of all VFS shims and the
 ** final bottom-level VFS are written into memory obtained from 
@@ -801,6 +812,30 @@ struct sqlite3_io_methods {
 ** do anything.  Callers should initialize the char* variable to a NULL
 ** pointer in case this file-control is not implemented.  This file-control
 ** is intended for diagnostic use only.
+**
+** <li>[[SQLITE_FCNTL_PRAGMA]]
+** ^Whenever a [PRAGMA] statement is parsed, an [SQLITE_FCNTL_PRAGMA] 
+** file control is sent to the open [sqlite3_file] object corresponding
+** to the database file to which the pragma statement refers. ^The argument
+** to the [SQLITE_FCNTL_PRAGMA] file control is an array of
+** pointers to strings (char**) in which the second element of the array
+** is the name of the pragma and the third element is the argument to the
+** pragma or NULL if the pragma has no argument.  ^The handler for an
+** [SQLITE_FCNTL_PRAGMA] file control can optionally make the first element
+** of the char** argument point to a string obtained from [sqlite3_mprintf()]
+** or the equivalent and that string will become the result of the pragma or
+** the error message if the pragma fails. ^If the
+** [SQLITE_FCNTL_PRAGMA] file control returns [SQLITE_NOTFOUND], then normal 
+** [PRAGMA] processing continues.  ^If the [SQLITE_FCNTL_PRAGMA]
+** file control returns [SQLITE_OK], then the parser assumes that the
+** VFS has handled the PRAGMA itself and the parser generates a no-op
+** prepared statement.  ^If the [SQLITE_FCNTL_PRAGMA] file control returns
+** any result code other than [SQLITE_OK] or [SQLITE_NOTFOUND], that means
+** that the VFS encountered an error while handling the [PRAGMA] and the
+** compilation of the PRAGMA fails with an error.  ^The [SQLITE_FCNTL_PRAGMA]
+** file control occurs at the beginning of pragma statement analysis and so
+** it is able to override built-in [PRAGMA] statements.
+** </ul>
 */
 #define SQLITE_FCNTL_LOCKSTATE               1
 #define SQLITE_GET_LOCKPROXYFILE             2
@@ -815,6 +850,7 @@ struct sqlite3_io_methods {
 #define SQLITE_FCNTL_OVERWRITE              11
 #define SQLITE_FCNTL_VFSNAME                12
 #define SQLITE_FCNTL_POWERSAFE_OVERWRITE    13
+#define SQLITE_FCNTL_PRAGMA                 14
 
 /*
 ** CAPI3REF: Mutex Handle
@@ -1512,7 +1548,7 @@ struct sqlite3_mem_methods {
 ** [SQLITE_USE_URI] symbol defined.
 **
 ** [[SQLITE_CONFIG_PCACHE]] [[SQLITE_CONFIG_GETPCACHE]]
-** <dt>SQLITE_CONFIG_PCACHE and SQLITE_CONFNIG_GETPCACHE
+** <dt>SQLITE_CONFIG_PCACHE and SQLITE_CONFIG_GETPCACHE
 ** <dd> These options are obsolete and should not be used by new code.
 ** They are retained for backwards compatibility but are now no-ops.
 ** </dl>
@@ -2644,9 +2680,14 @@ SQLITE_API int sqlite3_open_v2(
 **
 ** The sqlite3_uri_boolean(F,P,B) routine assumes that P is a boolean
 ** parameter and returns true (1) or false (0) according to the value
-** of P.  The value of P is true if it is "yes" or "true" or "on" or 
-** a non-zero number and is false otherwise.  If P is not a query parameter
-** on F then sqlite3_uri_boolean(F,P,B) returns (B!=0).
+** of P.  The sqlite3_uri_boolean(F,P,B) routine returns true (1) if the
+** value of query parameter P is one of "yes", "true", or "on" in any
+** case or if the value begins with a non-zero number.  The 
+** sqlite3_uri_boolean(F,P,B) routines returns false (0) if the value of
+** query parameter P is one of "no", "false", or "off" in any case or
+** if the value begins with a numeric zero.  If P is not a query
+** parameter on F or if the value of P is does not match any of the
+** above, then sqlite3_uri_boolean(F,P,B) returns (B!=0).
 **
 ** The sqlite3_uri_int64(F,P,D) routine converts the value of P into a
 ** 64-bit signed integer and returns that integer, or D if P does not
@@ -4460,6 +4501,15 @@ SQLITE_API sqlite3 *sqlite3_db_handle(sqlite3_stmt*);
 SQLITE_API const char *sqlite3_db_filename(sqlite3 *db, const char *zDbName);
 
 /*
+** CAPI3REF: Determine if a database is read-only
+**
+** ^The sqlite3_db_readonly(D,N) interface returns 1 if the database N
+** of connection D is read-only, 0 if it is read/write, or -1 if N is not
+** the name of a database on connection D.
+*/
+SQLITE_API int sqlite3_db_readonly(sqlite3 *db, const char *zDbName);
+
+/*
 ** CAPI3REF: Find the next prepared statement
 **
 ** ^This interface returns a pointer to the next [prepared statement] after
@@ -5957,6 +6007,17 @@ SQLITE_API int sqlite3_db_status(sqlite3*, int op, int *pCur, int *pHiwtr, int r
 ** occurred.)^ ^The highwater mark associated with SQLITE_DBSTATUS_CACHE_MISS 
 ** is always 0.
 ** </dd>
+**
+** [[SQLITE_DBSTATUS_CACHE_WRITE]] ^(<dt>SQLITE_DBSTATUS_CACHE_WRITE</dt>
+** <dd>This parameter returns the number of dirty cache entries that have
+** been written to disk. Specifically, the number of pages written to the
+** wal file in wal mode databases, or the number of pages written to the
+** database file in rollback mode databases. Any pages written as part of
+** transaction rollback or database recovery operations are not included.
+** If an IO or other error occurs while writing a page to disk, the effect
+** on subsequent SQLITE_DBSTATUS_CACHE_WRITE requests is undefined.)^ ^The
+** highwater mark associated with SQLITE_DBSTATUS_CACHE_WRITE is always 0.
+** </dd>
 ** </dl>
 */
 #define SQLITE_DBSTATUS_LOOKASIDE_USED       0
@@ -5968,7 +6029,8 @@ SQLITE_API int sqlite3_db_status(sqlite3*, int op, int *pCur, int *pHiwtr, int r
 #define SQLITE_DBSTATUS_LOOKASIDE_MISS_FULL  6
 #define SQLITE_DBSTATUS_CACHE_HIT            7
 #define SQLITE_DBSTATUS_CACHE_MISS           8
-#define SQLITE_DBSTATUS_MAX                  8   /* Largest defined DBSTATUS */
+#define SQLITE_DBSTATUS_CACHE_WRITE          9
+#define SQLITE_DBSTATUS_MAX                  9   /* Largest defined DBSTATUS */
 
 
 /*
@@ -6584,11 +6646,12 @@ SQLITE_API int sqlite3_unlock_notify(
 /*
 ** CAPI3REF: String Comparison
 **
-** ^The [sqlite3_strnicmp()] API allows applications and extensions to
-** compare the contents of two buffers containing UTF-8 strings in a
-** case-independent fashion, using the same definition of case independence 
-** that SQLite uses internally when comparing identifiers.
+** ^The [sqlite3_stricmp()] and [sqlite3_strnicmp()] APIs allow applications
+** and extensions to compare the contents of two buffers containing UTF-8
+** strings in a case-independent fashion, using the same definition of "case
+** independence" that SQLite uses internally when comparing identifiers.
 */
+SQLITE_API int sqlite3_stricmp(const char *, const char *);
 SQLITE_API int sqlite3_strnicmp(const char *, const char *, int);
 
 /*
@@ -6923,7 +6986,11 @@ typedef struct sqlite3_rtree_geometry sqlite3_rtree_geometry;
 SQLITE_API int sqlite3_rtree_geometry_callback(
   sqlite3 *db,
   const char *zGeom,
-  int (*xGeom)(sqlite3_rtree_geometry *, int nCoord, double *aCoord, int *pRes),
+#ifdef SQLITE_RTREE_INT_ONLY
+  int (*xGeom)(sqlite3_rtree_geometry*, int n, sqlite3_int64 *a, int *pRes),
+#else
+  int (*xGeom)(sqlite3_rtree_geometry*, int n, double *a, int *pRes),
+#endif
   void *pContext
 );
 
