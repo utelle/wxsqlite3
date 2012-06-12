@@ -202,4 +202,6 @@ sqlite3_wal_checkpoint
 sqlite3_wal_checkpoint_v2
 sqlite3_wal_hook
 sqlite3_win32_mbcs_to_utf8
+sqlite3_win32_sleep
 sqlite3_win32_utf8_to_mbcs
+sqlite3_win32_write_debug
