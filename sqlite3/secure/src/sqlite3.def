@@ -30,6 +30,7 @@ sqlite3_busy_timeout
 sqlite3_changes
 sqlite3_clear_bindings
 sqlite3_close
+sqlite3_close_v2
 sqlite3_collation_needed
 sqlite3_collation_needed16
 sqlite3_column_blob
@@ -202,6 +203,7 @@ sqlite3_wal_checkpoint
 sqlite3_wal_checkpoint_v2
 sqlite3_wal_hook
 sqlite3_win32_mbcs_to_utf8
+sqlite3_win32_set_directory
 sqlite3_win32_sleep
 sqlite3_win32_utf8_to_mbcs
 sqlite3_win32_write_debug
