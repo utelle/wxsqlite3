@@ -586,7 +586,10 @@ PACKAGE_URL=''
 
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+COND_WX_DEBUG_1_WX_UNICODE_1
+COND_WX_DEBUG_1_WX_UNICODE_0
 COND_WX_DEBUG_1
+COND_WX_DEBUG_0_WX_UNICODE_1
 COND_WX_DEBUG_0
 COND_WINDOWS_IMPLIB_1
 COND_USE_SOVERSOLARIS_1
@@ -7783,9 +7786,24 @@ BAKEFILE_AUTOCONF_INC_M4_VERSION="0.2.9"
         COND_WX_DEBUG_0=""
     fi
 
+    COND_WX_DEBUG_0_WX_UNICODE_1="#"
+    if test "x$WX_DEBUG" = "x0" -a "x$WX_UNICODE" = "x1" ; then
+        COND_WX_DEBUG_0_WX_UNICODE_1=""
+    fi
+
     COND_WX_DEBUG_1="#"
     if test "x$WX_DEBUG" = "x1" ; then
         COND_WX_DEBUG_1=""
+    fi
+
+    COND_WX_DEBUG_1_WX_UNICODE_0="#"
+    if test "x$WX_DEBUG" = "x1" -a "x$WX_UNICODE" = "x0" ; then
+        COND_WX_DEBUG_1_WX_UNICODE_0=""
+    fi
+
+    COND_WX_DEBUG_1_WX_UNICODE_1="#"
+    if test "x$WX_DEBUG" = "x1" -a "x$WX_UNICODE" = "x1" ; then
+        COND_WX_DEBUG_1_WX_UNICODE_1=""
     fi
 
 
