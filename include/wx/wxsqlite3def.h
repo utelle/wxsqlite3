@@ -58,6 +58,7 @@
 //              2011-08-14  - Progress callback for Backup/Restore added
 //              2011-10-25  - Upgrade to SQLite3 version 3.7.8
 //              2012-01-17  - Upgrade to SQLite3 version 3.7.10
+//              2012-10-17  - Upgrade to SQLite3 version 3.7.14.1
 //
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -100,6 +101,22 @@
 
 <dl>
 
+<dt><b>3.0.1</b> - <i>November 2012</i></dt>
+<dd>
+Upgrade to SQLite version 3.7.14.1<br>
+Cleaned up and optimized Finalize methods<br>
+Modified wxSQLite3Database::Close to avoid potential memory leaks<br>
+Added method wxSQLite3Database::GetWrapperVersion<br>
+Added method wxSQLite3Database::IsReadOnly<br>
+Added method wxSQLite3Statement::BindUnixDateTime<br>
+Added method wxSQLite3ResultSet::GetUnixDateTime<br>
+Added method wxSQLite3ResultSet::GetAutomaticDateTime<br>
+Fixed a potential memory leak in method wxSQLite3Database::ExecuteUpdate<br>
+Added a wxsqlite3.pc file on request of the Fedora Project developers<br>
+Replaced assert by wxASSERT in wxSQLite3Transaction constructor<br>
+
+
+</dd>
 <dt><b>3.0.0</b> - <i>January 2012</i></dt>
 <dd>
 Upgrade to SQLite version 3.7.10<br>

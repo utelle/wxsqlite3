@@ -90,6 +90,9 @@ DYNFUNC(return, int,                   sqlite3_create_module_v2,      (sqlite3 *
 DYNFUNC(return, const char *,          sqlite3_db_filename,           (sqlite3 *db, const char *zDbName), (db, zDbName));
 #endif
 // DYNFUNC(return, sqlite3 *,             sqlite3_db_handle,             (sqlite3_stmt *pStmt), (pStmt));
+#if SQLITE_VERSION_NUMBER >= 3007011
+DYNFUNC(return, int,                   sqlite3_db_readonly,           (sqlite3 *db, const char *zDbName), (db, zDbName));
+#endif
 #if SQLITE_VERSION_NUMBER >= 3007010
 DYNFUNC(return, int,                   sqlite3_db_release_memory,     (sqlite3 *db), (db));
 #endif
