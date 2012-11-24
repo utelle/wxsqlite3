@@ -26,6 +26,9 @@
 
 #include "wx/wxsqlite3def.h"
 
+/// wxSQLite3 version string
+#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.0.1")
+
 #define WXSQLITE_ERROR 1000
 
 #define WXSQLITE_INTEGER  1
@@ -837,6 +840,7 @@ public:
 
   /// Get a column as a date value using the column index
   /**
+  * Date value is expected to be in format 'YYYY-MM-DD'.
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
@@ -844,6 +848,7 @@ public:
 
   /// Get a column as a date value using the column name
   /**
+  * Date value is expected to be in format 'YYYY-MM-DD'.
   * \param columnName name of the column
   * \return value of the column
   */
@@ -851,6 +856,7 @@ public:
 
   /// Get a column as a time value using the column index
   /**
+  * Date value is expected to be in format 'HH:MM:SS'.
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
@@ -858,6 +864,7 @@ public:
 
   /// Get a column as a time value using the column name
   /**
+  * Date value is expected to be in format 'HH:MM:SS'.
   * \param columnName name of the column
   * \return value of the column
   */
@@ -865,6 +872,7 @@ public:
 
   /// Get a column as a date and time value using the column index
   /**
+  * Date value is expected to be in format 'YYYY-MM-DD HH:MM:SS'.
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
@@ -872,6 +880,7 @@ public:
 
   /// Get a column as a date and time value using the column name
   /**
+  * Date value is expected to be in format 'YYYY-MM-DD HH:MM:SS'.
   * \param columnName name of the column
   * \return value of the column
   */
@@ -879,6 +888,7 @@ public:
 
   /// Get a column as a timestamp value using the column index
   /**
+  * Date value is expected to be in format 'YYYY-MM-DD HH:MM:SS.mmm'.
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
@@ -886,6 +896,7 @@ public:
 
   /// Get a column as a timestamp value using the column name
   /**
+  * Date value is expected to be in format 'YYYY-MM-DD HH:MM:SS.mmm'.
   * \param columnName name of the column
   * \return value of the column
   */
@@ -893,7 +904,8 @@ public:
 
   /// Get a column as a date and time value using the column index
   /**
-  * The date/time value is expected to be stored in the database as a numeric value (i.e. int64).
+  * The date/time value is expected to be stored in the database as a numeric value (i.e. int64),
+  * measured in milliseconds since 1970-01-01.
   *
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
@@ -902,12 +914,33 @@ public:
 
   /// Get a column as a date and time value using the column name
   /**
-  * The date/time value is expected to be stored in the database as a numeric value (i.e. int64).
+  * The date/time value is expected to be stored in the database as a numeric value (i.e. int64),
+  * measured in milliseconds since 1970-01-01.
   *
   * \param columnName name of the column
   * \return value of the column
   */
   wxDateTime GetNumericDateTime(const wxString& columnName);
+
+  /// Get a column as a date and time value using the column index
+  /**
+  * The date/time value is expected to be stored in the database as an integer value (i.e. int64),
+  * measured in seconds since 1970-01-01.
+  *
+  * \param columnIndex index of the column. Indices start with 0.
+  * \return value of the column
+  */
+  wxDateTime GetUnixDateTime(int columnIndex);
+
+  /// Get a column as a date and time value using the column name
+  /**
+  * The date/time value is expected to be stored in the database as an integer value (i.e. int64),
+  * measured in seconds since 1970-01-01.
+  *
+  * \param columnName name of the column
+  * \return value of the column
+  */
+  wxDateTime GetUnixDateTime(const wxString& columnName);
 
   /// Get a column as a date and time value using the column index
   /**
@@ -926,6 +959,26 @@ public:
   * \return value of the column
   */
   wxDateTime GetJulianDayNumber(const wxString& columnName);
+
+  /// Get a column as a date and time value using the column index
+  /**
+  * The date/time value is interpreted based on the type of column value.
+  *
+  * \param columnIndex index of the column. Indices start with 0.
+  * \param milliSeconds interpret integer value as milliseconds since 1970-01-01, default: false
+  * \return value of the column
+  */
+  wxDateTime GetAutomaticDateTime(int columnIndex, bool milliSeconds = false);
+
+  /// Get a column as a date and time value using the column name
+  /**
+  * The date/time value is interpreted based on the type of column value.
+  *
+  * \param columnName name of the column
+  * \param milliSeconds interpret integer value as milliseconds since 1970-01-01, default: false
+  * \return value of the column
+  */
+  wxDateTime GetAutomaticDateTime(const wxString& columnName, bool milliSeconds = false);
 
   /// Get a column as a boolean value using the column index
   /**
@@ -1359,6 +1412,7 @@ public:
 
   /// Bind parameter to a date value
   /**
+  * Only the date part is stored in format 'YYYY-MM-DD'.
   * \param paramIndex index of the parameter. The first parameter has an index of 1.
   * \param date value of the parameter
   */
@@ -1366,6 +1420,7 @@ public:
 
   /// Bind parameter to a time value
   /**
+  * Only the time part is stored in format 'HH:MM:SS'.
   * \param paramIndex index of the parameter. The first parameter has an index of 1.
   * \param time value of the parameter
   */
@@ -1373,6 +1428,7 @@ public:
 
   /// Bind parameter to a date and time value
   /**
+  * Date and time are stored in format 'YYYY-MM-DD HH:MM:SS'.
   * \param paramIndex index of the parameter. The first parameter has an index of 1.
   * \param datetime value of the parameter
   */
@@ -1380,6 +1436,7 @@ public:
 
   /// Bind parameter to a timestamp value
   /**
+  * Timestamp is stored in format 'YYYY-MM-DD HH:MM:SS.mmm'.
   * \param paramIndex index of the parameter. The first parameter has an index of 1.
   * \param timestamp value of the parameter
   */
@@ -1388,11 +1445,22 @@ public:
   /// Bind parameter to a date and time value
   /**
   * The date/time value is transferred to the database as a numeric value (i.e. int64).
+  * The value is measured in milliseconds since 1970-01-01.
   *
   * \param paramIndex index of the parameter. The first parameter has an index of 1.
   * \param datetime value of the parameter
   */
   void BindNumericDateTime(int paramIndex, const wxDateTime& datetime);
+
+  /// Bind parameter to a date and time value
+  /**
+  * The date/time value is transferred to the database as an integer value.
+  * The value is measured in seconds since 1970-01-01.
+  *
+  * \param paramIndex index of the parameter. The first parameter has an index of 1.
+  * \param datetime value of the parameter
+  */
+  void BindUnixDateTime(int paramIndex, const wxDateTime& datetime);
 
   /// Bind parameter to a date and time value
   /**
@@ -1788,6 +1856,15 @@ public:
   * \return TRUE if database has been opened, FALSE otherwise
   */
   bool IsOpen() const;
+
+  /// Determine whether a database is read-only
+  /**
+  * \param[in] databaseName Name of the database (default "main").
+  * \return TRUE if the database is read-only, FALSE otherwise
+  * \since SQLite3 version 3.7.11
+  * \note For SQLite3 version before version 3.7.11 this method returns always FALSE.
+  */
+  bool IsReadOnly(const wxString& databaseName = wxT("main"));
 
   /// Close a SQLite3 database
   /**
@@ -2555,6 +2632,12 @@ public:
   * \return TRUE if the SQLite shared cache is enabled, FALSE otherwise
   */
   static bool IsSharedCacheEnabled() { return ms_sharedCacheEnabled; }
+
+  /// Get the version of the wxSQLite3 wrapper
+  /**
+  * \return a string which contains the name and version number of the wxSQLite3 wrapper
+  */
+  static wxString GetWrapperVersion();
 
   /// Get the version of the underlying SQLite3 library
   /**

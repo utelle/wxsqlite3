@@ -288,6 +288,7 @@ int Minimal::OnRun()
     time_t tmStart, tmEnd;
     wxSQLite3Database db;
 
+    cout << "wxSQLite3 Version:    " << (const char*) wxSQLite3Database::GetWrapperVersion().mb_str(wxConvUTF8) << endl;
     cout << "SQLite3 Version:      " << (const char*) db.GetVersion().mb_str(wxConvUTF8) << endl;
     cout << "SQLite3 Source Id:    " << (const char*) db.GetSourceId().mb_str(wxConvUTF8) << endl;
 
@@ -341,6 +342,8 @@ int Minimal::OnRun()
     {
       cout << j << ": " << (const char*) databaseList.Item(j).mb_str(wxConvUTF8) << endl;
     }
+
+    cout << "Filename of attached database: " << (const char*) db.GetDatabaseFilename(wxT("dbattached")).mb_str(wxConvUTF8) << endl;
 
     db.ExecuteUpdate(wxT("detach database dbattached"));
 
@@ -684,19 +687,14 @@ int Minimal::OnRun()
            << ": " << db.GetLimit(limitType) << endl;
     }
 
+    cout << "Release memory " << endl;
+    db.ReleaseMemory();
+
     cout << endl << "Test of RAII transactions" << endl;
     testTransaction();
 
     cout << endl << "End of tests" << endl;
     db.Close();
-  }
-  catch (wxSQLite3Exception& e)
-  {
-    cerr << e.GetErrorCode() << ":" << (const char*)(e.GetMessage().mb_str()) << endl;
-  }
-
-  try
-  {
     // Before shutdown of SQLite ALL database connections should be closed.
     wxSQLite3Database::ShutdownSQLite();
   }
@@ -706,6 +704,7 @@ int Minimal::OnRun()
   }
 
   // Loop until user enters q or Q
+
   char c(' ');
   while (c != 'q' && c != 'Q')
   {

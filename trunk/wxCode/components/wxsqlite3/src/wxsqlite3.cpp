@@ -929,6 +929,25 @@ wxDateTime wxSQLite3ResultSet::GetNumericDateTime(const wxString& columnName)
   return GetNumericDateTime(columnIndex);
 }
 
+wxDateTime wxSQLite3ResultSet::GetUnixDateTime(int columnIndex)
+{
+  if (GetColumnType(columnIndex) == SQLITE_NULL)
+  {
+    return wxInvalidDateTime;
+  }
+  else
+  {
+    wxLongLong value = GetInt64(columnIndex);
+    return wxDateTime((time_t) value.GetValue());
+  }
+}
+
+wxDateTime wxSQLite3ResultSet::GetUnixDateTime(const wxString& columnName)
+{
+  int columnIndex = FindColumnIndex(columnName);
+  return GetUnixDateTime(columnIndex);
+}
+
 wxDateTime wxSQLite3ResultSet::GetJulianDayNumber(int columnIndex)
 {
   if (GetColumnType(columnIndex) == SQLITE_NULL)
@@ -951,6 +970,44 @@ wxDateTime wxSQLite3ResultSet::GetJulianDayNumber(const wxString& columnName)
 bool wxSQLite3ResultSet::GetBool(int columnIndex)
 {
   return GetInt(columnIndex) != 0;
+}
+
+wxDateTime wxSQLite3ResultSet::GetAutomaticDateTime(int columnIndex, bool milliSeconds)
+{
+  wxDateTime result;
+  int columnType = GetColumnType(columnIndex);
+  switch (columnType)
+  {
+    case SQLITE3_TEXT:
+      result = GetDateTime(columnIndex);
+      break;
+    case SQLITE_INTEGER:
+      if (milliSeconds)
+      {
+        wxLongLong value = GetInt64(columnIndex);
+        result = wxDateTime(value);
+      }
+      else
+      {
+        time_t value = GetInt64(columnIndex).GetValue();
+        result = wxDateTime(value);
+      }
+      break;
+    case SQLITE_FLOAT:
+      result = GetJulianDayNumber(columnIndex);
+      break;
+    case SQLITE_NULL:
+    default:
+      result = wxInvalidDateTime;
+      break;
+  }
+  return result;
+}
+
+wxDateTime wxSQLite3ResultSet::GetAutomaticDateTime(const wxString& columnName, bool milliSeconds)
+{
+  int columnIndex = FindColumnIndex(columnName);
+  return GetAutomaticDateTime(columnIndex, milliSeconds);
 }
 
 bool wxSQLite3ResultSet::GetBool(const wxString& columnName)
@@ -1971,6 +2028,19 @@ void wxSQLite3Statement::BindNumericDateTime(int paramIndex, const wxDateTime& d
   }
 }
 
+void wxSQLite3Statement::BindUnixDateTime(int paramIndex, const wxDateTime& datetime)
+{
+  if (datetime.IsValid())
+  {
+    wxLongLong ticks = datetime.GetTicks();
+    Bind(paramIndex, ticks);
+  }
+  else
+  {
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_BIND_DATETIME);
+  }
+}
+
 void wxSQLite3Statement::BindJulianDayNumber(int paramIndex, const wxDateTime& datetime)
 {
   if (datetime.IsValid())
@@ -2600,6 +2670,18 @@ bool wxSQLite3Database::IsOpen() const
   return (m_db != NULL && m_db->m_isValid && m_isOpen);
 }
 
+bool wxSQLite3Database::IsReadOnly(const wxString& databaseName)
+{
+#if SQLITE_VERSION_NUMBER >= 3007011
+  CheckDatabase();
+  wxCharBuffer strDatabaseName = databaseName.ToUTF8();
+  const char* localDatabaseName = strDatabaseName;
+  return sqlite3_db_readonly(m_db->m_db, localDatabaseName) > 0;
+#else
+  return false;
+#endif
+}
+
 void wxSQLite3Database::Close()
 {
   CheckDatabase();
@@ -3173,7 +3255,7 @@ int wxSQLite3Database::ExecuteUpdate(const char* sql, bool saveRC)
 {
   CheckDatabase();
 
-  char* localError=0;
+  char* localError = 0;
 
   int rc = sqlite3_exec(m_db->m_db, sql, 0, 0, &localError);
   if (saveRC)
@@ -3190,7 +3272,9 @@ int wxSQLite3Database::ExecuteUpdate(const char* sql, bool saveRC)
   }
   else
   {
-    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+    wxString errmsg = wxString::FromUTF8(localError);
+    sqlite3_free(localError);
+    throw wxSQLite3Exception(rc, errmsg);
   }
 }
 
@@ -3360,6 +3444,11 @@ void wxSQLite3Database::SetBusyTimeout(int nMillisecs)
   CheckDatabase();
   m_busyTimeoutMs = nMillisecs;
   sqlite3_busy_timeout(m_db->m_db, m_busyTimeoutMs);
+}
+
+wxString wxSQLite3Database::GetWrapperVersion()
+{
+  return wxString(wxSQLITE3_VERSION_STRING);
 }
 
 wxString wxSQLite3Database::GetVersion()
@@ -4152,7 +4241,7 @@ wxString wxSQLite3Authorizer::AuthorizationCodeToString(wxSQLite3Authorizer::wxA
 
 wxSQLite3Transaction::wxSQLite3Transaction(wxSQLite3Database* db, wxSQLite3TransactionType transactionType)
 {
-  assert(db != NULL);
+  wxASSERT(db != NULL);
   m_database = db;
   try
   {
