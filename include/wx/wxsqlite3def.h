@@ -101,6 +101,14 @@
 
 <dl>
 
+<dt><b>3.0.2</b> - <i>December 2012</i></dt>
+<dd>
+Upgrade to SQLite version 3.7.15.1<br>
+Corrected an internal SQLite data structure to avoid compile time warnings<br>
+Changed method wxSQLite3Exception::ErrorCodeAsString to return the error messages provided by SQLite<br>
+
+
+</dd>
 <dt><b>3.0.1</b> - <i>November 2012</i></dt>
 <dd>
 Upgrade to SQLite version 3.7.14.1<br>
