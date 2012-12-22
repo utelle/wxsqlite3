@@ -428,6 +428,17 @@ wxSQLite3Exception::wxSQLite3Exception(const wxSQLite3Exception&  e)
 
 const wxString wxSQLite3Exception::ErrorCodeAsString(int errorCode)
 {
+#if SQLITE_VERSION_NUMBER >= 3007015
+  if (errorCode == WXSQLITE_ERROR)
+  {
+    return wxT("WXSQLITE_ERROR");
+  }
+  else
+  {
+    const char* errmsg = sqlite3_errstr(errorCode);
+    return wxString::FromUTF8(errmsg);
+  }
+#else
   switch (errorCode)
   {
     case SQLITE_OK          : return wxT("SQLITE_OK");
@@ -504,6 +515,7 @@ const wxString wxSQLite3Exception::ErrorCodeAsString(int errorCode)
     case WXSQLITE_ERROR     : return wxT("WXSQLITE_ERROR");
     default                 : return wxT("UNKNOWN_ERROR");
   }
+#endif
 }
 
 wxSQLite3Exception::~wxSQLite3Exception()
@@ -4506,6 +4518,11 @@ static sqlite3_module intarrayModule =
   0,                           // xRollback
   0,                           // xFindMethod
   0,                           // xRename
+#if SQLITE_VERSION_NUMBER >= 3007007
+  0,                           // xSavepoint
+  0,                           // xRelease
+  0                            // xRollbackTo
+#endif
 };
 
 /// Definition of the sqlite3_chararray object (internal)
@@ -4674,6 +4691,11 @@ static sqlite3_module chararrayModule =
   0,                           // xRollback
   0,                           // xFindMethod
   0,                           // xRename
+#if SQLITE_VERSION_NUMBER >= 3007007
+  0,                           // xSavepoint
+  0,                           // xRelease
+  0                            // xRollbackTo
+#endif
 };
 
 #endif // WXSQLITE3_USE_NAMED_COLLECTIONS

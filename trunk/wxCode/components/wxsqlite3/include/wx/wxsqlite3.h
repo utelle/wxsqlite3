@@ -27,7 +27,7 @@
 #include "wx/wxsqlite3def.h"
 
 /// wxSQLite3 version string
-#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.0.1")
+#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.0.2")
 
 #define WXSQLITE_ERROR 1000
 
@@ -82,6 +82,8 @@ enum wxSQLite3JournalMode
 #define WXSQLITE_OPEN_READONLY         0x00000001
 #define WXSQLITE_OPEN_READWRITE        0x00000002
 #define WXSQLITE_OPEN_CREATE           0x00000004
+#define WXSQLITE_OPEN_URI              0x00000040
+#define WXSQLITE_OPEN_MEMORY           0x00000080
 #define WXSQLITE_OPEN_NOMUTEX          0x00008000
 #define WXSQLITE_OPEN_FULLMUTEX        0x00010000
 #define WXSQLITE_OPEN_SHAREDCACHE      0x00020000
