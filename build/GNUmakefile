@@ -305,7 +305,7 @@ endif
 
 ifeq ($(SHARED),1)
 ../lib/$(COMPILER_PREFIX)_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so: make_dir_wxsqlite3_dll  $(WXSQLITE3_DLL_OBJECTS)
-	$(CXX) $(LINK_DLL_FLAGS) -fPIC -o $@ $(WXSQLITE3_DLL_OBJECTS)  $(VAR_1) -L../lib -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs base`
+	$(CXX) $(LINK_DLL_FLAGS) -fPIC -o $@ $(WXSQLITE3_DLL_OBJECTS)  $(VAR_1) -L../lib -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs core,base`
 endif
 
 ifeq ($(SHARED),1)
@@ -343,7 +343,7 @@ uninstall_wxsqlite3_dll_headers:
 endif
 
 ../samples/minimal: $(MINIMAL_OBJECTS) $(__COMPONENT_LIB_DEP)
-	$(CXX) -o $@ $(MINIMAL_OBJECTS)  $(VAR_1) -L../lib  -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs base`
+	$(CXX) -o $@ $(MINIMAL_OBJECTS)  $(VAR_1) -L../lib  -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs core,base`
 
 gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/wxsqlite3_lib_wxsqlite3.o: ../src/wxsqlite3.cpp
 	$(CXX) -c -o $@ $(WXSQLITE3_LIB_CXXFLAGS) $(CPPDEPS) $<

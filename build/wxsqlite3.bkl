@@ -113,6 +113,7 @@
     <define>$(SQLITE3_HAVE_LOAD_EXTENSION_DEF)</define>
     <stdlib>$(SQLITE3_DIR)</stdlib>
     <sys-lib>$(SQLITE3_DEP)</sys-lib>
+    <wx-lib>core</wx-lib>
     <wx-lib>base</wx-lib>
   </dll>
 
@@ -147,6 +148,7 @@
     <library>$(COMPONENT_LIB)</library>
     <stdlib>$(SQLITE3_DIR)</stdlib>
     <sys-lib>$(SQLITE3_DEP)</sys-lib>
+    <wx-lib>core</wx-lib>
     <wx-lib>base</wx-lib>
   </template>
 
