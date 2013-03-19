@@ -59,6 +59,7 @@
 //              2011-10-25  - Upgrade to SQLite3 version 3.7.8
 //              2012-01-17  - Upgrade to SQLite3 version 3.7.10
 //              2012-10-17  - Upgrade to SQLite3 version 3.7.14.1
+//              2013-03-19  - Upgrade to SQLite3 version 3.7.16
 //
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -101,6 +102,12 @@
 
 <dl>
 
+<dt><b>3.0.3</b> - <i>March 2013</i></dt>
+<dd>
+Upgrade to SQLite version 3.7.16<br>
+
+
+</dd>
 <dt><b>3.0.2</b> - <i>December 2012</i></dt>
 <dd>
 Upgrade to SQLite version 3.7.15.1<br>
