@@ -216,6 +216,9 @@ ifeq ($(USE_DYNAMIC_SQLITE3_LOAD),0)
 __SQLITE3_DEP_p = -lsqlite3
 endif
 ifeq ($(WX_MONOLITHIC),0)
+__WXLIB_CORE_NAME_p = -lwxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_core
+endif
+ifeq ($(WX_MONOLITHIC),0)
 __WXLIB_BASE_NAME_p = -lwxbase$(WX_VERSION)$(WXLIBPOSTFIX)
 endif
 ifeq ($(WX_MONOLITHIC),1)
@@ -275,14 +278,14 @@ make_dir_wxsqlite3_lib:
 
 ifeq ($(SHARED),1)
 ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll: make_dir_wxsqlite3_dll  $(WXSQLITE3_DLL_OBJECTS)
-	$(CXX) $(LINK_DLL_FLAGS) -fPIC -o $@ $(WXSQLITE3_DLL_OBJECTS)  -mthreads -L$(WX_DIR)$(WXLIBPATH) $(VAR_1) -L..$(WXLIBPATH) -Wl,--out-implib=..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\libwxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.a -L$(SQLITE3_DIR)\lib $(LDFLAGS)  $(__SQLITE3_DEP_p) $(__WXLIB_BASE_NAME_p) -lwxtiff$(WX3RDPARTYLIBPOSTFIX) -lwxjpeg$(WX3RDPARTYLIBPOSTFIX) -lwxpng$(WX3RDPARTYLIBPOSTFIX) -lwxzlib$(WX3RDPARTYLIBPOSTFIX) -lwxregex$(WXLIBPOSTFIX) -lwxexpat$(WX3RDPARTYLIBPOSTFIX) -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32
+	$(CXX) $(LINK_DLL_FLAGS) -fPIC -o $@ $(WXSQLITE3_DLL_OBJECTS)  -mthreads -L$(WX_DIR)$(WXLIBPATH) $(VAR_1) -L..$(WXLIBPATH) -Wl,--out-implib=..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\libwxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.a -L$(SQLITE3_DIR)\lib $(LDFLAGS)  $(__SQLITE3_DEP_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) -lwxtiff$(WX3RDPARTYLIBPOSTFIX) -lwxjpeg$(WX3RDPARTYLIBPOSTFIX) -lwxpng$(WX3RDPARTYLIBPOSTFIX) -lwxzlib$(WX3RDPARTYLIBPOSTFIX) -lwxregex$(WXLIBPOSTFIX) -lwxexpat$(WX3RDPARTYLIBPOSTFIX) -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32
 endif
 
 make_dir_wxsqlite3_dll: 
 	if not exist ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES) mkdir ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)
 
 ..\samples\minimal.exe: $(MINIMAL_OBJECTS) $(__COMPONENT_LIB_DEP) gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal_rc.o
-	$(CXX) -o $@ $(MINIMAL_OBJECTS)  -mthreads -L$(WX_DIR)$(WXLIBPATH) $(VAR_1) -L..$(WXLIBPATH)  -L$(SQLITE3_DIR)\lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) $(__WXLIB_BASE_NAME_p) -lwxtiff$(WX3RDPARTYLIBPOSTFIX) -lwxjpeg$(WX3RDPARTYLIBPOSTFIX) -lwxpng$(WX3RDPARTYLIBPOSTFIX) -lwxzlib$(WX3RDPARTYLIBPOSTFIX) -lwxregex$(WXLIBPOSTFIX) -lwxexpat$(WX3RDPARTYLIBPOSTFIX) -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32
+	$(CXX) -o $@ $(MINIMAL_OBJECTS)  -mthreads -L$(WX_DIR)$(WXLIBPATH) $(VAR_1) -L..$(WXLIBPATH)  -L$(SQLITE3_DIR)\lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) -lwxtiff$(WX3RDPARTYLIBPOSTFIX) -lwxjpeg$(WX3RDPARTYLIBPOSTFIX) -lwxpng$(WX3RDPARTYLIBPOSTFIX) -lwxzlib$(WX3RDPARTYLIBPOSTFIX) -lwxregex$(WXLIBPOSTFIX) -lwxexpat$(WX3RDPARTYLIBPOSTFIX) -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32
 
 gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\wxsqlite3_lib_wxsqlite3.o: ../src/wxsqlite3.cpp
 	$(CXX) -c -o $@ $(WXSQLITE3_LIB_CXXFLAGS) $(CPPDEPS) $<
