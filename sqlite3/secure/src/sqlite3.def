@@ -166,6 +166,7 @@ sqlite3_step
 sqlite3_stmt_busy
 sqlite3_stmt_readonly
 sqlite3_stmt_status
+sqlite3_strglob
 sqlite3_stricmp
 sqlite3_strnicmp
 sqlite3_table_column_metadata
