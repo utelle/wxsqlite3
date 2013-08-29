@@ -179,6 +179,12 @@ int sqlite3_key(sqlite3 *db, const void *zKey, int nKey)
   return sqlite3CodecAttach(db, 0, zKey, nKey);
 }
 
+int sqlite3_key_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
+{
+  /* The key is only set for the main database, not the temp database  */
+  return sqlite3_key(db, zKey, nKey);
+}
+
 int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
 {
   /* Changes the encryption key for an existing database. */
@@ -352,6 +358,11 @@ int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
 #endif
   }
   return rc;
+}
+
+int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
+{
+  return sqlite3_rekey(db, zKey, nKey);
 }
 
 #endif /* SQLITE_HAS_CODEC */
