@@ -4190,7 +4190,7 @@ int wxSQLite3FunctionContext::ExecAuthorizer(void* func, int type,
   wxString locArg3 = wxString::FromUTF8(arg3);
   wxString locArg4 = wxString::FromUTF8(arg4);
   wxSQLite3Authorizer::wxAuthorizationCode localType = (wxSQLite3Authorizer::wxAuthorizationCode) type;
-  return (int) ((wxSQLite3Authorizer*) func)->Authorize(localType, locArg1, locArg2, locArg3, locArg3);
+  return (int) ((wxSQLite3Authorizer*) func)->Authorize(localType, locArg1, locArg2, locArg3, locArg4);
 }
 
 /* static */
