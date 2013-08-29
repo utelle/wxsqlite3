@@ -27,6 +27,7 @@ sqlite3_blob_reopen
 sqlite3_blob_write
 sqlite3_busy_handler
 sqlite3_busy_timeout
+sqlite3_cancel_auto_extension
 sqlite3_changes
 sqlite3_clear_bindings
 sqlite3_close
@@ -99,6 +100,7 @@ sqlite3_global_recover
 sqlite3_initialize
 sqlite3_interrupt
 sqlite3_key
+sqlite3_key_v2
 sqlite3_last_insert_rowid
 sqlite3_libversion
 sqlite3_libversion_number
@@ -131,6 +133,7 @@ sqlite3_progress_handler
 sqlite3_randomness
 sqlite3_realloc
 sqlite3_rekey
+sqlite3_rekey_v2
 sqlite3_release_memory
 sqlite3_reset
 sqlite3_reset_auto_extension

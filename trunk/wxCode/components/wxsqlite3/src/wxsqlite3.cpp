@@ -2206,6 +2206,16 @@ bool wxSQLite3Statement::IsBusy()
 #endif
 }
 
+int wxSQLite3Statement::Status(wxSQLite3StatementStatus opCode, bool resetFlag)
+{
+  int count = 0;
+#if SQLITE_VERSION_NUMBER >= 3007000
+  CheckStmt();
+  count = sqlite3_stmt_status(m_stmt->m_stmt, (int) opCode, (resetFlag) ? 1 : 0 );
+#endif
+  return count;
+}
+
 void wxSQLite3Statement::CheckDatabase()
 {
   if (m_db == NULL || m_db->m_db == NULL || !m_db->m_isValid)
