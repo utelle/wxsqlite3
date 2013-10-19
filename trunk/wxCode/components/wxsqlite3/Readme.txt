@@ -2,7 +2,7 @@ wxSQLite3 component info
 ------------------------
 
 Website:      http://wxcode.sourceforge.net/components/wxsqlite3
-Version:      3.0.4
+Version:      3.0.5
 Description:
 wxSQLite3 is a C++ wrapper around the public domain SQLite 3.x database
 and is specifically designed for use in programs based on the wxWidgets
@@ -25,6 +25,8 @@ tools operate in Unicode or UTF-8 mode.
 Version history
 ---------------
 
+ 3.0.5 - Upgrade to SQLite version 3.8.0.2
+         Added support for setting the temporary directory for SQLite on Windows
  3.0.4 - Upgrade to SQLite version 3.8.0
          Added support for querying performance characteristics of prepared statements
  3.0.3 - Upgrade to SQLite version 3.7.16

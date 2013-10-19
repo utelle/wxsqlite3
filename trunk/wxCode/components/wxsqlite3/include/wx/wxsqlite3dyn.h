@@ -209,6 +209,11 @@ DYNFUNC(return, int,                   sqlite3_wal_checkpoint_v2,     (sqlite3 *
 #endif
 DYNFUNC(return, void *,                sqlite3_wal_hook,              (sqlite3 *db, int (*xCallback)(void *, sqlite3 *, const char*, int), void *pArg), (db, xCallback, pArg));
 #endif
+#if SQLITE_VERSION_NUMBER >= 3007014
+//#if defined(__WXMSW__)
+DYNFUNC(return, int,                   sqlite3_win32_set_directory,   (DWORD type, LPCWSTR zValue), (type, zValue));
+//#endif
+#endif
 #if WXSQLITE3_HAVE_METADATA
 DYNFUNC(return, const char *,          sqlite3_column_database_name,  (sqlite3_stmt *pStmt, int iCol), (pStmt, iCol));
 // DYNFUNC(return, const void *,          sqlite3_column_database_name16, (sqlite3_stmt *pStmt, int iCol), (pStmt, iCol));

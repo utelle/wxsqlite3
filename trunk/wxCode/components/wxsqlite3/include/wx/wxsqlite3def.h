@@ -61,6 +61,7 @@
 //              2012-10-17  - Upgrade to SQLite3 version 3.7.14.1
 //              2013-03-19  - Upgrade to SQLite3 version 3.7.16
 //              2013-08-29  - Upgrade to SQLite3 version 3.8.0
+//              2013-09-07  - Upgrade to SQLite3 version 3.8.0.2
 //
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -103,6 +104,13 @@
 
 <dl>
 
+<dt><b>3.0.5</b> - <i>September 2013</i></dt>
+<dd>
+Upgrade to SQLite version 3.8.0.2<br>
+Added support for setting the temporary directory for SQLite on Windows<br>
+
+
+</dd>
 <dt><b>3.0.4</b> - <i>August 2013</i></dt>
 <dd>
 Upgrade to SQLite version 3.8.0<br>

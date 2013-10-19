@@ -27,7 +27,7 @@
 #include "wx/wxsqlite3def.h"
 
 /// wxSQLite3 version string
-#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.0.4")
+#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.0.5")
 
 #define WXSQLITE_ERROR 1000
 
@@ -2628,10 +2628,23 @@ public:
   */
   static void ShutdownSQLite();
 
+  /// Set temporary directory where SQLite stores temporary files (Windows only)
+  /**
+  * On Windows platforms it is recommended to set the temporary directory before
+  * using any SQLite databases. This method should not be called if you have
+  * currently open database connections.
+  *
+  * \return TRUE if the temporary directory could be set successfully, FALSE otherwise
+  *
+  * \note This method is supported only for Windows platforms and
+  * SQLite versions 3.7.14 or above. For all other platforms FALSE is returned.
+  */
+  static bool SetTemporaryDirectory(const wxString& tempDirectory);
+
   /// Get random bytes
   /**
   * SQLite contains a high-quality pseudo-random number generator.
-  * This method allows to access it for application specofoc purposes.
+  * This method allows to access it for application specific purposes.
   *
   * \param n The amount of random bytes to be created
   * \param random A memory buffer containing the random bytes on return
