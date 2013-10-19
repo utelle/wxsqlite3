@@ -71,12 +71,12 @@
 /* Make sure isatty() has a prototype.
 */
 extern int isatty(int);
-#endif
 
 /* popen and pclose are not C89 functions and so are sometimes omitted from
 ** the <stdio.h> header */
-FILE *popen(const char*,const char*);
-int pclose(FILE*);
+extern FILE *popen(const char*,const char*);
+extern int pclose(FILE*);
+#endif
 
 #if defined(_WIN32_WCE)
 /* Windows CE (arm-wince-mingw32ce-gcc) does not provide isatty()
@@ -554,7 +554,7 @@ static void output_c_string(FILE *out, const char *z){
     }else if( c=='\r' ){
       fputc('\\', out);
       fputc('r', out);
-    }else if( !isprint(c) ){
+    }else if( !isprint(c&0xff) ){
       fprintf(out, "\\%03o", c&0xff);
     }else{
       fputc(c, out);
@@ -974,7 +974,7 @@ static int run_table_dump_query(
   rc = sqlite3_prepare(p->db, zSelect, -1, &pSelect, 0);
   if( rc!=SQLITE_OK || !pSelect ){
     fprintf(p->out, "/**** ERROR: (%d) %s *****/\n", rc, sqlite3_errmsg(p->db));
-    p->nErr++;
+    if( (rc&0xff)!=SQLITE_CORRUPT ) p->nErr++;
     return rc;
   }
   rc = sqlite3_step(pSelect);
@@ -1001,7 +1001,7 @@ static int run_table_dump_query(
   rc = sqlite3_finalize(pSelect);
   if( rc!=SQLITE_OK ){
     fprintf(p->out, "/**** ERROR: (%d) %s *****/\n", rc, sqlite3_errmsg(p->db));
-    p->nErr++;
+    if( (rc&0xff)!=SQLITE_CORRUPT ) p->nErr++;
   }
   return rc;
 }
@@ -1194,7 +1194,7 @@ static int shell_exec(
             char **azCols = (char **)pData;      /* Names of result columns */
             char **azVals = &azCols[nCol];       /* Results */
             int *aiTypes = (int *)&azVals[nCol]; /* Result types */
-            int i;
+            int i, x;
             assert(sizeof(int) <= sizeof(char *)); 
             /* save off ptrs to column names */
             for(i=0; i<nCol; i++){
@@ -1203,8 +1203,12 @@ static int shell_exec(
             do{
               /* extract the data and data types */
               for(i=0; i<nCol; i++){
-                azVals[i] = (char *)sqlite3_column_text(pStmt, i);
-                aiTypes[i] = sqlite3_column_type(pStmt, i);
+                aiTypes[i] = x = sqlite3_column_type(pStmt, i);
+                if( x==SQLITE_BLOB && pArg && pArg->mode==MODE_Insert ){
+                  azVals[i] = "";
+                }else{
+                  azVals[i] = (char*)sqlite3_column_text(pStmt, i);
+                }
                 if( !azVals[i] && (aiTypes[i]!=SQLITE_NULL) ){
                   rc = SQLITE_NOMEM;
                   break; /* from for */
@@ -1280,7 +1284,7 @@ static int dump_callback(void *pArg, int nArg, char **azArg, char **azCol){
   
   if( strcmp(zTable, "sqlite_sequence")==0 ){
     zPrepStmt = "DELETE FROM sqlite_sequence;\n";
-  }else if( strcmp(zTable, "sqlite_stat1")==0 ){
+  }else if( sqlite3_strglob("sqlite_stat?", zTable)==0 ){
     fprintf(p->out, "ANALYZE sqlite_master;\n");
   }else if( strncmp(zTable, "sqlite_", 7)==0 ){
     return 0;
