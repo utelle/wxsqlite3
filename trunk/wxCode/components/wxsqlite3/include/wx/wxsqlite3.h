@@ -27,7 +27,7 @@
 #include "wx/wxsqlite3def.h"
 
 /// wxSQLite3 version string
-#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.0.5")
+#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.0.6")
 
 #define WXSQLITE_ERROR 1000
 

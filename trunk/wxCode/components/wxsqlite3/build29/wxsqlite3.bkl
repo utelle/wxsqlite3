@@ -3,11 +3,10 @@
 
   <set var="USE_UNSTABLE_VERSION">1</set>
   <set var="WX_UNICODE">1</set>
-  <set var="WX_MONOLITHIC">0</set>
-  <set var="WX_VERSION_DEFAULT">29</set>
 <!--
-  <set var="WX_VERSION_DEFAULT">28</set>
+  <set var="WX_MONOLITHIC">0</set>
 -->
+  <set var="WX_VERSION_DEFAULT">29</set>
 <!--  <set var="WX_UNICODE_DEFAULT">1</set>-->
   <include file="presets/wxcode.bkl"/>
 
@@ -159,6 +158,7 @@
     <exename>minimal</exename>
     <win32-res>samples/minimal.rc</win32-res>
   </wxcode-sample>
+
 <!--
   <template id="wxsqlite3_dbadmin">
     <app-type>gui</app-type>
