@@ -173,23 +173,46 @@ void sqlite3CodecGetKey(sqlite3* db, int nDb, void** zKey, int* nKey)
   *nKey = keylen;
 }
 
+static int dbFindIndex(sqlite3* db, const char* zDb)
+{
+  int dbIndex = 0;
+  if (zDb != NULL)
+  {
+    int found = 0;
+    int index;
+    for (index = 0; found == 0 && index < db->nDb; ++index)
+    {
+      struct Db* pDb = &db->aDb[dbIndex];
+      if (strcmp(pDb->zName, zDb) == 0)
+      {
+        found = 1;
+        dbIndex = index;
+      }
+    }
+    if (found == 0) dbIndex = 0;
+  }
+  return dbIndex;
+}
+
 int sqlite3_key(sqlite3 *db, const void *zKey, int nKey)
 {
   /* The key is only set for the main database, not the temp database  */
-  return sqlite3CodecAttach(db, 0, zKey, nKey);
+  return sqlite3_key_v2(db, "main", zKey, nKey);
 }
 
 int sqlite3_key_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
 {
   /* The key is only set for the main database, not the temp database  */
-  return sqlite3_key(db, zKey, nKey);
+  int dbIndex = dbFindIndex(db, zDbName);
+  return sqlite3CodecAttach(db, dbIndex, zKey, nKey);
 }
 
-int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
+int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
 {
   /* Changes the encryption key for an existing database. */
+  int dbIndex = dbFindIndex(db, zDbName);
   int rc = SQLITE_ERROR;
-  Btree* pbt = db->aDb[0].pBt;
+  Btree* pbt = db->aDb[dbIndex].pBt;
   Pager* pPager = sqlite3BtreePager(pbt);
   Codec* codec = (Codec*) mySqlite3PagerGetCodec(pPager);
 
@@ -227,8 +250,8 @@ int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
 #else
     sqlite3pager_set_codec(pPager, sqlite3Codec, codec);
 #endif
-    db->aDb[0].pAux = codec;
-    db->aDb[0].xFreeAux = sqlite3CodecFree;
+    db->aDb[dbIndex].pAux = codec;
+    db->aDb[dbIndex].xFreeAux = sqlite3CodecFree;
 #endif
   }
   else if (zKey == NULL || nKey == 0)
@@ -352,17 +375,17 @@ int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
 #else
     sqlite3pager_set_codec(pPager, NULL, NULL);
 #endif
-    db->aDb[0].pAux = NULL;
-    db->aDb[0].xFreeAux = NULL;
+    db->aDb[dbIndex].pAux = NULL;
+    db->aDb[dbIndex].xFreeAux = NULL;
     sqlite3CodecFree(codec);
 #endif
   }
   return rc;
 }
 
-int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
+int sqlite3_rekey(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
 {
-  return sqlite3_rekey(db, zKey, nKey);
+  return sqlite3_rekey_v2(db, "main", zKey, nKey);
 }
 
 #endif /* SQLITE_HAS_CODEC */
