@@ -383,7 +383,7 @@ int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKe
   return rc;
 }
 
-int sqlite3_rekey(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
+int sqlite3_rekey(sqlite3 *db, const void *zKey, int nKey)
 {
   return sqlite3_rekey_v2(db, "main", zKey, nKey);
 }
