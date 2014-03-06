@@ -597,6 +597,7 @@ static void output_c_string(FILE *out, const char *z){
 */
 static void output_html_string(FILE *out, const char *z){
   int i;
+  if( z==0 ) z = "";
   while( *z ){
     for(i=0;   z[i] 
             && z[i]!='<' 
@@ -1176,7 +1177,7 @@ static int str_in_array(const char *zStr, const char **azArray){
 **
 **     * For each "Goto", if the jump destination is earlier in the program
 **       and ends on one of:
-**          Yield  SeekGt  SeekLt  RowSetRead
+**          Yield  SeekGt  SeekLt  RowSetRead  Rewind
 **       then indent all opcodes between the earlier instruction
 **       and "Goto" by 2 spaces.
 */
@@ -1188,7 +1189,7 @@ static void explain_data_prepare(struct callback_data *p, sqlite3_stmt *pSql){
   int iOp;                        /* Index of operation in p->aiIndent[] */
 
   const char *azNext[] = { "Next", "Prev", "VPrev", "VNext", "SorterNext", 0 };
-  const char *azYield[] = { "Yield", "SeekLt", "SeekGt", "RowSetRead", 0 };
+  const char *azYield[] = { "Yield", "SeekLt", "SeekGt", "RowSetRead", "Rewind", 0 };
   const char *azGoto[] = { "Goto", 0 };
 
   /* Try to figure out if this is really an EXPLAIN statement. If this
@@ -1225,7 +1226,7 @@ static void explain_data_prepare(struct callback_data *p, sqlite3_stmt *pSql){
       for(i=p2op; i<iOp; i++) p->aiIndent[i] += 2;
     }
     if( str_in_array(zOp, azGoto) && p2op<p->nIndent && abYield[p2op] ){
-      for(i=p2op; i<iOp; i++) p->aiIndent[i] += 2;
+      for(i=p2op+1; i<iOp; i++) p->aiIndent[i] += 2;
     }
   }
 
@@ -1836,7 +1837,7 @@ static void csv_append_char(CSVReader *p, int c){
 **   +  Report syntax errors on stderr
 */
 static char *csv_read_one_field(CSVReader *p){
-  int c, pc;
+  int c, pc, ppc;
   int cSep = p->cSeparator;
   p->n = 0;
   c = fgetc(p->in);
@@ -1847,7 +1848,7 @@ static char *csv_read_one_field(CSVReader *p){
   if( c=='"' ){
     int startLine = p->nLine;
     int cQuote = c;
-    pc = 0;
+    pc = ppc = 0;
     while( 1 ){
       c = fgetc(p->in);
       if( c=='\n' ) p->nLine++;
@@ -1859,7 +1860,7 @@ static char *csv_read_one_field(CSVReader *p){
       }
       if( (c==cSep && pc==cQuote)
        || (c=='\n' && pc==cQuote)
-       || (c=='\n' && pc=='\r' && p->n>=2 && p->z[p->n-2]==cQuote)
+       || (c=='\n' && pc=='\r' && ppc==cQuote)
        || (c==EOF && pc==cQuote)
       ){
         do{ p->n--; }while( p->z[p->n]!=cQuote );
@@ -1877,6 +1878,7 @@ static char *csv_read_one_field(CSVReader *p){
         break;
       }
       csv_append_char(p, c);
+      ppc = pc;
       pc = c;
     }
   }else{
@@ -3037,7 +3039,10 @@ static int process_input(struct callback_data *p, FILE *in){
       seenInterrupt = 0;
     }
     lineno++;
-    if( nSql==0 && _all_whitespace(zLine) ) continue;
+    if( nSql==0 && _all_whitespace(zLine) ){
+      if( p->echoOn ) printf("%s\n", zLine);
+      continue;
+    }
     if( zLine && zLine[0]=='.' && nSql==0 ){
       if( p->echoOn ) printf("%s\n", zLine);
       rc = do_meta_command(zLine, p);
@@ -3099,6 +3104,7 @@ static int process_input(struct callback_data *p, FILE *in){
       }
       nSql = 0;
     }else if( nSql && _all_whitespace(zSql) ){
+      if( p->echoOn ) printf("%s\n", zSql);
       nSql = 0;
     }
   }
