@@ -90,7 +90,7 @@ WX_VERSION_MAJOR = $(shell echo $(WX_VERSION) | cut -c1,1)
 WX_VERSION_MINOR = $(shell echo $(WX_VERSION) | cut -c2,2)
 WX_CONFIG_FLAGS = $(WX_CONFIG_UNICODE_FLAG) $(WX_CONFIG_SHARED_FLAG) \
 	--toolkit=$(WX_PORT) --version=$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR)
-WXSQLITE3_LIB_CXXFLAGS = $(VAR) $(VAR_1) -W -Wall -I../include \
+WXSQLITE3_LIB_CXXFLAGS = $(VAR) $(VAR_3) -W -Wall -I../include \
 	$(__SQLITE3_DYNAMICLOAD_DEF_p) $(__SQLITE3_HAVE_METADATA_DEF_p) \
 	$(__SQLITE3_HAVE_CODEC_DEF_p) $(__SQLITE3_HAVE_LOAD_EXTENSION_DEF_p) \
 	-I$(SQLITE3_DIR)/include `$(WX_CONFIG) --cxxflags $(WX_CONFIG_FLAGS)` \
@@ -102,7 +102,7 @@ WXSQLITE3_LIB_HEADERS =  \
 	include/wx/wxsqlite3.h \
 	include/wx/wxsqlite3dyn.h \
 	include/wx/wxsqlite3opt.h
-WXSQLITE3_DLL_CXXFLAGS = $(VAR) $(VAR_1) -W -Wall -I../include \
+WXSQLITE3_DLL_CXXFLAGS = $(VAR) $(VAR_3) -W -Wall -I../include \
 	-DWXMAKINGDLL_WXSQLITE3 $(__SQLITE3_DYNAMICLOAD_DEF_p) \
 	$(__SQLITE3_HAVE_METADATA_DEF_p) $(__SQLITE3_HAVE_CODEC_DEF_p) \
 	$(__SQLITE3_HAVE_LOAD_EXTENSION_DEF_p) -I$(SQLITE3_DIR)/include -fPIC -DPIC \
@@ -114,11 +114,19 @@ WXSQLITE3_DLL_HEADERS =  \
 	include/wx/wxsqlite3.h \
 	include/wx/wxsqlite3dyn.h \
 	include/wx/wxsqlite3opt.h
-MINIMAL_CXXFLAGS = $(VAR) $(VAR_1) -W -Wall -I../include -I../samples \
+MINIMAL_CXXFLAGS = $(VAR) $(VAR_3) -W -Wall -I../include -I../samples \
 	-I$(SQLITE3_DIR)/include `$(WX_CONFIG) --cxxflags $(WX_CONFIG_FLAGS)` \
 	$(CPPFLAGS) $(CXXFLAGS)
 MINIMAL_OBJECTS =  \
 	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/minimal_minimal.o
+TREEVIEW_CXXFLAGS = $(VAR) $(VAR_3) -W -Wall -I../include -I../samples/treeview \
+	-I$(SQLITE3_DIR)/include `$(WX_CONFIG) --cxxflags $(WX_CONFIG_FLAGS)` \
+	$(CPPFLAGS) $(CXXFLAGS)
+TREEVIEW_OBJECTS =  \
+	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/treeview_foldertree.o \
+	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/treeview_projectlist.o \
+	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/treeview_treeviewapp.o \
+	gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/treeview_treeviewsample.o
 
 ### Conditionally set variables: ###
 
@@ -186,20 +194,6 @@ ifeq ($(SHARED),1)
 __uninstall_wxsqlite3_dll_headers___depname = \
 	uninstall_wxsqlite3_dll_headers
 endif
-ifeq ($(SHARED),0)
-__COMPONENT_LIB_DEP = $(__wxsqlite3_lib___depname)
-endif
-ifeq ($(SHARED),1)
-__COMPONENT_LIB_DEP = $(__wxsqlite3_dll___depname)
-endif
-ifeq ($(SHARED),0)
-__COMPONENT_LIB_LIBR = \
-	../lib/gcc_$(__wxsqlite3_lib__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a
-endif
-ifeq ($(SHARED),1)
-__COMPONENT_LIB_LIBR = \
-	../lib/$(COMPILER_PREFIX)_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
-endif
 ifeq ($(USE_DYNAMIC_SQLITE3_LOAD),0)
 __SQLITE3_DYNAMICLOAD_DEF_p = -DwxUSE_DYNAMIC_SQLITE3_LOAD=0
 endif
@@ -230,14 +224,28 @@ endif
 ifeq ($(WX_DEBUG),1)
 VAR = -O0
 endif
+ifeq ($(SHARED),0)
+__COMPONENT_LIB_DEP = $(__wxsqlite3_lib___depname)
+endif
+ifeq ($(SHARED),1)
+__COMPONENT_LIB_DEP = $(__wxsqlite3_dll___depname)
+endif
+ifeq ($(SHARED),0)
+__COMPONENT_LIB_LIBR = \
+	../lib/gcc_$(__wxsqlite3_lib__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).a
+endif
+ifeq ($(SHARED),1)
+__COMPONENT_LIB_LIBR = \
+	../lib/$(COMPILER_PREFIX)_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
+endif
 ifeq ($(USE_DYNAMIC_SQLITE3_LOAD),0)
 __SQLITE3_DEP_p = -lsqlite3
 endif
 ifeq ($(WX_DEBUG),0)
-VAR_1 = 
+VAR_3 = 
 endif
 ifeq ($(WX_DEBUG),1)
-VAR_1 = -g
+VAR_3 = -g
 endif
 
 
@@ -247,7 +255,7 @@ gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX):
 
 ### Targets: ###
 
-all: test_for_selected_wxbuild $(__wxsqlite3_lib___depname) $(__wxsqlite3_dll___depname) ../samples/minimal
+all: test_for_selected_wxbuild $(__wxsqlite3_lib___depname) $(__wxsqlite3_dll___depname) ../samples/minimal ../samples/treeview/treeview
 
 install: $(__install_wxsqlite3_lib___depname) $(__install_wxsqlite3_lib_headers___depname) $(__install_wxsqlite3_dll___depname) $(__install_wxsqlite3_dll_headers___depname)
 
@@ -260,6 +268,7 @@ clean:
 	rm -f ../lib/$(COMPILER_PREFIX)_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
 	rm -f ../lib/$(COMPILER_PREFIX)_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so
 	rm -f ../samples/minimal
+	rm -f ../samples/treeview/treeview
 
 test_for_selected_wxbuild: 
 	@$(WX_CONFIG) $(WX_CONFIG_FLAGS)
@@ -305,7 +314,7 @@ endif
 
 ifeq ($(SHARED),1)
 ../lib/$(COMPILER_PREFIX)_$(__wxsqlite3_dll__DIRNAME_SHARED_SUFFIX)/libwxcode_$(WX_PORT)_wxsqlite3-$(WX_VERSION_MAJOR).$(WX_VERSION_MINOR).so: make_dir_wxsqlite3_dll  $(WXSQLITE3_DLL_OBJECTS)
-	$(CXX) $(LINK_DLL_FLAGS) -fPIC -o $@ $(WXSQLITE3_DLL_OBJECTS)  $(VAR_1) -L../lib -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs core,base`
+	$(CXX) $(LINK_DLL_FLAGS) -fPIC -o $@ $(WXSQLITE3_DLL_OBJECTS)  $(VAR_3) -L../lib -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs core,base`
 endif
 
 ifeq ($(SHARED),1)
@@ -343,7 +352,10 @@ uninstall_wxsqlite3_dll_headers:
 endif
 
 ../samples/minimal: $(MINIMAL_OBJECTS) $(__COMPONENT_LIB_DEP)
-	$(CXX) -o $@ $(MINIMAL_OBJECTS)  $(VAR_1) -L../lib  -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs core,base`
+	$(CXX) -o $@ $(MINIMAL_OBJECTS)  $(VAR_3) -L../lib  -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs core,base`
+
+../samples/treeview/treeview: $(TREEVIEW_OBJECTS) $(__COMPONENT_LIB_DEP)
+	$(CXX) -o $@ $(TREEVIEW_OBJECTS)  $(VAR_3) -L../lib  -L$(SQLITE3_DIR)/lib $(LDFLAGS)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) `$(WX_CONFIG) $(WX_CONFIG_FLAGS) --libs adv,xml,core,base`
 
 gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/wxsqlite3_lib_wxsqlite3.o: ../src/wxsqlite3.cpp
 	$(CXX) -c -o $@ $(WXSQLITE3_LIB_CXXFLAGS) $(CPPDEPS) $<
@@ -353,6 +365,18 @@ gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/wxsqlite3_dll_wxsqlite3.o: ../src/wxsqli
 
 gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/minimal_minimal.o: ../samples/minimal.cpp
 	$(CXX) -c -o $@ $(MINIMAL_CXXFLAGS) $(CPPDEPS) $<
+
+gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/treeview_foldertree.o: ../samples/treeview/foldertree.cpp
+	$(CXX) -c -o $@ $(TREEVIEW_CXXFLAGS) $(CPPDEPS) $<
+
+gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/treeview_projectlist.o: ../samples/treeview/projectlist.cpp
+	$(CXX) -c -o $@ $(TREEVIEW_CXXFLAGS) $(CPPDEPS) $<
+
+gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/treeview_treeviewapp.o: ../samples/treeview/treeviewapp.cpp
+	$(CXX) -c -o $@ $(TREEVIEW_CXXFLAGS) $(CPPDEPS) $<
+
+gcc$(WX_PORT)$(_BUILDDIR_SHARED_SUFFIX)/treeview_treeviewsample.o: ../samples/treeview/treeviewsample.cpp
+	$(CXX) -c -o $@ $(TREEVIEW_CXXFLAGS) $(CPPDEPS) $<
 
 .PHONY: all install uninstall clean install_wxsqlite3_lib \
 	uninstall_wxsqlite3_lib install_wxsqlite3_lib_headers \

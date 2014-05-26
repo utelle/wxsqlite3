@@ -77,10 +77,10 @@ SQLITE3_DIR = ..\sqlite3
 ### Variables: ###
 
 COMPILER_PREFIX = vc
-WXSQLITE3_LIB_CXXFLAGS = /MD$(VAR_3) /DWIN32 $(____WX_SHARED) \
+WXSQLITE3_LIB_CXXFLAGS = /MD$(VAR_8) /DWIN32 $(____WX_SHARED) \
 	$(__WXUNICODE_DEFINE_p) $(__WXDEBUG_DEFINE_p) /D__WXMSW__ \
 	/I$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) /I$(WX_DIR)\include $(VAR) \
-	$(VAR_0) $(VAR_2) \
+	$(VAR_5) $(VAR_7) \
 	/Fd..\lib\vc_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.pdb \
 	/W4 /I..\include $(__SQLITE3_DYNAMICLOAD_DEF_p) \
 	$(__SQLITE3_HAVE_METADATA_DEF_p) $(__SQLITE3_HAVE_CODEC_DEF_p) \
@@ -88,10 +88,10 @@ WXSQLITE3_LIB_CXXFLAGS = /MD$(VAR_3) /DWIN32 $(____WX_SHARED) \
 	$(CPPFLAGS) $(CXXFLAGS)
 WXSQLITE3_LIB_OBJECTS =  \
 	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\wxsqlite3_lib_wxsqlite3.obj
-WXSQLITE3_DLL_CXXFLAGS = /MD$(VAR_3) /DWIN32 $(____WX_SHARED) \
+WXSQLITE3_DLL_CXXFLAGS = /MD$(VAR_8) /DWIN32 $(____WX_SHARED) \
 	$(__WXUNICODE_DEFINE_p) $(__WXDEBUG_DEFINE_p) /D__WXMSW__ \
 	/I$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) /I$(WX_DIR)\include $(VAR) \
-	$(VAR_0) $(VAR_2) \
+	$(VAR_5) $(VAR_7) \
 	/Fd..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.pdb \
 	/W4 /I..\include /DWXMAKINGDLL_WXSQLITE3 $(__SQLITE3_DYNAMICLOAD_DEF_p) \
 	$(__SQLITE3_HAVE_METADATA_DEF_p) $(__SQLITE3_HAVE_CODEC_DEF_p) \
@@ -99,15 +99,28 @@ WXSQLITE3_DLL_CXXFLAGS = /MD$(VAR_3) /DWIN32 $(____WX_SHARED) \
 	$(CPPFLAGS) $(CXXFLAGS)
 WXSQLITE3_DLL_OBJECTS =  \
 	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\wxsqlite3_dll_wxsqlite3.obj
-MINIMAL_CXXFLAGS = /MD$(VAR_3) /DWIN32 $(____WX_SHARED) $(__WXUNICODE_DEFINE_p) \
+MINIMAL_CXXFLAGS = /MD$(VAR_8) /DWIN32 $(____WX_SHARED) $(__WXUNICODE_DEFINE_p) \
 	$(__WXDEBUG_DEFINE_p) /D__WXMSW__ \
 	/I$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) /I$(WX_DIR)\include $(VAR) \
-	$(VAR_0) $(VAR_2) /Fd..\samples\minimal.pdb /W4 /I..\include /D_CONSOLE \
+	$(VAR_5) $(VAR_7) /Fd..\samples\minimal.pdb /W4 /I..\include /D_CONSOLE \
 	/I..\samples /I$(SQLITE3_DIR)\include /GR /EHsc $(CPPFLAGS) $(CXXFLAGS)
 MINIMAL_OBJECTS =  \
 	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal.obj
 MINIMAL_RESOURCES =  \
 	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal.res
+TREEVIEW_CXXFLAGS = /MD$(VAR_8) /DWIN32 $(____WX_SHARED) \
+	$(__WXUNICODE_DEFINE_p) $(__WXDEBUG_DEFINE_p) /D__WXMSW__ \
+	/I$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) /I$(WX_DIR)\include $(VAR) \
+	$(VAR_5) $(VAR_7) /Fd..\samples\treeview\treeview.pdb /W4 /I..\include \
+	/D_WINDOWS /I..\samples\treeview /I$(SQLITE3_DIR)\include /GR /EHsc \
+	$(CPPFLAGS) $(CXXFLAGS)
+TREEVIEW_OBJECTS =  \
+	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\treeview_foldertree.obj \
+	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\treeview_projectlist.obj \
+	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\treeview_treeviewapp.obj \
+	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\treeview_treeviewsample.obj
+TREEVIEW_RESOURCES =  \
+	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\treeview_treeview.res
 
 ### Conditionally set variables: ###
 
@@ -132,45 +145,25 @@ __wxsqlite3_dll___depname = \
 ____wxsqlite3_dll__DEBUGINFO_21 = 
 !endif
 !if "$(WX_DEBUG)" == "1"
-____wxsqlite3_dll__DEBUGINFO_21 = $(VAR_4)
-!endif
-!if "$(WX_SHARED)" == "0"
-____WX_SHARED_25_p_1 = 
-!endif
-!if "$(WX_SHARED)" == "1"
-____WX_SHARED_25_p_1 = /d WXUSINGDLL
-!endif
-!if "$(WX_UNICODE)" == "1"
-__WXUNICODE_DEFINE_p_4 = /d _UNICODE
-!endif
-!if "$(WX_DEBUG)" == "1"
-__WXDEBUG_DEFINE_p_4 = /d __WXDEBUG__
-!endif
-!if "$(WX_DEBUG)" == "0"
-______minimal__DEBUGINFO_29_p_1 = 
-!endif
-!if "$(WX_DEBUG)" == "1"
-______minimal__DEBUGINFO_29_p_1 = /d _DEBUG
+____wxsqlite3_dll__DEBUGINFO_21 = $(VAR_9)
 !endif
 !if "$(WX_DEBUG)" == "0"
 ____minimal__DEBUGINFO_32 = 
 !endif
 !if "$(WX_DEBUG)" == "1"
-____minimal__DEBUGINFO_32 = $(VAR_4)
+____minimal__DEBUGINFO_32 = $(VAR_9)
 !endif
-!if "$(SHARED)" == "0"
-__COMPONENT_LIB_DEP = $(__wxsqlite3_lib___depname)
+!if "$(WX_DEBUG)" == "0"
+____treeview__DEBUGINFO_45 = 
 !endif
-!if "$(SHARED)" == "1"
-__COMPONENT_LIB_DEP = $(__wxsqlite3_dll___depname)
+!if "$(WX_DEBUG)" == "1"
+____treeview__DEBUGINFO_45 = $(VAR_9)
 !endif
-!if "$(SHARED)" == "0"
-__COMPONENT_LIB_LIBR = \
-	..\lib\vc_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
+!if "$(WX_MONOLITHIC)" == "0"
+__WXLIB_ADV_NAME_p = wxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_adv.lib
 !endif
-!if "$(SHARED)" == "1"
-__COMPONENT_LIB_LIBR = \
-	..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
+!if "$(WX_MONOLITHIC)" == "0"
+__WXLIB_XML_NAME_p = wxbase$(WX_VERSION)$(WXLIBPOSTFIX)_xml.lib
 !endif
 !if "$(SHARED)" == "0"
 ____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES = lib
@@ -203,16 +196,34 @@ __SQLITE3_HAVE_LOAD_EXTENSION_DEF_p = /DWXSQLITE3_HAVE_LOAD_EXTENSION=0
 __SQLITE3_HAVE_LOAD_EXTENSION_DEF_p = /DWXSQLITE3_HAVE_LOAD_EXTENSION=1
 !endif
 !if "$(WX_SHARED)" == "0"
+____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES = lib
+!endif
+!if "$(WX_SHARED)" == "1"
+____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES = dll
+!endif
+!if "$(WX_SHARED)" == "0"
 ____WX_SHARED = 
 !endif
 !if "$(WX_SHARED)" == "1"
 ____WX_SHARED = /DWXUSINGDLL
 !endif
+!if "$(WX_SHARED)" == "0"
+____WX_SHARED_0 = 
+!endif
+!if "$(WX_SHARED)" == "1"
+____WX_SHARED_0 = /d WXUSINGDLL
+!endif
 !if "$(WX_UNICODE)" == "1"
 __WXUNICODE_DEFINE_p = /D_UNICODE
 !endif
+!if "$(WX_UNICODE)" == "1"
+__WXUNICODE_DEFINE_p_0 = /d _UNICODE
+!endif
 !if "$(WX_DEBUG)" == "1"
 __WXDEBUG_DEFINE_p = /D__WXDEBUG__
+!endif
+!if "$(WX_DEBUG)" == "1"
+__WXDEBUG_DEFINE_p_0 = /d __WXDEBUG__
 !endif
 !if "$(WX_DEBUG)" == "0"
 VAR = /O2
@@ -221,40 +232,54 @@ VAR = /O2
 VAR = /Od
 !endif
 !if "$(WX_DEBUG)" == "0"
-VAR_0 = 
+VAR_5 = 
 !endif
 !if "$(WX_DEBUG)" == "1"
-VAR_0 = /Zi
+VAR_5 = /Zi
 !endif
 !if "$(WX_DEBUG)" == "0"
-VAR_1 = 
+VAR_6 = 
 !endif
 !if "$(WX_DEBUG)" == "1"
-VAR_1 = /DEBUG
+VAR_6 = /DEBUG
 !endif
 !if "$(WX_DEBUG)" == "0"
-VAR_2 = 
+VAR_7 = 
 !endif
 !if "$(WX_DEBUG)" == "1"
-VAR_2 = /D_DEBUG
+VAR_7 = /D_DEBUG
 !endif
 !if "$(WX_DEBUG)" == "0"
-VAR_3 = 
+p_1 = 
 !endif
 !if "$(WX_DEBUG)" == "1"
-VAR_3 = d
+p_1 = /d _DEBUG
 !endif
 !if "$(WX_DEBUG)" == "0"
-VAR_4 = /opt:ref /opt:icf
+VAR_8 = 
 !endif
 !if "$(WX_DEBUG)" == "1"
-VAR_4 = 
+VAR_8 = d
 !endif
-!if "$(WX_SHARED)" == "0"
-____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES = lib
+!if "$(WX_DEBUG)" == "0"
+VAR_9 = /opt:ref /opt:icf
 !endif
-!if "$(WX_SHARED)" == "1"
-____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES = dll
+!if "$(WX_DEBUG)" == "1"
+VAR_9 = 
+!endif
+!if "$(SHARED)" == "0"
+__COMPONENT_LIB_DEP = $(__wxsqlite3_lib___depname)
+!endif
+!if "$(SHARED)" == "1"
+__COMPONENT_LIB_DEP = $(__wxsqlite3_dll___depname)
+!endif
+!if "$(SHARED)" == "0"
+__COMPONENT_LIB_LIBR = \
+	..\lib\vc_$(____wxsqlite3_lib__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
+!endif
+!if "$(SHARED)" == "1"
+__COMPONENT_LIB_LIBR = \
+	..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
 !endif
 !if "$(USE_DYNAMIC_SQLITE3_LOAD)" == "0"
 __SQLITE3_DEP_p = sqlite3.lib
@@ -291,7 +316,7 @@ vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX):
 
 ### Targets: ###
 
-all: test_for_selected_wxbuild $(__wxsqlite3_lib___depname) $(__wxsqlite3_dll___depname) ..\samples\minimal.exe
+all: test_for_selected_wxbuild $(__wxsqlite3_lib___depname) $(__wxsqlite3_dll___depname) ..\samples\minimal.exe ..\samples\treeview\treeview.exe
 
 clean: 
 	-if exist vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.obj del vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.obj
@@ -305,6 +330,9 @@ clean:
 	-if exist ..\samples\minimal.exe del ..\samples\minimal.exe
 	-if exist ..\samples\minimal.ilk del ..\samples\minimal.ilk
 	-if exist ..\samples\minimal.pdb del ..\samples\minimal.pdb
+	-if exist ..\samples\treeview\treeview.exe del ..\samples\treeview\treeview.exe
+	-if exist ..\samples\treeview\treeview.ilk del ..\samples\treeview\treeview.ilk
+	-if exist ..\samples\treeview\treeview.pdb del ..\samples\treeview\treeview.pdb
 
 test_for_selected_wxbuild: 
 	@if not exist $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h \
@@ -331,7 +359,7 @@ make_dir_wxsqlite3_lib:
 
 !if "$(SHARED)" == "1"
 ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.dll: make_dir_wxsqlite3_dll  $(WXSQLITE3_DLL_OBJECTS)
-	link /DLL /NOLOGO /OUT:$@  /LIBPATH:$(WX_DIR)$(WXLIBPATH) $(VAR_1) /pdb:"..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.pdb" $(____wxsqlite3_dll__DEBUGINFO_21) /LIBPATH:..$(WXLIBPATH) /LIBPATH:$(SQLITE3_DIR)\lib $(LDFLAGS) @<<
+	link /DLL /NOLOGO /OUT:$@  /LIBPATH:$(WX_DIR)$(WXLIBPATH) $(VAR_6) /pdb:"..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.pdb" $(____wxsqlite3_dll__DEBUGINFO_21) /LIBPATH:..$(WXLIBPATH) /LIBPATH:$(SQLITE3_DIR)\lib $(LDFLAGS) @<<
 	$(WXSQLITE3_DLL_OBJECTS)   $(__SQLITE3_DEP_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib /IMPLIB:..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)\wxcode_msw$(WX_VERSION)$(WXLIBPOSTFIX)_wxsqlite3.lib
 <<
 !endif
@@ -340,8 +368,13 @@ make_dir_wxsqlite3_dll:
 	if not exist ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES) mkdir ..\lib\$(COMPILER_PREFIX)_$(____wxsqlite3_dll__DIRNAME_SHARED_SUFFIX_FILENAMES)
 
 ..\samples\minimal.exe: $(MINIMAL_OBJECTS) $(__COMPONENT_LIB_DEP) vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal.res
-	link /NOLOGO /OUT:$@  /LIBPATH:$(WX_DIR)$(WXLIBPATH) $(VAR_1) /pdb:"..\samples\minimal.pdb" $(____minimal__DEBUGINFO_32) /LIBPATH:..$(WXLIBPATH) /SUBSYSTEM:CONSOLE /LIBPATH:$(SQLITE3_DIR)\lib $(LDFLAGS) @<<
+	link /NOLOGO /OUT:$@  /LIBPATH:$(WX_DIR)$(WXLIBPATH) $(VAR_6) /pdb:"..\samples\minimal.pdb" $(____minimal__DEBUGINFO_32) /LIBPATH:..$(WXLIBPATH) /SUBSYSTEM:CONSOLE /LIBPATH:$(SQLITE3_DIR)\lib $(LDFLAGS) @<<
 	$(MINIMAL_OBJECTS) $(MINIMAL_RESOURCES)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib
+<<
+
+..\samples\treeview\treeview.exe: $(TREEVIEW_OBJECTS) $(__COMPONENT_LIB_DEP) vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\treeview_treeview.res
+	link /NOLOGO /OUT:$@  /LIBPATH:$(WX_DIR)$(WXLIBPATH) $(VAR_6) /pdb:"..\samples\treeview\treeview.pdb" $(____treeview__DEBUGINFO_45) /LIBPATH:..$(WXLIBPATH) /SUBSYSTEM:WINDOWS /LIBPATH:$(SQLITE3_DIR)\lib $(LDFLAGS) @<<
+	$(TREEVIEW_OBJECTS) $(TREEVIEW_RESOURCES)  $(__COMPONENT_LIB_LIBR) $(__SQLITE3_DEP_p) $(__WXLIB_ADV_NAME_p) $(__WXLIB_XML_NAME_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib
 <<
 
 vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\wxsqlite3_lib_wxsqlite3.obj: ..\src\wxsqlite3.cpp
@@ -354,5 +387,20 @@ vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal.obj: ..\samples\m
 	$(CXX) /c /nologo /TP /Fo$@ $(MINIMAL_CXXFLAGS) ..\samples\minimal.cpp
 
 vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\minimal_minimal.res: ..\samples\minimal.rc
-	rc /fo$@  /d WIN32 $(____WX_SHARED_25_p_1) $(__WXUNICODE_DEFINE_p_4) $(__WXDEBUG_DEFINE_p_4) /d __WXMSW__ /i $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) /i $(WX_DIR)\include $(______minimal__DEBUGINFO_29_p_1) /i ..\include /d _CONSOLE /i ..\samples /i $(SQLITE3_DIR)\include ..\samples\minimal.rc
+	rc /fo$@  /d WIN32 $(____WX_SHARED_0) $(__WXUNICODE_DEFINE_p_0) $(__WXDEBUG_DEFINE_p_0) /d __WXMSW__ /i $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) /i $(WX_DIR)\include $(p_1) /i ..\include /d _CONSOLE /i ..\samples /i $(SQLITE3_DIR)\include ..\samples\minimal.rc
+
+vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\treeview_foldertree.obj: ..\samples\treeview\foldertree.cpp
+	$(CXX) /c /nologo /TP /Fo$@ $(TREEVIEW_CXXFLAGS) ..\samples\treeview\foldertree.cpp
+
+vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\treeview_projectlist.obj: ..\samples\treeview\projectlist.cpp
+	$(CXX) /c /nologo /TP /Fo$@ $(TREEVIEW_CXXFLAGS) ..\samples\treeview\projectlist.cpp
+
+vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\treeview_treeviewapp.obj: ..\samples\treeview\treeviewapp.cpp
+	$(CXX) /c /nologo /TP /Fo$@ $(TREEVIEW_CXXFLAGS) ..\samples\treeview\treeviewapp.cpp
+
+vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\treeview_treeviewsample.obj: ..\samples\treeview\treeviewsample.cpp
+	$(CXX) /c /nologo /TP /Fo$@ $(TREEVIEW_CXXFLAGS) ..\samples\treeview\treeviewsample.cpp
+
+vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\treeview_treeview.res: ..\samples\treeview\treeview.rc
+	rc /fo$@  /d WIN32 $(____WX_SHARED_0) $(__WXUNICODE_DEFINE_p_0) $(__WXDEBUG_DEFINE_p_0) /d __WXMSW__ /i $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) /i $(WX_DIR)\include $(p_1) /i ..\include /d _WINDOWS /i ..\samples\treeview /i $(SQLITE3_DIR)\include ..\samples\treeview\treeview.rc
 

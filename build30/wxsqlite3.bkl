@@ -159,6 +159,29 @@
     <win32-res>samples/minimal.rc</win32-res>
   </wxcode-sample>
 
+  <template id="wxsqlite3_treeview">
+    <app-type>gui</app-type>
+    <sources>$(fileList('samples/treeview/*.cpp'))</sources>
+    <headers>$(fileList('samples/treeview/*.h'))</headers>
+    <include>$(SRCDIR)/samples/treeview</include>
+    <dirname>$(SRCDIR)/samples/treeview</dirname>
+    <library>$(COMPONENT_LIB)</library>
+    <stdlib>$(SQLITE3_DIR)</stdlib>
+    <sys-lib>$(SQLITE3_DEP)</sys-lib>
+    <wx-lib>adv</wx-lib>
+    <wx-lib>xml</wx-lib>
+    <wx-lib>core</wx-lib>
+    <wx-lib>base</wx-lib>
+  </template>
+
+  <wxcode-sample id="treeview" template="wxsqlite3_treeview">
+    <exename>treeview</exename>
+    <win32-res>samples/treeview/treeview.rc</win32-res>
+    <if cond="FORMAT=='autoconf'">
+      <wx-mac-app-bundle/>
+    </if>
+  </wxcode-sample>
+
 <!--
   <template id="wxsqlite3_dbadmin">
     <app-type>gui</app-type>

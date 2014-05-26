@@ -27,7 +27,7 @@
 #include "wx/wxsqlite3def.h"
 
 /// wxSQLite3 version string
-#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.0.6")
+#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.1.0")
 
 #define WXSQLITE_ERROR 1000
 
@@ -496,7 +496,8 @@ public:
     SQLITE_DROP_VTABLE         = 30,   // Table Name      Module Name
     SQLITE_FUNCTION            = 31,   // NULL            Function Name
     SQLITE_SAVEPOINT           = 32,   // Operation       Savepoint Name
-    SQLITE_MAX_CODE            = SQLITE_SAVEPOINT
+    SQLITE_RECURSIVE           = 33,   // NULL            NULL
+    SQLITE_MAX_CODE            = SQLITE_RECURSIVE
   };
 
    /// Return codes of the authorizer
@@ -2413,9 +2414,11 @@ public:
   * \param argCount number of arguments the scalar function takes.
   *                 If this argument is -1 then the scalar function may take any number of arguments.
   * \param function instance of an scalar function
+  * \param isDeterministic signals whether the function will always return the same result
+  *                        for the same input within a single SQL statement. (Default: false)
   * \return TRUE on successful registration, FALSE otherwise
   */
-  bool CreateFunction(const wxString& name, int argCount, wxSQLite3ScalarFunction& function);
+  bool CreateFunction(const wxString& name, int argCount, wxSQLite3ScalarFunction& function, bool isDeterministic = false);
 
   /// Create a user-defined aggregate function
   /**
@@ -2424,9 +2427,11 @@ public:
   * \param argCount number of arguments the aggregate function takes.
   *                 If this argument is -1 then the aggregate function may take any number of arguments.
   * \param function instance of an aggregate function
+  * \param isDeterministic signals whether the function will always return the same result
+  *                        for the same input within a single SQL statement. (Default: false)
   * \return TRUE on successful registration, FALSE otherwise
   */
-  bool CreateFunction(const wxString& name, int argCount, wxSQLite3AggregateFunction& function);
+  bool CreateFunction(const wxString& name, int argCount, wxSQLite3AggregateFunction& function, bool isDeterministic = false);
 
   /// Create a user-defined authorizer function
   /**

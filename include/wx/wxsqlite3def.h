@@ -105,6 +105,14 @@
 
 <dl>
 
+<dt><b>3.1.0</b> - <i>May 2014</i></dt>
+<dd>
+Upgrade to SQLite version 3.8.4.3<br>
+Added flag <i>isDeterministic</i> to method wxSQLite3Database::CreateFunction<br>
+Added new GUI sample<br>
+Changed implementation of encryption extension (see Readme file in sqlite3 subfolder)<br>
+
+</dd>
 <dt><b>3.0.6</b> - <i>December 2013</i></dt>
 <dd>
 Upgrade to SQLite version 3.8.2<br>

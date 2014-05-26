@@ -3528,24 +3528,38 @@ wxString wxSQLite3Database::GetCompileOptionName(int optionIndex)
 #endif
 }
 
-bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, wxSQLite3ScalarFunction& function)
+bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, wxSQLite3ScalarFunction& function, bool isDeterministic)
 {
   CheckDatabase();
   wxCharBuffer strFuncName = funcName.ToUTF8();
   const char* localFuncName = strFuncName;
+  int flags = SQLITE_UTF8;
+#if SQLITE_VERSION_NUMBER >= 3008003
+  if (isDeterministic)
+  {
+    flags |= SQLITE_DETERMINISTIC;
+  }
+#endif
   int rc = sqlite3_create_function(m_db->m_db, localFuncName, argCount,
-                                   SQLITE_UTF8, &function,
+                                   flags, &function,
                                    (void (*)(sqlite3_context*,int,sqlite3_value**)) wxSQLite3FunctionContext::ExecScalarFunction, NULL, NULL);
   return rc == SQLITE_OK;
 }
 
-bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, wxSQLite3AggregateFunction& function)
+bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, wxSQLite3AggregateFunction& function, bool isDeterministic)
 {
   CheckDatabase();
   wxCharBuffer strFuncName = funcName.ToUTF8();
   const char* localFuncName = strFuncName;
+  int flags = SQLITE_UTF8;
+#if SQLITE_VERSION_NUMBER >= 3008003
+  if (isDeterministic)
+  {
+    flags |= SQLITE_DETERMINISTIC;
+  }
+#endif
   int rc = sqlite3_create_function(m_db->m_db, localFuncName, argCount,
-                                   SQLITE_UTF8, &function,
+                                   flags, &function,
                                    NULL,
                                    (void (*)(sqlite3_context*,int,sqlite3_value**)) wxSQLite3FunctionContext::ExecAggregateStep,
                                    (void (*)(sqlite3_context*)) wxSQLite3FunctionContext::ExecAggregateFinalize);
@@ -4282,7 +4296,8 @@ static const wxChar* authCodeString[] =
   wxT("SQLITE_SELECT"),            wxT("SQLITE_TRANSACTION"),       wxT("SQLITE_UPDATE"),
   wxT("SQLITE_ATTACH"),            wxT("SQLITE_DETACH"),            wxT("SQLITE_ALTER_TABLE"),
   wxT("SQLITE_REINDEX"),           wxT("SQLITE_ANALYZE"),           wxT("SQLITE_CREATE_VTABLE"),
-  wxT("SQLITE_DROP_VTABLE"),       wxT("SQLITE_FUNCTION"),          wxT("SQLITE_SAVEPOINT")
+  wxT("SQLITE_DROP_VTABLE"),       wxT("SQLITE_FUNCTION"),          wxT("SQLITE_SAVEPOINT"),
+  wxT("SQLITE_RECURSIVE")
 };
 
 

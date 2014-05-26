@@ -10,7 +10,7 @@
 
 # Init this configure script with basic info about the component
 # (DON'T PUT ANYTHING BEFORE AC_INIT, JUST COMMENTS)
-AC_INIT([wxSqlite3], [3.0.6], [utelle@users.sourceforge.net])
+AC_INIT([wxSqlite3], [3.1.0], [utelle@users.sourceforge.net])
 AC_CONFIG_AUX_DIR(build)
 
 # ENABLES/DISABLES THE DEBUG MODE FOR THIS CONFIGURE SCRIPT
@@ -52,7 +52,7 @@ AC_SUBST(SQLITE3_DIR)
 # argument 1: here put the minimum required version of wx
 # argument 2: here you must put a comma-separed list of all wx required libraries 
 #             except for base,core (e.g. "xml,net,adv"); leave empty if you use only core & base
-WXCODE_CHECKS([2.8.0], [core,base])
+WXCODE_CHECKS([2.8.0], [core,base,adv])
 
 WXCODE_ARG_ENABLE([dynamic_load], [Enables the SQLite dynamic load support], [no])
 AC_MSG_CHECKING([for the --enable-dynamic-load option])

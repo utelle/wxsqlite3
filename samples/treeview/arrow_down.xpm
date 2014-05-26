@@ -1,0 +1,37 @@
+/* XPM */
+static const char *const arrow_down_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 15 1",
+"% c Black",
+"* c #BEBFC0",
+"  c None",
+"O c #626262",
+"# c #E4E5E8",
+". c #6A6A6A",
+"o c #636363",
+"& c #636262",
+"X c #666666",
+"$ c #E1E2E5",
+"+ c #676767",
+"= c #B2B5B7",
+"- c #ADAEAF",
+"@ c #DADBDC",
+"; c #3B3B3B",
+/* pixels */
+"                ",
+"                ",
+"                ",
+"                ",
+"                ",
+"    .XoOOoX.    ",
+"    +@#$$#@+    ",
+"     &*==*&     ",
+"      o--o      ",
+"       ++;      ",
+"                ",
+"                ",
+"                ",
+"                ",
+"                ",
+"                "
+};
