@@ -103,6 +103,8 @@ int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
   Codec* codec = (Codec*) sqlite3_malloc(sizeof(Codec));
   CodecInit(codec);
 
+  sqlite3_mutex_enter(db->mutex);
+
   /* No key specified, could mean either use the main db's encryption or no encryption */
   if (zKey == NULL || nKey <= 0)
   {
@@ -155,6 +157,9 @@ int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
     db->aDb[nDb].xFreeAux = sqlite3CodecFree;
 #endif
   }
+
+  sqlite3_mutex_leave(db->mutex);
+
   return SQLITE_OK;
 }
 
@@ -274,6 +279,8 @@ int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKe
     CodecSetHasWriteKey(codec, 1);
   }
 
+  sqlite3_mutex_enter(db->mutex);
+
   /* Start transaction */
   rc = sqlite3BtreeBeginTrans(pbt, 1);
   if (!rc)
@@ -337,6 +344,8 @@ int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKe
     sqlite3BtreeRollback(pbt);
 #endif
   }
+
+  sqlite3_mutex_leave(db->mutex);
 
   if (rc == SQLITE_OK)
   {

@@ -702,14 +702,47 @@ CodecGenerateEncryptionKey(Codec* codec, char* userPassword, int passwordLength,
 void
 CodecEncrypt(Codec* codec, int page, unsigned char* data, int len, int useWriteKey)
 {
+  unsigned char dbHeader[8];
+  int offset = 0;
   unsigned char* key = (useWriteKey) ? codec->m_writeKey : codec->m_readKey;
-  CodecAES(codec, page, 1, key, data, len, data);
-
+  if (page == 1)
+  {
+    memcpy(dbHeader, data+16, 8);
+    offset = 16;
+    CodecAES(codec, page, 1, key, data, 16, data);
+  }
+  CodecAES(codec, page, 1, key, data+offset, len-offset, data+offset);
+  if (page == 1)
+  {
+    memcpy(data+8,  data+16,  8);
+    memcpy(data+16, dbHeader, 8);
+  }
 }
 
 void
 CodecDecrypt(Codec* codec, int page, unsigned char* data, int len)
 {
-  CodecAES(codec, page, 0, codec->m_readKey, data, len, data);
+  unsigned char dbHeader[8];
+  int dbPageSize;
+  int offset = 0;
+  if (page == 1)
+  {
+    memcpy(dbHeader, data+16, 8);
+    dbPageSize = (dbHeader[0] << 8) | (dbHeader[1] << 16);
+    if ((dbPageSize >= 512)   && (dbPageSize <= SQLITE_MAX_PAGE_SIZE) && (((dbPageSize-1) & dbPageSize) == 0) &&
+        (dbHeader[5] == 0x40) && (dbHeader[6] == 0x20) && (dbHeader[7] == 0x20))
+    {
+      memcpy(data+16, data+8, 8);
+      offset = 16;
+    }
+  }
+  CodecAES(codec, page, 0, codec->m_readKey, data+offset, len-offset, data+offset);
+  if (page == 1 && offset != 0)
+  {
+    if (memcmp(dbHeader, data+16, 8) == 0)
+    {
+      memcpy(data, SQLITE_FILE_HEADER, 16);
+    }
+  }
 }
 

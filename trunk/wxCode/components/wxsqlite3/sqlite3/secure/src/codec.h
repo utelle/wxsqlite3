@@ -63,7 +63,7 @@ typedef struct _Codec
   Rijndael*     m_aes;
 
   Btree*        m_bt; /* Pointer to B-tree used by DB */
-  unsigned char m_page[SQLITE_MAX_PAGE_SIZE+8];
+  unsigned char m_page[SQLITE_MAX_PAGE_SIZE+24];
 } Codec;
 
 void CodecInit(Codec* codec);

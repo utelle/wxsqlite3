@@ -7,6 +7,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "minimal", "wxsqlite3_vc9_mi
 		{CBEF6259-D60B-5572-AE8F-6F052918210E} = {CBEF6259-D60B-5572-AE8F-6F052918210E}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "treeview", "wxsqlite3_vc9_treeview.vcproj", "{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CBEF6259-D60B-5572-AE8F-6F052918210E} = {CBEF6259-D60B-5572-AE8F-6F052918210E}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Static Release Multilib Static|Win32 = Static Release Multilib Static|Win32
@@ -91,6 +96,38 @@ Global
 		{1E42D6E2-2400-5336-B0A5-CC898EFC9785}.DLL Debug Monolithic Static|Win32.Build.0 = DLL Debug Monolithic Static|Win32
 		{1E42D6E2-2400-5336-B0A5-CC898EFC9785}.DLL Debug Monolithic DLL|Win32.ActiveCfg = DLL Debug Monolithic DLL|Win32
 		{1E42D6E2-2400-5336-B0A5-CC898EFC9785}.DLL Debug Monolithic DLL|Win32.Build.0 = DLL Debug Monolithic DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Release Multilib Static|Win32.ActiveCfg = Static Release Multilib Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Release Multilib Static|Win32.Build.0 = Static Release Multilib Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Release Multilib DLL|Win32.ActiveCfg = Static Release Multilib DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Release Multilib DLL|Win32.Build.0 = Static Release Multilib DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Release Monolithic Static|Win32.ActiveCfg = Static Release Monolithic Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Release Monolithic Static|Win32.Build.0 = Static Release Monolithic Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Release Monolithic DLL|Win32.ActiveCfg = Static Release Monolithic DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Release Monolithic DLL|Win32.Build.0 = Static Release Monolithic DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Debug Multilib Static|Win32.ActiveCfg = Static Debug Multilib Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Debug Multilib Static|Win32.Build.0 = Static Debug Multilib Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Debug Multilib DLL|Win32.ActiveCfg = Static Debug Multilib DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Debug Multilib DLL|Win32.Build.0 = Static Debug Multilib DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Debug Monolithic Static|Win32.ActiveCfg = Static Debug Monolithic Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Debug Monolithic Static|Win32.Build.0 = Static Debug Monolithic Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Debug Monolithic DLL|Win32.ActiveCfg = Static Debug Monolithic DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.Static Debug Monolithic DLL|Win32.Build.0 = Static Debug Monolithic DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Release Multilib Static|Win32.ActiveCfg = DLL Release Multilib Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Release Multilib Static|Win32.Build.0 = DLL Release Multilib Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Release Multilib DLL|Win32.ActiveCfg = DLL Release Multilib DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Release Multilib DLL|Win32.Build.0 = DLL Release Multilib DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Release Monolithic Static|Win32.ActiveCfg = DLL Release Monolithic Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Release Monolithic Static|Win32.Build.0 = DLL Release Monolithic Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Release Monolithic DLL|Win32.ActiveCfg = DLL Release Monolithic DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Release Monolithic DLL|Win32.Build.0 = DLL Release Monolithic DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Debug Multilib Static|Win32.ActiveCfg = DLL Debug Multilib Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Debug Multilib Static|Win32.Build.0 = DLL Debug Multilib Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Debug Multilib DLL|Win32.ActiveCfg = DLL Debug Multilib DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Debug Multilib DLL|Win32.Build.0 = DLL Debug Multilib DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Debug Monolithic Static|Win32.ActiveCfg = DLL Debug Monolithic Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Debug Monolithic Static|Win32.Build.0 = DLL Debug Monolithic Static|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Debug Monolithic DLL|Win32.ActiveCfg = DLL Debug Monolithic DLL|Win32
+		{CE0D7679-BB35-5B5B-A19F-7575F6DC7B23}.DLL Debug Monolithic DLL|Win32.Build.0 = DLL Debug Monolithic DLL|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
