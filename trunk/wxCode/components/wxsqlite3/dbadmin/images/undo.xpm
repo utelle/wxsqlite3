@@ -1,5 +1,5 @@
 /* XPM */
-static char *undo_xpm[] = {
+static const char * const undo_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 151 2",
 "&. c #B5E2FF",

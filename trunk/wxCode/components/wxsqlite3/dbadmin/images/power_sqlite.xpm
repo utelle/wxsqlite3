@@ -1,5 +1,5 @@
 /* XPM */
-static char *power_sqlite_xpm[] = {
+static const char * const power_sqlite_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "140 53 97 2",
 "6  c #E1E7E1",

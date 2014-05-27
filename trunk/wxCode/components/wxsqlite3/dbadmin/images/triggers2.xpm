@@ -1,5 +1,5 @@
 /* XPM */
-static char *triggers2_xpm[] = {
+static const char * const triggers2_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 205 2",
 "_. c #7A6641",

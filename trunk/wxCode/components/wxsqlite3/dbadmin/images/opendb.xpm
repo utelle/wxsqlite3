@@ -1,5 +1,5 @@
 /* XPM */
-static char *opendb_xpm[] = {
+static const char * const opendb_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 127 2",
 "4  c #8A761B",

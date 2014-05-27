@@ -1,5 +1,5 @@
 /* XPM */
-static char *sqlicon_xpm[] = {
+static const char * const sqlicon_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 28 1",
 "o c #FCFEFC",

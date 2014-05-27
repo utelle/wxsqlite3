@@ -471,7 +471,11 @@ void wxGridCellBlobEditor::PaintBackground(const wxRect& rectCell, wxGridCellAtt
       {
          grid->PrepareDC(dc);
 
+#if wxCHECK_VERSION(2, 9, 5)
+         wxGridCellEditor::PaintBackground(dc, rectCell, *attr);
+#else
          wxGridCellEditor::PaintBackground(rectCell, attr);
+#endif // wxCHECK_VERSION(2, 9, 5)
 
          wxGridCellRenderer *renderer = attr->GetRenderer(grid, m_Row, m_Col);
          renderer->Draw(*grid, *attr, dc, rectCell, m_Row, m_Col, false);
@@ -479,7 +483,13 @@ void wxGridCellBlobEditor::PaintBackground(const wxRect& rectCell, wxGridCellAtt
       }
    }
    else
+   {
+#if wxCHECK_VERSION(2, 9, 5)
+      wxGridCellEditor::PaintBackground(dc, rectCell, *attr);
+#else
       wxGridCellEditor::PaintBackground(rectCell, attr);
+#endif // wxCHECK_VERSION(2, 9, 5)
+   }
    // redraw the control we just painted over
    m_control->Refresh();
 }

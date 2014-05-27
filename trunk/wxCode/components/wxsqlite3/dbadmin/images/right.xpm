@@ -1,5 +1,5 @@
 /* XPM */
-static const char *right_xpm[] = {
+static const char * const right_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 69 1",
 "6 c #678DBE",

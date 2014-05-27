@@ -1,5 +1,5 @@
 /* XPM */
-static char *commit_xpm[] = {
+static const char * const commit_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 52 1",
 "9 c #FCFEFC",

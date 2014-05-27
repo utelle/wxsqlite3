@@ -1,5 +1,5 @@
 /* XPM */
-static char *tabledrop_xpm[] = {
+static const char * const tabledrop_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 136 2",
 "X. c #B94B39",

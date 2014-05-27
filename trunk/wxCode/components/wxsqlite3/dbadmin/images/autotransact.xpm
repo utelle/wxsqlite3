@@ -1,5 +1,5 @@
 /* XPM */
-static char *autotransact_xpm[] = {
+static const char * const autotransact_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 70 1",
 ". c Black",

@@ -1,5 +1,5 @@
 /* XPM */
-static char *colup_xpm[] = {
+static const char * const colup_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 14 1",
 "@ c #FCFEFB",
