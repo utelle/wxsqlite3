@@ -1,5 +1,5 @@
 /* XPM */
-static char *logo32_xpm[] = {
+static const char * const logo32_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "32 32 423 2",
 "   c None",

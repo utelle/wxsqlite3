@@ -1,5 +1,5 @@
 /* XPM */
-static char *stoptransact_xpm[] = {
+static const char * const stoptransact_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 41 1",
 "& c Black",

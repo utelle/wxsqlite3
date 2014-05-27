@@ -1,5 +1,5 @@
 /* XPM */
-static char *log_xpm[] = {
+static const char * const log_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 16 1",
 "+ c #DEE3FF",

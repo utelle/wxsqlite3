@@ -1,5 +1,5 @@
 /* XPM */
-static char *connect2_xpm[] = {
+static const char * const connect2_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 60 1",
 "0 c #FCFEFC",

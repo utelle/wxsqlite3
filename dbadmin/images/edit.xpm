@@ -1,5 +1,5 @@
 /* XPM */
-static char *edit_xpm[] = {
+static const char * const edit_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 35 1",
 "< c #FCFEFC",

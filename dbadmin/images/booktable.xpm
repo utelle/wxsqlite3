@@ -1,5 +1,5 @@
 /* XPM */
-static char *booktable_xpm[] = {
+static const char * const booktable_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 74 1",
 "x c #5C607C",

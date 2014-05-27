@@ -1,5 +1,5 @@
 /* XPM */
-static char *runsql_xpm[] = {
+static const char * const runsql_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 28 1",
 "o c #FCFEFC",

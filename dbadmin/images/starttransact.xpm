@@ -1,5 +1,5 @@
 /* XPM */
-static char *starttransact_xpm[] = {
+static const char * const starttransact_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 42 1",
 ". c Black",

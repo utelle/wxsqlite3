@@ -1,5 +1,5 @@
 /* XPM */
-static char *tables_xpm[] = {
+static const char * const tables_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 34 1",
 "9 c #FCFEFC",

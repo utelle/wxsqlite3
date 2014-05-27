@@ -1,5 +1,5 @@
 /* XPM */
-static const char *down_xpm[] = {
+static const char * const down_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "20 20 102 2",
 "&  c #CACACA",
