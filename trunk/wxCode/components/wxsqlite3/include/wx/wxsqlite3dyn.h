@@ -157,6 +157,9 @@ DYNFUNC(return, void *,                sqlite3_rollback_hook,         (sqlite3 *
 #if SQLITE_VERSION_NUMBER >= 3007003
 DYNFUNC(return, int,                   sqlite3_rtree_geometry_callback, (sqlite3 *db, const char *zGeom, int (*xGeom)(sqlite3_rtree_geometry *, int nCoord, double *aCoord, int *pRes), void *pContext), (db, zGeom, xGeom, pContext));
 #endif
+#if SQLITE_VERSION_NUMBER >= 3008005
+DYNFUNC(return, int,                   sqlite3_rtree_query_callback,  (sqlite3 *db, const char *zQueryFunc, int (*xQueryFunc)(sqlite3_rtree_query_info*), void *pContext, void (*xDestructor)(void*)), (db, zQueryFunc, xQueryFunc, pContext, xDestructor));
+#endif
 DYNFUNC(return, int,                   sqlite3_set_authorizer,        (sqlite3 *db, int (*xAuth)(void*,int,const char*,const char*,const char*,const char*), void *pArg), (db, xAuth, pArg));
 // DYNFUNC(;, void,                       sqlite3_set_auxdata,           (sqlite3_context *pCtx, int iArg, void *pAux, void (*xDelete)(void*)), (pCtx, iArg, pAux, xDelete));
 #if SQLITE_VERSION_NUMBER >= 3006000
