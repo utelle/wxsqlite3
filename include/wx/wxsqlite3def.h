@@ -105,6 +105,11 @@
 
 <dl>
 
+<dt><b>3.1.1</b> - <i>June 2014</i></dt>
+<dd>
+Upgrade to SQLite version 3.8.5<br>
+
+</dd>
 <dt><b>3.1.0</b> - <i>May 2014</i></dt>
 <dd>
 Upgrade to SQLite version 3.8.4.3<br>
