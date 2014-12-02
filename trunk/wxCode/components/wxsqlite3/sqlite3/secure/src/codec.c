@@ -39,9 +39,11 @@
 
 #include "codec.h"
 
+#ifndef SQLITE_USER_AUTHENTICATION
 #if CODEC_TYPE == CODEC_TYPE_AES256
 #include "sha2.h"
 #include "sha2.c"
+#endif
 #endif
 
 /*
@@ -702,11 +704,17 @@ CodecGenerateEncryptionKey(Codec* codec, char* userPassword, int passwordLength,
 void
 CodecEncrypt(Codec* codec, int page, unsigned char* data, int len, int useWriteKey)
 {
+#ifdef WXSQLITE3_USE_OLD_ENCRYPTION_SCHEME
+  /* Use the previous encryption scheme */
+  unsigned char* key = (useWriteKey) ? codec->m_writeKey : codec->m_readKey;
+  CodecAES(codec, page, 1, key, data, len, data);
+#else
   unsigned char dbHeader[8];
   int offset = 0;
   unsigned char* key = (useWriteKey) ? codec->m_writeKey : codec->m_readKey;
   if (page == 1)
   {
+    /* Save the header bytes remaining unencrypted */
     memcpy(dbHeader, data+16, 8);
     offset = 16;
     CodecAES(codec, page, 1, key, data, 16, data);
@@ -714,24 +722,36 @@ CodecEncrypt(Codec* codec, int page, unsigned char* data, int len, int useWriteK
   CodecAES(codec, page, 1, key, data+offset, len-offset, data+offset);
   if (page == 1)
   {
+    /* Move the encrypted header bytes 16..23 to a safe position */
     memcpy(data+8,  data+16,  8);
+	/* Restore the unencrypted header bytes 16..23 */
     memcpy(data+16, dbHeader, 8);
   }
+#endif
 }
 
 void
 CodecDecrypt(Codec* codec, int page, unsigned char* data, int len)
 {
+#ifdef WXSQLITE3_USE_OLD_ENCRYPTION_SCHEME
+  /* Use the previous encryption scheme */
+  CodecAES(codec, page, 0, codec->m_readKey, data, len, data);
+#else
   unsigned char dbHeader[8];
   int dbPageSize;
   int offset = 0;
   if (page == 1)
   {
+    /* Save (unencrypted) header bytes 16..23 */
     memcpy(dbHeader, data+16, 8);
+	/* Determine page size */
     dbPageSize = (dbHeader[0] << 8) | (dbHeader[1] << 16);
+	/* Check whether the database header is valid */
+	/* If yes, the database follows the new encryption scheme, otherwise use the previous encryption scheme */
     if ((dbPageSize >= 512)   && (dbPageSize <= SQLITE_MAX_PAGE_SIZE) && (((dbPageSize-1) & dbPageSize) == 0) &&
         (dbHeader[5] == 0x40) && (dbHeader[6] == 0x20) && (dbHeader[7] == 0x20))
     {
+	  /* Restore encrypted bytes 16..23 for new encryption scheme */
       memcpy(data+16, data+8, 8);
       offset = 16;
     }
@@ -739,10 +759,12 @@ CodecDecrypt(Codec* codec, int page, unsigned char* data, int len)
   CodecAES(codec, page, 0, codec->m_readKey, data+offset, len-offset, data+offset);
   if (page == 1 && offset != 0)
   {
+    /* Verify the database header */
     if (memcmp(dbHeader, data+16, 8) == 0)
     {
       memcpy(data, SQLITE_FILE_HEADER, 16);
     }
   }
+#endif
 }
 

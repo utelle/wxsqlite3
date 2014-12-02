@@ -8,6 +8,7 @@ sqlite3_backup_pagecount
 sqlite3_backup_remaining
 sqlite3_backup_step
 sqlite3_bind_blob
+sqlite3_bind_blob64
 sqlite3_bind_double
 sqlite3_bind_int
 sqlite3_bind_int64
@@ -17,6 +18,7 @@ sqlite3_bind_parameter_index
 sqlite3_bind_parameter_name
 sqlite3_bind_text
 sqlite3_bind_text16
+sqlite3_bind_text64
 sqlite3_bind_value
 sqlite3_bind_zeroblob
 sqlite3_blob_bytes
@@ -106,10 +108,12 @@ sqlite3_limit
 sqlite3_load_extension
 sqlite3_log
 sqlite3_malloc
+sqlite3_malloc64
 sqlite3_memory_alarm
 sqlite3_memory_highwater
 sqlite3_memory_used
 sqlite3_mprintf
+sqlite3_msize
 sqlite3_mutex_alloc
 sqlite3_mutex_enter
 sqlite3_mutex_free
@@ -130,10 +134,12 @@ sqlite3_profile
 sqlite3_progress_handler
 sqlite3_randomness
 sqlite3_realloc
+sqlite3_realloc64
 sqlite3_release_memory
 sqlite3_reset
 sqlite3_reset_auto_extension
 sqlite3_result_blob
+sqlite3_result_blob64
 sqlite3_result_double
 sqlite3_result_error
 sqlite3_result_error16
@@ -147,6 +153,7 @@ sqlite3_result_text
 sqlite3_result_text16
 sqlite3_result_text16be
 sqlite3_result_text16le
+sqlite3_result_text64
 sqlite3_result_value
 sqlite3_result_zeroblob
 sqlite3_rollback_hook

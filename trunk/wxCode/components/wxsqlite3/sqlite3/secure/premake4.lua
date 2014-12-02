@@ -36,6 +36,7 @@ project "sqlite3lib"
     "SQLITE_CORE",
     "SQLITE_ENABLE_EXTFUNC",
     "SQLITE_USE_URI",
+	"SQLITE_USER_AUTHENTICATION",
     "_CRT_SECURE_NO_WARNINGS",
     "_CRT_SECURE_NO_DEPRECATE",
     "_CRT_NONSTDC_NO_DEPRECATE"
@@ -82,9 +83,9 @@ project "sqlite3dll"
   language "C++"
   vpaths {
     ["Header Files"] = { "**.h" },
-    ["Source Files"] = { "**/sqlite3secure.c", "**.def" }
+    ["Source Files"] = { "**/sqlite3secure.c", "**.def", "**.rc" }
   }
-  files { "src/sqlite3secure.c", "src/*.h", "src/sqlite3.def" }
+  files { "src/sqlite3secure.c", "src/*.h", "src/sqlite3.def", "src/sqlite3.rc" }
   flags { "Unicode", "StaticRuntime" }  
 
   location "build/sqlite3dll"
@@ -105,6 +106,7 @@ project "sqlite3dll"
     "SQLITE_CORE",
     "SQLITE_ENABLE_EXTFUNC",
     "SQLITE_USE_URI",
+	"SQLITE_USER_AUTHENTICATION",
     "_CRT_SECURE_NO_WARNINGS",
     "_CRT_SECURE_NO_DEPRECATE",
     "_CRT_NONSTDC_NO_DEPRECATE"
@@ -149,7 +151,11 @@ project "sqlite3shell"
   uuid "BA98AAC1-AACD-2F4F-8EDB-CF7C62668BC4"
   kind "ConsoleApp"
   language "C++"
-  files { "src/sqlite3.h", "src/shell.c" }
+  vpaths {
+    ["Header Files"] = { "**.h" },
+    ["Source Files"] = { "**.c", "**.rc" }
+  }
+  files { "src/sqlite3.h", "src/shell.c", "src/sqlite3shell.rc" }
   flags { "Unicode", "StaticRuntime" }  
   links { "sqlite3lib" }
 
@@ -159,6 +165,7 @@ project "sqlite3shell"
     "WIN32",
     "_WINDOWS",
     "SQLITE_HAS_CODEC",
+	"SQLITE_USER_AUTHENTICATION",
     "_CRT_SECURE_NO_DEPRECATE",
     "_CRT_NONSTDC_NO_DEPRECATE"
   }
