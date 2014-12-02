@@ -5,7 +5,17 @@
 #define sqlite3_open_v2 sqlite3_open_v2_internal
 #endif
 
+// Enable the user authentication feature
+#ifndef SQLITE_USER_AUTHENTICATION
+#define SQLITE_USER_AUTHENTICATION
+#endif
+
 #include "sqlite3.c"
+#ifdef SQLITE_USER_AUTHENTICATION
+#include "sha2.h"
+#include "sha2.c"
+#include "userauth.c"
+#endif
 
 #ifdef SQLITE_ENABLE_EXTFUNC
 #undef sqlite3_open

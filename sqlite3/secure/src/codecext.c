@@ -338,7 +338,11 @@ int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKe
   if (rc != SQLITE_OK)
   {
     /* Rollback in case of error */
-#if (SQLITE_VERSION_NUMBER >= 3007011)
+#if (SQLITE_VERSION_NUMBER >= 3008007)
+    /* Unfortunately this change was introduced in version 3.8.7.2 which cannot be detected using the SQLITE_VERSION_NUMBER */
+    /* That is, compilation will fail for version 3.8.7 or 3.8.7.1  ==> Please change manually ... or upgrade to 3.8.7.2 or higher */
+    sqlite3BtreeRollback(pbt, SQLITE_OK, 0);
+#elif (SQLITE_VERSION_NUMBER >= 3007011)
     sqlite3BtreeRollback(pbt, SQLITE_OK);
 #else
     sqlite3BtreeRollback(pbt);
