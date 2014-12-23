@@ -29,6 +29,12 @@
 #define WXSQLITE3_HAVE_METADATA 0
 #endif
 
+//! To enable SQLite's user authentication define WXSQLITE3_USER_AUTHENTICATION as 1 here.
+//! Attention: SQLite needs to be compiled with SQLITE_USER_AUTHENTICATION for this to work
+#ifndef WXSQLITE3_USER_AUTHENTICATION
+#define WXSQLITE3_USER_AUTHENTICATION 0
+#endif
+
 //! To enable SQLite's database encryption support define WXSQLITE3_HAVE_CODEC as 1 here.
 //! Attention: SQLite needs to be compiled with SQLITE_HAS_CODEC for this to work
 #ifndef WXSQLITE3_HAVE_CODEC

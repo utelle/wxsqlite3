@@ -4,65 +4,7 @@
 // Author:      Ulrich Telle
 // Modified by:
 // Created:     2005-07-14
-// Changes:     2005-10-03  - Upgrade to SQLite3 version 3.2.7
-//              2005-10-09  - Corrected error in wxSQLite3Table::FindColumnIndex
-//              2005-10-30  - Added wxGTK build support
-//              2005-11-01  - Corrected wxSQLite3ResultSet::GetInt64.
-//                            Added wxSQLite3Table::GetInt64
-//              2005-11-09  - Optionally load SQLite library dynamically
-//              2006-02-01  - Upgrade to SQLite3 version 3.3.3
-//              2006-02-12  - Upgrade to SQLite3 version 3.3.4 (wxMSW only)
-//              2006-03-15  - Fixed a bug in wxSQLite3Database::Prepare
-//                            Added wxSQLite3Database::IsOpen for convenience
-//              2006-06-11  - Upgrade to SQLite3 version 3.3.6
-//                            Added support for optional SQLite meta data methods
-//              2007-01-11  - Upgrade to SQLite3 version 3.3.10
-//                            Added support for BLOBs as wxMemoryBuffer objects
-//                            Added support for loadable extensions
-//                            Optional support for key based database encryption
-//              2007-02-12  - Upgrade to SQLite3 version 3.3.12
-//              2007-05-01  - Upgrade to SQLite3 version 3.3.17
-//              2007-10-28  - Upgrade to SQLite3 version 3.5.2
-//              2007-11-17  - Fixed a bug in wxSQLite3Database::Close
-//                            Eliminated several compile time warnings
-//              2007-12-19  - Upgrade to SQLite3 version 3.5.4
-//                            Fixed a bug in wxSQLite3Database::Begin
-//              2008-01-05  - Added support for shared cache mode
-//                            Added support for access to original SQL statement
-//                            for prepared statements (requires SQLite 3.5.3 or above)
-//              2008-04-27  - Upgrade to SQLite3 version 3.5.8
-//                            Fixed several minor issues in the build files
-//              2008-06-28  - Upgrade to SQLite3 version 3.5.9
-//              2008-07-19  - Upgrade to SQLite3 version 3.6.0
-//              2008-09-04  - Upgrade to SQLite3 version 3.6.2
-//              2008-11-22  - Upgrade to SQLite3 version 3.6.6
-//              2008-12-18  - Upgrade to SQLite3 version 3.6.7
-//                            Fixed a bug in method wxSQLite3Table::GetDouble
-//              2009-01-14  - Upgrade to SQLite3 version 3.6.10
-//                            Added savepoint support
-//                            Added IsOk methods to some classes
-//              2009-02-21  - Upgrade to SQLite3 version 3.6.11
-//                            Added user defined function class for REGEXP operator
-//                            Added support for SQLite backup/restore API
-//              2009-09-12  - Upgrade to SQLite3 version 3.6.18
-//                            Fixed a potential memory leak in wxSQLite3Statement class
-//              2009-11-07  - Upgrade to SQLite3 version 3.6.20
-//              2010-02-05  - Upgrade to SQLite3 version 3.6.22
-//              2010-03-11  - Upgrade to SQLite3 version 3.6.23
-//              2010-07-25  - Upgrade to SQLite3 version 3.7.0
-//              2010-10-10  - Upgrade to SQLite3 version 3.7.3
-//              2010-12-11  - Upgrade to SQLite3 version 3.7.4
-//              2011-02-09  - Upgrade to SQLite3 version 3.7.5
-//              2011-04-17  - Upgrade to SQLite3 version 3.7.6.1
-//              2011-06-30  - Upgrade to SQLite3 version 3.7.7.1
-//              2011-08-14  - Progress callback for Backup/Restore added
-//              2011-10-25  - Upgrade to SQLite3 version 3.7.8
-//              2012-01-17  - Upgrade to SQLite3 version 3.7.10
-//              2012-10-17  - Upgrade to SQLite3 version 3.7.14.1
-//              2013-03-19  - Upgrade to SQLite3 version 3.7.16
-//              2013-08-29  - Upgrade to SQLite3 version 3.8.0
-//              2013-09-07  - Upgrade to SQLite3 version 3.8.0.2
-//              2013-12-08  - Upgrade to SQLite3 version 3.8.2
+// Changes:     (see version history below, and accompanying readme file)
 //
 // Copyright:   (c) Ulrich Telle
 // Licence:     wxWindows licence
@@ -105,6 +47,12 @@
 
 <dl>
 
+<dt><b>3.2.0</b> - <i>December 2014</i></dt>
+<dd>
+Upgrade to SQLite version 3.8.7.4<br>
+Added support for the SQLite user authentication module<br>
+
+</dd>
 <dt><b>3.1.1</b> - <i>June 2014</i></dt>
 <dd>
 Upgrade to SQLite version 3.8.5<br>
