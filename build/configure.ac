@@ -10,7 +10,7 @@
 
 # Init this configure script with basic info about the component
 # (DON'T PUT ANYTHING BEFORE AC_INIT, JUST COMMENTS)
-AC_INIT([wxSqlite3], [3.1.1], [utelle@users.sourceforge.net])
+AC_INIT([wxSqlite3], [3.2.0], [utelle@users.sourceforge.net])
 AC_CONFIG_AUX_DIR(build)
 
 # ENABLES/DISABLES THE DEBUG MODE FOR THIS CONFIGURE SCRIPT

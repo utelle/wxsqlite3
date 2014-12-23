@@ -45,7 +45,16 @@
 #endif
 
 #include "sqlite3.h"
-
+#if WXSQLITE3_USER_AUTHENTICATION
+#define SQLITE_USER_AUTHENTICATION
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include "sqlite3userauth.h"
+#ifdef __cplusplus
+}
+#endif
+#endif
 // Dynamic loading of the SQLite library
 
 #if wxUSE_DYNAMIC_SQLITE3_LOAD
@@ -111,6 +120,8 @@ SQLITE_API int sqlite3_win32_set_directory(DWORD type, LPCWSTR zValue);
 #endif
 #endif
 #endif // wxUSE_DYNAMIC_SQLITE3_LOAD
+
+typedef int (*sqlite3_xauth)(void*,int,const char*,const char*,const char*,const char*);
 
 // Error messages
 
@@ -2488,6 +2499,12 @@ bool wxSQLite3Database::ms_hasMetaDataSupport = true;
 bool wxSQLite3Database::ms_hasMetaDataSupport = false;
 #endif
 
+#if WXSQLITE3_USER_AUTHENTICATION
+bool wxSQLite3Database::ms_hasUserAuthentication = true;
+#else
+bool wxSQLite3Database::ms_hasUserAuthentication = false;
+#endif
+
 #if WXSQLITE3_HAVE_LOAD_EXTENSION
 bool wxSQLite3Database::ms_hasLoadExtSupport = true;
 #else
@@ -2534,6 +2551,12 @@ bool
 wxSQLite3Database::HasMetaDataSupport()
 {
   return ms_hasMetaDataSupport;
+}
+
+bool
+wxSQLite3Database::HasUserAuthenticationSupport()
+{
+  return ms_hasUserAuthentication;
 }
 
 bool
@@ -3569,7 +3592,7 @@ bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, w
 bool wxSQLite3Database::SetAuthorizer(wxSQLite3Authorizer& authorizer)
 {
   CheckDatabase();
-  int rc = sqlite3_set_authorizer(m_db->m_db, wxSQLite3FunctionContext::ExecAuthorizer, &authorizer);
+  int rc = sqlite3_set_authorizer(m_db->m_db, (sqlite3_xauth) wxSQLite3FunctionContext::ExecAuthorizer, &authorizer);
   return rc == SQLITE_OK;
 }
 
@@ -3864,6 +3887,144 @@ void wxSQLite3Database::ReKey(const wxMemoryBuffer& newKey)
   throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NOCODEC);
 #endif
 }
+
+bool wxSQLite3Database::UserLogin(const wxString& username, const wxString& password)
+{
+#if WXSQLITE3_USER_AUTHENTICATION && SQLITE_VERSION_NUMBER >= 3008007
+  CheckDatabase();
+  wxCharBuffer strUsername = username.ToUTF8();
+  const char* localUsername = strUsername;
+  wxCharBuffer strPassword = password.ToUTF8();
+  const char* localPassword = strPassword;
+
+  int rc = sqlite3_user_authenticate(m_db->m_db, localUsername, localPassword, strlen(localPassword));
+  bool authenticated = (rc == SQLITE_OK);
+  if (rc != SQLITE_OK && rc != SQLITE_AUTH)
+  {
+    const char* localError = sqlite3_errmsg(m_db->m_db);
+    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+  }
+  return authenticated;
+#else
+  wxUnusedVar(username);
+  wxUnusedVar(password);
+  return true;
+#endif
+}
+
+bool wxSQLite3Database::UserAdd(const wxString& username, const wxString& password, bool isAdmin)
+{
+#if WXSQLITE3_USER_AUTHENTICATION && SQLITE_VERSION_NUMBER >= 3008007
+  CheckDatabase();
+  wxCharBuffer strUsername = username.ToUTF8();
+  const char* localUsername = strUsername;
+  wxCharBuffer strPassword = password.ToUTF8();
+  const char* localPassword = strPassword;
+  int nIsAdmin = (isAdmin) ? 1 : 0;
+  int rc = sqlite3_user_add(m_db->m_db, localUsername, localPassword, strlen(localPassword), nIsAdmin);
+  bool authenticated = (rc == SQLITE_OK);
+  if (rc != SQLITE_OK && rc != SQLITE_AUTH)
+  {
+    const char* localError = sqlite3_errmsg(m_db->m_db);
+    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+  }
+  return authenticated;
+#else
+  wxUnusedVar(username);
+  wxUnusedVar(password);
+  wxUnusedVar(isAdmin);
+  return true;
+#endif
+}
+
+bool wxSQLite3Database::UserChange(const wxString& username, const wxString& password, bool isAdmin)
+{
+#if WXSQLITE3_USER_AUTHENTICATION && SQLITE_VERSION_NUMBER >= 3008007
+  CheckDatabase();
+  wxCharBuffer strUsername = username.ToUTF8();
+  const char* localUsername = strUsername;
+  wxCharBuffer strPassword = password.ToUTF8();
+  const char* localPassword = strPassword;
+  int nIsAdmin = (isAdmin) ? 1 : 0;
+  int rc = sqlite3_user_change(m_db->m_db, localUsername, localPassword, strlen(localPassword), nIsAdmin);
+  bool authenticated = (rc == SQLITE_OK);
+  if (rc != SQLITE_OK && rc != SQLITE_AUTH)
+  {
+    const char* localError = sqlite3_errmsg(m_db->m_db);
+    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+  }
+  return authenticated;
+#else
+  wxUnusedVar(username);
+  wxUnusedVar(password);
+  wxUnusedVar(isAdmin);
+  return false;
+#endif
+}
+
+bool wxSQLite3Database::UserDelete(const wxString& username)
+{
+#if WXSQLITE3_USER_AUTHENTICATION && SQLITE_VERSION_NUMBER >= 3008007
+  CheckDatabase();
+  wxCharBuffer strUsername = username.ToUTF8();
+  const char* localUsername = strUsername;
+
+  int rc = sqlite3_user_delete(m_db->m_db, localUsername);
+  bool authenticated = (rc == SQLITE_OK);
+  if (rc != SQLITE_OK && rc != SQLITE_AUTH)
+  {
+    const char* localError = sqlite3_errmsg(m_db->m_db);
+    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+  }
+  return authenticated;
+#else
+  wxUnusedVar(username);
+  return false;
+#endif
+}
+
+bool wxSQLite3Database::UserIsPrivileged(const wxString& username)
+{
+#if WXSQLITE3_USER_AUTHENTICATION && SQLITE_VERSION_NUMBER >= 3008007
+  CheckDatabase();
+  bool isPrivileged = false;
+  wxString sql = wxT("select isAdmin from main.sqlite_user where uname=?;");
+  wxSQLite3Statement stmt = PrepareStatement(sql);
+  stmt.Bind(1, username);
+  wxSQLite3ResultSet resultSet = stmt.ExecuteQuery();
+  if (resultSet.NextRow())
+  {
+    isPrivileged = resultSet.GetBool(0);
+  }
+  return isPrivileged;
+#else
+  wxUnusedVar(username);
+  return false;
+#endif
+}
+
+void wxSQLite3Database::GetUserList(wxArrayString& userList)
+{
+  userList.Empty();
+#if WXSQLITE3_USER_AUTHENTICATION && SQLITE_VERSION_NUMBER >= 3008007
+  CheckDatabase();
+  wxSQLite3ResultSet resultSet = ExecuteQuery("select uname from main.sqlite_user order by uname;");
+  while (resultSet.NextRow())
+  {
+    userList.Add(resultSet.GetString(0));
+  }
+#else
+  wxUnusedVar(userList);
+#endif
+}
+
+#if 0
+CREATE TABLE sqlite_user(
+  uname TEXT PRIMARY KEY,
+  isAdmin BOOLEAN,
+  pw BLOB
+  ) WITHOUT ROWID;
+#endif
 
 int wxSQLite3Database::GetLimit(wxSQLite3LimitType id)
 {
@@ -4237,14 +4398,23 @@ void wxSQLite3FunctionContext::ExecAggregateFinalize(void* ctx)
 /* static */
 int wxSQLite3FunctionContext::ExecAuthorizer(void* func, int type,
                                              const char* arg1, const char* arg2,
-                                             const char* arg3, const char* arg4)
+                                             const char* arg3, const char* arg4
+#if WXSQLITE3_USER_AUTHENTICATION
+                                           , const char* arg5
+#endif
+                                            )
 {
   wxString locArg1 = wxString::FromUTF8(arg1);
   wxString locArg2 = wxString::FromUTF8(arg2);
   wxString locArg3 = wxString::FromUTF8(arg3);
   wxString locArg4 = wxString::FromUTF8(arg4);
+#if WXSQLITE3_USER_AUTHENTICATION
+  wxString locArg5 = wxString::FromUTF8(arg5);
+#else
+  wxString locArg5 = wxEmptyString;
+#endif
   wxSQLite3Authorizer::wxAuthorizationCode localType = (wxSQLite3Authorizer::wxAuthorizationCode) type;
-  return (int) ((wxSQLite3Authorizer*) func)->Authorize(localType, locArg1, locArg2, locArg3, locArg3);
+  return (int) ((wxSQLite3Authorizer*) func)->Authorize(localType, locArg1, locArg2, locArg3, locArg4, locArg5);
 }
 
 /* static */

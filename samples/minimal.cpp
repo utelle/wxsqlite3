@@ -83,6 +83,7 @@ void testTransaction()
 	{
 		wxSQLite3Transaction t(db);
 		db->ExecuteUpdate(wxT("INSERT INTO test (col1) VALUES (3)"));
+
 		throw "Abort commit";
 //  ...
 //  t.Commit();
@@ -116,6 +117,68 @@ void testTransaction()
 	clearDB(db);
 }
 
+void testUserAuthentication()
+{
+  wxString testDBName = wxGetCwd() + wxT("/test3.db");
+  if (wxFileExists(testDBName))
+  {
+    wxRemoveFile(testDBName);
+  }
+  wxSQLite3Database* db = new wxSQLite3Database();
+  try
+  {
+    db->Open(testDBName);
+    db->UserAdd(wxT("testuser"), wxT("testpswd"), true);
+    cout << "User authentication enabled for database using 'testuser'." << endl;
+    if (db->UserLogin(wxT("sampleuser"), wxT("samplepswd")))
+    {
+      cout << "'sampleuser' successfully logged in, but this shouldn't happen due to enabled user authentication." << endl;
+    }
+    else
+    {
+      cout << "Login of 'sampleuser' rejected." << endl;
+    }
+    if (db->UserLogin(wxT("testuser"), wxT("testpswd")))
+    {
+      cout << "Login of 'testuser' succeeded." << endl;
+      db->ExecuteUpdate(wxT("CREATE TABLE test (col1 INTEGER)"));
+      db->ExecuteUpdate(wxT("INSERT INTO test (col1) VALUES (2)"));
+      db->UserAdd(wxT("myuser"), wxT("mypswd"), false);
+      cout << "Added 'myuser' without privileges." << endl;
+      if (db->UserIsPrivileged(wxT("myuser")))
+      {
+        cout << "'myuser' is privileged." << endl;
+      }
+      else
+      {
+        cout << "'myuser' is NOT privileged." << endl;
+      }
+      db->UserChange(wxT("myuser"), wxT("mypswd"), true);
+      cout << "Make 'myuser' privileged." << endl;
+      if (db->UserIsPrivileged(wxT("myuser")))
+      {
+        cout << "'myuser' is now privileged." << endl;
+      }
+      else
+      {
+        cout << "'myuser' is still NOT privileged." << endl;
+      }
+      db->UserDelete(wxT("myuser"));
+      cout << "'myuser' deleted." << endl;
+    }
+    else
+    {
+      cout << "Login of 'testuser' failed unexpectedly." << endl;
+    }
+    db->Close();
+  }
+  catch (wxSQLite3Exception& e)
+  {
+    cerr << e.GetErrorCode() << ":" << (const char*)(e.GetMessage().mb_str()) << endl;
+  }
+
+  delete db;
+}
 
 // User defined aggregate function
 class MyAggregateFunction : public wxSQLite3AggregateFunction
@@ -162,14 +225,16 @@ class MyAuthorizer : public wxSQLite3Authorizer
 public:
   virtual wxAuthorizationResult Authorize(wxAuthorizationCode type, 
                                           const wxString& arg1, const wxString& arg2, 
-                                          const wxString& arg3, const wxString& arg4)
+                                          const wxString& arg3, const wxString& arg4,
+                                          const wxString& arg5)
   {
     cout << "AUTH: " 
          << (const char*) AuthorizationCodeToString(type).mb_str(wxConvUTF8) << ","
          << (const char*) arg1.mb_str(wxConvUTF8) << ","
          << (const char*) arg2.mb_str(wxConvUTF8) << ","
          << (const char*) arg3.mb_str(wxConvUTF8) << ","
-         << (const char*) arg4.mb_str(wxConvUTF8) << endl;
+         << (const char*) arg4.mb_str(wxConvUTF8) << ","
+         << (const char*) arg5.mb_str(wxConvUTF8) << endl;
     return wxSQLite3Authorizer::SQLITE_OK;
   }
 };
@@ -692,6 +757,12 @@ int Minimal::OnRun()
 
     cout << endl << "Test of RAII transactions" << endl;
     testTransaction();
+
+    if (wxSQLite3Database::HasUserAuthenticationSupport())
+    {
+      cout << endl << "Test of user authentication" << endl;
+      testUserAuthentication();
+    }
 
     cout << endl << "End of tests" << endl;
     db.Close();
