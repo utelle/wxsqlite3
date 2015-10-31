@@ -21,6 +21,7 @@ sqlite3_bind_text16
 sqlite3_bind_text64
 sqlite3_bind_value
 sqlite3_bind_zeroblob
+sqlite3_bind_zeroblob64
 sqlite3_blob_bytes
 sqlite3_blob_close
 sqlite3_blob_open
@@ -149,6 +150,7 @@ sqlite3_result_error_toobig
 sqlite3_result_int
 sqlite3_result_int64
 sqlite3_result_null
+sqlite3_result_subtype
 sqlite3_result_text
 sqlite3_result_text16
 sqlite3_result_text16be
@@ -156,6 +158,7 @@ sqlite3_result_text16le
 sqlite3_result_text64
 sqlite3_result_value
 sqlite3_result_zeroblob
+sqlite3_result_zeroblob64
 sqlite3_rollback_hook
 sqlite3_rtree_geometry_callback
 sqlite3_rtree_query_callback
@@ -169,6 +172,7 @@ sqlite3_soft_heap_limit64
 sqlite3_sourceid
 sqlite3_sql
 sqlite3_status
+sqlite3_status64
 sqlite3_step
 sqlite3_stmt_busy
 sqlite3_stmt_readonly
@@ -192,9 +196,12 @@ sqlite3_value_blob
 sqlite3_value_bytes
 sqlite3_value_bytes16
 sqlite3_value_double
+sqlite3_value_dup
+sqlite3_value_free
 sqlite3_value_int
 sqlite3_value_int64
 sqlite3_value_numeric_type
+sqlite3_value_subtype
 sqlite3_value_text
 sqlite3_value_text16
 sqlite3_value_text16be

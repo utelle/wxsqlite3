@@ -5,8 +5,8 @@
 #include <windows.h>
 
 VS_VERSION_INFO VERSIONINFO
-  FILEVERSION 3,8,8,2
-  PRODUCTVERSION 3,8,8,2
+  FILEVERSION 3,9,1,0
+  PRODUCTVERSION 3,9,1,0
   FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
   FILEFLAGS 0x1L
@@ -23,12 +23,12 @@ BEGIN
     BEGIN
       VALUE "CompanyName", "SQLite"
       VALUE "FileDescription", "SQLite3 Database Shell"
-      VALUE "FileVersion", "3.8.8.2"
+      VALUE "FileVersion", "3.9.1.0"
       VALUE "InternalName", "sqlite3shell.exe"
       VALUE "LegalCopyright", "Public Domain"
       VALUE "OriginalFilename", "sqlite3shell.exe"
       VALUE "ProductName", "SQLite3"
-      VALUE "ProductVersion", "3.8.8.2"
+      VALUE "ProductVersion", "3.9.1.0"
     END
   END
   BLOCK "VarFileInfo"
