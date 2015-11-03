@@ -7,7 +7,7 @@
 
 // Enable the user authentication feature
 #ifndef SQLITE_USER_AUTHENTICATION
-#define SQLITE_USER_AUTHENTICATION
+#define SQLITE_USER_AUTHENTICATION 1
 #endif
 
 #include "sqlite3.c"

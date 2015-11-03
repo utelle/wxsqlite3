@@ -1,4 +1,4 @@
-This directory contains all SQLite3 version 3.8.8.2 files needed on
+This directory contains all SQLite3 version 3.9.2 files needed on
 Windows platforms.
 
 For the version with encryption support (AES-128 or AES-256) the
