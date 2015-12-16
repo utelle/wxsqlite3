@@ -47,6 +47,18 @@
 
 <dl>
 
+<dt><b>3.3.0</b> - <i>December 2015</i></dt>
+<dd>
+Upgrade to SQLite version 3.9.2<br>
+(SQLite amalgamation source adjusted to fix problem with user authentication module)<br>
+
+</dd>
+<dt><b>3.2.1</b> - <i>March 2015</i></dt>
+<dd>
+Upgrade to SQLite version 3.8.8.3<br>
+Fixed a bug in method GetParamName<br>
+
+</dd>
 <dt><b>3.2.0</b> - <i>December 2014</i></dt>
 <dd>
 Upgrade to SQLite version 3.8.7.4<br>

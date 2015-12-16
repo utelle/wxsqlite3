@@ -1,0 +1,102 @@
+<?xml version="1.0" ?>
+
+<!-- Created by: Francesco Montorsi <frm@users.sourceforge.net>     -->
+<!-- Creation date: 13/7/2008                                       -->
+<!-- RCS-ID: $Id: options.bkl,v 1.1 2008/07/13 15:43:03 frm Exp $ -->
+
+<makefile>
+
+    <!-- we provide besides the WX_SHARED option declared by wxWidgets
+         presets, also another SHARED option which can be used in this way:
+
+          nmake -fmakefile.vc SHARED=0 WX_SHARED=1
+
+         to build a static version of a wxCode component against a
+         shared build of wxWidgets.
+         Note that the viceversa is not possible for linking reasons.
+    -->
+
+    <if cond="not isdefined('SHARED')">
+        <option name="SHARED">
+            <values>0,1</values>
+            <values-description>Static,DLL</values-description>
+
+            <!-- NOTE: we use WX_SHARED_DEFAULT as by default we want SHARED==WX_SHARED -->
+            <default-value force="1">$(WX_SHARED_DEFAULT)</default-value>
+            <description>
+                Build this wxCode component as DLL or as static library?
+            </description>
+        </option>
+    </if>
+
+
+
+    <!-- Tags copied from 'wx.bkl' and adapted to use the 'SHARED' option
+         instead of the 'WX_SHARED' option; note that all other utility tags
+         declared by wxPresets do not need modifications because are indipendent
+         from WX_SHARED.
+    -->
+
+    <define-tag name="wxcode-dirname" rules="lib,dll,exe,module">
+        <if cond="FORMAT!='autoconf'">
+            <set var="_DIRNAME_SHARED_SUFFIX">
+                <if cond="SHARED=='0'">lib</if>
+                <if cond="SHARED=='1'">dll</if>
+            </set>
+            <set var="_DIRNAME">
+                $(value)/$(COMPILER)_$(_DIRNAME_SHARED_SUFFIX)
+            </set>
+
+            <dirname>$(_DIRNAME)</dirname>
+
+            <if cond="FORMAT_SUPPORTS_ACTIONS=='1'">
+                <set var="__mkdir_tgt">make_dir_$(id)</set>
+
+                <add-target target="$(__mkdir_tgt)" type="action"/>
+                <modify-target target="$(__mkdir_tgt)">
+                    <command cond="TOOLSET=='unix'">
+                        @mkdir -p $(_DIRNAME)
+                    </command>
+                    <command cond="TOOLSET in ['win32','os2','dos']">
+                        if not exist $(nativePaths(_DIRNAME)) mkdir $(nativePaths(_DIRNAME))
+                    </command>
+                </modify-target>
+
+                <!-- the following code is mostly equivalent to a:
+                     <dependency-of>$(id)</dependency-of>
+                     put into the __mkdir_tgt target, except that it does _prepend_
+                     the __mkdir_tgt dependency instead of appending it.
+
+                     This is required because some compilers (e.g. MSVC) need to store in the
+                     output folder some files (e.g. the PDB file) while compiling and thus
+                     the library output folder must have been created before _any_ source file
+                     is compiled, not just before the library is linked.
+                     -->
+                     <modify-target target="$(id)">
+                         <set var="__deps" prepend="1">
+                             $(substitute(__mkdir_tgt, lambda x: ref('__depname', x), 'DEP'))
+                         </set>
+                     </modify-target>
+                 </if>
+             </if>
+             <if cond="FORMAT=='autoconf'">
+                 <set var="_DIRNAME">$(value)</set>
+                 <dirname>$(_DIRNAME)</dirname>
+             </if>
+         </define-tag>
+
+         <define-global-tag name="set-wxcode-builddir">
+             <!-- note that the builddir for autoconf should always be '.' -->
+             <if cond="FORMAT!='autoconf'">
+                 <set var="_BUILDDIR_SHARED_SUFFIX">
+                     <if cond="SHARED=='0'"></if>
+                     <if cond="SHARED=='1'">_dll</if>
+                 </set>
+
+                 <set var="BUILDDIR">
+                     $(COMPILER)$(WX_PORT)$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)
+                 </set>
+             </if>
+    </define-global-tag>
+
+</makefile>

@@ -22,673 +22,7 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Static ANSI Release Multilib Static|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmsw\wxsqlite3"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_LIB;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_LIB;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmsw\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="0"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_lib\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Static ANSI Release Multilib DLL|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmsw_dll\wxsqlite3"
-			ConfigurationType="2"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;__WXMSW__;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;__WXMSW__;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmsw_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="0"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="__WXMSW__;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib wxmsw28_core.lib wxbase28.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregex.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_lib\wxcode_msw28_wxsqlite3.dll"
-				LinkIncremental="1"
-				ImportLibrary="..\lib\vc_lib\wxcode_msw28_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
-				GenerateManifest="true"
-				ProgramDatabaseFile="..\lib\vc_lib\wxcode_msw28_wxsqlite3.pdb"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_lib\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Static ANSI Release Monolithic Static|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmsw\wxsqlite3"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_LIB;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_LIB;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmsw\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="0"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_lib\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Static ANSI Release Monolithic DLL|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmsw_dll\wxsqlite3"
-			ConfigurationType="2"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;__WXMSW__;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;__WXMSW__;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmsw_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="0"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="__WXMSW__;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib  wxmsw28.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregex.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_lib\wxcode_msw28_wxsqlite3.dll"
-				LinkIncremental="1"
-				ImportLibrary="..\lib\vc_lib\wxcode_msw28_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
-				GenerateManifest="true"
-				ProgramDatabaseFile="..\lib\vc_lib\wxcode_msw28_wxsqlite3.pdb"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_lib\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Static ANSI Debug Multilib Static|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmswd\wxsqlite3"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_LIB;__WXDEBUG__;__WXMSW__;_DEBUG;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_LIB;__WXDEBUG__;__WXMSW__;_DEBUG;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				BufferSecurityCheck="true"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmswd\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="__WXDEBUG__;__WXMSW__;_DEBUG;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_lib\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Static ANSI Debug Multilib DLL|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmswd_dll\wxsqlite3"
-			ConfigurationType="2"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;__WXDEBUG__;__WXMSW__;_DEBUG;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;__WXDEBUG__;__WXMSW__;_DEBUG;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				BufferSecurityCheck="true"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmswd_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="__WXDEBUG__;__WXMSW__;_DEBUG;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib wxmsw28d_core.lib wxbase28d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.dll"
-				LinkIncremental="2"
-				ImportLibrary="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
-				GenerateManifest="true"
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.pdb"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_lib\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Static ANSI Debug Monolithic Static|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmswd\wxsqlite3"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_LIB;__WXDEBUG__;__WXMSW__;_DEBUG;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_LIB;__WXDEBUG__;__WXMSW__;_DEBUG;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				BufferSecurityCheck="true"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmswd\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="__WXDEBUG__;__WXMSW__;_DEBUG;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_lib\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Static ANSI Debug Monolithic DLL|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmswd_dll\wxsqlite3"
-			ConfigurationType="2"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;__WXDEBUG__;__WXMSW__;_DEBUG;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;__WXDEBUG__;__WXMSW__;_DEBUG;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				BufferSecurityCheck="true"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmswd_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="__WXDEBUG__;__WXMSW__;_DEBUG;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib  wxmsw28d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.dll"
-				LinkIncremental="2"
-				ImportLibrary="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
-				GenerateManifest="true"
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.pdb"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_lib\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Static Unicode Release Multilib Static|Win32"
+			Name="Static Release Multilib Static|Win32"
 			OutputDirectory="..\lib\vc_lib"
 			IntermediateDirectory="vcmswu\wxsqlite3"
 			ConfigurationType="4"
@@ -723,7 +57,7 @@
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswu\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="0"
@@ -742,7 +76,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.lib"
+				OutputFile="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -767,7 +101,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static Unicode Release Multilib DLL|Win32"
+			Name="Static Release Multilib DLL|Win32"
 			OutputDirectory="..\lib\vc_lib"
 			IntermediateDirectory="vcmswu_dll\wxsqlite3"
 			ConfigurationType="2"
@@ -802,7 +136,7 @@
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswu_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="0"
@@ -822,14 +156,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib wxmsw28u_core.lib wxbase28u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.dll"
+				AdditionalDependencies="sqlite3.lib wxmsw30u_core.lib wxbase30u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				OutputFile="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.dll"
 				LinkIncremental="1"
-				ImportLibrary="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.lib"
+				ImportLibrary="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
 				GenerateManifest="true"
-				ProgramDatabaseFile="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.pdb"
+				ProgramDatabaseFile="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.pdb"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -854,7 +188,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static Unicode Release Monolithic Static|Win32"
+			Name="Static Release Monolithic Static|Win32"
 			OutputDirectory="..\lib\vc_lib"
 			IntermediateDirectory="vcmswu\wxsqlite3"
 			ConfigurationType="4"
@@ -889,7 +223,7 @@
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswu\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="0"
@@ -908,7 +242,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.lib"
+				OutputFile="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -933,7 +267,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static Unicode Release Monolithic DLL|Win32"
+			Name="Static Release Monolithic DLL|Win32"
 			OutputDirectory="..\lib\vc_lib"
 			IntermediateDirectory="vcmswu_dll\wxsqlite3"
 			ConfigurationType="2"
@@ -968,7 +302,7 @@
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswu_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="0"
@@ -988,14 +322,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib  wxmsw28u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.dll"
+				AdditionalDependencies="sqlite3.lib  wxmsw30u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				OutputFile="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.dll"
 				LinkIncremental="1"
-				ImportLibrary="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.lib"
+				ImportLibrary="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
 				GenerateManifest="true"
-				ProgramDatabaseFile="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.pdb"
+				ProgramDatabaseFile="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.pdb"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -1020,7 +354,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static Unicode Debug Multilib Static|Win32"
+			Name="Static Debug Multilib Static|Win32"
 			OutputDirectory="..\lib\vc_lib"
 			IntermediateDirectory="vcmswud\wxsqlite3"
 			ConfigurationType="4"
@@ -1057,7 +391,7 @@
 				BufferSecurityCheck="true"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswud\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -1076,7 +410,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.lib"
+				OutputFile="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -1101,7 +435,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static Unicode Debug Multilib DLL|Win32"
+			Name="Static Debug Multilib DLL|Win32"
 			OutputDirectory="..\lib\vc_lib"
 			IntermediateDirectory="vcmswud_dll\wxsqlite3"
 			ConfigurationType="2"
@@ -1138,7 +472,7 @@
 				BufferSecurityCheck="true"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswud_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -1158,15 +492,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib wxmsw28ud_core.lib wxbase28ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.dll"
+				AdditionalDependencies="sqlite3.lib wxmsw30ud_core.lib wxbase30ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				OutputFile="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.dll"
 				LinkIncremental="2"
-				ImportLibrary="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.lib"
+				ImportLibrary="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.pdb"
+				ProgramDatabaseFile="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.pdb"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -1191,7 +525,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static Unicode Debug Monolithic Static|Win32"
+			Name="Static Debug Monolithic Static|Win32"
 			OutputDirectory="..\lib\vc_lib"
 			IntermediateDirectory="vcmswud\wxsqlite3"
 			ConfigurationType="4"
@@ -1228,7 +562,7 @@
 				BufferSecurityCheck="true"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswud\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -1247,7 +581,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.lib"
+				OutputFile="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -1272,7 +606,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Static Unicode Debug Monolithic DLL|Win32"
+			Name="Static Debug Monolithic DLL|Win32"
 			OutputDirectory="..\lib\vc_lib"
 			IntermediateDirectory="vcmswud_dll\wxsqlite3"
 			ConfigurationType="2"
@@ -1309,7 +643,7 @@
 				BufferSecurityCheck="true"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswud_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -1329,15 +663,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib  wxmsw28ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.dll"
+				AdditionalDependencies="sqlite3.lib  wxmsw30ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				OutputFile="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.dll"
 				LinkIncremental="2"
-				ImportLibrary="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.lib"
+				ImportLibrary="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\lib\vc_lib;..\sqlite3\lib"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.pdb"
+				ProgramDatabaseFile="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.pdb"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -1362,673 +696,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL ANSI Release Multilib Static|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmsw\wxsqlite3"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_LIB;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_LIB;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmsw\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="0"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_lib\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="DLL ANSI Release Multilib DLL|Win32"
-			OutputDirectory="..\lib\vc_dll"
-			IntermediateDirectory="vcmsw_dll\wxsqlite3"
-			ConfigurationType="2"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;WXUSINGDLL;__WXMSW__;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;WXUSINGDLL;__WXMSW__;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmsw_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_dll\wxcode_msw28_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="0"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="WXUSINGDLL;__WXMSW__;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib wxmsw28_core.lib wxbase28.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregex.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_dll\wxcode_msw28_wxsqlite3.dll"
-				LinkIncremental="1"
-				ImportLibrary="..\lib\vc_dll\wxcode_msw28_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
-				GenerateManifest="true"
-				ProgramDatabaseFile="..\lib\vc_dll\wxcode_msw28_wxsqlite3.pdb"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_dll\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="DLL ANSI Release Monolithic Static|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmsw\wxsqlite3"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_LIB;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_LIB;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmsw\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="0"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_lib\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="DLL ANSI Release Monolithic DLL|Win32"
-			OutputDirectory="..\lib\vc_dll"
-			IntermediateDirectory="vcmsw_dll\wxsqlite3"
-			ConfigurationType="2"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;WXUSINGDLL;__WXMSW__;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;WXUSINGDLL;__WXMSW__;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmsw_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_dll\wxcode_msw28_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="0"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="WXUSINGDLL;__WXMSW__;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\msw;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib  wxmsw28.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregex.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_dll\wxcode_msw28_wxsqlite3.dll"
-				LinkIncremental="1"
-				ImportLibrary="..\lib\vc_dll\wxcode_msw28_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
-				GenerateManifest="true"
-				ProgramDatabaseFile="..\lib\vc_dll\wxcode_msw28_wxsqlite3.pdb"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_dll\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="DLL ANSI Debug Multilib Static|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmswd\wxsqlite3"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_LIB;WXUSINGDLL;__WXDEBUG__;__WXMSW__;_DEBUG;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_LIB;WXUSINGDLL;__WXDEBUG__;__WXMSW__;_DEBUG;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				BufferSecurityCheck="true"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmswd\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="WXUSINGDLL;__WXDEBUG__;__WXMSW__;_DEBUG;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_lib\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="DLL ANSI Debug Multilib DLL|Win32"
-			OutputDirectory="..\lib\vc_dll"
-			IntermediateDirectory="vcmswd_dll\wxsqlite3"
-			ConfigurationType="2"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;WXUSINGDLL;__WXDEBUG__;__WXMSW__;_DEBUG;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;WXUSINGDLL;__WXDEBUG__;__WXMSW__;_DEBUG;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				BufferSecurityCheck="true"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmswd_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_dll\wxcode_msw28d_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="WXUSINGDLL;__WXDEBUG__;__WXMSW__;_DEBUG;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib wxmsw28d_core.lib wxbase28d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_dll\wxcode_msw28d_wxsqlite3.dll"
-				LinkIncremental="2"
-				ImportLibrary="..\lib\vc_dll\wxcode_msw28d_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
-				GenerateManifest="true"
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\lib\vc_dll\wxcode_msw28d_wxsqlite3.pdb"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_dll\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="DLL ANSI Debug Monolithic Static|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmswd\wxsqlite3"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_LIB;WXUSINGDLL;__WXDEBUG__;__WXMSW__;_DEBUG;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_LIB;WXUSINGDLL;__WXDEBUG__;__WXMSW__;_DEBUG;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				BufferSecurityCheck="true"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmswd\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="WXUSINGDLL;__WXDEBUG__;__WXMSW__;_DEBUG;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28d_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_lib\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="DLL ANSI Debug Monolithic DLL|Win32"
-			OutputDirectory="..\lib\vc_dll"
-			IntermediateDirectory="vcmswd_dll\wxsqlite3"
-			ConfigurationType="2"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;WXUSINGDLL;__WXDEBUG__;__WXMSW__;_DEBUG;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-				PreprocessorDefinitions="WIN32;_USRDLL;DLL_EXPORTS;WXUSINGDLL;__WXDEBUG__;__WXMSW__;_DEBUG;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				ExceptionHandling="1"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				BufferSecurityCheck="true"
-				RuntimeTypeInfo="true"
-				ObjectFile="vcmswd_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_dll\wxcode_msw28d_wxsqlite3.pdb"
-				WarningLevel="4"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="WXUSINGDLL;__WXDEBUG__;__WXMSW__;_DEBUG;WXMAKINGDLL_WXSQLITE3;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=0;WXSQLITE3_HAVE_CODEC=0;WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswd;$(WXWIN)\include;..\include;..\sqlite3\include"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib  wxmsw28d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_dll\wxcode_msw28d_wxsqlite3.dll"
-				LinkIncremental="2"
-				ImportLibrary="..\lib\vc_dll\wxcode_msw28d_wxsqlite3.lib"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
-				GenerateManifest="true"
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\lib\vc_dll\wxcode_msw28d_wxsqlite3.pdb"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-				OutputFile="..\lib\vc_dll\wxsqlite3_vc9_wxsqlite3.bsc"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="DLL Unicode Release Multilib Static|Win32"
+			Name="DLL Release Multilib Static|Win32"
 			OutputDirectory="..\lib\vc_lib"
 			IntermediateDirectory="vcmswu\wxsqlite3"
 			ConfigurationType="4"
@@ -2063,7 +731,7 @@
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswu\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="0"
@@ -2082,7 +750,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.lib"
+				OutputFile="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -2107,7 +775,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL Unicode Release Multilib DLL|Win32"
+			Name="DLL Release Multilib DLL|Win32"
 			OutputDirectory="..\lib\vc_dll"
 			IntermediateDirectory="vcmswu_dll\wxsqlite3"
 			ConfigurationType="2"
@@ -2142,7 +810,7 @@
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswu_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_dll\wxcode_msw28u_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_dll\wxcode_msw30u_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="0"
@@ -2162,14 +830,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib wxmsw28u_core.lib wxbase28u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_dll\wxcode_msw28u_wxsqlite3.dll"
+				AdditionalDependencies="sqlite3.lib wxmsw30u_core.lib wxbase30u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				OutputFile="..\lib\vc_dll\wxcode_msw30u_wxsqlite3.dll"
 				LinkIncremental="1"
-				ImportLibrary="..\lib\vc_dll\wxcode_msw28u_wxsqlite3.lib"
+				ImportLibrary="..\lib\vc_dll\wxcode_msw30u_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
 				GenerateManifest="true"
-				ProgramDatabaseFile="..\lib\vc_dll\wxcode_msw28u_wxsqlite3.pdb"
+				ProgramDatabaseFile="..\lib\vc_dll\wxcode_msw30u_wxsqlite3.pdb"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -2194,7 +862,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL Unicode Release Monolithic Static|Win32"
+			Name="DLL Release Monolithic Static|Win32"
 			OutputDirectory="..\lib\vc_lib"
 			IntermediateDirectory="vcmswu\wxsqlite3"
 			ConfigurationType="4"
@@ -2229,7 +897,7 @@
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswu\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="0"
@@ -2248,7 +916,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28u_wxsqlite3.lib"
+				OutputFile="..\lib\vc_lib\wxcode_msw30u_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -2273,7 +941,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL Unicode Release Monolithic DLL|Win32"
+			Name="DLL Release Monolithic DLL|Win32"
 			OutputDirectory="..\lib\vc_dll"
 			IntermediateDirectory="vcmswu_dll\wxsqlite3"
 			ConfigurationType="2"
@@ -2308,7 +976,7 @@
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswu_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_dll\wxcode_msw28u_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_dll\wxcode_msw30u_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="0"
@@ -2328,14 +996,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib  wxmsw28u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_dll\wxcode_msw28u_wxsqlite3.dll"
+				AdditionalDependencies="sqlite3.lib  wxmsw30u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				OutputFile="..\lib\vc_dll\wxcode_msw30u_wxsqlite3.dll"
 				LinkIncremental="1"
-				ImportLibrary="..\lib\vc_dll\wxcode_msw28u_wxsqlite3.lib"
+				ImportLibrary="..\lib\vc_dll\wxcode_msw30u_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
 				GenerateManifest="true"
-				ProgramDatabaseFile="..\lib\vc_dll\wxcode_msw28u_wxsqlite3.pdb"
+				ProgramDatabaseFile="..\lib\vc_dll\wxcode_msw30u_wxsqlite3.pdb"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -2360,7 +1028,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL Unicode Debug Multilib Static|Win32"
+			Name="DLL Debug Multilib Static|Win32"
 			OutputDirectory="..\lib\vc_lib"
 			IntermediateDirectory="vcmswud\wxsqlite3"
 			ConfigurationType="4"
@@ -2397,7 +1065,7 @@
 				BufferSecurityCheck="true"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswud\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -2416,7 +1084,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.lib"
+				OutputFile="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -2441,7 +1109,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL Unicode Debug Multilib DLL|Win32"
+			Name="DLL Debug Multilib DLL|Win32"
 			OutputDirectory="..\lib\vc_dll"
 			IntermediateDirectory="vcmswud_dll\wxsqlite3"
 			ConfigurationType="2"
@@ -2478,7 +1146,7 @@
 				BufferSecurityCheck="true"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswud_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_dll\wxcode_msw28ud_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_dll\wxcode_msw30ud_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -2498,15 +1166,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib wxmsw28ud_core.lib wxbase28ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_dll\wxcode_msw28ud_wxsqlite3.dll"
+				AdditionalDependencies="sqlite3.lib wxmsw30ud_core.lib wxbase30ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				OutputFile="..\lib\vc_dll\wxcode_msw30ud_wxsqlite3.dll"
 				LinkIncremental="2"
-				ImportLibrary="..\lib\vc_dll\wxcode_msw28ud_wxsqlite3.lib"
+				ImportLibrary="..\lib\vc_dll\wxcode_msw30ud_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\lib\vc_dll\wxcode_msw28ud_wxsqlite3.pdb"
+				ProgramDatabaseFile="..\lib\vc_dll\wxcode_msw30ud_wxsqlite3.pdb"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -2531,7 +1199,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL Unicode Debug Monolithic Static|Win32"
+			Name="DLL Debug Monolithic Static|Win32"
 			OutputDirectory="..\lib\vc_lib"
 			IntermediateDirectory="vcmswud\wxsqlite3"
 			ConfigurationType="4"
@@ -2568,7 +1236,7 @@
 				BufferSecurityCheck="true"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswud\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -2587,7 +1255,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28ud_wxsqlite3.lib"
+				OutputFile="..\lib\vc_lib\wxcode_msw30ud_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -2612,7 +1280,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DLL Unicode Debug Monolithic DLL|Win32"
+			Name="DLL Debug Monolithic DLL|Win32"
 			OutputDirectory="..\lib\vc_dll"
 			IntermediateDirectory="vcmswud_dll\wxsqlite3"
 			ConfigurationType="2"
@@ -2649,7 +1317,7 @@
 				BufferSecurityCheck="true"
 				RuntimeTypeInfo="true"
 				ObjectFile="vcmswud_dll\wxsqlite3\"
-				ProgramDataBaseFileName="..\lib\vc_dll\wxcode_msw28ud_wxsqlite3.pdb"
+				ProgramDataBaseFileName="..\lib\vc_dll\wxcode_msw30ud_wxsqlite3.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -2669,15 +1337,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="sqlite3.lib  wxmsw28ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="..\lib\vc_dll\wxcode_msw28ud_wxsqlite3.dll"
+				AdditionalDependencies="sqlite3.lib  wxmsw30ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib odbc32.lib"
+				OutputFile="..\lib\vc_dll\wxcode_msw30ud_wxsqlite3.dll"
 				LinkIncremental="2"
-				ImportLibrary="..\lib\vc_dll\wxcode_msw28ud_wxsqlite3.lib"
+				ImportLibrary="..\lib\vc_dll\wxcode_msw30ud_wxsqlite3.lib"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\lib\vc_dll;..\sqlite3\lib"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\lib\vc_dll\wxcode_msw28ud_wxsqlite3.pdb"
+				ProgramDatabaseFile="..\lib\vc_dll\wxcode_msw30ud_wxsqlite3.pdb"
 				TargetMachine="1"
 			/>
 			<Tool

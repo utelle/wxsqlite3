@@ -10,7 +10,7 @@
 
 # Init this configure script with basic info about the component
 # (DON'T PUT ANYTHING BEFORE AC_INIT, JUST COMMENTS)
-AC_INIT([wxSqlite3], [3.2.0], [utelle@users.sourceforge.net])
+AC_INIT([wxSqlite3], [3.3.0], [utelle@users.sourceforge.net])
 AC_CONFIG_AUX_DIR(build)
 
 # ENABLES/DISABLES THE DEBUG MODE FOR THIS CONFIGURE SCRIPT
@@ -18,7 +18,7 @@ AC_CONFIG_AUX_DIR(build)
 
 # you need the wxCode/build/bakefiles in your local repository to generate a configure
 # script from this configure.ac file since wxcode.m4 is required....
-m4_include(../../../build/autoconf/wxcode.m4)
+m4_include(../wxcode/autoconf/wxcode.m4)
 WXCODE_INIT
 
 ## CONFIGURE OPTIONS

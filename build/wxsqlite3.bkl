@@ -1,19 +1,19 @@
 <?xml version="1.0" ?>
 <makefile>
 
-<!--
   <set var="USE_UNSTABLE_VERSION">1</set>
-  <set var="WX_VERSION_DEFAULT">29</set>
+  <set var="WX_UNICODE">1</set>
+<!--
+  <set var="WX_MONOLITHIC">0</set>
 -->
-
-  <set var="WX_VERSION_DEFAULT">28</set>
+  <set var="WX_VERSION_DEFAULT">30</set>
 <!--  <set var="WX_UNICODE_DEFAULT">1</set>-->
   <include file="presets/wxcode.bkl"/>
 
   <!-- The wxSQLite3 settings -->
   <!-- ====================== -->
 
-  <set var="COMP_NAME">wxsqlite3</set>
+  <set-comp-name>wxsqlite3</set-comp-name>
 
   <!-- COMP_SRC lists the component's sources with path relative to ../src -->
   <set var="COMP_SRC">
@@ -207,7 +207,7 @@
 
   <wxcode-sample id="dbadmin" template="wxsqlite3_dbadmin">
     <exename>dbadmin</exename>
-    <win32-res>dbadmin/wxSQLitePlus.rc</win32-res>
+    <win32-res>dbadmin/wxsqliteplus.rc</win32-res>
     <if cond="FORMAT=='autoconf'">
       <wx-mac-app-bundle/>
     </if>

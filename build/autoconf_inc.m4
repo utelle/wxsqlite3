@@ -174,27 +174,9 @@ dnl ### begin block 20_COND_WX_DEBUG_0[wxsqlite3.bkl] ###
         COND_WX_DEBUG_0=""
     fi
     AC_SUBST(COND_WX_DEBUG_0)
-dnl ### begin block 20_COND_WX_DEBUG_0_WX_UNICODE_1[wxsqlite3.bkl] ###
-    COND_WX_DEBUG_0_WX_UNICODE_1="#"
-    if test "x$WX_DEBUG" = "x0" -a "x$WX_UNICODE" = "x1" ; then
-        COND_WX_DEBUG_0_WX_UNICODE_1=""
-    fi
-    AC_SUBST(COND_WX_DEBUG_0_WX_UNICODE_1)
 dnl ### begin block 20_COND_WX_DEBUG_1[wxsqlite3.bkl] ###
     COND_WX_DEBUG_1="#"
     if test "x$WX_DEBUG" = "x1" ; then
         COND_WX_DEBUG_1=""
     fi
     AC_SUBST(COND_WX_DEBUG_1)
-dnl ### begin block 20_COND_WX_DEBUG_1_WX_UNICODE_0[wxsqlite3.bkl] ###
-    COND_WX_DEBUG_1_WX_UNICODE_0="#"
-    if test "x$WX_DEBUG" = "x1" -a "x$WX_UNICODE" = "x0" ; then
-        COND_WX_DEBUG_1_WX_UNICODE_0=""
-    fi
-    AC_SUBST(COND_WX_DEBUG_1_WX_UNICODE_0)
-dnl ### begin block 20_COND_WX_DEBUG_1_WX_UNICODE_1[wxsqlite3.bkl] ###
-    COND_WX_DEBUG_1_WX_UNICODE_1="#"
-    if test "x$WX_DEBUG" = "x1" -a "x$WX_UNICODE" = "x1" ; then
-        COND_WX_DEBUG_1_WX_UNICODE_1=""
-    fi
-    AC_SUBST(COND_WX_DEBUG_1_WX_UNICODE_1)
