@@ -284,7 +284,6 @@ function use_filters(libname)
     }
 
   filter { "configurations:DLL*" }
-    kind "SharedLib"
     defines {
       "WXUSINGDLL_" .. libname
     }
