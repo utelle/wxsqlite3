@@ -74,6 +74,7 @@ sqlite3_create_function_v2
 sqlite3_create_module
 sqlite3_create_module_v2
 sqlite3_data_count
+sqlite3_db_cacheflush
 sqlite3_db_config
 sqlite3_db_filename
 sqlite3_db_handle
@@ -179,6 +180,7 @@ sqlite3_stmt_readonly
 sqlite3_stmt_status
 sqlite3_strglob
 sqlite3_stricmp
+sqlite3_strlike
 sqlite3_strnicmp
 sqlite3_table_column_metadata
 sqlite3_test_control
