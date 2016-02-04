@@ -140,6 +140,7 @@ SQLITE_EXTENSION_INIT1
 #ifndef _MAP_H_
 #define _MAP_H_
 
+#if 0
 #if !defined(SQLITE_OS_WIN) || !defined(_MSC_VER)
 #include <stdint.h>
 #else
@@ -152,6 +153,7 @@ typedef unsigned long int uint32_t;
 typedef signed __int64 int64_t;
 typedef unsigned __int64 uint64_t;
 #endif
+#endif
 
 /*
 ** Simple binary tree implementation to use in median, mode and quartile calculations
@@ -159,13 +161,13 @@ typedef unsigned __int64 uint64_t;
 */
 
 typedef int(*cmp_func)(const void *, const void *);
-typedef void(*map_iterator)(void*, int64_t, void*);
+typedef void(*map_iterator)(void*, i64, void*);
 
 typedef struct node{
   struct node *l;
   struct node *r;
   void* data;
-  int64_t count;
+  i64   count;
 } node;
 
 typedef struct map{
@@ -208,9 +210,9 @@ int double_cmp(const void *a, const void *b);
 
 #endif /* _MAP_H_ */
 
-typedef uint8_t         u8;
+//typedef uint8_t         u8;
 //typedef uint16_t        u16;
-typedef int64_t         i64;
+//typedef int64_t         i64;
 
 static char *sqlite3StrDup( const char *z ) {
     char *res = sqlite3_malloc( strlen(z)+1 );
@@ -1938,8 +1940,8 @@ void map_destroy(map *m){
 }
 
 int int_cmp(const void *a, const void *b){
-  int64_t aa = *(int64_t *)(a);
-  int64_t bb = *(int64_t *)(b);
+  i64 aa = *(i64 *)(a);
+  i64 bb = *(i64 *)(b);
   /* printf("cmp %d <=> %d\n",aa,bb); */
   if(aa==bb)
     return 0;
@@ -1961,7 +1963,7 @@ int double_cmp(const void *a, const void *b){
     return 1;
 }
 
-void print_elem(void *e, int64_t c, void* p){
+void print_elem(void *e, i64 c, void* p){
   int ee = *(int*)(e);
   printf("%d => %lld\n", ee,c);
 }
