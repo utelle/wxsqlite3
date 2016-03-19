@@ -1,3 +1,0 @@
-Gestion des blobs
-Assistant de création de requêtes
-Réarangement du DDL de création de table
