@@ -183,6 +183,9 @@ DYNFUNC(return, int,                   sqlite3_stmt_readonly,         (sqlite3_s
 #if SQLITE_VERSION_NUMBER >= 3007000
 DYNFUNC(return, int,                   sqlite3_stmt_status,           (sqlite3_stmt* pStmt, int op, int resetFlg), (pStmt, op, resetFlg));
 #endif
+#if SQLITE_VERSION_NUMBER >= 3012001
+DYNFUNC(return, int,                   sqlite3_system_errno,          (sqlite3* db), (db));
+#endif
 DYNFUNC(return, int,                   sqlite3_threadsafe,            (void), ());
 // DYNFUNC(return, int,                   sqlite3_total_changes,         (sqlite3 *db), (db));
 // DYNFUNC(return, void *,                sqlite3_trace,                 (sqlite3 *db, void(*xTrace)(void*,const char*), void *pArg), (db, xTrace, pArg));

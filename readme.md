@@ -25,12 +25,12 @@ tools operate in Unicode or UTF-8 mode.
 
 ## <a name="history"></a>Version history
 
+* 3.3.1 - *April 2016*
+  - Upgrade to SQLite version 3.12.1
+  - Added method `wxSQLite3Database::GetSystemErrorCode`
 * 3.3.0 - *December 2015*
   - Upgrade to SQLite version 3.9.2 (including adjusted SQLite amalgamation source to fix problem with the user authentication module)
   - Transition from SourceForge to GitHub
-  - Removal of build files for wxWidgets 2.9.x
-  - Default build for wxWidgets 3.0.x
-  - Added support for premake5 (version 5.0-alpha6 or later)
 * 3.2.1 - *March 2015*
   - Upgrade to SQLite version 3.8.8.3
   - Fixed a bug in method GetParamName

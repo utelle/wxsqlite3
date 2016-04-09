@@ -27,7 +27,7 @@
 #include "wx/wxsqlite3def.h"
 
 /// wxSQLite3 version string
-#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.3.0")
+#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.3.1")
 
 #define WXSQLITE_ERROR 1000
 
@@ -65,7 +65,8 @@ enum wxSQLite3LimitType
   WXSQLITE_LIMIT_ATTACHED            = 7,
   WXSQLITE_LIMIT_LIKE_PATTERN_LENGTH = 8,
   WXSQLITE_LIMIT_VARIABLE_NUMBER     = 9,
-  WXSQLITE_LIMIT_TRIGGER_DEPTH       = 10
+  WXSQLITE_LIMIT_TRIGGER_DEPTH       = 10,
+  WXSQLITE_LIMIT_WORKER_THREADS      = 11 
 };
 
 /// Enumeration of journal modes
@@ -98,9 +99,10 @@ enum wxSQLite3StatementStatus
 #define WXSQLITE_OPEN_SHAREDCACHE      0x00020000
 #define WXSQLITE_OPEN_PRIVATECACHE     0x00040000
 
-#define WXSQLITE_CHECKPOINT_PASSIVE 0
-#define WXSQLITE_CHECKPOINT_FULL    1
-#define WXSQLITE_CHECKPOINT_RESTART 2
+#define WXSQLITE_CHECKPOINT_PASSIVE  0
+#define WXSQLITE_CHECKPOINT_FULL     1
+#define WXSQLITE_CHECKPOINT_RESTART  2
+#define WXSQLITE_CHECKPOINT_TRUNCATE 3
 
 inline void operator++(wxSQLite3LimitType& value)
 {
@@ -133,8 +135,8 @@ public:
   static const wxString ErrorCodeAsString(int errorCode);
 
 private:
-  int      m_errorCode;     ///< SQLite3 error code associated with this exception
-  wxString m_errorMessage;  ///< SQLite3 error message associated with this exception
+  int      m_errorCode;       ///< SQLite3 error code associated with this exception
+  wxString m_errorMessage;    ///< SQLite3 error message associated with this exception
 };
 
 /// SQL statment buffer for use with SQLite3's printf method
@@ -2661,6 +2663,12 @@ public:
   * Consult the SQLite documentation for further explanation.
   */
   void ReleaseMemory();
+
+  /// Get system error code
+  /**
+  * Get the underlying system error code after a SQLite function has failed, i.e. a file couldn't be opened
+  */
+  int GetSystemErrorCode() const;
 
   /// Convert database limit type to string
   /**

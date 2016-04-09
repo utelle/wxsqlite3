@@ -47,6 +47,13 @@
 
 <dl>
 
+<dt><b>3.3.1</b> - <i>April 2016</i></dt>
+<dd>
+Upgrade to SQLite version 3.12.1<br>
+Added method wxSQLite3Database::GetSystemErrorCode<br>
+
+
+</dd>
 <dt><b>3.3.0</b> - <i>December 2015</i></dt>
 <dd>
 Upgrade to SQLite version 3.9.2<br>

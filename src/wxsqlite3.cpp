@@ -4031,7 +4031,11 @@ int wxSQLite3Database::GetLimit(wxSQLite3LimitType id)
   int value = -1;
 #if SQLITE_VERSION_NUMBER >= 3005008
   CheckDatabase();
+#if SQLITE_VERSION_NUMBER >= 3008007
+  if (id >= WXSQLITE_LIMIT_LENGTH && id <= WXSQLITE_LIMIT_WORKER_THREADS)
+#else
   if (id >= WXSQLITE_LIMIT_LENGTH && id <= WXSQLITE_LIMIT_VARIABLE_NUMBER)
+#endif
   {
     value = sqlite3_limit(m_db->m_db, id, -1);
   }
@@ -4046,7 +4050,11 @@ int wxSQLite3Database::SetLimit(wxSQLite3LimitType id, int newValue)
   int value = -1;
 #if SQLITE_VERSION_NUMBER >= 3005008
   CheckDatabase();
+#if SQLITE_VERSION_NUMBER >= 3008007
+  if (id >= WXSQLITE_LIMIT_LENGTH && id <= WXSQLITE_LIMIT_WORKER_THREADS)
+#else
   if (id >= WXSQLITE_LIMIT_LENGTH && id <= WXSQLITE_LIMIT_VARIABLE_NUMBER)
+#endif
   {
     value = sqlite3_limit(m_db->m_db, id, newValue);
   }
@@ -4070,13 +4078,25 @@ void wxSQLite3Database::ReleaseMemory()
 #endif
 }
 
+int wxSQLite3Database::GetSystemErrorCode() const
+{
+  int rc = 0;
+#if SQLITE_VERSION_NUMBER >= 3012000
+  if (m_db != NULL)
+  {
+    rc = sqlite3_system_errno(m_db->m_db);
+  }
+#endif
+  return rc;
+}
+
 static const wxChar* limitCodeString[] =
 { wxT("SQLITE_LIMIT_LENGTH"),              wxT("SQLITE_LIMIT_SQL_LENGTH"),
   wxT("SQLITE_LIMIT_COLUMN"),              wxT("SQLITE_LIMIT_EXPR_DEPTH"),
   wxT("SQLITE_LIMIT_COMPOUND_SELECT"),     wxT("SQLITE_LIMIT_VDBE_OP"),
   wxT("SQLITE_LIMIT_FUNCTION_ARG"),        wxT("SQLITE_LIMIT_ATTACHED"),
   wxT("SQLITE_LIMIT_LIKE_PATTERN_LENGTH"), wxT("SQLITE_LIMIT_VARIABLE_NUMBER"),
-  wxT("SQLITE_LIMIT_TRIGGER_DEPTH")
+  wxT("SQLITE_LIMIT_TRIGGER_DEPTH"),       wxT("SQLITE_LIMIT_WORKER_THREADS")
 };
 
 
@@ -4084,7 +4104,7 @@ static const wxChar* limitCodeString[] =
 wxString wxSQLite3Database::LimitTypeToString(wxSQLite3LimitType type)
 {
   const wxChar* limitString = wxT("Unknown");
-  if (type >= WXSQLITE_LIMIT_LENGTH && type <= WXSQLITE_LIMIT_VARIABLE_NUMBER)
+  if (type >= WXSQLITE_LIMIT_LENGTH && type <= WXSQLITE_LIMIT_WORKER_THREADS)
   {
     limitString = limitCodeString[type];
   }
