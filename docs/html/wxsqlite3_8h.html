@@ -18,7 +18,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">3.3.0</span>
+   &#160;<span id="projectnumber">3.3.1</span>
    </div>
   </td>
  </tr>
@@ -127,7 +127,7 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a464a1fadb9e1e20444732b509e838884"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8h.html#a464a1fadb9e1e20444732b509e838884">wxSQLITE3_VERSION_STRING</a>&#160;&#160;&#160;wxT(&quot;wxSQLite3 3.3.0&quot;)</td></tr>
+<tr class="memitem:a464a1fadb9e1e20444732b509e838884"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8h.html#a464a1fadb9e1e20444732b509e838884">wxSQLITE3_VERSION_STRING</a>&#160;&#160;&#160;wxT(&quot;wxSQLite3 3.3.1&quot;)</td></tr>
 <tr class="memdesc:a464a1fadb9e1e20444732b509e838884"><td class="mdescLeft">&#160;</td><td class="mdescRight">wxSQLite3 version string  <a href="#a464a1fadb9e1e20444732b509e838884">More...</a><br /></td></tr>
 <tr class="separator:a464a1fadb9e1e20444732b509e838884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38c517d13ae7fb3bdff2e93896d78b7a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8h.html#a38c517d13ae7fb3bdff2e93896d78b7a">WXSQLITE_ERROR</a>&#160;&#160;&#160;1000</td></tr>
@@ -166,6 +166,8 @@ Macros</h2></td></tr>
 <tr class="separator:a9ce6fb0b357fbfb7c5f102aab50b8ae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8ea602118359b69ab2dc4b543367041"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8h.html#ae8ea602118359b69ab2dc4b543367041">WXSQLITE_CHECKPOINT_RESTART</a>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:ae8ea602118359b69ab2dc4b543367041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fe6f26d11f5863aeda6f172551f081d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8h.html#a8fe6f26d11f5863aeda6f172551f081d">WXSQLITE_CHECKPOINT_TRUNCATE</a>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a8fe6f26d11f5863aeda6f172551f081d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -194,7 +196,8 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="wxsqlite3_8h.html#aec74080be17a473d33fa1a5933c236ebaa10d2576295764bf0547eb2542bba193">WXSQLITE_LIMIT_LIKE_PATTERN_LENGTH</a> = 8, 
 <a class="el" href="wxsqlite3_8h.html#aec74080be17a473d33fa1a5933c236ebafb90a49b91a94ff86e1a05225ee1f9ae">WXSQLITE_LIMIT_VARIABLE_NUMBER</a> = 9, 
-<a class="el" href="wxsqlite3_8h.html#aec74080be17a473d33fa1a5933c236eba90a09243392819db9b2a471c551327df">WXSQLITE_LIMIT_TRIGGER_DEPTH</a> = 10
+<a class="el" href="wxsqlite3_8h.html#aec74080be17a473d33fa1a5933c236eba90a09243392819db9b2a471c551327df">WXSQLITE_LIMIT_TRIGGER_DEPTH</a> = 10, 
+<a class="el" href="wxsqlite3_8h.html#aec74080be17a473d33fa1a5933c236ebaf36ee9e8b7396d2ad57040463ea82017">WXSQLITE_LIMIT_WORKER_THREADS</a> = 11
 <br />
  }<tr class="memdesc:aec74080be17a473d33fa1a5933c236eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of SQLite limitation types.  <a href="wxsqlite3_8h.html#aec74080be17a473d33fa1a5933c236eb">More...</a><br /></td></tr>
 <tr class="separator:aec74080be17a473d33fa1a5933c236eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -237,7 +240,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define wxSQLITE3_VERSION_STRING&#160;&#160;&#160;wxT(&quot;wxSQLite3 3.3.0&quot;)</td>
+          <td class="memname">#define wxSQLITE3_VERSION_STRING&#160;&#160;&#160;wxT(&quot;wxSQLite3 3.3.1&quot;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -288,6 +291,18 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define WXSQLITE_CHECKPOINT_RESTART&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8fe6f26d11f5863aeda6f172551f081d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_CHECKPOINT_TRUNCATE&#160;&#160;&#160;3</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -538,6 +553,8 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="aec74080be17a473d33fa1a5933c236eba90a09243392819db9b2a471c551327df"></a>WXSQLITE_LIMIT_TRIGGER_DEPTH&#160;</td><td class="fielddoc">
 </td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aec74080be17a473d33fa1a5933c236ebaf36ee9e8b7396d2ad57040463ea82017"></a>WXSQLITE_LIMIT_WORKER_THREADS&#160;</td><td class="fielddoc">
+</td></tr>
 </table>
 
 </div>
@@ -631,7 +648,7 @@ Variables</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 16 2015 13:42:34 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 9 2016 23:20:40 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

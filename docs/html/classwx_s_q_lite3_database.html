@@ -18,7 +18,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">3.3.0</span>
+   &#160;<span id="projectnumber">3.3.1</span>
    </div>
   </td>
  </tr>
@@ -309,6 +309,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0a148b6ef80381746e1e4235a0b9b01d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#a0a148b6ef80381746e1e4235a0b9b01d">ReleaseMemory</a> ()</td></tr>
 <tr class="memdesc:a0a148b6ef80381746e1e4235a0b9b01d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free memory used by a database connection.  <a href="#a0a148b6ef80381746e1e4235a0b9b01d">More...</a><br /></td></tr>
 <tr class="separator:a0a148b6ef80381746e1e4235a0b9b01d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c203b9dfe3b784ae24a79bb18c48854"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#a3c203b9dfe3b784ae24a79bb18c48854">GetSystemErrorCode</a> () const </td></tr>
+<tr class="memdesc:a3c203b9dfe3b784ae24a79bb18c48854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get system error code.  <a href="#a3c203b9dfe3b784ae24a79bb18c48854">More...</a><br /></td></tr>
+<tr class="separator:a3c203b9dfe3b784ae24a79bb18c48854"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -1849,6 +1852,24 @@ Static Protected Member Functions</h2></td></tr>
 
 <p>Get the source id of the underlying SQLite3 library. </p>
 <dl class="section return"><dt>Returns</dt><dd>a string which contains the source id of the library </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3c203b9dfe3b784ae24a79bb18c48854"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wxSQLite3Database::GetSystemErrorCode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get system error code. </p>
+<p>Get the underlying system error code after a SQLite function has failed, i.e. a file couldn't be opened </p>
 
 </div>
 </div>
@@ -3770,7 +3791,7 @@ Static Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 16 2015 13:42:34 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 9 2016 23:20:40 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
