@@ -182,6 +182,7 @@ sqlite3_strglob
 sqlite3_stricmp
 sqlite3_strlike
 sqlite3_strnicmp
+sqlite3_system_errno
 sqlite3_table_column_metadata
 sqlite3_test_control
 sqlite3_thread_cleanup
