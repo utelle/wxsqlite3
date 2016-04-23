@@ -584,7 +584,9 @@ PACKAGE_STRING='wxSqlite3 3.3.1'
 PACKAGE_BUGREPORT='utelle@users.sourceforge.net'
 PACKAGE_URL=''
 
-ac_subst_vars='VERSION
+ac_subst_vars='LIBMOD
+PORT
+VERSION
 LIBDIR
 WXVERSION
 LTLIBOBJS
@@ -9071,6 +9073,15 @@ LIBDIR="lib"
 
 VERSION=$PACKAGE_VERSION
 
+PORT=$WX_PORT
+
+if test "$UNICODE" = "1"; then
+    LIBMOD="u"
+
+else
+    LIBMOD=""
+
+fi
 ac_config_files="$ac_config_files wxsqlite3.pc"
 
 cat >confcache <<\_ACEOF
