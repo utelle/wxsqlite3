@@ -118,4 +118,8 @@ echo "  - loadable extension support disabled"
 fi
 WXCODE_END_PART2
 
-
+AC_SUBST( WXVERSION, "$WX_VERSION_MAJOR.$WX_VERSION_MINOR" )
+AC_SUBST( LIBDIR, "lib" )
+AC_SUBST( VERSION, $PACKAGE_VERSION )
+AC_CONFIG_FILES([wxsqlite3.pc])
+AC_OUTPUT
