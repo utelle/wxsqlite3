@@ -80,6 +80,7 @@ project "sqlite3lib"
     "SQLITE_ENABLE_RTREE",
     "SQLITE_CORE",
     "SQLITE_ENABLE_EXTFUNC",
+    "SQLITE_ENABLE_CSV",
     "SQLITE_USE_URI",
     "SQLITE_USER_AUTHENTICATION"
   }
@@ -135,6 +136,7 @@ project "sqlite3dll"
     "SQLITE_ENABLE_RTREE",
     "SQLITE_CORE",
     "SQLITE_ENABLE_EXTFUNC",
+    "SQLITE_ENABLE_CSV",
     "SQLITE_USE_URI",
     "SQLITE_USER_AUTHENTICATION"
   }
@@ -174,6 +176,7 @@ project "sqlite3shell"
   location( BUILDDIR )
 
   defines {
+    "SQLITE_SHELL_IS_UTF8",
     "SQLITE_HAS_CODEC",
     "SQLITE_USER_AUTHENTICATION"
   }

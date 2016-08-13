@@ -1,5 +1,6 @@
 // To enable the extension functions define SQLITE_ENABLE_EXTFUNC on compiling this module
-#ifdef SQLITE_ENABLE_EXTFUNC
+// To enable the reading CSV files define SQLITE_ENABLE_CSV on compiling this module
+#if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV)
 #define sqlite3_open    sqlite3_open_internal
 #define sqlite3_open16  sqlite3_open16_internal
 #define sqlite3_open_v2 sqlite3_open_v2_internal
@@ -17,7 +18,7 @@
 #include "userauth.c"
 #endif
 
-#ifdef SQLITE_ENABLE_EXTFUNC
+#if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV)
 #undef sqlite3_open
 #undef sqlite3_open16
 #undef sqlite3_open_v2
@@ -63,9 +64,17 @@ void mySqlite3PagerSetCodec(
 
 #endif
 
+/* Extension functions */
 #ifdef SQLITE_ENABLE_EXTFUNC
-
 #include "extensionfunctions.c"
+#endif
+
+/* CSV import */
+#ifdef SQLITE_ENABLE_CSV
+#include "csv.c"
+#endif
+
+#if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV)
 
 SQLITE_API int sqlite3_open(
   const char *filename,   /* Database filename (UTF-8) */
@@ -75,7 +84,12 @@ SQLITE_API int sqlite3_open(
   int ret = sqlite3_open_internal(filename, ppDb);
   if (ret == 0)
   {
+#ifdef SQLITE_ENABLE_EXTFUNC
     RegisterExtensionFunctions(*ppDb);
+#endif
+#ifdef SQLITE_ENABLE_CSV
+    sqlite3_csv_init(*ppDb, NULL, NULL);
+#endif
   }
   return ret;
 }
@@ -88,7 +102,12 @@ SQLITE_API int sqlite3_open16(
   int ret = sqlite3_open16_internal(filename, ppDb);
   if (ret == 0)
   {
+#ifdef SQLITE_ENABLE_EXTFUNC
     RegisterExtensionFunctions(*ppDb);
+#endif
+#ifdef SQLITE_ENABLE_CSV
+    sqlite3_csv_init(*ppDb, NULL, NULL);
+#endif
   }
   return ret;
 }
@@ -103,7 +122,12 @@ SQLITE_API int sqlite3_open_v2(
   int ret = sqlite3_open_v2_internal(filename, ppDb, flags, zVfs);
   if (ret == 0)
   {
+#ifdef SQLITE_ENABLE_EXTFUNC
     RegisterExtensionFunctions(*ppDb);
+#endif
+#ifdef SQLITE_ENABLE_CSV
+    sqlite3_csv_init(*ppDb, NULL, NULL);
+#endif
   }
   return ret;
 }

@@ -109,14 +109,20 @@ Original code 2006 June 05 by relicoder.
 //#include "config.h"
 
 //#define COMPILE_SQLITE_EXTENSIONS_AS_LOADABLE_MODULE 1
-//#define HAVE_ACOSH 1
-//#define HAVE_ASINH 1
-//#define HAVE_ATANH 1
+#if defined(_MSC_VER) && _MSC_VER <= 1700
+#else
+#define HAVE_ACOSH 1
+#define HAVE_ASINH 1
+#define HAVE_ATANH 1
+#endif
 #define HAVE_SINH 1
 #define HAVE_COSH 1
 #define HAVE_TANH 1
 #define HAVE_LOG10 1
-//#define HAVE_ISBLANK 1
+#if defined(_MSC_VER) && _MSC_VER <= 1700
+#else
+#define HAVE_ISBLANK 1
+#endif
 #define SQLITE_SOUNDEX 1
 #define HAVE_TRIM 1		/* LMH 2007-03-25 if sqlite has trim functions */
 

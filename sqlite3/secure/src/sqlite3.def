@@ -90,6 +90,7 @@ sqlite3_errmsg
 sqlite3_errmsg16
 sqlite3_errstr
 sqlite3_exec
+sqlite3_expanded_sql
 sqlite3_expired
 sqlite3_extended_errcode
 sqlite3_extended_result_codes
@@ -193,6 +194,7 @@ sqlite3_thread_cleanup
 sqlite3_threadsafe
 sqlite3_total_changes
 sqlite3_trace
+sqlite3_trace_v2
 sqlite3_transfer_bindings
 sqlite3_update_hook
 sqlite3_uri_boolean
@@ -231,7 +233,11 @@ sqlite3_wal_checkpoint_v2
 sqlite3_wal_hook
 sqlite3_win32_is_nt
 sqlite3_win32_mbcs_to_utf8
+sqlite3_win32_mbcs_to_utf8_v2
 sqlite3_win32_set_directory
 sqlite3_win32_sleep
+sqlite3_win32_unicode_to_utf8
 sqlite3_win32_utf8_to_mbcs
+sqlite3_win32_utf8_to_mbcs_v2
+sqlite3_win32_utf8_to_unicode
 sqlite3_win32_write_debug
