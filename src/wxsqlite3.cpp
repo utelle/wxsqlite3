@@ -1222,6 +1222,17 @@ wxString wxSQLite3ResultSet::GetSQL()
   return sqlString;
 }
 
+wxString wxSQLite3ResultSet::GetExpandedSQL()
+{
+  wxString sqlString = wxEmptyString;
+#if SQLITE_VERSION_NUMBER >= 3014000
+  CheckStmt();
+  const char* sqlLocal = sqlite3_expanded_sql(m_stmt->m_stmt);
+  if (sqlLocal != NULL) sqlString = wxString::FromUTF8(sqlLocal);
+#endif
+  return sqlString;
+}
+
 bool wxSQLite3ResultSet::IsOk()
 {
   return (m_db != NULL) && (m_db->m_isValid) && (m_stmt != NULL) && (m_stmt->m_isValid);
@@ -2147,6 +2158,17 @@ wxString wxSQLite3Statement::GetSQL()
 #if SQLITE_VERSION_NUMBER >= 3005003
   CheckStmt();
   const char* sqlLocal = sqlite3_sql(m_stmt->m_stmt);
+  if (sqlLocal != NULL) sqlString = wxString::FromUTF8(sqlLocal);
+#endif
+  return sqlString;
+}
+
+wxString wxSQLite3Statement::GetExpandedSQL()
+{
+  wxString sqlString = wxEmptyString;
+#if SQLITE_VERSION_NUMBER >= 3014000
+  CheckStmt();
+  const char* sqlLocal = sqlite3_expanded_sql(m_stmt->m_stmt);
   if (sqlLocal != NULL) sqlString = wxString::FromUTF8(sqlLocal);
 #endif
   return sqlString;

@@ -47,6 +47,16 @@
 
 <dl>
 
+<dt><b>3.4.0</b> - <i>August 2016</i></dt>
+<dd>
+Upgrade to SQLite version 3.14.1<br>
+Added method wxSQLite3Statement::GetExpandedSQL<br>
+Added method wxSQLite3ResultSet::GetExpandedSQL<br>
+Started to modify the build system to compile and statically link the SQLite3 library together with wxSQLite3<br>
+Added the CSV extension module as part of the SQLite3 library with encryption extension<br>
+
+
+</dd>
 <dt><b>3.3.1</b> - <i>April 2016</i></dt>
 <dd>
 Upgrade to SQLite version 3.12.1<br>

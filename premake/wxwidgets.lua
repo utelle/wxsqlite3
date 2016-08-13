@@ -5,6 +5,13 @@
 
 -- Optional environment variable pointing to the root directory of wxWidgets installation
 newoption {
+  trigger     = "wx_ver",
+  value       = "3.1",
+  description = "Version of the wxWidgets build to be used"
+}
+
+-- Optional environment variable pointing to the root directory of wxWidgets installation
+newoption {
   trigger     = "wx_env",
   value       = "WXWIN",
   description = "Environment variable for the root of the wxWidgets build to be used"
@@ -23,6 +30,10 @@ newoption {
   value       = "build",
   description = "Directory for the generated build files"
 }
+
+if not _OPTIONS["wx_ver"] then
+   _OPTIONS["wx_ver"] = "3.1"
+end
 
 if not _OPTIONS["wx_env"] then
    _OPTIONS["wx_env"] = "WXWIN"
@@ -47,6 +58,7 @@ elseif _ACTION == "vs2015" then
 end
 
 is_msvc = false
+vc_with_ver = ""
 if ( vc_version ~= "" ) then
   is_msvc = true
   vc_with_ver = "vc"..vc_version
@@ -249,7 +261,11 @@ function make_filters(libname)
       "_LIB",
       "WXMAKINGLIB_" .. libname
     }
-    targetdir("../lib/"..vc_with_ver.."0_lib")
+    if (is_msvc) then
+      targetdir("lib/"..vc_with_ver.."0_lib")
+    else
+      targetdir("lib/gcc_lib")
+    end
 
   filter { "configurations:DLL*" }
     kind "SharedLib"
@@ -257,7 +273,11 @@ function make_filters(libname)
       "_USRDLL",
       "WXMAKINGDLL_" .. libname
     }
-    targetdir("../lib/"..vc_with_ver.."0_dll")
+    if (is_msvc) then
+      targetdir("lib/"..vc_with_ver.."0_dll")
+    else
+      targetdir("lib/gcc_dll")
+    end
     
   filter { "configurations:*Debug" }
     targetsuffix "d"
@@ -266,13 +286,13 @@ function make_filters(libname)
     targetsuffix ""
 
   filter { "configurations:Debug" }
-    wx_config {Unicode="yes", Version="3.0", Static="yes", Debug="yes"}
+    wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="yes"}
   filter { "configurations:DLL Debug" }
-    wx_config {Unicode="yes", Version="3.0", Static="no", Debug="yes"}
+    wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="yes"}
   filter { "configurations:Release" }
-    wx_config {Unicode="yes", Version="3.0", Static="yes", Debug="no"}
+    wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="no"}
   filter { "configurations:DLL Release" }
-    wx_config {Unicode="yes", Version="3.0", Static="no", Debug="no"}
+    wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="no"}
 
   filter {}
 end
@@ -295,13 +315,13 @@ function use_filters(libname)
     targetsuffix ""
 
   filter { "configurations:Debug" }
-    wx_config {Unicode="yes", Version="3.0", Static="yes", Debug="yes"}
+    wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="yes"}
   filter { "configurations:DLL Debug" }
-    wx_config {Unicode="yes", Version="3.0", Static="no", Debug="yes"}
+    wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="yes"}
   filter { "configurations:Release" }
-    wx_config {Unicode="yes", Version="3.0", Static="yes", Debug="no"}
+    wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="no"}
   filter { "configurations:DLL Release" }
-    wx_config {Unicode="yes", Version="3.0", Static="no", Debug="no"}
+    wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="no"}
 
   filter {}
 end

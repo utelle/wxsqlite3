@@ -106,6 +106,9 @@ DYNFUNC(return, const char *,          sqlite3_errmsg,                (sqlite3 *
 DYNFUNC(return, const char *,          sqlite3_errstr,                (int rc), (rc));
 #endif
 DYNFUNC(return, int,                   sqlite3_exec,                  (sqlite3 *db, const char *sql, sqlite3_callback c, void *v, char **errmsg), (db, sql, c, v, errmsg));
+#if SQLITE_VERSION_NUMBER >= 3014000
+DYNFUNC(return, char *,                sqlite3_expanded_sql,          (sqlite3_stmt *pStmt), (pStmt));
+#endif
 // DYNFUNC(return, int,                   sqlite3_expired,               (sqlite3_stmt *pStmt), (pStmt));
 DYNFUNC(return, int,                   sqlite3_extended_result_codes, (sqlite3 *db, int onoff), (db, onoff));
 DYNFUNC(return, int,                   sqlite3_finalize,              (sqlite3_stmt *pStmt), (pStmt));

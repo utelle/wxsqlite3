@@ -27,7 +27,7 @@
 #include "wx/wxsqlite3def.h"
 
 /// wxSQLite3 version string
-#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.3.1")
+#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.4.0")
 
 #define WXSQLITE_ERROR 1000
 
@@ -1060,6 +1060,12 @@ public:
   */
   wxString GetSQL();
 
+  /// Get the original SQL string for preparing the query statement with expanded bound parameters
+  /**
+  * \return the original SQL string used to prepare the statement with expanded bound parameters
+  */
+  wxString GetExpandedSQL();
+
   /// Validate associated SQLite database and statement
   /**
   * \return TRUE if both, a SQLite database and a SQLite statement, are associated, FALSE otherwise
@@ -1525,6 +1531,12 @@ public:
   * \return the original SQL string used to prepare the statement
   */
   wxString GetSQL();
+
+  /// Get the original SQL string for the prepared statement with expanded bound parameters
+  /**
+  * \return the original SQL string used to prepare the statement with expanded bound parameters
+  */
+  wxString GetExpandedSQL();
 
   /// Reset the prepared statement
   /**
