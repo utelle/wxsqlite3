@@ -25,6 +25,12 @@ tools operate in Unicode or UTF-8 mode.
 
 ## <a name="history"></a>Version history
 
+* 3.4.0 - *August 2016*
+  - Upgrade to SQLite version 3.14.1
+  - Added method `wxSQLite3Statement::GetExpandedSQL`
+  - Added method `wxSQLite3ResultSet::GetExpandedSQL`
+  - Started to modify the build system to compile and statically link the SQLite3 library together with wxSQLite3
+  - Added the CSV extension module as part of the SQLite3 library with encryption extension
 * 3.3.1 - *April 2016*
   - Upgrade to SQLite version 3.12.1
   - Added method `wxSQLite3Database::GetSystemErrorCode`
