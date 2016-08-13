@@ -21,7 +21,48 @@ workspace "wxsqlite3"
 
   init_filters()
 
--- wxSQLite3 as static library
+-- SQLite3 static library
+project "libsqlite3"
+  language "C++"
+  kind "StaticLib"
+
+  if (is_msvc) then
+    local prj = project()
+    prj.filename = "wxsqlite3_" .. vc_with_ver .. "_libsqlite3"
+  end
+
+  files { "sqlite3/secure/src/sqlite3secure.c", "sqlite3/secure/src/*.h" }
+  vpaths {
+    ["Header Files"] = { "**.h" },
+    ["Source Files"] = { "**/sqlite3secure.c", "**.def", "**.rc" }
+  }
+  flags { "Unicode" }  
+
+  location( BUILDDIR )
+--  targetname "libsqlite3"
+
+  defines {
+    "_LIB",
+    "THREADSAFE=1",
+    "SQLITE_SOUNDEX",
+    "SQLITE_ENABLE_COLUMN_METADATA",
+    "SQLITE_HAS_CODEC",
+    "CODEC_TYPE=CODEC_TYPE_AES128",
+    "SQLITE_SECURE_DELETE",
+    "SQLITE_ENABLE_FTS3",
+    "SQLITE_ENABLE_FTS3_PARENTHESIS",
+    "SQLITE_ENABLE_FTS4",
+    "SQLITE_ENABLE_FTS5",
+    "SQLITE_ENABLE_JSON1",
+    "SQLITE_ENABLE_RTREE",
+    "SQLITE_CORE",
+    "SQLITE_ENABLE_EXTFUNC",
+    "SQLITE_ENABLE_CSV",
+    "SQLITE_USE_URI",
+    "SQLITE_USER_AUTHENTICATION"
+  }
+
+-- wxSQLite3
 project "wxsqlite3"
   location(BUILDDIR)
   language "C++"
@@ -47,8 +88,7 @@ project "wxsqlite3"
   }
   includedirs { "include", "sqlite3/include" }
   flags { "Unicode" }  
-  links { "sqlite3" }
-  libdirs { "sqlite3/secure/aes128/dll/release" }
+  links { "libsqlite3" }
 
 -- Minimal wxSQLite3 sample
 project "minimal"
@@ -61,8 +101,6 @@ project "minimal"
     prj.filename = "wxsqlite3_" .. vc_with_ver .. "_minimal"
   end
 
-  use_filters( "WXSQLITE3" )
-
   files { "samples/*.cpp", "samples/*.rc" }
   vpaths {
     ["Header Files"] = { "**.h" },
@@ -71,6 +109,29 @@ project "minimal"
   includedirs { "samples", "include" }
   flags { "Unicode", "WinMain" }  
   links { "wxsqlite3" }
-  links { "sqlite3" }
-  libdirs { "sqlite3/secure/aes128/dll/release" }
+  links { "libsqlite3" }
   targetdir "samples"
+  use_filters( "WXSQLITE3" )
+
+-- Minimal wxSQLite3 sample
+project "treeview"
+  location(BUILDDIR)
+  language "C++"
+  kind "WindowedApp"
+
+  if (is_msvc) then
+    local prj = project()
+    prj.filename = "wxsqlite3_" .. vc_with_ver .. "_treeview"
+  end
+
+  files { "samples/treeview/*.cpp", "samples/treeview/*.rc" }
+  vpaths {
+    ["Header Files"] = { "**.h" },
+    ["Source Files"] = { "**.cpp", "**.rc" }
+  }
+  includedirs { "samples/treeview", "include" }
+  flags { "Unicode", "WinMain" }  
+  links { "wxsqlite3" }
+  links { "libsqlite3" }
+  targetdir "samples"
+  use_filters( "WXSQLITE3" )
