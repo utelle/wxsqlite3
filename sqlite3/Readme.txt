@@ -1,9 +1,15 @@
-This directory contains all SQLite3 version 3.12.2 files needed on
+This directory contains all SQLite3 version 3.14.0 files needed on
 Windows platforms.
 
 For the version with encryption support (AES-128 or AES-256) the
-SQLite amalgamation source code is included. The source code of the
-SQLite extension function module is included, too.
+SQLite amalgamation source code is included.
+
+The source code of the SQLite extension function module is included, too.
+Define SQLITE_ENABLE_EXTFUNC to compile it statically into SQLite.
+
+The source code of the SQLite CSV extension module is also included.
+This module allows reading CSV files into SQLite tables.
+Define SQLITE_ENABLE_CSV to compile it statically into SQLite.
 
 Support for the SQLite user authentication extension introduced in
 version 3.8.7 is activated by default.
