@@ -25,6 +25,8 @@ tools operate in Unicode or UTF-8 mode.
 
 ## <a name="history"></a>Version history
 
+* 3.4.1 - *October 2016*
+  - Upgrade to SQLite version 3.15.0
 * 3.4.0 - *August 2016*
   - Upgrade to SQLite version 3.14.1
   - Added method `wxSQLite3Statement::GetExpandedSQL`
@@ -300,7 +302,6 @@ Note: Recreating the configure script requires the following prerequisites:
 
 - automake 1.9.6 or higher
 - bakefile 0.2.5
-- wxCode autoconf and bakefile files (to be downloaded from CVS or SVN)
 
 The autoconf-based systems also support a `make install` target which
 builds the library and then copies the headers of the component to

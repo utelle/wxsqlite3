@@ -188,7 +188,11 @@ static int dbFindIndex(sqlite3* db, const char* zDb)
     for (index = 0; found == 0 && index < db->nDb; ++index)
     {
       struct Db* pDb = &db->aDb[index];
+#if (SQLITE_VERSION_NUMBER >= 3015000)
+      if (strcmp(pDb->zDbSName, zDb) == 0)
+#else
       if (strcmp(pDb->zName, zDb) == 0)
+#endif
       {
         found = 1;
         dbIndex = index;

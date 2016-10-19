@@ -143,6 +143,7 @@
 extern char *sqlite3_win32_unicode_to_utf8(LPCWSTR);
 extern char *sqlite3_win32_mbcs_to_utf8_v2(const char *, int);
 extern char *sqlite3_win32_utf8_to_mbcs_v2(const char *, int);
+extern LPWSTR sqlite3_win32_utf8_to_unicode(const char *zText);
 #endif
 
 /* On Windows, we normally run with output mode of TEXT so that \n characters
@@ -524,7 +525,7 @@ static char *local_getline(char *zLine, FILE *in){
 #if defined(_WIN32) || defined(WIN32)
   /* For interactive input on Windows systems, translate the
   ** multi-byte characterset characters into UTF-8. */
-  if( stdin_is_interactive ){
+  if( stdin_is_interactive && in==stdin ){
     char *zTrans = sqlite3_win32_mbcs_to_utf8_v2(zLine, 0);
     if( zTrans ){
       int nTrans = strlen30(zTrans)+1;
@@ -626,8 +627,10 @@ struct ShellState {
   int normalMode;        /* Output mode before ".explain on" */
   int writableSchema;    /* True if PRAGMA writable_schema=ON */
   int showHeader;        /* True to show column names in List or Column mode */
+  int nCheck;            /* Number of ".check" commands run */
   unsigned shellFlgs;    /* Various flags */
   char *zDestTable;      /* Name of destination table when MODE_Insert */
+  char zTestcase[30];    /* Name of current test case */
   char colSeparator[20]; /* Column separator character for several modes */
   char rowSeparator[20]; /* Row separator character for MODE_Ascii */
   int colWidth[100];     /* Requested width of each column when in column mode*/
@@ -894,6 +897,7 @@ static void interrupt_handler(int NotUsed){
 }
 #endif
 
+#ifndef SQLITE_OMIT_AUTHORIZATION
 /*
 ** When the ".auth ON" is set, the following authorizer callback is
 ** invoked.  It always returns SQLITE_OK.
@@ -926,7 +930,7 @@ static int shellAuth(
   az[1] = zA2;
   az[2] = zA3;
   az[3] = zA4;
-  raw_printf(p->out, "authorizer: %s", azAction[op]);
+  utf8_printf(p->out, "authorizer: %s", azAction[op]);
   for(i=0; i<4; i++){
     raw_printf(p->out, " ");
     if( az[i] ){
@@ -938,7 +942,8 @@ static int shellAuth(
   raw_printf(p->out, "\n");
   return SQLITE_OK;
 }
-  
+#endif
+
 
 /*
 ** This is the callback routine that the shell
@@ -1442,7 +1447,7 @@ static void displayLinuxIoStats(FILE *out){
     for(i=0; i<ArraySize(aTrans); i++){
       int n = (int)strlen(aTrans[i].zPattern);
       if( strncmp(aTrans[i].zPattern, z, n)==0 ){
-        raw_printf(out, "%-36s %s", aTrans[i].zDesc, &z[n]);
+        utf8_printf(out, "%-36s %s", aTrans[i].zDesc, &z[n]);
         break;
       }
     }
@@ -2131,11 +2136,14 @@ static int run_schema_dump_query(
 ** Text of a help message
 */
 static char zHelp[] =
+#ifndef SQLITE_OMIT_AUTHORIZATION
   ".auth ON|OFF           Show authorizer callbacks\n"
+#endif
   ".backup ?DB? FILE      Backup DB (default \"main\") to FILE\n"
   ".bail on|off           Stop after hitting an error.  Default OFF\n"
   ".binary on|off         Turn binary output on or off.  Default OFF\n"
   ".changes on|off        Show number of rows changed by SQL\n"
+  ".check GLOB            Fail if output since .testcase does not match\n"
   ".clone NEWDB           Clone data into NEWDB from the existing database\n"
   ".databases             List names and files of attached databases\n"
   ".dbinfo ?DB?           Show status information about the database\n"
@@ -2173,7 +2181,8 @@ static char zHelp[] =
   "                         tcl      TCL list elements\n"
   ".nullvalue STRING      Use STRING in place of NULL values\n"
   ".once FILENAME         Output for the next SQL command only to FILENAME\n"
-  ".open ?FILENAME?       Close existing database and reopen FILENAME\n"
+  ".open ?--new? ?FILE?   Close existing database and reopen FILE\n"
+  "                         The --new starts with an empty file\n"
   ".output ?FILENAME?     Send output to FILENAME or stdout\n"
   ".print STRING...       Print literal STRING\n"
   ".prompt MAIN CONTINUE  Replace the standard prompts\n"
@@ -2196,6 +2205,7 @@ static char zHelp[] =
   ".tables ?TABLE?        List names of tables\n"
   "                         If TABLE specified, only list tables matching\n"
   "                         LIKE pattern TABLE.\n"
+  ".testcase NAME         Begin redirecting output to 'testcase-out.txt'\n"
   ".timeout MS            Try opening locked tables for MS milliseconds\n"
   ".timer on|off          Turn SQL timer on or off\n"
   ".trace FILE|off        Output each SQL statement as it is run\n"
@@ -2232,6 +2242,35 @@ void session_help(ShellState *p){
 
 /* Forward reference */
 static int process_input(ShellState *p, FILE *in);
+
+
+/*
+** Read the content of a file into memory obtained from sqlite3_malloc64().
+** The caller is responsible for freeing the memory.
+**
+** NULL is returned if any error is encountered.
+*/
+static char *readFile(const char *zName){
+  FILE *in = fopen(zName, "rb");
+  long nIn;
+  size_t nRead;
+  char *pBuf;
+  if( in==0 ) return 0;
+  fseek(in, 0, SEEK_END);
+  nIn = ftell(in);
+  rewind(in);
+  pBuf = sqlite3_malloc64( nIn+1 );
+  if( pBuf==0 ) return 0;
+  nRead = fread(pBuf, nIn, 1, in);
+  fclose(in);
+  if( nRead!=1 ){
+    sqlite3_free(pBuf);
+    return 0;
+  }
+  pBuf[nIn] = 0;
+  return pBuf;
+}
+
 /*
 ** Implementation of the "readfile(X)" SQL function.  The entire content
 ** of the file named X is read and returned as a BLOB.  NULL is returned
@@ -2243,25 +2282,13 @@ static void readfileFunc(
   sqlite3_value **argv
 ){
   const char *zName;
-  FILE *in;
-  long nIn;
   void *pBuf;
 
   UNUSED_PARAMETER(argc);
   zName = (const char*)sqlite3_value_text(argv[0]);
   if( zName==0 ) return;
-  in = fopen(zName, "rb");
-  if( in==0 ) return;
-  fseek(in, 0, SEEK_END);
-  nIn = ftell(in);
-  rewind(in);
-  pBuf = sqlite3_malloc64( nIn );
-  if( pBuf && 1==fread(pBuf, nIn, 1, in) ){
-    sqlite3_result_blob(context, pBuf, nIn, sqlite3_free);
-  }else{
-    sqlite3_free(pBuf);
-  }
-  fclose(in);
+  pBuf = readFile(zName);
+  if( pBuf ) sqlite3_result_blob(context, pBuf, -1, sqlite3_free);
 }
 
 /*
@@ -3064,6 +3091,104 @@ static int shellNomemError(void){
 }
 
 /*
+** Compare the pattern in zGlob[] against the text in z[].  Return TRUE
+** if they match and FALSE (0) if they do not match.
+**
+** Globbing rules:
+**
+**      '*'       Matches any sequence of zero or more characters.
+**
+**      '?'       Matches exactly one character.
+**
+**     [...]      Matches one character from the enclosed list of
+**                characters.
+**
+**     [^...]     Matches one character not in the enclosed list.
+**
+**      '#'       Matches any sequence of one or more digits with an
+**                optional + or - sign in front
+**
+**      ' '       Any span of whitespace matches any other span of
+**                whitespace.
+**
+** Extra whitespace at the end of z[] is ignored.
+*/
+static int testcase_glob(const char *zGlob, const char *z){
+  int c, c2;
+  int invert;
+  int seen;
+
+  while( (c = (*(zGlob++)))!=0 ){
+    if( IsSpace(c) ){
+      if( !IsSpace(*z) ) return 0;
+      while( IsSpace(*zGlob) ) zGlob++;
+      while( IsSpace(*z) ) z++;
+    }else if( c=='*' ){
+      while( (c=(*(zGlob++))) == '*' || c=='?' ){
+        if( c=='?' && (*(z++))==0 ) return 0;
+      }
+      if( c==0 ){
+        return 1;
+      }else if( c=='[' ){
+        while( *z && testcase_glob(zGlob-1,z)==0 ){
+          z++;
+        }
+        return (*z)!=0;
+      }
+      while( (c2 = (*(z++)))!=0 ){
+        while( c2!=c ){
+          c2 = *(z++);
+          if( c2==0 ) return 0;
+        }
+        if( testcase_glob(zGlob,z) ) return 1;
+      }
+      return 0;
+    }else if( c=='?' ){
+      if( (*(z++))==0 ) return 0;
+    }else if( c=='[' ){
+      int prior_c = 0;
+      seen = 0;
+      invert = 0;
+      c = *(z++);
+      if( c==0 ) return 0;
+      c2 = *(zGlob++);
+      if( c2=='^' ){
+        invert = 1;
+        c2 = *(zGlob++);
+      }
+      if( c2==']' ){
+        if( c==']' ) seen = 1;
+        c2 = *(zGlob++);
+      }
+      while( c2 && c2!=']' ){
+        if( c2=='-' && zGlob[0]!=']' && zGlob[0]!=0 && prior_c>0 ){
+          c2 = *(zGlob++);
+          if( c>=prior_c && c<=c2 ) seen = 1;
+          prior_c = 0;
+        }else{
+          if( c==c2 ){
+            seen = 1;
+          }
+          prior_c = c2;
+        }
+        c2 = *(zGlob++);
+      }
+      if( c2==0 || (seen ^ invert)==0 ) return 0;
+    }else if( c=='#' ){
+      if( (z[0]=='-' || z[0]=='+') && IsDigit(z[1]) ) z++;
+      if( !IsDigit(z[0]) ) return 0;
+      z++;
+      while( IsDigit(z[0]) ){ z++; }
+    }else{
+      if( c!=(*(z++)) ) return 0;
+    }
+  }
+  while( IsSpace(*z) ){ z++; }
+  return *z==0;
+}
+
+
+/*
 ** Compare the string as a command-line option with either one or two
 ** initial "-" characters.
 */
@@ -3072,6 +3197,21 @@ static int optionMatch(const char *zStr, const char *zOpt){
   zStr++;
   if( zStr[0]=='-' ) zStr++;
   return strcmp(zStr, zOpt)==0;
+}
+
+/*
+** Delete a file.
+*/
+int shellDeleteFile(const char *zFilename){
+  int rc;
+#ifdef _WIN32
+  wchar_t *z = sqlite3_win32_utf8_to_unicode(zFilename);
+  rc = _wunlink(z);
+  sqlite3_free(z);
+#else
+  rc = unlink(zFilename);
+#endif
+  return rc;
 }
 
 /*
@@ -3117,6 +3257,7 @@ static int do_meta_command(char *zLine, ShellState *p){
   n = strlen30(azArg[0]);
   c = azArg[0][0];
 
+#ifndef SQLITE_OMIT_AUTHORIZATION
   if( c=='a' && strncmp(azArg[0], "auth", n)==0 ){
     if( nArg!=2 ){
       raw_printf(stderr, "Usage: .auth ON|OFF\n");
@@ -3130,6 +3271,7 @@ static int do_meta_command(char *zLine, ShellState *p){
       sqlite3_set_authorizer(p->db, 0, 0);
     }
   }else
+#endif
 
   if( (c=='b' && n>=3 && strncmp(azArg[0], "backup", n)==0)
    || (c=='s' && n>=3 && strncmp(azArg[0], "save", n)==0)
@@ -3223,6 +3365,31 @@ static int do_meta_command(char *zLine, ShellState *p){
       raw_printf(stderr, "Usage: .changes on|off\n");
       rc = 1;
     }
+  }else
+
+  /* Cancel output redirection, if it is currently set (by .testcase)
+  ** Then read the content of the testcase-out.txt file and compare against
+  ** azArg[1].  If there are differences, report an error and exit.
+  */
+  if( c=='c' && n>=3 && strncmp(azArg[0], "check", n)==0 ){
+    char *zRes = 0;
+    output_reset(p);
+    if( nArg!=2 ){
+      raw_printf(stderr, "Usage: .check GLOB-PATTERN\n");
+      rc = 2;
+    }else if( (zRes = readFile("testcase-out.txt"))==0 ){
+      raw_printf(stderr, "Error: cannot read 'testcase-out.txt'\n");
+      rc = 2;
+    }else if( testcase_glob(azArg[1],zRes)==0 ){
+      utf8_printf(stderr,
+                 "testcase-%s FAILED\n Expected: [%s]\n      Got: [%s]\n",
+                 p->zTestcase, azArg[1], zRes);
+      rc = 2;
+    }else{
+      utf8_printf(stdout, "testcase-%s ok\n", p->zTestcase);
+      p->nCheck++;
+    }
+    sqlite3_free(zRes);
   }else
 
   if( c=='c' && strncmp(azArg[0], "clone", n)==0 ){
@@ -3833,22 +4000,43 @@ static int do_meta_command(char *zLine, ShellState *p){
   }else
 
   if( c=='o' && strncmp(azArg[0], "open", n)==0 && n>=2 ){
-    sqlite3 *savedDb = p->db;
-    const char *zSavedFilename = p->zDbFilename;
-    char *zNewFilename = 0;
+    char *zNewFilename;  /* Name of the database file to open */
+    int iName = 1;       /* Index in azArg[] of the filename */
+    int newFlag = 0;     /* True to delete file before opening */
+    /* Close the existing database */
+    session_close_all(p);
+    sqlite3_close(p->db);
     p->db = 0;
-    if( nArg>=2 ) zNewFilename = sqlite3_mprintf("%s", azArg[1]);
-    p->zDbFilename = zNewFilename;
-    open_db(p, 1);
-    if( p->db!=0 ){
-      session_close_all(p);
-      sqlite3_close(savedDb);
-      sqlite3_free(p->zFreeOnClose);
-      p->zFreeOnClose = zNewFilename;
-    }else{
-      sqlite3_free(zNewFilename);
-      p->db = savedDb;
-      p->zDbFilename = zSavedFilename;
+    sqlite3_free(p->zFreeOnClose);
+    p->zFreeOnClose = 0;
+    /* Check for command-line arguments */
+    for(iName=1; iName<nArg && azArg[iName][0]=='-'; iName++){
+      const char *z = azArg[iName];
+      if( optionMatch(z,"new") ){
+        newFlag = 1;
+      }else if( z[0]=='-' ){
+        utf8_printf(stderr, "unknown option: %s\n", z);
+        rc = 1;
+        goto meta_command_exit;
+      }
+    }
+    /* If a filename is specified, try to open it first */
+    zNewFilename = nArg>iName ? sqlite3_mprintf("%s", azArg[iName]) : 0;
+    if( zNewFilename ){
+      if( newFlag ) shellDeleteFile(zNewFilename);
+      p->zDbFilename = zNewFilename;
+      open_db(p, 1);
+      if( p->db==0 ){
+        utf8_printf(stderr, "Error: cannot open '%s'\n", zNewFilename);
+        sqlite3_free(zNewFilename);
+      }else{
+        p->zFreeOnClose = zNewFilename;
+      }
+    }
+    if( p->db==0 ){
+      /* As a fall-back open a TEMP database */
+      p->zDbFilename = 0;
+      open_db(p, 0);
     }
   }else
 
@@ -4378,6 +4566,8 @@ static int do_meta_command(char *zLine, ShellState *p){
       raw_printf(p->out, "%d ", p->colWidth[i]);
     }
     raw_printf(p->out, "\n");
+    utf8_printf(p->out, "%12.12s: %s\n", "filename",
+                p->zDbFilename ? p->zDbFilename : "");
   }else
 
   if( c=='s' && strncmp(azArg[0], "stats", n)==0 ){
@@ -4493,6 +4683,20 @@ static int do_meta_command(char *zLine, ShellState *p){
 
     for(ii=0; ii<nRow; ii++) sqlite3_free(azResult[ii]);
     sqlite3_free(azResult);
+  }else
+
+  /* Begin redirecting output to the file "testcase-out.txt" */
+  if( c=='t' && strcmp(azArg[0],"testcase")==0 ){
+    output_reset(p);
+    p->out = output_file_open("testcase-out.txt");
+    if( p->out==0 ){
+      utf8_printf(stderr, "Error: cannot open 'testcase-out.txt'\n");
+    }
+    if( nArg>=2 ){
+      sqlite3_snprintf(sizeof(p->zTestcase), p->zTestcase, "%s", azArg[1]);
+    }else{
+      sqlite3_snprintf(sizeof(p->zTestcase), p->zTestcase, "?");
+    }
   }else
 
   if( c=='t' && n>=8 && strncmp(azArg[0], "testctrl", n)==0 && nArg>=2 ){
@@ -4905,7 +5109,7 @@ static int process_input(ShellState *p, FILE *in){
     zLine = one_input_line(in, zLine, nSql>0);
     if( zLine==0 ){
       /* End of input */
-      if( stdin_is_interactive ) printf("\n");
+      if( in==0 && stdin_is_interactive ) printf("\n");
       break;
     }
     if( seenInterrupt ){
@@ -5005,8 +5209,13 @@ static int process_input(ShellState *p, FILE *in){
 ** Return a pathname which is the user's home directory.  A
 ** 0 return indicates an error of some kind.
 */
-static char *find_home_dir(void){
+static char *find_home_dir(int clearFlag){
   static char *home_dir = NULL;
+  if( clearFlag ){
+    free(home_dir);
+    home_dir = 0;
+    return 0;
+  }
   if( home_dir ) return home_dir;
 
 #if !defined(_WIN32) && !defined(WIN32) && !defined(_WIN32_WCE) \
@@ -5081,7 +5290,7 @@ static void process_sqliterc(
   FILE *in = NULL;
 
   if (sqliterc == NULL) {
-    home_dir = find_home_dir();
+    home_dir = find_home_dir(0);
     if( home_dir==0 ){
       raw_printf(stderr, "-- warning: cannot find home directory;"
                       " cannot read ~/.sqliterc\n");
@@ -5569,7 +5778,7 @@ int SQLITE_CDECL wmain(int argc, wchar_t **wargv){
         printf(".\nUse \".open FILENAME\" to reopen on a "
                "persistent database.\n");
       }
-      zHome = find_home_dir();
+      zHome = find_home_dir(0);
       if( zHome ){
         nHistory = strlen30(zHome) + 20;
         if( (zHistory = malloc(nHistory))!=0 ){
@@ -5593,6 +5802,7 @@ int SQLITE_CDECL wmain(int argc, wchar_t **wargv){
     sqlite3_close(data.db);
   }
   sqlite3_free(data.zFreeOnClose);
+  find_home_dir(1);
 #if !SQLITE_SHELL_IS_UTF8
   for(i=0; i<argc; i++) sqlite3_free(argv[i]);
   sqlite3_free(argv);

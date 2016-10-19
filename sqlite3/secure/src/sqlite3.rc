@@ -5,8 +5,8 @@
 #include <windows.h>
 
 VS_VERSION_INFO VERSIONINFO
-  FILEVERSION 3,14,0,1
-  PRODUCTVERSION 3,14,0,1
+  FILEVERSION 3,15,0,1
+  PRODUCTVERSION 3,15,0,1
   FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
   FILEFLAGS 0x1L
@@ -22,13 +22,13 @@ BEGIN
     BLOCK "040904b0"
     BEGIN
       VALUE "CompanyName", "SQLite"
-      VALUE "FileDescription", "SQLite3 Database Library"
-      VALUE "FileVersion", "3.14.0.1"
+      VALUE "FileDescription", "SQLite3 Database Library (with encryption support)"
+      VALUE "FileVersion", "3.15.0.1"
       VALUE "InternalName", "sqlite3.dll"
       VALUE "LegalCopyright", "Public Domain"
       VALUE "OriginalFilename", "sqlite3.dll"
       VALUE "ProductName", "SQLite3"
-      VALUE "ProductVersion", "3.14.0.1"
+      VALUE "ProductVersion", "3.15.0.1"
     END
   END
   BLOCK "VarFileInfo"
