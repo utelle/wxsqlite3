@@ -27,7 +27,7 @@
 #include "wx/wxsqlite3def.h"
 
 /// wxSQLite3 version string
-#define wxSQLITE3_VERSION_STRING   wxT("wxSQLite3 3.4.1")
+#define wxSQLITE3_VERSION_STRING   wxS("wxSQLite3 3.5.0")
 
 #define WXSQLITE_ERROR 1000
 
@@ -1906,7 +1906,7 @@ public:
   * \since SQLite3 version 3.7.11
   * \note For SQLite3 version before version 3.7.11 this method returns always FALSE.
   */
-  bool IsReadOnly(const wxString& databaseName = wxT("main"));
+  bool IsReadOnly(const wxString& databaseName = wxS("main"));
 
   /// Close a SQLite3 database
   /**
@@ -1945,10 +1945,10 @@ public:
   * \param[in] sourceDatabaseName Optional name of the source database (default: 'main').
   */
   void Backup(const wxString& targetFileName, const wxString& key = wxEmptyString, 
-              const wxString& sourceDatabaseName = wxT("main"));
+              const wxString& sourceDatabaseName = wxS("main"));
   void Backup(wxSQLite3BackupProgress* progressCallback, 
               const wxString& targetFileName, const wxString& key = wxEmptyString, 
-              const wxString& sourceDatabaseName = wxT("main"));
+              const wxString& sourceDatabaseName = wxS("main"));
 
   /// Backup a SQLite3 database
   /**
@@ -1974,10 +1974,10 @@ public:
   * \param[in] sourceDatabaseName Optional name of the source database (default: 'main').
   */
   void Backup(const wxString& targetFileName, const wxMemoryBuffer& key, 
-              const wxString& sourceDatabaseName = wxT("main"));
+              const wxString& sourceDatabaseName = wxS("main"));
   void Backup(wxSQLite3BackupProgress* progressCallback,
               const wxString& targetFileName, const wxMemoryBuffer& key, 
-              const wxString& sourceDatabaseName = wxT("main"));
+              const wxString& sourceDatabaseName = wxS("main"));
 
   /// Restore a SQLite3 database
   /**
@@ -1997,10 +1997,10 @@ public:
   * \param[in] targetDatabaseName Optional name of the target database (default: 'main').
   */
   void Restore(const wxString& sourceFileName, const wxString& key = wxEmptyString, 
-               const wxString& targetDatabaseName = wxT("main"));
+               const wxString& targetDatabaseName = wxS("main"));
   void Restore(wxSQLite3BackupProgress* progressCallback,
                const wxString& sourceFileName, const wxString& key = wxEmptyString, 
-               const wxString& targetDatabaseName = wxT("main"));
+               const wxString& targetDatabaseName = wxS("main"));
 
   /// Restore a SQLite3 database
   /**
@@ -2020,10 +2020,10 @@ public:
   * \param[in] targetDatabaseName Optional name of the target database (default: 'main').
   */
   void Restore(const wxString& sourceFileName, const wxMemoryBuffer& key, 
-               const wxString& targetDatabaseName = wxT("main"));
+               const wxString& targetDatabaseName = wxS("main"));
   void Restore(wxSQLite3BackupProgress* progressCallback,
                const wxString& sourceFileName, const wxMemoryBuffer& key, 
-               const wxString& targetDatabaseName = wxT("main"));
+               const wxString& targetDatabaseName = wxS("main"));
 
   /// Set the page count for backup or restore operations
   /**
@@ -2565,7 +2565,7 @@ public:
   * \param fileName Name of the shared library containing extension.
   * \param entryPoint Name of the entry point.
   */
-  void LoadExtension(const wxString& fileName, const wxString& entryPoint = wxT("sqlite3_extension_init"));
+  void LoadExtension(const wxString& fileName, const wxString& entryPoint = wxS("sqlite3_extension_init"));
 
   /// Enable or disable loading of database extensions
   /**

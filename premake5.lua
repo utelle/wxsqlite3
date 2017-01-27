@@ -3,7 +3,7 @@ dofile "premake/wxwidgets.lua"
 BUILDDIR = _OPTIONS["builddir"] or "build"
 
 workspace "wxsqlite3"
-  configurations { "Debug", "Release", "DLL Debug", "DLL Release" }
+  configurations { "Debug", "Release", "Debug wxDLL", "Release wxDLL", "DLL Debug", "DLL Release" }
   platforms { "Win32", "Win64" }
   location(BUILDDIR)
 
@@ -21,33 +21,29 @@ workspace "wxsqlite3"
 
   init_filters()
 
--- SQLite3 static library
-project "libsqlite3"
+-- wxSQLite3
+project "wxsqlite3"
+  location(BUILDDIR)
   language "C++"
-  kind "StaticLib"
 
   if (is_msvc) then
     local prj = project()
-    prj.filename = "wxsqlite3_" .. vc_with_ver .. "_libsqlite3"
+    prj.filename = "wxsqlite3_" .. vc_with_ver .. "_wxsqlite3"
   end
 
-  files { "sqlite3/secure/src/sqlite3secure.c", "sqlite3/secure/src/*.h" }
-  vpaths {
-    ["Header Files"] = { "**.h" },
-    ["Source Files"] = { "**/sqlite3secure.c", "**.def", "**.rc" }
-  }
-  flags { "Unicode" }  
-
-  location( BUILDDIR )
---  targetname "libsqlite3"
+  make_filters( "WXSQLITE3", "wxsqlite3", "core" )
 
   defines {
-    "_LIB",
+    "wxUSE_DYNAMIC_SQLITE3_LOAD=0",
+    "WXSQLITE3_HAVE_METADATA=1",
+    "WXSQLITE3_USER_AUTHENTICATION=1",
+    "WXSQLITE3_HAVE_CODEC=1",
+    "WXSQLITE3_HAVE_LOAD_EXTENSION=0",
     "THREADSAFE=1",
     "SQLITE_SOUNDEX",
     "SQLITE_ENABLE_COLUMN_METADATA",
     "SQLITE_HAS_CODEC",
-    "CODEC_TYPE=CODEC_TYPE_AES128",
+    "CODEC_TYPE=$(CODEC_TYPE)",
     "SQLITE_SECURE_DELETE",
     "SQLITE_ENABLE_FTS3",
     "SQLITE_ENABLE_FTS3_PARENTHESIS",
@@ -62,33 +58,17 @@ project "libsqlite3"
     "SQLITE_USER_AUTHENTICATION"
   }
 
--- wxSQLite3
-project "wxsqlite3"
-  location(BUILDDIR)
-  language "C++"
-
-  if (is_msvc) then
-    local prj = project()
-    prj.filename = "wxsqlite3_" .. vc_with_ver .. "_wxsqlite3"
-  end
-
-  make_filters( "WXSQLITE3" )
-
-  defines {
-    "wxUSE_DYNAMIC_SQLITE3_LOAD=0",
-    "WXSQLITE3_HAVE_METADATA=1",
-    "WXSQLITE3_HAVE_CODEC=1",
-    "WXSQLITE3_HAVE_LOAD_EXTENSION=0"
-  }
-
-  files { "src/*.cpp", "include/wx/*.h" }
+  files { "src/*.cpp", "include/wx/*.h",
+          "sqlite3/secure/src/sqlite3secure.c", "sqlite3/secure/src/*.h" }
   vpaths {
     ["Header Files"] = { "**.h" },
-    ["Source Files"] = { "**.cpp" }
+    ["Source Files"] = { "**.cpp", "**/sqlite3secure.c", "**.def" }
   }
   includedirs { "include", "sqlite3/include" }
-  flags { "Unicode" }  
-  links { "libsqlite3" }
+  characterset "Unicode"
+
+--  configuration { "gmake" }
+--    buildoptions { "-x c++" }
 
 -- Minimal wxSQLite3 sample
 project "minimal"
@@ -101,17 +81,17 @@ project "minimal"
     prj.filename = "wxsqlite3_" .. vc_with_ver .. "_minimal"
   end
 
+  use_filters( "WXSQLITE3", "samples", "core" )
+
   files { "samples/*.cpp", "samples/*.rc" }
   vpaths {
     ["Header Files"] = { "**.h" },
     ["Source Files"] = { "**.cpp", "**.rc" }
   }
   includedirs { "samples", "include" }
-  flags { "Unicode", "WinMain" }  
+  characterset "Unicode"
+  flags { "WinMain" }  
   links { "wxsqlite3" }
-  links { "libsqlite3" }
-  targetdir "samples"
-  use_filters( "WXSQLITE3" )
 
 -- Minimal wxSQLite3 sample
 project "treeview"
@@ -124,14 +104,14 @@ project "treeview"
     prj.filename = "wxsqlite3_" .. vc_with_ver .. "_treeview"
   end
 
+  use_filters( "WXSQLITE3", "samples/treeview", "adv,core,xml" )
+
   files { "samples/treeview/*.cpp", "samples/treeview/*.rc" }
   vpaths {
     ["Header Files"] = { "**.h" },
     ["Source Files"] = { "**.cpp", "**.rc" }
   }
   includedirs { "samples/treeview", "include" }
-  flags { "Unicode", "WinMain" }  
+  characterset "Unicode"
+  flags { "WinMain" }  
   links { "wxsqlite3" }
-  links { "libsqlite3" }
-  targetdir "samples"
-  use_filters( "WXSQLITE3" )

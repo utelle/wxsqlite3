@@ -20,6 +20,8 @@
 #include "wx/wx.h"
 #endif
 
+#include <wx/cmdline.h>
+
 #include "wx/wxsqlite3.h"
 #include <ctime>
 #include <iostream>
@@ -318,20 +320,49 @@ public:
   int OnRun();
   int OnExit();
 private:
+  bool     m_testMode;
+  int      m_rc;
 };
+
+static const wxCmdLineEntryDesc cmdLineDesc[] =
+{
+#if wxCHECK_VERSION(2,9,0)
+  { wxCMD_LINE_SWITCH, "t", "testmode",  "Non-interactive testmode",         wxCMD_LINE_VAL_NONE,   wxCMD_LINE_PARAM_OPTIONAL },
+#else
+  { wxCMD_LINE_SWITCH, wxS("t"), wxS("testmode"),  wxS("Non-interactive testmode"),         wxCMD_LINE_VAL_NONE,   wxCMD_LINE_PARAM_OPTIONAL },
+#endif
+  { wxCMD_LINE_NONE }
+};
+
 
 bool Minimal::OnInit()
 {
-  return true;
+  // Gets the parameters from cmd line
+  wxCmdLineParser parser(cmdLineDesc, argc, argv);
+  wxString logo = wxS("wxSQLite3 Minimal Sample\n");
+  parser.SetLogo(logo);
+  bool ok = parser.Parse() == 0;
+  if (ok)
+  {
+    m_testMode = parser.Found(wxS("testmode"));
+    m_rc = 0;
+  }
+  else
+  {
+    m_rc = -1;
+  }
+
+  return ok;
 }
 
 int Minimal::OnExit()
 {
-  return 0;
+  return m_rc;
 }
 
 int Minimal::OnRun()
 {
+  m_rc = 0;
   const wxString dbFile = wxGetCwd() + wxT("/test.db");
   const wxString dbBackup = wxGetCwd() + wxT("/test-backup.db");
 
@@ -618,20 +649,22 @@ int Minimal::OnRun()
 
     cout << endl << "Binary data test" << endl;
     db.ExecuteUpdate("create table bindata(desc char(10), data blob);");
-        
-    unsigned char bin[256];
-    for (i = 0; i < sizeof bin; i++)
+
+
+    int binSize = 256;
+    unsigned char* binData = new unsigned char[binSize];
+    for (i = 0; i < binSize; i++)
     {
-      bin[i] = i;
+      binData[i] = i;
     }
     wxSQLite3Statement stmt = db.PrepareStatement("insert into bindata values ('testing', ?);");
-    stmt.Bind(1,bin,sizeof bin);
+    stmt.Bind(1, binData, binSize);
     stmt.ExecuteUpdate();
-    cout << "Stored binary Length: " << sizeof bin << endl;
+    cout << "Stored binary Length: " << binSize << endl;
 
     q = db.ExecuteQuery("select data from bindata where desc = 'testing';");
 
-    const unsigned char* pbin = bin;
+    const unsigned char* pbin = binData;
     if (q.NextRow())
     {
       int blobLen;
@@ -640,7 +673,7 @@ int Minimal::OnRun()
       cout << "Retrieved binary Length: " << blobLen << endl;
     }
 
-    for (i = 0; i < sizeof bin; i++)
+    for (i = 0; i < sizeof binData; i++)
     {
       if (pbin[i] != i)
       {
@@ -648,6 +681,7 @@ int Minimal::OnRun()
       }
     }
     q.Finalize();
+    delete[] binData;
 
     db.SetAuthorizer(myAuthorizer);
 
@@ -770,6 +804,7 @@ int Minimal::OnRun()
   catch (wxSQLite3Exception& e)
   {
     cerr << e.GetErrorCode() << ":" << (const char*)(e.GetMessage().mb_str()) << endl;
+    m_rc = e.GetErrorCode();
   }
   
   try
@@ -780,17 +815,21 @@ int Minimal::OnRun()
   catch (wxSQLite3Exception& e)
   {
     cerr << e.GetErrorCode() << ":" << (const char*)(e.GetMessage().mb_str()) << endl;
+    m_rc = e.GetErrorCode();
   }
 
-  // Loop until user enters q or Q
-
-  char c(' ');
-  while (c != 'q' && c != 'Q')
+  if (!m_testMode)
   {
-    cout << "Press q then enter to quit: ";
-    cin >> c;
+    // Loop until user enters q or Q
+
+    char c(' ');
+    while (c != 'q' && c != 'Q')
+    {
+      cout << "Press q then enter to quit: ";
+      cin >> c;
+    }
   }
-  return 0;
+  return m_rc;
 }
 
 IMPLEMENT_APP_CONSOLE(Minimal)

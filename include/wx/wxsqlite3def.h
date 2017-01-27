@@ -2,7 +2,6 @@
 // Name:        wxsqlite3def.h
 // Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
 // Author:      Ulrich Telle
-// Modified by:
 // Created:     2005-07-14
 // Changes:     (see version history below, and accompanying readme file)
 //
@@ -47,6 +46,14 @@
 
 <dl>
 
+<dt><b>3.5.0</b> - <i>January 2017</i></dt>
+<dd>
+Upgrade to SQLite version 3.16.2<br>
+SQLite3 library now integrated part of wxSQLite3<br>
+Build system overhauled (in progress)<br>
+
+
+</dd>
 <dt><b>3.4.1</b> - <i>October 2016</i></dt>
 <dd>
 Upgrade to SQLite version 3.15.0<br>
