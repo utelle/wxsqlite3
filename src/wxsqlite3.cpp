@@ -125,6 +125,16 @@ SQLITE_API int sqlite3_win32_set_directory(DWORD type, LPCWSTR zValue);
 
 typedef int (*sqlite3_xauth)(void*,int,const char*,const char*,const char*,const char*);
 
+// Local declaration of the ExecAuthorizer function
+// to avoid dependency on user authentication enabled or not
+static int wxSQLite3FunctionContextExecAuthorizer(void* func, int type,
+  const char* arg1, const char* arg2,
+  const char* arg3, const char* arg4
+#if WXSQLITE3_USER_AUTHENTICATION
+  , const char* arg5
+#endif
+  );
+
 // Error messages
 
 #if wxCHECK_VERSION(2,9,0)
@@ -3616,7 +3626,7 @@ bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, w
 bool wxSQLite3Database::SetAuthorizer(wxSQLite3Authorizer& authorizer)
 {
   CheckDatabase();
-  int rc = sqlite3_set_authorizer(m_db->m_db, (sqlite3_xauth) wxSQLite3FunctionContext::ExecAuthorizer, &authorizer);
+  int rc = sqlite3_set_authorizer(m_db->m_db, (sqlite3_xauth) wxSQLite3FunctionContextExecAuthorizer, &authorizer);
   return rc == SQLITE_OK;
 }
 
@@ -4439,14 +4449,14 @@ void wxSQLite3FunctionContext::ExecAggregateFinalize(void* ctx)
   func->Finalize(context);
 }
 
-/* static */
-int wxSQLite3FunctionContext::ExecAuthorizer(void* func, int type,
-                                             const char* arg1, const char* arg2,
-                                             const char* arg3, const char* arg4
+// 
+static int wxSQLite3FunctionContextExecAuthorizer(void* func, int type,
+                                           const char* arg1, const char* arg2,
+                                           const char* arg3, const char* arg4
 #if WXSQLITE3_USER_AUTHENTICATION
-                                           , const char* arg5
+                                         , const char* arg5
 #endif
-                                            )
+                                          )
 {
   wxString locArg1 = wxString::FromUTF8(arg1);
   wxString locArg2 = wxString::FromUTF8(arg2);

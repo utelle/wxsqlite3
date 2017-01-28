@@ -368,15 +368,6 @@ public:
   /// Execute the final step of a user defined aggregate function (internal use only)
   static void ExecAggregateFinalize(void* ctx);
 
-  /// Execute the user defined authorizer function (internal use only)
-  static int  ExecAuthorizer(void*, int type,
-                             const char* arg1, const char* arg2,
-                             const char* arg3, const char* arg4
-#if WXSQLITE3_USER_AUTHENTICATION
-                           , const char* arg5
-#endif
-                            );
-
   /// Execute the user defined commit hook (internal use only)
   static int ExecCommitHook(void* hook);
 
