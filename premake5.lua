@@ -4,7 +4,7 @@ BUILDDIR = _OPTIONS["builddir"] or "build"
 
 workspace "wxsqlite3"
   configurations { "Debug", "Release", "Debug wxDLL", "Release wxDLL", "DLL Debug", "DLL Release" }
-  platforms { "Win32", "Win64" }
+  platforms { "x32", "x64" }
   location(BUILDDIR)
 
   if (is_msvc) then
