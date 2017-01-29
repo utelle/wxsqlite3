@@ -1,14 +1,14 @@
 # Package Information for pkg-config
 
 prefix=/usr
-wxver=@WXVERSION@
+wxver=@WX_VERSION_MAJOR@.@WX_VERSION_MINOR@
 includedir=${prefix}/include/wx-${wxver}/
 libdir=${prefix}/@LIBDIR@
 
-Name: wxsqlite3-@WXVERSION@
-Description: SQLite3 C++ wrapper for use in programs based on the wxWidgets
+Name: wxsqlite3-@WX_VERSION_MAJOR@.@WX_VERSION_MINOR@
+Description: SQLite3 C++ wrapper for use in programs based on wxWidgets
 Version: @VERSION@
 #Requires: sqlite3
-Libs: -L${libdir} -lwxcode_@PORT@@LIBMOD@_wxsqlite3-@WXVERSION@
+Libs: -L${libdir} -l@WXSQLITE3_LIBNAME@
 Libs.private: -lpthread
 Cflags: -I${includedir}

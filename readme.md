@@ -28,7 +28,7 @@ tools operate in Unicode or UTF-8 mode.
 * 3.5.0 - *January 2017*
   - Upgrade to SQLite version 3.16.2
   - SQLite3 library now integrated part of wxSQLite3
-  - Overhaul of build system (in progress)
+  - Overhaul of build system
 * 3.4.1 - *October 2016*
   - Upgrade to SQLite version 3.15.0
 * 3.4.0 - *August 2016*
@@ -295,35 +295,27 @@ to attach an encryted database.
 
 ### wxGTK
 
-The current autoconf-based build system generated with bakefile will be
-replaced by a manually created one. However, this process is still in progress. 
-
 When building on an autoconf-based system (like Linux/GNU-based
-systems), you can use the existing configure script in the component's
-ROOT folder or you can recreate the configure script doing:
-```
-  cd build
-  ./acregen.sh
-  cd ..
+systems), the first setp is to recreate the configure script doing:
 
-  ./configure [here you should use the same flags you used to configure wxWidgets]
+```
+  autoreconf
+```
+
+Thereafter you should create a build directory
+
+```
+  mkdir build-gtk [or any other suitable name]
+  cd build-gtk
+  ../configure [here you should use the same flags you used to configure wxWidgets]
   make
 ```
-Type `./configure --help` for more info.
+ 
+Type `../configure --help` for more info.
 
-Note: Recreating the configure script requires the following prerequisites:
-
-- automake 1.9.6 or higher
-- bakefile 0.2.5
-
-The autoconf-based systems also support a `make install` target which
+The autoconf-based system also supports a `make install` target which
 builds the library and then copies the headers of the component to
-/usr/local/include and the lib to /usr/local/lib.
-
-The SQLite amalgamation source code of the version, on which wxSQLite3 is based, is included.
-
-Use the configure option `--with-sqlite3-prefix` to specify the path to your
-SQLite3 installation.
+`/usr/local/include` and the lib to `/usr/local/lib`.
 
 ## <a name="optional"></a>Optional features
 
