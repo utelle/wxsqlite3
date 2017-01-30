@@ -32,6 +32,9 @@ script:
     - echo 'Building...' && echo -en 'travis_fold:start:script.build\\r'
     - make
     - echo -en 'travis_fold:end:script.build\\r'
+    - echo 'Testing...' && echo -en 'travis_fold:start:script.test\\r'
+    - ./samples/minimal /t
+    - echo -en 'travis_fold:end:script.test\\r'
     - echo 'Installing...' && echo -en 'travis_fold:start:script.install\\r'
     - sudo make install
     - set +e && echo -en 'travis_fold:end:script.install\\r'
