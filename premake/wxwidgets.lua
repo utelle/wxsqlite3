@@ -159,7 +159,7 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
         else
           wxArchSuffix = ""
         end
-        if (msvc_useProps or wxWindowsCompiler == "gcc") then
+        if (msvc_useProps) then
           local wxLibPath = '$(wxRootDir)\\lib\\$(wxCompilerPrefix)$(wxArchSuffix)_' .. iif(wxStatic == 'yes', 'lib', 'dll')
           -- common defines
           defines{ "__WXMSW__" }

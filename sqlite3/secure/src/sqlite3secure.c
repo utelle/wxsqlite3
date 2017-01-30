@@ -1,3 +1,10 @@
+// Enable SQLite debug assertions if requested
+#ifndef SQLITE_DEBUG
+#if defined(SQLITE_ENABLE_DEBUG) && (SQLITE_ENABLE_DEBUG == 1)
+#define SQLITE_DEBUG
+#endif
+#endif
+
 // To enable the extension functions define SQLITE_ENABLE_EXTFUNC on compiling this module
 // To enable the reading CSV files define SQLITE_ENABLE_CSV on compiling this module
 #if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV)

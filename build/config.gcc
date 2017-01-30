@@ -2,7 +2,12 @@
 # Configuration file for gcc builds
 # =====================================================================
 
+# Codec type of encryption extension. Default codec type is AES 128 Bit
 CODEC_TYPE ?= CODEC_TYPE_AES128
+
+# Enable SQLite debug assertions (Default: 0)
+# Set to 1 to enable
+SQLITE_ENABLE_DEBUG ?= 0
 
 # Path to root directory of wxWidgets
 wxRootDir ?= $(WXWIN)
