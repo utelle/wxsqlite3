@@ -40,7 +40,7 @@ workspace "SQLite3"
       "DEBUG", 
       "_DEBUG"
     }
-    flags { "Symbols" }
+    symbols "On"
 
   filter { "configurations:Release*" }
     defines {
@@ -60,7 +60,8 @@ project "sqlite3lib"
     ["Header Files"] = { "**.h" },
     ["Source Files"] = { "**/sqlite3secure.c", "**.def", "**.rc" }
   }
-  flags { "Unicode", "StaticRuntime" }  
+  characterset ("Unicode")
+  flags { "StaticRuntime" }  
 
   location( BUILDDIR )
   targetname "sqlite3"
@@ -116,7 +117,8 @@ project "sqlite3dll"
     ["Header Files"] = { "**.h" },
     ["Source Files"] = { "**/sqlite3secure.c", "**.def", "**.rc" }
   }
-  flags { "Unicode", "StaticRuntime" }  
+  characterset ("Unicode")
+  flags { "StaticRuntime" }  
 
   location( BUILDDIR )
   targetname "sqlite3"
@@ -170,7 +172,8 @@ project "sqlite3shell"
     ["Source Files"] = { "**.c", "**.rc" }
   }
   files { "src/sqlite3.h", "src/shell.c", "src/sqlite3shell.rc" }
-  flags { "Unicode", "StaticRuntime" }  
+  characterset ("Unicode")
+  flags { "StaticRuntime" }  
   links { "sqlite3lib" }
 
   location( BUILDDIR )

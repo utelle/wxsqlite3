@@ -50,7 +50,8 @@
 <dd>
 Upgrade to SQLite version 3.16.2<br>
 SQLite3 library now integrated part of wxSQLite3<br>
-Build system overhauled (in progress)<br>
+Build system overhauled<br>
+Added Travis Continuous Integration<br>
 
 
 </dd>

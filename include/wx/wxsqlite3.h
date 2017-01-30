@@ -2225,6 +2225,7 @@ public:
   * Execute a data defining or manipulating SQL statement given as a utf-8 character string,
   * i.e. create, alter, drop, insert, update, delete and so on
   * \param sql query string
+  * \param saveRC flag whether to save the SQLite return code in case of a rollback
   * \return the number of database rows that were changed (or inserted or deleted)
   */
   int ExecuteUpdate(const char* sql, bool saveRC = false);
