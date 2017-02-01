@@ -1,5 +1,7 @@
 -- wxWidgets configuration file for premake5
 --
+-- Copyright (C) 2017 Ulrich Telle <ulrich@telle-online.de>
+--
 -- Based on the script for premake4 created by
 -- laurent.humbertclaude@gmail.com and v.krishnakumar@gmail.com 
 
@@ -61,6 +63,7 @@ elseif _ACTION == "vs2017" then
 end
 
 is_msvc = false
+msvc_useProps = false
 wx_compiler = "gcc"
 if ( vc_version ~= "" ) then
   is_msvc = true
@@ -79,7 +82,7 @@ end
 --   Root      : path to wx root folder. Can be left empty if WXWIN is defined
 --               or if wx-config is accessible.
 --   Debug     : "yes" use debug version of wxwidgets. Default to "no"
---   Version   : one of '2.4', '2.5', '2.6', '2.7', '2.8', '2.9'. Default to '3.0'
+--   Version   : one of '2.8', '2.9', '3.0', '3.1'. Default to '3.1'
 --   Static    : indicates how wx is to be linked. Values are
 --               either "yes" for static linking or "no" for shared linking, Default to "no"
 --   Unicode   : use "yes" for unicode or "no" for ansi version.
@@ -89,6 +92,7 @@ end
 --   Libs      : a list of wx libraries that you want to link with.
 --               eg: "aui,media,html"
 --               Default to "richtext,aui,xrc,qa,html,adv,core,xml,net"; base is implicit
+--   Arch      : architecture ("x32" or "x64", default "x32")
 --   WindowsCompiler : compiler used to compile windows libraries ( "vc" or "gcc" )
  
 function wx_config(options)
@@ -119,7 +123,6 @@ end
 function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnicode, wxUniversal, wxLibs, wxArch, wxWindowsCompiler)
     -- some options are not allowed for newer version of wxWidgets
     if wxVersion > "2.8" then -- alphabetical comparison may fail...
-    --    wxDebug = "" -- 2.9 still make debug libraries
         wxUnicode = "yes"
     end
  
@@ -166,16 +169,15 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
  
           -- common include path
           includedirs {
+              path.join("$(wxRootDir)", "include\\msvc"),
               path.join(wxLibPath, "msw$(wxSuffix)"),   -- something like "%WXWIN%\lib\vc_lib\mswud" to find "wx/setup.h"
               path.join("$(wxRootDir)", "include")
             }
  
           -- common library path
           libdirs { wxLibPath }
-          if wxDebug == "yes" and wxStatic == 'no' then
-            local compLibPath = '$(ProjectDir)..\\lib\\$(wxCompilerPrefix)$(wxArchSuffix)_dll'
-            debugenvs { "PATH=" .. compLibPath .. ";" .. wxLibPath }
-          end
+          local compLibPath = '$(ProjectDir)..\\lib\\$(wxCompilerPrefix)$(wxArchSuffix)_dll'
+          debugenvs { "PATH=" .. compLibPath .. ";" .. wxLibPath }
         elseif (wxWindowsCompiler == "gcc") then
           local wxLibPath = '$(wxRootDir)/lib/$(wxCompilerPrefix)$(wxArchSuffix)_' .. iif(wxStatic == 'yes', 'lib', 'dll')
           -- common defines
@@ -189,10 +191,8 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
  
           -- common library path
           libdirs { wxLibPath }
-          if wxDebug == "yes" and wxStatic == 'no' then
-            local compLibPath = '$(ProjectDir)../lib/$(wxCompilerPrefix)$(wxArchSuffix)_dll'
-            debugenvs { "PATH=" .. compLibPath .. ";" .. wxLibPath }
-          end
+          local compLibPath = '$(ProjectDir)../lib/$(wxCompilerPrefix)$(wxArchSuffix)_dll'
+          debugenvs { "PATH=" .. compLibPath .. ";" .. wxLibPath }
         else
           local wxLibPath = path.join(wxRoot, "lib")
           wxLibPath = path.join(wxLibPath, wxWindowsCompiler .. wxArchSuffix .. "_" .. iif(wxStatic == 'yes', 'lib', 'dll'))
@@ -207,14 +207,12 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
  
           -- common library path
           libdirs { wxLibPath }
-          if wxDebug == "yes" and wxStatic == 'no' then
-            local compLibPath = '$(ProjectDir)..\\lib\\' .. wxWindowsCompiler .. wxArchSuffix .. '_dll'
-            debugenvs { "PATH=" .. compLibPath .. ";" .. wxLibPath }
-          end
+          local compLibPath = '$(ProjectDir)..\\lib\\' .. wxWindowsCompiler .. wxArchSuffix .. '_dll'
+          debugenvs { "PATH=" .. compLibPath .. ";" .. wxLibPath }
         end
  
-        -- add the libs
-        if (msvc_useProps) then
+        -- add the libs (except for MSVC)
+        if (wxWindowsCompiler == "gcc") then
           libVersion = string.gsub(wxVersion, '%.', '') -- remove dot from version
           links { "$(wxBaseLibNamePrefix)" } -- base lib
           for i, lib in ipairs(string.explode(wxLibs, ",")) do
@@ -230,23 +228,7 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
           end
           links { "wxregex" .. "$(wxSuffix)" }
           links { "comctl32", "rpcrt4", "shell32", "gdi32", "kernel32", "user32", "comdlg32", "ole32", "oleaut32", "advapi32" }
-        elseif (wxWindowsCompiler == "gcc") then
-          libVersion = string.gsub(wxVersion, '%.', '') -- remove dot from version
-          links { "$(wxBaseLibNamePrefix)" } -- base lib
-          for i, lib in ipairs(string.explode(wxLibs, ",")) do
-              local libPrefix = '$(wxToolkitLibNamePrefix)'
-              if lib == "xml" or lib == "net" or lib == "odbc" then
-                  libPrefix = '$(wxBaseLibNamePrefix)_'
-              end
-              links { libPrefix..lib}
-          end
-          -- link with support libraries
-          for i, lib in ipairs({"wxjpeg", "wxpng", "wxzlib", "wxtiff", "wxexpat"}) do
-              links { lib.."$(wxSuffixDebug)" }
-          end
-          links { "wxregex" .. "$(wxSuffix)" }
-          links { "comctl32", "rpcrt4", "shell32", "gdi32", "kernel32", "user32", "comdlg32", "ole32", "oleaut32", "advapi32" }
-        else
+        elseif (not is_msvc) then
           libVersion = string.gsub(wxVersion, '%.', '') -- remove dot from version
           links { "wxbase"..libVersion..wxBuildType } -- base lib
           for i, lib in ipairs(string.explode(wxLibs, ",")) do
@@ -350,6 +332,16 @@ function make_filters(libname,libtarget,wxlibs)
   else
     targetname(libtarget)
   end
+  if (is_msvc) then
+    defines {
+      libname .. "_DLLNAME=$(TargetName)"
+    }
+  else
+    defines {
+      libname .. "_DLLNAME=" .. libtarget .. "$(wxSuffixDebug)"
+    }
+  end
+
   makesettings { "include config.gcc" }
   filter { "configurations:not DLL*" }
     kind "StaticLib"
@@ -464,6 +456,7 @@ function use_filters(libname, debugcwd, wxlibs)
 
   filter { "configurations:*Release*" }
     targetsuffix ""
+    debugdir(debugcwd)
 
   filter { "configurations:Debug", "platforms:x32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="yes", WindowsCompiler=wx_compiler, Libs=wxlibs }

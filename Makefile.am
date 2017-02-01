@@ -30,6 +30,7 @@ lib@WXSQLITE3_LIBNAME@_la_SOURCES = \
 
 includewx_HEADERS = \
     include/wx/wxsqlite3.h \
+    include/wx/wxsqlite3_version.h \
     include/wx/wxsqlite3def.h
 
 noinst_HEADERS = \

@@ -46,6 +46,13 @@
 
 <dl>
 
+<dt><b>3.5.1</b> - <i>February 2017</i></dt>
+<dd>
+Added version information as Windows resource for DLL builds on Windows<br>
+Cleaned up premake5 build files for Visual C++ (corrected debug environment settings)<br>
+Resolved wxWidgets library dependencies for Visual C++ using wxWidgets' special setup.h for MSVC<br>
+
+</dd>
 <dt><b>3.5.0</b> - <i>January 2017</i></dt>
 <dd>
 Upgrade to SQLite version 3.16.2<br>
@@ -53,12 +60,10 @@ SQLite3 library now integrated part of wxSQLite3<br>
 Build system overhauled<br>
 Added Travis Continuous Integration<br>
 
-
 </dd>
 <dt><b>3.4.1</b> - <i>October 2016</i></dt>
 <dd>
 Upgrade to SQLite version 3.15.0<br>
-
 
 </dd>
 <dt><b>3.4.0</b> - <i>August 2016</i></dt>
@@ -69,13 +74,11 @@ Added method wxSQLite3ResultSet::GetExpandedSQL<br>
 Started to modify the build system to compile and statically link the SQLite3 library together with wxSQLite3<br>
 Added the CSV extension module as part of the SQLite3 library with encryption extension<br>
 
-
 </dd>
 <dt><b>3.3.1</b> - <i>April 2016</i></dt>
 <dd>
 Upgrade to SQLite version 3.12.1<br>
 Added method wxSQLite3Database::GetSystemErrorCode<br>
-
 
 </dd>
 <dt><b>3.3.0</b> - <i>December 2015</i></dt>

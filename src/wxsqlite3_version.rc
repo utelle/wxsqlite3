@@ -1,0 +1,64 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+#include "wx/wxsqlite3_version.h"
+
+#include <windows.h>
+
+/* WXSQLITE3_STRINGIZE works as the preprocessor # operator but also works with macros */
+#define WXSQLITE3_STRINGIZE_HELPER(x)  #x
+#define WXSQLITE3_STRINGIZE(x)         WXSQLITE3_STRINGIZE_HELPER(x)
+ 
+#define WXSQLITE3_MAKE_VERSION_DOT_STRING(x, y, z, w) \
+  WXSQLITE3_STRINGIZE(x) "." WXSQLITE3_STRINGIZE(y) "." WXSQLITE3_STRINGIZE(z) "." WXSQLITE3_STRINGIZE(w)
+ 
+#define WXSQLITE3_VERSION_NUM_DOT_STRING \
+  WXSQLITE3_MAKE_VERSION_DOT_STRING(WXSQLITE3_MAJOR_VERSION, WXSQLITE3_MINOR_VERSION, WXSQLITE3_RELEASE_NUMBER, WXSQLITE3_SUBRELEASE_NUMBER)
+
+// 0x0409 is US English, 0x04b0 is Unicode and 0x0000 is 7 bit ASCII. see
+// http://msdn.microsoft.com/en-us/library/aa381049(VS.85).aspx for the full
+// list of languages and charsets
+#define LANG 0x0409
+#ifdef _UNICODE
+  #define CHARSET 0x4b0
+  #define LANG_WITH_CHARSET "040904b0"
+#else
+  #define CHARSET 0
+  #define LANG_WITH_CHARSET "04090000"
+#endif
+
+VS_VERSION_INFO VERSIONINFO
+  FILEVERSION WXSQLITE3_MAJOR_VERSION,WXSQLITE3_MINOR_VERSION,WXSQLITE3_RELEASE_NUMBER,WXSQLITE3_SUBRELEASE_NUMBER
+  PRODUCTVERSION WXSQLITE3_MAJOR_VERSION,WXSQLITE3_MINOR_VERSION,WXSQLITE3_RELEASE_NUMBER,WXSQLITE3_SUBRELEASE_NUMBER
+  FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+  FILEFLAGS 0x1L
+#else
+  FILEFLAGS 0x0L
+#endif
+  FILEOS VOS_NT_WINDOWS32
+  FILETYPE VFT_DLL
+  FILESUBTYPE 0x0L
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK LANG_WITH_CHARSET
+    BEGIN
+      VALUE "Comments", "wxPdfDocument - wxWidgets component for generating PDF documents"
+      VALUE "CompanyName", "wxPdfDocument Development Team"
+      VALUE "FileDescription", "wxPdfDocument"
+      VALUE "FileVersion", WXSQLITE3_VERSION_NUM_DOT_STRING
+      VALUE "InternalName", WXSQLITE3_STRINGIZE(WXSQLITE3_DLLNAME) ".dll"
+      VALUE "LegalCopyright", "Copyright (C) 2005-2017, Ulrich Telle"
+      VALUE "OriginalFilename", WXSQLITE3_STRINGIZE(WXSQLITE3_DLLNAME) ".dll"
+      VALUE "ProductName", "wxPdfDocument"
+      VALUE "ProductVersion", WXSQLITE3_VERSION_NUM_DOT_STRING
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", LANG, CHARSET
+  END
+END

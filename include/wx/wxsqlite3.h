@@ -25,9 +25,10 @@
 #include <wx/string.h>
 
 #include "wx/wxsqlite3def.h"
+#include "wx/wxsqlite3_version.h"
 
 /// wxSQLite3 version string
-#define wxSQLITE3_VERSION_STRING   wxS("wxSQLite3 3.5.0")
+#define wxSQLITE3_VERSION_STRING   wxS(WXSQLITE3_VERSION_STRING)
 
 #define WXSQLITE_ERROR 1000
 

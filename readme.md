@@ -25,6 +25,10 @@ tools operate in Unicode or UTF-8 mode.
 
 ## <a name="history"></a>Version history
 
+* 3.5.1 - *February 2017*
+  - Added version information as Windows resource for DLL builds on Windows
+  - Cleaned up premake5 build files for Visual C++ (corrected debug environment settings)
+  - Resolved wxWidgets library dependencies for Visual C++ using wxWidgets' special setup.h for MSVC
 * 3.5.0 - *January 2017*
   - Upgrade to SQLite version 3.16.2
   - SQLite3 library now integrated part of wxSQLite3

@@ -1,3 +1,9 @@
+-- wxSQLite3 configuration file for premake5
+--
+-- Copyright (C) 2017 Ulrich Telle <ulrich@telle-online.de>
+--
+-- This file is covered by the same licence as the entire wxsqlite3 package. 
+
 dofile "premake/wxwidgets.lua"
 
 BUILDDIR = _OPTIONS["builddir"] or "build"
@@ -59,17 +65,14 @@ project "wxsqlite3"
     "SQLITE_USER_AUTHENTICATION"
   }
 
-  files { "src/*.cpp", "include/wx/*.h",
+  files { "src/*.cpp", "src/*.rc", "include/wx/*.h",
           "sqlite3/secure/src/sqlite3secure.c", "sqlite3/secure/src/*.h" }
   vpaths {
     ["Header Files"] = { "**.h" },
-    ["Source Files"] = { "**.cpp", "**/sqlite3secure.c", "**.def" }
+    ["Source Files"] = { "**.cpp", "**.rc", "**/sqlite3secure.c", "**.def" }
   }
   includedirs { "include", "sqlite3/include" }
   characterset "Unicode"
-
---  configuration { "gmake" }
---    buildoptions { "-x c++" }
 
 -- Minimal wxSQLite3 sample
 project "minimal"

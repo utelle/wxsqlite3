@@ -253,175 +253,210 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)core.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)core.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)core.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)core.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug wxDLL|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)core.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug wxDLL|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)core.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release wxDLL|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)core.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release wxDLL|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXSQLITE3_DLLNAME=$(TargetName);_LIB;WXMAKINGLIB_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)core.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;_USRDLL;WXMAKINGDLL_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXSQLITE3_DLLNAME=$(TargetName);_USRDLL;WXMAKINGDLL_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXSQLITE3_DLLNAME=$(TargetName);_USRDLL;WXMAKINGDLL_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)core.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>$(wxOutDir)\wxsqlite3$(wxFlavour)d.lib</ImportLibrary>
     </Link>
@@ -430,15 +465,18 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;_USRDLL;WXMAKINGDLL_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXSQLITE3_DLLNAME=$(TargetName);_USRDLL;WXMAKINGDLL_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXSQLITE3_DLLNAME=$(TargetName);_USRDLL;WXMAKINGDLL_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)core.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>$(wxOutDir)\wxsqlite3$(wxFlavour)d.lib</ImportLibrary>
     </Link>
@@ -447,19 +485,22 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;_USRDLL;WXMAKINGDLL_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXSQLITE3_DLLNAME=$(TargetName);_USRDLL;WXMAKINGDLL_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXSQLITE3_DLLNAME=$(TargetName);_USRDLL;WXMAKINGDLL_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)core.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>$(wxOutDir)\wxsqlite3$(wxFlavour).lib</ImportLibrary>
     </Link>
@@ -468,25 +509,29 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;_USRDLL;WXMAKINGDLL_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXSQLITE3_DLLNAME=$(TargetName);_USRDLL;WXMAKINGDLL_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXSQLITE3_DLLNAME=$(TargetName);_USRDLL;WXMAKINGDLL_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;wxUSE_DYNAMIC_SQLITE3_LOAD=0;WXSQLITE3_HAVE_METADATA=1;WXSQLITE3_USER_AUTHENTICATION=1;WXSQLITE3_HAVE_CODEC=1;WXSQLITE3_HAVE_LOAD_EXTENSION=0;THREADSAFE=1;SQLITE_SOUNDEX;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;CODEC_TYPE=$(CODEC_TYPE);SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG);SQLITE_SECURE_DELETE;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_RTREE;SQLITE_CORE;SQLITE_ENABLE_EXTFUNC;SQLITE_ENABLE_CSV;SQLITE_USE_URI;SQLITE_USER_AUTHENTICATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\include;..\sqlite3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)core.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>$(wxOutDir)\wxsqlite3$(wxFlavour).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\wx\wxsqlite3.h" />
+    <ClInclude Include="..\include\wx\wxsqlite3_version.h" />
     <ClInclude Include="..\include\wx\wxsqlite3def.h" />
     <ClInclude Include="..\include\wx\wxsqlite3dyn.h" />
     <ClInclude Include="..\include\wx\wxsqlite3opt.h" />
@@ -500,6 +545,9 @@
   <ItemGroup>
     <ClCompile Include="..\sqlite3\secure\src\sqlite3secure.c" />
     <ClCompile Include="..\src\wxsqlite3.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\src\wxsqlite3_version.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -250,18 +250,17 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix)_xml.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -270,18 +269,17 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix)_xml.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -290,7 +288,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -299,13 +297,12 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix)_xml.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -314,7 +311,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -323,13 +320,12 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix)_xml.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -338,18 +334,17 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix)_xml.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -358,18 +353,17 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix)_xml.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -378,7 +372,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -387,13 +381,12 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix)_xml.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -402,7 +395,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -411,13 +404,12 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXUSINGLIB_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix)_xml.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -426,18 +418,17 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXUSINGDLL_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXUSINGDLL_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix)_xml.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -446,18 +437,17 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXUSINGDLL_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;DEBUG;_DEBUG;WXUSINGDLL_WXSQLITE3;_UNICODE;__WXDEBUG__;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix)_xml.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -466,7 +456,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXUSINGDLL_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -475,13 +465,12 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXUSINGDLL_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix)_xml.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -490,7 +479,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXUSINGDLL_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -499,13 +488,12 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG;WXUSINGDLL_WXSQLITE3;_UNICODE;WXUSINGDLL;__WXMSW__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxRootDir)\include\msvc;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll\msw$(wxSuffix);$(wxRootDir)\include;..\samples\treeview;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(wxBaseLibNamePrefix).lib;$(wxToolkitLibNamePrefix)adv.lib;$(wxToolkitLibNamePrefix)core.lib;$(wxBaseLibNamePrefix)_xml.lib;wxjpeg$(wxSuffixDebug).lib;wxpng$(wxSuffixDebug).lib;wxzlib$(wxSuffixDebug).lib;wxtiff$(wxSuffixDebug).lib;wxexpat$(wxSuffixDebug).lib;wxregex$(wxSuffix).lib;comctl32.lib;rpcrt4.lib;shell32.lib;gdi32.lib;kernel32.lib;user32.lib;comdlg32.lib;ole32.lib;oleaut32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
