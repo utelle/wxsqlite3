@@ -19,6 +19,9 @@ LDADD = lib@WXSQLITE3_LIBNAME@.la $(WX_LIBS)
 # Define the directory where the library headers are installed.
 includewxdir = $(includedir)/wx
 
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = wxsqlite3.pc
+
 # The main library. Notice that it uses dynamic, i.e. determined when running
 # configure, name because it depends on the version of wxWidgets used. This is
 # rather unusual, but Automake doesn't seem to mind.
