@@ -33,6 +33,12 @@ newoption {
   description = "Directory for the generated build files"
 }
 
+-- Option to select monolithic wxWidgets build
+newoption {
+  trigger     = "monolithic",
+  description = "Monolithic wxWidgets build"
+}
+
 if not _OPTIONS["wx_ver"] then
    _OPTIONS["wx_ver"] = "3.1"
 end
@@ -40,6 +46,8 @@ end
 if not _OPTIONS["wx_env"] then
    _OPTIONS["wx_env"] = "WXWIN"
 end
+
+wxMonolithic = (_ACTION == "gmake" and _OPTIONS["monolithic"])
 
 -- Determine version of Visual Studio action
 msvc_useProps = false
@@ -214,19 +222,23 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
         -- add the libs (except for MSVC)
         if (wxWindowsCompiler == "gcc") then
           libVersion = string.gsub(wxVersion, '%.', '') -- remove dot from version
-          links { "$(wxBaseLibNamePrefix)" } -- base lib
-          for i, lib in ipairs(string.explode(wxLibs, ",")) do
+          if wxMonolithic then
+            links ( "$(wxMonolithicLibName)" )
+          else
+            links { "$(wxBaseLibNamePrefix)" } -- base lib
+            for i, lib in ipairs(string.explode(wxLibs, ",")) do
               local libPrefix = '$(wxToolkitLibNamePrefix)'
               if lib == "xml" or lib == "net" or lib == "odbc" then
                   libPrefix = '$(wxBaseLibNamePrefix)_'
               end
               links { libPrefix..lib}
-          end
-          -- link with support libraries
-          for i, lib in ipairs({"wxjpeg", "wxpng", "wxzlib", "wxtiff", "wxexpat"}) do
+            end
+            -- link with support libraries
+            for i, lib in ipairs({"wxjpeg", "wxpng", "wxzlib", "wxtiff", "wxexpat"}) do
               links { lib.."$(wxSuffixDebug)" }
+            end
+            links { "wxregex" .. "$(wxSuffix)" }
           end
-          links { "wxregex" .. "$(wxSuffix)" }
           links { "comctl32", "rpcrt4", "shell32", "gdi32", "kernel32", "user32", "comdlg32", "ole32", "oleaut32", "advapi32" }
         elseif (not is_msvc) then
           libVersion = string.gsub(wxVersion, '%.', '') -- remove dot from version
@@ -327,10 +339,17 @@ function init_filters()
 end
 
 function make_filters(libname,libtarget,wxlibs)
-  if (msvc_useProps) then
-    targetname(libtarget .. "$(wxFlavour)")
+  if (wx_compiler == "gcc") then
+    toolset("gcc")
+  end
+  if (is_msvc) then
+    if (msvc_useProps) then
+      targetname(libtarget .. "$(wxFlavour)")
+    else
+      targetname(libtarget)
+    end
   else
-    targetname(libtarget)
+    targetname(libtarget .. "$(wxFlavour)")
   end
   if (is_msvc) then
     defines {
@@ -349,6 +368,11 @@ function make_filters(libname,libtarget,wxlibs)
       "_LIB",
       "WXMAKINGLIB_" .. libname
     }
+    if (wx_compiler == "gcc") then
+      targetprefix "lib"
+      targetextension ".a"
+    end
+
   filter { "configurations:not DLL*", "platforms:x32" }
     if (is_msvc) then
       if (msvc_useProps) then
@@ -376,6 +400,10 @@ function make_filters(libname,libtarget,wxlibs)
       "_USRDLL",
       "WXMAKINGDLL_" .. libname
     }
+    if (wx_compiler == "gcc") then
+      implibprefix "lib"
+      implibextension ".a"
+    end
 
   filter { "configurations:DLL*", "platforms:x32" }
     if (is_msvc) then
@@ -438,6 +466,9 @@ function make_filters(libname,libtarget,wxlibs)
 end
 
 function use_filters(libname, debugcwd, wxlibs)
+  if (wx_compiler == "gcc") then
+    toolset("gcc")
+  end
   makesettings { "include config.gcc" }
 
   filter { "configurations:not DLL*" }

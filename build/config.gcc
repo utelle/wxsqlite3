@@ -2,7 +2,11 @@
 # Configuration file for gcc builds
 # =====================================================================
 
-# Codec type of encryption extension. Default codec type is AES 128 Bit
+# Set default compilers
+CC = gcc
+CXX = g++
+
+# Codec type of encryption extension (CODEC_TYPE_AES128 or CODEC_TYPE_AES256). Default codec type is AES 128 Bit
 CODEC_TYPE ?= CODEC_TYPE_AES128
 
 # Enable SQLite debug assertions (Default: 0)
@@ -21,8 +25,12 @@ wxToolkitPrefix ?= msw
 # Compiler prefix
 wxCompilerPrefix ?= gcc510TDM
 
-# Flavour of wxWidgets library
-wxFlavour ?=
+# Monolithic wxWidgets build
+# Set to 1 to enable
+wxMonolithic ?= 0
+
+# Flavour of component library (postfix for library name)
+wxFlavour ?= _$(wxToolkitPrefix)$(wxShortVersionString)u
 
 # Configuration of wxWidgets library
 wxCfg ?=
@@ -136,3 +144,4 @@ wxToolkitDllNamePrefix = wx$(wxToolkitPrefix)$(wxShortVersionString)$(wxSuffix)_
 wxToolkitDllNameSuffix = _$(wxCompilerPrefix)$(wxArchSuffix)_$(wxVendor)
 wxToolkitLibNamePrefix = wx$(wxToolkitPrefix)$(wxShortVersionString)$(wxSuffix)_
 wxBaseLibNamePrefix = wxbase$(wxShortVersionString)$(wxSuffix)
+wxMonolithicLibName = wx$(wxToolkitPrefix)$(wxShortVersionString)$(wxSuffix)

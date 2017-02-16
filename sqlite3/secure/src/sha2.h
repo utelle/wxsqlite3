@@ -57,7 +57,7 @@ typedef sqlite3_uint64 uint64;
   #define li_64(h) 0x##h##ull
 #endif 
 
-#if 0  // Start of original int64 defines
+#if 0  /* Start of original int64 defines */
 
 #if defined(_MSC_VER)
   #if _MSC_VER >= 1310
@@ -104,8 +104,7 @@ typedef sqlite3_uint64 uint64;
 #endif
 #endif
 
-#endif // End of original int64 defines
-//
+#endif /* End of original int64 defines */
 
 #ifdef __cplusplus
 extern "C" {

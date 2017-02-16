@@ -36,6 +36,10 @@ project "wxsqlite3"
     local prj = project()
     prj.filename = "wxsqlite3_" .. vc_with_ver .. "_wxsqlite3"
   end
+  if wxMonolithic then
+    local prj = project()
+    prj.filename = "wxsqlite3_mono"
+  end
 
   make_filters( "WXSQLITE3", "wxsqlite3", "core" )
 
@@ -71,7 +75,7 @@ project "wxsqlite3"
     ["Header Files"] = { "**.h" },
     ["Source Files"] = { "**.cpp", "**.rc", "**/sqlite3secure.c", "**.def" }
   }
-  includedirs { "include", "sqlite3/include" }
+  includedirs { "include", "sqlite3/secure/src" }
   characterset "Unicode"
 
 -- Minimal wxSQLite3 sample
@@ -83,6 +87,10 @@ project "minimal"
   if (is_msvc) then
     local prj = project()
     prj.filename = "wxsqlite3_" .. vc_with_ver .. "_minimal"
+  end
+  if wxMonolithic then
+    local prj = project()
+    prj.filename = "minimal_mono"
   end
 
   use_filters( "WXSQLITE3", "samples", "core" )
@@ -106,6 +114,10 @@ project "treeview"
   if (is_msvc) then
     local prj = project()
     prj.filename = "wxsqlite3_" .. vc_with_ver .. "_treeview"
+  end
+  if wxMonolithic then
+    local prj = project()
+    prj.filename = "treeview_mono"
   end
 
   use_filters( "WXSQLITE3", "samples/treeview", "adv,core,xml" )

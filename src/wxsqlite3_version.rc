@@ -46,14 +46,14 @@ BEGIN
   BEGIN
     BLOCK LANG_WITH_CHARSET
     BEGIN
-      VALUE "Comments", "wxPdfDocument - wxWidgets component for generating PDF documents"
-      VALUE "CompanyName", "wxPdfDocument Development Team"
-      VALUE "FileDescription", "wxPdfDocument"
+      VALUE "Comments", "wxSQLite3 - SQLite3 database wrapper for wxWidgets applications"
+      VALUE "CompanyName", "wxSQLite3 Development Team"
+      VALUE "FileDescription", "wxSQLite3"
       VALUE "FileVersion", WXSQLITE3_VERSION_NUM_DOT_STRING
       VALUE "InternalName", WXSQLITE3_STRINGIZE(WXSQLITE3_DLLNAME) ".dll"
       VALUE "LegalCopyright", "Copyright (C) 2005-2017, Ulrich Telle"
       VALUE "OriginalFilename", WXSQLITE3_STRINGIZE(WXSQLITE3_DLLNAME) ".dll"
-      VALUE "ProductName", "wxPdfDocument"
+      VALUE "ProductName", "wxSQLite3"
       VALUE "ProductVersion", WXSQLITE3_VERSION_NUM_DOT_STRING
     END
   END

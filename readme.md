@@ -25,6 +25,10 @@ tools operate in Unicode or UTF-8 mode.
 
 ## <a name="history"></a>Version history
 
+* 3.5.2 - *February 2017*
+  - Upgrade to SQLite version 3.17.0
+  - Fixed minor issue in SQLite encryption extension related to symbol `SQLITE_DEBUG`
+  - Modified build system for GNU make (support monolithic wxWidgets build)
 * 3.5.1 - *February 2017*
   - Added version information as Windows resource for DLL builds on Windows
   - Cleaned up premake5 build files for Visual C++ (corrected debug environment settings)

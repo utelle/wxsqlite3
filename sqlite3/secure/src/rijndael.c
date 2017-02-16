@@ -1124,7 +1124,7 @@ int RijndaelBlockEncrypt(Rijndael* rijndael, UINT8 *input,int inputLen,UINT8 *ou
           iv[3][0] = (UINT8) ((iv[3][0] << 1) | (iv[3][1] >> 7));
           iv[3][1] = (UINT8) ((iv[3][1] << 1) | (iv[3][2] >> 7));
           iv[3][2] = (UINT8) ((iv[3][2] << 1) | (iv[3][3] >> 7));
-          iv[3][3] = (UINT8) ((iv[3][3] << 1) | (outBuffer[k/8] >> (7-(k&7))) & 1);
+          iv[3][3] = (UINT8) ((iv[3][3] << 1) | ((outBuffer[k/8] >> (7-(k&7))) & 1));
         }
       }
     break;
@@ -1278,7 +1278,7 @@ int RijndaelBlockDecrypt(Rijndael* rijndael, UINT8 *input, int inputLen, UINT8 *
           iv[3][0] = (UINT8) ((iv[3][0] << 1) | (iv[3][1] >> 7));
           iv[3][1] = (UINT8) ((iv[3][1] << 1) | (iv[3][2] >> 7));
           iv[3][2] = (UINT8) ((iv[3][2] << 1) | (iv[3][3] >> 7));
-          iv[3][3] = (UINT8) ((iv[3][3] << 1) | (input[k/8] >> (7-(k&7))) & 1);
+          iv[3][3] = (UINT8) ((iv[3][3] << 1) | ((input[k/8] >> (7-(k&7))) & 1));
           outBuffer[k/8] ^= (block[0] & 0x80) >> (k & 7);
         }
       }

@@ -106,9 +106,9 @@ Original code 2006 June 05 by relicoder.
 
 */
 
-//#include "config.h"
+/* #include "config.h" */
 
-//#define COMPILE_SQLITE_EXTENSIONS_AS_LOADABLE_MODULE 1
+/* #define COMPILE_SQLITE_EXTENSIONS_AS_LOADABLE_MODULE 1 */
 #if defined(_MSC_VER) && _MSC_VER <= 1700
 #else
 #define HAVE_ACOSH 1
@@ -215,10 +215,6 @@ int int_cmp(const void *a, const void *b);
 int double_cmp(const void *a, const void *b);
 
 #endif /* _MAP_H_ */
-
-//typedef uint8_t         u8;
-//typedef uint16_t        u16;
-//typedef int64_t         i64;
 
 static char *sqlite3StrDup( const char *z ) {
     char *res = sqlite3_malloc( strlen(z)+1 );
@@ -1254,11 +1250,13 @@ static void trimFunc(sqlite3_context *context, int argc, sqlite3_value **argv){
 ** All lengths in bytes.
 ** This is just an auxiliary function
 */
-// static void _append(char **s1, int l1, const char *s2, int l2){
-//   *s1 = realloc(*s1, (l1+l2+1)*sizeof(char));
-//   strncpy((*s1)+l1, s2, l2);
-//   *(*(s1)+l1+l2) = '\0';
-// }
+#if 0
+static void _append(char **s1, int l1, const char *s2, int l2){
+  *s1 = realloc(*s1, (l1+l2+1)*sizeof(char));
+  strncpy((*s1)+l1, s2, l2);
+  *(*(s1)+l1+l2) = '\0';
+}
+#endif
 
 #ifndef HAVE_TRIM
 
@@ -1825,7 +1823,7 @@ int RegisterExtensionFunctions(sqlite3 *db){
       case 1: pArg = db; break;
       case 2: pArg = (void *)(-1); break;
     }
-    //sqlite3CreateFunc
+    /* sqlite3CreateFunc */
     /* LMH no error checking */
     sqlite3_create_function(db, aFuncs[i].zName, aFuncs[i].nArg,
         aFuncs[i].eTextRep, pArg, aFuncs[i].xFunc, 0, 0);
@@ -1846,7 +1844,7 @@ int RegisterExtensionFunctions(sqlite3 *db){
       case 1: pArg = db; break;
       case 2: pArg = (void *)(-1); break;
     }
-    //sqlite3CreateFunc
+    /* sqlite3CreateFunc */
     /* LMH no error checking */
     sqlite3_create_function(db, aAggs[i].zName, aAggs[i].nArg, SQLITE_UTF8, 
         pArg, 0, aAggs[i].xStep, aAggs[i].xFinalize);

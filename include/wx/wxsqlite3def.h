@@ -46,6 +46,13 @@
 
 <dl>
 
+<dt><b>3.5.2</b> - <i>February 2017</i></dt>
+<dd>
+Upgrade to SQLite version 3.17.0<br>
+Fixed minor issue in SQLite encryption extension related to symbol SQLITE_DEBUG<br>
+Modified build system for GNU make (support monolithic wxWidgets build)<br>
+
+</dd>
 <dt><b>3.5.1</b> - <i>February 2017</i></dt>
 <dd>
 Added version information as Windows resource for DLL builds on Windows<br>
