@@ -4124,7 +4124,11 @@ int wxSQLite3Database::GetSystemErrorCode() const
   return rc;
 }
 
+#if wxCHECK_VERSION(2,9,0)
+static const wxStringCharType* limitCodeString[] =
+#else
 static const wxChar* limitCodeString[] =
+#endif
 { wxS("SQLITE_LIMIT_LENGTH"),              wxS("SQLITE_LIMIT_SQL_LENGTH"),
   wxS("SQLITE_LIMIT_COLUMN"),              wxS("SQLITE_LIMIT_EXPR_DEPTH"),
   wxS("SQLITE_LIMIT_COMPOUND_SELECT"),     wxS("SQLITE_LIMIT_VDBE_OP"),
@@ -4137,12 +4141,12 @@ static const wxChar* limitCodeString[] =
 /* static */
 wxString wxSQLite3Database::LimitTypeToString(wxSQLite3LimitType type)
 {
-  const wxChar* limitString = wxS("Unknown");
+  wxString limitString(wxS("Unknown"));
   if (type >= WXSQLITE_LIMIT_LENGTH && type <= WXSQLITE_LIMIT_WORKER_THREADS)
   {
     limitString = limitCodeString[type];
   }
-  return wxString(limitString);
+  return limitString;
 }
 
 /* static */
@@ -4509,7 +4513,11 @@ int wxSQLite3FunctionContext::ExecWriteAheadLogHook(void* hook, void* dbHandle,
   return (int) ((wxSQLite3Hook*) hook)->WriteAheadLogCallback(locDatabase, numPages);
 }
 
+#if wxCHECK_VERSION(2,9,0)
+static const wxStringCharType* authCodeString[] =
+#else
 static const wxChar* authCodeString[] =
+#endif
 { wxS("SQLITE_COPY"),              wxS("SQLITE_CREATE_INDEX"),      wxS("SQLITE_CREATE_TABLE"),
   wxS("SQLITE_CREATE_TEMP_INDEX"), wxS("SQLITE_CREATE_TEMP_TABLE"), wxS("SQLITE_CREATE_TEMP_TRIGGER"),
   wxS("SQLITE_CREATE_TEMP_VIEW"),  wxS("SQLITE_CREATE_TRIGGER"),    wxS("SQLITE_CREATE_VIEW"),
@@ -4528,12 +4536,12 @@ static const wxChar* authCodeString[] =
 /* static */
 wxString wxSQLite3Authorizer::AuthorizationCodeToString(wxSQLite3Authorizer::wxAuthorizationCode type)
 {
-  const wxChar* authString = wxS("Unknown");
+  wxString authString(wxS("Unknown"));
   if (type >= SQLITE_COPY && type <= SQLITE_MAX_CODE)
   {
     authString = authCodeString[type];
   }
-  return wxString(authString);
+  return authString;
 }
 
 // ----------------------------------------------------------------------------
