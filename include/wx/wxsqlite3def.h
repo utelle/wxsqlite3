@@ -46,7 +46,7 @@
 
 <dl>
 
-<dt><b>3.5.2</b> - <i>February 2017</i></dt>
+<dt><b>3.5.2</b> - <i>March 2017</i></dt>
 <dd>
 Upgrade to SQLite version 3.17.0<br>
 Fixed minor issue in SQLite encryption extension related to symbol SQLITE_DEBUG<br>

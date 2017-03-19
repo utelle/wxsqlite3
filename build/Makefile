@@ -109,13 +109,13 @@ endif
 
 clean:
 ifeq ($(wxMonolithic),1)
-	@${MAKE} --no-print-directory -C . -f wxsqlite3.make clean
-	@${MAKE} --no-print-directory -C . -f minimal.make clean
-	@${MAKE} --no-print-directory -C . -f treeview.make clean
-else
 	@${MAKE} --no-print-directory -C . -f wxsqlite3_mono.make clean
 	@${MAKE} --no-print-directory -C . -f minimal_mono.make clean
 	@${MAKE} --no-print-directory -C . -f treeview_mono.make clean
+else
+	@${MAKE} --no-print-directory -C . -f wxsqlite3.make clean
+	@${MAKE} --no-print-directory -C . -f minimal.make clean
+	@${MAKE} --no-print-directory -C . -f treeview.make clean
 endif
 
 help:

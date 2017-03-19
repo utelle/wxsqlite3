@@ -25,7 +25,7 @@ tools operate in Unicode or UTF-8 mode.
 
 ## <a name="history"></a>Version history
 
-* 3.5.2 - *February 2017*
+* 3.5.2 - *March 2017*
   - Upgrade to SQLite version 3.17.0
   - Fixed minor issue in SQLite encryption extension related to symbol `SQLITE_DEBUG`
   - Modified build system for GNU make (support monolithic wxWidgets build)

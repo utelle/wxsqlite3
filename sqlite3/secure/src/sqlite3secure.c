@@ -10,8 +10,9 @@
 /*
 ** To enable the extension functions define SQLITE_ENABLE_EXTFUNC on compiling this module
 ** To enable the reading CSV files define SQLITE_ENABLE_CSV on compiling this module
+** To enable the SHA3 support define SQLITE_ENABLE_SHA3 on compiling this module
 */
-#if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV)
+#if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV) || defined(SQLITE_ENABLE_SHA3)
 #define sqlite3_open    sqlite3_open_internal
 #define sqlite3_open16  sqlite3_open16_internal
 #define sqlite3_open_v2 sqlite3_open_v2_internal
@@ -31,7 +32,7 @@
 #include "userauth.c"
 #endif
 
-#if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV)
+#if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV) || defined(SQLITE_ENABLE_SHA3)
 #undef sqlite3_open
 #undef sqlite3_open16
 #undef sqlite3_open_v2
@@ -91,7 +92,14 @@ void mySqlite3PagerSetCodec(
 #include "csv.c"
 #endif
 
-#if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV)
+/*
+** SHA3
+*/
+#ifdef SQLITE_ENABLE_SHA3
+#include "shathree.c"
+#endif
+
+#if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV) || defined(SQLITE_ENABLE_SHA3)
 
 SQLITE_API int sqlite3_open(
   const char *filename,   /* Database filename (UTF-8) */
@@ -106,6 +114,9 @@ SQLITE_API int sqlite3_open(
 #endif
 #ifdef SQLITE_ENABLE_CSV
     sqlite3_csv_init(*ppDb, NULL, NULL);
+#endif
+#ifdef SQLITE_ENABLE_SHA3
+    sqlite3_shathree_init(*ppDb, NULL, NULL);
 #endif
   }
   return ret;
