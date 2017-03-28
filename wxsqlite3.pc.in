@@ -1,6 +1,7 @@
 # Package Information for pkg-config
 
 prefix=@prefix@
+exec_prefix=@exec_prefix@
 wxver=@WX_VERSION_MAJOR@.@WX_VERSION_MINOR@
 includedir=@includedir@
 libdir=@libdir@
