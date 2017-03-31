@@ -46,6 +46,12 @@
 
 <dl>
 
+<dt><b>3.5.3</b> - <i>March 2017</i></dt>
+<dd>
+Upgrade to SQLite version 3.18.0<br>
+Minor modification to wxsqlite3.pc.in to fix issue with pkgconfig tool<br>
+
+</dd>
 <dt><b>3.5.2</b> - <i>March 2017</i></dt>
 <dd>
 Upgrade to SQLite version 3.17.0<br>
