@@ -25,6 +25,8 @@ tools operate in Unicode or UTF-8 mode.
 
 ## <a name="history"></a>Version history
 
+* 3.5.4 - *June 2017*
+  - Upgrade to SQLite version 3.19.2
 * 3.5.3 - *March 2017*
   - Upgrade to SQLite version 3.18.0
   - Minor modification to wxsqlite3.pc.in to fix issue with pkgconfig tool

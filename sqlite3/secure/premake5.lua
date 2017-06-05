@@ -69,6 +69,7 @@ project "sqlite3lib"
   defines {
     "_LIB",
     "THREADSAFE=1",
+    "SQLITE_ENABLE_EXPLAIN_COMMENTS",
     "SQLITE_SOUNDEX",
     "SQLITE_ENABLE_COLUMN_METADATA",
     "SQLITE_HAS_CODEC",

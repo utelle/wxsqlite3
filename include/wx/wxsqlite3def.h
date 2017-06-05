@@ -46,6 +46,11 @@
 
 <dl>
 
+<dt><b>3.5.4</b> - <i>June 2017</i></dt>
+<dd>
+Upgrade to SQLite version 3.19.2<br>
+
+</dd>
 <dt><b>3.5.3</b> - <i>March 2017</i></dt>
 <dd>
 Upgrade to SQLite version 3.18.0<br>
