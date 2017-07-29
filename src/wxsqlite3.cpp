@@ -3090,7 +3090,9 @@ void wxSQLite3Database::Rollback(const wxString& savepointName)
   }
   else
   {
-    ExecuteUpdate(wxString(wxS("rollback transaction to savepoint "))+savepointName);
+    wxString localSavepointName = savepointName;
+    localSavepointName.Replace(wxString(wxS("\"")), wxString(wxS("\"\"")));
+    ExecuteUpdate(wxString(wxS("rollback transaction to savepoint \""))+localSavepointName+wxString(wxS("\"")));
   }
 #endif
 }
@@ -3109,7 +3111,9 @@ int wxSQLite3Database::QueryRollbackState()
 void wxSQLite3Database::Savepoint(const wxString& savepointName)
 {
 #if SQLITE_VERSION_NUMBER >= 3006008
-  ExecuteUpdate(wxString(wxS("savepoint "))+savepointName);
+  wxString localSavepointName = savepointName;
+  localSavepointName.Replace(wxString(wxS("\"")), wxString(wxS("\"\"")));
+  ExecuteUpdate(wxString(wxS("savepoint \"")) + localSavepointName + wxString(wxS("\"")));
 #else
   wxUnusedVar(savepointName);
   throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NOSAVEPOINT);
@@ -3119,7 +3123,9 @@ void wxSQLite3Database::Savepoint(const wxString& savepointName)
 void wxSQLite3Database::ReleaseSavepoint(const wxString& savepointName)
 {
 #if SQLITE_VERSION_NUMBER >= 3006008
-  ExecuteUpdate(wxString(wxS("release savepoint "))+savepointName);
+  wxString localSavepointName = savepointName;
+  localSavepointName.Replace(wxString(wxS("\"")), wxString(wxS("\"\"")));
+  ExecuteUpdate(wxString(wxS("release savepoint \"")) + localSavepointName + wxString(wxS("\"")));
 #else
   wxUnusedVar(savepointName);
   throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NOSAVEPOINT);
