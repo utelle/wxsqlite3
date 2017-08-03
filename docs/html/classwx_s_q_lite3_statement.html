@@ -17,9 +17,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">3.5.5</span>
+   &#160;<span id="projectnumber">3.5.6</span>
    </div>
   </td>
  </tr>
@@ -60,7 +61,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a34608b61da9241a330337e473bbc16a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a34608b61da9241a330337e473bbc16a5">More...</a><br /></td></tr>
 <tr class="separator:a34608b61da9241a330337e473bbc16a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a640eac29764d3c4e2897a7eeb71fea5c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwx_s_q_lite3_statement.html">wxSQLite3Statement</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_statement.html#a640eac29764d3c4e2897a7eeb71fea5c">operator=</a> (const <a class="el" href="classwx_s_q_lite3_statement.html">wxSQLite3Statement</a> &amp;statement)</td></tr>
-<tr class="memdesc:a640eac29764d3c4e2897a7eeb71fea5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignement constructor.  <a href="#a640eac29764d3c4e2897a7eeb71fea5c">More...</a><br /></td></tr>
+<tr class="memdesc:a640eac29764d3c4e2897a7eeb71fea5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment constructor.  <a href="#a640eac29764d3c4e2897a7eeb71fea5c">More...</a><br /></td></tr>
 <tr class="separator:a640eac29764d3c4e2897a7eeb71fea5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02a3115baa90c876646555d2aa1ac4aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_statement.html#a02a3115baa90c876646555d2aa1ac4aa">wxSQLite3Statement</a> (<a class="el" href="classwx_s_q_lite3_database_reference.html">wxSQLite3DatabaseReference</a> *db, <a class="el" href="classwx_s_q_lite3_statement_reference.html">wxSQLite3StatementReference</a> *stmt)</td></tr>
 <tr class="memdesc:a02a3115baa90c876646555d2aa1ac4aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor (internal use only)  <a href="#a02a3115baa90c876646555d2aa1ac4aa">More...</a><br /></td></tr>
@@ -107,6 +108,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2d47824d6da18951cd3b8da240285f28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_statement.html#a2d47824d6da18951cd3b8da240285f28">Bind</a> (int paramIndex, const wxMemoryBuffer &amp;blobValue)</td></tr>
 <tr class="memdesc:a2d47824d6da18951cd3b8da240285f28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind parameter to a BLOB value.  <a href="#a2d47824d6da18951cd3b8da240285f28">More...</a><br /></td></tr>
 <tr class="separator:a2d47824d6da18951cd3b8da240285f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae70386df68c65ee10d0576f09e7da7a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_statement.html#ae70386df68c65ee10d0576f09e7da7a5">Bind</a> (int paramIndex, void *pointer, const wxString &amp;pointerType, void(*DeletePointer)(void *)=NULL)</td></tr>
+<tr class="memdesc:ae70386df68c65ee10d0576f09e7da7a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind parameter to a pointer value.  <a href="#ae70386df68c65ee10d0576f09e7da7a5">More...</a><br /></td></tr>
+<tr class="separator:ae70386df68c65ee10d0576f09e7da7a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56f51a599be98d890fc11fff0b97941f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_statement.html#a56f51a599be98d890fc11fff0b97941f">BindDate</a> (int paramIndex, const wxDateTime &amp;date)</td></tr>
 <tr class="memdesc:a56f51a599be98d890fc11fff0b97941f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind parameter to a date value.  <a href="#a56f51a599be98d890fc11fff0b97941f">More...</a><br /></td></tr>
 <tr class="separator:a56f51a599be98d890fc11fff0b97941f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -266,7 +270,7 @@ Public Member Functions</h2></td></tr>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a24dc6775a25401645add6ffc6df9a9c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24dc6775a25401645add6ffc6df9a9c3">&#9670;&nbsp;</a></span>Bind() <span class="overload">[1/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a24dc6775a25401645add6ffc6df9a9c3">&#9670;&nbsp;</a></span>Bind() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -303,7 +307,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9c080a0225d3e65e1fb54313cd5828b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c080a0225d3e65e1fb54313cd5828b9">&#9670;&nbsp;</a></span>Bind() <span class="overload">[2/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c080a0225d3e65e1fb54313cd5828b9">&#9670;&nbsp;</a></span>Bind() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -340,7 +344,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2c8f711512b0df94dd2cddbcc0da5c9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c8f711512b0df94dd2cddbcc0da5c9e">&#9670;&nbsp;</a></span>Bind() <span class="overload">[3/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c8f711512b0df94dd2cddbcc0da5c9e">&#9670;&nbsp;</a></span>Bind() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -377,7 +381,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8b5a886d14df32b8acfb9eaf525cadc3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b5a886d14df32b8acfb9eaf525cadc3">&#9670;&nbsp;</a></span>Bind() <span class="overload">[4/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b5a886d14df32b8acfb9eaf525cadc3">&#9670;&nbsp;</a></span>Bind() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -414,7 +418,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a60a0837f3f5db23643ea66deef07c658"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60a0837f3f5db23643ea66deef07c658">&#9670;&nbsp;</a></span>Bind() <span class="overload">[5/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a60a0837f3f5db23643ea66deef07c658">&#9670;&nbsp;</a></span>Bind() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -451,7 +455,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad17d5df6de00702c5e6acf7208652f30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad17d5df6de00702c5e6acf7208652f30">&#9670;&nbsp;</a></span>Bind() <span class="overload">[6/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad17d5df6de00702c5e6acf7208652f30">&#9670;&nbsp;</a></span>Bind() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -495,7 +499,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2d47824d6da18951cd3b8da240285f28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d47824d6da18951cd3b8da240285f28">&#9670;&nbsp;</a></span>Bind() <span class="overload">[7/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d47824d6da18951cd3b8da240285f28">&#9670;&nbsp;</a></span>Bind() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -525,6 +529,57 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">paramIndex</td><td>index of the parameter. The first parameter has an index of 1. </td></tr>
     <tr><td class="paramname">blobValue</td><td>value of the parameter </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae70386df68c65ee10d0576f09e7da7a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae70386df68c65ee10d0576f09e7da7a5">&#9670;&nbsp;</a></span>Bind() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wxSQLite3Statement::Bind </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>paramIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>pointer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;&#160;</td>
+          <td class="paramname"><em>pointerType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void(*)(void *)&#160;</td>
+          <td class="paramname"><em>DeletePointer</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bind parameter to a pointer value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">paramIndex</td><td>index of the parameter. The first parameter has an index of 1. </td></tr>
+    <tr><td class="paramname">pointer</td><td>pointer value of the parameter </td></tr>
+    <tr><td class="paramname">pointerType</td><td>descriptive name of the pointer type as expected by the extension module </td></tr>
+    <tr><td class="paramname">DeletePointer</td><td>pointer to a function for deleting the object pointed to by the pointer after use in SQLite (default: NULL) </td></tr>
   </table>
   </dd>
 </dl>
@@ -1185,7 +1240,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assignement constructor. </p>
+<p>Assignment constructor. </p>
 
 </div>
 </div>
@@ -1254,7 +1309,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 9 2017 12:46:59 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 3 2017 20:15:52 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

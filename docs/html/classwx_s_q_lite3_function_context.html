@@ -17,9 +17,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">3.5.5</span>
+   &#160;<span id="projectnumber">3.5.6</span>
    </div>
   </td>
  </tr>
@@ -54,6 +55,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a066e44a19c4c995f401e504ba96e67f9"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#a066e44a19c4c995f401e504ba96e67f9">~wxSQLite3FunctionContext</a> ()</td></tr>
+<tr class="memdesc:a066e44a19c4c995f401e504ba96e67f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor.  <a href="#a066e44a19c4c995f401e504ba96e67f9">More...</a><br /></td></tr>
+<tr class="separator:a066e44a19c4c995f401e504ba96e67f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a1239d4470913d66a2f6685d2d65d84"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#a2a1239d4470913d66a2f6685d2d65d84">GetArgCount</a> ()</td></tr>
 <tr class="memdesc:a2a1239d4470913d66a2f6685d2d65d84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of function arguments.  <a href="#a2a1239d4470913d66a2f6685d2d65d84">More...</a><br /></td></tr>
 <tr class="separator:a2a1239d4470913d66a2f6685d2d65d84"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -81,6 +85,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a56afea936042a679d06030a56bbcc6f7"><td class="memItemLeft" align="right" valign="top">wxMemoryBuffer &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#a56afea936042a679d06030a56bbcc6f7">GetBlob</a> (int argIndex, wxMemoryBuffer &amp;buffer)</td></tr>
 <tr class="memdesc:a56afea936042a679d06030a56bbcc6f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a function argument as a BLOB value.  <a href="#a56afea936042a679d06030a56bbcc6f7">More...</a><br /></td></tr>
 <tr class="separator:a56afea936042a679d06030a56bbcc6f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a1852448e358a851264078e298e1167"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#a6a1852448e358a851264078e298e1167">GetPointer</a> (int argIndex, const wxString &amp;pointerType)</td></tr>
+<tr class="memdesc:a6a1852448e358a851264078e298e1167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a function argument as a pointer value.  <a href="#a6a1852448e358a851264078e298e1167">More...</a><br /></td></tr>
+<tr class="separator:a6a1852448e358a851264078e298e1167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e1dbf96fc108e6b9e35632c5cdf3b93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#a7e1dbf96fc108e6b9e35632c5cdf3b93">SetResult</a> (int value)</td></tr>
 <tr class="memdesc:a7e1dbf96fc108e6b9e35632c5cdf3b93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the function result as an integer value.  <a href="#a7e1dbf96fc108e6b9e35632c5cdf3b93">More...</a><br /></td></tr>
 <tr class="separator:a7e1dbf96fc108e6b9e35632c5cdf3b93"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -99,6 +106,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a323b58491f6963c7c6395add435b6911"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#a323b58491f6963c7c6395add435b6911">SetResult</a> (const wxMemoryBuffer &amp;buffer)</td></tr>
 <tr class="memdesc:a323b58491f6963c7c6395add435b6911"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the function result as a BLOB value.  <a href="#a323b58491f6963c7c6395add435b6911">More...</a><br /></td></tr>
 <tr class="separator:a323b58491f6963c7c6395add435b6911"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe90496b88ed85e20ef93a2d66de3028"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#afe90496b88ed85e20ef93a2d66de3028">SetResult</a> (void *pointer, const wxString &amp;pointerType, void(*DeletePointer)(void *)=NULL)</td></tr>
+<tr class="memdesc:afe90496b88ed85e20ef93a2d66de3028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the function result as a pointer value.  <a href="#afe90496b88ed85e20ef93a2d66de3028">More...</a><br /></td></tr>
+<tr class="separator:afe90496b88ed85e20ef93a2d66de3028"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a93531170d8c853529a59b23f1a1b1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#a9a93531170d8c853529a59b23f1a1b1e">SetResultNull</a> ()</td></tr>
 <tr class="memdesc:a9a93531170d8c853529a59b23f1a1b1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the function result as a NULL value.  <a href="#a9a93531170d8c853529a59b23f1a1b1e">More...</a><br /></td></tr>
 <tr class="separator:a9a93531170d8c853529a59b23f1a1b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,7 +155,35 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Context for user defined scalar or aggregate functions. </p>
 <p>A function context gives user defined scalar or aggregate functions access to function arguments and function results. The "Execute" method resp. the "Aggregate" and "Finalize" methods receive the current function context as an argument. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a066e44a19c4c995f401e504ba96e67f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a066e44a19c4c995f401e504ba96e67f9">&#9670;&nbsp;</a></span>~wxSQLite3FunctionContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxSQLite3FunctionContext::~wxSQLite3FunctionContext </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default destructor. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a92029556706a660d0d8379e9d9bccb3a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a92029556706a660d0d8379e9d9bccb3a">&#9670;&nbsp;</a></span>ExecAggregateFinalize()</h2>
 
@@ -709,6 +747,43 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6a1852448e358a851264078e298e1167"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a1852448e358a851264078e298e1167">&#9670;&nbsp;</a></span>GetPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * wxSQLite3FunctionContext::GetPointer </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;&#160;</td>
+          <td class="paramname"><em>pointerType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a function argument as a pointer value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argIndex</td><td>index of the function argument. Indices start with 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>argument value </dd></dl>
+
+</div>
+</div>
 <a id="a74014b4fae96bd8470a8821a7cdcde19"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a74014b4fae96bd8470a8821a7cdcde19">&#9670;&nbsp;</a></span>GetString()</h2>
 
@@ -775,7 +850,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7e1dbf96fc108e6b9e35632c5cdf3b93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e1dbf96fc108e6b9e35632c5cdf3b93">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e1dbf96fc108e6b9e35632c5cdf3b93">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -801,7 +876,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a48a8121c34f229b4c66d3145a30cdd3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48a8121c34f229b4c66d3145a30cdd3e">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a48a8121c34f229b4c66d3145a30cdd3e">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -827,7 +902,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab805ca1d4572265cb5d505d6b15fdc33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab805ca1d4572265cb5d505d6b15fdc33">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab805ca1d4572265cb5d505d6b15fdc33">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -853,7 +928,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab6429d3d3ee4abb6154ae8f520465478"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6429d3d3ee4abb6154ae8f520465478">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6429d3d3ee4abb6154ae8f520465478">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -879,7 +954,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8c65f9a97d904a9b9fb8a436aa8415c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c65f9a97d904a9b9fb8a436aa8415c4">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c65f9a97d904a9b9fb8a436aa8415c4">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -916,7 +991,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a323b58491f6963c7c6395add435b6911"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a323b58491f6963c7c6395add435b6911">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a323b58491f6963c7c6395add435b6911">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -935,6 +1010,50 @@ Static Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>containing the function result value </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afe90496b88ed85e20ef93a2d66de3028"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe90496b88ed85e20ef93a2d66de3028">&#9670;&nbsp;</a></span>SetResult() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wxSQLite3FunctionContext::SetResult </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>pointer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;&#160;</td>
+          <td class="paramname"><em>pointerType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void(*)(void *)&#160;</td>
+          <td class="paramname"><em>DeletePointer</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the function result as a pointer value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>pointer value </td></tr>
+    <tr><td class="paramname">pointerType</td><td>descriptive name of the pointer type as expected by the extension module </td></tr>
+    <tr><td class="paramname">DeletePointer</td><td>pointer to a function for deleting the object pointed to by the pointer after use in SQLite (default: NULL) </td></tr>
   </table>
   </dd>
 </dl>
@@ -1045,7 +1164,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 9 2017 12:46:59 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 3 2017 20:15:52 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

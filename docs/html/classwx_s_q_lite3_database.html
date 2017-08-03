@@ -17,9 +17,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">3.5.5</span>
+   &#160;<span id="projectnumber">3.5.6</span>
    </div>
   </td>
  </tr>
@@ -205,6 +206,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aaa0c4f1236d976dc35fd7244387accf4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwx_s_q_lite3_statement.html">wxSQLite3Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#aaa0c4f1236d976dc35fd7244387accf4">PrepareStatement</a> (const char *sql)</td></tr>
 <tr class="memdesc:aaa0c4f1236d976dc35fd7244387accf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare a SQL query statement given as a utf-8 character string for parameter binding.  <a href="#aaa0c4f1236d976dc35fd7244387accf4">More...</a><br /></td></tr>
 <tr class="separator:aaa0c4f1236d976dc35fd7244387accf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53c2cb9d48c7e9559fa52e9f7be9043a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwx_s_q_lite3_statement.html">wxSQLite3Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#a53c2cb9d48c7e9559fa52e9f7be9043a">PreparePersistentStatement</a> (const wxString &amp;sql)</td></tr>
+<tr class="memdesc:a53c2cb9d48c7e9559fa52e9f7be9043a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare a (long-lasting) SQL query statement given as a wxString for parameter binding.  <a href="#a53c2cb9d48c7e9559fa52e9f7be9043a">More...</a><br /></td></tr>
+<tr class="separator:a53c2cb9d48c7e9559fa52e9f7be9043a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b31dfe46c2552455a55197e09beeb25"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwx_s_q_lite3_statement.html">wxSQLite3Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#a1b31dfe46c2552455a55197e09beeb25">PreparePersistentStatement</a> (const <a class="el" href="classwx_s_q_lite3_statement_buffer.html">wxSQLite3StatementBuffer</a> &amp;sql)</td></tr>
+<tr class="memdesc:a1b31dfe46c2552455a55197e09beeb25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare a (long-lasting) SQL query statement given as a statement buffer for parameter binding.  <a href="#a1b31dfe46c2552455a55197e09beeb25">More...</a><br /></td></tr>
+<tr class="separator:a1b31dfe46c2552455a55197e09beeb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8fe9ab2ed665422b4be4faaf8608a4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwx_s_q_lite3_statement.html">wxSQLite3Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#aa8fe9ab2ed665422b4be4faaf8608a4c">PreparePersistentStatement</a> (const char *sql)</td></tr>
+<tr class="memdesc:aa8fe9ab2ed665422b4be4faaf8608a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare a (long-lasting) SQL query statement given as a utf-8 character string for parameter binding.  <a href="#aa8fe9ab2ed665422b4be4faaf8608a4c">More...</a><br /></td></tr>
+<tr class="separator:aa8fe9ab2ed665422b4be4faaf8608a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad061da4a23a3bf4f8d1ef0e443c0ecf7"><td class="memItemLeft" align="right" valign="top">wxLongLong&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#ad061da4a23a3bf4f8d1ef0e443c0ecf7">GetLastRowId</a> ()</td></tr>
 <tr class="memdesc:ad061da4a23a3bf4f8d1ef0e443c0ecf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the row id of last inserted row.  <a href="#ad061da4a23a3bf4f8d1ef0e443c0ecf7">More...</a><br /></td></tr>
 <tr class="separator:ad061da4a23a3bf4f8d1ef0e443c0ecf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -379,6 +389,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a24a2edc618588e1160f4c4436ba8104c"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#a24a2edc618588e1160f4c4436ba8104c">HasWriteAheadLogSupport</a> ()</td></tr>
 <tr class="memdesc:a24a2edc618588e1160f4c4436ba8104c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether wxSQLite3 has support for SQLite write-ahead log.  <a href="#a24a2edc618588e1160f4c4436ba8104c">More...</a><br /></td></tr>
 <tr class="separator:a24a2edc618588e1160f4c4436ba8104c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d574b52c339ae2d8a12bb0d7e0661de"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#a2d574b52c339ae2d8a12bb0d7e0661de">HasPointerParamsSupport</a> ()</td></tr>
+<tr class="memdesc:a2d574b52c339ae2d8a12bb0d7e0661de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether wxSQLite3 has support for SQLite pointer parameters.  <a href="#a2d574b52c339ae2d8a12bb0d7e0661de">More...</a><br /></td></tr>
+<tr class="separator:a2d574b52c339ae2d8a12bb0d7e0661de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -2346,6 +2359,34 @@ Static Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a2d574b52c339ae2d8a12bb0d7e0661de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d574b52c339ae2d8a12bb0d7e0661de">&#9670;&nbsp;</a></span>HasPointerParamsSupport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wxSQLite3Database::HasPointerParamsSupport </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check whether wxSQLite3 has support for SQLite pointer parameters. </p>
+<dl class="section return"><dt>Returns</dt><dd>TRUE if SQLite pointer parameters are supported, FALSE otherwise </dd></dl>
+
+</div>
+</div>
 <a id="a0dc81fa8e6b7ead308453b4dea9d7b6d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0dc81fa8e6b7ead308453b4dea9d7b6d">&#9670;&nbsp;</a></span>HasSavepointSupport()</h2>
 
@@ -2760,6 +2801,90 @@ Static Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a53c2cb9d48c7e9559fa52e9f7be9043a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53c2cb9d48c7e9559fa52e9f7be9043a">&#9670;&nbsp;</a></span>PreparePersistentStatement() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwx_s_q_lite3_statement.html">wxSQLite3Statement</a> wxSQLite3Database::PreparePersistentStatement </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;&#160;</td>
+          <td class="paramname"><em>sql</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prepare a (long-lasting) SQL query statement given as a wxString for parameter binding. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sql</td><td>query string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>statement instance</dd></dl>
+<p>SQLite3 assumes that this prepared statement will be retained for a long time and probably reused many times. </p>
+
+</div>
+</div>
+<a id="a1b31dfe46c2552455a55197e09beeb25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b31dfe46c2552455a55197e09beeb25">&#9670;&nbsp;</a></span>PreparePersistentStatement() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwx_s_q_lite3_statement.html">wxSQLite3Statement</a> wxSQLite3Database::PreparePersistentStatement </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwx_s_q_lite3_statement_buffer.html">wxSQLite3StatementBuffer</a> &amp;&#160;</td>
+          <td class="paramname"><em>sql</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prepare a (long-lasting) SQL query statement given as a statement buffer for parameter binding. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sql</td><td>query string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>statement instance</dd></dl>
+<p>SQLite3 assumes that this prepared statement will be retained for a long time and probably reused many times. </p>
+
+</div>
+</div>
+<a id="aa8fe9ab2ed665422b4be4faaf8608a4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8fe9ab2ed665422b4be4faaf8608a4c">&#9670;&nbsp;</a></span>PreparePersistentStatement() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwx_s_q_lite3_statement.html">wxSQLite3Statement</a> wxSQLite3Database::PreparePersistentStatement </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>sql</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prepare a (long-lasting) SQL query statement given as a utf-8 character string for parameter binding. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sql</td><td>query string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>statement instance</dd></dl>
+<p>SQLite3 assumes that this prepared statement will be retained for a long time and probably reused many times. </p>
 
 </div>
 </div>
@@ -4013,7 +4138,7 @@ Static Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 9 2017 12:46:59 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 3 2017 20:15:52 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
