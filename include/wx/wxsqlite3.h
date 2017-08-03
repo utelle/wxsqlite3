@@ -19,6 +19,7 @@
 
 #include <wx/arrstr.h>
 #include <wx/datetime.h>
+#include <wx/dynarray.h>
 #include <wx/buffer.h>
 #include <wx/hashmap.h>
 #include <wx/regex.h>
@@ -214,6 +215,9 @@ private:
 class WXDLLIMPEXP_SQLITE3 wxSQLite3FunctionContext
 {
 public:
+  /// Default destructor
+  virtual ~wxSQLite3FunctionContext();
+
   /// Get the number of function arguments
   /**
   * \return the number of arguments the function was called with
@@ -282,6 +286,13 @@ public:
   */
   wxMemoryBuffer& GetBlob(int argIndex, wxMemoryBuffer& buffer);
 
+  /// Get a function argument as a pointer value
+  /**
+  * \param argIndex index of the function argument. Indices start with 0.
+  * \return argument value
+  */
+  void* GetPointer(int argIndex, const wxString& pointerType);
+
   /// Set the function result as an integer value
   /**
   * \param value function result value
@@ -318,6 +329,14 @@ public:
   * \param buffer containing the function result value
   */
   void SetResult(const wxMemoryBuffer& buffer);
+
+  /// Set the function result as a pointer value
+  /**
+  * \param pointer pointer value
+  * \param pointerType descriptive name of the pointer type as expected by the extension module
+  * \param DeletePointer pointer to a function for deleting the object pointed to by the pointer after use in SQLite (default: NULL)
+  */
+  void SetResult(void* pointer, const wxString& pointerType, void(*DeletePointer)(void*) = NULL);
 
   /// Set the function result as a NULL value
   void SetResultNull();
@@ -391,11 +410,16 @@ private:
   /// Copy constructor
   wxSQLite3FunctionContext(wxSQLite3FunctionContext& ctx);
 
+  /// Make copy of pointer type
+  const char* MakePointerTypeCopy(const wxString& pointerType);
+
   void*  m_ctx;          ///< SQLite3 context
   bool   m_isAggregate;  ///< Flag whether this is the context of an aggregate function
   int    m_count;        ///< Aggregate count
   int    m_argc;         ///< Number of arguments
   void** m_argv;         ///< Array of SQLite3 arguments
+
+  wxArrayPtrVoid* m_ptrTypes;       ///< Keeping track of pointer types
 };
 
 
@@ -1320,7 +1344,7 @@ public:
   */
   wxSQLite3Statement(const wxSQLite3Statement& statement);
 
-  /// Assignement constructor
+  /// Assignment constructor
   /**
   */
   wxSQLite3Statement& operator=(const wxSQLite3Statement& statement);
@@ -1427,6 +1451,15 @@ public:
   * \param blobValue value of the parameter
   */
   void Bind(int paramIndex, const wxMemoryBuffer& blobValue);
+
+  /// Bind parameter to a pointer value
+  /**
+  * \param paramIndex index of the parameter. The first parameter has an index of 1.
+  * \param pointer pointer value of the parameter
+  * \param pointerType descriptive name of the pointer type as expected by the extension module
+  * \param DeletePointer pointer to a function for deleting the object pointed to by the pointer after use in SQLite (default: NULL)
+  */
+  void Bind(int paramIndex, void* pointer, const wxString& pointerType, void(*DeletePointer)(void*) = NULL);
 
   /// Bind parameter to a date value
   /**
@@ -2324,6 +2357,33 @@ public:
   */
   wxSQLite3Statement PrepareStatement(const char* sql);
 
+  /// Prepare a (long-lasting) SQL query statement given as a wxString for parameter binding
+  /**
+  * \param sql query string
+  * \return statement instance
+  *
+  * SQLite3 assumes that this prepared statement will be retained for a long time and probably reused many times.
+  */
+  wxSQLite3Statement PreparePersistentStatement(const wxString& sql);
+
+  /// Prepare a (long-lasting) SQL query statement given as a statement buffer for parameter binding
+  /**
+  * \param sql query string
+  * \return statement instance
+  *
+  * SQLite3 assumes that this prepared statement will be retained for a long time and probably reused many times.
+  */
+  wxSQLite3Statement PreparePersistentStatement(const wxSQLite3StatementBuffer& sql);
+
+  /// Prepare a (long-lasting) SQL query statement given as a utf-8 character string for parameter binding
+  /**
+  * \param sql query string
+  * \return statement instance
+  *
+  * SQLite3 assumes that this prepared statement will be retained for a long time and probably reused many times.
+  */
+  wxSQLite3Statement PreparePersistentStatement(const char* sql);
+
   /// Get the row id of last inserted row
   /**
   * Each entry in an SQLite table has a unique integer key.
@@ -2851,6 +2911,12 @@ public:
   */
   static bool HasWriteAheadLogSupport();
 
+  /// Check whether wxSQLite3 has support for SQLite pointer parameters
+  /**
+  * \return TRUE if SQLite pointer parameters are supported, FALSE otherwise
+  */
+  static bool HasPointerParamsSupport();
+
 protected:
   /// Access SQLite's internal database handle
   void* GetDatabaseHandle();
@@ -2888,6 +2954,9 @@ private:
   /// Prepare a SQL statement (internal use only)
   void* Prepare(const char* sql);
 
+  /// Prepare a (long-lasting) SQL statement (internal use only)
+  void* PreparePersistent(const char* sql);
+
   /// Check for valid database connection
   void CheckDatabase();
 
@@ -2911,6 +2980,7 @@ private:
   static bool  ms_hasSavepointSupport;       ///< Flag whether wxSQLite3 has support for SQLite savepoints
   static bool  ms_hasBackupSupport;          ///< Flag whether wxSQLite3 has support for SQLite backup/restore
   static bool  ms_hasWriteAheadLogSupport;   ///< Flag whether wxSQLite3 has support for SQLite write-ahead log
+  static bool  ms_hasPointerParamsSupport;   ///< Flag whether wxSQLite3 has support for SQLite pointer parameters
 };
 
 /// RAII class for managing transactions

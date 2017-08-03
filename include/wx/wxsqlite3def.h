@@ -46,6 +46,15 @@
 
 <dl>
 
+<dt><b>3.5.6</b> - <i>August 2017</i></dt>
+<dd>
+Upgrade to SQLite version 3.20.0<br>
+Added support for persistent prepared statements<br>
+Added support for binding pointers (new SQLite pointer-binding interface)<br>
+Added several SQLite extensions (csv, sha3, carray, fileio, series) for the included SQLite library<br>
+Modified build files to expose the parameter SQLITE_MAX_ATTACHED to allow easier adjustment of the maximum number of attached databases<br>
+
+</dd>
 <dt><b>3.5.5</b> - <i>June 2017</i></dt>
 <dd>
 Upgrade to SQLite version 3.19.3<br>

@@ -16,6 +16,7 @@ sqlite3_bind_null
 sqlite3_bind_parameter_count
 sqlite3_bind_parameter_index
 sqlite3_bind_parameter_name
+sqlite3_bind_pointer
 sqlite3_bind_text
 sqlite3_bind_text16
 sqlite3_bind_text64
@@ -134,7 +135,9 @@ sqlite3_overload_function
 sqlite3_prepare
 sqlite3_prepare16
 sqlite3_prepare16_v2
+sqlite3_prepare16_v3
 sqlite3_prepare_v2
+sqlite3_prepare_v3
 sqlite3_profile
 sqlite3_progress_handler
 sqlite3_randomness
@@ -156,6 +159,7 @@ sqlite3_result_error_toobig
 sqlite3_result_int
 sqlite3_result_int64
 sqlite3_result_null
+sqlite3_result_pointer
 sqlite3_result_subtype
 sqlite3_result_text
 sqlite3_result_text16
@@ -215,6 +219,7 @@ sqlite3_value_free
 sqlite3_value_int
 sqlite3_value_int64
 sqlite3_value_numeric_type
+sqlite3_value_pointer
 sqlite3_value_subtype
 sqlite3_value_text
 sqlite3_value_text16

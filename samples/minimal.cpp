@@ -683,6 +683,26 @@ int Minimal::OnRun()
     q.Finalize();
     delete[] binData;
 
+    if (wxSQLite3Database::HasPointerParamsSupport())
+    {
+      static int aX[] = { 53, 9, 17, 2231, 4, 99 };
+      cout << endl << "Pointer parameter test" << endl;
+      wxSQLite3Statement stmt = db.PrepareStatement("SELECT * FROM carray(?,5);");
+      stmt.Bind(1, aX, wxString(wxS("carray")));
+      wxSQLite3ResultSet set = stmt.ExecuteQuery();
+
+      int count = 0;
+      while (set.NextRow())
+      {
+        int element = set.GetInt(0);
+        cout << "carray[" << count << "] = " << element << endl;
+        count++;
+      }
+      set.Finalize();
+      cout << "Is count == 5? " << (count == 5) << endl;
+    }
+
+    // Activate authorizer
     db.SetAuthorizer(myAuthorizer);
 
     // Pre-compiled Statements Demo

@@ -25,6 +25,7 @@
 #include "wx/wx.h"
 #endif
 
+#include "wx/dynarray.h"
 #include "wx/regex.h"
 #include "wx/thread.h"
 
@@ -157,6 +158,7 @@ const char* wxERRMSG_BIND_BLOB     = wxTRANSLATE("Error binding blob param");
 const char* wxERRMSG_BIND_DATETIME = wxTRANSLATE("Error binding date/time param");
 const char* wxERRMSG_BIND_NULL     = wxTRANSLATE("Error binding NULL param");
 const char* wxERRMSG_BIND_ZEROBLOB = wxTRANSLATE("Error binding zero blob param");
+const char* wxERRMSG_BIND_POINTER  = wxTRANSLATE("Error binding pointer param");
 const char* wxERRMSG_BIND_CLEAR    = wxTRANSLATE("Error clearing bindings");
 
 const char* wxERRMSG_NOMETADATA    = wxTRANSLATE("Meta data support not available");
@@ -164,6 +166,7 @@ const char* wxERRMSG_NOCODEC       = wxTRANSLATE("Encryption support not availab
 const char* wxERRMSG_NOLOADEXT     = wxTRANSLATE("Loadable extension support not available");
 const char* wxERRMSG_NOINCBLOB     = wxTRANSLATE("Incremental BLOB support not available");
 const char* wxERRMSG_NOBLOBREBIND  = wxTRANSLATE("Rebind BLOB support not available");
+const char* wxERRMSG_NOPOINTER     = wxTRANSLATE("Pointer parameter support not available");
 const char* wxERRMSG_NOSAVEPOINT   = wxTRANSLATE("Savepoint support not available");
 const char* wxERRMSG_NOBACKUP      = wxTRANSLATE("Backup/restore support not available");
 const char* wxERRMSG_NOWAL         = wxTRANSLATE("Write Ahead Log support not available");
@@ -200,6 +203,7 @@ const wxChar* wxERRMSG_BIND_BLOB     = wxTRANSLATE("Error binding blob param");
 const wxChar* wxERRMSG_BIND_DATETIME = wxTRANSLATE("Error binding date/time param");
 const wxChar* wxERRMSG_BIND_NULL     = wxTRANSLATE("Error binding NULL param");
 const wxChar* wxERRMSG_BIND_ZEROBLOB = wxTRANSLATE("Error binding zero blob param");
+const wxChar* wxERRMSG_BIND_POINTER = wxTRANSLATE("Error binding pointer param");
 const wxChar* wxERRMSG_BIND_CLEAR    = wxTRANSLATE("Error clearing bindings");
 
 const wxChar* wxERRMSG_NOMETADATA    = wxTRANSLATE("Meta data support not available");
@@ -207,6 +211,7 @@ const wxChar* wxERRMSG_NOCODEC       = wxTRANSLATE("Encryption support not avail
 const wxChar* wxERRMSG_NOLOADEXT     = wxTRANSLATE("Loadable extension support not available");
 const wxChar* wxERRMSG_NOINCBLOB     = wxTRANSLATE("Incremental BLOB support not available");
 const wxChar* wxERRMSG_NOBLOBREBIND  = wxTRANSLATE("Rebind BLOB support not available");
+const wxChar* wxERRMSG_NOPOINTER     = wxTRANSLATE("Pointer parameter support not available");
 const wxChar* wxERRMSG_NOSAVEPOINT   = wxTRANSLATE("Savepoint support not available");
 const wxChar* wxERRMSG_NOBACKUP      = wxTRANSLATE("Backup/restore support not available");
 const wxChar* wxERRMSG_NOWAL         = wxTRANSLATE("Write Ahead Log support not available");
@@ -224,6 +229,38 @@ const wxChar* wxERRMSG_DBCLOSE_FAILED  = wxTRANSLATE("Database close failed");
 const wxChar* wxERRMSG_DBASSIGN_FAILED = wxTRANSLATE("Database assignment failed");
 const wxChar* wxERRMSG_FINALIZE_FAILED = wxTRANSLATE("Finalize failed");
 #endif
+
+static const char* LocalMakePointerTypeCopy(wxArrayPtrVoid& ptrTypes, const wxString& pointerType)
+{
+  // Convert pointer type to char*
+  wxCharBuffer strPointerType = pointerType.ToUTF8();
+  const char* localPointerType = strPointerType;
+
+  // Check whether pointer type was already registered
+  char* ptrTypeCopy = NULL;
+  size_t nPtrTypes = ptrTypes.GetCount();
+  for (size_t j = 0; (ptrTypeCopy == NULL) && (j < nPtrTypes); ++j)
+  {
+    if (strcmp(localPointerType, (char*) ptrTypes[j]) == 0)
+    {
+      ptrTypeCopy = (char*) ptrTypes[j];
+    }
+  }
+
+  // Create copy of pointer type if not found
+  if (ptrTypeCopy == NULL)
+  {
+    int n = (int) strlen(localPointerType);
+    ptrTypeCopy = (char*) sqlite3_malloc(n + 1);
+    if (ptrTypeCopy != NULL)
+    {
+      strcpy(ptrTypeCopy, localPointerType);
+      ptrTypes.Add(ptrTypeCopy);
+    }
+  }
+
+  return (const char*) ptrTypeCopy;
+}
 
 // Critical sections are used to make access to it thread safe if necessary.
 #if wxUSE_THREADS
@@ -300,7 +337,7 @@ class wxSQLite3StatementReference
 public:
   /// Default constructor
   wxSQLite3StatementReference(sqlite3_stmt* stmt = NULL)
-    : m_stmt(stmt)
+    : m_stmt(stmt), m_ptrTypes(NULL)
   {
     m_stmt = stmt;
     if (m_stmt != NULL)
@@ -318,6 +355,15 @@ public:
   /// Default destructor
   virtual ~wxSQLite3StatementReference()
   {
+    if (m_ptrTypes != NULL)
+    {
+      size_t n = m_ptrTypes->GetCount();
+      for (size_t j = 0; j < n; ++j)
+      {
+        sqlite3_free((*m_ptrTypes)[j]);
+      }
+      delete m_ptrTypes;
+    }
   }
 
 private:
@@ -348,9 +394,22 @@ private:
     m_isValid = false;
   }
 
-  sqlite3_stmt* m_stmt;           ///< SQLite statement reference
-  int           m_refCount;       ///< Reference count
-  bool          m_isValid;        ///< SQLite statement reference is valid
+  const char* MakePointerTypeCopy(const wxString& pointerType)
+  {
+    // Allocate pointer type array if necessary
+    if (m_ptrTypes == NULL)
+    {
+      m_ptrTypes = new wxArrayPtrVoid();
+    }
+
+    // Convert pointer type to char*
+    return LocalMakePointerTypeCopy(*m_ptrTypes, pointerType);
+  }
+
+  sqlite3_stmt*   m_stmt;           ///< SQLite statement reference
+  int             m_refCount;       ///< Reference count
+  bool            m_isValid;        ///< SQLite statement reference is valid
+  wxArrayPtrVoid* m_ptrTypes;       ///< Keeping track of pointer types
 
   friend class WXDLLIMPEXP_FWD_SQLITE3 wxSQLite3ResultSet;
   friend class WXDLLIMPEXP_FWD_SQLITE3 wxSQLite3Statement;
@@ -2029,6 +2088,27 @@ void wxSQLite3Statement::Bind(int paramIndex, const wxMemoryBuffer& blobValue)
   }
 }
 
+void wxSQLite3Statement::Bind(int paramIndex, void* pointer, const wxString& pointerType, void(*DeletePointer)(void*))
+{
+#if SQLITE_VERSION_NUMBER >= 3020000
+  CheckStmt();
+
+  const char* localPointerType = m_stmt->MakePointerTypeCopy(pointerType);
+  int rc = sqlite3_bind_pointer(m_stmt->m_stmt, paramIndex, pointer, localPointerType, DeletePointer);
+
+  if (rc != SQLITE_OK)
+  {
+    throw wxSQLite3Exception(rc, wxERRMSG_BIND_POINTER);
+  }
+#else
+  wxUnusedVar(paramIndex);
+  wxUnusedVar(pointer);
+  wxUnusedVar(pointerType);
+  wxUnusedVar(DeletePointer);
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NOPOINTER);
+#endif
+}
+
 void wxSQLite3Statement::BindDate(int paramIndex, const wxDateTime& date)
 {
   if (date.IsValid())
@@ -2575,6 +2655,12 @@ bool wxSQLite3Database::ms_hasWriteAheadLogSupport = true;
 bool wxSQLite3Database::ms_hasWriteAheadLogSupport = false;
 #endif
 
+#if SQLITE_VERSION_NUMBER >= 3020000
+bool wxSQLite3Database::ms_hasPointerParamsSupport = true;
+#else
+bool wxSQLite3Database::ms_hasPointerParamsSupport = false;
+#endif
+
 bool
 wxSQLite3Database::HasEncryptionSupport()
 {
@@ -2627,6 +2713,12 @@ bool
 wxSQLite3Database::HasWriteAheadLogSupport()
 {
   return ms_hasWriteAheadLogSupport;
+}
+
+bool
+wxSQLite3Database::HasPointerParamsSupport()
+{
+  return ms_hasPointerParamsSupport;
 }
 
 wxSQLite3Database::wxSQLite3Database()
@@ -3148,6 +3240,38 @@ wxSQLite3Statement wxSQLite3Database::PrepareStatement(const char* sql)
 {
   CheckDatabase();
   sqlite3_stmt* stmt = (sqlite3_stmt*) Prepare(sql);
+  wxSQLite3StatementReference* stmtRef = new wxSQLite3StatementReference(stmt);
+  return wxSQLite3Statement(m_db, stmtRef);
+}
+
+wxSQLite3Statement wxSQLite3Database::PreparePersistentStatement(const wxString& sql)
+{
+  wxCharBuffer strSql = sql.ToUTF8();
+  const char* localSql = strSql;
+#if SQLITE_VERSION_NUMBER >= 3020000
+  return PreparePersistentStatement(localSql);
+#else
+  return PrepareStatement(localSql);
+#endif
+}
+
+wxSQLite3Statement wxSQLite3Database::PreparePersistentStatement(const wxSQLite3StatementBuffer& sql)
+{
+#if SQLITE_VERSION_NUMBER >= 3020000
+  return PreparePersistentStatement((const char*) sql);
+#else
+  return PrepareStatement((const char*)sql);
+#endif
+}
+
+wxSQLite3Statement wxSQLite3Database::PreparePersistentStatement(const char* sql)
+{
+  CheckDatabase();
+#if SQLITE_VERSION_NUMBER >= 3020000
+  sqlite3_stmt* stmt = (sqlite3_stmt*) PreparePersistent(sql);
+#else
+  sqlite3_stmt* stmt = (sqlite3_stmt*)Prepare(sql);
+#endif
   wxSQLite3StatementReference* stmtRef = new wxSQLite3StatementReference(stmt);
   return wxSQLite3Statement(m_db, stmtRef);
 }
@@ -3795,6 +3919,28 @@ void* wxSQLite3Database::Prepare(const char* sql)
   return stmt;
 }
 
+void* wxSQLite3Database::PreparePersistent(const char* sql)
+{
+#if SQLITE_VERSION_NUMBER >= 3020000
+  CheckDatabase();
+
+  const char* tail = 0;
+  sqlite3_stmt* stmt;
+
+  int rc = sqlite3_prepare_v3(m_db->m_db, sql, -1, SQLITE_PREPARE_PERSISTENT, &stmt, &tail);
+
+  if (rc != SQLITE_OK)
+  {
+    const char* localError = sqlite3_errmsg(m_db->m_db);
+    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+  }
+
+  return stmt;
+#else
+  return Prepare(sql);
+#endif
+}
+
 /* static */
 int wxSQLite3Database::ExecComparisonWithCollation(void* collation,
                                                    int len1, const void* text1,
@@ -4348,6 +4494,24 @@ wxMemoryBuffer& wxSQLite3FunctionContext::GetBlob(int argIndex, wxMemoryBuffer& 
   return buffer;
 }
 
+void* wxSQLite3FunctionContext::GetPointer(int argIndex, const wxString& pointerType)
+{
+  void* pointer = NULL;
+#if SQLITE_VERSION_NUMBER >= 3020000
+  if (argIndex >= 0 && argIndex < m_argc)
+  {
+    if (!IsNull(argIndex))
+    {
+      wxCharBuffer strPointerType = pointerType.ToUTF8();
+      const char* localPointerType = strPointerType;
+
+      pointer = sqlite3_value_pointer((sqlite3_value*) m_argv[argIndex], localPointerType);
+    }
+  }
+#endif
+  return pointer;
+}
+
 void wxSQLite3FunctionContext::SetResult(int value)
 {
   sqlite3_result_int((sqlite3_context*) m_ctx, value);
@@ -4378,6 +4542,14 @@ void wxSQLite3FunctionContext::SetResult(unsigned char* value, int len)
 void wxSQLite3FunctionContext::SetResult(const wxMemoryBuffer& buffer)
 {
   sqlite3_result_blob((sqlite3_context*) m_ctx, buffer.GetData(), (int) buffer.GetDataLen(), SQLITE_TRANSIENT);
+}
+
+void wxSQLite3FunctionContext::SetResult(void* pointer, const wxString& pointerType, void(*DeletePointer)(void*))
+{
+#if SQLITE_VERSION_NUMBER >= 3020000
+  const char* localPointerType = MakePointerTypeCopy(pointerType);
+  sqlite3_result_pointer((sqlite3_context*) m_ctx, pointer, localPointerType, DeletePointer);
+#endif
 }
 
 void wxSQLite3FunctionContext::SetResultNull()
@@ -4506,8 +4678,33 @@ void wxSQLite3FunctionContext::ExecUpdateHook(void* hook, int type,
 }
 
 wxSQLite3FunctionContext::wxSQLite3FunctionContext(void* ctx, bool isAggregate, int argc, void** argv)
-: m_ctx(ctx), m_isAggregate(isAggregate), m_count(0), m_argc(argc), m_argv(argv)
+  : m_ctx(ctx), m_isAggregate(isAggregate), m_count(0), m_argc(argc), m_argv(argv), m_ptrTypes(NULL)
 {
+}
+
+wxSQLite3FunctionContext::~wxSQLite3FunctionContext()
+{
+  if (m_ptrTypes != NULL)
+  {
+    size_t n = m_ptrTypes->GetCount();
+    for (size_t j = 0; j < n; ++j)
+    {
+      sqlite3_free((*m_ptrTypes)[j]);
+    }
+    delete m_ptrTypes;
+  }
+}
+
+const char* wxSQLite3FunctionContext::MakePointerTypeCopy(const wxString& pointerType)
+{
+  // Allocate pointer type array if necessary
+  if (m_ptrTypes == NULL)
+  {
+    m_ptrTypes = new wxArrayPtrVoid();
+  }
+
+  // Convert pointer type to char*
+  return LocalMakePointerTypeCopy(*m_ptrTypes, pointerType);
 }
 
 /* static */
