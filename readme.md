@@ -25,13 +25,14 @@ tools operate in Unicode or UTF-8 mode.
 
 ## <a name="history"></a>Version history
 
+* 3.5.7 - *September 2017*
+  - Upgrade to SQLite version 3.20.1
 * 3.5.6 - *August 2017*
   - Upgrade to SQLite version 3.20.0
   - Added support for persistent prepared statements
   - Added support for binding pointers (new SQLite pointer-binding interface)
   - Added several SQLite extensions (csv, sha3, carray, fileio, series) for the included SQLite library
   - Modified build files to expose the parameter SQLITE_MAX_ATTACHED to allow easier adjustment of the maximum number of attached databases
-
 * 3.5.5 - *June 2017*
   - Upgrade to SQLite version 3.19.3
 * 3.5.4 - *June 2017*
@@ -442,6 +443,7 @@ integrated part of wxSQLite3. A separate SQLite3 DLL is not required any longer.
 
 The following people have contributed to **wxSQLite3**:
 
+- Vadim Zeitlin (revision of the build system)
 - Francesco Montorsi (enhancement of the build system)
 - Neville Dastur (enhancement of the method TableExists)
 - Tobias Langner (RAII class for managing transactions)
