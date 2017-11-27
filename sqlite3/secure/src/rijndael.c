@@ -1101,6 +1101,7 @@ int RijndaelBlockEncrypt(Rijndael* rijndael, UINT8 *input,int inputLen,UINT8 *ou
 #endif /* ?STRICT_ALIGN */
       for(i = numBlocks; i > 0; i--)
       {
+        memcpy(outBuffer, input, 16);
         for(k = 0; k < 128; k++)
         {
           *((UINT32*) block    ) = *((UINT32*)iv[0]);
@@ -1126,6 +1127,8 @@ int RijndaelBlockEncrypt(Rijndael* rijndael, UINT8 *input,int inputLen,UINT8 *ou
           iv[3][2] = (UINT8) ((iv[3][2] << 1) | (iv[3][3] >> 7));
           iv[3][3] = (UINT8) ((iv[3][3] << 1) | ((outBuffer[k/8] >> (7-(k&7))) & 1));
         }
+        outBuffer += 16;
+        input += 16;
       }
     break;
     default:
@@ -1256,6 +1259,7 @@ int RijndaelBlockDecrypt(Rijndael* rijndael, UINT8 *input, int inputLen, UINT8 *
 #endif
       for(i = numBlocks; i > 0; i--)
       {
+        memcpy(outBuffer, input, 16);
         for(k = 0; k < 128; k++)
         {
           *((UINT32*) block    ) = *((UINT32*)iv[0]);
@@ -1281,6 +1285,8 @@ int RijndaelBlockDecrypt(Rijndael* rijndael, UINT8 *input, int inputLen, UINT8 *
           iv[3][3] = (UINT8) ((iv[3][3] << 1) | ((input[k/8] >> (7-(k&7))) & 1));
           outBuffer[k/8] ^= (block[0] & 0x80) >> (k & 7);
         }
+        outBuffer += 16;
+        input += 16;
       }
     break;
     default:
