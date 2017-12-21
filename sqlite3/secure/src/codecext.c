@@ -17,6 +17,7 @@ void sqlite3CodecFree(void *pCodecArg)
   {
     CodecTerm(pCodecArg);
     sqlite3_free(pCodecArg);
+    pCodecArg = NULL;
   }
 }
 
@@ -132,8 +133,13 @@ int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
       else
       {
         CodecSetIsEncrypted(codec, 0);
-        sqlite3_free(codec);
+        sqlite3CodecFree(codec);
       }
+    }
+    else
+    {
+      CodecSetIsEncrypted(codec, 0);
+      sqlite3CodecFree(codec);
     }
   }
   else
