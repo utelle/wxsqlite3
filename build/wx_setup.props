@@ -14,6 +14,13 @@
     <wxCfg>
     </wxCfg>
     <wxVendor>custom</wxVendor>
+    <!-- Uncomment the definition of the user macro wxMsvcVersion, if a compiler-specific prefix should be used -->
+    <!-- Replace XX by the version symbol used for wxCompilerPrefix, i.e. 'vcXX' -->
+    <!--
+    <wxMsvcVersion>XX</wxMsvcVersion>
+    -->
+    <!-- Set wxMsvcVersionAuto to any non-empty value, if the compiler-specific prefix should be determined automatically -->
+    <wxMsvcVersionAuto></wxMsvcVersionAuto>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros" Condition="'$(Platform)'=='Win32'">
     <wxArchSuffix>
@@ -78,6 +85,31 @@
     <Link>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;shell32.lib;shlwapi.lib;ole32.lib;oleaut32.lib;uuid.lib;advapi32.lib;version.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(wxMsvcVersion)'!='' and '$(wxCfg)'!='' and '$(wxMsvcVersionAuto)'==''">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);wxMSVC_VERSION=$(wxMsvcVersion);wxCFG=$(wxCfg)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(wxMsvcVersion)'!='' and '$(wxCfg)'=='' and '$(wxMsvcVersionAuto)'==''">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);wxMSVC_VERSION=$(wxMsvcVersion)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(wxMsvcVersion)'=='' and '$(wxCfg)'!='' and '$(wxMsvcVersionAuto)'==''">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);wxCFG=$(wxCfg)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(wxCfg)'!='' and '$(wxMsvcVersionAuto)'!=''">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);wxCFG=$(wxCfg);wxMSVC_VERSION_AUTO</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(wxCfg)'=='' and '$(wxMsvcVersionAuto)'!=''">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);wxMSVC_VERSION_AUTO</PreprocessorDefinitions>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="wxShortVersionString">
