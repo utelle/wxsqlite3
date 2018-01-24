@@ -218,6 +218,7 @@ sqlite3_value_dup
 sqlite3_value_free
 sqlite3_value_int
 sqlite3_value_int64
+sqlite3_value_nochange
 sqlite3_value_numeric_type
 sqlite3_value_pointer
 sqlite3_value_subtype
@@ -231,7 +232,9 @@ sqlite3_vfs_register
 sqlite3_vfs_unregister
 sqlite3_vmprintf
 sqlite3_vsnprintf
+sqlite3_vtab_collation
 sqlite3_vtab_config
+sqlite3_vtab_nochange
 sqlite3_vtab_on_conflict
 sqlite3_wal_autocheckpoint
 sqlite3_wal_checkpoint

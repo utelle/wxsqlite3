@@ -113,6 +113,7 @@ void mySqlite3PagerSetCodec(
 ** FILEIO
 */
 #ifdef SQLITE_ENABLE_FILEIO
+#include "test_windirent.c"
 #include "fileio.c"
 #endif
 

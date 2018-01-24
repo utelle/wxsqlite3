@@ -25,6 +25,8 @@ tools operate in Unicode or UTF-8 mode.
 
 ## <a name="history"></a>Version history
 
+* 3.5.9 - *January 2018*
+  - Upgrade to SQLite version 3.22.0
 * 3.5.8 - *November 2017*
   - Upgrade to SQLite version 3.21.0
 * 3.5.7 - *September 2017*
