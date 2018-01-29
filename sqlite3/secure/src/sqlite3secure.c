@@ -113,6 +113,19 @@ void mySqlite3PagerSetCodec(
 ** FILEIO
 */
 #ifdef SQLITE_ENABLE_FILEIO
+
+/* MinGW specifics */
+#if (!defined(_WIN32) && !defined(WIN32)) || defined(__MINGW32__)
+# include <unistd.h>
+# include <dirent.h>
+# if defined(__MINGW32__)
+#  define DIRENT dirent
+#  ifndef S_ISLNK
+#   define S_ISLNK(mode) (0)
+#  endif
+# endif
+#endif
+
 #include "test_windirent.c"
 #include "fileio.c"
 #endif
