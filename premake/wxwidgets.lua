@@ -225,7 +225,6 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
           if wxMonolithic then
             links ( "$(wxMonolithicLibName)" )
           else
-            links { "$(wxBaseLibNamePrefix)" } -- base lib
             for i, lib in ipairs(string.explode(wxLibs, ",")) do
               local libPrefix = '$(wxToolkitLibNamePrefix)'
               if lib == "xml" or lib == "net" or lib == "odbc" then
@@ -233,16 +232,16 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
               end
               links { libPrefix..lib}
             end
+            links { "$(wxBaseLibNamePrefix)" } -- base lib
             -- link with support libraries
             for i, lib in ipairs({"wxjpeg", "wxpng", "wxzlib", "wxtiff", "wxexpat"}) do
               links { lib.."$(wxSuffixDebug)" }
             end
             links { "wxregex" .. "$(wxSuffix)" }
           end
-          links { "comctl32", "rpcrt4", "shell32", "gdi32", "kernel32", "user32", "comdlg32", "ole32", "oleaut32", "advapi32" }
+          links { "comctl32", "rpcrt4", "shell32", "gdi32", "kernel32", "user32", "comdlg32", "ole32", "oleaut32", "advapi32", "oleacc", "winspool", "winmm", "shlwapi", "uuid", "version", "wsock32", "wininet" }
         elseif (not is_msvc) then
           libVersion = string.gsub(wxVersion, '%.', '') -- remove dot from version
-          links { "wxbase"..libVersion..wxBuildType } -- base lib
           for i, lib in ipairs(string.explode(wxLibs, ",")) do
               local libPrefix = 'wxmsw'
               if lib == "xml" or lib == "net" or lib == "odbc" then
@@ -250,12 +249,13 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
               end
               links { libPrefix..libVersion..wxBuildType..'_'..lib}
           end
+          links { "wxbase"..libVersion..wxBuildType } -- base lib
           -- link with support libraries
           for i, lib in ipairs({"wxjpeg", "wxpng", "wxzlib", "wxtiff", "wxexpat"}) do
               links { lib..wxDebugSuffix }
           end
           links { "wxregex" .. wxBuildType }
-          links { "comctl32", "rpcrt4", "shell32", "gdi32", "kernel32", "user32", "comdlg32", "ole32", "oleaut32", "advapi32" }
+          links { "comctl32", "rpcrt4", "shell32", "gdi32", "kernel32", "user32", "comdlg32", "ole32", "oleaut32", "advapi32", "oleacc", "winspool", "winmm", "shlwapi", "uuid", "version", "wsock32", "wininet" }
         end
     end
  
