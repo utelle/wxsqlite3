@@ -1,6 +1,6 @@
 -- wxSQLite3 configuration file for premake5
 --
--- Copyright (C) 2017 Ulrich Telle <ulrich@telle-online.de>
+-- Copyright (C) 2017-2018 Ulrich Telle <ulrich@telle-online.de>
 --
 -- This file is covered by the same licence as the entire wxsqlite3 package. 
 
@@ -71,17 +71,18 @@ project "wxsqlite3"
     "SQLITE_ENABLE_CARRAY",
     "SQLITE_ENABLE_FILEIO",
     "SQLITE_ENABLE_SERIES",
+    "SQLITE_TEMP_STORE=2",
     "SQLITE_USE_URI",
     "SQLITE_USER_AUTHENTICATION"
   }
 
   files { "src/*.cpp", "src/*.rc", "include/wx/*.h",
-          "sqlite3/secure/src/sqlite3secure.c", "sqlite3/secure/src/*.h" }
+          "sqlite3secure/src/sqlite3secure.c", "sqlite3secure/src/*.h" }
   vpaths {
     ["Header Files"] = { "**.h" },
     ["Source Files"] = { "**.cpp", "**.rc", "**/sqlite3secure.c", "**.def" }
   }
-  includedirs { "include", "sqlite3/secure/src" }
+  includedirs { "include", "sqlite3secure/src" }
   characterset "Unicode"
 
 -- Minimal wxSQLite3 sample

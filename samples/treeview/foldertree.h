@@ -1,12 +1,11 @@
-/////////////////////////////////////////////////////////////////////////////
-// Name:        foldertree.h
-// Purpose:     
-// Author:      Ulrich Telle
-// Modified by: 
-// Created:     2014-05-11
-// Copyright:   (c) Ulrich Telle
-// Licence:     wxWindows licence
-/////////////////////////////////////////////////////////////////////////////
+/*
+** Name:        foldertree.h
+** Purpose:     Treeview control for displaying a hierarchical folder structure
+** Author:      Ulrich Telle
+** Created:     2014-05-11
+** Copyright:   (c) 2014-2018 Ulrich Telle
+** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
+*/
 
 #ifndef _FOLDER_TREE_H_
 #define _FOLDER_TREE_H_

@@ -1,12 +1,11 @@
-///////////////////////////////////////////////////////////////////////////////
-// Name:        wxsqlite3.h
-// Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
-// Author:      Ulrich Telle
-// Modified by:
-// Created:     2005-07-14
-// Copyright:   (c) Ulrich Telle
-// Licence:     wxWindows licence
-///////////////////////////////////////////////////////////////////////////////
+/*
+** Name:        wxsqlite3.h
+** Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
+** Author:      Ulrich Telle
+** Created:     2005-07-14
+** Copyright:   (c) 2005-2018 Ulrich Telle
+** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
+*/
 
 /// \file wxsqlite3.h Interface of the wxSQLite3 class
 
@@ -30,6 +29,16 @@
 
 /// wxSQLite3 version string
 #define wxSQLITE3_VERSION_STRING   wxS(WXSQLITE3_VERSION_STRING)
+
+/// Enumeration of supported cipher types
+enum wxSQLite3CipherType
+{
+  WXSQLITE_CIPHER_UNKNOWN,
+  WXSQLITE_CIPHER_AES128,
+  WXSQLITE_CIPHER_AES256,
+  WXSQLITE_CIPHER_CHACHA20,
+  WXSQLITE_CIPHER_SQLCIPHER
+};
 
 #define WXSQLITE_ERROR 1000
 
@@ -434,6 +443,7 @@ public:
 
   /// Virtual destructor
   virtual ~wxSQLite3ScalarFunction() {}
+
   /// Execute the scalar function
   /**
   * This method is invoked for each appearance of the scalar function in the SQL query.
@@ -454,6 +464,7 @@ public:
 
   /// Virtual destructor
   virtual ~wxSQLite3AggregateFunction() {}
+
   /// Execute the aggregate of the function
   /**
   * This method is invoked for each row of the result set of the query using the aggregate function.
@@ -522,15 +533,17 @@ public:
     SQLITE_MAX_CODE            = SQLITE_RECURSIVE
   };
 
-   /// Return codes of the authorizer
+  /// Return codes of the authorizer
   enum wxAuthorizationResult
   {
     SQLITE_OK     = 0,   // Allow access
     SQLITE_DENY   = 1,   // Abort the SQL statement with an error
     SQLITE_IGNORE = 2    // Don't allow access, but don't generate an error
   };
+  
   /// Virtual destructor
   virtual ~wxSQLite3Authorizer() {}
+  
   /// Execute the authorizer function
   /**
   * Please refer to the SQLite documentation for further information about the
@@ -560,6 +573,460 @@ class wxSQLite3StatementReference;
 class wxSQLite3BlobReference;
 
 class WXDLLIMPEXP_FWD_SQLITE3 wxSQLite3Database;
+
+/// Cipher base class
+class WXDLLIMPEXP_SQLITE3 wxSQLite3Cipher
+{
+public:
+  /// Constructor
+  wxSQLite3Cipher();
+
+  /// Destructor
+  virtual ~wxSQLite3Cipher();
+
+  /// Initialize the cipher instance based on global default settings
+  /**
+  * The parameters of the cipher instance are initialize with the global default settings of the associated cipher type.
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromGlobalDefault();
+
+  /// Initialize the cipher instance based on current settings
+  /**
+  * The parameters of the cipher instance are initialize with the current settings of the associated cipher type
+  * as defined in the given database connection. 
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrent(wxSQLite3Database& db);
+
+  /// Initialize the cipher instance based on current default settings
+  /**
+  * The parameters of the cipher instance are initialize with the current default settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrentDefault(wxSQLite3Database& db);
+
+  /// Apply the cipher parameters to a database connection
+  /**
+  * The parameters of the cipher instance are applied to the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher parameters could be applied successfully, false otherwise
+  */
+  virtual bool Apply(wxSQLite3Database& db) const;
+  virtual bool Apply(void* dbHandle) const;
+
+  void SetLegacyPageSize(int pageSize);
+
+  int GetLegacyPageSize() const;
+
+  /// Get the type of this cipher instance
+  /**
+  * The type of the cipher instance is returned.
+  * \return the cipher type
+  */
+  wxSQLite3CipherType GetCipherType() const;
+
+  /// Check whether the cipher instance is valid
+  /**
+  * The method checks whether the cipher instance is initialized correctly.
+  * \return true if the cipher instance is valid, false otherwise
+  */
+  bool IsOk() const;
+
+  /// Convert cipher type to string representation
+  /**
+  * The given cipher type is converted to a string representation.
+  * \param cipherType the type of a cipher
+  * \return string representation of the given cipher type
+  */
+  static const wxString GetCipherName(wxSQLite3CipherType cipherType);
+
+  /// Convert string representation to cipher type
+  /**
+  * The given string representation of a cipher is converted to the corresponding cipher type..
+  * The parameters of the cipher instance are applied to the given database connection.
+  * WXSQLITE_CIPHER_UNKNOWN will be returned if the string representation is invalid.
+  * \param cipherName the string representation of a cipher type
+  * \return cipher type corresponding to the given string representation
+  */
+  static wxSQLite3CipherType GetCipherType(const wxString& cipherName);
+
+  /// Set the current cipher type for a database connection
+  /**
+  * \param db database instance
+  * \param cipherType the cipher type to be set
+  * \return true if the cipher type could be set, false otherwise
+  */
+  static bool SetCipher(wxSQLite3Database& db, wxSQLite3CipherType cipherType);
+
+  /// Set the default cipher type for a database connection
+  /**
+  * \param db database instance
+  * \param cipherType the cipher type to be set
+  * \return true if the cipher type could be set, false otherwise
+  */
+  static bool SetCipherDefault(wxSQLite3Database& db, wxSQLite3CipherType cipherType);
+
+  /// Get the current cipher type of a database connection
+  /**
+  * \param db database instance
+  * \return the enum representation of the cipher type
+  */
+  static wxSQLite3CipherType GetCipher(wxSQLite3Database& db);
+
+  /// Get the default cipher type of a database connection
+  /**
+  * \param db database instance 
+  * \return the enum representation of the cipher type
+  */
+  static wxSQLite3CipherType GetCipherDefault(wxSQLite3Database& db);
+
+  /// Get the globally defined default cipher type
+  /**
+  * \return the enum representation of the cipher type
+  */
+  static wxSQLite3CipherType GetGlobalCipherDefault();
+
+  /// Get minimum allowed cipher parameter value
+  /**
+  * \param cipherName the name of the cipher to be queried
+  * \param paramName the name of the parameter to be queried
+  * \return the minimum value for the given cipher parameter
+  */
+  static int GetCipherParameterMin(const wxString& cipherName, const wxString& paramName);
+
+  /// Get maximum allowed cipher parameter value
+  /**
+  * \param cipherName the name of the cipher to be queried
+  * \param paramName the name of the parameter to be queried
+  * \return the maximum value for the given cipher parameter
+  */
+  static int GetCipherParameterMax(const wxString& cipherName, const wxString& paramName);
+
+protected:
+  /// Constructor
+  /**
+  * \param cipherType the type of the cipher
+  */
+  wxSQLite3Cipher(wxSQLite3CipherType cipherType);
+
+  /// Copy constructor
+  wxSQLite3Cipher(const wxSQLite3Cipher& cipher);
+
+  /// Set initialization status of the cipher instance
+  /**
+  * \param initialized the initialization status
+  */
+  void SetInitialized(bool initialized);
+
+  /// Set type of the cipher instance
+  /**
+  * \param cipherType the cipher type to be set
+  */
+  void SetCipherType(wxSQLite3CipherType cipherType);
+
+  /// Get the SQLite3 database handle of a database instance
+  /**
+  * \param db database instance
+  * \return SQLite3 database handle
+  */
+  static void* GetDatabaseHandle(wxSQLite3Database& db);
+
+private:
+  bool                m_initialized;    ///< Initialization status
+  wxSQLite3CipherType m_cipherType;     ///< Cypher type
+  int                 m_legacyPageSize; ///< Page size in legacy mode of cipher
+};
+
+/// Cipher class representing AES 128 bit encryption in CBC mode
+class WXDLLIMPEXP_SQLITE3 wxSQLite3CipherAes128 : public wxSQLite3Cipher
+{
+public:
+  /// Constructor
+  wxSQLite3CipherAes128();
+
+  /// Copy constructor
+  wxSQLite3CipherAes128(const wxSQLite3CipherAes128& cipher);
+
+  /// Destructor
+  virtual ~wxSQLite3CipherAes128();
+
+  /// Initialize the cipher instance based on global default settings
+  /**
+  * The parameters of the cipher instance are initialize with the global default settings of the associated cipher type.
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromGlobalDefault();
+
+  /// Initialize the cipher instance based on current settings
+  /**
+  * The parameters of the cipher instance are initialize with the current settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrent(wxSQLite3Database& db);
+
+  /// Initialize the cipher instance based on current default settings
+  /**
+  * The parameters of the cipher instance are initialize with the current default settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrentDefault(wxSQLite3Database& db);
+
+  /// Apply the cipher parameters to a database connection
+  /**
+  * The parameters of the cipher instance are applied to the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher parameters could be applied successfully, false otherwise
+  */
+  virtual bool Apply(wxSQLite3Database& db) const;
+  virtual bool Apply(void* dbHandle) const;
+
+  /// Set legacy mode
+  void SetLegacy(bool legacy) { m_legacy = legacy; }
+
+  /// Get legacy mode
+  bool GetLegacy() const { return m_legacy; }
+
+private:
+  bool m_legacy; ///< Flag for legacy mode
+};
+
+/// Cipher class representing AES 256 bit encryption in CBC mode
+class WXDLLIMPEXP_SQLITE3 wxSQLite3CipherAes256 : public wxSQLite3Cipher
+{
+public:
+  /// Constructor
+  wxSQLite3CipherAes256();
+
+  /// Copy constructor
+  wxSQLite3CipherAes256(const wxSQLite3CipherAes256& cipher);
+
+  /// Destructor
+  virtual ~wxSQLite3CipherAes256();
+
+  /// Initialize the cipher instance based on global default settings
+  /**
+  * The parameters of the cipher instance are initialize with the global default settings of the associated cipher type.
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromGlobalDefault();
+
+  /// Initialize the cipher instance based on current settings
+  /**
+  * The parameters of the cipher instance are initialize with the current settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrent(wxSQLite3Database& db);
+
+  /// Initialize the cipher instance based on current default settings
+  /**
+  * The parameters of the cipher instance are initialize with the current default settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrentDefault(wxSQLite3Database& db);
+
+  /// Apply the cipher parameters to a database connection
+  /**
+  * The parameters of the cipher instance are applied to the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher parameters could be applied successfully, false otherwise
+  */
+  virtual bool Apply(wxSQLite3Database& db) const;
+  virtual bool Apply(void* dbHandle) const;
+
+  /// Set legacy mode
+  void SetLegacy(bool legacy) { m_legacy = legacy; }
+
+  /// Get legacy mode
+  bool GetLegacy() const { return m_legacy; }
+
+  /// Set iteration count of KDF function for ordinary key
+  void SetKdfIter(int kdfIter) { m_kdfIter = kdfIter;  }
+
+  /// Get iteration count of KDF function for ordinary key
+  int GetKdfIter() const { return m_kdfIter; }
+
+private:
+  bool m_legacy;   ///< Flag for legacy mode
+  int  m_kdfIter;  ///< Iteration count for KDF function
+};
+
+/// Cipher class representing ChaCha20 encryption with Poly1305 HMAC
+class WXDLLIMPEXP_SQLITE3 wxSQLite3CipherChaCha20 : public wxSQLite3Cipher
+{
+public:
+  /// Constructor
+  wxSQLite3CipherChaCha20();
+
+  /// Copy constructor
+  wxSQLite3CipherChaCha20(const wxSQLite3CipherChaCha20& cipher);
+
+  /// Destructor
+  virtual ~wxSQLite3CipherChaCha20();
+
+  /// Initialize the cipher instance based on global default settings
+  /**
+  * The parameters of the cipher instance are initialize with the global default settings of the associated cipher type.
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromGlobalDefault();
+
+  /// Initialize the cipher instance based on current settings
+  /**
+  * The parameters of the cipher instance are initialize with the current settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrent(wxSQLite3Database& db);
+
+  /// Initialize the cipher instance based on current default settings
+  /**
+  * The parameters of the cipher instance are initialize with the current default settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrentDefault(wxSQLite3Database& db);
+
+  /// Apply the cipher parameters to a database connection
+  /**
+  * The parameters of the cipher instance are applied to the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher parameters could be applied successfully, false otherwise
+  */
+  virtual bool Apply(wxSQLite3Database& db) const;
+  virtual bool Apply(void* dbHandle) const;
+
+  /// Set legacy mode
+  void SetLegacy(bool legacy) { m_legacy = legacy; }
+
+  /// Get legacy mode
+  bool GetLegacy() const { return m_legacy; }
+
+  /// Set iteration count of KDF function for ordinary key
+  void SetKdfIter(int kdfIter) { m_kdfIter = kdfIter; }
+
+  /// Get iteration count of KDF function for ordinary key
+  int GetKdfIter() const { return m_kdfIter; }
+
+private:
+  bool m_legacy;   ///< Flag for legacy mode
+  int  m_kdfIter;  ///< Iteration count for KDF function
+};
+
+/// Cipher class representing SQLCipher encryption (AES 256 bit in CBC mode with SHA1 HMAC)
+class WXDLLIMPEXP_SQLITE3 wxSQLite3CipherSQLCipher : public wxSQLite3Cipher
+{
+public:
+  /// Constructor
+  wxSQLite3CipherSQLCipher();
+
+  /// Copy constructor
+  wxSQLite3CipherSQLCipher(const wxSQLite3CipherSQLCipher& cipher);
+
+  /// Destructor
+  virtual ~wxSQLite3CipherSQLCipher();
+
+  /// Initialize the cipher instance based on global default settings
+  /**
+  * The parameters of the cipher instance are initialize with the global default settings of the associated cipher type.
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromGlobalDefault();
+
+  /// Initialize the cipher instance based on current settings
+  /**
+  * The parameters of the cipher instance are initialize with the current settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrent(wxSQLite3Database& db);
+
+  /// Initialize the cipher instance based on current default settings
+  /**
+  * The parameters of the cipher instance are initialize with the current default settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrentDefault(wxSQLite3Database& db);
+
+  /// Apply the cipher parameters to a database connection
+  /**
+  * The parameters of the cipher instance are applied to the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher parameters could be applied successfully, false otherwise
+  */
+  virtual bool Apply(wxSQLite3Database& db) const;
+  virtual bool Apply(void* dbHandle) const;
+
+  /// Initialize the cipher instance based on specific SQLCipher version
+  /**
+  * The cipher parameters are initialized to the default values of the given SQLCipher version.
+  * Currently version 1, 2 and 3 of SQLCipher are supported.
+  * If the version number is invalid, version 3 is assumed.
+  * \param version the SQLCipher version
+  */
+  void InitializeVersionDefault(int version);
+
+  /// Set legacy mode
+  void SetLegacy(bool legacy) { m_legacy = legacy; }
+
+  /// Get legacy mode
+  bool GetLegacy() const { return m_legacy; }
+
+  /// Set iteration count of KDF function for ordinary key
+  void SetKdfIter(int kdfIter) { m_kdfIter = kdfIter; }
+
+  /// Get iteration count of KDF function for ordinary key
+  int GetKdfIter() const { return m_kdfIter; }
+
+  /// Set iteration count of KDF function for HMAC key
+  void SetFastKdfIter(int fastKdfIter) { m_fastKdfIter = fastKdfIter; }
+
+  /// Get iteration count of KDF function for HMAC key
+  int GetFastKdfIter() const { return m_fastKdfIter; }
+
+  /// Set HMAC calculation status
+  void SetHmacUse(bool hmacUse) { m_hmacUse = hmacUse; }
+
+  /// Get HMAC calculation status
+  bool GetHmacUse() const { return m_hmacUse; }
+
+  /// Set the page number encoding for the HMAC calculation
+  void SetHmacPgNo(int hmacPgNo) { m_hmacPgNo = hmacPgNo; }
+
+  /// Get the page number encoding of the HMAC calculation
+  int GetHmacPgNo() const { return m_hmacPgNo; }
+
+  /// Set the salt mask for the HMAC calculation
+  void SetHmacSaltMask(int hmacSaltMask) { m_hmacSaltMask = hmacSaltMask; }
+
+  /// Get the salt mask of the HMAC calculation
+  int GetHmacSaltMask() const { return m_hmacSaltMask; }
+
+private:
+  bool m_legacy;        ///< Flag for legacy mode
+  int  m_kdfIter;       ///< Iteration count for KDF function for ordinary key
+  int  m_fastKdfIter;   ///< Iteration count for KDF function for HMAC key
+  bool m_hmacUse;       ///< Flag indicating whether HMACs should be used
+  int  m_hmacPgNo;      ///< Encoding type for page number iin HMAC
+  int  m_hmacSaltMask;  ///< Salt mask for HMAC calculation
+};
+
 
 /// Interface for a user defined hook function
 /**
@@ -1918,6 +2385,33 @@ public:
   void Open(const wxString& fileName, const wxMemoryBuffer& key,
             int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE);
 
+  /// Open a SQLite3 database
+  /**
+  * Opens the sqlite database file "filename". The "filename" is UTF-8 encoded.
+  * If the database could not be opened (or created) successfully, then an exception is thrown.
+  * If the database file does not exist, then a new database will be created as needed.
+  * \param[in] fileName Name of the database file.
+  * \param[in] cipher Cipher to be used for database encryption.
+  * \param[in] key Database encryption key.
+  * \param[in] flags Control over the database connection (see http://www.sqlite.org/c3ref/open.html for further information).
+  * Flag values are prefixed by WX to distinguish them from the original SQLite flag values.
+  */
+  void Open(const wxString& fileName, const wxSQLite3Cipher& cipher, const wxString& key,
+            int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE);
+
+  /// Open a SQLite3 database using a binary key
+  /**
+  * Opens the sqlite database file "filename". The "filename" is UTF-8 encoded.
+  * If the database could not be opened (or created) successfully, then an exception is thrown.
+  * If the database file does not exist, then a new database will be created as needed.
+  * \param[in] fileName Name of the database file.
+  * \param[in] key Database encryption key.
+  * \param[in] flags Control over the database connection (see http://www.sqlite.org/c3ref/open.html for further information).
+  * Flag values are prefixed by WX to distinguish them from the original SQLite flag values.
+  */
+  void Open(const wxString& fileName, const wxSQLite3Cipher& cipher, const wxMemoryBuffer& key,
+            int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE);
+
   /// Check whether the database has been opened
   /**
   * \return TRUE if database has been opened, FALSE otherwise
@@ -1974,6 +2468,11 @@ public:
   void Backup(wxSQLite3BackupProgress* progressCallback, 
               const wxString& targetFileName, const wxString& key = wxEmptyString, 
               const wxString& sourceDatabaseName = wxS("main"));
+  void Backup(const wxString& targetFileName, const wxSQLite3Cipher& cipher, const wxString& key,
+              const wxString& sourceDatabaseName = wxS("main"));
+  void Backup(wxSQLite3BackupProgress* progressCallback,
+              const wxString& targetFileName, const wxSQLite3Cipher& cipher, const wxString& key,
+              const wxString& sourceDatabaseName = wxS("main"));
 
   /// Backup a SQLite3 database
   /**
@@ -2003,6 +2502,11 @@ public:
   void Backup(wxSQLite3BackupProgress* progressCallback,
               const wxString& targetFileName, const wxMemoryBuffer& key, 
               const wxString& sourceDatabaseName = wxS("main"));
+  void Backup(const wxString& targetFileName, const wxSQLite3Cipher& cipher, const wxMemoryBuffer& key,
+              const wxString& sourceDatabaseName = wxS("main"));
+  void Backup(wxSQLite3BackupProgress* progressCallback,
+              const wxString& targetFileName, const wxSQLite3Cipher& cipher, const wxMemoryBuffer& key,
+              const wxString& sourceDatabaseName = wxS("main"));
 
   /// Restore a SQLite3 database
   /**
@@ -2026,6 +2530,11 @@ public:
   void Restore(wxSQLite3BackupProgress* progressCallback,
                const wxString& sourceFileName, const wxString& key = wxEmptyString, 
                const wxString& targetDatabaseName = wxS("main"));
+  void Restore(const wxString& sourceFileName, const wxSQLite3Cipher& cipher, 
+               const wxString& key, const wxString& targetDatabaseName = wxS("main"));
+  void Restore(wxSQLite3BackupProgress* progressCallback,
+               const wxString& sourceFileName, const wxSQLite3Cipher& cipher, 
+               const wxString& key, const wxString& targetDatabaseName = wxS("main"));
 
   /// Restore a SQLite3 database
   /**
@@ -2048,6 +2557,11 @@ public:
                const wxString& targetDatabaseName = wxS("main"));
   void Restore(wxSQLite3BackupProgress* progressCallback,
                const wxString& sourceFileName, const wxMemoryBuffer& key, 
+               const wxString& targetDatabaseName = wxS("main"));
+  void Restore(const wxString& sourceFileName, const wxSQLite3Cipher& cipher,
+               const wxMemoryBuffer& key, const wxString& targetDatabaseName = wxS("main"));
+  void Restore(wxSQLite3BackupProgress* progressCallback, const wxString& sourceFileName, 
+               const wxSQLite3Cipher& cipher, const wxMemoryBuffer& key,
                const wxString& targetDatabaseName = wxS("main"));
 
   /// Set the page count for backup or restore operations
@@ -2634,6 +3148,7 @@ public:
   * \param newKey The new encryption key (will be converted to UTF-8)
   */
   void ReKey(const wxString& newKey);
+  void ReKey(const wxSQLite3Cipher& cipher, const wxString& newKey);
 
   /// Change the encryption key of the database
   /**
@@ -2643,6 +3158,7 @@ public:
   * \param newKey The new encryption key
   */
   void ReKey(const wxMemoryBuffer& newKey);
+  void ReKey(const wxSQLite3Cipher& cipher, const wxMemoryBuffer& newKey);
 
   /// Check whether the database is encrypted
   /**
@@ -2981,6 +3497,8 @@ private:
   static bool  ms_hasBackupSupport;          ///< Flag whether wxSQLite3 has support for SQLite backup/restore
   static bool  ms_hasWriteAheadLogSupport;   ///< Flag whether wxSQLite3 has support for SQLite write-ahead log
   static bool  ms_hasPointerParamsSupport;   ///< Flag whether wxSQLite3 has support for SQLite pointer parameters
+
+  friend class wxSQLite3Cipher;
 };
 
 /// RAII class for managing transactions

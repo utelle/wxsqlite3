@@ -1,15 +1,10 @@
 /*
-///////////////////////////////////////////////////////////////////////////////
-// Name:        codec.h
-// Purpose:     
-// Author:      Ulrich Telle
-// Modified by:
-// Created:     2006-12-06
-// Copyright:   (c) Ulrich Telle
-// Licence:     wxWindows licence
-///////////////////////////////////////////////////////////////////////////////
-
-/// \file codec.h Interface of the codec class
+** Name:        codec.h
+** Purpose:     Header file for SQLite codecs
+** Author:      Ulrich Telle
+** Created:     2006-12-06
+** Copyright:   (c) 2006-2018 Ulrich Telle
+** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
 #ifndef _CODEC_H_
@@ -39,77 +34,97 @@ extern "C" {
 
 #include "rijndael.h"
 
-#define CODEC_TYPE_AES128 1
-#define CODEC_TYPE_AES256 2
+#define CODEC_TYPE_UNKNOWN   0
+#define CODEC_TYPE_AES128    1
+#define CODEC_TYPE_AES256    2
+#define CODEC_TYPE_CHACHA20  3
+#define CODEC_TYPE_SQLCIPHER 4
+#define CODEC_TYPE_MAX       4
+
+#define CODEC_TYPE_DEFAULT CODEC_TYPE_CHACHA20
 
 #ifndef CODEC_TYPE
-#define CODEC_TYPE CODEC_TYPE_AES128
+#define CODEC_TYPE CODEC_TYPE_DEFAULT
 #endif
 
-#if CODEC_TYPE == CODEC_TYPE_AES256
-#define KEYLENGTH 32
-#define CODEC_SHA_ITER 4001
-#else
-#define KEYLENGTH 16
+#if CODEC_TYPE < 1 || CODEC_TYPE > CODEC_TYPE_MAX
+#error "Invalid codec type selected"
 #endif
+
+#define MAXKEYLENGTH     32
+#define KEYLENGTH_AES128 16
+#define KEYLENGTH_AES256 32
+
+#define CODEC_SHA_ITER 4001
 
 typedef struct _Codec
 {
   int           m_isEncrypted;
-  int           m_hasReadKey;
-  unsigned char m_readKey[KEYLENGTH];
-  int           m_hasWriteKey;
-  unsigned char m_writeKey[KEYLENGTH];
-  Rijndael*     m_aes;
+  /* Read cipher */
+  int           m_hasReadCipher;
+  int           m_readCipherType;
+  void*         m_readCipher;
+  /* Write cipher */
+  int           m_hasWriteCipher;
+  int           m_writeCipherType;
+  void*         m_writeCipher;
 
+  sqlite3*      m_db; /* Pointer to DB */
   Btree*        m_bt; /* Pointer to B-tree used by DB */
   unsigned char m_page[SQLITE_MAX_PAGE_SIZE+24];
 } Codec;
 
-void CodecInit(Codec* codec);
+void wxsqlite3_config_table(sqlite3_context* context, int argc, sqlite3_value** argv);
+void wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv);
+
+int wxsqlite3_config(sqlite3* db, const char* paramName, int newValue);
+int wxsqlite3_config_cipher(sqlite3* db, const char* cipherName, const char* paramName, int newValue);
+
+int GetCipherType(sqlite3* db);
+void* GetCipherParams(sqlite3* db, int cypherType);
+int CodecInit(Codec* codec);
 void CodecTerm(Codec* codec);
 
-void CodecCopy(Codec* codec, Codec* other);
+int CodecCopy(Codec* codec, Codec* other);
 
 void CodecGenerateReadKey(Codec* codec, char* userPassword, int passwordLength);
 
 void CodecGenerateWriteKey(Codec* codec, char* userPassword, int passwordLength);
 
-void CodecEncrypt(Codec* codec, int page, unsigned char* data, int len, int useWriteKey);
+int CodecEncrypt(Codec* codec, int page, unsigned char* data, int len, int useWriteKey);
 
-void CodecDecrypt(Codec* codec, int page, unsigned char* data, int len);
+int CodecDecrypt(Codec* codec, int page, unsigned char* data, int len);
 
-void CodecCopyKey(Codec* codec, int read2write);
+int CodecCopyCipher(Codec* codec, int read2write);
+
+int CodecSetup(Codec* codec, int cipherType, char* userPassword, int passwordLength);
+int CodecSetupWriteCipher(Codec* codec, int cipherType, char* userPassword, int passwordLength);
 
 void CodecSetIsEncrypted(Codec* codec, int isEncrypted);
-void CodecSetHasReadKey(Codec* codec, int hasReadKey);
-void CodecSetHasWriteKey(Codec* codec, int hasWriteKey);
+void CodecSetReadCipherType(Codec* codec, int cipherType);
+void CodecSetWriteCipherType(Codec* codec, int cipherType);
+void CodecSetHasReadCipher(Codec* codec, int hasReadCipher);
+void CodecSetHasWriteCipher(Codec* codec, int hasWriteCipher);
+void CodecSetDb(Codec* codec, sqlite3* db);
 void CodecSetBtree(Codec* codec, Btree* bt);
 
 int CodecIsEncrypted(Codec* codec);
-int CodecHasReadKey(Codec* codec);
-int CodecHasWriteKey(Codec* codec);
+int CodecHasReadCipher(Codec* codec);
+int CodecHasWriteCipher(Codec* codec);
 Btree* CodecGetBtree(Codec* codec);
 unsigned char* CodecGetPageBuffer(Codec* codec);
+int CodecGetPageSizeReadCipher(Codec* codec);
+int CodecGetPageSizeWriteCipher(Codec* codec);
+int CodecGetReservedReadCipher(Codec* codec);
+int CodecGetReservedWriteCipher(Codec* codec);
+int CodecReservedEqual(Codec* codec);
 
-void CodecGenerateEncryptionKey(Codec* codec, char* userPassword, int passwordLength, 
-                                unsigned char encryptionKey[KEYLENGTH]);
-
-void CodecPadPassword(Codec* codec, char* password, int pswdlen, unsigned char pswd[32]);
-
-void CodecRC4(Codec* codec, unsigned char* key, int keylen,
+void CodecPadPassword(char* password, int pswdlen, unsigned char pswd[32]);
+void CodecRC4(unsigned char* key, int keylen,
               unsigned char* textin, int textlen,
-         unsigned char* textout);
-
-void CodecGetMD5Binary(Codec* codec, unsigned char* data, int length, unsigned char* digest);
-
-#if CODEC_TYPE == CODEC_TYPE_AES256
-void CodecGetSHABinary(Codec* codec, unsigned char* data, int length, unsigned char* digest);
-#endif
-  
-void CodecGenerateInitialVector(Codec* codec, int seed, unsigned char iv[16]);
-
-void CodecAES(Codec* codec, int page, int encrypt, unsigned char encryptionKey[KEYLENGTH],
-              unsigned char* datain, int datalen, unsigned char* dataout);
+              unsigned char* textout);
+void CodecGetMD5Binary(unsigned char* data, int length, unsigned char* digest);
+void CodecGetSHABinary(unsigned char* data, int length, unsigned char* digest);
+void CodecGenerateInitialVector(int seed, unsigned char iv[16]);
 
 #endif

@@ -1,6 +1,6 @@
 -- Build SQLite3
 --   static or shared library
---   AES 128 bit or AES 256 bit encryption support
+--   Multi cipher encryption support
 --   Debug or Release
 --   Win32 or Win64
 
@@ -13,10 +13,50 @@ newoption {
 
 BUILDDIR = _OPTIONS["builddir"] or "build"
 
-workspace "SQLite3"
-  configurations { "Debug AES128", "Release AES128", "Debug AES256", "Release AES256" }
+-- Determine version of Visual Studio action
+vc_version = "";
+if _ACTION == "vs2003" then
+  vc_version = 7
+elseif _ACTION == "vs2005" then
+  vc_version = 8
+elseif _ACTION == "vs2008" then
+  vc_version = 9
+elseif _ACTION == "vs2010" then
+  vc_version = 10
+elseif _ACTION == "vs2012" then
+  vc_version = 11
+elseif _ACTION == "vs2013" then
+  vc_version = 12
+elseif _ACTION == "vs2015" then
+  vc_version = 14
+elseif _ACTION == "vs2017" then
+  vc_version = 15
+end
+
+is_msvc = false
+msvc_useProps = false
+if ( vc_version ~= "" ) then
+  is_msvc = true
+  msvc_useProps = vc_version >= 10
+  vc_with_ver = "vc"..vc_version
+end
+
+-- Activate loading of separate props file
+if (msvc_useProps) then
+  premake.wxProject = true
+end
+
+-- SQLite3Secure workspace
+
+workspace "SQLite3Secure"
+  configurations { "Debug", "Release" }
   platforms { "Win32", "Win64" }
   location(BUILDDIR)
+
+  if (is_msvc) then
+    local wks = workspace()
+    wks.filename = "SQLite3Secure_" .. vc_with_ver
+  end
 
   defines {
     "_WINDOWS",
@@ -55,6 +95,14 @@ project "sqlite3lib"
   language "C++"
   kind "StaticLib"
 
+  if (is_msvc) then
+    local prj = project()
+    prj.filename = "SQLite3Secure_" .. vc_with_ver .. "_lib"
+  else
+    toolset("gcc")
+  end
+  makesettings { "include config.gcc" }
+
   files { "src/sqlite3secure.c", "src/*.h" }
   vpaths {
     ["Header Files"] = { "**.h" },
@@ -74,6 +122,7 @@ project "sqlite3lib"
     "SQLITE_SOUNDEX",
     "SQLITE_ENABLE_COLUMN_METADATA",
     "SQLITE_HAS_CODEC=1",
+    "CODEC_TYPE=CODEC_TYPE_CHACHA20",
     "SQLITE_SECURE_DELETE",
     "SQLITE_ENABLE_FTS3",
     "SQLITE_ENABLE_FTS3_PARENTHESIS",
@@ -88,34 +137,43 @@ project "sqlite3lib"
     "SQLITE_ENABLE_CARRAY",
 --    "SQLITE_ENABLE_FILEIO",
     "SQLITE_ENABLE_SERIES",
+    "SQLITE_TEMP_STORE=2",
     "SQLITE_USE_URI",
     "SQLITE_USER_AUTHENTICATION"
   }
 
-  -- Encryption type
-  filter { "configurations:*AES128" }
-    defines {
-      "CODEC_TYPE=CODEC_TYPE_AES128"
-    }
-  filter { "configurations:*AES256" }
-    defines {
-      "CODEC_TYPE=CODEC_TYPE_AES256"
-    }
-
+  -- Intermediate directory
+  if (is_msvc) then
+    objdir (BUILDDIR .. "/obj-" .. vc_with_ver)
+  else
+    objdir (BUILDDIR .. "/obj-gcc")
+  end
   -- Target directory
-  filter { "configurations:Debug AES128" }
-    targetdir "aes128/lib/debug"
-  filter { "configurations:Debug AES256" }
-    targetdir "aes256/lib/debug"
-  filter { "configurations:Release AES128" }
-    targetdir "aes128/lib/release"
-  filter { "configurations:Release AES256" }
-    targetdir "aes256/lib/release"
+  filter { "configurations:Debug*" }
+    if (is_msvc) then
+      targetdir ("bin-" .. vc_with_ver .. "/lib/debug")
+    else
+      targetdir "bin-gcc/lib/debug"
+    end
+  filter { "configurations:Release*" }
+    if (is_msvc) then
+      targetdir ("bin-" .. vc_with_ver .. "/lib/release")
+    else
+      targetdir "bin-gcc/lib/release"
+    end
 
 -- SQLite3 shared library
 project "sqlite3dll"
   language "C++"
   kind "SharedLib"
+
+  if (is_msvc) then
+    local prj = project()
+    prj.filename = "SQLite3Secure_" .. vc_with_ver .. "_dll"
+  else
+    toolset("gcc")
+  end
+  makesettings { "include config.gcc" }
 
   files { "src/sqlite3secure.c", "src/*.h", "src/sqlite3.def", "src/sqlite3.rc" }
   filter {}
@@ -136,6 +194,7 @@ project "sqlite3dll"
     "SQLITE_SOUNDEX",
     "SQLITE_ENABLE_COLUMN_METADATA",
     "SQLITE_HAS_CODEC=1",
+    "CODEC_TYPE=CODEC_TYPE_CHACHA20",
     "SQLITE_SECURE_DELETE",
     "SQLITE_ENABLE_FTS3",
     "SQLITE_ENABLE_FTS3_PARENTHESIS",
@@ -150,34 +209,44 @@ project "sqlite3dll"
     "SQLITE_ENABLE_CARRAY",
     "SQLITE_ENABLE_FILEIO",
     "SQLITE_ENABLE_SERIES",
+    "SQLITE_TEMP_STORE=2",
     "SQLITE_USE_URI",
     "SQLITE_USER_AUTHENTICATION"
   }
 
-  -- Encryption type
-  filter { "configurations:*AES128" }
-    defines {
-      "CODEC_TYPE=CODEC_TYPE_AES128"
-    }
-  filter { "configurations:*AES256" }
-    defines {
-      "CODEC_TYPE=CODEC_TYPE_AES256"
-    }
-
+  -- Intermediate directory
+  if (is_msvc) then
+    objdir (BUILDDIR .. "/obj-" .. vc_with_ver)
+  else
+    objdir (BUILDDIR .. "/obj-gcc")
+  end
   -- Target directory
-  filter { "configurations:Debug AES128" }
-    targetdir "aes128/dll/debug"
-  filter { "configurations:Debug AES256" }
-    targetdir "aes256/dll/debug"
-  filter { "configurations:Release AES128" }
-    targetdir "aes128/dll/release"
-  filter { "configurations:Release AES256" }
-    targetdir "aes256/dll/release"
+  filter { "configurations:Debug*" }
+    if (is_msvc) then
+      targetdir ("bin-" .. vc_with_ver .. "/dll/debug")
+    else
+      targetdir "bin-gcc/dll/debug"
+    end
+  filter { "configurations:Release*" }
+    if (is_msvc) then
+      targetdir ("bin-" .. vc_with_ver .. "/dll/release")
+    else
+      targetdir "bin-gcc/dll/release"
+    end
 
 -- SQLite3 Shell    
 project "sqlite3shell"
   kind "ConsoleApp"
   language "C++"
+
+  if (is_msvc) then
+    local prj = project()
+    prj.filename = "SQLite3Secure_" .. vc_with_ver .. "_shell"
+  else
+    toolset("gcc")
+  end
+  makesettings { "include config.gcc" }
+
   vpaths {
     ["Header Files"] = { "**.h" },
     ["Source Files"] = { "**.c", "**.rc" }
@@ -195,22 +264,39 @@ project "sqlite3shell"
     "SQLITE_USER_AUTHENTICATION"
   }
 
+  -- Intermediate directory
+  if (is_msvc) then
+    objdir (BUILDDIR .. "/obj-" .. vc_with_ver)
+  else
+    objdir (BUILDDIR .. "/obj-gcc")
+  end
   -- Target directory
-  filter { "configurations:Debug AES128" }
-    targetdir "aes128/lib/debug"
-  filter { "configurations:Debug AES256" }
-    targetdir "aes256/lib/debug"
-  filter { "configurations:Release AES128" }
-    targetdir "aes128/lib/release"
-  filter { "configurations:Release AES256" }
-    targetdir "aes256/lib/release"
-
+  filter { "configurations:Debug*" }
+    if (is_msvc) then
+      targetdir ("bin-" .. vc_with_ver .. "/lib/debug")
+    else
+      targetdir "bin-gcc/lib/debug"
+    end
+  filter { "configurations:Release*" }
+    if (is_msvc) then
+      targetdir ("bin-" .. vc_with_ver .. "/lib/release")
+    else
+      targetdir "bin-gcc/lib/release"
+    end
 
 -- ICU support
 -- SQLite3 static library with ICU support
 project "sqlite3libicu"
   language "C++"
   kind "StaticLib"
+
+  if (is_msvc) then
+    local prj = project()
+    prj.filename = "SQLite3Secure_" .. vc_with_ver .. "_libicu"
+  else
+    toolset("gcc")
+  end
+  makesettings { "include config.gcc" }
 
   files { "src/sqlite3secure.c", "src/*.h" }
   vpaths {
@@ -233,6 +319,7 @@ project "sqlite3libicu"
     "SQLITE_SOUNDEX",
     "SQLITE_ENABLE_COLUMN_METADATA",
     "SQLITE_HAS_CODEC=1",
+    "CODEC_TYPE=CODEC_TYPE_CHACHA20",
     "SQLITE_SECURE_DELETE",
     "SQLITE_ENABLE_FTS3",
     "SQLITE_ENABLE_FTS3_PARENTHESIS",
@@ -247,34 +334,43 @@ project "sqlite3libicu"
     "SQLITE_ENABLE_CARRAY",
 --    "SQLITE_ENABLE_FILEIO",
     "SQLITE_ENABLE_SERIES",
+    "SQLITE_TEMP_STORE=2",
     "SQLITE_USE_URI",
     "SQLITE_USER_AUTHENTICATION"
   }
 
-  -- Encryption type
-  filter { "configurations:*AES128" }
-    defines {
-      "CODEC_TYPE=CODEC_TYPE_AES128"
-    }
-  filter { "configurations:*AES256" }
-    defines {
-      "CODEC_TYPE=CODEC_TYPE_AES256"
-    }
-
+  -- Intermediate directory
+  if (is_msvc) then
+    objdir (BUILDDIR .. "/obj-" .. vc_with_ver)
+  else
+    objdir (BUILDDIR .. "/obj-gcc")
+  end
   -- Target directory
-  filter { "configurations:Debug AES128" }
-    targetdir "aes128/lib/debug"
-  filter { "configurations:Debug AES256" }
-    targetdir "aes256/lib/debug"
-  filter { "configurations:Release AES128" }
-    targetdir "aes128/lib/release"
-  filter { "configurations:Release AES256" }
-    targetdir "aes256/lib/release"
+  filter { "configurations:Debug*" }
+    if (is_msvc) then
+      targetdir ("bin-" .. vc_with_ver .. "/lib/debug")
+    else
+      targetdir "bin-gcc/lib/debug"
+    end
+  filter { "configurations:Release*" }
+    if (is_msvc) then
+      targetdir ("bin-" .. vc_with_ver .. "/lib/release")
+    else
+      targetdir "bin-gcc/lib/release"
+    end
 
 -- SQLite3 shared library with ICU support
 project "sqlite3dllicu"
   language "C++"
   kind "SharedLib"
+
+  if (is_msvc) then
+    local prj = project()
+    prj.filename = "SQLite3Secure_" .. vc_with_ver .. "_dllicu"
+  else
+    toolset("gcc")
+  end
+  makesettings { "include config.gcc" }
 
   files { "src/sqlite3secure.c", "src/*.h", "src/sqlite3.def", "src/sqlite3.rc" }
   filter {}
@@ -309,6 +405,7 @@ project "sqlite3dllicu"
     "SQLITE_SOUNDEX",
     "SQLITE_ENABLE_COLUMN_METADATA",
     "SQLITE_HAS_CODEC=1",
+    "CODEC_TYPE=CODEC_TYPE_CHACHA20",
     "SQLITE_SECURE_DELETE",
     "SQLITE_ENABLE_FTS3",
     "SQLITE_ENABLE_FTS3_PARENTHESIS",
@@ -323,34 +420,44 @@ project "sqlite3dllicu"
     "SQLITE_ENABLE_CARRAY",
     "SQLITE_ENABLE_FILEIO",
     "SQLITE_ENABLE_SERIES",
+    "SQLITE_TEMP_STORE=2",
     "SQLITE_USE_URI",
     "SQLITE_USER_AUTHENTICATION"
   }
 
-  -- Encryption type
-  filter { "configurations:*AES128" }
-    defines {
-      "CODEC_TYPE=CODEC_TYPE_AES128"
-    }
-  filter { "configurations:*AES256" }
-    defines {
-      "CODEC_TYPE=CODEC_TYPE_AES256"
-    }
-
+  -- Intermediate directory
+  if (is_msvc) then
+    objdir (BUILDDIR .. "/obj-" .. vc_with_ver)
+  else
+    objdir (BUILDDIR .. "/obj-gcc")
+  end
   -- Target directory
-  filter { "configurations:Debug AES128" }
-    targetdir "aes128/dll/debug"
-  filter { "configurations:Debug AES256" }
-    targetdir "aes256/dll/debug"
-  filter { "configurations:Release AES128" }
-    targetdir "aes128/dll/release"
-  filter { "configurations:Release AES256" }
-    targetdir "aes256/dll/release"
+  filter { "configurations:Debug*" }
+    if (is_msvc) then
+      targetdir ("bin-" .. vc_with_ver .. "/dll/debug")
+    else
+      targetdir "bin-gcc/dll/debug"
+    end
+  filter { "configurations:Release*" }
+    if (is_msvc) then
+      targetdir ("bin-" .. vc_with_ver .. "/dll/release")
+    else
+      targetdir "bin-gcc/dll/release"
+    end
 
 -- SQLite3 Shell with ICU support   
 project "sqlite3shellicu"
   kind "ConsoleApp"
   language "C++"
+
+  if (is_msvc) then
+    local prj = project()
+    prj.filename = "SQLite3Secure_" .. vc_with_ver .. "_shellicu"
+  else
+    toolset("gcc")
+  end
+  makesettings { "include config.gcc" }
+
   vpaths {
     ["Header Files"] = { "**.h" },
     ["Source Files"] = { "**.c", "**.rc" }
@@ -380,12 +487,22 @@ project "sqlite3shellicu"
     "SQLITE_USER_AUTHENTICATION"
   }
 
+  -- Intermediate directory
+  if (is_msvc) then
+    objdir (BUILDDIR .. "/obj-" .. vc_with_ver)
+  else
+    objdir (BUILDDIR .. "/obj-gcc")
+  end
   -- Target directory
-  filter { "configurations:Debug AES128" }
-    targetdir "aes128/lib/debug"
-  filter { "configurations:Debug AES256" }
-    targetdir "aes256/lib/debug"
-  filter { "configurations:Release AES128" }
-    targetdir "aes128/lib/release"
-  filter { "configurations:Release AES256" }
-    targetdir "aes256/lib/release"
+  filter { "configurations:Debug*" }
+    if (is_msvc) then
+      targetdir ("bin-" .. vc_with_ver .. "/lib/debug")
+    else
+      targetdir "bin-gcc/lib/debug"
+    end
+  filter { "configurations:Release*" }
+    if (is_msvc) then
+      targetdir ("bin-" .. vc_with_ver .. "/lib/release")
+    else
+      targetdir "bin-gcc/lib/release"
+    end

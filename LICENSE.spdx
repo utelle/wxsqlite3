@@ -1,0 +1,6 @@
+SPDXVersion: SPDX-2.1
+DataLicense: CC0-1.0
+PackageName: wxSQLite3
+PackageOriginator: Ulrich Telle
+PackageHomePage: https://github.com/utelle/wxsqlite3
+PackageLicenseDeclared: LGPL-3.0+ WITH WxWindows-exception-3.1

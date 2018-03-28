@@ -1,12 +1,11 @@
-/////////////////////////////////////////////////////////////////////////////
-// Name:        treeviewapp.cpp
-// Purpose:     
-// Author:      Ulrich Telle
-// Modified by: 
-// Created:     2014-05-11
-// Copyright:   (c) Ulrich Telle
-// Licence:     wxWindows licence
-/////////////////////////////////////////////////////////////////////////////
+/*
+** Name:        treeviewapp.cpp
+** Purpose:     Treeview sample application
+** Author:      Ulrich Telle
+** Created:     2014-05-11
+** Copyright:   (c) 2014-2018 Ulrich Telle
+** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
+*/
 
 // For compilers that support precompilation, includes "wx/wx.h".
 #include "wx/wxprec.h"

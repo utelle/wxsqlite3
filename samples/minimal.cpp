@@ -1,13 +1,12 @@
-///////////////////////////////////////////////////////////////////////////////
-// Name:        minimal.cpp
-// Purpose:     Test program for the wxSQLite3 class
-//              This example is based on the CppSQLite example.
-// Author:      Ulrich Telle
-// Modified by:
-// Created:     2005-07-14
-// Copyright:   (c) Ulrich Telle
-// Licence:     wxWindows licence
-///////////////////////////////////////////////////////////////////////////////
+/*
+** Name:        minimal.cpp
+** Purpose:     Test program for the wxSQLite3 class
+**              This example is based on the CppSQLite example.
+** Author:      Ulrich Telle
+** Created:     2005-07-14
+** Copyright:   (c) 2005-2018 Ulrich Telle
+** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
+*/
 
 // For compilers that support precompilation, includes "wx/wx.h".
 #include "wx/wxprec.h"
@@ -18,6 +17,11 @@
 
 #ifndef WX_PRECOMP
 #include "wx/wx.h"
+#endif
+
+// Enable to activate leak detection with Visual Leak Detector
+#if 0
+#include <vld.h>
 #endif
 
 #include <wx/cmdline.h>
@@ -319,6 +323,8 @@ public:
   bool OnInit();
   int OnRun();
   int OnExit();
+  void TestSQLCipher(wxSQLite3Cipher& cipher, const wxString& dbFileName, const wxString& dbKey);
+  void TestCiphers();
 private:
   bool     m_testMode;
   int      m_rc;
@@ -404,6 +410,7 @@ int Minimal::OnRun()
 
     if (wxSQLite3Database::HasEncryptionSupport())
     {
+      cout << "Cipher (default) : " << (const char*) wxSQLite3Cipher::GetCipherName(wxSQLite3Cipher::GetGlobalCipherDefault()).mb_str(wxConvUTF8) << endl;
       db.Open(dbFile, wxString(wxT("password")));
     }
     else
@@ -818,6 +825,8 @@ int Minimal::OnRun()
       testUserAuthentication();
     }
 
+    TestCiphers();
+
     cout << endl << "End of tests" << endl;
     db.Close();
   }
@@ -850,6 +859,77 @@ int Minimal::OnRun()
     }
   }
   return m_rc;
+}
+
+void Minimal::TestSQLCipher(wxSQLite3Cipher& cipher, const wxString& dbFileName, const wxString& dbKey)
+{
+  try
+  {
+    wxSQLite3Database db;
+    cout << endl << "Open database '" << (const char*) (dbFileName.mb_str()) << "'" << endl;
+    db.Open(dbFileName, cipher, dbKey);
+    int numRows = db.ExecuteScalar("SELECT COUNT(*) FROM t1");
+    cout << "Total number of rows = " << numRows << endl;
+    cout << "Distinct tuples:" << endl;
+    wxSQLite3ResultSet set = db.ExecuteQuery("SELECT DISTINCT * FROM t1");
+    int count = 0;
+    while (set.NextRow())
+    {
+      ++count;
+      wxString col1 = set.GetString(0);
+      wxString col2 = set.GetString(1);
+      cout << count << ": " << (const char*) (col1.mb_str()) << ", " << (const char*) (col2.mb_str()) << endl;
+    }
+    db.Close();
+  }
+  catch (wxSQLite3Exception& e)
+  {
+    cerr << e.GetErrorCode() << ":" << (const char*) (e.GetMessage().mb_str()) << endl;
+  }
+}
+
+void Minimal::TestCiphers()
+{
+  cout << endl << "Start testing ciphers" << endl;
+
+  // Test to access database encrypted with SQLCipher version 1
+  // Result: 75709 1 1 one one 1 2 one two 1 2
+  wxSQLite3CipherSQLCipher sqlCipher1;
+  sqlCipher1.InitializeVersionDefault(1);
+  TestSQLCipher(sqlCipher1, wxS("sqlcipher-1.1.8-testkey.db"), wxS("testkey"));
+
+  // Test to access database encrypted with SQLCipher version 2
+  // using 4000 iterations for the HMAC key derivation and a HMAC salt mask of zero
+  // Result: 38768 test-0-0 test-0-1 test-1-0 test-1-1
+  wxSQLite3CipherSQLCipher sqlCipher2;
+  sqlCipher2.InitializeVersionDefault(2);
+  sqlCipher2.SetFastKdfIter(4000);
+  sqlCipher2.SetHmacSaltMask(0);
+  TestSQLCipher(sqlCipher2, wxS("sqlcipher-2.0-beta-testkey.db"), wxS("testkey"));
+
+  // Test to access database encrypted with SQLCipher version 2
+  // using the page number in big endian form (BE) for the HMAC calculation
+  // Result: 78536 1 1 one one 1 2 one two
+  wxSQLite3CipherSQLCipher sqlCipher2be;
+  sqlCipher2be.InitializeVersionDefault(2);
+  sqlCipher2be.SetHmacPgNo(2);
+  TestSQLCipher(sqlCipher2be, wxS("sqlcipher-2.0-be-testkey.db"), wxS("testkey"));
+
+  // Test to access database encrypted with SQLCipher version 2
+  // using the page number in little endian form (LE) for the HMAC calculation
+  // Note: No change to the default initialization necessary
+  // Result: 78536 1 1 one one 1 2 one two
+  wxSQLite3CipherSQLCipher sqlCipher2le;
+  sqlCipher2le.InitializeVersionDefault(2);
+  TestSQLCipher(sqlCipher2le, wxS("sqlcipher-2.0-le-testkey.db"), wxS("testkey"));
+
+  // Test to access database encrypted with SQLCipher version 3
+  // Result: 78536 1 1 one one 1 2 one two
+  wxSQLite3CipherSQLCipher sqlCipher3;
+  sqlCipher3.InitializeVersionDefault(3);
+  TestSQLCipher(sqlCipher3, wxS("sqlcipher-3.0-testkey.db"), wxS("testkey"));
+
+  cout << endl << "Finish testing ciphers" << endl;
 }
 
 IMPLEMENT_APP_CONSOLE(Minimal)

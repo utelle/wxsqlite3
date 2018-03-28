@@ -1,12 +1,11 @@
-///////////////////////////////////////////////////////////////////////////////
-// Name:        wxsqlite3dyn.h
-// Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
-// Author:      Ulrich Telle
-// Modified by:
-// Created:     2005-11-12
-// Copyright:   (c) Ulrich Telle
-// Licence:     wxWindows licence
-///////////////////////////////////////////////////////////////////////////////
+/*
+** Name:        wxsqlite3dyn.h
+** Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
+** Author:      Ulrich Telle
+** Created:     2005-11-12
+** Copyright:   (c) 2005-2018 Ulrich Telle
+** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
+*/
 
 /// \file wxsqlite3dyn.h Definition of the SQLite3 API functions
 
@@ -268,5 +267,9 @@ DYNFUNC(return, int,                   sqlite3_rekey,                 (sqlite3 *
 // ATTN: different open call
 // DYNFUNC(return, int,                   sqlite3_open,                  (const char *filename, const char *strPass, sqlite3 **ppDb), (filename, strPass, ppDb));
 // DYNFUNC(;, void,                       sqlite3_changepassword,        (sqlite3* db,const char* strNewPass), (db, strNewPass));
+
+// Configuration of wxSQLite3 encryption extension
+DYNFUNC(return, int,                   wxsqlite3_config,                 (const char* paramName, int newValue), (paramName, newValue));
+DYNFUNC(return, int,                   wxsqlite3_config_cipher,          (const char* cipherName, const char* paramName, int newValue), (cipherName, paramName, newValue));
 
 #endif

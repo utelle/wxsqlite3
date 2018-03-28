@@ -1,13 +1,11 @@
-///////////////////////////////////////////////////////////////////////////////
-// Name:        wxsqlite3def.h
-// Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
-// Author:      Ulrich Telle
-// Created:     2005-07-14
-// Changes:     (see version history below, and accompanying readme file)
-//
-// Copyright:   (c) Ulrich Telle
-// Licence:     wxWindows licence
-///////////////////////////////////////////////////////////////////////////////
+/*
+** Name:        wxsqlite3def.h
+** Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
+** Author:      Ulrich Telle
+** Created:     2005-07-14
+** Copyright:   (c) 2005-2018 Ulrich Telle
+** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
+*/
 
 /// \file wxsqlite3def.h Compile time switches for the wxSQLite3 class
 
@@ -46,6 +44,11 @@
 
 <dl>
 
+<dt><b>4.0.0</b> - <i>March 2018</i></dt>
+<dd>
+Introduced multi-cipher support at runtime<br>
+
+</dd>
 <dt><b>3.5.9</b> - <i>January 2018</i></dt>
 <dd>
 Upgrade to SQLite version 3.22.0<br>
