@@ -20,6 +20,7 @@ matrix:
 branches:
     only:
         - master
+        - multi-cipher
 
 before_install:
     - ./admin/travis/before_install.sh
