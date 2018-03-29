@@ -16,7 +16,7 @@
 
 #include <assert.h>
 #include <string.h>
-#if defined(__GNUC__) && !defined(__MINGW32__)
+#if defined(__GNUC__) && !defined(__MINGW32__) && !defined(__clang__)
 #include <endian.h>
 #endif
 
