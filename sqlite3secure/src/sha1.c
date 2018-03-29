@@ -92,6 +92,8 @@ A million repetitions of "a"
 #include <string.h>
 #include "sha1.h"
 
+#if 0
+/* TODO: asm doesn't compile under Linux, use generic C equivalent for now */
 #if __GNUC__ && (defined(__i386__) || defined(__x86_64__))
 /*
 * GCC by itself only generates left rotates.  Use right rotates if
@@ -107,6 +109,11 @@ A million repetitions of "a"
 #define rol(value, bits) (((value) << (bits)) | ((value) >> (32 - (bits))))
 #define ror(value, bits) (((value) << (32 - (bits))) | ((value) >> (bits)))
 #endif
+#endif
+
+/* Generic C equivalent */
+#define rol(value, bits) (((value) << (bits)) | ((value) >> (32 - (bits))))
+#define ror(value, bits) (((value) << (32 - (bits))) | ((value) >> (bits)))
 
 #define blk0le(i) (block[i] = (ror(block[i],8)&0xFF00FF00) \
                              |(rol(block[i],8)&0x00FF00FF))

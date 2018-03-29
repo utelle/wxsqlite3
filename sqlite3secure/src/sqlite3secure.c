@@ -166,7 +166,7 @@ int registerAllExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routin
   if (rc == SQLITE_OK)
   {
     rc = sqlite3_create_function_v2(db, "wxsqlite3_config_table", 0, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-                                    codecParameterTable, wxsqlite3_config_table, 0, 0, FreeCodecParameterTable);
+                                    codecParameterTable, wxsqlite3_config_table, 0, 0, (void(*)(void*)) FreeCodecParameterTable);
   }
   if (rc == SQLITE_OK)
   {
