@@ -78,5 +78,14 @@ AC_SUBST(WXSQLITE3_LIBNAME)
 AC_SUBST(WX_LIBS_TREEVIEW_SAMPLE)
 AC_SUBST( LIBDIR, "lib" )
 
+dnl Ensure that the samples can find the files they need when running from the
+dnl build directory.
+AC_CONFIG_LINKS([samples/sqlcipher-1.1.8-testkey.db:samples/sqlcipher-1.1.8-testkey.db
+    samples/sqlcipher-2.0-beta-testkey.db:samples/sqlcipher-2.0-beta-testkey.db
+    samples/sqlcipher-2.0-be-testkey.db:samples/sqlcipher-2.0-be-testkey.db
+    samples/sqlcipher-2.0-le-testkey.db:samples/sqlcipher-2.0-le-testkey.db
+    samples/sqlcipher-3.0-testkey.db:samples/sqlcipher-3.0-testkey.db
+])
+
 AC_CONFIG_FILES([Makefile wxsqlite3.pc])
 AC_OUTPUT
