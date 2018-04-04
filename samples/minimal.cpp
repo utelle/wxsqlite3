@@ -326,6 +326,7 @@ public:
   void TestSQLCipher(wxSQLite3Cipher& cipher, const wxString& dbFileName, const wxString& dbKey);
   void TestCiphers();
 private:
+  wxString m_workDirectory;
   bool     m_testMode;
   int      m_rc;
 };
@@ -333,9 +334,11 @@ private:
 static const wxCmdLineEntryDesc cmdLineDesc[] =
 {
 #if wxCHECK_VERSION(2,9,0)
-  { wxCMD_LINE_SWITCH, "t", "testmode",  "Non-interactive testmode",         wxCMD_LINE_VAL_NONE,   wxCMD_LINE_PARAM_OPTIONAL },
+  { wxCMD_LINE_OPTION, "s", "sampledir", "wxSQLite3 samples directory", wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
+  { wxCMD_LINE_SWITCH, "t", "testmode",  "Non-interactive testmode",    wxCMD_LINE_VAL_NONE,   wxCMD_LINE_PARAM_OPTIONAL },
 #else
-  { wxCMD_LINE_SWITCH, wxS("t"), wxS("testmode"),  wxS("Non-interactive testmode"),         wxCMD_LINE_VAL_NONE,   wxCMD_LINE_PARAM_OPTIONAL },
+  { wxCMD_LINE_OPTION, wxS("s"), wxS("sampledir"), wxS("wxSQLite3 samples directory"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
+  { wxCMD_LINE_SWITCH, wxS("t"), wxS("testmode"),  wxS("Non-interactive testmode"),    wxCMD_LINE_VAL_NONE,   wxCMD_LINE_PARAM_OPTIONAL },
 #endif
   { wxCMD_LINE_NONE }
 };
@@ -350,12 +353,23 @@ bool Minimal::OnInit()
   bool ok = parser.Parse() == 0;
   if (ok)
   {
+    parser.Found(wxS("sampledir"), &m_workDirectory);
     m_testMode = parser.Found(wxS("testmode"));
     m_rc = 0;
   }
   else
   {
     m_rc = -1;
+  }
+
+  if (ok)
+  {
+    // Set the working directory
+    if (!m_workDirectory.IsEmpty())
+    {
+      wxSetWorkingDirectory(m_workDirectory);
+    }
+    m_workDirectory = wxGetCwd();
   }
 
   return ok;
