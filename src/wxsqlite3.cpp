@@ -46,7 +46,7 @@
 #define SQLITE_HAS_CODEC 0
 #endif
 
-#include "sqlite3.h"
+#include "sqlite3secure.h"
 #if WXSQLITE3_USER_AUTHENTICATION
 #ifndef SQLITE_USER_AUTHENTICATION
 #define SQLITE_USER_AUTHENTICATION
@@ -2996,6 +2996,58 @@ void wxSQLite3Database::Close(wxSQLite3DatabaseReference* db)
   }
 }
 
+void wxSQLite3Database::AttachDatabase(const wxString& fileName, const wxString& schemaName)
+{
+  CheckDatabase();
+  wxSQLite3Statement attachStmt = PrepareStatement("ATTACH DATABASE ? AS ?");
+  attachStmt.Bind(1, fileName);
+  attachStmt.Bind(2, schemaName);
+  int rc = attachStmt.ExecuteUpdate();
+}
+
+void wxSQLite3Database::AttachDatabase(const wxString& fileName, const wxString& schemaName, const wxString& key)
+{
+#if WXSQLITE3_HAVE_CODEC
+  CheckDatabase();
+  wxSQLite3Statement attachStmt = PrepareStatement("ATTACH DATABASE ? AS ? KEY ?");
+  attachStmt.Bind(1, fileName);
+  attachStmt.Bind(2, schemaName);
+  attachStmt.Bind(3, key);
+  int rc = attachStmt.ExecuteUpdate();
+#else
+  AttachDatabase(fileName, schemaName);
+#endif
+}
+
+void wxSQLite3Database::AttachDatabase(const wxString& fileName, const wxString& schemaName, const wxSQLite3Cipher& cipher, const wxString& key)
+{
+#if WXSQLITE3_HAVE_CODEC
+  CheckDatabase();
+  if (cipher.IsOk())
+  {
+    if (!cipher.Apply(m_db->m_db))
+    {
+      throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_APPLY_FAILED);
+    }
+  }
+
+  wxSQLite3Statement attachStmt = PrepareStatement("ATTACH DATABASE ? AS ? KEY ?");
+  attachStmt.Bind(1, fileName);
+  attachStmt.Bind(2, schemaName);
+  attachStmt.Bind(3, key);
+  int rc = attachStmt.ExecuteUpdate();
+#else
+  AttachDatabase(fileName, schemaName);
+#endif
+}
+
+void wxSQLite3Database::DetachDatabase(const wxString& schemaName)
+{
+  wxSQLite3Statement detachStmt = PrepareStatement("DETACH DATABASE ?");
+  detachStmt.Bind(1, schemaName);
+  int rc = detachStmt.ExecuteUpdate();
+}
+
 static bool
 BackupRestoreCallback(int total, int remaining, wxSQLite3BackupProgress* progressCallback)
 {
@@ -3911,6 +3963,13 @@ bool wxSQLite3Database::SetAuthorizer(wxSQLite3Authorizer& authorizer)
 {
   CheckDatabase();
   int rc = sqlite3_set_authorizer(m_db->m_db, (sqlite3_xauth) wxSQLite3FunctionContextExecAuthorizer, &authorizer);
+  return rc == SQLITE_OK;
+}
+
+bool wxSQLite3Database::RemoveAuthorizer()
+{
+  CheckDatabase();
+  int rc = sqlite3_set_authorizer(m_db->m_db, (sqlite3_xauth) NULL, NULL);
   return rc == SQLITE_OK;
 }
 
@@ -5506,7 +5565,7 @@ wxSQLite3Database::CreateIntegerCollection(const wxString& collectionName)
   if (rc == SQLITE_OK)
   {
     wxSQLite3StatementBuffer zBuffer;
-    const char* zSql = zBuffer.Format("CREATE VIRTUAL TABLE temp.%Q USING %Q", zName, zName);
+    const char* zSql = zBuffer.Format("CREATE VIRTUAL TABLE temp.\"%w\" USING \"%w\"", zName, zName);
     rc = sqlite3_exec(m_db->m_db, zSql, 0, 0, 0);
   }
   if (rc != SQLITE_OK)
@@ -5605,7 +5664,7 @@ wxSQLite3Database::CreateStringCollection(const wxString& collectionName)
   if (rc == SQLITE_OK)
   {
     wxSQLite3StatementBuffer zBuffer;
-    const char* zSql = zBuffer.Format("CREATE VIRTUAL TABLE temp.%Q USING %Q", zName, zName);
+    const char* zSql = zBuffer.Format("CREATE VIRTUAL TABLE temp.\"%w\" USING \"%w\"", zName, zName);
     rc = sqlite3_exec(m_db->m_db, zSql, 0, 0, 0);
   }
   if (rc != SQLITE_OK)

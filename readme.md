@@ -40,8 +40,11 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
-* 4.0.0 - *March 2018*
+* 4.0.0 - *April 2018*
   - Added multi-cipher support
+  - Added methods for attaching/detaching databases
+  - Cleaned up code using statement buffers
+
 * 3.5.9 - *January 2018*
   - Upgrade to SQLite version 3.22.0
 * 3.5.8 - *November 2017*
@@ -414,7 +417,7 @@ database files can be shared across Windows platforms only.
 
 **wxSQLite3** includes an implementation of the SQLite Codec API.
 Support is enabled by default. The code implementing this feature
-and additional documentation is available in directory `sqlite3/secure/src`.
+and additional documentation is available in directory `sqlite3secure`.
 
 Precompiled binaries of the SQLite3 DLL and the SQLite3 shell  for Windows
 are provided as separate downloads.

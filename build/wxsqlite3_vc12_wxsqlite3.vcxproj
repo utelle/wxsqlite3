@@ -543,6 +543,7 @@
     <ClInclude Include="..\sqlite3secure\src\sha2.h" />
     <ClInclude Include="..\sqlite3secure\src\sqlite3.h" />
     <ClInclude Include="..\sqlite3secure\src\sqlite3ext.h" />
+    <ClInclude Include="..\sqlite3secure\src\sqlite3secure.h" />
     <ClInclude Include="..\sqlite3secure\src\sqlite3userauth.h" />
     <ClInclude Include="..\sqlite3secure\src\test_windirent.h" />
   </ItemGroup>

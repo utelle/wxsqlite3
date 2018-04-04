@@ -173,6 +173,8 @@ Starting with the release of wxSQLite3 version 3.1.0 the code of the encryption 
 
 The good news for users of prior versions of the wxSQLite3 ciphers is that the new version transparently converts existing encrypted databases to the new format. However, this is a one-way process, that is, once converted a database file can't be handled anymore by prior versions of the encryption extension. Instead, one will get the error message "not a database file or encrypted".
 
+For the ciphers **sqleet** (ChaCha20) and **SQLCipher** the wxSQLite3 encryption extension offers variants that respect the SQLite requirements and do not encrypt the database header bytes 16 to 23. However, the resulting databases are not compatible with the original ciphers provided by [sqleet](https://github.com/resilar/sqleet) resp [SQLCipher (Zetetic LLC)](http://zetetic.net).
+
 It is strongly recommended that the new encryption scheme is used, since it provides better compatibility with SQLite. However, if you need at all costs for some reason the old behaviour, you can activate it by defining the following preprocessor symbol:
 
 ```C
@@ -288,10 +290,11 @@ The syntax is very similar to a `PRAGMA` statement, but has the advantage that n
 Example 2:
 ```SQL
 -- Activate SQLCipher version 1 encryption scheme
+SELECT wxsqlite3_config("cipher", "sqlcipher");
 SELECT wxsqlite3_config("sqlcipher", "kdf_iter", 4000);
 SELECT wxsqlite3_config("sqlcipher", "fast_kdf_iter", 2);
 SELECT wxsqlite3_config("sqlcipher", "hmac_use", 0);
 SELECT wxsqlite3_config("sqlcipher", "legacy", 1);
-PRAGMA page_size=1024;
+SELECT wxsqlite3_config("sqlcipher", "legacy_page_size", 1024);
 PRAGMA key="<passphrase>";
 ```

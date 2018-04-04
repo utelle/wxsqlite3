@@ -13,6 +13,7 @@ The following files constitute the kernel of the **wxSQLite3** encryption extens
 | codecext.c      | Implementation of the **SQLite3** codec API |
 | rekeyvacuum.c   | Adjusted VACUUM function for use on rekeying a database file |
 | sqlite3secure.c | _Amalgamation_ of the complete **wxSQLite3** encryption extension |
+| sqlite3secure.h | Header for the additional API functions of the **wxSQLite3** encryption extension |
 
 All files, except `rekeyvacuum.c`, are licensed under `LGPL-3.0+ WITH WxWindows-exception-3.1`.
 

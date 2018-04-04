@@ -185,6 +185,7 @@
     <ClInclude Include="..\src\sha2.h" />
     <ClInclude Include="..\src\sqlite3.h" />
     <ClInclude Include="..\src\sqlite3ext.h" />
+    <ClInclude Include="..\src\sqlite3secure.h" />
     <ClInclude Include="..\src\sqlite3userauth.h" />
     <ClInclude Include="..\src\test_windirent.h" />
   </ItemGroup>

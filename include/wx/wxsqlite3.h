@@ -2440,6 +2440,49 @@ public:
   */
   void Close();
 
+  /// Attach SQLite3 database
+  /**
+  * This method allows to attach a SQLite3 database to the current database connection.
+  *
+  * NOTE: If the main database is encrypted, the same encryption method and key will be used.
+  *
+  * \param[in] fileName Name of the database file that should be attached.
+  * \param[in] schemaName Name of the schema that should be used for the attached database.
+  */
+  void AttachDatabase(const wxString& fileName, const wxString& schemaName);
+
+  /// Attach SQLite3 database with encryption key
+  /**
+  * This method allows to attach a SQLite3 database to the current database connection
+  * using the given encryption key and  the default encryption cipher.
+  *
+  * NOTE: The default encryption cipher will be used, and the given key will be used
+  * as the passphrase. Use an empty key to attach a plain (unencrypted) database file
+  * to an encrypted main database.
+  *
+  * \param[in] fileName Name of the database file that should be attached.
+  * \param[in] schemaName Name of the schema that should be used for the attached database.
+  * \param[in] key Passphrase for the attached database.
+  */
+  void AttachDatabase(const wxString& fileName, const wxString& schemaName, const wxString& key);
+
+  /// Attach SQLite3 database with encryption cipher and key
+  /**
+  * This method allows to attach a SQLite3 database to the current database connection
+  * using the given encryption scheme and key.
+  *
+  * NOTE: If the main database is encrypted, the default encryption cipher will be used.
+  * The given key will be used as the passphrase. Use an empty key to attach a plain
+  * (unencrypted) database file.
+  *
+  * \param[in] fileName Name of the database file that should be attached.
+  * \param[in] schemaName Name of the schema that should be used for the attached database.
+  * \param[in] key Passphrase for the attached database.
+  */
+  void AttachDatabase(const wxString& fileName, const wxString& schemaName, const wxSQLite3Cipher& cipher, const wxString& key);
+
+  void DetachDatabase(const wxString& schemaName);
+
   /// Backup a SQLite3 database
   /**
   * This method is used to overwrite the contents of a database with the contents
@@ -3030,6 +3073,13 @@ public:
   * \return TRUE on successful registration, FALSE otherwise
   */
   bool SetAuthorizer(wxSQLite3Authorizer& authorizer);
+
+  /// Remove a user-defined authorizer function
+  /**
+  * Removes a previously registered authorizer object.
+  * \return TRUE on successful removal, FALSE otherwise
+  */
+  bool RemoveAuthorizer();
 
   /// Create a user-defined commit callback function
   /**

@@ -44,9 +44,11 @@
 
 <dl>
 
-<dt><b>4.0.0</b> - <i>March 2018</i></dt>
+<dt><b>4.0.0</b> - <i>April 2018</i></dt>
 <dd>
 Introduced multi-cipher support at runtime<br>
+Added methods for attaching/detaching databases<br>
+Cleaned up code using statement buffers<br>
 
 </dd>
 <dt><b>3.5.9</b> - <i>January 2018</i></dt>

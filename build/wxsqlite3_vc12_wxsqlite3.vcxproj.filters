@@ -45,6 +45,9 @@
     <ClInclude Include="..\sqlite3secure\src\sqlite3ext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\sqlite3secure\src\sqlite3secure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\sqlite3secure\src\sqlite3userauth.h">
       <Filter>Header Files</Filter>
     </ClInclude>
