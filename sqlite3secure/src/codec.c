@@ -196,11 +196,11 @@ static unsigned char padding[] =
 
 typedef struct _CipherParams
 {
-  unsigned char* m_name;
-  int            m_value;
-  int            m_default;
-  int            m_minValue;
-  int            m_maxValue;
+  char* m_name;
+  int   m_value;
+  int   m_default;
+  int   m_minValue;
+  int   m_maxValue;
 } CipherParams;
 
 /*
