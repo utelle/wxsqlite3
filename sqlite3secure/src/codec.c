@@ -1210,8 +1210,8 @@ DecryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len)
 
 typedef struct _CodecParameter
 {
-  unsigned char*   m_name;
-  CipherParams*    m_params;
+  char*         m_name;
+  CipherParams* m_params;
 } CodecParameter;
 
 CodecParameter codecParameterTable[] =
@@ -1292,7 +1292,7 @@ typedef int   (*DecryptPage_t)(void* cipher, int page, unsigned char* data, int 
 
 typedef struct _CodecDescriptor
 {
-  unsigned char    m_name[32];
+  char             m_name[32];
   AllocateCipher_t m_allocateCipher;
   FreeCipher_t     m_freeCipher;
   CloneCipher_t    m_cloneCipher;
