@@ -419,8 +419,14 @@ int Minimal::OnRun()
     }
 
     // Remove existing sample database files
-    wxRemoveFile(dbFile);
-    wxRemoveFile(dbBackup);
+    if (wxFileExists(dbFile))
+    {
+      wxRemoveFile(dbFile);
+    }
+    if (wxFileExists(dbBackup))
+    {
+      wxRemoveFile(dbBackup);
+    }
 
     if (wxSQLite3Database::HasEncryptionSupport())
     {
@@ -442,20 +448,20 @@ int Minimal::OnRun()
       cout << "not enforced.";
     cout << endl;
 
-    cout << endl << "emp table exists=" << (db.TableExists(wxS("EmP")) ? "TRUE":"FALSE") << endl;
-    cout << endl << "Creating emp table" << endl;
+    cout << endl << "Table 'emp' exists=" << (db.TableExists(wxS("EmP")) ? "TRUE":"FALSE") << endl;
+    cout << "Creating table 'emp'" << endl;
     db.ExecuteUpdate(wxS("create table emp(empno int, empname char(20), salary double);"));
-    cout << endl << "emp table exists=" << (db.TableExists(wxS("emp")) ? "TRUE":"FALSE") << endl;
+    cout << "Table 'emp' exists=" << (db.TableExists(wxS("emp")) ? "TRUE":"FALSE") << endl;
     
     // Attach the current database under different name and
     // check table existance in any open database.
     // The table emp will be found in 'main' and in 'dbattached'
     db.AttachDatabase(dbFile, wxS("dbattached"));
-    cout << "Filename of database 'dbattached': " << (const char*) db.GetDatabaseFilename(wxS("dbattached")).mb_str(wxConvUTF8) << endl;
+    cout << endl << "Filename of database 'dbattached': " << (const char*) db.GetDatabaseFilename(wxS("dbattached")).mb_str(wxConvUTF8) << endl;
 
     wxArrayString databaseList;
     db.TableExists(wxS("emp"), databaseList);
-    cout << endl << "Table 'emp' exists in the following databases:" << endl;
+    cout << "Table 'emp' exists in the following databases:" << endl;
     size_t j;
     for (j = 0; j < databaseList.GetCount(); ++j)
     {
@@ -467,11 +473,11 @@ int Minimal::OnRun()
       wxSQLite3CipherSQLCipher sqlCipher3;
       sqlCipher3.InitializeVersionDefault(3);
       db.AttachDatabase(wxS("sqlcipher-3.0-testkey.db"), wxS("dbsqlcipher"), sqlCipher3, wxS("testkey"));
-      cout << "Filename of database 'dbsqlcipher': " << (const char*)db.GetDatabaseFilename(wxS("dbsqlcipher")).mb_str(wxConvUTF8) << endl;
+      cout << endl << "Filename of database 'dbsqlcipher': " << (const char*)db.GetDatabaseFilename(wxS("dbsqlcipher")).mb_str(wxConvUTF8) << endl;
 
       databaseList.Empty();
       db.TableExists(wxS("t1"), databaseList);
-      cout << endl << "Table 't1' exists in the following databases:" << endl;
+      cout << "Table 't1' exists in the following databases:" << endl;
       size_t k;
       for (k = 0; k < databaseList.GetCount(); ++k)
       {
