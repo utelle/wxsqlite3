@@ -31,7 +31,9 @@ SQLITE_EXTENSION_INIT1
 #include <assert.h>
 #include <string.h>
 #include <stdarg.h>
+#if 0
 typedef sqlite3_uint64 u64;
+#endif
 
 /******************************************************************************
 ** The Hash Engine

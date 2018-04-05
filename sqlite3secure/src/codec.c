@@ -841,7 +841,7 @@ GenerateKeyChaCha20Cipher(void* cipher, Btree* pBt, char* userPassword, int pass
   {
     chacha20_rng(chacha20Cipher->m_salt, SALTLENGTH_CHACHA20);
   }
-  fastpbkdf2_hmac_sha256(userPassword, passwordLength, 
+  fastpbkdf2_hmac_sha256((unsigned char*) userPassword, passwordLength, 
                          chacha20Cipher->m_salt, SALTLENGTH_CHACHA20,
                          chacha20Cipher->m_kdfIter, 
                          chacha20Cipher->m_key, KEYLENGTH_CHACHA20);
@@ -1071,20 +1071,20 @@ GenerateKeySQLCipherCipher(void* cipher, Btree* pBt, char* userPassword, int pas
 
   if (passwordLength == ((KEYLENGTH_SQLCIPHER * 2) + 3) &&
     sqlite3_strnicmp(userPassword, "x'", 2) == 0 &&
-    IsHexKey(userPassword + 2, KEYLENGTH_SQLCIPHER * 2) != 0)
+    IsHexKey((unsigned char*) (userPassword + 2), KEYLENGTH_SQLCIPHER * 2) != 0)
   {
-    ConvertHex2Bin(userPassword + 2, passwordLength - 3, sqlCipherCipher->m_key);
+    ConvertHex2Bin((unsigned char*) (userPassword + 2), passwordLength - 3, sqlCipherCipher->m_key);
   }
   else if (passwordLength == (((KEYLENGTH_SQLCIPHER + SALTLENGTH_SQLCIPHER) * 2) + 3) &&
     sqlite3_strnicmp(userPassword, "x'", 2) == 0 &&
-    IsHexKey(userPassword + 2, (KEYLENGTH_SQLCIPHER + SALTLENGTH_SQLCIPHER) * 2) != 0)
+    IsHexKey((unsigned char*) (userPassword + 2), (KEYLENGTH_SQLCIPHER + SALTLENGTH_SQLCIPHER) * 2) != 0)
   {
-    ConvertHex2Bin(userPassword + 2, KEYLENGTH_SQLCIPHER * 2, sqlCipherCipher->m_key);
-    ConvertHex2Bin(userPassword + 2 + KEYLENGTH_SQLCIPHER * 2, SALTLENGTH_SQLCIPHER * 2, sqlCipherCipher->m_salt);
+    ConvertHex2Bin((unsigned char*) (userPassword + 2), KEYLENGTH_SQLCIPHER * 2, sqlCipherCipher->m_key);
+    ConvertHex2Bin((unsigned char*) (userPassword + 2 + KEYLENGTH_SQLCIPHER * 2), SALTLENGTH_SQLCIPHER * 2, sqlCipherCipher->m_salt);
   }
   else
   {
-    fastpbkdf2_hmac_sha1(userPassword, passwordLength,
+    fastpbkdf2_hmac_sha1((unsigned char*) userPassword, passwordLength,
                          sqlCipherCipher->m_salt, SALTLENGTH_SQLCIPHER,
                          sqlCipherCipher->m_kdfIter,
                          sqlCipherCipher->m_key, KEYLENGTH_SQLCIPHER);
@@ -1372,7 +1372,7 @@ wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv
 
   /* Check first argument whether it is a common parameter */
   /* If the first argument is a common parameter, param1 will point to its parameter table entry */
-  const unsigned char* nameParam1 = sqlite3_value_text(argv[0]);
+  const char* nameParam1 = (const char*) sqlite3_value_text(argv[0]);
   int hasDefaultPrefix = 0;
   if (sqlite3_strnicmp(nameParam1, "default:", 8) == 0)
   {
@@ -1490,7 +1490,7 @@ wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv
         /* 2nd argument is a cipher name */
         if (arg2Type == SQLITE_TEXT)
         {
-          const unsigned char* nameCipher = sqlite3_value_text(argv[1]);
+          const char* nameCipher = (const char*) sqlite3_value_text(argv[1]);
           int j = 0;
           for (j = 0; strlen(codecDescriptorTable[j].m_name) > 0; ++j)
           {
@@ -1543,7 +1543,7 @@ wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv
     }
     else if (isCipherParam1 && arg2Type == SQLITE_TEXT)
     {
-      const unsigned char* nameParam2 = sqlite3_value_text(argv[1]);
+      const char* nameParam2 = (const char*) sqlite3_value_text(argv[1]);
       hasDefaultPrefix = 0;
       if (sqlite3_strnicmp(nameParam2, "default:", 8) == 0)
       {
