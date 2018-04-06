@@ -1,13 +1,11 @@
-///////////////////////////////////////////////////////////////////////////////
-// Name:        wxsqlite3opt.h
-// Purpose:     wxSQLite3 optional feature selection
-// Author:      Ulrich Telle
-// Modified by:
-// Created:     2007-02-01
-//
-// Copyright:   (c) Ulrich Telle
-// Licence:     wxWindows licence
-///////////////////////////////////////////////////////////////////////////////
+/*
+** Name:        wxsqlite3opt.h
+** Purpose:     wxSQLite3 optional feature selection
+** Author:      Ulrich Telle
+** Created:     2007-02-01
+** Copyright:   (c) 2007-2018 Ulrich Telle
+** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
+*/
 
 /// \file wxsqlite3opt.h Compile time switches for the wxSQLite3 class
 

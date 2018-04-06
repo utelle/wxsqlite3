@@ -1,0 +1,24 @@
+wxSQLite3 - https://github.com/utelle/wxsqlite3
+Copyright (C) 2005-2018, Ulrich Telle and the wxSQLite3 contributors
+SPDX-License-Identifier: LGPL-3.0+ WITH WxWindows-exception-3.1
+
+wxSQLite3 is free software: you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License version 3
+or later as published by the Free Software Foundation,
+with the wxWindows 3.1 exception.
+
+wxSQLite3 is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+For details see the license files
+
+- LICENSE.spdx
+- LICENSE.txt
+
+and/or
+
+- LGPL-3.0.txt
+  https://spdx.org/licenses/LGPL-3.0-or-later.html
+- WxWindows-exception-3.1.txt
+  https://spdx.org/licenses/WxWindows-exception-3.1.html

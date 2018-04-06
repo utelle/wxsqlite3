@@ -6,8 +6,11 @@
 CC = gcc
 CXX = g++
 
-# Codec type of encryption extension (CODEC_TYPE_AES128 or CODEC_TYPE_AES256). Default codec type is AES 128 Bit
-CODEC_TYPE ?= CODEC_TYPE_AES128
+# Codec type of encryption extension
+# Allowed values: CODEC_TYPE_AES128, CODEC_TYPE_AES256,
+#                 CODEC_TYPE_CHACHA20, CODEC_TYPE_SQLCIPHER
+# Default codec type is CODEC_TYPE_CHACHA20
+CODEC_TYPE ?= CODEC_TYPE_CHACHA20
 
 # Enable SQLite debug assertions (Default: 0)
 # Set to 1 to enable

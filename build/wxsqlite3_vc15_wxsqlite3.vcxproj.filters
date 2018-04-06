@@ -24,27 +24,39 @@
     <ClInclude Include="..\include\wx\wxsqlite3opt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\sqlite3\secure\src\codec.h">
+    <ClInclude Include="..\sqlite3secure\src\codec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\sqlite3\secure\src\rijndael.h">
+    <ClInclude Include="..\sqlite3secure\src\fastpbkdf2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\sqlite3\secure\src\sha2.h">
+    <ClInclude Include="..\sqlite3secure\src\rijndael.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\sqlite3\secure\src\sqlite3.h">
+    <ClInclude Include="..\sqlite3secure\src\sha1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\sqlite3\secure\src\sqlite3ext.h">
+    <ClInclude Include="..\sqlite3secure\src\sha2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\sqlite3\secure\src\sqlite3userauth.h">
+    <ClInclude Include="..\sqlite3secure\src\sqlite3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sqlite3secure\src\sqlite3ext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sqlite3secure\src\sqlite3secure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sqlite3secure\src\sqlite3userauth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sqlite3secure\src\test_windirent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\sqlite3\secure\src\sqlite3secure.c">
+    <ClCompile Include="..\sqlite3secure\src\sqlite3secure.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\wxsqlite3.cpp">
