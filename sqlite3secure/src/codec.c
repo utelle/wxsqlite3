@@ -857,13 +857,16 @@ EncryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len)
 
   /* Generate one-time keys */
   unsigned char otk[64];
+  uint32_t counter;
+  int offset;
+
   memset(otk, 0, 64);
   chacha20_rng(data + n, PAGE_NONCE_LEN_CHACHA20);
-  uint32_t counter = LOAD32_LE(data + n + PAGE_NONCE_LEN_CHACHA20 - 4) ^ page;
+  counter = LOAD32_LE(data + n + PAGE_NONCE_LEN_CHACHA20 - 4) ^ page;
   chacha20_xor(otk, 64, chacha20Cipher->m_key, data + n, counter);
 
   /* Encrypt and authenticate */
-  int offset = (page == 1) ? (chacha20Cipher->m_legacy != 0) ? 0 : CIPHER_PAGE1_OFFSET : 0;
+  offset = (page == 1) ? (chacha20Cipher->m_legacy != 0) ? 0 : CIPHER_PAGE1_OFFSET : 0;
   chacha20_xor(data + offset, n - offset, otk + 32, data + n, counter + 1);
   if (page == 1)
   {
@@ -884,12 +887,14 @@ DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len)
 
   /* Generate one-time keys */
   unsigned char otk[64];
+  uint32_t counter;
+  unsigned char tag[16];
+
   memset(otk, 0, 64);
-  uint32_t counter = LOAD32_LE(data + n + PAGE_NONCE_LEN_CHACHA20 - 4) ^ page;
+  counter = LOAD32_LE(data + n + PAGE_NONCE_LEN_CHACHA20 - 4) ^ page;
   chacha20_xor(otk, 64, chacha20Cipher->m_key, data + n, counter);
 
   /* Verify the MAC */
-  unsigned char tag[16];
   poly1305(data, n + PAGE_NONCE_LEN_CHACHA20, otk, tag);
   if (!poly1305_tagcmp(data + n + PAGE_NONCE_LEN_CHACHA20, tag))
   {
@@ -1092,10 +1097,11 @@ GenerateKeySQLCipherCipher(void* cipher, Btree* pBt, char* userPassword, int pas
 
   if (sqlCipherCipher->m_hmacUse != 0)
   {
+    int j;
+    unsigned char hmacSaltMask = sqlCipherCipher->m_hmacSaltMask;
     unsigned char hmacSalt[SALTLENGTH_SQLCIPHER];
     memcpy(hmacSalt, sqlCipherCipher->m_salt, SALTLENGTH_SQLCIPHER);
-    unsigned char hmacSaltMask = sqlCipherCipher->m_hmacSaltMask;
-    for (int j = 0; j < SALTLENGTH_SQLCIPHER; ++j)
+    for (j = 0; j < SALTLENGTH_SQLCIPHER; ++j)
     {
       hmacSalt[j] ^= hmacSaltMask;
     }
@@ -1114,6 +1120,7 @@ EncryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len)
   int nReserved = GetReservedSQLCipherCipher(cipher);
   int n = len - nReserved;
   int offset = (page == 1) ? (sqlCipherCipher->m_legacy != 0) ? 16 : 24 : 0;
+  int blen;
 
   /* Generate nonce (64 bytes) */
   unsigned char iv[64];
@@ -1121,7 +1128,7 @@ EncryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len)
   chacha20_rng(iv, 64);
 
   RijndaelInit(sqlCipherCipher->m_aes, RIJNDAEL_Direction_Mode_CBC, RIJNDAEL_Direction_Encrypt, sqlCipherCipher->m_key, RIJNDAEL_Direction_KeyLength_Key32Bytes, iv);
-  int blen = RijndaelBlockEncrypt(sqlCipherCipher->m_aes, data + offset, (n - offset) * 8, data + offset);
+  blen = RijndaelBlockEncrypt(sqlCipherCipher->m_aes, data + offset, (n - offset) * 8, data + offset);
   memcpy(data + n, iv, nReserved);
   if (page == 1)
   {
@@ -1132,6 +1139,7 @@ EncryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len)
   if (sqlCipherCipher->m_hmacUse == 1)
   {
     unsigned char pgno_raw[4];
+    unsigned char hmac_out[64];
     if (sqlCipherCipher->m_hmacPgno == SQLCIPHER_HMAC_PGNO_LE)
     {
       STORE32_LE(pgno_raw, page);
@@ -1144,7 +1152,6 @@ EncryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len)
     {
       memcpy(pgno_raw, &page, 4);
     }
-    unsigned char hmac_out[64];
     sqlcipher_hmac(sqlCipherCipher->m_hmacKey, KEYLENGTH_SQLCIPHER, data + offset, n + PAGE_NONCE_LEN_SQLCIPHER - offset, pgno_raw, 4, hmac_out);
     memcpy(data + n + PAGE_NONCE_LEN_SQLCIPHER, hmac_out, HMAC_LENGTH_SQLCIPHER);
   }
@@ -1159,18 +1166,19 @@ DecryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len)
   int rc = SQLITE_OK;
   int nReserved = GetReservedSQLCipherCipher(cipher);
   int n = len - nReserved;
-
   int offset = (page == 1) ? (sqlCipherCipher->m_legacy != 0) ? 16 : 24 : 0;
+  int hmacOk = 1;
+  int blen;
 
   /* Get nonce from buffer */
   unsigned char iv[64];
   memcpy(iv, data + n, nReserved);
 
   /* hmac check */
-  int hmacOk = 1;
   if (sqlCipherCipher->m_hmacUse == 1)
   {
     unsigned char pgno_raw[4];
+    unsigned char hmac_out[64];
     if (sqlCipherCipher->m_hmacPgno == SQLCIPHER_HMAC_PGNO_LE)
     {
       STORE32_LE(pgno_raw, page);
@@ -1183,7 +1191,6 @@ DecryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len)
     {
       memcpy(pgno_raw, &page, 4);
     }
-    unsigned char hmac_out[64];
     sqlcipher_hmac(sqlCipherCipher->m_hmacKey, KEYLENGTH_SQLCIPHER, data + offset, n + PAGE_NONCE_LEN_SQLCIPHER - offset, pgno_raw, 4, hmac_out);
     hmacOk = (memcmp(data + n + PAGE_NONCE_LEN_SQLCIPHER, hmac_out, HMAC_LENGTH_SQLCIPHER) == 0);
   }
@@ -1191,7 +1198,7 @@ DecryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len)
   if (hmacOk != 0)
   {
     RijndaelInit(sqlCipherCipher->m_aes, RIJNDAEL_Direction_Mode_CBC, RIJNDAEL_Direction_Decrypt, sqlCipherCipher->m_key, RIJNDAEL_Direction_KeyLength_Key32Bytes, iv);
-    int blen = RijndaelBlockDecrypt(sqlCipherCipher->m_aes, data + offset, (n - offset) * 8, data + offset);
+    blen = RijndaelBlockDecrypt(sqlCipherCipher->m_aes, data + offset, (n - offset) * 8, data + offset);
     memcpy(data + n, iv, nReserved);
     if (page == 1)
     {
@@ -1231,6 +1238,9 @@ CloneCodecParameterTable()
   int nTables = 0;
   int nParams = 0;
   int j, k, n;
+  CipherParams* cloneCipherParams;
+  CodecParameter* cloneCodecParams;
+
   for (j = 0; strlen(codecParameterTable[j].m_name) > 0; ++j)
   {
     CipherParams* params = codecParameterTable[j].m_params;
@@ -1240,8 +1250,8 @@ CloneCodecParameterTable()
   nTables = j;
 
   /* Allocate memory for cloned codec parameter tables (including sentinel for each table) */
-  CipherParams* cloneCipherParams = (CipherParams*) sqlite3_malloc((nParams + nTables) * sizeof(CipherParams));
-  CodecParameter* cloneCodecParams = (CodecParameter*) sqlite3_malloc((nTables + 1) * sizeof(CodecParameter));
+  cloneCipherParams = (CipherParams*) sqlite3_malloc((nParams + nTables) * sizeof(CipherParams));
+  cloneCodecParams = (CodecParameter*) sqlite3_malloc((nTables + 1) * sizeof(CodecParameter));
 
   /* Create copy of tables */
   if (cloneCodecParams != NULL)
@@ -1249,9 +1259,9 @@ CloneCodecParameterTable()
     int offset = 0;
     for (j = 0; j < nTables; ++j)
     {
+      CipherParams* params = codecParameterTable[j].m_params;
       cloneCodecParams[j].m_name = codecParameterTable[j].m_name;
       cloneCodecParams[j].m_params = &cloneCipherParams[offset];
-      CipherParams* params = codecParameterTable[j].m_params;
       for (n = 0; strlen(params[n].m_name) > 0; ++n);
       /* Copy all parameters of the current table (including sentinel) */
       for (k = 0; k <= n; ++k)
@@ -1349,8 +1359,8 @@ CodecDescriptor codecDescriptorTable[] =
 void
 wxsqlite3_config_table(sqlite3_context* context, int argc, sqlite3_value** argv)
 {
-  assert(argc == 0);
   CodecParameter* codecParams = (CodecParameter*) sqlite3_user_data(context);
+  assert(argc == 0);
   sqlite3_result_pointer(context, codecParams, "wxsqlite3_codec_params", 0);
 }
 
@@ -1360,6 +1370,16 @@ wxsqlite3_config_table(sqlite3_context* context, int argc, sqlite3_value** argv)
 void
 wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv)
 {
+  CodecParameter* codecParams;
+  const char* nameParam1;
+  int hasDefaultPrefix = 0;
+  int hasMinPrefix = 0;
+  int hasMaxPrefix = 0;
+  CipherParams* param1;
+  CipherParams* cipherParamTable = NULL;
+  int isCommonParam1;
+  int isCipherParam1 = 0;
+
   assert(argc == 1 || argc == 2 || argc == 3);
   /* NULL values are not allowed for the first 2 arguments */
   if (SQLITE_NULL == sqlite3_value_type(argv[0]) || (argc > 1 && SQLITE_NULL == sqlite3_value_type(argv[1])))
@@ -1368,41 +1388,37 @@ wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv
     return;
   }
 
-  CodecParameter* codecParams = (CodecParameter*) sqlite3_user_data(context);
+  codecParams = (CodecParameter*) sqlite3_user_data(context);
 
   /* Check first argument whether it is a common parameter */
   /* If the first argument is a common parameter, param1 will point to its parameter table entry */
-  const char* nameParam1 = (const char*) sqlite3_value_text(argv[0]);
-  int hasDefaultPrefix = 0;
+  nameParam1 = (const char*) sqlite3_value_text(argv[0]);
   if (sqlite3_strnicmp(nameParam1, "default:", 8) == 0)
   {
     hasDefaultPrefix = 1;
     nameParam1 += 8;
   }
-  int hasMinPrefix = 0;
   if (sqlite3_strnicmp(nameParam1, "min:", 4) == 0)
   {
     hasMinPrefix = 1;
     nameParam1 += 4;
   }
-  int hasMaxPrefix = 0;
   if (sqlite3_strnicmp(nameParam1, "max:", 4) == 0)
   {
     hasMaxPrefix = 1;
     nameParam1 += 4;
   }
 
-  CipherParams* param1 = codecParams[0].m_params;
-  CipherParams* cipherParamTable = NULL;
+  param1 = codecParams[0].m_params;
+  cipherParamTable = NULL;
   for (; strlen(param1->m_name) > 0; ++param1)
   {
     if (sqlite3_stricmp(nameParam1, param1->m_name) == 0) break;
   }
-  int isCommonParam1 = strlen(param1->m_name) > 0;
+  isCommonParam1 = strlen(param1->m_name) > 0;
 
   /* Check first argument whether it is a cipher name, if it wasn't a common parameter */
   /* If the first argument is a cipher name, cipherParamTable will point to the corresponding cipher parameter table */
-  int isCipherParam1 = 0;
   if (!isCommonParam1)
   {
     if (!hasDefaultPrefix && !hasMinPrefix && !hasMaxPrefix)
@@ -1544,6 +1560,7 @@ wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv
     else if (isCipherParam1 && arg2Type == SQLITE_TEXT)
     {
       const char* nameParam2 = (const char*) sqlite3_value_text(argv[1]);
+      CipherParams* param2 = cipherParamTable;
       hasDefaultPrefix = 0;
       if (sqlite3_strnicmp(nameParam2, "default:", 8) == 0)
       {
@@ -1562,7 +1579,6 @@ wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv
         hasMaxPrefix = 1;
         nameParam2 += 4;
       }
-      CipherParams* param2 = cipherParamTable;
       for (; strlen(param2->m_name) > 0; ++param2)
       {
         if (sqlite3_stricmp(nameParam2, param2->m_name) == 0) break;
@@ -1642,37 +1658,40 @@ int
 wxsqlite3_config(sqlite3* db, const char* paramName, int newValue)
 {
   int value = -1;
+  CodecParameter* codecParams;
+  int hasDefaultPrefix = 0;
+  int hasMinPrefix = 0;
+  int hasMaxPrefix = 0;
+  CipherParams* param;
+
   if (paramName == NULL || (db == NULL && newValue >= 0))
   {
     return value;
   }
 
-  CodecParameter* codecParams = (db != NULL) ? GetCodecParams(db) : codecParameterTable;
+  codecParams = (db != NULL) ? GetCodecParams(db) : codecParameterTable;
   if (codecParams == NULL)
   {
     return value;
   }
 
-  int hasDefaultPrefix = 0;
   if (sqlite3_strnicmp(paramName, "default:", 8) == 0)
   {
     hasDefaultPrefix = 1;
     paramName += 8;
   }
-  int hasMinPrefix = 0;
   if (sqlite3_strnicmp(paramName, "min:", 4) == 0)
   {
     hasMinPrefix = 1;
     paramName += 4;
   }
-  int hasMaxPrefix = 0;
   if (sqlite3_strnicmp(paramName, "max:", 4) == 0)
   {
     hasMaxPrefix = 1;
     paramName += 4;
   }
 
-  CipherParams* param = codecParams[0].m_params;
+  param = codecParams[0].m_params;
   for (; strlen(param->m_name) > 0; ++param)
   {
     if (sqlite3_stricmp(paramName, param->m_name) == 0) break;
@@ -1713,19 +1732,21 @@ int
 wxsqlite3_config_cipher(sqlite3* db, const char* cipherName, const char* paramName, int newValue)
 {
   int value = -1;
+  CodecParameter* codecParams;
+  CipherParams* cipherParamTable = NULL;
+  int j = 0;
+
   if (cipherName == NULL || paramName == NULL || (db == NULL && newValue >= 0))
   {
     return value;
   }
 
-  CodecParameter* codecParams = (db != NULL) ? GetCodecParams(db) : codecParameterTable;
+  codecParams = (db != NULL) ? GetCodecParams(db) : codecParameterTable;
   if (codecParams == NULL)
   {
     return value;
   }
 
-  CipherParams* cipherParamTable = NULL;
-  int j = 0;
   for (j = 0; strlen(codecParams[j].m_name) > 0; ++j)
   {
     if (sqlite3_stricmp(cipherName, codecParams[j].m_name) == 0) break;
@@ -1738,25 +1759,26 @@ wxsqlite3_config_cipher(sqlite3* db, const char* cipherName, const char* paramNa
   if (cipherParamTable != NULL)
   {
     int hasDefaultPrefix = 0;
+    int hasMinPrefix = 0;
+    int hasMaxPrefix = 0;
+    CipherParams* param = cipherParamTable;
+
     if (sqlite3_strnicmp(paramName, "default:", 8) == 0)
     {
       hasDefaultPrefix = 1;
       paramName += 8;
     }
-    int hasMinPrefix = 0;
     if (sqlite3_strnicmp(paramName, "min:", 4) == 0)
     {
       hasMinPrefix = 1;
       paramName += 4;
     }
-    int hasMaxPrefix = 0;
     if (sqlite3_strnicmp(paramName, "max:", 4) == 0)
     {
       hasMaxPrefix = 1;
       paramName += 4;
     }
 
-    CipherParams* param = cipherParamTable;
     for (; strlen(param->m_name) > 0; ++param)
     {
       if (sqlite3_stricmp(paramName, param->m_name) == 0) break;

@@ -1238,8 +1238,9 @@ int RijndaelBlockDecrypt(Rijndael* rijndael, UINT8 *input, int inputLen, UINT8 *
       if (lenFrag > 0)
       {
         UINT8 lastblock[16];
+        int offset;
         --numBlocks;
-        int offset = numBlocks * 16;
+        offset = numBlocks * 16;
         /* Decrypt the last plainblock. */
         RijndaelDecrypt(rijndael, input + offset, block);
         for (i = 0; i < lenFrag; i++)

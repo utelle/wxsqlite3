@@ -26,6 +26,7 @@
 /* --- MSVC doesn't support C99 --- */
 #ifdef _MSC_VER
 #define restrict
+#define inline __inline
 #define _Pragma __pragma
 #endif
 
@@ -141,22 +142,25 @@ static inline void md_pad(uint8_t *block, size_t blocksz, size_t used, size_t ms
     if (_blocksz > nkey)                                                      \
       memset(k + nkey, 0, _blocksz - nkey);                                   \
                                                                               \
-    /* Start inner hash computation */                                        \
-    uint8_t blk_inner[_blocksz];                                              \
-    uint8_t blk_outer[_blocksz];                                              \
-                                                                              \
-    for (size_t i = 0; i < _blocksz; i++)                                     \
     {                                                                         \
-      blk_inner[i] = 0x36 ^ k[i];                                             \
-      blk_outer[i] = 0x5c ^ k[i];                                             \
+      /* Start inner hash computation */                                      \
+      uint8_t blk_inner[_blocksz];                                            \
+      uint8_t blk_outer[_blocksz];                                            \
+      size_t i;                                                               \
+                                                                              \
+      for (i = 0; i < _blocksz; i++)                                   \
+      {                                                                       \
+        blk_inner[i] = 0x36 ^ k[i];                                           \
+        blk_outer[i] = 0x5c ^ k[i];                                           \
+      }                                                                       \
+                                                                              \
+      _init(&ctx->inner);                                                     \
+      _update(&ctx->inner, blk_inner, sizeof blk_inner);                      \
+                                                                              \
+      /* And outer. */                                                        \
+      _init(&ctx->outer);                                                     \
+      _update(&ctx->outer, blk_outer, sizeof blk_outer);                      \
     }                                                                         \
-                                                                              \
-    _init(&ctx->inner);                                                       \
-    _update(&ctx->inner, blk_inner, sizeof blk_inner);                        \
-                                                                              \
-    /* And outer. */                                                          \
-    _init(&ctx->outer);                                                       \
-    _update(&ctx->outer, blk_outer, sizeof blk_outer);                        \
   }                                                                           \
                                                                               \
   static inline void HMAC_UPDATE(_name)(HMAC_CTX(_name) *ctx,                 \
@@ -182,25 +186,29 @@ static inline void md_pad(uint8_t *block, size_t blocksz, size_t used, size_t ms
                                      uint8_t *out)                            \
   {                                                                           \
     uint8_t countbuf[4];                                                      \
+    uint8_t Ublock[_blocksz];                                                 \
+    HMAC_CTX(_name) ctx;                                                      \
+    uint32_t i;                                                               \
+    _ctx result;                                                              \
+                                                                              \
     write32_be(counter, countbuf);                                            \
                                                                               \
     /* Prepare loop-invariant padding block. */                               \
-    uint8_t Ublock[_blocksz];                                                 \
     md_pad(Ublock, _blocksz, _hashsz, _blocksz + _hashsz);                    \
                                                                               \
     /* First iteration:                                                       \
      *   U_1 = PRF(P, S || INT_32_BE(i))                                      \
      */                                                                       \
-    HMAC_CTX(_name) ctx = *startctx;                                          \
+    ctx = *startctx;                                                          \
     HMAC_UPDATE(_name)(&ctx, salt, nsalt);                                    \
     HMAC_UPDATE(_name)(&ctx, countbuf, sizeof countbuf);                      \
     HMAC_FINAL(_name)(&ctx, Ublock);                                          \
-    _ctx result = ctx.outer;                                                  \
+    result = ctx.outer;                                                       \
                                                                               \
     /* Subsequent iterations:                                                 \
      *   U_c = PRF(P, U_{c-1})                                                \
      */                                                                       \
-    for (uint32_t i = 1; i < iterations; i++)                                 \
+    for (i = 1; i < iterations; i++)                                 \
     {                                                                         \
       /* Complete inner hash with previous U */                               \
       _xcpy(&ctx.inner, &startctx->inner);                                    \
@@ -222,24 +230,28 @@ static inline void md_pad(uint8_t *block, size_t blocksz, size_t used, size_t ms
                      uint32_t iterations,                                     \
                      uint8_t *out, size_t nout)                               \
   {                                                                           \
+    HMAC_CTX(_name) ctx;                                                      \
+    uint32_t blocks_needed;                                                   \
+    uint32_t counter;                                                         \
     assert(iterations);                                                       \
     assert(out && nout);                                                      \
                                                                               \
     /* Starting point for inner loop. */                                      \
-    HMAC_CTX(_name) ctx;                                                      \
     HMAC_INIT(_name)(&ctx, pw, npw);                                          \
                                                                               \
     /* How many blocks do we need? */                                         \
-    uint32_t blocks_needed = (uint32_t)(nout + _hashsz - 1) / _hashsz;        \
+    blocks_needed = (uint32_t)(nout + _hashsz - 1) / _hashsz;                 \
                                                                               \
     OPENMP_PARALLEL_FOR                                                       \
-    for (uint32_t counter = 1; counter <= blocks_needed; counter++)           \
+    for (counter = 1; counter <= blocks_needed; counter++)                    \
     {                                                                         \
       uint8_t block[_hashsz];                                                 \
+      size_t offset;                                                          \
+      size_t taken;                                                           \
       PBKDF2_F(_name)(&ctx, counter, salt, nsalt, iterations, block);         \
                                                                               \
-      size_t offset = (counter - 1) * _hashsz;                                \
-      size_t taken = MIN(nout - offset, _hashsz);                             \
+      offset = (counter - 1) * _hashsz;                                       \
+      taken = MIN(nout - offset, _hashsz);                                    \
       memcpy(out + offset, block, taken);                                     \
     }                                                                         \
   }

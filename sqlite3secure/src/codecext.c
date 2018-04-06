@@ -126,9 +126,9 @@ void mySqlite3PagerSetCodec(
 static int mySqlite3AdjustBtree(Btree* pBt, int nPageSize, int nReserved)
 {
   int rc = SQLITE_OK;
-  sqlite3BtreeSecureDelete(pBt, 1);
   Pager* pager = sqlite3BtreePager(pBt);
   int pagesize = sqlite3BtreeGetPageSize(pBt);
+  sqlite3BtreeSecureDelete(pBt, 1);
   if (nPageSize > 0)
   {
     pagesize = nPageSize;
@@ -299,15 +299,17 @@ int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKe
   /* Changes the encryption key for an existing database. */
   int dbIndex = dbFindIndex(db, zDbName);
   int rc = SQLITE_ERROR;
-
   Btree* pBt = db->aDb[dbIndex].pBt;
-  /* int nReserved = sqlite3BtreeGetOptimalReserve(pBt);*/
+  int nReserved;
+  Pager* pPager;
+  Codec* codec;
+
   sqlite3BtreeEnter(pBt);
-  int nReserved = sqlite3BtreeGetReserveNoMutex(pBt);
+  nReserved = sqlite3BtreeGetReserveNoMutex(pBt);
   sqlite3BtreeLeave(pBt);
 
-  Pager* pPager = sqlite3BtreePager(pBt);
-  Codec* codec = (Codec*) mySqlite3PagerGetCodec(pPager);
+  pPager = sqlite3BtreePager(pBt);
+  codec = (Codec*) mySqlite3PagerGetCodec(pPager);
 
   if ((zKey == NULL || nKey == 0) && (codec == NULL || !CodecIsEncrypted(codec)))
   {
@@ -332,6 +334,8 @@ int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKe
     }
     if (rc == SQLITE_OK)
     {
+      int nReservedWriteCipher;
+
       CodecSetHasReadCipher(codec, 0); /* Original database is not encrypted */
       /* sqlite3BtreeSecureDelete(pBt, 1); */
       rc = mySqlite3AdjustBtree(pBt, CodecGetPageSizeWriteCipher(codec), CodecGetReservedWriteCipher(codec));
@@ -346,7 +350,7 @@ int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKe
       db->aDb[dbIndex].pAux = codec;
       db->aDb[dbIndex].xFreeAux = sqlite3CodecFree;
 #endif
-      int nReservedWriteCipher = CodecGetReservedWriteCipher(codec);
+      nReservedWriteCipher = CodecGetReservedWriteCipher(codec);
       if (nReserved != nReservedWriteCipher)
       {
         /* Use VACUUM to change the number of reserved bytes */
