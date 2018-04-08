@@ -26,7 +26,7 @@ wxShortVersionString ?= 31
 wxToolkitPrefix ?= msw
 
 # Compiler prefix
-wxCompilerPrefix ?= gcc510TDM
+wxCompilerPrefix ?= gcc720
 
 # Monolithic wxWidgets build
 # Set to 1 to enable

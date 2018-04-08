@@ -68,7 +68,7 @@ AC_ARG_ENABLE(sqlite-debug,
       AC_DEFINE([SQLITE_DEBUG])
     ])
 
-AC_SUBST(SQLITE3SECURE_LIBNAME, "sqlite3secure-1.0")
+AC_SUBST(SQLITE3SECURE_LIBNAME, "sqlite3secure")
 AC_SUBST( LIBDIR, "lib" )
 
 AC_CONFIG_FILES([Makefile sqlite3secure.pc])
