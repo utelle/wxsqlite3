@@ -47,7 +47,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>SQL statment buffer for use with SQLite3's printf method.  
+<p>SQL statement buffer for use with SQLite3's printf method.  
  <a href="classwx_s_q_lite3_statement_buffer.html#details">More...</a></p>
 
 <p><code>#include &lt;wxsqlite3.h&gt;</code></p>
@@ -74,7 +74,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af7fe04229365aab5eb89914da1cb03ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>SQL statment buffer for use with SQLite3's printf method. </p>
+<div class="textblock"><p>SQL statement buffer for use with SQLite3's printf method. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aeabac47cf1dda49ae421c6f540d31f7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeabac47cf1dda49ae421c6f540d31f7d">&#9670;&nbsp;</a></span>wxSQLite3StatementBuffer()</h2>
@@ -165,7 +165,7 @@ Public Member Functions</h2></td></tr>
 <p>For example, so some string variable contains text as follows:</p>
 <p>char *zText = "It's a happy day!";</p>
 <p>One can use this text in an SQL statement as follows:</p>
-<p><a class="el" href="classwx_s_q_lite3_statement_buffer.html" title="SQL statment buffer for use with SQLite3&#39;s printf method. ">wxSQLite3StatementBuffer</a> stmtBuffer; stmtBuffer.Format("INSERT INTO table VALUES('%q')", zText);</p>
+<p><a class="el" href="classwx_s_q_lite3_statement_buffer.html" title="SQL statement buffer for use with SQLite3&#39;s printf method. ">wxSQLite3StatementBuffer</a> stmtBuffer; stmtBuffer.Format("INSERT INTO table VALUES('%q')", zText);</p>
 <p>Because the q format string is used, the '\'' character in zText is escaped and the SQL generated is as follows:</p>
 <p>INSERT INTO table1 VALUES('It''s a happy day!')</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -253,7 +253,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Apr 8 2018 22:41:36 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 10 2018 23:07:51 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>

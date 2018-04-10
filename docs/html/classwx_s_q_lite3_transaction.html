@@ -66,9 +66,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a58b9f0505fc581cda707351a3d03ec61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_transaction.html#a58b9f0505fc581cda707351a3d03ec61">Rollback</a> ()</td></tr>
 <tr class="memdesc:a58b9f0505fc581cda707351a3d03ec61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rolls back the transaction.  <a href="#a58b9f0505fc581cda707351a3d03ec61">More...</a><br /></td></tr>
 <tr class="separator:a58b9f0505fc581cda707351a3d03ec61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa838c2835a5d3f463f487c7a2d93c8ce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_transaction.html#aa838c2835a5d3f463f487c7a2d93c8ce">IsActive</a> ()</td></tr>
-<tr class="memdesc:aa838c2835a5d3f463f487c7a2d93c8ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determins wether the transaction is open or not.  <a href="#aa838c2835a5d3f463f487c7a2d93c8ce">More...</a><br /></td></tr>
-<tr class="separator:aa838c2835a5d3f463f487c7a2d93c8ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8631879a6c59b4b7927926eeb472868"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_transaction.html#af8631879a6c59b4b7927926eeb472868">IsActive</a> () const</td></tr>
+<tr class="memdesc:af8631879a6c59b4b7927926eeb472868"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the transaction is open or not.  <a href="#af8631879a6c59b4b7927926eeb472868">More...</a><br /></td></tr>
+<tr class="separator:af8631879a6c59b4b7927926eeb472868"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>RAII class for managing transactions. </p>
@@ -134,7 +134,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Destructor. </p>
-<p>The destructor does nothing if the changes were already commited (see commit()). In case the changes were not commited, a call to the destructor rolls back the transaction. </p>
+<p>The destructor does nothing if the changes were already commited (see commit()). In case the changes were not committed, a call to the destructor rolls back the transaction. </p>
 
 </div>
 </div>
@@ -159,8 +159,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa838c2835a5d3f463f487c7a2d93c8ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa838c2835a5d3f463f487c7a2d93c8ce">&#9670;&nbsp;</a></span>IsActive()</h2>
+<a id="af8631879a6c59b4b7927926eeb472868"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8631879a6c59b4b7927926eeb472868">&#9670;&nbsp;</a></span>IsActive()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,7 +172,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">bool wxSQLite3Transaction::IsActive </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -182,7 +182,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Determins wether the transaction is open or not. </p>
+<p>Determines whether the transaction is open or not. </p>
 <dl class="section return"><dt>Returns</dt><dd>TRUE if the constructor successfully opend the transaction, false otherwise. After committing the transaction, active returns false. </dd></dl>
 
 </div>
@@ -214,7 +214,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Apr 8 2018 22:41:36 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 10 2018 23:07:51 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>

@@ -61,6 +61,8 @@ Version history</h1>
 <dd><p class="startdd">Introduced multi-cipher support at runtime<br />
  Added methods for attaching/detaching databases<br />
  Cleaned up code using statement buffers<br />
+ Improved constness of methods<br />
+ Upgrade to SQLite version 3.23.0<br />
 </p>
 <p class="enddd"></p>
 </dd>
@@ -133,8 +135,8 @@ Version history</h1>
 </dd>
 <dt><b>3.4.0</b> - <em>August 2016</em> </dt>
 <dd><p class="startdd">Upgrade to SQLite version 3.14.1<br />
- Added method <a class="el" href="classwx_s_q_lite3_statement.html#ab06b1f637508585c97f8eadec9b5b1da" title="Get the original SQL string for the prepared statement with expanded bound parameters. ">wxSQLite3Statement::GetExpandedSQL</a><br />
- Added method <a class="el" href="classwx_s_q_lite3_result_set.html#ad2d92f24305e72667add04d9f65d01e4" title="Get the original SQL string for preparing the query statement with expanded bound parameters...">wxSQLite3ResultSet::GetExpandedSQL</a><br />
+ Added method <a class="el" href="classwx_s_q_lite3_statement.html#ace522f3b316f817980a923d5911a8b84" title="Get the original SQL string for the prepared statement with expanded bound parameters. ">wxSQLite3Statement::GetExpandedSQL</a><br />
+ Added method <a class="el" href="classwx_s_q_lite3_result_set.html#af184c6bde9e73165328ca921be83c6ec" title="Get the original SQL string for preparing the query statement with expanded bound parameters...">wxSQLite3ResultSet::GetExpandedSQL</a><br />
  Started to modify the build system to compile and statically link the SQLite3 library together with wxSQLite3<br />
  Added the CSV extension module as part of the SQLite3 library with encryption extension<br />
 </p>
@@ -211,10 +213,10 @@ Version history</h1>
  Cleaned up and optimized Finalize methods<br />
  Modified <a class="el" href="classwx_s_q_lite3_database.html#a017bb6940c4f08abf072c6a31c53ea4e" title="Close a SQLite3 database. ">wxSQLite3Database::Close</a> to avoid potential memory leaks<br />
  Added method <a class="el" href="classwx_s_q_lite3_database.html#a1b6715991eeb983c5627cf165548cbaa" title="Get the version of the wxSQLite3 wrapper. ">wxSQLite3Database::GetWrapperVersion</a><br />
- Added method <a class="el" href="classwx_s_q_lite3_database.html#aebc26bd3ec183e0e0e99cc03309bf542" title="Determine whether a database is read-only. ">wxSQLite3Database::IsReadOnly</a><br />
+ Added method <a class="el" href="classwx_s_q_lite3_database.html#a867c18c19902f8bcfdcb3e4fefa54b0f" title="Determine whether a database is read-only. ">wxSQLite3Database::IsReadOnly</a><br />
  Added method <a class="el" href="classwx_s_q_lite3_statement.html#a377bb10d3db4fa48f35c4913b1fb8c13" title="Bind parameter to a date and time value. ">wxSQLite3Statement::BindUnixDateTime</a><br />
- Added method <a class="el" href="classwx_s_q_lite3_result_set.html#ab21603499bb4932052014d7755e69cb3" title="Get a column as a date and time value using the column index. ">wxSQLite3ResultSet::GetUnixDateTime</a><br />
- Added method <a class="el" href="classwx_s_q_lite3_result_set.html#a13b2b5a886d7bd0433d317fd3b2f5985" title="Get a column as a date and time value using the column index. ">wxSQLite3ResultSet::GetAutomaticDateTime</a><br />
+ Added method <a class="el" href="classwx_s_q_lite3_result_set.html#af6ab601ee0716c6b1b23376e76e176a1" title="Get a column as a date and time value using the column index. ">wxSQLite3ResultSet::GetUnixDateTime</a><br />
+ Added method <a class="el" href="classwx_s_q_lite3_result_set.html#a5cbda10244419073421b602119566cc5" title="Get a column as a date and time value using the column index. ">wxSQLite3ResultSet::GetAutomaticDateTime</a><br />
  Fixed a potential memory leak in method <a class="el" href="classwx_s_q_lite3_database.html#a12555418e1c07f89d4e176856a67550e" title="Execute a data defining or manipulating SQL statement given as a wxString. ">wxSQLite3Database::ExecuteUpdate</a><br />
  Added a wxsqlite3.pc file on request of the Fedora Project developers<br />
  Replaced assert by wxASSERT in <a class="el" href="classwx_s_q_lite3_transaction.html" title="RAII class for managing transactions. ">wxSQLite3Transaction</a> constructor<br />
@@ -226,8 +228,8 @@ Version history</h1>
  Added method <a class="el" href="classwx_s_q_lite3_database.html#a3633fd19e754ce6420babfbe24e6355a" title="Vacuum. ">wxSQLite3Database::Vacuum</a><br />
  Added method <a class="el" href="classwx_s_q_lite3_database.html#ae7341ed62679dbb3ccde9561aa6d8602" title="Return the filename for a database connection. ">wxSQLite3Database::GetDatabaseFilename</a><br />
  Added method <a class="el" href="classwx_s_q_lite3_database.html#a0a148b6ef80381746e1e4235a0b9b01d" title="Free memory used by a database connection. ">wxSQLite3Database::ReleaseMemory</a><br />
- Added method <a class="el" href="classwx_s_q_lite3_result_set.html#a1cc95cb3302ed2fcf3bc83110f8b2771" title="Check whether the cursor has been moved. ">wxSQLite3ResultSet::CursorMoved</a><br />
- Added method <a class="el" href="classwx_s_q_lite3_statement.html#a664897b5657369c1dd45dc23aed99856" title="Determine if a prepared statement has been reset. ">wxSQLite3Statement::IsBusy</a><br />
+ Added method <a class="el" href="classwx_s_q_lite3_result_set.html#a442598e436d299d6a1c650ae2b0c838c" title="Check whether the cursor has been moved. ">wxSQLite3ResultSet::CursorMoved</a><br />
+ Added method <a class="el" href="classwx_s_q_lite3_statement.html#af2590816b4d059cb72d89768db59e1cb" title="Determine if a prepared statement has been reset. ">wxSQLite3Statement::IsBusy</a><br />
  Fixed a bug in method operator= of <a class="el" href="classwx_s_q_lite3_string_collection.html" title="Represents a named string value collection. ">wxSQLite3StringCollection</a> causing an endless recursion on assignment<br />
  Dropped the concept of SQLite3 pointer ownership in favor of reference counted pointers allowing much more flexible use of wxSQLite3 classes<br />
  Modified SQLite3 encryption extension (defining int64 datatype for SHA2 algorithm)<br />
@@ -237,8 +239,8 @@ Version history</h1>
 <p class="enddd"></p>
 </dd>
 <dt><b>2.1.3</b> - <em>August 2011</em> </dt>
-<dd><p class="startdd">Corrected default behaviour for attached databases in case of an encrypted main database. (Now the attached database uses the same encryption key as the main database if no explicit key is given. Previously the attached database remained unencrypted.)<br />
- Added an optional progress callback for metheods Backup and Restore<br />
+<dd><p class="startdd">Corrected default behavior for attached databases in case of an encrypted main database. (Now the attached database uses the same encryption key as the main database if no explicit key is given. Previously the attached database remained unencrypted.)<br />
+ Added an optional progress callback for methods Backup and Restore<br />
  Added method SetBackupRestorePageCount to set the number of pages to be copied in one cycle of the backup/restore process<br />
 </p>
 <p class="enddd"></p>
@@ -290,13 +292,13 @@ Version history</h1>
 <dd><p class="startdd">Upgrade to SQLite version 3.6.23<br />
  Fixed a bug when compiling for dynamic loading of SQLite<br />
  Added static methods for accessing the run-time library compilation options diagnostics<br />
- Added mathod FormatV to class <a class="el" href="classwx_s_q_lite3_statement_buffer.html" title="SQL statment buffer for use with SQLite3&#39;s printf method. ">wxSQLite3StatementBuffer</a><br />
+ Added mathod FormatV to class <a class="el" href="classwx_s_q_lite3_statement_buffer.html" title="SQL statement buffer for use with SQLite3&#39;s printf method. ">wxSQLite3StatementBuffer</a><br />
 </p>
 <p class="enddd"></p>
 </dd>
 <dt><b>1.9.8</b> - <em>February 2010</em> </dt>
 <dd><p class="startdd">Upgrade to SQLite version 3.6.22<br />
- Fixed a bug when compiling without precompiled header support (by including wx/arrstr.h)<br />
+ Fixed a bug when compiling without pre-compiled header support (by including wx/arrstr.h)<br />
 </p>
 <p class="enddd"></p>
 </dd>
@@ -331,7 +333,7 @@ Version history</h1>
 </dd>
 <dt><b>1.9.3</b> - <em>December 2008</em> </dt>
 <dd><p class="startdd">Upgrade to SQLite version 3.6.7<br />
- Fixed a bug in method <a class="el" href="classwx_s_q_lite3_table.html#a6586163d71aa1bf8b879020759eeaf0a" title="Get a column as a double using the column index. ">wxSQLite3Table::GetDouble</a> (conversion from string to double failed in non-US locales)<br />
+ Fixed a bug in method <a class="el" href="classwx_s_q_lite3_table.html#af0cab9cfb469272aeecc0824f4360781" title="Get a column as a double using the column index. ">wxSQLite3Table::GetDouble</a> (conversion from string to double failed in non-US locales)<br />
  Build system upgraded using Bakefile 0.2.5<br />
 </p>
 <p class="enddd"></p>
@@ -354,7 +356,7 @@ Version history</h1>
  The optional key based encryption support has been adapted to support SQLite version 3.6.0.<br />
  Added static methods to initialize and shutdown the SQLite library.<br />
  Changed build system to support static library build against shared wxWidgets build on Linux.<br />
- Changed behaviour of <a class="el" href="classwx_s_q_lite3_database.html#a017bb6940c4f08abf072c6a31c53ea4e" title="Close a SQLite3 database. ">wxSQLite3Database::Close</a> method to finalize all unfinalized prepared statements.</p>
+ Changed behaviour of <a class="el" href="classwx_s_q_lite3_database.html#a017bb6940c4f08abf072c6a31c53ea4e" title="Close a SQLite3 database. ">wxSQLite3Database::Close</a> method to finalize all not-finalized prepared statements.</p>
 <p class="enddd"></p>
 </dd>
 <dt><b>1.8.5</b> - <em>June 2008</em> </dt>
@@ -456,8 +458,8 @@ Version history</h1>
 <p class="enddd"></p>
 </dd>
 <dt><b>1.3.1</b> - <em>November 2005</em> </dt>
-<dd><p class="startdd">Corrected <a class="el" href="classwx_s_q_lite3_result_set.html#adc8c29475e2a7b20a1566d69c3dd940c" title="Get a column as a 64-bit integer using the column index. ">wxSQLite3ResultSet::GetInt64</a>.<br />
- Added <a class="el" href="classwx_s_q_lite3_table.html#abfc1b6639ab517e5646dbecb9acf0449" title="Get a column as a 64-bit integer using the column index. ">wxSQLite3Table::GetInt64</a></p>
+<dd><p class="startdd">Corrected <a class="el" href="classwx_s_q_lite3_result_set.html#a4b80559aac5a6d78a965aa9580d53684" title="Get a column as a 64-bit integer using the column index. ">wxSQLite3ResultSet::GetInt64</a>.<br />
+ Added <a class="el" href="classwx_s_q_lite3_table.html#a86954ef1f62f9e3f71df366a342261a5" title="Get a column as a 64-bit integer using the column index. ">wxSQLite3Table::GetInt64</a></p>
 <p class="enddd"></p>
 </dd>
 <dt><b>1.3</b> - <em>October 2005</em> </dt>
@@ -466,7 +468,7 @@ Version history</h1>
 <p class="enddd"></p>
 </dd>
 <dt><b>1.2</b> - <em>October 2005</em> </dt>
-<dd><p class="startdd">Corrected error in <a class="el" href="classwx_s_q_lite3_table.html#ac105628608a3a5cb581f74a95e24b7f3" title="Find the index of a column by name. ">wxSQLite3Table::FindColumnIndex</a><br />
+<dd><p class="startdd">Corrected error in <a class="el" href="classwx_s_q_lite3_table.html#a1d1c50a40447ea73c40b624220c1bdbf" title="Find the index of a column by name. ">wxSQLite3Table::FindColumnIndex</a><br />
 </p>
 <p class="enddd"></p>
 </dd>
@@ -481,7 +483,7 @@ Version history</h1>
 </dl>
 <dl class="section author"><dt>Author</dt><dd>Ulrich Telle (ulrich DOT telle AT gmx DOT de)</dd></dl>
 <h1><a class="anchor" id="ackn"></a>
-Acknowledgements</h1>
+Acknowledgments</h1>
 <p>Kudos to <b>Fred Cailleau-Lepetit</b> for developing <b>wxSQLite+</b> as a sample demonstrating the wxWidgets components <b>wxAUI</b> and <b>wxSQLite3</b> and for allowing it to be included in the wxSQLite3 distribution.</p>
 <p>The following people have contributed to wxSQLite3:</p>
 <ul>
@@ -495,7 +497,7 @@ Tobias Langner (RAII class for managing transactions) </li>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Apr 8 2018 22:41:36 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 10 2018 23:07:51 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>
