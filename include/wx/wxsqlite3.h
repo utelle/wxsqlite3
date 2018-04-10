@@ -150,7 +150,7 @@ private:
   wxString m_errorMessage;    ///< SQLite3 error message associated with this exception
 };
 
-/// SQL statment buffer for use with SQLite3's printf method
+/// SQL statement buffer for use with SQLite3's printf method
 class WXDLLIMPEXP_SQLITE3 wxSQLite3StatementBuffer
 {
 public:
@@ -231,21 +231,21 @@ public:
   /**
   * \return the number of arguments the function was called with
   */
-  int GetArgCount();
+  int GetArgCount() const;
 
   /// Get the type of a function argument
   /**
   * \param argIndex index of the function argument. Indices start with 0.
   * \return argument type as one of the values WXSQLITE_INTEGER, WXSQLITE_FLOAT, WXSQLITE_TEXT, WXSQLITE_BLOB, or WXSQLITE_NULL
   */
-  int GetArgType(int argIndex);
+  int GetArgType(int argIndex) const;
 
   /// Check whether a function argument is a NULL value
   /**
   * \param argIndex index of the function argument. Indices start with 0.
   * \return TRUE if the argument is NULL or the argIndex is out of bounds, FALSE otherwise
   */
-  bool IsNull(int argIndex);
+  bool IsNull(int argIndex) const;
 
   /// Get a function argument as an integer value
   /**
@@ -253,7 +253,7 @@ public:
   * \param nullValue value to be returned in case the argument is NULL
   * \return argument value
   */
-  int GetInt(int argIndex, int nullValue = 0);
+  int GetInt(int argIndex, int nullValue = 0) const;
 
   /// Get a function argument as an 64-bit integer value
   /**
@@ -261,7 +261,7 @@ public:
   * \param nullValue value to be returned in case the argument is NULL
   * \return argument value
   */
-  wxLongLong GetInt64(int argIndex, wxLongLong nullValue = 0);
+  wxLongLong GetInt64(int argIndex, wxLongLong nullValue = 0) const;
 
   /// Get a function argument as a double value
   /**
@@ -269,7 +269,7 @@ public:
   * \param nullValue value to be returned in case the argument is NULL
   * \return argument value
   */
-  double GetDouble(int argIndex, double nullValue = 0);
+  double GetDouble(int argIndex, double nullValue = 0) const;
 
   /// Get a function argument as a string value
   /**
@@ -277,7 +277,7 @@ public:
   * \param nullValue value to be returned in case the argument is NULL
   * \return argument value
   */
-  wxString GetString(int argIndex, const wxString& nullValue = wxEmptyString);
+  wxString GetString(int argIndex, const wxString& nullValue = wxEmptyString) const;
 
   /// Get a function argument as a BLOB value
   /**
@@ -285,7 +285,7 @@ public:
   * \param[out] len length of the blob argument in bytes
   * \return argument value
   */
-  const unsigned char* GetBlob(int argIndex, int& len);
+  const unsigned char* GetBlob(int argIndex, int& len) const;
 
   /// Get a function argument as a BLOB value
   /**
@@ -293,14 +293,14 @@ public:
   * \param[out] buffer to which the blob argument value is appended
   * \return reference to argument value
   */
-  wxMemoryBuffer& GetBlob(int argIndex, wxMemoryBuffer& buffer);
+  wxMemoryBuffer& GetBlob(int argIndex, wxMemoryBuffer& buffer) const;
 
   /// Get a function argument as a pointer value
   /**
   * \param argIndex index of the function argument. Indices start with 0.
   * \return argument value
   */
-  void* GetPointer(int argIndex, const wxString& pointerType);
+  void* GetPointer(int argIndex, const wxString& pointerType) const;
 
   /// Set the function result as an integer value
   /**
@@ -372,7 +372,7 @@ public:
   /**
   * \return the number of aggregation steps. The current aggregation step counts so at least 1 is returned.
   */
-  int GetAggregateCount();
+  int GetAggregateCount() const;
 
   /// Get a pointer to an aggregate structure of specified length
   /**
@@ -386,7 +386,7 @@ public:
   * \param len amount of memory needed in bytes
   * \return pointer to the allocated memory
   */
-  void* GetAggregateStruct(int len);
+  void* GetAggregateStruct(int len) const;
 
   /// Execute a user defined scalar function (internal use only)
   static void ExecScalarFunction(void* ctx, int argc, void** argv);
@@ -1174,35 +1174,35 @@ public:
   /**
   * \return number of columns in result set
   */
-  int GetColumnCount();
+  int GetColumnCount() const;
 
   /// Find the index of a column by name
   /**
   * \param columnName name of the column
   * \return index of the column. Indices start with 0.
   */
-  int FindColumnIndex(const wxString& columnName);
+  int FindColumnIndex(const wxString& columnName) const;
 
   /// Get the name of a column
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return column name as string
   */
-  wxString GetColumnName(int columnIndex);
+  wxString GetColumnName(int columnIndex) const;
 
   /// Get the declared type of a column
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return type string as specified in the table definition
   */
-  wxString GetDeclaredColumnType(int columnIndex);
+  wxString GetDeclaredColumnType(int columnIndex) const;
 
   /// Get the actual type of a column
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return column type as one of the values WXSQLITE_INTEGER, WXSQLITE_FLOAT, WXSQLITE_TEXT, WXSQLITE_BLOB, or WXSQLITE_NULL
   */
-  int GetColumnType(int columnIndex);
+  int GetColumnType(int columnIndex) const;
 
   /// Get the database name of a column
   /**
@@ -1211,7 +1211,7 @@ public:
   *
   * This method is only available if WXSQLITE3_HAVE_METADATA is defined and SQLite has been compiled with SQLITE_ENABLE_COLUMN_METADATA defined.
   */
-  wxString GetDatabaseName(int columnIndex);
+  wxString GetDatabaseName(int columnIndex) const;
 
   /// Get the table name of a column
   /**
@@ -1220,7 +1220,7 @@ public:
   *
   * This method is only available if WXSQLITE3_HAVE_METADATA is defined and SQLite has been compiled with SQLITE_ENABLE_COLUMN_METADATA defined.
   */
-  wxString GetTableName(int columnIndex);
+  wxString GetTableName(int columnIndex) const;
 
   /// Get the origin name of a column
   /**
@@ -1229,21 +1229,21 @@ public:
   *
   * This method is only available if WXSQLITE3_HAVE_METADATA is defined and SQLite has been compiled with SQLITE_ENABLE_COLUMN_METADATA defined.
   */
-  wxString GetOriginName(int columnIndex);
+  wxString GetOriginName(int columnIndex) const;
 
   /// Get a column as a string using the column index
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column as string
   */
-  wxString GetAsString(int columnIndex);
+  wxString GetAsString(int columnIndex) const;
 
   /// Get a column as a string using the column name
   /**
   * \param columnName name of the column
   * \return value of the column
   */
-  wxString GetAsString(const wxString& columnName);
+  wxString GetAsString(const wxString& columnName) const;
 
   /// Get a column as an integer using the column index
   /**
@@ -1251,7 +1251,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  int GetInt(int columnIndex, int nullValue = 0);
+  int GetInt(int columnIndex, int nullValue = 0) const;
 
   /// Get a column as an integer using the column name
   /**
@@ -1259,7 +1259,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  int GetInt(const wxString& columnName, int nullValue = 0);
+  int GetInt(const wxString& columnName, int nullValue = 0) const;
 
   /// Get a column as a 64-bit integer using the column index
   /**
@@ -1267,7 +1267,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  wxLongLong GetInt64(int columnIndex, wxLongLong nullValue = 0);
+  wxLongLong GetInt64(int columnIndex, wxLongLong nullValue = 0) const;
 
   /// Get a column as a 64-bit integer using the column name
   /**
@@ -1275,7 +1275,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  wxLongLong GetInt64(const wxString& columnName, wxLongLong nullValue = 0);
+  wxLongLong GetInt64(const wxString& columnName, wxLongLong nullValue = 0) const;
 
   /// Get a column as a double using the column index
   /**
@@ -1283,7 +1283,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  double GetDouble(int columnIndex, double nullValue = 0.0);
+  double GetDouble(int columnIndex, double nullValue = 0.0) const;
 
   /// Get a column as a double using the column name
   /**
@@ -1291,7 +1291,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  double GetDouble(const wxString& columnName, double nullValue = 0.0);
+  double GetDouble(const wxString& columnName, double nullValue = 0.0) const;
 
   /// Get a column as a string using the column index
   /**
@@ -1299,7 +1299,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  wxString GetString(int columnIndex, const wxString& nullValue = wxEmptyString);
+  wxString GetString(int columnIndex, const wxString& nullValue = wxEmptyString) const;
 
   /// Get a column as a string using the column name
   /**
@@ -1307,7 +1307,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  wxString GetString(const wxString& columnName, const wxString& nullValue = wxEmptyString);
+  wxString GetString(const wxString& columnName, const wxString& nullValue = wxEmptyString) const;
 
   /// Get a column as a BLOB using the column index
   /**
@@ -1315,7 +1315,7 @@ public:
   * \param[out] len length of the blob in bytes
   * \return value of the column
   */
-  const unsigned char* GetBlob(int columnIndex, int& len);
+  const unsigned char* GetBlob(int columnIndex, int& len) const;
 
   /// Get a column as a BLOB using the column name
   /**
@@ -1323,7 +1323,7 @@ public:
   * \param[out] len length of the blob in bytes
   * \return value of the column
   */
-  const unsigned char* GetBlob(const wxString& columnName, int& len);
+  const unsigned char* GetBlob(const wxString& columnName, int& len) const;
 
   /// Get a column as a BLOB using the column index and append to memory buffer
   /**
@@ -1331,7 +1331,7 @@ public:
   * \param[out] buffer the memory buffer to which the BLOB value is appended
   * \return reference to the memory buffer
   */
-  wxMemoryBuffer& GetBlob(int columnIndex, wxMemoryBuffer& buffer);
+  wxMemoryBuffer& GetBlob(int columnIndex, wxMemoryBuffer& buffer) const;
 
   /// Get a column as a BLOB using the column index and append to memory buffer
   /**
@@ -1339,7 +1339,7 @@ public:
   * \param[out] buffer the memory buffer to which the BLOB value is appended
   * \return reference to the memory buffer
   */
-  wxMemoryBuffer& GetBlob(const wxString& columnName, wxMemoryBuffer& buffer);
+  wxMemoryBuffer& GetBlob(const wxString& columnName, wxMemoryBuffer& buffer) const;
 
   /// Get a column as a date value using the column index
   /**
@@ -1347,7 +1347,7 @@ public:
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
-  wxDateTime GetDate(int columnIndex);
+  wxDateTime GetDate(int columnIndex) const;
 
   /// Get a column as a date value using the column name
   /**
@@ -1355,7 +1355,7 @@ public:
   * \param columnName name of the column
   * \return value of the column
   */
-  wxDateTime GetDate(const wxString& columnName);
+  wxDateTime GetDate(const wxString& columnName) const;
 
   /// Get a column as a time value using the column index
   /**
@@ -1363,7 +1363,7 @@ public:
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
-  wxDateTime GetTime(int columnIndex);
+  wxDateTime GetTime(int columnIndex) const;
 
   /// Get a column as a time value using the column name
   /**
@@ -1371,7 +1371,7 @@ public:
   * \param columnName name of the column
   * \return value of the column
   */
-  wxDateTime GetTime(const wxString& columnName);
+  wxDateTime GetTime(const wxString& columnName) const;
 
   /// Get a column as a date and time value using the column index
   /**
@@ -1379,7 +1379,7 @@ public:
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
-  wxDateTime GetDateTime(int columnIndex);
+  wxDateTime GetDateTime(int columnIndex) const;
 
   /// Get a column as a date and time value using the column name
   /**
@@ -1387,7 +1387,7 @@ public:
   * \param columnName name of the column
   * \return value of the column
   */
-  wxDateTime GetDateTime(const wxString& columnName);
+  wxDateTime GetDateTime(const wxString& columnName) const;
 
   /// Get a column as a timestamp value using the column index
   /**
@@ -1395,7 +1395,7 @@ public:
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
-  wxDateTime GetTimestamp(int columnIndex);
+  wxDateTime GetTimestamp(int columnIndex) const;
 
   /// Get a column as a timestamp value using the column name
   /**
@@ -1403,7 +1403,7 @@ public:
   * \param columnName name of the column
   * \return value of the column
   */
-  wxDateTime GetTimestamp(const wxString& columnName);
+  wxDateTime GetTimestamp(const wxString& columnName) const;
 
   /// Get a column as a date and time value using the column index
   /**
@@ -1413,7 +1413,7 @@ public:
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
-  wxDateTime GetNumericDateTime(int columnIndex);
+  wxDateTime GetNumericDateTime(int columnIndex) const;
 
   /// Get a column as a date and time value using the column name
   /**
@@ -1423,7 +1423,7 @@ public:
   * \param columnName name of the column
   * \return value of the column
   */
-  wxDateTime GetNumericDateTime(const wxString& columnName);
+  wxDateTime GetNumericDateTime(const wxString& columnName) const;
 
   /// Get a column as a date and time value using the column index
   /**
@@ -1433,7 +1433,7 @@ public:
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
-  wxDateTime GetUnixDateTime(int columnIndex);
+  wxDateTime GetUnixDateTime(int columnIndex) const;
 
   /// Get a column as a date and time value using the column name
   /**
@@ -1443,7 +1443,7 @@ public:
   * \param columnName name of the column
   * \return value of the column
   */
-  wxDateTime GetUnixDateTime(const wxString& columnName);
+  wxDateTime GetUnixDateTime(const wxString& columnName) const;
 
   /// Get a column as a date and time value using the column index
   /**
@@ -1452,7 +1452,7 @@ public:
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
-  wxDateTime GetJulianDayNumber(int columnIndex);
+  wxDateTime GetJulianDayNumber(int columnIndex) const;
 
   /// Get a column as a date and time value using the column name
   /**
@@ -1461,7 +1461,7 @@ public:
   * \param columnName name of the column
   * \return value of the column
   */
-  wxDateTime GetJulianDayNumber(const wxString& columnName);
+  wxDateTime GetJulianDayNumber(const wxString& columnName) const;
 
   /// Get a column as a date and time value using the column index
   /**
@@ -1471,7 +1471,7 @@ public:
   * \param milliSeconds interpret integer value as milliseconds since 1970-01-01, default: false
   * \return value of the column
   */
-  wxDateTime GetAutomaticDateTime(int columnIndex, bool milliSeconds = false);
+  wxDateTime GetAutomaticDateTime(int columnIndex, bool milliSeconds = false) const;
 
   /// Get a column as a date and time value using the column name
   /**
@@ -1481,47 +1481,47 @@ public:
   * \param milliSeconds interpret integer value as milliseconds since 1970-01-01, default: false
   * \return value of the column
   */
-  wxDateTime GetAutomaticDateTime(const wxString& columnName, bool milliSeconds = false);
+  wxDateTime GetAutomaticDateTime(const wxString& columnName, bool milliSeconds = false) const;
 
   /// Get a column as a boolean value using the column index
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
-  bool GetBool(int columnIndex);
+  bool GetBool(int columnIndex) const;
 
   /// Get a column as a boolean value using the column name
   /**
   * \param columnName name of the column
   * \return value of the column
   */
-  bool GetBool(const wxString& columnName);
+  bool GetBool(const wxString& columnName) const;
 
   /// Check whether a column has a NULL value using the column index
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return TRUE if the value is NULL, FALSE otherwise
   */
-  bool IsNull(int columnIndex);
+  bool IsNull(int columnIndex) const;
 
   /// Check whether a column has a NULL value using the column name
   /**
   * \param columnName name of the column
   * \return TRUE if the value is NULL, FALSE otherwise
   */
-  bool IsNull(const wxString& columnName);
+  bool IsNull(const wxString& columnName) const;
 
   /// Check whether all rows of the result set have been processed
   /**
   * \return TRUE if all rows of the result have been processed, FALSE otherwise
   */
-  bool Eof();
+  bool Eof() const;
 
   /// Check whether the cursor has been moved
   /**
   * \return TRUE if the cursor has been moved using method NextRow, FALSE otherwise
   */
-  bool CursorMoved();
+  bool CursorMoved() const;
 
   /// Retrieve next row of the result set
   /**
@@ -1541,23 +1541,23 @@ public:
   /**
   * \return the original SQL string used to prepare the query statement
   */
-  wxString GetSQL();
+  wxString GetSQL() const;
 
   /// Get the original SQL string for preparing the query statement with expanded bound parameters
   /**
   * \return the original SQL string used to prepare the statement with expanded bound parameters
   */
-  wxString GetExpandedSQL();
+  wxString GetExpandedSQL() const;
 
   /// Validate associated SQLite database and statement
   /**
   * \return TRUE if both, a SQLite database and a SQLite statement, are associated, FALSE otherwise
   */
-  bool IsOk();
+  bool IsOk() const;
 
 private:
   /// Check the validity of the associated statement
-  void CheckStmt();
+  void CheckStmt() const;
 
   /// Finalize the result set (internal)
   void Finalize(wxSQLite3DatabaseReference* db,wxSQLite3StatementReference* stmt);
@@ -1566,7 +1566,7 @@ private:
   wxSQLite3StatementReference* m_stmt; ///< associated statement
   bool  m_eof;      ///< Flag for end of result set
   bool  m_first;    ///< Flag for first row of the result set
-  int   m_cols;     ///< Numver of columns in row set
+  int   m_cols;     ///< Number of columns in row set
 };
 
 
@@ -1589,27 +1589,27 @@ public:
   /**
   * \return the number of columns
   */
-  int GetColumnCount();
+  int GetColumnCount() const;
 
   /// Get the number of rows in the result set
   /**
   * \return the number of rows
   */
-  int GetRowCount();
+  int GetRowCount() const;
 
   /// Find the index of a column by name
   /**
   * \param columnName name of the column
   * \return the index of the column
   */
-  int FindColumnIndex(const wxString& columnName);
+  int FindColumnIndex(const wxString& columnName) const;
 
   /// Get the name of a column
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return name of the column
   */
-  wxString GetColumnName(int columnIndex);
+  wxString GetColumnName(int columnIndex) const;
 
   /// Get a column as a string using the column index
   /**
@@ -1621,7 +1621,7 @@ public:
   * This is SQLite default behaviour. Use method wxSQLite3Table::GetDouble
   * to apply correct conversion from <code>string</code> to <code>double</code>.
   */
-  wxString GetAsString(int columnIndex);
+  wxString GetAsString(int columnIndex) const;
 
   /// Get a column as a string using the column name
   /**
@@ -1633,7 +1633,7 @@ public:
   * This is SQLite default behaviour. Use method wxSQLite3Table::GetDouble
   * to apply correct conversion from <code>string</code> to <code>double</code>.
   */
-  wxString GetAsString(const wxString& columnName);
+  wxString GetAsString(const wxString& columnName) const;
 
   /// Get a column as an integer using the column index
   /**
@@ -1641,7 +1641,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  int GetInt(int columnIndex, int nullValue = 0);
+  int GetInt(int columnIndex, int nullValue = 0) const;
 
   /// Get a column as an integer using the column name
   /**
@@ -1649,7 +1649,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  int GetInt(const wxString& columnName, int nullValue = 0);
+  int GetInt(const wxString& columnName, int nullValue = 0) const;
 
   /// Get a column as a 64-bit integer using the column index
   /**
@@ -1657,7 +1657,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  wxLongLong GetInt64(int columnIndex, wxLongLong nullValue = 0);
+  wxLongLong GetInt64(int columnIndex, wxLongLong nullValue = 0) const;
 
   /// Get a column as an integer using the column name
   /**
@@ -1665,7 +1665,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  wxLongLong GetInt64(const wxString& columnName, wxLongLong nullValue = 0);
+  wxLongLong GetInt64(const wxString& columnName, wxLongLong nullValue = 0) const;
 
   /// Get a column as a double using the column index
   /**
@@ -1673,7 +1673,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  double GetDouble(int columnIndex, double nullValue = 0.0);
+  double GetDouble(int columnIndex, double nullValue = 0.0) const;
 
   /// Get a column as a double using the column name
   /**
@@ -1681,7 +1681,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  double GetDouble(const wxString& columnName, double nullValue = 0.0);
+  double GetDouble(const wxString& columnName, double nullValue = 0.0) const;
 
   /// Get a column as a string using the column index
   /**
@@ -1689,7 +1689,7 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  wxString GetString(int columnIndex, const wxString& nullValue = wxEmptyString);
+  wxString GetString(int columnIndex, const wxString& nullValue = wxEmptyString) const;
 
   /// Get a column as a string using the column name
   /**
@@ -1697,77 +1697,77 @@ public:
   * \param nullValue value to be returned in case the column is NULL
   * \return value of the column
   */
-  wxString GetString(const wxString& columnName, const wxString& nullValue = wxEmptyString);
+  wxString GetString(const wxString& columnName, const wxString& nullValue = wxEmptyString) const;
 
   /// Get a column as a date value using the column index
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
-  wxDateTime GetDate(int columnIndex);
+  wxDateTime GetDate(int columnIndex) const;
 
   /// Get a column as a date value using the column name
   /**
   * \param columnName name of the column
   * \return value of the column
   */
-  wxDateTime GetDate(const wxString& columnName);
+  wxDateTime GetDate(const wxString& columnName) const;
 
   /// Get a column as a time value using the column index
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
-  wxDateTime GetTime(int columnIndex);
+  wxDateTime GetTime(int columnIndex) const;
 
   /// Get a column as a time value using the column name
   /**
   * \param columnName name of the column
   * \return value of the column
   */
-  wxDateTime GetTime(const wxString& columnName);
+  wxDateTime GetTime(const wxString& columnName) const;
 
   /// Get a column as a date/time value using the column index
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
-  wxDateTime GetDateTime(int columnIndex);
+  wxDateTime GetDateTime(int columnIndex) const;
 
   /// Get a column as a date/time value using the column name
   /**
   * \param columnName name of the column
   * \return value of the column
   */
-  wxDateTime GetDateTime(const wxString& columnName);
+  wxDateTime GetDateTime(const wxString& columnName) const;
 
   /// Get a column as a boolean using the column index
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return value of the column
   */
-  bool GetBool(int columnIndex);
+  bool GetBool(int columnIndex) const;
 
   /// Get a column as a boolean using the column name
   /**
   * \param columnName name of the column
   * \return value of the column
   */
-  bool GetBool(const wxString& columnName);
+  bool GetBool(const wxString& columnName) const;
 
   /// Check whether the column selected by index is a NULL value
   /**
   * \param columnIndex index of the column. Indices start with 0.
   * \return TRUE if the value is NULL, FALSE otherwise
   */
-  bool IsNull(int columnIndex);
+  bool IsNull(int columnIndex) const;
 
   /// Check whether the column selected by name is a NULL value
   /**
   * \param columnName name of the column
   * \return TRUE if the value is NULL, FALSE otherwise
   */
-  bool IsNull(const wxString& columnName);
+  bool IsNull(const wxString& columnName) const;
 
   /// Set the current row
   /**
@@ -1784,11 +1784,11 @@ public:
   /**
   * \return TRUE if SQLite resultset is associated, FALSE otherwise
   */
-  bool IsOk();
+  bool IsOk() const;
 
 private:
     /// Check for valid results
-    void CheckResults();
+    void CheckResults() const;
 
     int m_cols;        ///< Number of columns
     int m_rows;        ///< Number of rows
@@ -1850,7 +1850,7 @@ public:
   /**
   * \return the number of parameters in the prepared statement
   */
-  int GetParamCount();
+  int GetParamCount() const;
 
   /// Get the index of a parameter with a given name
   /**
@@ -1858,7 +1858,7 @@ public:
   * \return the index of the parameter with the given name. The name must match exactly.
   * If there is no parameter with the given name, return 0.
   */
-  int GetParamIndex(const wxString& paramName);
+  int GetParamIndex(const wxString& paramName) const;
 
   /// Get the name of a paramater at the given position
   /**
@@ -1867,7 +1867,7 @@ public:
   * Parameters of the form ":AAA" or "$VVV" have a name which is the string ":AAA" or "$VVV".
   * Parameters of the form "?" have no name.
   */
-  wxString GetParamName(int paramIndex);
+  wxString GetParamName(int paramIndex) const;
 
   /// Bind parameter to a string value
   /**
@@ -2022,13 +2022,13 @@ public:
   /**
   * \return the original SQL string used to prepare the statement
   */
-  wxString GetSQL();
+  wxString GetSQL() const;
 
   /// Get the original SQL string for the prepared statement with expanded bound parameters
   /**
   * \return the original SQL string used to prepare the statement with expanded bound parameters
   */
-  wxString GetExpandedSQL();
+  wxString GetExpandedSQL() const;
 
   /// Reset the prepared statement
   /**
@@ -2043,7 +2043,7 @@ public:
   * \since SQLite3 version 3.7.4
   * \note For SQLite3 version before version 3.7.4 this method returns always FALSE.
   */
-  bool IsReadOnly();
+  bool IsReadOnly() const;
 
   /// Finalize the prepared statement
   /**
@@ -2054,13 +2054,13 @@ public:
   /**
   * \return TRUE if both, a SQLite database and a SQLite statement, are associated, FALSE otherwise
   */
-  bool IsOk();
+  bool IsOk() const;
 
   /// Determine if a prepared statement has been reset
   /**
   * \return TRUE if the prepared statement has been stepped at least once but has not run to completion and/or has not been reset, FALSE otherwise
   */
-  bool IsBusy();
+  bool IsBusy() const;
 
   /// Determine internal operation counters of the underlying prepared statement
   /**
@@ -2070,14 +2070,14 @@ public:
   * \param resetFlag flag whether the associated counter should be reset to zero (default: false)
   * \return the counter value for the requested counter
   */
-  int Status(wxSQLite3StatementStatus opCode, bool resetFlag = false);
+  int Status(wxSQLite3StatementStatus opCode, bool resetFlag = false) const;
 
 private:
   /// Check for valid database connection
-  void CheckDatabase();
+  void CheckDatabase() const;
 
   /// Check for valid statement
-  void CheckStmt();
+  void CheckStmt() const;
 
   /// Finalize the result set (internal)
   void Finalize(wxSQLite3DatabaseReference* db,wxSQLite3StatementReference* stmt);
@@ -2101,7 +2101,7 @@ public:
   */
   wxSQLite3Blob(const wxSQLite3Blob& blob);
 
-  /// Assignement constructor
+  /// Assignment constructor
   /**
   */
   wxSQLite3Blob& operator=(const wxSQLite3Blob& blob);
@@ -2123,7 +2123,7 @@ public:
    * \param offset offset within BLOB where the read starts
    * \return the address of the memory buffer
   */
-  wxMemoryBuffer& Read(wxMemoryBuffer& blobValue, int length, int offset);
+  wxMemoryBuffer& Read(wxMemoryBuffer& blobValue, int length, int offset) const;
 
   /// Write partial BLOB value
   /**
@@ -2134,21 +2134,21 @@ public:
 
   /// Check whether the BLOB handle is correctly initialized
   /**
-   * \return TRUE if the BLOB handle is correctly initialized, FALSE otherweis
+   * \return TRUE if the BLOB handle is correctly initialized, FALSE otherwise
   */
-  bool IsOk();
+  bool IsOk() const;
 
   /// Check whether the BLOB handle is read only
   /**
    * \return TRUE if the BLOB handle is readonly, FALSE otherweis
   */
-  bool IsReadOnly();
+  bool IsReadOnly() const;
 
   /// Get the size of the associated BLOB
   /**
    * \return the BLOB size
   */
-  int GetSize();
+  int GetSize() const;
 
   /// Rebind the associated BLOB to a new row
   /**
@@ -2166,7 +2166,7 @@ public:
 
 private:
   /// Check for valid BLOB
-  void CheckBlob();
+  void CheckBlob() const;
 
   void Finalize(wxSQLite3DatabaseReference* db, wxSQLite3BlobReference* blob);
 
@@ -2183,7 +2183,7 @@ private:
 *
 *     SELECT * FROM table WHERE x IN (?,?,?,...,?);
 *
-* And then binding indivdual integers to each of ? slots, an application
+* And then binding individual integers to each of ? slots, an application
 * can create a named collection object (named "ex1" in the following
 * example), prepare a statement like this:
 *
@@ -2245,7 +2245,7 @@ public:
   /// Copy constructor
   wxSQLite3NamedCollection(const wxSQLite3NamedCollection& collection);
 
-  /// Assignement constructor
+  /// Assignment constructor
   wxSQLite3NamedCollection& operator=(const wxSQLite3NamedCollection& collection);
 
   /// Constructor (internal use only)
@@ -2258,7 +2258,7 @@ public:
   /**
   * \return the name of the collection
   */
-  const wxString& GetName() { return m_name; }
+  const wxString& GetName() const { return m_name; }
 
 protected:
   wxString m_name; ///< Name of the collection
@@ -2277,7 +2277,7 @@ public:
   /// Copy constructor
   wxSQLite3IntegerCollection(const wxSQLite3IntegerCollection& collection);
 
-  /// Assignement constructor
+  /// Assignment constructor
   wxSQLite3IntegerCollection& operator=(const wxSQLite3IntegerCollection& collection);
 
   /// Constructor (internal use only)
@@ -2291,7 +2291,7 @@ public:
   * Bind a new array of integer values to this named collection object.
   * \param integerCollection array of integer values to be bound
   * \note Binding values to a named collection after closing the corresponding
-  * database results in undefined behaviour, i.e. the application is likely to crash.
+  * database results in undefined behavior, i.e. the application is likely to crash.
   */
   void Bind(const wxArrayInt& integerCollection);
 
@@ -2301,7 +2301,7 @@ public:
   * \param n number of elements in the array
   * \param integerCollection array of integer values to be bound
   * \note Binding values to a named collection after closing the corresponding
-  * database results in undefined behaviour, i.e. the application is likely to crash.
+  * database results in undefined behavior, i.e. the application is likely to crash.
   */
   void Bind(int n, int* integerCollection);
 
@@ -2319,7 +2319,7 @@ public:
   /// Copy constructor
   wxSQLite3StringCollection(const wxSQLite3StringCollection& collection);
 
-  /// Assignement constructor
+  /// Assignment constructor
   wxSQLite3StringCollection& operator=(const wxSQLite3StringCollection& collection);
 
   /// Constructor (internal use only)
@@ -2333,7 +2333,7 @@ public:
   * Bind a new array of integer values to this named collection object.
   * \param stringCollection array of integer values to be bound
   * \note Binding values to a named collection after closing the corresponding
-  * database results in undefined behaviour, i.e. the application is likely to crash.
+  * database results in undefined behavior, i.e. the application is likely to crash.
   */
   void Bind(const wxArrayString& stringCollection);
 
@@ -2361,7 +2361,7 @@ public:
 
   /// Open a SQLite3 database
   /**
-  * Opens the sqlite database file "filename". The "filename" is UTF-8 encoded.
+  * Opens the SQLite database file "filename". The "filename" is UTF-8 encoded.
   * If the database could not be opened (or created) successfully, then an exception is thrown.
   * If the database file does not exist, then a new database will be created as needed.
   * \param[in] fileName Name of the database file.
@@ -2374,7 +2374,7 @@ public:
 
   /// Open a SQLite3 database using a binary key
   /**
-  * Opens the sqlite database file "filename". The "filename" is UTF-8 encoded.
+  * Opens the SQLite database file "filename". The "filename" is UTF-8 encoded.
   * If the database could not be opened (or created) successfully, then an exception is thrown.
   * If the database file does not exist, then a new database will be created as needed.
   * \param[in] fileName Name of the database file.
@@ -2387,7 +2387,7 @@ public:
 
   /// Open a SQLite3 database
   /**
-  * Opens the sqlite database file "filename". The "filename" is UTF-8 encoded.
+  * Opens the SQLite database file "filename". The "filename" is UTF-8 encoded.
   * If the database could not be opened (or created) successfully, then an exception is thrown.
   * If the database file does not exist, then a new database will be created as needed.
   * \param[in] fileName Name of the database file.
@@ -2401,7 +2401,7 @@ public:
 
   /// Open a SQLite3 database using a binary key
   /**
-  * Opens the sqlite database file "filename". The "filename" is UTF-8 encoded.
+  * Opens the SQLite database file "filename". The "filename" is UTF-8 encoded.
   * If the database could not be opened (or created) successfully, then an exception is thrown.
   * If the database file does not exist, then a new database will be created as needed.
   * \param[in] fileName Name of the database file.
@@ -2425,13 +2425,13 @@ public:
   * \since SQLite3 version 3.7.11
   * \note For SQLite3 version before version 3.7.11 this method returns always FALSE.
   */
-  bool IsReadOnly(const wxString& databaseName = wxS("main"));
+  bool IsReadOnly(const wxString& databaseName = wxS("main")) const;
 
   /// Close a SQLite3 database
   /**
   * Take care that all prepared statements have been finalized!
   *
-  * NOTE: Starting with version 3.6.0 SQLite has support to finialize all unfinalized
+  * NOTE: Starting with version 3.6.0 SQLite has support to finalize all not-finalized
   * prepared statements. Unfortunately this feature can't be used due to a possible
   * crash if the RTree module is active.
   *
@@ -2457,12 +2457,12 @@ public:
   * using the given encryption key and  the default encryption cipher.
   *
   * NOTE: The default encryption cipher will be used, and the given key will be used
-  * as the passphrase. Use an empty key to attach a plain (unencrypted) database file
+  * as the pass phrase. Use an empty key to attach a plain (unencrypted) database file
   * to an encrypted main database.
   *
   * \param[in] fileName Name of the database file that should be attached.
   * \param[in] schemaName Name of the schema that should be used for the attached database.
-  * \param[in] key Passphrase for the attached database.
+  * \param[in] key Pass phrase for the attached database.
   */
   void AttachDatabase(const wxString& fileName, const wxString& schemaName, const wxString& key);
 
@@ -2472,12 +2472,12 @@ public:
   * using the given encryption scheme and key.
   *
   * NOTE: If the main database is encrypted, the default encryption cipher will be used.
-  * The given key will be used as the passphrase. Use an empty key to attach a plain
+  * The given key will be used as the pass phrase. Use an empty key to attach a plain
   * (unencrypted) database file.
   *
   * \param[in] fileName Name of the database file that should be attached.
   * \param[in] schemaName Name of the schema that should be used for the attached database.
-  * \param[in] key Passphrase for the attached database.
+  * \param[in] key Pass phrase for the attached database.
   */
   void AttachDatabase(const wxString& fileName, const wxString& schemaName, const wxSQLite3Cipher& cipher, const wxString& key);
 
@@ -2663,7 +2663,7 @@ public:
   * Autocommit mode is on by default. Autocommit is disabled by a BEGIN statement
   * and reenabled by the next COMMIT or ROLLBACK.
   */
-  bool GetAutoCommit();
+  bool GetAutoCommit() const;
 
   /// Query the return code of the last rollback
   /**
@@ -2674,7 +2674,7 @@ public:
   * \return the return code of the last rollback.
   * \note In case of a successful rollback the value 0 is returned.
   */
-  int QueryRollbackState();
+  int QueryRollbackState() const;
 
   /// Set savepoint
   /*
@@ -2777,21 +2777,21 @@ public:
   * \param sql query string
   * \return TRUE if the syntax is correct, FALSE otherwise
   */
-  bool CheckSyntax(const wxString& sql);
+  bool CheckSyntax(const wxString& sql) const;
 
   /// Check the syntax of an SQL statement given as a statement buffer
   /**
   * \param sql query string
   * \return TRUE if the syntax is correct, FALSE otherwise
   */
-  bool CheckSyntax(const wxSQLite3StatementBuffer& sql);
+  bool CheckSyntax(const wxSQLite3StatementBuffer& sql) const;
 
   /// Check the syntax of an SQL statement given as a utf-8 character string
   /**
   * \param sql query string
   * \return TRUE if the syntax is correct, FALSE otherwise
   */
-  bool CheckSyntax(const char* sql);
+  bool CheckSyntax(const char* sql) const;
 
   /// Execute a data defining or manipulating SQL statement given as a wxString
   /**
@@ -2949,7 +2949,7 @@ public:
   * ROWID, OID, or _ROWID_ column.)
   * \return the integer key of the most recent insert in the database.
   */
-  wxLongLong GetLastRowId();
+  wxLongLong GetLastRowId() const;
 
   /// Get handle to a read only BLOB
   /**
@@ -3275,7 +3275,7 @@ public:
   * \param id The identifier of the limit to be queried
   * \return the current value of the queried limit
   */
-  int GetLimit(wxSQLite3LimitType id);
+  int GetLimit(wxSQLite3LimitType id) const;
 
   /// Change a database limit to a new value
   /**
@@ -3485,7 +3485,7 @@ public:
 
 protected:
   /// Access SQLite's internal database handle
-  void* GetDatabaseHandle();
+  void* GetDatabaseHandle() const;
 
   /// Activate the callback for needed collations for this database
   /**
@@ -3524,7 +3524,7 @@ private:
   void* PreparePersistent(const char* sql);
 
   /// Check for valid database connection
-  void CheckDatabase();
+  void CheckDatabase() const;
 
   /// Close associated database
   void Close(wxSQLite3DatabaseReference* db);
@@ -3584,7 +3584,7 @@ public:
   /// Destructor.
   /**
     * The destructor does nothing if the changes were already commited (see commit()).
-    * In case the changes were not commited, a call to the destructor rolls back the
+    * In case the changes were not committed, a call to the destructor rolls back the
     * transaction.
     */
   ~wxSQLite3Transaction();
@@ -3603,12 +3603,12 @@ public:
     */
   void Rollback();
 
-  /// Determins wether the transaction is open or not
+  /// Determines whether the transaction is open or not
   /**
     * \return TRUE if the constructor successfully opend the transaction, false otherwise.
     * After committing the transaction, active returns false.
     */
-  inline bool IsActive()
+  inline bool IsActive() const
   {
     return m_database != NULL;
   }

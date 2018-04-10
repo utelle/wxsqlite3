@@ -49,6 +49,8 @@
 Introduced multi-cipher support at runtime<br>
 Added methods for attaching/detaching databases<br>
 Cleaned up code using statement buffers<br>
+Improved constness of methods<br>
+Upgrade to SQLite version 3.23.0<br>
 
 </dd>
 <dt><b>3.5.9</b> - <i>January 2018</i></dt>
@@ -233,11 +235,11 @@ and for wxSQLite3 (experimental)<br>
 </dd>
 <dt><b>2.1.3</b> - <i>August 2011</i></dt>
 <dd>
-Corrected default behaviour for attached databases in case of
+Corrected default behavior for attached databases in case of
 an encrypted main database. (Now the attached database uses the same
 encryption key as the main database if no explicit key is given.
 Previously the attached database remained unencrypted.)<br>
-Added an optional progress callback for metheods Backup and Restore<br>
+Added an optional progress callback for methods Backup and Restore<br>
 Added method SetBackupRestorePageCount to set the number of pages
 to be copied in one cycle of the backup/restore process<br>
 
@@ -299,7 +301,7 @@ Added mathod FormatV to class wxSQLite3StatementBuffer<br>
 <dt><b>1.9.8</b> - <i>February 2010</i></dt>
 <dd>
 Upgrade to SQLite version 3.6.22<br>
-Fixed a bug when compiling without precompiled header support
+Fixed a bug when compiling without pre-compiled header support
 (by including wx/arrstr.h)<br>
 
 </dd>
@@ -368,7 +370,7 @@ Added static methods to initialize and shutdown the SQLite library.<br>
 Changed build system to support static library build against shared
 wxWidgets build on Linux.<br>
 Changed behaviour of wxSQLite3Database::Close method to finalize
-all unfinalized prepared statements.
+all not-finalized prepared statements.
 
 </dd>
 <dt><b>1.8.5</b> - <i>June 2008</i></dt>
@@ -529,7 +531,7 @@ First public release
 
 \author Ulrich Telle (ulrich DOT telle AT gmx DOT de)
 
-\section ackn Acknowledgements
+\section ackn Acknowledgments
 
 Kudos to <b>Fred Cailleau-Lepetit</b> for developing <b>wxSQLite+</b> as a sample demonstrating
 the wxWidgets components <b>wxAUI</b> and <b>wxSQLite3</b> and for allowing it to be included

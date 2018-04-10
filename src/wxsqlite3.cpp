@@ -792,13 +792,13 @@ wxSQLite3ResultSet& wxSQLite3ResultSet::operator=(const wxSQLite3ResultSet& resu
   return *this;
 }
 
-int wxSQLite3ResultSet::GetColumnCount()
+int wxSQLite3ResultSet::GetColumnCount() const
 {
   CheckStmt();
   return m_cols;
 }
 
-wxString wxSQLite3ResultSet::GetAsString(int columnIndex)
+wxString wxSQLite3ResultSet::GetAsString(int columnIndex) const
 {
   CheckStmt();
 
@@ -811,14 +811,14 @@ wxString wxSQLite3ResultSet::GetAsString(int columnIndex)
   return wxString::FromUTF8(localValue);
 }
 
-wxString wxSQLite3ResultSet::GetAsString(const wxString& columnName)
+wxString wxSQLite3ResultSet::GetAsString(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   const char* localValue = (const char*) sqlite3_column_text(m_stmt->m_stmt, columnIndex);
   return wxString::FromUTF8(localValue);
 }
 
-int wxSQLite3ResultSet::GetInt(int columnIndex, int nullValue /* = 0 */)
+int wxSQLite3ResultSet::GetInt(int columnIndex, int nullValue /* = 0 */) const
 {
   if (GetColumnType(columnIndex) == SQLITE_NULL)
   {
@@ -831,13 +831,13 @@ int wxSQLite3ResultSet::GetInt(int columnIndex, int nullValue /* = 0 */)
 }
 
 
-int wxSQLite3ResultSet::GetInt(const wxString& columnName, int nullValue /* = 0 */)
+int wxSQLite3ResultSet::GetInt(const wxString& columnName, int nullValue /* = 0 */) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetInt(columnIndex, nullValue);
 }
 
-wxLongLong wxSQLite3ResultSet::GetInt64(int columnIndex, wxLongLong nullValue /* = 0 */)
+wxLongLong wxSQLite3ResultSet::GetInt64(int columnIndex, wxLongLong nullValue /* = 0 */) const
 {
   if (GetColumnType(columnIndex) == SQLITE_NULL)
   {
@@ -849,13 +849,13 @@ wxLongLong wxSQLite3ResultSet::GetInt64(int columnIndex, wxLongLong nullValue /*
   }
 }
 
-wxLongLong wxSQLite3ResultSet::GetInt64(const wxString& columnName, wxLongLong nullValue /* = 0 */)
+wxLongLong wxSQLite3ResultSet::GetInt64(const wxString& columnName, wxLongLong nullValue /* = 0 */) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetInt64(columnIndex, nullValue);
 }
 
-double wxSQLite3ResultSet::GetDouble(int columnIndex, double nullValue /* = 0.0 */)
+double wxSQLite3ResultSet::GetDouble(int columnIndex, double nullValue /* = 0.0 */) const
 {
   if (GetColumnType(columnIndex) == SQLITE_NULL)
   {
@@ -867,13 +867,13 @@ double wxSQLite3ResultSet::GetDouble(int columnIndex, double nullValue /* = 0.0 
   }
 }
 
-double wxSQLite3ResultSet::GetDouble(const wxString& columnName, double nullValue /* = 0.0 */)
+double wxSQLite3ResultSet::GetDouble(const wxString& columnName, double nullValue /* = 0.0 */) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetDouble(columnIndex, nullValue);
 }
 
-wxString wxSQLite3ResultSet::GetString(int columnIndex, const wxString& nullValue /* = wxEmptyString */)
+wxString wxSQLite3ResultSet::GetString(int columnIndex, const wxString& nullValue /* = wxEmptyString */) const
 {
   if (GetColumnType(columnIndex) == SQLITE_NULL)
   {
@@ -886,13 +886,13 @@ wxString wxSQLite3ResultSet::GetString(int columnIndex, const wxString& nullValu
   }
 }
 
-wxString wxSQLite3ResultSet::GetString(const wxString& columnName, const wxString& nullValue /* = wxEmptyString */)
+wxString wxSQLite3ResultSet::GetString(const wxString& columnName, const wxString& nullValue /* = wxEmptyString */) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetString(columnIndex, nullValue);
 }
 
-const unsigned char* wxSQLite3ResultSet::GetBlob(int columnIndex, int& len)
+const unsigned char* wxSQLite3ResultSet::GetBlob(int columnIndex, int& len) const
 {
   CheckStmt();
 
@@ -905,13 +905,13 @@ const unsigned char* wxSQLite3ResultSet::GetBlob(int columnIndex, int& len)
   return (const unsigned char*) sqlite3_column_blob(m_stmt->m_stmt, columnIndex);
 }
 
-const unsigned char* wxSQLite3ResultSet::GetBlob(const wxString& columnName, int& len)
+const unsigned char* wxSQLite3ResultSet::GetBlob(const wxString& columnName, int& len) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetBlob(columnIndex, len);
 }
 
-wxMemoryBuffer& wxSQLite3ResultSet::GetBlob(int columnIndex, wxMemoryBuffer& buffer)
+wxMemoryBuffer& wxSQLite3ResultSet::GetBlob(int columnIndex, wxMemoryBuffer& buffer) const
 {
   CheckStmt();
 
@@ -926,13 +926,13 @@ wxMemoryBuffer& wxSQLite3ResultSet::GetBlob(int columnIndex, wxMemoryBuffer& buf
   return buffer;
 }
 
-wxMemoryBuffer& wxSQLite3ResultSet::GetBlob(const wxString& columnName, wxMemoryBuffer& buffer)
+wxMemoryBuffer& wxSQLite3ResultSet::GetBlob(const wxString& columnName, wxMemoryBuffer& buffer) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetBlob(columnIndex, buffer);
 }
 
-wxDateTime wxSQLite3ResultSet::GetDate(int columnIndex)
+wxDateTime wxSQLite3ResultSet::GetDate(int columnIndex) const
 {
   if (GetColumnType(columnIndex) == SQLITE_NULL)
   {
@@ -953,14 +953,14 @@ wxDateTime wxSQLite3ResultSet::GetDate(int columnIndex)
   }
 }
 
-wxDateTime wxSQLite3ResultSet::GetDate(const wxString& columnName)
+wxDateTime wxSQLite3ResultSet::GetDate(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetDate(columnIndex);
 }
 
 
-wxDateTime wxSQLite3ResultSet::GetTime(int columnIndex)
+wxDateTime wxSQLite3ResultSet::GetTime(int columnIndex) const
 {
   if (GetColumnType(columnIndex) == SQLITE_NULL)
   {
@@ -981,13 +981,13 @@ wxDateTime wxSQLite3ResultSet::GetTime(int columnIndex)
   }
 }
 
-wxDateTime wxSQLite3ResultSet::GetTime(const wxString& columnName)
+wxDateTime wxSQLite3ResultSet::GetTime(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetTime(columnIndex);
 }
 
-wxDateTime wxSQLite3ResultSet::GetDateTime(int columnIndex)
+wxDateTime wxSQLite3ResultSet::GetDateTime(int columnIndex) const
 {
   if (GetColumnType(columnIndex) == SQLITE_NULL)
   {
@@ -1009,13 +1009,13 @@ wxDateTime wxSQLite3ResultSet::GetDateTime(int columnIndex)
   }
 }
 
-wxDateTime wxSQLite3ResultSet::GetDateTime(const wxString& columnName)
+wxDateTime wxSQLite3ResultSet::GetDateTime(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetDateTime(columnIndex);
 }
 
-wxDateTime wxSQLite3ResultSet::GetTimestamp(int columnIndex)
+wxDateTime wxSQLite3ResultSet::GetTimestamp(int columnIndex) const
 {
   if (GetColumnType(columnIndex) == SQLITE_NULL)
   {
@@ -1036,13 +1036,13 @@ wxDateTime wxSQLite3ResultSet::GetTimestamp(int columnIndex)
   }
 }
 
-wxDateTime wxSQLite3ResultSet::GetTimestamp(const wxString& columnName)
+wxDateTime wxSQLite3ResultSet::GetTimestamp(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetTimestamp(columnIndex);
 }
 
-wxDateTime wxSQLite3ResultSet::GetNumericDateTime(int columnIndex)
+wxDateTime wxSQLite3ResultSet::GetNumericDateTime(int columnIndex) const
 {
   if (GetColumnType(columnIndex) == SQLITE_NULL)
   {
@@ -1055,13 +1055,13 @@ wxDateTime wxSQLite3ResultSet::GetNumericDateTime(int columnIndex)
   }
 }
 
-wxDateTime wxSQLite3ResultSet::GetNumericDateTime(const wxString& columnName)
+wxDateTime wxSQLite3ResultSet::GetNumericDateTime(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetNumericDateTime(columnIndex);
 }
 
-wxDateTime wxSQLite3ResultSet::GetUnixDateTime(int columnIndex)
+wxDateTime wxSQLite3ResultSet::GetUnixDateTime(int columnIndex) const
 {
   if (GetColumnType(columnIndex) == SQLITE_NULL)
   {
@@ -1074,13 +1074,13 @@ wxDateTime wxSQLite3ResultSet::GetUnixDateTime(int columnIndex)
   }
 }
 
-wxDateTime wxSQLite3ResultSet::GetUnixDateTime(const wxString& columnName)
+wxDateTime wxSQLite3ResultSet::GetUnixDateTime(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetUnixDateTime(columnIndex);
 }
 
-wxDateTime wxSQLite3ResultSet::GetJulianDayNumber(int columnIndex)
+wxDateTime wxSQLite3ResultSet::GetJulianDayNumber(int columnIndex) const
 {
   if (GetColumnType(columnIndex) == SQLITE_NULL)
   {
@@ -1093,18 +1093,18 @@ wxDateTime wxSQLite3ResultSet::GetJulianDayNumber(int columnIndex)
   }
 }
 
-wxDateTime wxSQLite3ResultSet::GetJulianDayNumber(const wxString& columnName)
+wxDateTime wxSQLite3ResultSet::GetJulianDayNumber(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetJulianDayNumber(columnIndex);
 }
 
-bool wxSQLite3ResultSet::GetBool(int columnIndex)
+bool wxSQLite3ResultSet::GetBool(int columnIndex) const
 {
   return GetInt(columnIndex) != 0;
 }
 
-wxDateTime wxSQLite3ResultSet::GetAutomaticDateTime(int columnIndex, bool milliSeconds)
+wxDateTime wxSQLite3ResultSet::GetAutomaticDateTime(int columnIndex, bool milliSeconds) const
 {
   wxDateTime result;
   int columnType = GetColumnType(columnIndex);
@@ -1136,30 +1136,30 @@ wxDateTime wxSQLite3ResultSet::GetAutomaticDateTime(int columnIndex, bool milliS
   return result;
 }
 
-wxDateTime wxSQLite3ResultSet::GetAutomaticDateTime(const wxString& columnName, bool milliSeconds)
+wxDateTime wxSQLite3ResultSet::GetAutomaticDateTime(const wxString& columnName, bool milliSeconds) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetAutomaticDateTime(columnIndex, milliSeconds);
 }
 
-bool wxSQLite3ResultSet::GetBool(const wxString& columnName)
+bool wxSQLite3ResultSet::GetBool(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetBool(columnIndex);
 }
 
-bool wxSQLite3ResultSet::IsNull(int columnIndex)
+bool wxSQLite3ResultSet::IsNull(int columnIndex) const
 {
   return (GetColumnType(columnIndex) == SQLITE_NULL);
 }
 
-bool wxSQLite3ResultSet::IsNull(const wxString& columnName)
+bool wxSQLite3ResultSet::IsNull(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return (GetColumnType(columnIndex) == SQLITE_NULL);
 }
 
-int wxSQLite3ResultSet::FindColumnIndex(const wxString& columnName)
+int wxSQLite3ResultSet::FindColumnIndex(const wxString& columnName) const
 {
   CheckStmt();
 
@@ -1182,7 +1182,7 @@ int wxSQLite3ResultSet::FindColumnIndex(const wxString& columnName)
   throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_INVALID_INDEX);
 }
 
-wxString wxSQLite3ResultSet::GetColumnName(int columnIndex)
+wxString wxSQLite3ResultSet::GetColumnName(int columnIndex) const
 {
   CheckStmt();
 
@@ -1195,7 +1195,7 @@ wxString wxSQLite3ResultSet::GetColumnName(int columnIndex)
   return wxString::FromUTF8(localValue);
 }
 
-wxString wxSQLite3ResultSet::GetDeclaredColumnType(int columnIndex)
+wxString wxSQLite3ResultSet::GetDeclaredColumnType(int columnIndex) const
 {
   CheckStmt();
 
@@ -1208,7 +1208,7 @@ wxString wxSQLite3ResultSet::GetDeclaredColumnType(int columnIndex)
   return wxString::FromUTF8(localValue);
 }
 
-int wxSQLite3ResultSet::GetColumnType(int columnIndex)
+int wxSQLite3ResultSet::GetColumnType(int columnIndex) const
 {
   CheckStmt();
 
@@ -1220,13 +1220,13 @@ int wxSQLite3ResultSet::GetColumnType(int columnIndex)
   return sqlite3_column_type(m_stmt->m_stmt, columnIndex);
 }
 
-bool wxSQLite3ResultSet::Eof()
+bool wxSQLite3ResultSet::Eof() const
 {
   CheckStmt();
   return m_eof;
 }
 
-bool wxSQLite3ResultSet::CursorMoved()
+bool wxSQLite3ResultSet::CursorMoved() const
 {
   CheckStmt();
   return !m_first;
@@ -1305,7 +1305,7 @@ void wxSQLite3ResultSet::Finalize(wxSQLite3DatabaseReference* db,wxSQLite3Statem
   }
 }
 
-wxString wxSQLite3ResultSet::GetSQL()
+wxString wxSQLite3ResultSet::GetSQL() const
 {
   wxString sqlString = wxEmptyString;
 #if SQLITE_VERSION_NUMBER >= 3005003
@@ -1316,7 +1316,7 @@ wxString wxSQLite3ResultSet::GetSQL()
   return sqlString;
 }
 
-wxString wxSQLite3ResultSet::GetExpandedSQL()
+wxString wxSQLite3ResultSet::GetExpandedSQL() const
 {
   wxString sqlString = wxEmptyString;
 #if SQLITE_VERSION_NUMBER >= 3014000
@@ -1327,12 +1327,12 @@ wxString wxSQLite3ResultSet::GetExpandedSQL()
   return sqlString;
 }
 
-bool wxSQLite3ResultSet::IsOk()
+bool wxSQLite3ResultSet::IsOk() const
 {
   return (m_db != NULL) && (m_db->m_isValid) && (m_stmt != NULL) && (m_stmt->m_isValid);
 }
 
-void wxSQLite3ResultSet::CheckStmt()
+void wxSQLite3ResultSet::CheckStmt() const
 {
   if (m_stmt == NULL || m_stmt->m_stmt == NULL || !m_stmt->m_isValid)
   {
@@ -1340,7 +1340,7 @@ void wxSQLite3ResultSet::CheckStmt()
   }
 }
 
-wxString wxSQLite3ResultSet::GetDatabaseName(int columnIndex)
+wxString wxSQLite3ResultSet::GetDatabaseName(int columnIndex) const
 {
 #if WXSQLITE3_HAVE_METADATA
   CheckStmt();
@@ -1360,7 +1360,7 @@ wxString wxSQLite3ResultSet::GetDatabaseName(int columnIndex)
 #endif
 }
 
-wxString wxSQLite3ResultSet::GetTableName(int columnIndex)
+wxString wxSQLite3ResultSet::GetTableName(int columnIndex) const
 {
 #if WXSQLITE3_HAVE_METADATA
   CheckStmt();
@@ -1380,7 +1380,7 @@ wxString wxSQLite3ResultSet::GetTableName(int columnIndex)
 #endif
 }
 
-wxString wxSQLite3ResultSet::GetOriginName(int columnIndex)
+wxString wxSQLite3ResultSet::GetOriginName(int columnIndex) const
 {
 #if WXSQLITE3_HAVE_METADATA
   CheckStmt();
@@ -1471,19 +1471,19 @@ void wxSQLite3Table::Finalize()
   }
 }
 
-int wxSQLite3Table::GetColumnCount()
+int wxSQLite3Table::GetColumnCount() const
 {
   CheckResults();
   return m_cols;
 }
 
-int wxSQLite3Table::GetRowCount()
+int wxSQLite3Table::GetRowCount() const
 {
   CheckResults();
   return m_rows;
 }
 
-int wxSQLite3Table::FindColumnIndex(const wxString& columnName)
+int wxSQLite3Table::FindColumnIndex(const wxString& columnName) const
 {
   CheckResults();
 
@@ -1504,7 +1504,7 @@ int wxSQLite3Table::FindColumnIndex(const wxString& columnName)
   throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_INVALID_NAME);
 }
 
-wxString wxSQLite3Table::GetAsString(int columnIndex)
+wxString wxSQLite3Table::GetAsString(int columnIndex) const
 {
   if (columnIndex < 0 || columnIndex > m_cols-1)
   {
@@ -1516,13 +1516,13 @@ wxString wxSQLite3Table::GetAsString(int columnIndex)
   return wxString::FromUTF8(localValue);
 }
 
-wxString wxSQLite3Table::GetAsString(const wxString& columnName)
+wxString wxSQLite3Table::GetAsString(const wxString& columnName) const
 {
   int index = FindColumnIndex(columnName);
   return GetAsString(index);
 }
 
-int wxSQLite3Table::GetInt(int columnIndex, int nullValue /* = 0 */)
+int wxSQLite3Table::GetInt(int columnIndex, int nullValue /* = 0 */) const
 {
   if (IsNull(columnIndex))
   {
@@ -1536,7 +1536,7 @@ int wxSQLite3Table::GetInt(int columnIndex, int nullValue /* = 0 */)
   }
 }
 
-int wxSQLite3Table::GetInt(const wxString& columnName, int nullValue /* = 0 */)
+int wxSQLite3Table::GetInt(const wxString& columnName, int nullValue /* = 0 */) const
 {
   if (IsNull(columnName))
   {
@@ -1550,7 +1550,7 @@ int wxSQLite3Table::GetInt(const wxString& columnName, int nullValue /* = 0 */)
   }
 }
 
-wxLongLong wxSQLite3Table::GetInt64(int columnIndex, wxLongLong nullValue /* = 0 */)
+wxLongLong wxSQLite3Table::GetInt64(int columnIndex, wxLongLong nullValue /* = 0 */) const
 {
   if (IsNull(columnIndex))
   {
@@ -1562,7 +1562,7 @@ wxLongLong wxSQLite3Table::GetInt64(int columnIndex, wxLongLong nullValue /* = 0
   }
 }
 
-wxLongLong wxSQLite3Table::GetInt64(const wxString& columnName, wxLongLong nullValue /* = 0 */)
+wxLongLong wxSQLite3Table::GetInt64(const wxString& columnName, wxLongLong nullValue /* = 0 */) const
 {
   if (IsNull(columnName))
   {
@@ -1667,7 +1667,7 @@ static double wxSQLite3AtoF(const char *z)
   return (double) ((sign < 0) ? -v1 : v1);
 }
 
-double wxSQLite3Table::GetDouble(int columnIndex, double nullValue /* = 0.0 */)
+double wxSQLite3Table::GetDouble(int columnIndex, double nullValue /* = 0.0 */) const
 {
   if (IsNull(columnIndex))
   {
@@ -1684,13 +1684,13 @@ double wxSQLite3Table::GetDouble(int columnIndex, double nullValue /* = 0.0 */)
   }
 }
 
-double wxSQLite3Table::GetDouble(const wxString& columnName, double nullValue /* = 0.0 */)
+double wxSQLite3Table::GetDouble(const wxString& columnName, double nullValue /* = 0.0 */) const
 {
   int index = FindColumnIndex(columnName);
   return GetDouble(index, nullValue);
 }
 
-wxString wxSQLite3Table::GetString(int columnIndex, const wxString& nullValue /* = wxEmptyString */)
+wxString wxSQLite3Table::GetString(int columnIndex, const wxString& nullValue /* = wxEmptyString */) const
 {
   if (IsNull(columnIndex))
   {
@@ -1702,7 +1702,7 @@ wxString wxSQLite3Table::GetString(int columnIndex, const wxString& nullValue /*
   }
 }
 
-wxString wxSQLite3Table::GetString(const wxString& columnName, const wxString& nullValue /* = wxEmptyString */)
+wxString wxSQLite3Table::GetString(const wxString& columnName, const wxString& nullValue /* = wxEmptyString */) const
 {
   if (IsNull(columnName))
   {
@@ -1714,7 +1714,7 @@ wxString wxSQLite3Table::GetString(const wxString& columnName, const wxString& n
   }
 }
 
-wxDateTime wxSQLite3Table::GetDate(int columnIndex)
+wxDateTime wxSQLite3Table::GetDate(int columnIndex) const
 {
   wxDateTime date;
   const wxChar* result = date.ParseDate(GetString(columnIndex));
@@ -1728,13 +1728,13 @@ wxDateTime wxSQLite3Table::GetDate(int columnIndex)
   }
 }
 
-wxDateTime wxSQLite3Table::GetDate(const wxString& columnName)
+wxDateTime wxSQLite3Table::GetDate(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetDate(columnIndex);
 }
 
-wxDateTime wxSQLite3Table::GetTime(int columnIndex)
+wxDateTime wxSQLite3Table::GetTime(int columnIndex) const
 {
   wxDateTime date;
   const wxChar* result = date.ParseTime(GetString(columnIndex));
@@ -1748,13 +1748,13 @@ wxDateTime wxSQLite3Table::GetTime(int columnIndex)
   }
 }
 
-wxDateTime wxSQLite3Table::GetTime(const wxString& columnName)
+wxDateTime wxSQLite3Table::GetTime(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetTime(columnIndex);
 }
 
-wxDateTime wxSQLite3Table::GetDateTime(int columnIndex)
+wxDateTime wxSQLite3Table::GetDateTime(int columnIndex) const
 {
   wxDateTime date;
   const wxChar* result = date.ParseDateTime(GetString(columnIndex));
@@ -1768,24 +1768,24 @@ wxDateTime wxSQLite3Table::GetDateTime(int columnIndex)
   }
 }
 
-wxDateTime wxSQLite3Table::GetDateTime(const wxString& columnName)
+wxDateTime wxSQLite3Table::GetDateTime(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetDateTime(columnIndex);
 }
 
-bool wxSQLite3Table::GetBool(int columnIndex)
+bool wxSQLite3Table::GetBool(int columnIndex) const
 {
   return GetInt(columnIndex) != 0;
 }
 
-bool wxSQLite3Table::GetBool(const wxString& columnName)
+bool wxSQLite3Table::GetBool(const wxString& columnName) const
 {
   int columnIndex = FindColumnIndex(columnName);
   return GetBool(columnIndex);
 }
 
-bool wxSQLite3Table::IsNull(int columnIndex)
+bool wxSQLite3Table::IsNull(int columnIndex) const
 {
   CheckResults();
 
@@ -1799,13 +1799,13 @@ bool wxSQLite3Table::IsNull(int columnIndex)
   return (localValue == 0);
 }
 
-bool wxSQLite3Table::IsNull(const wxString& columnName)
+bool wxSQLite3Table::IsNull(const wxString& columnName) const
 {
   int index = FindColumnIndex(columnName);
   return IsNull(index);
 }
 
-wxString wxSQLite3Table::GetColumnName(int columnIndex)
+wxString wxSQLite3Table::GetColumnName(int columnIndex) const
 {
   CheckResults();
 
@@ -1830,12 +1830,12 @@ void wxSQLite3Table::SetRow(int row)
   m_currentRow = row;
 }
 
-bool wxSQLite3Table::IsOk()
+bool wxSQLite3Table::IsOk() const
 {
   return (m_results != 0);
 }
 
-void wxSQLite3Table::CheckResults()
+void wxSQLite3Table::CheckResults() const
 {
   if (m_results == 0)
   {
@@ -2004,13 +2004,13 @@ int wxSQLite3Statement::ExecuteScalar()
   return (int) value;
 }
 
-int wxSQLite3Statement::GetParamCount()
+int wxSQLite3Statement::GetParamCount() const
 {
   CheckStmt();
   return sqlite3_bind_parameter_count(m_stmt->m_stmt);
 }
 
-int wxSQLite3Statement::GetParamIndex(const wxString& paramName)
+int wxSQLite3Statement::GetParamIndex(const wxString& paramName) const
 {
   CheckStmt();
 
@@ -2020,7 +2020,7 @@ int wxSQLite3Statement::GetParamIndex(const wxString& paramName)
   return sqlite3_bind_parameter_index(m_stmt->m_stmt, localParamName);
 }
 
-wxString wxSQLite3Statement::GetParamName(int paramIndex)
+wxString wxSQLite3Statement::GetParamName(int paramIndex) const
 {
   CheckStmt();
   const char* localParamName = sqlite3_bind_parameter_name(m_stmt->m_stmt, paramIndex);
@@ -2267,7 +2267,7 @@ void wxSQLite3Statement::ClearBindings()
 #endif
 }
 
-wxString wxSQLite3Statement::GetSQL()
+wxString wxSQLite3Statement::GetSQL() const
 {
   wxString sqlString = wxEmptyString;
 #if SQLITE_VERSION_NUMBER >= 3005003
@@ -2278,7 +2278,7 @@ wxString wxSQLite3Statement::GetSQL()
   return sqlString;
 }
 
-wxString wxSQLite3Statement::GetExpandedSQL()
+wxString wxSQLite3Statement::GetExpandedSQL() const
 {
   wxString sqlString = wxEmptyString;
 #if SQLITE_VERSION_NUMBER >= 3014000
@@ -2303,7 +2303,7 @@ void wxSQLite3Statement::Reset()
   }
 }
 
-bool wxSQLite3Statement::IsReadOnly()
+bool wxSQLite3Statement::IsReadOnly() const
 {
 #if SQLITE_VERSION_NUMBER >= 3007004
   CheckStmt();
@@ -2353,12 +2353,12 @@ void wxSQLite3Statement::Finalize(wxSQLite3DatabaseReference* db,wxSQLite3Statem
   }
 }
 
-bool wxSQLite3Statement::IsOk()
+bool wxSQLite3Statement::IsOk() const
 {
   return (m_db != 0) && (m_stmt != 0);
 }
 
-bool wxSQLite3Statement::IsBusy()
+bool wxSQLite3Statement::IsBusy() const
 {
 #if SQLITE_VERSION_NUMBER >= 3007010
   CheckStmt();
@@ -2369,7 +2369,7 @@ bool wxSQLite3Statement::IsBusy()
 #endif
 }
 
-int wxSQLite3Statement::Status(wxSQLite3StatementStatus opCode, bool resetFlag)
+int wxSQLite3Statement::Status(wxSQLite3StatementStatus opCode, bool resetFlag) const
 {
   int count = 0;
 #if SQLITE_VERSION_NUMBER >= 3007000
@@ -2379,7 +2379,7 @@ int wxSQLite3Statement::Status(wxSQLite3StatementStatus opCode, bool resetFlag)
   return count;
 }
 
-void wxSQLite3Statement::CheckDatabase()
+void wxSQLite3Statement::CheckDatabase() const
 {
   if (m_db == NULL || m_db->m_db == NULL || !m_db->m_isValid)
   {
@@ -2387,7 +2387,7 @@ void wxSQLite3Statement::CheckDatabase()
   }
 }
 
-void wxSQLite3Statement::CheckStmt()
+void wxSQLite3Statement::CheckStmt() const
 {
   if (m_stmt == NULL || m_stmt->m_stmt == NULL || !m_stmt->m_isValid)
   {
@@ -2481,7 +2481,7 @@ wxSQLite3Blob::~wxSQLite3Blob()
   }
 }
 
-wxMemoryBuffer& wxSQLite3Blob::Read(wxMemoryBuffer& blobValue, int length, int offset)
+wxMemoryBuffer& wxSQLite3Blob::Read(wxMemoryBuffer& blobValue, int length, int offset) const
 {
 #if SQLITE_VERSION_NUMBER >= 3004000
   CheckBlob();
@@ -2531,17 +2531,17 @@ void wxSQLite3Blob::Write(const wxMemoryBuffer& blobValue, int offset)
 #endif
 }
 
-bool wxSQLite3Blob::IsOk()
+bool wxSQLite3Blob::IsOk() const
 {
   return (m_blob != NULL && m_blob->m_isValid);
 }
 
-bool wxSQLite3Blob::IsReadOnly()
+bool wxSQLite3Blob::IsReadOnly() const
 {
   return !m_writable;
 }
 
-int wxSQLite3Blob::GetSize()
+int wxSQLite3Blob::GetSize() const
 {
 #if SQLITE_VERSION_NUMBER >= 3004000
   CheckBlob();
@@ -2598,7 +2598,7 @@ void wxSQLite3Blob::Finalize(wxSQLite3DatabaseReference* db, wxSQLite3BlobRefere
 #endif
 }
 
-void wxSQLite3Blob::CheckBlob()
+void wxSQLite3Blob::CheckBlob() const
 {
   if (m_db == NULL || !m_db->m_isValid || m_blob == NULL || !m_blob->m_isValid)
   {
@@ -2952,7 +2952,7 @@ bool wxSQLite3Database::IsOpen() const
   return (m_db != NULL && m_db->m_isValid && m_isOpen);
 }
 
-bool wxSQLite3Database::IsReadOnly(const wxString& databaseName)
+bool wxSQLite3Database::IsReadOnly(const wxString& databaseName) const
 {
 #if SQLITE_VERSION_NUMBER >= 3007011
   CheckDatabase();
@@ -3395,13 +3395,13 @@ void wxSQLite3Database::Rollback(const wxString& savepointName)
 #endif
 }
 
-bool wxSQLite3Database::GetAutoCommit()
+bool wxSQLite3Database::GetAutoCommit() const
 {
   CheckDatabase();
   return sqlite3_get_autocommit(m_db->m_db) != 0;
 }
 
-int wxSQLite3Database::QueryRollbackState()
+int wxSQLite3Database::QueryRollbackState() const
 {
   return m_lastRollbackRC;
 }
@@ -3652,19 +3652,19 @@ wxSQLite3JournalMode wxSQLite3Database::ConvertJournalMode(const wxString& mode)
   return journalMode;
 }
 
-bool wxSQLite3Database::CheckSyntax(const wxString& sql)
+bool wxSQLite3Database::CheckSyntax(const wxString& sql) const
 {
   wxCharBuffer strSql = sql.ToUTF8();
   const char* localSql = strSql;
   return CheckSyntax(localSql);
 }
 
-bool wxSQLite3Database::CheckSyntax(const wxSQLite3StatementBuffer& sql)
+bool wxSQLite3Database::CheckSyntax(const wxSQLite3StatementBuffer& sql) const
 {
   return CheckSyntax((const char*) sql);
 }
 
-bool wxSQLite3Database::CheckSyntax(const char* sql)
+bool wxSQLite3Database::CheckSyntax(const char* sql) const
 {
   return sqlite3_complete(sql) != 0;
 }
@@ -3806,7 +3806,7 @@ wxSQLite3Table wxSQLite3Database::GetTable(const char* sql)
   }
 }
 
-wxLongLong wxSQLite3Database::GetLastRowId()
+wxLongLong wxSQLite3Database::GetLastRowId() const
 {
   CheckDatabase();
   return wxLongLong(sqlite3_last_insert_rowid(m_db->m_db));
@@ -4090,7 +4090,7 @@ void wxSQLite3Database::SetCollation(const wxString& collationName, wxSQLite3Col
   }
 }
 
-void* wxSQLite3Database::GetDatabaseHandle()
+void* wxSQLite3Database::GetDatabaseHandle() const
 {
   return (m_db != NULL) ? m_db->m_db : NULL;
 }
@@ -4106,7 +4106,7 @@ void wxSQLite3Database::SetCollationNeededCallback()
   }
 }
 
-void wxSQLite3Database::CheckDatabase()
+void wxSQLite3Database::CheckDatabase() const
 {
   if (m_db == NULL || m_db->m_db == NULL || !m_db->m_isValid || !m_isOpen)
   {
@@ -4435,7 +4435,7 @@ CREATE TABLE sqlite_user(
   ) WITHOUT ROWID;
 #endif
 
-int wxSQLite3Database::GetLimit(wxSQLite3LimitType id)
+int wxSQLite3Database::GetLimit(wxSQLite3LimitType id) const
 {
   int value = -1;
 #if SQLITE_VERSION_NUMBER >= 3005008
@@ -4597,12 +4597,12 @@ bool wxSQLite3Database::Randomness(int n, wxMemoryBuffer& random)
 //                           for user defined functions
 // ----------------------------------------------------------------------------
 
-int wxSQLite3FunctionContext::GetArgCount()
+int wxSQLite3FunctionContext::GetArgCount() const
 {
   return m_argc;
 }
 
-int wxSQLite3FunctionContext::GetArgType(int argIndex)
+int wxSQLite3FunctionContext::GetArgType(int argIndex) const
 {
   if (argIndex >= 0 && argIndex < m_argc)
   {
@@ -4614,7 +4614,7 @@ int wxSQLite3FunctionContext::GetArgType(int argIndex)
   }
 }
 
-bool wxSQLite3FunctionContext::IsNull(int argIndex)
+bool wxSQLite3FunctionContext::IsNull(int argIndex) const
 {
   if (argIndex >= 0 && argIndex < m_argc)
   {
@@ -4626,7 +4626,7 @@ bool wxSQLite3FunctionContext::IsNull(int argIndex)
   }
 }
 
-int wxSQLite3FunctionContext::GetInt(int argIndex, int nullValue)
+int wxSQLite3FunctionContext::GetInt(int argIndex, int nullValue) const
 {
   if (argIndex >= 0 && argIndex < m_argc)
   {
@@ -4645,7 +4645,7 @@ int wxSQLite3FunctionContext::GetInt(int argIndex, int nullValue)
   }
 }
 
-wxLongLong wxSQLite3FunctionContext::GetInt64(int argIndex, wxLongLong nullValue)
+wxLongLong wxSQLite3FunctionContext::GetInt64(int argIndex, wxLongLong nullValue) const
 {
   if (argIndex >= 0 && argIndex < m_argc)
   {
@@ -4664,7 +4664,7 @@ wxLongLong wxSQLite3FunctionContext::GetInt64(int argIndex, wxLongLong nullValue
   }
 }
 
-double wxSQLite3FunctionContext::GetDouble(int argIndex, double nullValue)
+double wxSQLite3FunctionContext::GetDouble(int argIndex, double nullValue) const
 {
   if (argIndex >= 0 && argIndex < m_argc)
   {
@@ -4683,7 +4683,7 @@ double wxSQLite3FunctionContext::GetDouble(int argIndex, double nullValue)
   }
 }
 
-wxString wxSQLite3FunctionContext::GetString(int argIndex, const wxString& nullValue)
+wxString wxSQLite3FunctionContext::GetString(int argIndex, const wxString& nullValue) const
 {
   if (argIndex >= 0 && argIndex < m_argc)
   {
@@ -4703,7 +4703,21 @@ wxString wxSQLite3FunctionContext::GetString(int argIndex, const wxString& nullV
   }
 }
 
-wxMemoryBuffer& wxSQLite3FunctionContext::GetBlob(int argIndex, wxMemoryBuffer& buffer)
+const unsigned char* wxSQLite3FunctionContext::GetBlob(int argIndex, int& len) const
+{
+  const unsigned char* buffer = NULL;
+  if (argIndex >= 0 && argIndex < m_argc)
+  {
+    if (!IsNull(argIndex))
+    {
+      len = sqlite3_value_bytes((sqlite3_value*) m_argv[argIndex]);
+      buffer = (const unsigned char*) sqlite3_value_blob((sqlite3_value*) m_argv[argIndex]);
+    }
+  }
+  return buffer;
+}
+
+wxMemoryBuffer& wxSQLite3FunctionContext::GetBlob(int argIndex, wxMemoryBuffer& buffer) const
 {
   if (argIndex >= 0 && argIndex < m_argc)
   {
@@ -4717,7 +4731,7 @@ wxMemoryBuffer& wxSQLite3FunctionContext::GetBlob(int argIndex, wxMemoryBuffer& 
   return buffer;
 }
 
-void* wxSQLite3FunctionContext::GetPointer(int argIndex, const wxString& pointerType)
+void* wxSQLite3FunctionContext::GetPointer(int argIndex, const wxString& pointerType) const
 {
   void* pointer = NULL;
 #if SQLITE_VERSION_NUMBER >= 3020000
@@ -4803,7 +4817,7 @@ void wxSQLite3FunctionContext::SetResultError(const wxString& errmsg)
   sqlite3_result_error((sqlite3_context*) m_ctx, localErrmsg, -1);
 }
 
-int wxSQLite3FunctionContext::GetAggregateCount()
+int wxSQLite3FunctionContext::GetAggregateCount() const
 {
   if (m_isAggregate)
   {
@@ -4815,7 +4829,7 @@ int wxSQLite3FunctionContext::GetAggregateCount()
   }
 }
 
-void* wxSQLite3FunctionContext::GetAggregateStruct(int len)
+void* wxSQLite3FunctionContext::GetAggregateStruct(int len) const
 {
   if (m_isAggregate)
   {
