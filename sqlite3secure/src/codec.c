@@ -422,7 +422,7 @@ GetReservedAES128Cipher(void* cipher)
 }
 
 void
-GenerateKeyAES128Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength)
+GenerateKeyAES128Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey)
 {
   AES128Cipher* aesCipher = (AES128Cipher*) cipher;
   unsigned char userPad[32];
@@ -646,7 +646,7 @@ GetReservedAES256Cipher(void* cipher)
 }
 
 void
-GenerateKeyAES256Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength)
+GenerateKeyAES256Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey)
 {
   AES256Cipher* aesCipher = (AES256Cipher*) cipher;
   unsigned char userPad[32];
@@ -830,14 +830,14 @@ GetReservedChaCha20Cipher(void* cipher)
 }
 
 void
-GenerateKeyChaCha20Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength)
+GenerateKeyChaCha20Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey)
 {
   ChaCha20Cipher* chacha20Cipher = (ChaCha20Cipher*) cipher;
 
   Pager *pPager = pBt->pBt->pPager;
   sqlite3_file* fd = (isOpen(pPager->fd)) ? pPager->fd : NULL;
 
-  if (fd == NULL || sqlite3OsRead(fd, chacha20Cipher->m_salt, SALTLENGTH_CHACHA20, 0) != SQLITE_OK)
+  if (rekey || fd == NULL || sqlite3OsRead(fd, chacha20Cipher->m_salt, SALTLENGTH_CHACHA20, 0) != SQLITE_OK)
   {
     chacha20_rng(chacha20Cipher->m_salt, SALTLENGTH_CHACHA20);
   }
@@ -1062,14 +1062,14 @@ static void ConvertHex2Bin(const unsigned char* hex, int len, unsigned char* bin
 }
 
 void
-GenerateKeySQLCipherCipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength)
+GenerateKeySQLCipherCipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey)
 {
   SQLCipherCipher* sqlCipherCipher = (SQLCipherCipher*) cipher;
 
   Pager *pPager = pBt->pBt->pPager;
   sqlite3_file* fd = (isOpen(pPager->fd)) ? pPager->fd : NULL;
 
-  if (fd == NULL || sqlite3OsRead(fd, sqlCipherCipher->m_salt, SALTLENGTH_SQLCIPHER, 0) != SQLITE_OK)
+  if (rekey || fd == NULL || sqlite3OsRead(fd, sqlCipherCipher->m_salt, SALTLENGTH_SQLCIPHER, 0) != SQLITE_OK)
   {
     chacha20_rng(sqlCipherCipher->m_salt, SALTLENGTH_SQLCIPHER);
   }
@@ -1296,7 +1296,7 @@ typedef void  (*FreeCipher_t)(void* cipher);
 typedef void  (*CloneCipher_t)(void* cipherTo, void* cipherFrom);
 typedef int   (*GetPageSize_t)(void* cipher);
 typedef int   (*GetReserved_t)(void* cipher);
-typedef void  (*GenerateKey_t)(void* cipher, Btree* pBt, char* userPassword, int passwordLength);
+typedef void  (*GenerateKey_t)(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey);
 typedef int   (*EncryptPage_t)(void* cipher, int page, unsigned char* data, int len);
 typedef int   (*DecryptPage_t)(void* cipher, int page, unsigned char* data, int len);
 
@@ -2061,25 +2061,33 @@ CodecCopy(Codec* codec, Codec* other)
   codec->m_hasWriteCipher = other->m_hasWriteCipher;
   codec->m_readCipherType = other->m_readCipherType;
   codec->m_writeCipherType = other->m_writeCipherType;
+  codec->m_readCipher = NULL;
+  codec->m_writeCipher = NULL;
 
-  codec->m_readCipher = codecDescriptorTable[codec->m_readCipherType-1].m_allocateCipher(codec->m_db);
-  if (codec->m_readCipher != NULL)
+  if (codec->m_hasReadCipher)
   {
-    codecDescriptorTable[codec->m_readCipherType-1].m_cloneCipher(codec->m_readCipher, other->m_readCipher);
-  }
-  else
-  {
-    rc = SQLITE_NOMEM;
+    codec->m_readCipher = codecDescriptorTable[codec->m_readCipherType - 1].m_allocateCipher(codec->m_db);
+    if (codec->m_readCipher != NULL)
+    {
+      codecDescriptorTable[codec->m_readCipherType - 1].m_cloneCipher(codec->m_readCipher, other->m_readCipher);
+    }
+    else
+    {
+      rc = SQLITE_NOMEM;
+    }
   }
 
-  codec->m_writeCipher = codecDescriptorTable[codec->m_writeCipherType-1].m_allocateCipher(codec->m_db);
-  if (codec->m_writeCipher != NULL)
+  if (codec->m_hasWriteCipher)
   {
-    codecDescriptorTable[codec->m_writeCipherType-1].m_cloneCipher(codec->m_writeCipher, other->m_writeCipher);
-  }
-  else
-  {
-    rc = SQLITE_NOMEM;
+    codec->m_writeCipher = codecDescriptorTable[codec->m_writeCipherType - 1].m_allocateCipher(codec->m_db);
+    if (codec->m_writeCipher != NULL)
+    {
+      codecDescriptorTable[codec->m_writeCipherType - 1].m_cloneCipher(codec->m_writeCipher, other->m_writeCipher);
+    }
+    else
+    {
+      rc = SQLITE_NOMEM;
+    }
   }
   codec->m_db = other->m_db;
   codec->m_bt = other->m_bt;
@@ -2156,13 +2164,13 @@ CodecPadPassword(char* password, int pswdlen, unsigned char pswd[32])
 void
 CodecGenerateReadKey(Codec* codec, char* userPassword, int passwordLength)
 {
-  codecDescriptorTable[codec->m_readCipherType-1].m_generateKey(codec->m_readCipher, codec->m_bt, userPassword, passwordLength);
+  codecDescriptorTable[codec->m_readCipherType-1].m_generateKey(codec->m_readCipher, codec->m_bt, userPassword, passwordLength, 0);
 }
 
 void
 CodecGenerateWriteKey(Codec* codec, char* userPassword, int passwordLength)
 {
-  codecDescriptorTable[codec->m_writeCipherType-1].m_generateKey(codec->m_writeCipher, codec->m_bt, userPassword, passwordLength);
+  codecDescriptorTable[codec->m_writeCipherType-1].m_generateKey(codec->m_writeCipher, codec->m_bt, userPassword, passwordLength, 1);
 }
 
 int
