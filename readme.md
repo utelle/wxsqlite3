@@ -40,11 +40,12 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
+* 4.0.1 - *April 2018*
+  - Fixed a bug in the rekeying function of the encryption extension
 * 4.0.0 - *April 2018*
   - Added multi-cipher support
   - Added methods for attaching/detaching databases
   - Cleaned up code using statement buffers
-
 * 3.5.9 - *January 2018*
   - Upgrade to SQLite version 3.22.0
 * 3.5.8 - *November 2017*

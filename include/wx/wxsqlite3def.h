@@ -44,6 +44,11 @@
 
 <dl>
 
+<dt><b>4.0.1</b> - <i>April 2018</i></dt>
+<dd>
+Fixed a bug in the rekeying function of the encryption extension<br>
+
+</dd>
 <dt><b>4.0.0</b> - <i>April 2018</i></dt>
 <dd>
 Introduced multi-cipher support at runtime<br>
