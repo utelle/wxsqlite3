@@ -329,6 +329,7 @@ int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKe
     }
     if (rc == SQLITE_OK)
     {
+      CodecSetDb(codec, db);
       CodecSetBtree(codec, pBt);
       rc = CodecSetupWriteCipher(codec, GetCipherType(db), (char*) zKey, nKey);
     }
