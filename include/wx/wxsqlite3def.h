@@ -44,6 +44,11 @@
 
 <dl>
 
+<dt><b>4.0.2</b> - <i>April 2018</i></dt>
+<dd>
+Upgrade to SQLite version 3.23.1<br>
+
+</dd>
 <dt><b>4.0.1</b> - <i>April 2018</i></dt>
 <dd>
 Fixed a bug in the rekeying function of the encryption extension<br>
