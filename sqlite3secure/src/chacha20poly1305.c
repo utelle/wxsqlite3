@@ -260,7 +260,6 @@ int poly1305_tagcmp(const unsigned char tag1[16], const unsigned char tag2[16])
 #include <sys/syscall.h>
 
 #ifdef __linux__
-#include <stropts.h>
 #include <linux/random.h>
 #endif
 
