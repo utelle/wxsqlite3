@@ -40,6 +40,8 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
+* 4.0.3 - *April 2018*
+  - Adjusted encryption extension to better support the SQLite backup API
 * 4.0.2 - *April 2018*
   - Upgrade to SQLite version 3.23.1
 * 4.0.1 - *April 2018*

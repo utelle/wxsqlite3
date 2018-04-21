@@ -14,6 +14,7 @@ This document describes the SQLite3 encryption extension provided by wxSQLite3. 
   - [SQLCipher: AES 256 Bit CBC - SHA1 HMAC](#cipher_sqlcipher)
 - [Legacy cipher modes](#legacy)
 - [SQLite3 / wxSQLite3 encryption API](#encryptionapi)
+- [SQLite3 backup API](#backupapi)
 
 ## <a name="installation" />Installation
 
@@ -224,18 +225,24 @@ SQLITE_API int sqlite3_rekey_v2(
 
 ```C
 SQLITE_API int wxsqlite3_config(
-  const char *paramName,         /* Parameter name */
-  int newValue                   /* New value of the parameter */
+  sqlite3*    db,                /* Database instance (use NULL for global parameter table) */
+  const char* paramName,         /* Parameter name */
+  int         newValue           /* New value of the parameter */
 );
 
 SQLITE_API int wxsqlite3_config_cipher(
-  const char *cipherName,        /* Cipher name */
-  const char *paramName,         /* Parameter name */
-  int newValue                   /* New value of the parameter */
+  sqlite3*    db,                /* Database instance (use NULL for global parameter table) */
+  const char* cipherName,        /* Cipher name */
+  const char* paramName,         /* Parameter name */
+  int         newValue           /* New value of the parameter */
 );
 ```
 
-The function `wxsqlite3_config` allows to configure global parameters. Currently the only supported parameter is `cipher` parameter:
+The **wxSQLite3** encryption extension has global cipher parameter tables. However, on opening a SQLite database connection the connection gets a copy of the current state of the global parameter tables. This allows concurrent database connections to use and manipulate their own copy of the parameter tables independently.
+
+It is recommended to manipulate the global parameter tables only before opening any database connection.
+
+The function `wxsqlite3_config` allows to configure global parameters. Currently the only supported parameter is the `cipher` parameter:
 
 | Parameter | Description |
 | :--- | :--- |
@@ -298,3 +305,32 @@ SELECT wxsqlite3_config("sqlcipher", "legacy", 1);
 SELECT wxsqlite3_config("sqlcipher", "legacy_page_size", 1024);
 PRAGMA key="<passphrase>";
 ```
+
+## <a name="backupapi" />SQLite3 backup API
+
+When using the SQLite3 backup API to create a backup copy of a SQLite database, the most common case is that source and target database use the same encryption cipher, if any. However, the **wxSQLite3** multi-cipher encryption extension allows to assign different ciphers to the source and target database.
+
+Problems can arise from the fact that different ciphers may require a different number of reserved bytes per database page. If the number of reserved bytes for the target database is greater than that for the source database, performing a backup via the SQLite3 backup API is unfortunately not possible. In such a case the backup will be aborted.
+
+To allow as many cipher combinations as possible the **wxSQLite3** multi-cipher encryption extension implements fallback solutions for the most common case where the source database is not encrypted, but a cipher usually requiring a certain number of reserved bytes per database page was selected for the target database. In this case no reserved bytes will be used by the ciphers. The drawback is that the resulting encryption is less secure and that the resulting databases will not be compatible with the corresponding legacy ciphers.
+
+Please find below a table describing with which encryption cipher combinations the backup API can be used.
+
+| **Backup**&nbsp;&nbsp;**To** |  SQLite3 |  wxSQLite3 |  wxSQLite3 | wxSQLite3 | SQLCipher v1 | SQLCipher v2+ |
+| --- | :---: | :---: | :---: | :---: | :---: | :---: |
+<br/>**From** | Plain<br/>&nbsp; | AES-128<br/>&nbsp; | AES-256<br/>&nbsp; | ChaCha20<br/>Poly1305 | AES-256<br/>&nbsp; | AES-256<br/>SHA1 |
+SQLite3<br/>Plain<br/>&nbsp; | :ok: | :ok: | :ok: | :ok: :exclamation: | :ok: :exclamation: | :ok: :exclamation:
+wxSQLite3<br/> AES-128<br/>&nbsp; | :ok: | :ok: | :ok: | :ok: :exclamation: | :ok: :exclamation: | :ok: :exclamation:
+wxSQLite3<br/>AES-256<br/>&nbsp; | :ok: | :ok: | :ok: | :ok: :exclamation: | :ok: :exclamation: | :ok: :exclamation:
+wxSQLite3<br/>ChaCha20<br/>Poly1305 |  :ok: <sup>:small_red_triangle_down:</sup> | :ok: <sup>:small_red_triangle_down:</sup> | :ok: <sup>:small_red_triangle_down:</sup> | :ok: | :x: | :x:
+SQLCipher v1<br/>AES-256<br/>&nbsp; | :ok: <sup>:small_red_triangle_down:</sup> | :ok: <sup>:small_red_triangle_down:</sup> | :ok: <sup>:small_red_triangle_down:</sup> | :x: | :ok: | :x:
+SQLCipher&nbsp;v2+<br/>AES-256<br/>SHA1 | :ok: <sup>:small_red_triangle_down:</sup> | :ok: <sup>:small_red_triangle_down:</sup> | :ok: <sup>:small_red_triangle_down:</sup> | :ok: <sup>:small_red_triangle_down:</sup> | :x: | :ok:
+
+Symbol | Description
+:---: | :---
+:ok:  | Works
+:x: | Does **not** work
+:exclamation: | Works only for non-legacy ciphers with reduced security
+<sup>:small_red_triangle_down:</sup> | Keeps reserved bytes per database page
+
+**Note**: It is strongly recommended to use the same encryption cipher for source **and** target database.

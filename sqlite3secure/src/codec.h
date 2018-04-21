@@ -72,6 +72,8 @@ typedef struct _Codec
   sqlite3*      m_db; /* Pointer to DB */
   Btree*        m_bt; /* Pointer to B-tree used by DB */
   unsigned char m_page[SQLITE_MAX_PAGE_SIZE+24];
+  int           m_pageSize;
+  int           m_reserved;
 } Codec;
 
 void wxsqlite3_config_table(sqlite3_context* context, int argc, sqlite3_value** argv);
@@ -113,6 +115,8 @@ int CodecHasReadCipher(Codec* codec);
 int CodecHasWriteCipher(Codec* codec);
 Btree* CodecGetBtree(Codec* codec);
 unsigned char* CodecGetPageBuffer(Codec* codec);
+int CodecGetLegacyReadCipher(Codec* codec);
+int CodecGetLegacyWriteCipher(Codec* codec);
 int CodecGetPageSizeReadCipher(Codec* codec);
 int CodecGetPageSizeWriteCipher(Codec* codec);
 int CodecGetReservedReadCipher(Codec* codec);

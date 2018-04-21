@@ -44,6 +44,11 @@
 
 <dl>
 
+<dt><b>4.0.3</b> - <i>April 2018</i></dt>
+<dd>
+Adjusted encryption extension to better support the SQLite backup API<br>
+
+</dd>
 <dt><b>4.0.2</b> - <i>April 2018</i></dt>
 <dd>
 Upgrade to SQLite version 3.23.1<br>
