@@ -1,6 +1,6 @@
 # Release notes
 
-April 13, 2018
+June 9, 2018
 
 This archive with precompiled Windows DLLs for SQLite3 contains
 experimental versions with enabled ICU support, in addition to the

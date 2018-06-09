@@ -938,6 +938,7 @@ DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
   unsigned char otk[64];
   uint32_t counter;
   unsigned char tag[16];
+  int offset;
 
   /* Check whether number of required reserved bytes and actually reserved bytes match */
   if ((legacy == 0 && nReserved > reserved) || ((legacy != 0 && nReserved != reserved)))
@@ -957,7 +958,7 @@ DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
     if (!poly1305_tagcmp(data + n + PAGE_NONCE_LEN_CHACHA20, tag))
     {
       /* Decrypt */
-      int offset = (page == 1) ? (chacha20Cipher->m_legacy != 0) ? 0 : CIPHER_PAGE1_OFFSET : 0;
+      offset = (page == 1) ? (chacha20Cipher->m_legacy != 0) ? 0 : CIPHER_PAGE1_OFFSET : 0;
       chacha20_xor(data + offset, n - offset, otk + 32, data + n, counter + 1);
       if (page == 1)
       {
@@ -980,7 +981,7 @@ DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
     chacha20_xor(otk, 64, chacha20Cipher->m_key, nonce, counter);
 
     /* Decrypt */
-    int offset = (page == 1) ? (chacha20Cipher->m_legacy != 0) ? 0 : CIPHER_PAGE1_OFFSET : 0;
+    offset = (page == 1) ? (chacha20Cipher->m_legacy != 0) ? 0 : CIPHER_PAGE1_OFFSET : 0;
     chacha20_xor(data + offset, n - offset, otk + 32, nonce, counter + 1);
     if (page == 1)
     {
