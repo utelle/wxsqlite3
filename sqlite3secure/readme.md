@@ -189,22 +189,26 @@ If it is required to access legacy **sqleet** or **SQLCipher** databases this is
 
 ## <a name="encryptionapi" />SQLite3 / wxSQLite3 encryption API
 
-The encryption API of SQLite3 consists of only a few functions `sqlite3_key()`, `sqlite3_key_v2()`, `sqlite3_rekey()`, and `sqlite3_rekey_v2()` for managing encryption keys.
+The encryption API of SQLite3 consists of only the few functions `sqlite3_key()`, `sqlite3_key_v2()`, `sqlite3_rekey()`, and `sqlite3_rekey_v2()` for managing encryption keys.
 
 ```C
 SQLITE_API int sqlite3_key(
-  sqlite3 *db,                   /* Database to be rekeyed */
+  sqlite3 *db,                   /* Database to set the key on */
   const void *pKey, int nKey     /* The key */
 );
 
 SQLITE_API int sqlite3_key_v2(
-  sqlite3 *db,                   /* Database to be rekeyed */
+  sqlite3 *db,                   /* Database to set the key on */
   const char *zDbName,           /* Name of the database */
   const void *pKey, int nKey     /* The key */
 );
 ```
 
-`sqlite3_key()` is typically called immediately after `sqlite3_open()` to specify an encryption key for the opened database. The function returns `SQLITE_OK` if the given key was correct. Otherwise a non-zero SQLite3 error code is returned and subsequent attempts to read or write the database will fail.
+`sqlite3_key()` or `sqlite3_key_v2()` is typically called immediately after `sqlite3_open()` to specify an encryption key for the opened database. `sqlite3_key()` sets the key for the `"main"` database, which is the typical use case. If these functions are called on an empty database, then the key will be initially set. The return value is `SQLITE_OK` on success, or a non-zero SQLite3 error code on failure.
+
+**Note:** These functions return `SQLITE_OK` even if the provided key isn't correct. This is because the key isn't actually used until a subsequent attempt to read or write the database is made. To check whether setting the key was actually successful, you must execute a simple query like e.g. `SELECT * FROM sqlite_master;` and check whether it succeeds.
+
+**Note:** When setting a new key on an empty database, you have to make a subsequent write access so that the database will actually be encrypted. You'd usually want to write to a new database anyway, but if not, you can execute the `VACUUM;` command instead to force writing to an empty database.
 
 ```C
 SQLITE_API int sqlite3_rekey(
@@ -219,7 +223,7 @@ SQLITE_API int sqlite3_rekey_v2(
 );
 ```
 
-`sqlite3_rekey()` changes the database encryption key. This includes encrypting the database the first time, decrypting the database (if `nKey == 0`), as well as re-encrypting it with a new key. Internally, `sqlite3_rekey()` performs a `VACUUM` to encrypt/decrypt all pages of the database, if the number of reserved bytes per database page differs between the current and the new encryption scheme - thus the total disk space requirement for re-encrypting can be up to 3 times the size of the database. Otherwise the re-encrypting is done in-place. On decrypting a database all possibly reserved bytes are released. The return value is `SQLITE_OK` on success.
+`sqlite3_rekey()` and `sqlite3_rekey_v2()` change the database encryption key. `sqlite3_rekey()` changes the key for the `"main"` database, which is the typical use case. Changing the key includes encrypting the database the first time, decrypting the database (if `nKey == 0`), as well as re-encrypting it with a new key. Internally, `sqlite3_rekey()` performs a `VACUUM` to encrypt/decrypt all pages of the database, if the number of reserved bytes per database page differs between the current and the new encryption scheme. Thus, the total disk space requirement for re-encrypting can be up to 3 times the size of the database. Otherwise the re-encrypting is done in-place. On decrypting a database all possibly reserved bytes are released. The return value is `SQLITE_OK` on success, or a non-zero SQLite3 error code on failure.
 
 **wxSQLite3** adds 2 further function to the interface. These functions allow to configure the encryption extension and the encryption ciphers.
 
