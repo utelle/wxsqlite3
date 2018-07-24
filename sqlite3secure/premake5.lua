@@ -139,7 +139,11 @@ project "sqlite3lib"
     "SQLITE_ENABLE_SERIES",
     "SQLITE_TEMP_STORE=2",
     "SQLITE_USE_URI",
-    "SQLITE_USER_AUTHENTICATION"
+    "SQLITE_USER_AUTHENTICATION",
+-- Compatibility with official SQLite3 shell    
+    "SQLITE_ENABLE_DBSTAT_VTAB",
+    "SQLITE_ENABLE_STMTVTAB",
+    "SQLITE_ENABLE_UNKNOWN_SQL_FUNCTION"
   }
 
   -- Intermediate directory
@@ -336,7 +340,11 @@ project "sqlite3libicu"
     "SQLITE_ENABLE_SERIES",
     "SQLITE_TEMP_STORE=2",
     "SQLITE_USE_URI",
-    "SQLITE_USER_AUTHENTICATION"
+    "SQLITE_USER_AUTHENTICATION",
+-- Compatibility with official SQLite3 shell    
+    "SQLITE_ENABLE_DBSTAT_VTAB",
+    "SQLITE_ENABLE_STMTVTAB",
+    "SQLITE_ENABLE_UNKNOWN_SQL_FUNCTION"
   }
 
   -- Intermediate directory

@@ -1,6 +1,11 @@
 # Release notes
 
-June 9, 2018
+June 16, 2018
+
+The SQLite3 shell applications are now compatible with the official
+SQLite3 shell in respect to the compile time options
+`SQLITE_ENABLE_DBSTAT_VTAB`, SQLITE_ENABLE_STMTVTAB`, and
+`SQLITE_ENABLE_UNKNOWN_SQL_FUNCTION`.
 
 This archive with precompiled Windows DLLs for SQLite3 contains
 experimental versions with enabled ICU support, in addition to the
