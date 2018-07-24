@@ -34,12 +34,7 @@ extern "C" {
 
 #include "rijndael.h"
 
-#define CODEC_TYPE_UNKNOWN   0
-#define CODEC_TYPE_AES128    1
-#define CODEC_TYPE_AES256    2
-#define CODEC_TYPE_CHACHA20  3
-#define CODEC_TYPE_SQLCIPHER 4
-#define CODEC_TYPE_MAX       4
+#include "sqlite3secure.h"
 
 #define CODEC_TYPE_DEFAULT CODEC_TYPE_CHACHA20
 

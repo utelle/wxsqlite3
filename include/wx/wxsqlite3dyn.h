@@ -231,7 +231,11 @@ DYNFUNC(return, void *,                sqlite3_wal_hook,              (sqlite3 *
 #endif
 #if SQLITE_VERSION_NUMBER >= 3007014
 //#if defined(__WXMSW__)
+#if SQLITE_VERSION_NUMBER >= 3024000
+DYNFUNC(return, int,                   sqlite3_win32_set_directory,   (unsigned long type, void* zValue), (type, zValue));
+#else
 DYNFUNC(return, int,                   sqlite3_win32_set_directory,   (DWORD type, LPCWSTR zValue), (type, zValue));
+#endif
 //#endif
 #endif
 #if WXSQLITE3_HAVE_METADATA
