@@ -13,8 +13,14 @@ This document describes the SQLite3 encryption extension provided by wxSQLite3. 
   - [sqleet: ChaCha20 - Poly1305 HMAC](#cipher_chacha20)
   - [SQLCipher: AES 256 Bit CBC - SHA1 HMAC](#cipher_sqlcipher)
 - [Legacy cipher modes](#legacy)
-- [SQLite3 / wxSQLite3 encryption API](#encryptionapi)
-- [SQLite3 backup API](#backupapi)
+- [Encryption API](#encryptionapi)
+  - [Overview](#encryption_overview)
+  - [`sqlite3_key()` and `sqlite3_key_v2()`](#encryption_key)
+  - [`sqlite3_rekey()` and `sqlite3_rekey_v2()`](#encryption_rekey)
+  - [`wxsqlite3_config()`](#encryption_config)
+  - [`wxsqlite3_config_cipher()`](#encryption_config_cipher)
+  - [SQL interface](#encryption_sql)
+- [SQLite3 Backup API](#backupapi)
 
 ## <a name="installation" />Installation
 
@@ -187,9 +193,22 @@ For the **sqleet** and **SQLCipher** ciphers the situation is a bit different. T
 
 If it is required to access legacy **sqleet** or **SQLCipher** databases this is possible by setting the value of the **legacy** parameter to **_true_**. Additionally, it might be required to explicitly set the page size.
 
-## <a name="encryptionapi" />SQLite3 / wxSQLite3 encryption API
+## <a name="encryptionapi" />Encryption API
 
-The encryption API of SQLite3 consists of only the few functions `sqlite3_key()`, `sqlite3_key_v2()`, `sqlite3_rekey()`, and `sqlite3_rekey_v2()` for managing encryption keys.
+### <a name="encryption_overview" />Overview
+
+The encryption API consists of the following functions:
+
+| Function | Description |
+| :--- | :--- |
+| `sqlite3_key()` and `sqlite3_key_v2()` | Set the database key to use when accessing an encrypted database |
+| `sqlite3_rekey()` and `sqlite3_rekey_v2()` | Change the database encryption key |
+| `wxsqlite3_config()` | Configure database encryption parameters |
+| `wxsqlite3_config_cipher()` | Configure cipher encryption parameters |
+
+In addition, there is the `wxsqlite3_config()` SQL function which serves as SQL interface for `wxsqlite3_config()` and `wxsqlite3_config_cipher()`.
+
+### <a name="encryption_key" />`sqlite3_key()` and `sqlite3_key_v2()`
 
 ```C
 SQLITE_API int sqlite3_key(
@@ -199,16 +218,20 @@ SQLITE_API int sqlite3_key(
 
 SQLITE_API int sqlite3_key_v2(
   sqlite3 *db,                   /* Database to set the key on */
-  const char *zDbName,           /* Name of the database */
+  const char *zDbName,           /* Database schema name */
   const void *pKey, int nKey     /* The key */
 );
 ```
 
-`sqlite3_key()` or `sqlite3_key_v2()` is typically called immediately after `sqlite3_open()` to specify an encryption key for the opened database. `sqlite3_key()` sets the key for the `"main"` database, which is the typical use case. If these functions are called on an empty database, then the key will be initially set. The return value is `SQLITE_OK` on success, or a non-zero SQLite3 error code on failure.
+`sqlite3_key()` and `sqlite3_key_v2()` set the database key to use when accessing an encrypted database, and should usually be called immediately after `sqlite3_open()`.
 
-**Note:** These functions return `SQLITE_OK` even if the provided key isn't correct. This is because the key isn't actually used until a subsequent attempt to read or write the database is made. To check whether setting the key was actually successful, you must execute a simple query like e.g. `SELECT * FROM sqlite_master;` and check whether it succeeds.
+`sqlite3_key()` is used to set the key for the main database, while `sqlite3_key_v2()` sets the key for the database with the schema name specified by `zDbName`. The schema name is `main` for the main database, `temp` for the temporary database, or the schema name specified in an [`ATTACH` statement](https://www.sqlite.org/lang_attach.html) for an attached database. If `sqlite3_key()` or `sqlite3_key_v2()` is called on an empty database, then the key will be initially set. The return value is `SQLITE_OK` on success, or a non-zero SQLite3 error code on failure.
 
-**Note:** When setting a new key on an empty database, you have to make a subsequent write access so that the database will actually be encrypted. You'd usually want to write to a new database anyway, but if not, you can execute the `VACUUM;` command instead to force writing to an empty database.
+**Note:** These functions return `SQLITE_OK` even if the provided key isn't correct. This is because the key isn't actually used until a subsequent attempt to read or write the database is made. To check whether the provided key was actually correct, you must execute a simple query like e.g. `SELECT * FROM sqlite_master;` and check whether that succeeds.
+
+**Note:** When setting a new key on an empty database (that is, a database with zero bytes length), you have to make a subsequent write access so that the database will actually be encrypted. You'd usually want to write to a new database anyway, but if not, you can execute the [`VACUUM` command](https://www.sqlite.org/lang_vacuum.html) instead to force SQLite to write to the empty database.
+
+### <a name="encryption_rekey" />`sqlite3_rekey()` and `sqlite3_rekey_v2()`
 
 ```C
 SQLITE_API int sqlite3_rekey(
@@ -218,99 +241,152 @@ SQLITE_API int sqlite3_rekey(
 
 SQLITE_API int sqlite3_rekey_v2(
   sqlite3 *db,                   /* Database to be rekeyed */
-  const char *zDbName,           /* Name of the database */
+  const char *zDbName,           /* Database schema name */
   const void *pKey, int nKey     /* The new key */
 );
 ```
 
-`sqlite3_rekey()` and `sqlite3_rekey_v2()` change the database encryption key. `sqlite3_rekey()` changes the key for the `"main"` database, which is the typical use case. Changing the key includes encrypting the database the first time, decrypting the database (if `nKey == 0`), as well as re-encrypting it with a new key. Internally, `sqlite3_rekey()` performs a `VACUUM` to encrypt/decrypt all pages of the database, if the number of reserved bytes per database page differs between the current and the new encryption scheme. Thus, the total disk space requirement for re-encrypting can be up to 3 times the size of the database. Otherwise the re-encrypting is done in-place. On decrypting a database all possibly reserved bytes are released. The return value is `SQLITE_OK` on success, or a non-zero SQLite3 error code on failure.
+`sqlite3_rekey()` and `sqlite3_rekey_v2()` change the database encryption key.
 
-**wxSQLite3** adds 2 further function to the interface. These functions allow to configure the encryption extension and the encryption ciphers.
+`sqlite3_rekey()` is used to change the key for the main database, while `sqlite3_rekey_v2()` changes the key for the database with the schema name specified by `zDbName`. The schema name is `main` for the main database, `temp` for the temporary database, or the schema name specified in an [`ATTACH` statement](https://www.sqlite.org/lang_attach.html) for an attached database.
+
+Changing the key includes encrypting the database for the first time, decrypting the database (if `pKey == NULL` or `nKey == 0`), as well as re-encrypting it with a new key. The return value is `SQLITE_OK` on success, or a non-zero SQLite3 error code on failure.
+
+**Note:** If the number of reserved bytes per database page differs between the current and the new encryption scheme, then `sqlite3_rekey()` performs a [`VACUUM` command](https://www.sqlite.org/lang_vacuum.html) to encrypt/decrypt all pages of the database. Thus, the total disk space requirement for re-encrypting can be up to 3 times of the database size. If possible, re-encrypting is done in-place.
+
+**Note:** On decrypting a database all reserved bytes per database page are released.
+
+### <a name="encryption_config" />`wxsqlite3_config()`
 
 ```C
 SQLITE_API int wxsqlite3_config(
-  sqlite3*    db,                /* Database instance (use NULL for global parameter table) */
+  sqlite3*    db,                /* Database instance */
   const char* paramName,         /* Parameter name */
   int         newValue           /* New value of the parameter */
 );
+```
 
+`wxsqlite3_config()` gets or sets encryption parameters which are relevant for the entire database instance. `db` is the database instance to operate on, or `NULL` to query the compile-time default value of the parameter. `paramName` is the name of the parameter which should be get or set. To set a parameter, pass the new parameter value as `newValue`. To get the current parameter value, pass **-1** as `newValue`.
+
+Parameter names use the following prefixes:
+
+| Prefix | Description|
+| :--- | :--- |
+| `<no prefix>` | Get or set the *transient* parameter value. Transient values are only used **once** for the next call to `sqlite3_key()` or `sqlite3_rekey()`. Afterwards, the *permanent* default values will be used again (see below). |
+| `"default:"` | Get or set the *permanent* default parameter value. Permanent values will be used during the entire lifetime of the `db` database instance, unless explicitly overridden by a transient value. The initial values for the permanent default values are the compile-time default values. |
+| `"min:"` | Get the lower bound of the valid parameter value range. This is read-only. |
+| `"max:"` | Get the upper bound of the valid parameter value range. This is read-only. |
+
+The following parameter names are supported for `paramName`:
+
+| Parameter name | Description | Possible values |
+| :--- | :--- | :--- |
+| `"cipher"` | The cipher to be used for encrypting the database. | `CODEC_TYPE_AES128` (Cipher ID 1)<br/>`CODEC_TYPE_AES256` (Cipher ID 2)<br/>`CODEC_TYPE_CHACHA20` (Cipher ID 3)<br/>`CODEC_TYPE_SQLCIPHER` (Cipher ID 4) |
+
+The return value always is the current parameter value on success, or **-1** on failure.
+
+**Examples:**
+
+```C
+/* Use AES-256 cipher for the next call to sqlite3_key() or sqlite3_rekey() for the given db */
+wxsqlite3_config(db, "cipher", CODEC_TYPE_AES256);
+```
+
+```C
+/* Use SQLCipher during the entire lifetime of database instance */
+wxsqlite3_config(db, "default:cipher", CODEC_TYPE_SQLCIPHER);
+```
+
+```C
+/* Get the maximum value which can be used for the "cipher" parameter */
+wxsqlite3_config(NULL, "max:cipher", -1);
+```
+
+### <a name="encryption_config_cipher" />`wxsqlite3_config_cipher()`
+
+```C
 SQLITE_API int wxsqlite3_config_cipher(
-  sqlite3*    db,                /* Database instance (use NULL for global parameter table) */
+  sqlite3*    db,                /* Database instance */
   const char* cipherName,        /* Cipher name */
   const char* paramName,         /* Parameter name */
   int         newValue           /* New value of the parameter */
 );
 ```
 
-The **wxSQLite3** encryption extension has global cipher parameter tables. However, on opening a SQLite database connection the connection gets a copy of the current state of the global parameter tables. This allows concurrent database connections to use and manipulate their own copy of the parameter tables independently.
+`wxsqlite3_config_cipher()` gets or sets encryption parameters which are relevant for a specific encryption cipher only. See the [`wxsqlite3_config()` function](#encryption_config) for details about the `db`, `paramName` and `newValue` parameters. See the related [cipher descriptions](#ciphers) for the parameter names supported for `paramName`.
 
-It is recommended to manipulate the global parameter tables only before opening any database connection.
+The following cipher names are supported for `cipherName`:
 
-The function `wxsqlite3_config` allows to configure global parameters. Currently the only supported parameter is the `cipher` parameter:
-
-| Parameter | Description |
-| :--- | :--- |
-| cipher | The cipher to be used for the next activation of database encryption.<br/>The new value has to be the **_Cipher ID_** or **_-1_** to query the current value of the parameter. |
-
-The function `wxsqlite3_config_cipher` allows to configure the parameters of a specific cipher using the cipher name and the name of the cipher parameter in question. The cipher name is not case-sensitive. A list of valid parameters is given in the related cipher description sections.
-
-| Cipher ID | Cipher name | Cipher description |
+| Cipher name | Refers to | Description |
 | :---: | :--- | :--- |
-| 1 | aes128cbc | [AES 128 Bit CBC - No HMAC (wxSQLite3)](#cipher_aes128cbc) |
-| 2 | aes256cbc | [AES 256 Bit CBC - No HMAC (wxSQLite3)](#cipher_aes256cbc) |
-| 3 | chacha20  | [ChaCha20 - Poly1305 HMAC (sqleet)](#cipher_chacha20) |
-| 4 | sqlcipher | [AES 256 Bit CBC - SHA1 HMAC (SQLCipher)](#cipher_sqlcipher) |
+| `"aes128cbc"` | `CODEC_TYPE_AES128` (Cipher ID 1) | [AES 128 Bit CBC - No HMAC (wxSQLite3)](#cipher_aes128cbc) |
+| `"aes256cbc"` | `CODEC_TYPE_AES256` (Cipher ID 2) | [AES 256 Bit CBC - No HMAC (wxSQLite3)](#cipher_aes256cbc) |
+| `"chacha20"`  | `CODEC_TYPE_CHACHA20` (Cipher ID 3) | [ChaCha20 - Poly1305 HMAC (sqleet)](#cipher_chacha20) |
+| `"sqlcipher"` | `CODEC_TYPE_SQLCIPHER` (Cipher ID 4) | [AES 256 Bit CBC - SHA1 HMAC (SQLCipher)](#cipher_sqlcipher) |
 
-To query a parameter value without changing it, the new value has to be **_-1_**.
+The return value always is the current parameter value on success, or **-1** on failure.
 
-The parameter names can have the following prefixes:
+**Example:**
 
-| Prefix | Description|
-| :--- | :--- |
-| default: | Set or query the default value of a parameter |
-| min: | Query the lower bound of the parameter value range.<br/>The new value is ignored. |
-| max: | Query the upper bound of the parameter value range.<br/>The new value is ignored. |
+```C
+/* Activate SQLCipher version 1 encryption scheme for the next key or rekey operation */
+wxsqlite3_config(db, "cipher", CODEC_TYPE_SQLCIPHER);
+wxsqlite3_config_cipher(db, "sqlcipher", "kdf_iter", 4000);
+wxsqlite3_config_cipher(db, "sqlcipher", "fast_kdf_iter", 2);
+wxsqlite3_config_cipher(db, "sqlcipher", "hmac_use", 0);
+wxsqlite3_config_cipher(db, "sqlcipher", "legacy", 1);
+wxsqlite3_config_cipher(db, "sqlcipher", "legacy_page_size", 1024);
+```
 
-For example, use parameter name **default:cipher** to set the cipher to be used for all subsequent encryption activations.
+### <a name="encryption_sql" />SQL interface
 
-Additionally, **wxSQLite3** defines a SQL function that can be used to set or query encryption parameters from SQL statements.
+**wxSQLite3** additionally defines the `wxsqlite3_config()` SQL function which can be used to get or set encryption parameters by using SQL queries.
 
 | SQL function | Description |
 | :--- | :--- |
-| wxsqlite3_config(**_globalParameter_**) | Query global parameter |
-| wxsqlite3_config(**_globalParameter_**, **_newValue_**) | Set new value for global parameter |
-| wxsqlite3_config(**_cipherName_**, **_cipherParameter_**) | Query cipher parameter |
-| wxsqlite3_config(**_cipherName_**, **_cipherParameter_**, **_newValue_**) | Set new value for cipher parameter |
+| `wxsqlite3_config(paramName TEXT)` | Get value of database encryption parameter `paramName` |
+| `wxsqlite3_config(paramName TEXT, newValue)` | Set value of database encryption parameter `paramName` to `newValue` |
+| `wxsqlite3_config(cipherName TEXT, paramName TEXT)` | Get value of cipher `cipherName` encryption parameter `paramName` |
+| `wxsqlite3_config(cipherName TEXT, paramName TEXT, newValue)` | Set value of cipher `cipherName` encryption parameter `paramName` to `newValue` |
 
-Again, the parameter names can have prefixes as listed above.
+**Note:** See the [`wxsqlite3_config_cipher()` function](#encryption_config_cipher) for the list of supported `cipherName`s.
 
-For querying and/or setting a parameter the following SQL syntax can be used:
+**Note:** The `paramName` can have a prefix. See the [`wxsqlite3_config()` function](#encryption_config) for details.
+
+**Examples:**
 
 ```SQL
-SELECT wxsqlite3_config("<cipherName>", "<paramName>");           -- Query parameter
-SELECT wxsqlite3_config("<cipherName>", "<paramName>", newValue); -- Set and query parameter
+-- Get cipher used for the next key or rekey operation
+SELECT wxsqlite3_config('cipher');
 ```
 
-Example 1:
 ```SQL
-SELECT wxsqlite3_config("aes256cbc", "kdf_iter", 54321); -- Set 54321 iterations for key derivation
+-- Set cipher used by default for all key and rekey operations
+SELECT wxsqlite3_config('default:cipher', 'sqlcipher');
 ```
 
-The syntax is very similar to a `PRAGMA` statement, but has the advantage that no changes to the SQLite amalgamation source code are necessary.
-
-Example 2:
 ```SQL
--- Activate SQLCipher version 1 encryption scheme
-SELECT wxsqlite3_config("cipher", "sqlcipher");
-SELECT wxsqlite3_config("sqlcipher", "kdf_iter", 4000);
-SELECT wxsqlite3_config("sqlcipher", "fast_kdf_iter", 2);
-SELECT wxsqlite3_config("sqlcipher", "hmac_use", 0);
-SELECT wxsqlite3_config("sqlcipher", "legacy", 1);
-SELECT wxsqlite3_config("sqlcipher", "legacy_page_size", 1024);
-PRAGMA key="<passphrase>";
+-- Get number of KDF iterations for the AES-256 cipher
+SELECT wxsqlite3_config('aes256cbc', 'kdf_iter');
 ```
 
-## <a name="backupapi" />SQLite3 backup API
+```SQL
+-- Set number of KDF iterations for the AES-256 cipher to 54321
+SELECT wxsqlite3_config('aes256cbc', 'kdf_iter', 54321);
+```
+
+```SQL
+-- Activate SQLCipher version 1 encryption scheme for the subsequent key PRAGMA
+SELECT wxsqlite3_config('cipher', 'sqlcipher');
+SELECT wxsqlite3_config('sqlcipher', 'kdf_iter', 4000);
+SELECT wxsqlite3_config('sqlcipher', 'fast_kdf_iter', 2);
+SELECT wxsqlite3_config('sqlcipher', 'hmac_use', 0);
+SELECT wxsqlite3_config('sqlcipher', 'legacy', 1);
+SELECT wxsqlite3_config('sqlcipher', 'legacy_page_size', 1024);
+PRAGMA key='<passphrase>';
+```
+
+## <a name="backupapi" />SQLite3 Backup API
 
 When using the SQLite3 backup API to create a backup copy of a SQLite database, the most common case is that source and target database use the same encryption cipher, if any. However, the **wxSQLite3** multi-cipher encryption extension allows to assign different ciphers to the source and target database.
 
