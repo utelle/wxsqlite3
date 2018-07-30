@@ -105,7 +105,8 @@ The following table lists all parameters related to this cipher that can be set 
 
 | Parameter | Default | Min | Max | Description |
 | :--- | :---: | :---: | :---: | :--- |
-| legacy | 0 | 0 | 1 | Boolean flag whether the legacy mode should be used |
+| `legacy` | 0 | 0 | 1 | Boolean flag whether the legacy mode should be used |
+| `legacy_page_size` | 0 | 0 | 65536 | Page size to use in legacy mode |
 
 **Note**: It is not recommended to use _legacy_ mode for encrypting new databases. It is supported for compatibility reasons only, so that databases that were encrypted in _legacy_ mode can be accessed.
 
@@ -123,8 +124,9 @@ The following table lists all parameters related to this cipher that can be set 
 
 | Parameter | Default | Min | Max | Description |
 | :--- | :---: | :---: | :---: | :--- |
-| kdf_iter | 4001 | 1 | | Number of iterations for the key derivation function
-| legacy | 0 | 0 | 1 | Boolean flag whether the legacy mode should be used |
+| `kdf_iter` | 4001 | 1 | | Number of iterations for the key derivation function
+| `legacy` | 0 | 0 | 1 | Boolean flag whether the legacy mode should be used |
+| `legacy_page_size` | 0 | 0 | 65536 | Page size to use in legacy mode |
 
 **Note**: It is not recommended to use _legacy_ mode for encrypting new databases. It is supported for compatibility reasons only, so that databases that were encrypted in _legacy_ mode can be accessed.
 
@@ -144,8 +146,9 @@ The following table lists all parameters related to this cipher that can be set 
 
 | Parameter | Default | sqleet | Min | Max | Description |
 | :--- | :---: | :---: | :---: | :---: | :--- |
-| kdf_iter | 64007 | 12345 | 1 | | Number of iterations for the key derivation function |
-| legacy | 0 | 1 | 0 | 1 | Boolean flag whether the legacy mode should be used. |
+| `kdf_iter` | 64007 | 12345 | 1 | | Number of iterations for the key derivation function |
+| `legacy` | 0 | 1 | 0 | 1 | Boolean flag whether the legacy mode should be used |
+| `legacy_page_size` | 4096 | 4096 | 0 | 65536 | Page size to use in legacy mode |
 
 **Note**: It is not recommended to use _legacy_ mode for encrypting new databases. It is supported for compatibility reasons only, so that databases that were encrypted in _legacy_ mode can be accessed.
 
@@ -161,37 +164,35 @@ The following table lists all parameters related to this cipher that can be set 
 
 | Parameter | Default | v3 | v2 | v1 | Min | Max | Description |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| kdf_iter | 64000 | 64000 | 4000 | 4000 | 1 | | Number of iterations for key derivation |
-| fast_kdf_iter | 2 | 2 | 2 | 2 | 1 | | Number of iterations for HMAC key derivation |
-| hmac_use | 1 | 1 | 1 | 0 | 0 | 1 | Flag whether a HMAC should be used |
-| hmac_pgno | 1 | 1 | 1 | n/a | 0 | 2 | Storage type for page number in HMAC:<br/>0 = native, 1 = little endian, 2 = big endian|
-| hmac_salt_mask | 0x3a | 0x3a | 0x3a | n/a | 0 | 255 | Mask byte for HMAC salt |
-| legacy | 0 | 1 | 1 | 1 | 0 | 1 | Boolean flag whether the legacy mode should be used |
+| `kdf_iter` | 64000 | 64000 | 4000 | 4000 | 1 | | Number of iterations for key derivation |
+| `fast_kdf_iter` | 2 | 2 | 2 | 2 | 1 | | Number of iterations for HMAC key derivation |
+| `hmac_use` | 1 | 1 | 1 | 0 | 0 | 1 | Flag whether a HMAC should be used |
+| `hmac_pgno` | 1 | 1 | 1 | n/a | 0 | 2 | Storage type for page number in HMAC:<br/>0 = native, 1 = little endian, 2 = big endian|
+| `hmac_salt_mask` | 0x3a | 0x3a | 0x3a | n/a | 0 | 255 | Mask byte for HMAC salt |
+| `legacy` | 0 | 1 | 1 | 1 | 0 | 1 | Boolean flag whether the legacy mode should be used |
+| `legacy_page_size` | 1024 | 1024 | 1024 | 1024 | 0 | 65536 | Page size to use in legacy mode |
 
 **Note**: It is not recommended to use _legacy_ mode for encrypting new databases. It is supported for compatibility reasons only, so that databases that were encrypted in _legacy_ mode can be accessed.
 
 ## <a name="legacy" /> Legacy cipher modes
 
-All supported encryption ciphers have a **legacy** mode. In this mode the bytes 16 through 23 of the database header are encrypted, too. This is in conflict with the description of the official  [SQLite Encryption Extension (SEE)](https://www.sqlite.org/see), stating that bytes 16 through 23 of the database file contain header information which is not encrypted. This is important, because these bytes are read and interpreted by the SQLite code before any encryption extension gets the chance to decrypt the database header.
+Since version 3.1.0, wxSQLite3 won't encrypt bytes 16 through 23 of the [database header](https://www.sqlite.org/fileformat.html#the_database_header) unless the `legacy` parameter is explicitly set. In legacy mode the database header is fully encrypted, which is a problem because it usually prevents SQLite from correctly determining the database page size. The official [SQLite Encryption Extension (SEE)](https://www.sqlite.org/see) implementation doesn't encrypt these header bytes as well.
 
-If bytes 16 through 23 of the database header are encrypted, SQLite is usually not able to determine the page size of the database file correctly. Therefore either the encryption extension itself or the user has to explicitly set the correct page size. If this is not done, SQLite might fail to access the encrypted database.
+When using the ciphers **sqleet** (ChaCha20) or **SQLCipher**, this means that the databases written by wxSQLite3 won't be compatible with the original ciphers provided by [sqleet](https://github.com/resilar/sqleet) and [SQLCipher (Zetetic LLC)](http://zetetic.net) unless the `legacy` parameter is explicitly set. This is because the original implementations don't offer the option to leave the mentioned header bytes unencrypted (although this is probably about to change at least for a future release of **SQLCipher**).
 
-Starting with the release of wxSQLite3 version 3.1.0 the code of the encryption extension for both wxSQLite3 ciphers (AES 128 Bit and AES 256 Bit) has been adjusted to fix potential problem resulting from encrypting bytes 16 through 23 of the database header, although chances were low that users of the prior versions of the encryption extension experienced problems, namely at most 1 out of 8192 cases.
+If a database is encrypted in legacy mode, then the `legacy` parameter *must* be set to **_true_** and the `legacy_page_size` parameter *should* be set to the correct page size. If this isn't done, wxSQLite3 might fail to access the database.
 
-The good news for users of prior versions of the wxSQLite3 ciphers is that the new version transparently converts existing encrypted databases to the new format. However, this is a one-way process, that is, once converted a database file can't be handled anymore by prior versions of the encryption extension. Instead, one will get the error message "not a database file or encrypted".
+When accessing a database encrypted with wxSQLite3 ciphers **AES-128** or **AES-256** in legacy format, then wxSQLite3 transparently converts the database into the new format unless the `legacy` parameter is explicitly set. Note that wxSQLite3 versions prior 3.1.0 won't be able to access non-legacy database files and will report the error message "not a database file or encrypted" instead.
 
-For the ciphers **sqleet** (ChaCha20) and **SQLCipher** the wxSQLite3 encryption extension offers variants that respect the SQLite requirements and do not encrypt the database header bytes 16 to 23. However, the resulting databases are not compatible with the original ciphers provided by [sqleet](https://github.com/resilar/sqleet) resp [SQLCipher (Zetetic LLC)](http://zetetic.net).
+It is strongly recommended to use the new encryption scheme, since it provides better compatibility with SQLite.
 
-It is strongly recommended that the new encryption scheme is used, since it provides better compatibility with SQLite. However, if you need at all costs for some reason the old behaviour, you can activate it by defining the following preprocessor symbol:
+If you need at all costs for some reason the old behaviour, you can activate it by defining the following preprocessor symbol before building wxSQLite3:
 
 ```C
 #define WXSQLITE3_USE_OLD_ENCRYPTION_SCHEME
 ```
-This sets the default value of the **legacy** parameter of the wxSQLite3 ciphers to **_true_**. However, the values of all parameters can be temporarily or permanently overwritten.
 
-For the **sqleet** and **SQLCipher** ciphers the situation is a bit different. Their original implementations do not offer the option to leave bytes 16 through 23 of the database header unencrypted (although this is probably about to change at least for a future release of **SQLCipher**). Therefore the implementation of these ciphers in the **wxSQLite3** encryption extension includes a mode where bytes 16 through 23 of the database header are not encrypted.
-
-If it is required to access legacy **sqleet** or **SQLCipher** databases this is possible by setting the value of the **legacy** parameter to **_true_**. Additionally, it might be required to explicitly set the page size.
+This sets the default values of the `legacy` parameters for all wxSQLite3 ciphers to **_true_**. However, note that the parameter values can be overwritten at runtime with [`wxsqlite3_config_cipher()`](#encryption_config_cipher).
 
 ## <a name="encryptionapi" />Encryption API
 
@@ -272,16 +273,16 @@ Parameter names use the following prefixes:
 
 | Prefix | Description|
 | :--- | :--- |
-| `<no prefix>` | Get or set the *transient* parameter value. Transient values are only used **once** for the next call to `sqlite3_key()` or `sqlite3_rekey()`. Afterwards, the *permanent* default values will be used again (see below). |
-| `"default:"` | Get or set the *permanent* default parameter value. Permanent values will be used during the entire lifetime of the `db` database instance, unless explicitly overridden by a transient value. The initial values for the permanent default values are the compile-time default values. |
-| `"min:"` | Get the lower bound of the valid parameter value range. This is read-only. |
-| `"max:"` | Get the upper bound of the valid parameter value range. This is read-only. |
+| *<no prefix>* | Get or set the *transient* parameter value. Transient values are only used **once** for the next call to `sqlite3_key()` or `sqlite3_rekey()`. Afterwards, the *permanent* default values will be used again (see below). |
+| `default:` | Get or set the *permanent* default parameter value. Permanent values will be used during the entire lifetime of the `db` database instance, unless explicitly overridden by a transient value. The initial values for the permanent default values are the compile-time default values. |
+| `min:` | Get the lower bound of the valid parameter value range. This is read-only. |
+| `max:` | Get the upper bound of the valid parameter value range. This is read-only. |
 
 The following parameter names are supported for `paramName`:
 
 | Parameter name | Description | Possible values |
 | :--- | :--- | :--- |
-| `"cipher"` | The cipher to be used for encrypting the database. | `CODEC_TYPE_AES128` (Cipher ID 1)<br/>`CODEC_TYPE_AES256` (Cipher ID 2)<br/>`CODEC_TYPE_CHACHA20` (Cipher ID 3)<br/>`CODEC_TYPE_SQLCIPHER` (Cipher ID 4) |
+| `cipher` | The cipher to be used for encrypting the database. | `CODEC_TYPE_AES128` (Cipher ID 1)<br/>`CODEC_TYPE_AES256` (Cipher ID 2)<br/>`CODEC_TYPE_CHACHA20` (Cipher ID 3)<br/>`CODEC_TYPE_SQLCIPHER` (Cipher ID 4) |
 
 The return value always is the current parameter value on success, or **-1** on failure.
 
@@ -318,11 +319,11 @@ SQLITE_API int wxsqlite3_config_cipher(
 The following cipher names are supported for `cipherName`:
 
 | Cipher name | Refers to | Description |
-| :---: | :--- | :--- |
-| `"aes128cbc"` | `CODEC_TYPE_AES128` (Cipher ID 1) | [AES 128 Bit CBC - No HMAC (wxSQLite3)](#cipher_aes128cbc) |
-| `"aes256cbc"` | `CODEC_TYPE_AES256` (Cipher ID 2) | [AES 256 Bit CBC - No HMAC (wxSQLite3)](#cipher_aes256cbc) |
-| `"chacha20"`  | `CODEC_TYPE_CHACHA20` (Cipher ID 3) | [ChaCha20 - Poly1305 HMAC (sqleet)](#cipher_chacha20) |
-| `"sqlcipher"` | `CODEC_TYPE_SQLCIPHER` (Cipher ID 4) | [AES 256 Bit CBC - SHA1 HMAC (SQLCipher)](#cipher_sqlcipher) |
+| :--- | :--- | :--- |
+| `aes128cbc` | `CODEC_TYPE_AES128` (Cipher ID 1) | [AES 128 Bit CBC - No HMAC (wxSQLite3)](#cipher_aes128cbc) |
+| `aes256cbc` | `CODEC_TYPE_AES256` (Cipher ID 2) | [AES 256 Bit CBC - No HMAC (wxSQLite3)](#cipher_aes256cbc) |
+| `chacha20`  | `CODEC_TYPE_CHACHA20` (Cipher ID 3) | [ChaCha20 - Poly1305 HMAC (sqleet)](#cipher_chacha20) |
+| `sqlcipher` | `CODEC_TYPE_SQLCIPHER` (Cipher ID 4) | [AES 256 Bit CBC - SHA1 HMAC (SQLCipher)](#cipher_sqlcipher) |
 
 The return value always is the current parameter value on success, or **-1** on failure.
 
