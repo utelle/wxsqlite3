@@ -273,7 +273,7 @@ Parameter names use the following prefixes:
 
 | Prefix | Description|
 | :--- | :--- |
-| *<no prefix>* | Get or set the *transient* parameter value. Transient values are only used **once** for the next call to `sqlite3_key()` or `sqlite3_rekey()`. Afterwards, the *permanent* default values will be used again (see below). |
+| *no prefix* | Get or set the *transient* parameter value. Transient values are only used **once** for the next call to `sqlite3_key()` or `sqlite3_rekey()`. Afterwards, the *permanent* default values will be used again (see below). |
 | `default:` | Get or set the *permanent* default parameter value. Permanent values will be used during the entire lifetime of the `db` database instance, unless explicitly overridden by a transient value. The initial values for the permanent default values are the compile-time default values. |
 | `min:` | Get the lower bound of the valid parameter value range. This is read-only. |
 | `max:` | Get the upper bound of the valid parameter value range. This is read-only. |
