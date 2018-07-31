@@ -106,7 +106,7 @@ The following table lists all parameters related to this cipher that can be set 
 | Parameter | Default | Min | Max | Description |
 | :--- | :---: | :---: | :---: | :--- |
 | `legacy` | 0 | 0 | 1 | Boolean flag whether the legacy mode should be used |
-| `legacy_page_size` | 0 | 0 | 65536 | Page size to use in legacy mode |
+| `legacy_page_size` | 0 | 0 | 65536 | Page size to use in legacy mode, 0 = default SQLite page size |
 
 **Note**: It is not recommended to use _legacy_ mode for encrypting new databases. It is supported for compatibility reasons only, so that databases that were encrypted in _legacy_ mode can be accessed.
 
@@ -126,7 +126,7 @@ The following table lists all parameters related to this cipher that can be set 
 | :--- | :---: | :---: | :---: | :--- |
 | `kdf_iter` | 4001 | 1 | | Number of iterations for the key derivation function
 | `legacy` | 0 | 0 | 1 | Boolean flag whether the legacy mode should be used |
-| `legacy_page_size` | 0 | 0 | 65536 | Page size to use in legacy mode |
+| `legacy_page_size` | 0 | 0 | 65536 | Page size to use in legacy mode, 0 = default SQLite page size |
 
 **Note**: It is not recommended to use _legacy_ mode for encrypting new databases. It is supported for compatibility reasons only, so that databases that were encrypted in _legacy_ mode can be accessed.
 
@@ -148,7 +148,7 @@ The following table lists all parameters related to this cipher that can be set 
 | :--- | :---: | :---: | :---: | :---: | :--- |
 | `kdf_iter` | 64007 | 12345 | 1 | | Number of iterations for the key derivation function |
 | `legacy` | 0 | 1 | 0 | 1 | Boolean flag whether the legacy mode should be used |
-| `legacy_page_size` | 4096 | 4096 | 0 | 65536 | Page size to use in legacy mode |
+| `legacy_page_size` | 4096 | 4096 | 0 | 65536 | Page size to use in legacy mode, 0 = default SQLite page size |
 
 **Note**: It is not recommended to use _legacy_ mode for encrypting new databases. It is supported for compatibility reasons only, so that databases that were encrypted in _legacy_ mode can be accessed.
 
@@ -170,7 +170,7 @@ The following table lists all parameters related to this cipher that can be set 
 | `hmac_pgno` | 1 | 1 | 1 | n/a | 0 | 2 | Storage type for page number in HMAC:<br/>0 = native, 1 = little endian, 2 = big endian|
 | `hmac_salt_mask` | 0x3a | 0x3a | 0x3a | n/a | 0 | 255 | Mask byte for HMAC salt |
 | `legacy` | 0 | 1 | 1 | 1 | 0 | 1 | Boolean flag whether the legacy mode should be used |
-| `legacy_page_size` | 1024 | 1024 | 1024 | 1024 | 0 | 65536 | Page size to use in legacy mode |
+| `legacy_page_size` | 1024 | 1024 | 1024 | 1024 | 0 | 65536 | Page size to use in legacy mode, 0 = default SQLite page size |
 
 **Note**: It is not recommended to use _legacy_ mode for encrypting new databases. It is supported for compatibility reasons only, so that databases that were encrypted in _legacy_ mode can be accessed.
 
@@ -178,21 +178,21 @@ The following table lists all parameters related to this cipher that can be set 
 
 Since version 3.1.0, wxSQLite3 won't encrypt bytes 16 through 23 of the [database header](https://www.sqlite.org/fileformat.html#the_database_header) unless the `legacy` parameter is explicitly set. In legacy mode the database header is fully encrypted, which is a problem because it usually prevents SQLite from correctly determining the database page size. The official [SQLite Encryption Extension (SEE)](https://www.sqlite.org/see) implementation doesn't encrypt these header bytes as well.
 
-When using the ciphers **sqleet** (ChaCha20) or **SQLCipher**, this means that the databases written by wxSQLite3 won't be compatible with the original ciphers provided by [sqleet](https://github.com/resilar/sqleet) and [SQLCipher (Zetetic LLC)](http://zetetic.net) unless the `legacy` parameter is explicitly set. This is because the original implementations don't offer the option to leave the mentioned header bytes unencrypted (although this is probably about to change at least for a future release of **SQLCipher**).
+When using the ciphers **sqleet** (ChaCha20) or **SQLCipher**, this means that the databases written by wxSQLite3 won't be compatible with the original ciphers provided by [sqleet](https://github.com/resilar/sqleet) and [SQLCipher (Zetetic LLC)](http://zetetic.net) unless the `legacy` parameter is explicitly set. This is because the original implementations fully encrypt the database header by default. (Note that **sqleet** can also be compiled in non-legacy mode, and future releases of **SQLCipher** will probably provide this option as well.)
 
-If a database is encrypted in legacy mode, then the `legacy` parameter *must* be set to **_true_** and the `legacy_page_size` parameter *should* be set to the correct page size. If this isn't done, wxSQLite3 might fail to access the database.
+If a database is encrypted in legacy mode, then the `legacy` parameter *must* be set to **_true_** and the `legacy_page_size` parameter *should* be set to the correct page size. If this isn't done, wxSQLite3 might fail to access the database. Use [`wxsqlite3_config_cipher()`](#encryption_config_cipher) to set these parameters.
 
-When accessing a database encrypted with wxSQLite3 ciphers **AES-128** or **AES-256** in legacy format, then wxSQLite3 transparently converts the database into the new format unless the `legacy` parameter is explicitly set. Note that wxSQLite3 versions prior 3.1.0 won't be able to access non-legacy database files and will report the error message "not a database file or encrypted" instead.
+When accessing a database encrypted with wxSQLite3 ciphers **AES-128** or **AES-256** in legacy format, then wxSQLite3 transparently converts the database into the new format unless the `legacy` parameter is explicitly set. Note that wxSQLite3 versions prior to 3.1.0 won't be able to access non-legacy database files and will report the error message "not a database file or encrypted" instead.
 
-It is strongly recommended to use the new encryption scheme, since it provides better compatibility with SQLite.
+It's strongly recommended to use the new encryption scheme, since it provides better compatibility with SQLite. The unencrypted header bytes don't reveal any sensitive information. Note, however, that it will actually be possible to recognize encrypted SQLite database files as such. This isn't usually a problem since the purpose of a specific file can almost always be deduced from context anyway.
 
-If you need at all costs for some reason the old behaviour, you can activate it by defining the following preprocessor symbol before building wxSQLite3:
+It's also possible to activate the legacy mode at compile time by defining the following preprocessor symbols:
 
-```C
-#define WXSQLITE3_USE_OLD_ENCRYPTION_SCHEME
-```
-
-This sets the default values of the `legacy` parameters for all wxSQLite3 ciphers to **_true_**. However, note that the parameter values can be overwritten at runtime with [`wxsqlite3_config_cipher()`](#encryption_config_cipher).
+| Preprocessor symbol | Description |
+| :--- | :--- |
+| `WXSQLITE3_USE_OLD_ENCRYPTION_SCHEME` | Enable legacy mode for wxSQLite3 ciphers **AES-128** and **AES-256** |
+| `WXSQLITE3_USE_SQLEET_LEGACY` | Enable legacy mode for **sqleet** (ChaCha20) cipher |
+| `WXSQLITE3_USE_SQLCIPHER_LEGACY` | Enable legacy mode for **SQLCipher** cipher |
 
 ## <a name="encryptionapi" />Encryption API
 
