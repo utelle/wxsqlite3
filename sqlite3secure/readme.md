@@ -176,7 +176,9 @@ The following table lists all parameters related to this cipher that can be set 
 
 ## <a name="legacy" /> Legacy cipher modes
 
-Since version 3.1.0, wxSQLite3 won't encrypt bytes 16 through 23 of the [database header](https://www.sqlite.org/fileformat.html#the_database_header) unless the `legacy` parameter is explicitly set. In legacy mode the database header is fully encrypted, which is a problem because it usually prevents SQLite from correctly determining the database page size. The official [SQLite Encryption Extension (SEE)](https://www.sqlite.org/see) implementation doesn't encrypt these header bytes as well.
+SQLite reads bytes 16 through 23 from the [database header](https://www.sqlite.org/fileformat.html#the_database_header) before the database file is actually opened. The main purpose of this is to detect the page size and the number of reserved bytes per page. Legacy ciphers used to encrypt these header bytes as well, but this may prevent SQLite from successfully opening the database file.
+
+The official [SQLite Encryption Extension (SEE)](https://www.sqlite.org/see) leaves these header bytes unencrypted for this reason. Since version 3.1.0, wxSQLite3 also doesn't encrypt these header bytes unless the `legacy` parameter is explicitly set.
 
 When using the ciphers **sqleet** (ChaCha20) or **SQLCipher**, this means that the databases written by wxSQLite3 won't be compatible with the original ciphers provided by [sqleet](https://github.com/resilar/sqleet) and [SQLCipher (Zetetic LLC)](http://zetetic.net) unless the `legacy` parameter is explicitly set. This is because the original implementations fully encrypt the database header by default. (Note that **sqleet** can also be compiled in non-legacy mode, and future releases of **SQLCipher** will probably provide this option as well.)
 
