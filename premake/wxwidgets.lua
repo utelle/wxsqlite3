@@ -239,7 +239,7 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
             end
             links { "wxregex" .. "$(wxSuffix)" }
           end
-          links { "comctl32", "rpcrt4", "shell32", "gdi32", "kernel32", "user32", "comdlg32", "ole32", "oleaut32", "advapi32", "oleacc", "winspool", "winmm", "shlwapi", "uuid", "version", "wsock32", "wininet" }
+          links { "comctl32", "rpcrt4", "shell32", "gdi32", "kernel32", "user32", "comdlg32", "ole32", "oleaut32", "advapi32", "oleacc", "winspool", "winmm", "shlwapi", "uuid", "version", "wsock32", "wininet", "uxtheme" }
         elseif (not is_msvc) then
           libVersion = string.gsub(wxVersion, '%.', '') -- remove dot from version
           for i, lib in ipairs(string.explode(wxLibs, ",")) do
@@ -255,7 +255,7 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
               links { lib..wxDebugSuffix }
           end
           links { "wxregex" .. wxBuildType }
-          links { "comctl32", "rpcrt4", "shell32", "gdi32", "kernel32", "user32", "comdlg32", "ole32", "oleaut32", "advapi32", "oleacc", "winspool", "winmm", "shlwapi", "uuid", "version", "wsock32", "wininet" }
+          links { "comctl32", "rpcrt4", "shell32", "gdi32", "kernel32", "user32", "comdlg32", "ole32", "oleaut32", "advapi32", "oleacc", "winspool", "winmm", "shlwapi", "uuid", "version", "wsock32", "wininet", "uxtheme" }
         end
     end
  
