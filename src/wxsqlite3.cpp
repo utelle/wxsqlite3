@@ -3961,6 +3961,30 @@ bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, w
   return rc == SQLITE_OK;
 }
 
+bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, wxSQLite3WindowFunction& function, bool isDeterministic)
+{
+#if SQLITE_VERSION_NUMBER >= 3025000
+  CheckDatabase();
+  wxCharBuffer strFuncName = funcName.ToUTF8();
+  const char* localFuncName = strFuncName;
+  int flags = SQLITE_UTF8;
+  if (isDeterministic)
+  {
+    flags |= SQLITE_DETERMINISTIC;
+  }
+  int rc = sqlite3_create_window_function(m_db->m_db, localFuncName, argCount,
+                                          flags, &function,
+                                          (void(*)(sqlite3_context*, int, sqlite3_value**)) wxSQLite3FunctionContext::ExecWindowStep,
+                                          (void(*)(sqlite3_context*)) wxSQLite3FunctionContext::ExecWindowFinalize,
+                                          (void(*)(sqlite3_context*)) wxSQLite3FunctionContext::ExecWindowValue,
+                                          (void(*)(sqlite3_context*, int, sqlite3_value**)) wxSQLite3FunctionContext::ExecWindowInverse,
+                                          NULL);
+  return rc == SQLITE_OK;
+#else
+  return false;
+#endif
+}
+
 bool wxSQLite3Database::SetAuthorizer(wxSQLite3Authorizer& authorizer)
 {
   CheckDatabase();
@@ -4870,6 +4894,44 @@ void wxSQLite3FunctionContext::ExecAggregateFinalize(void* ctx)
   wxSQLite3AggregateFunction* func = (wxSQLite3AggregateFunction*) sqlite3_user_data((sqlite3_context*) ctx);
   context.m_count = func->m_count;
   func->Finalize(context);
+}
+
+/* static */
+void wxSQLite3FunctionContext::ExecWindowStep(void* ctx, int argc, void** argv)
+{
+  wxSQLite3FunctionContext context(ctx, true, argc, argv);
+  wxSQLite3WindowFunction* func = (wxSQLite3WindowFunction*) sqlite3_user_data((sqlite3_context*) ctx);
+  func->m_count++;
+  context.m_count = func->m_count;
+  func->Aggregate(context);
+}
+
+/* static */
+void wxSQLite3FunctionContext::ExecWindowFinalize(void* ctx)
+{
+  wxSQLite3FunctionContext context(ctx, true, 0, NULL);
+  wxSQLite3WindowFunction* func = (wxSQLite3WindowFunction*) sqlite3_user_data((sqlite3_context*) ctx);
+  context.m_count = func->m_count;
+  func->Finalize(context);
+}
+
+/* static */
+void wxSQLite3FunctionContext::ExecWindowValue(void* ctx)
+{
+  wxSQLite3FunctionContext context(ctx, true, 0, NULL);
+  wxSQLite3WindowFunction* func = (wxSQLite3WindowFunction*) sqlite3_user_data((sqlite3_context*) ctx);
+  context.m_count = func->m_count;
+  func->CurrentValue(context);
+}
+
+/* static */
+void wxSQLite3FunctionContext::ExecWindowInverse(void* ctx, int argc, void** argv)
+{
+  wxSQLite3FunctionContext context(ctx, true, argc, argv);
+  wxSQLite3WindowFunction* func = (wxSQLite3WindowFunction*) sqlite3_user_data((sqlite3_context*) ctx);
+  func->m_count--;
+  context.m_count = func->m_count;
+  func->Reverse(context);
 }
 
 // 

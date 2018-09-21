@@ -40,6 +40,9 @@ void sqlite3CodecSizeChange(void *pArg, int pageSize, int reservedSize)
   Codec* pCodec = (Codec*) pArg;
   pCodec->m_pageSize = pageSize;
   pCodec->m_reserved = reservedSize;
+#if 0
+  fprintf(stdout, "sqlite3CodecSizeChange c=0x%08x p=%d, r=%d\n", (unsigned int) pArg, pageSize, reservedSize);
+#endif
 }
 
 static void reportCodecError(Btree* pBt, int error)
@@ -178,7 +181,7 @@ int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
         if (rc == SQLITE_OK)
         {
           CodecSetBtree(codec, db->aDb[nDb].pBt);
-          mySqlite3AdjustBtree(db->aDb[nDb].pBt, CodecGetPageSizeReadCipher(codec), CodecGetReservedReadCipher(codec), CodecGetLegacyReadCipher(codec));
+          mySqlite3AdjustBtree(db->aDb[nDb].pBt, CodecGetPageSizeWriteCipher(codec), CodecGetReservedWriteCipher(codec), CodecGetLegacyWriteCipher(codec));
 #if (SQLITE_VERSION_NUMBER >= 3006016)
           mySqlite3PagerSetCodec(sqlite3BtreePager(db->aDb[nDb].pBt), sqlite3Codec, sqlite3CodecSizeChange, sqlite3CodecFree, codec);
 #else
@@ -216,7 +219,7 @@ int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
     rc = CodecSetup(codec, GetCipherType(db), (char*) zKey, nKey);
     if (rc == SQLITE_OK)
     {
-      mySqlite3AdjustBtree(db->aDb[nDb].pBt, CodecGetPageSizeReadCipher(codec), CodecGetReservedReadCipher(codec), CodecGetLegacyReadCipher(codec));
+      mySqlite3AdjustBtree(db->aDb[nDb].pBt, CodecGetPageSizeWriteCipher(codec), CodecGetReservedWriteCipher(codec), CodecGetLegacyWriteCipher(codec));
 #if (SQLITE_VERSION_NUMBER >= 3006016)
       mySqlite3PagerSetCodec(sqlite3BtreePager(db->aDb[nDb].pBt), sqlite3Codec, sqlite3CodecSizeChange, sqlite3CodecFree, codec);
 #else
@@ -305,6 +308,7 @@ int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKe
   int dbIndex = dbFindIndex(db, zDbName);
   int rc = SQLITE_ERROR;
   Btree* pBt = db->aDb[dbIndex].pBt;
+  int nPagesize = sqlite3BtreeGetPageSize(pBt);
   int nReserved;
   Pager* pPager;
   Codec* codec;
@@ -340,27 +344,38 @@ int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKe
     }
     if (rc == SQLITE_OK)
     {
-      int nReservedWriteCipher;
-
-      CodecSetHasReadCipher(codec, 0); /* Original database is not encrypted */
-      mySqlite3AdjustBtree(pBt, CodecGetPageSizeWriteCipher(codec), CodecGetReservedWriteCipher(codec), CodecGetLegacyWriteCipher(codec));
+      int nPagesizeWriteCipher = CodecGetPageSizeWriteCipher(codec);
+      if (nPagesizeWriteCipher <= 0 || nPagesize == nPagesizeWriteCipher)
+      {
+        int nReservedWriteCipher;
+        CodecSetHasReadCipher(codec, 0); /* Original database is not encrypted */
+        mySqlite3AdjustBtree(pBt, CodecGetPageSizeWriteCipher(codec), CodecGetReservedWriteCipher(codec), CodecGetLegacyWriteCipher(codec));
 #if (SQLITE_VERSION_NUMBER >= 3006016)
-      mySqlite3PagerSetCodec(pPager, sqlite3Codec, sqlite3CodecSizeChange, sqlite3CodecFree, codec);
+        mySqlite3PagerSetCodec(pPager, sqlite3Codec, sqlite3CodecSizeChange, sqlite3CodecFree, codec);
 #else
 #if (SQLITE_VERSION_NUMBER >= 3003014)
-      sqlite3PagerSetCodec(pPager, sqlite3Codec, codec);
+        sqlite3PagerSetCodec(pPager, sqlite3Codec, codec);
 #else
-      sqlite3pager_set_codec(pPager, sqlite3Codec, codec);
+        sqlite3pager_set_codec(pPager, sqlite3Codec, codec);
 #endif
-      db->aDb[dbIndex].pAux = codec;
-      db->aDb[dbIndex].xFreeAux = sqlite3CodecFree;
+        db->aDb[dbIndex].pAux = codec;
+        db->aDb[dbIndex].xFreeAux = sqlite3CodecFree;
 #endif
-      nReservedWriteCipher = CodecGetReservedWriteCipher(codec);
-      if (nReserved != nReservedWriteCipher)
+        nReservedWriteCipher = CodecGetReservedWriteCipher(codec);
+        if (nReserved != nReservedWriteCipher)
+        {
+          /* Use VACUUM to change the number of reserved bytes */
+          char* err;
+          CodecSetReadReserved(codec, nReserved);
+          CodecSetWriteReserved(codec, nReservedWriteCipher);
+          rc = sqlite3RunVacuumForRekey(&err, db, dbIndex, nReservedWriteCipher);
+          goto leave_rekey;
+        }
+      }
+      else
       {
-        /* Use VACUUM to change the number of reserved bytes */
-        char* err;
-        rc = sqlite3RunVacuumForRekey(&err, db, dbIndex, nReservedWriteCipher);
+        /* Pagesize cannot be changed for an encrypted database */
+        rc = SQLITE_ERROR;
         goto leave_rekey;
       }
     }
@@ -378,6 +393,8 @@ int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKe
     {
       /* Use VACUUM to change the number of reserved bytes */
       char* err;
+      CodecSetReadReserved(codec, nReserved);
+      CodecSetWriteReserved(codec, 0);
       rc = sqlite3RunVacuumForRekey(&err, db, dbIndex, 0);
       goto leave_rekey;
     }
@@ -389,23 +406,40 @@ int sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKe
     rc = CodecSetupWriteCipher(codec, GetCipherType(db), (char*) zKey, nKey);
     if (rc == SQLITE_OK)
     {
-      int nReservedWriteCipher = CodecGetReservedWriteCipher(codec);
-      if (nReserved != nReservedWriteCipher)
+      int nPagesizeWriteCipher = CodecGetPageSizeWriteCipher(codec);
+      if (nPagesizeWriteCipher <= 0 || nPagesize == nPagesizeWriteCipher)
       {
-        /* Use VACUUM to change the number of reserved bytes */
-        char* err;
-        rc = sqlite3RunVacuumForRekey(&err, db, dbIndex, nReservedWriteCipher);
+        int nReservedWriteCipher = CodecGetReservedWriteCipher(codec);
+        if (nReserved != nReservedWriteCipher)
+        {
+          /* Use VACUUM to change the number of reserved bytes */
+          char* err;
+          CodecSetReadReserved(codec, nReserved);
+          CodecSetWriteReserved(codec, nReservedWriteCipher);
+          rc = sqlite3RunVacuumForRekey(&err, db, dbIndex, nReservedWriteCipher);
+          goto leave_rekey;
+        }
+      }
+      else
+      {
+        /* Pagesize cannot be changed for an encrypted database */
+        rc = SQLITE_ERROR;
         goto leave_rekey;
       }
     }
     else
     {
+      /* Setup of write cipher failed */
       goto leave_rekey;
     }
   }
 
   /* Start transaction */
+#if (SQLITE_VERSION_NUMBER >= 3025000)
+  rc = sqlite3BtreeBeginTrans(pBt, 1, 0);
+#else
   rc = sqlite3BtreeBeginTrans(pBt, 1);
+#endif
   if (!rc)
   {
     int pageSize = sqlite3BtreeGetPageSize(pBt);
@@ -503,6 +537,9 @@ leave_rekey:
       CodecSetIsEncrypted(codec, 0);
     }
   }
+  /* Reset reserved for read and write key */
+  CodecSetReadReserved(codec, -1);
+  CodecSetWriteReserved(codec, -1);
 
   if (!CodecIsEncrypted(codec))
   {

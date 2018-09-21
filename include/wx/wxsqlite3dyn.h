@@ -83,6 +83,9 @@ DYNFUNC(return, int,                   sqlite3_create_function,       (sqlite3 *
 #if SQLITE_VERSION_NUMBER >= 3007003
 DYNFUNC(return, int,                   sqlite3_create_function_v2,    (sqlite3 *db, const char *zFunctionName, int nArg, int eTextRep, void *pApp, void (*xFunc)(sqlite3_context*,int,sqlite3_value**), void (*xStep)(sqlite3_context*,int,sqlite3_value**), void (*xFinal)(sqlite3_context*), void(*xDestroy)(void*)), (db, zFunctionName, nArg, eTextRep, pApp, xFunc, xStep, xFinal, xDestroy));
 #endif
+#if SQLITE_VERSION_NUMBER >= 3025000
+DYNFUNC(return, int,                   sqlite3_create_window_function, (sqlite3 *db, const char *zFunctionName, int nArg, int eTextRep, void *pApp, void (*xStep)(sqlite3_context*,int,sqlite3_value**), void (*xFinal)(sqlite3_context*), void (*xValue)(sqlite3_context*), void (*xInverse)(sqlite3_context*,int,sqlite3_value**), void (*xDestroy)(void*)), (db, zFunctionName, nArg, eTextRep, pApp, xStep, xFinal, xValue, xInverse, xDestroy));
+#endif
 #if SQLITE_VERSION_NUMBER >= 3004001
 DYNFUNC(return, int,                   sqlite3_create_module,         (sqlite3 *db, const char *zName, const sqlite3_module *p, void *pClientData), (db, zName, p, pClientData));
 DYNFUNC(return, int,                   sqlite3_create_module_v2,      (sqlite3 *db, const char *zName, const sqlite3_module *p, void *pClientData, void(*xDestroy)(void*)), (db, zName, p, pClientData, xDestroy));

@@ -44,6 +44,13 @@
 
 <dl>
 
+<dt><b>4.1.0</b> - <i>September 2018</i></dt>
+<dd>
+Upgrade to SQLite version 3.25.1<br>
+Added support for SQL window functions<br>
+Adjusted encryption extension to check for matching page sizes on rekeying a database<br>
+
+</dd>
 <dt><b>4.0.4</b> - <i>June 2018</i></dt>
 <dd>
 Upgrade to SQLite version 3.24.0<br>

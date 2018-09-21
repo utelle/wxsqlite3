@@ -1945,23 +1945,6 @@ GetCipherType(sqlite3* db)
 {
   CodecParameter* codecParams = (db != NULL) ? GetCodecParams(db) : codecParameterTable;
   CipherParams* cipherParamTable = (codecParams != NULL) ? codecParams[0].m_params : commonParams;
-#if 0
-  if (codecParams == NULL)
-  {
-    return value;
-  }
-
-  int j = 0;
-  for (j = 0; strlen(codecParams[j].m_name) > 0; ++j)
-  {
-    if (sqlite3_stricmp(cipherName, codecParams[j].m_name) == 0) break;
-  }
-  if (strlen(codecParams[j].m_name) > 0)
-  {
-    cipherParamTable = codecParams[j].m_params;
-  }
-#endif
-
   int cipherType = CODEC_TYPE;
   CipherParams* cipher = cipherParamTable;
   for (; strlen(cipher->m_name) > 0; ++cipher)
@@ -1991,12 +1974,17 @@ CodecInit(Codec* codec)
   if (codec != NULL)
   {
     codec->m_isEncrypted = 0;
+
     codec->m_hasReadCipher = 0;
     codec->m_readCipherType = CODEC_TYPE_UNKNOWN;
     codec->m_readCipher = NULL;
+    codec->m_readReserved = -1;
+
     codec->m_hasWriteCipher = 0;
     codec->m_writeCipherType = CODEC_TYPE_UNKNOWN;
     codec->m_writeCipher = NULL;
+    codec->m_writeReserved = -1;
+
     codec->m_db = NULL;
     codec->m_bt = NULL;
     memset(codec->m_page, 0, sizeof(codec->m_page));
@@ -2112,6 +2100,18 @@ CodecSetBtree(Codec* codec, Btree* bt)
   codec->m_bt = bt;
 }
 
+void
+CodecSetReadReserved(Codec* codec, int reserved)
+{
+  codec->m_readReserved = reserved;
+}
+
+void
+CodecSetWriteReserved(Codec* codec, int reserved)
+{
+  codec->m_writeReserved = reserved;
+}
+
 int
 CodecIsEncrypted(Codec* codec)
 {
@@ -2134,6 +2134,18 @@ Btree*
 CodecGetBtree(Codec* codec)
 {
   return codec->m_bt;
+}
+
+int
+CodecGetReadReserved(Codec* codec)
+{
+  return codec->m_readReserved;
+}
+
+int
+CodecGetWriteReserved(Codec* codec)
+{
+  return codec->m_writeReserved;
 }
 
 unsigned char*
@@ -2201,6 +2213,8 @@ CodecCopy(Codec* codec, Codec* other)
   codec->m_writeCipherType = other->m_writeCipherType;
   codec->m_readCipher = NULL;
   codec->m_writeCipher = NULL;
+  codec->m_readReserved = other->m_readReserved;
+  codec->m_writeReserved = other->m_writeReserved;
 
   if (codec->m_hasReadCipher)
   {
@@ -2316,7 +2330,9 @@ CodecEncrypt(Codec* codec, int page, unsigned char* data, int len, int useWriteK
 {
   int cipherType = (useWriteKey) ? codec->m_writeCipherType : codec->m_readCipherType;
   void* cipher = (useWriteKey) ? codec->m_writeCipher : codec->m_readCipher;
-  return codecDescriptorTable[cipherType-1].m_encryptPage(cipher, page, data, len, codec->m_reserved);
+  int reserved = (useWriteKey) ? (codec->m_writeReserved >= 0) ? codec->m_writeReserved : codec->m_reserved
+                               : (codec->m_readReserved >= 0) ? codec->m_readReserved : codec->m_reserved;
+  return codecDescriptorTable[cipherType-1].m_encryptPage(cipher, page, data, len, reserved);
 }
 
 int
@@ -2324,5 +2340,6 @@ CodecDecrypt(Codec* codec, int page, unsigned char* data, int len)
 {
   int cipherType = codec->m_readCipherType;
   void* cipher = codec->m_readCipher;
-  return codecDescriptorTable[cipherType-1].m_decryptPage(cipher, page, data, len, codec->m_reserved);
+  int reserved = (codec->m_readReserved >= 0) ? codec->m_readReserved : codec->m_reserved;
+  return codecDescriptorTable[cipherType-1].m_decryptPage(cipher, page, data, len, reserved);
 }

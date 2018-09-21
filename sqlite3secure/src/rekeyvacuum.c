@@ -121,7 +121,11 @@ SQLITE_PRIVATE int sqlite3RunVacuumForRekey(char **pzErrMsg, sqlite3 *db, int iD
   */
   rc = execSql(db, pzErrMsg, "BEGIN");
   if (rc != SQLITE_OK) goto end_of_vacuum;
+#if (SQLITE_VERSION_NUMBER >= 3025000)
+  rc = sqlite3BtreeBeginTrans(pMain, 2, 0);
+#else
   rc = sqlite3BtreeBeginTrans(pMain, 2);
+#endif
   if (rc != SQLITE_OK) goto end_of_vacuum;
 
   /* Do not attempt to change the page size for a WAL database */

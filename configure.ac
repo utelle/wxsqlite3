@@ -4,7 +4,7 @@ dnl Copyright (C) 2017-2018 Ulrich Telle <ulrich@telle-online.de>, Vadim Zeitlin
 dnl
 dnl This file is covered by the same licence as the entire wxSQLite3 package.
 
-AC_INIT([wxsqlite3], [4.0.4], [ulrich@telle-online.de])
+AC_INIT([wxsqlite3], [4.1.0], [ulrich@telle-online.de])
 
 dnl This is the version tested with, might work with earlier ones.
 AC_PREREQ([2.69])
@@ -31,12 +31,18 @@ WX_CONFIG_CHECK([2.8.0],
 
 AC_ARG_ENABLE(codec,
     [  --enable-codec[=<codec type>] Specify the codec type:
-                              aes128 [default]: AES 128 Bit Encryption
-                              aes256: AES 256 Bit Encryption],
+                              aes128: AES 128 Bit CBC Encryption
+                              aes256: AES 256 Bit CBC Encryption
+                              chacha20 [default]: ChaCha20-Poly1305 Encryption
+                              sqlcipher: SQLCipher Encryption],
     [ if   test "x$enableval" = "xaes128" ; then
         codec_type=CODEC_TYPE_AES128
       elif test "x$enableval" = "xaes256" ; then
         codec_type=CODEC_TYPE_AES256
+      elif test "x$enableval" = "xchacha20" ; then
+        codec_type=CODEC_TYPE_CHACHA20
+      elif test "x$enableval" = "xsqlcipher" ; then
+        codec_type=CODEC_TYPE_SQLCIPHER
       else
         echo
         echo "Error!"

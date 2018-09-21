@@ -397,6 +397,18 @@ public:
   /// Execute the final step of a user defined aggregate function (internal use only)
   static void ExecAggregateFinalize(void* ctx);
 
+  /// Execute an aggregate step of a user defined aggregate window function (internal use only)
+  static void ExecWindowStep(void* ctx, int argc, void** argv);
+
+  /// Execute the final step of a user defined aggregate window function (internal use only)
+  static void ExecWindowFinalize(void* ctx);
+
+  /// Execute the current value step of a user defined aggregate window function (internal use only)
+  static void ExecWindowValue(void* ctx);
+
+  /// Execute the inverse step of a user defined aggregate window function (internal use only)
+  static void ExecWindowInverse(void* ctx, int argc, void** argv);
+
   /// Execute the user defined commit hook (internal use only)
   static int ExecCommitHook(void* hook);
 
@@ -480,6 +492,55 @@ public:
   * \param ctx function context which can be used to access arguments and result value
   */
   virtual void Finalize(wxSQLite3FunctionContext& ctx) = 0;
+
+private:
+  int    m_count;        ///< Aggregate count
+  friend class wxSQLite3FunctionContext;
+};
+
+/// Interface for user defined aggregate window functions
+/**
+*/
+class WXDLLIMPEXP_SQLITE3 wxSQLite3WindowFunction
+{
+public:
+  /// Constructor
+  wxSQLite3WindowFunction() { m_count = 0; }
+
+  /// Virtual destructor
+  virtual ~wxSQLite3WindowFunction() {}
+
+  /// Execute the aggregate of the window function
+  /**
+  * This method is invoked for each row of the result set of the query using the aggregate window function.
+  * \param ctx function context which can be used to access arguments and result value
+  */
+  virtual void Aggregate(wxSQLite3FunctionContext& ctx) = 0;
+
+  /// Prepare the result of the aggregate window function
+  /**
+  * This method is invoked after all rows of the result set of the query
+  * using the aggregate window function have been processed. Usually the final result
+  * is calculated and returned in this method.
+  * \param ctx function context which can be used to access arguments and result value
+  */
+  virtual void Finalize(wxSQLite3FunctionContext& ctx) = 0;
+
+  /// Get current value of the aggregate window function
+  /**
+  * This method is invoked to return the current value of the aggregate.
+  * Unlike Finalize, the implementation should not delete any context.
+  * \param ctx function context which can be used to access arguments and result value
+  */
+  virtual void CurrentValue(wxSQLite3FunctionContext& ctx) = 0;
+
+  /// Reverse an aggregate step of the window function
+  /**
+  * This method is invoked to remove a row from the current window.
+  * The function arguments, if any, correspond to the row being removed.
+  * \param ctx function context which can be used to access arguments and result value
+  */
+  virtual void Reverse(wxSQLite3FunctionContext& ctx) = 0;
 
 private:
   int    m_count;        ///< Aggregate count
@@ -3040,7 +3101,7 @@ public:
   /// Create a user-defined scalar function
   /**
   * Registers a SQL scalar function with the database.
-  * \param name
+  * \param funcName name of the scalar function
   * \param argCount number of arguments the scalar function takes.
   *                 If this argument is -1 then the scalar function may take any number of arguments.
   * \param function instance of an scalar function
@@ -3048,12 +3109,12 @@ public:
   *                        for the same input within a single SQL statement. (Default: false)
   * \return TRUE on successful registration, FALSE otherwise
   */
-  bool CreateFunction(const wxString& name, int argCount, wxSQLite3ScalarFunction& function, bool isDeterministic = false);
+  bool CreateFunction(const wxString& funcName, int argCount, wxSQLite3ScalarFunction& function, bool isDeterministic = false);
 
   /// Create a user-defined aggregate function
   /**
   * Registers a SQL aggregate function with the database.
-  * \param name
+  * \param funcName name of the aggregate function
   * \param argCount number of arguments the aggregate function takes.
   *                 If this argument is -1 then the aggregate function may take any number of arguments.
   * \param function instance of an aggregate function
@@ -3061,7 +3122,20 @@ public:
   *                        for the same input within a single SQL statement. (Default: false)
   * \return TRUE on successful registration, FALSE otherwise
   */
-  bool CreateFunction(const wxString& name, int argCount, wxSQLite3AggregateFunction& function, bool isDeterministic = false);
+  bool CreateFunction(const wxString& funcName, int argCount, wxSQLite3AggregateFunction& function, bool isDeterministic = false);
+
+  /// Create a user-defined aggregate window function
+  /**
+  * Registers a SQL aggregate window function with the database.
+  * \param funcName name of the aggregate window function
+  * \param argCount number of arguments the aggregate window function takes.
+  *                 If this argument is -1 then the aggregate function may take any number of arguments.
+  * \param function instance of an aggregate window function
+  * \param isDeterministic signals whether the function will always return the same result
+  *                        for the same input within a single SQL statement. (Default: false)
+  * \return TRUE on successful registration, FALSE otherwise
+  */
+  bool CreateFunction(const wxString& funcName, int argCount, wxSQLite3WindowFunction& function, bool isDeterministic = false);
 
   /// Create a user-defined authorizer function
   /**

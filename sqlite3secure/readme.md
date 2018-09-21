@@ -259,6 +259,15 @@ Changing the key includes encrypting the database for the first time, decrypting
 
 **Note:** On decrypting a database all reserved bytes per database page are released.
 
+**Note**: On changing the database encryption key it is not possible to change the page size of the database at the same time. This affects mainly _legacy_ modes with a non-default page size (like legacy **SQLCipher**, which has a page size of 1024 bytes). In such cases it is necessary to adjust the legacy page size to the default page size or to adjust the page size in a separate step by executing the following SQL statements:
+
+```SQL
+PRAGMA page_size=4096;
+VACUUM;
+```
+
+However, please keep in mind that this works only on plain unencrypted databases.
+
 ### <a name="encryption_config" />`wxsqlite3_config()`
 
 ```C

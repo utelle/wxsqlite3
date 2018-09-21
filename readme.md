@@ -40,6 +40,10 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
+* 4.1.0 - *September 2018*
+  - Upgrade to SQLite version 3.25.1
+  - Added support for SQL window functions
+  - Adjusted encryption extension to check for matching page sizes on rekeying a database
 * 4.0.4 - *June 2018*
   - Upgrade to SQLite version 3.24.0
 * 4.0.3 - *April 2018*

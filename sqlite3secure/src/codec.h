@@ -59,10 +59,12 @@ typedef struct _Codec
   int           m_hasReadCipher;
   int           m_readCipherType;
   void*         m_readCipher;
+  int           m_readReserved;
   /* Write cipher */
   int           m_hasWriteCipher;
   int           m_writeCipherType;
   void*         m_writeCipher;
+  int           m_writeReserved;
 
   sqlite3*      m_db; /* Pointer to DB */
   Btree*        m_bt; /* Pointer to B-tree used by DB */
@@ -104,11 +106,15 @@ void CodecSetHasReadCipher(Codec* codec, int hasReadCipher);
 void CodecSetHasWriteCipher(Codec* codec, int hasWriteCipher);
 void CodecSetDb(Codec* codec, sqlite3* db);
 void CodecSetBtree(Codec* codec, Btree* bt);
+void CodecSetReadReserved(Codec* codec, int reserved);
+void CodecSetWriteReserved(Codec* codec, int reserved);
 
 int CodecIsEncrypted(Codec* codec);
 int CodecHasReadCipher(Codec* codec);
 int CodecHasWriteCipher(Codec* codec);
 Btree* CodecGetBtree(Codec* codec);
+int CodecGetReadReserved(Codec* codec);
+int CodecGetWriteReserved(Codec* codec);
 unsigned char* CodecGetPageBuffer(Codec* codec);
 int CodecGetLegacyReadCipher(Codec* codec);
 int CodecGetLegacyWriteCipher(Codec* codec);
