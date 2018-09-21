@@ -20,7 +20,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">4.0.4</span>
+   &#160;<span id="projectnumber">4.1.0</span>
    </div>
   </td>
  </tr>
@@ -139,6 +139,18 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a92029556706a660d0d8379e9d9bccb3a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#a92029556706a660d0d8379e9d9bccb3a">ExecAggregateFinalize</a> (void *ctx)</td></tr>
 <tr class="memdesc:a92029556706a660d0d8379e9d9bccb3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the final step of a user defined aggregate function (internal use only)  <a href="#a92029556706a660d0d8379e9d9bccb3a">More...</a><br /></td></tr>
 <tr class="separator:a92029556706a660d0d8379e9d9bccb3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2424308efb6b6f473447e049c0ece61"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#af2424308efb6b6f473447e049c0ece61">ExecWindowStep</a> (void *ctx, int argc, void **argv)</td></tr>
+<tr class="memdesc:af2424308efb6b6f473447e049c0ece61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute an aggregate step of a user defined aggregate window function (internal use only)  <a href="#af2424308efb6b6f473447e049c0ece61">More...</a><br /></td></tr>
+<tr class="separator:af2424308efb6b6f473447e049c0ece61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b4aaca9ae9bce6a6b0076d215bef66a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#a5b4aaca9ae9bce6a6b0076d215bef66a">ExecWindowFinalize</a> (void *ctx)</td></tr>
+<tr class="memdesc:a5b4aaca9ae9bce6a6b0076d215bef66a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the final step of a user defined aggregate window function (internal use only)  <a href="#a5b4aaca9ae9bce6a6b0076d215bef66a">More...</a><br /></td></tr>
+<tr class="separator:a5b4aaca9ae9bce6a6b0076d215bef66a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3aad3bd53ee7f75a995e06e1af752a07"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#a3aad3bd53ee7f75a995e06e1af752a07">ExecWindowValue</a> (void *ctx)</td></tr>
+<tr class="memdesc:a3aad3bd53ee7f75a995e06e1af752a07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the current value step of a user defined aggregate window function (internal use only)  <a href="#a3aad3bd53ee7f75a995e06e1af752a07">More...</a><br /></td></tr>
+<tr class="separator:a3aad3bd53ee7f75a995e06e1af752a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fe00567647d4356ebcfe953b2fdf21a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#a9fe00567647d4356ebcfe953b2fdf21a">ExecWindowInverse</a> (void *ctx, int argc, void **argv)</td></tr>
+<tr class="memdesc:a9fe00567647d4356ebcfe953b2fdf21a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the inverse step of a user defined aggregate window function (internal use only)  <a href="#a9fe00567647d4356ebcfe953b2fdf21a">More...</a><br /></td></tr>
+<tr class="separator:a9fe00567647d4356ebcfe953b2fdf21a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4af92f4d90df5031e0dda02eea9f7ef1"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_function_context.html#a4af92f4d90df5031e0dda02eea9f7ef1">ExecCommitHook</a> (void *hook)</td></tr>
 <tr class="memdesc:a4af92f4d90df5031e0dda02eea9f7ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the user defined commit hook (internal use only)  <a href="#a4af92f4d90df5031e0dda02eea9f7ef1">More...</a><br /></td></tr>
 <tr class="separator:a4af92f4d90df5031e0dda02eea9f7ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -409,6 +421,150 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Execute the user defined update hook (internal use only) </p>
+
+</div>
+</div>
+<a id="a5b4aaca9ae9bce6a6b0076d215bef66a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b4aaca9ae9bce6a6b0076d215bef66a">&#9670;&nbsp;</a></span>ExecWindowFinalize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wxSQLite3FunctionContext::ExecWindowFinalize </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Execute the final step of a user defined aggregate window function (internal use only) </p>
+
+</div>
+</div>
+<a id="a9fe00567647d4356ebcfe953b2fdf21a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fe00567647d4356ebcfe953b2fdf21a">&#9670;&nbsp;</a></span>ExecWindowInverse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wxSQLite3FunctionContext::ExecWindowInverse </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void **&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Execute the inverse step of a user defined aggregate window function (internal use only) </p>
+
+</div>
+</div>
+<a id="af2424308efb6b6f473447e049c0ece61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2424308efb6b6f473447e049c0ece61">&#9670;&nbsp;</a></span>ExecWindowStep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wxSQLite3FunctionContext::ExecWindowStep </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void **&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Execute an aggregate step of a user defined aggregate window function (internal use only) </p>
+
+</div>
+</div>
+<a id="a3aad3bd53ee7f75a995e06e1af752a07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aad3bd53ee7f75a995e06e1af752a07">&#9670;&nbsp;</a></span>ExecWindowValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wxSQLite3FunctionContext::ExecWindowValue </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Execute the current value step of a user defined aggregate window function (internal use only) </p>
 
 </div>
 </div>
@@ -1164,7 +1320,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 9 2018 19:13:18 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 21 2018 15:56:34 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>
