@@ -40,6 +40,8 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
+* 4.1.1 - *October 2018*
+  - Upgrade to SQLite version 3.25.2
 * 4.1.0 - *September 2018*
   - Upgrade to SQLite version 3.25.1
   - Added support for SQL window functions
