@@ -97,7 +97,7 @@ FolderTreeCtrl::LoadFolderTree(int activeFolder)
                     wxString(wxT("  select f.fid, f.fparent, d.descendant, d.distance as distd, a.distance as dista, f.fname")) +
                     wxString(wxT("    from folderclosure d join folderclosure a on (a.descendant = d.descendant) join folders f on (f.fid = a.ancestor)")) +
                     wxString(wxT("    where d.ancestor = 1 and d.descendant != d.ancestor order by d.descendant, a.distance desc")) +
-                    wxString(wxT(") group by descendant order by path;"));
+                    wxString(wxT(") group by descendant having dista = min(dista) order by path;"));
 
   folderNode = new FolderTreeItem(1, 1, wxT("/"));
   parentLevel = 0;
