@@ -183,6 +183,16 @@ int registerAllExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routin
     rc = sqlite3_create_function(db, "wxsqlite3_config", 3, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
                                  codecParameterTable, wxsqlite3_config_params, 0, 0);
   }
+  if (rc == SQLITE_OK)
+  {
+    rc = sqlite3_create_function(db, "wxsqlite3_codec_data", 1, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
+                                 NULL, wxsqlite3_codec_data_sql, 0, 0);
+  }
+  if (rc == SQLITE_OK)
+  {
+    rc = sqlite3_create_function(db, "wxsqlite3_codec_data", 2, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
+                                 NULL, wxsqlite3_codec_data_sql, 0, 0);
+  }
 #endif
 #ifdef SQLITE_ENABLE_EXTFUNC
   if (rc == SQLITE_OK)

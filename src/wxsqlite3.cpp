@@ -1323,8 +1323,12 @@ wxString wxSQLite3ResultSet::GetExpandedSQL() const
   wxString sqlString = wxEmptyString;
 #if SQLITE_VERSION_NUMBER >= 3014000
   CheckStmt();
-  const char* sqlLocal = sqlite3_expanded_sql(m_stmt->m_stmt);
-  if (sqlLocal != NULL) sqlString = wxString::FromUTF8(sqlLocal);
+  char* sqlLocal = sqlite3_expanded_sql(m_stmt->m_stmt);
+  if (sqlLocal != NULL)
+  {
+    sqlString = wxString::FromUTF8(sqlLocal);
+    sqlite3_free(sqlLocal);
+  }
 #endif
   return sqlString;
 }
@@ -2285,8 +2289,12 @@ wxString wxSQLite3Statement::GetExpandedSQL() const
   wxString sqlString = wxEmptyString;
 #if SQLITE_VERSION_NUMBER >= 3014000
   CheckStmt();
-  const char* sqlLocal = sqlite3_expanded_sql(m_stmt->m_stmt);
-  if (sqlLocal != NULL) sqlString = wxString::FromUTF8(sqlLocal);
+  char* sqlLocal = sqlite3_expanded_sql(m_stmt->m_stmt);
+  if (sqlLocal != NULL)
+  {
+    sqlString = wxString::FromUTF8(sqlLocal);
+    sqlite3_free(sqlLocal);
+  }
 #endif
   return sqlString;
 }
@@ -4321,6 +4329,29 @@ void wxSQLite3Database::ReKey(const wxSQLite3Cipher& cipher, const wxMemoryBuffe
   wxUnusedVar(newKey);
   throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NOCODEC);
 #endif
+}
+
+wxString wxSQLite3Database::GetKeySalt(const wxString& schemaName) const
+{
+  wxString keySalt = wxEmptyString;
+#if WXSQLITE3_HAVE_CODEC
+  if (IsOpen())
+  {
+    const char* localSchemaName = NULL;
+    wxCharBuffer strSchema = schemaName.ToUTF8();
+    if (!schemaName.IsEmpty())
+    {
+      localSchemaName = strSchema;
+    }
+    char* localKeySalt = (char*) wxsqlite3_codec_data(m_db->m_db, localSchemaName, "salt");
+    if (localKeySalt != NULL)
+    {
+      keySalt = wxString::FromUTF8(localKeySalt);
+      sqlite3_free(localKeySalt);
+    }
+  }
+#endif
+  return keySalt;
 }
 
 bool wxSQLite3Database::UserLogin(const wxString& username, const wxString& password)

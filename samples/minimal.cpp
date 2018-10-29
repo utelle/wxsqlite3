@@ -914,6 +914,8 @@ void Minimal::TestSQLCipher(wxSQLite3Cipher& cipher, const wxString& dbFileName,
     wxSQLite3Database db;
     cout << endl << "Open database '" << (const char*) (dbFileName.mb_str()) << "'" << endl;
     db.Open(dbFileName, cipher, dbKey);
+    wxString keySalt = db.GetKeySalt();
+    cout << "Key salt: " << (const char*) (keySalt.mb_str()) << endl;
     int numRows = db.ExecuteScalar("SELECT COUNT(*) FROM t1");
     cout << "Total number of rows = " << numRows << endl;
     cout << "Distinct tuples:" << endl;

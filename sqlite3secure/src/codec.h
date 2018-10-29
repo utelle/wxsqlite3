@@ -55,6 +55,7 @@ extern "C" {
 typedef struct _Codec
 {
   int           m_isEncrypted;
+  int           m_hmacCheck;
   /* Read cipher */
   int           m_hasReadCipher;
   int           m_readCipherType;

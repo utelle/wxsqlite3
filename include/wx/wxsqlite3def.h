@@ -44,6 +44,13 @@
 
 <dl>
 
+<dt><b>4.2.0</b> - <i>October 2018</i></dt>
+<dd>
+Added method wxSQLite3Database::GetKeySalt to access the key salt of encrypted databases<br>
+Fixed memory leaks in methods wxSQLite3ResultSet::GetExpandedSQL and wxSQLite3Statement::GetExpandedSQL<br>
+Adjusted encryption extension to support raw key (and salt) for the <b>ChaCha20 (sqleet)</b> encryption scheme<br>
+
+</dd>
 <dt><b>4.1.1</b> - <i>October 2018</i></dt>
 <dd>
 Upgrade to SQLite version 3.25.2<br>

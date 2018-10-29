@@ -276,7 +276,8 @@ DYNFUNC(return, int,                   sqlite3_rekey,                 (sqlite3 *
 // DYNFUNC(;, void,                       sqlite3_changepassword,        (sqlite3* db,const char* strNewPass), (db, strNewPass));
 
 // Configuration of wxSQLite3 encryption extension
-DYNFUNC(return, int,                   wxsqlite3_config,                 (const char* paramName, int newValue), (paramName, newValue));
-DYNFUNC(return, int,                   wxsqlite3_config_cipher,          (const char* cipherName, const char* paramName, int newValue), (cipherName, paramName, newValue));
+DYNFUNC(return, int,                   wxsqlite3_config,                 (sqlite3 *db, const char* paramName, int newValue), (db, paramName, newValue));
+DYNFUNC(return, int,                   wxsqlite3_config_cipher,          (sqlite3 *db, const char* cipherName, const char* paramName, int newValue), (db, cipherName, paramName, newValue));
+DYNFUNC(return, unsigned char*,        wxsqlite3_codec_data,             (sqlite3 *db, const char* zDbName, const char* paramName), (db, zDbName, paramName));
 
 #endif

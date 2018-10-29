@@ -45,6 +45,7 @@ extern "C" {
 #endif
 SQLITE_API int wxsqlite3_config(sqlite3* db, const char* paramName, int newValue);
 SQLITE_API int wxsqlite3_config_cipher(sqlite3* db, const char* cipherName, const char* paramName, int newValue);
+SQLITE_API unsigned char* wxsqlite3_codec_data(sqlite3* db, const char* zDbName, const char* paramName);
 #ifdef __cplusplus
 }
 

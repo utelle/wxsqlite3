@@ -3292,6 +3292,21 @@ public:
   */
   bool IsEncrypted() const { return m_isEncrypted; }
 
+  /// Get the key salt of an encrypted database
+  /**
+  * If the database is encrypted and if the encryption scheme uses key salt,
+  * this method allows to get the key salt as a hexadecimal encoded string.
+  *
+  * In case of database header corruption it is essential to know the key salt
+  * of the encryption schemes ChaCha20 or SQLCipher. Without the correct key salt
+  * recovering such a corrupted database is almost impossible.
+  *
+  * \param schemaName The name of the schema (attached database), default: "main"
+  *
+  * \return the key salt as a hexadecimal encoded string, empty if database not opened, or if no key salt is in use
+  */
+  wxString GetKeySalt(const wxString& schemaName = wxEmptyString) const;
+
   /// Authenticate the user on a database with user authentication
   /**
   * \param username name of the user to be authenticated

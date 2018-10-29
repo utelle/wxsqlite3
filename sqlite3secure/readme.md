@@ -19,6 +19,7 @@ This document describes the SQLite3 encryption extension provided by wxSQLite3. 
   - [`sqlite3_rekey()` and `sqlite3_rekey_v2()`](#encryption_rekey)
   - [`wxsqlite3_config()`](#encryption_config)
   - [`wxsqlite3_config_cipher()`](#encryption_config_cipher)
+  - [`wxsqlite3_codec_data()`](#encryption_codec_data)
   - [SQL interface](#encryption_sql)
 - [SQLite3 Backup API](#backupapi)
 
@@ -294,8 +295,11 @@ The following parameter names are supported for `paramName`:
 | Parameter name | Description | Possible values |
 | :--- | :--- | :--- |
 | `cipher` | The cipher to be used for encrypting the database. | `CODEC_TYPE_AES128` (Cipher ID 1)<br/>`CODEC_TYPE_AES256` (Cipher ID 2)<br/>`CODEC_TYPE_CHACHA20` (Cipher ID 3)<br/>`CODEC_TYPE_SQLCIPHER` (Cipher ID 4) |
+| `hmac_check` | Boolean flag whether the HMAC should be validated on read operations for encryption schemes using HMACs | `0` <br/> `1` |
 
 The return value always is the current parameter value on success, or **-1** on failure.
+
+**Note:** Checking the HMAC on read operations is active by default. With the parameter `hmac_check` the HMAC check can be disabled in case of trying to recover a corrupted database. It is not recommended to deactivate the HMAC check for regular database operation. Therefore the default can not be changed.
 
 **Examples:**
 
@@ -350,6 +354,29 @@ wxsqlite3_config_cipher(db, "sqlcipher", "legacy", 1);
 wxsqlite3_config_cipher(db, "sqlcipher", "legacy_page_size", 1024);
 ```
 
+### <a name="encryption_codec_data" />`wxsqlite3_codec_data()`
+
+```C
+SQLITE_API unsigned char* wxsqlite3_codec_data(
+  sqlite3*    db,                /* Database instance */
+  const char* schemaName,        /* Cipher name */
+  const char* paramName          /* Parameter name */
+);
+```
+
+`wxsqlite3_codec_data()` retrieves the value of encryption parameters after an encrypted database has been opened. `db` is the database instance to operate on. `schemaName` optionally specifies the schema name of an attached database; for the main database the parameter can be specified as `NULL`. `paramName` specifies the parameter to be queried.
+
+The following parameter names are currently supported for `paramName`:
+
+| Cipher name | Description |
+| :--- | :--- |
+| `salt` | The random key salt stored in the database header (as a hexadecimal encoded string, 32 bytes) |
+| `raw:salt` | The random key salt stored in the database header (as a raw binary string, 16 bytes) |
+
+A NULL pointer is returned if the database is not encrypted or if the encryption scheme doesn't use a key salt. If a non-NULL pointer was returned, it is the application's responsibility to free the memory using function `sqlite3_free`.
+
+**Note:** Some cipher schemes use a random key salt on database creation. If the database header gets corrupted for some reason, it is almost impossible to recover the database without knowing the key salt. For critical applications it is therefore recommended to retrieve the key salt after the initial creation of a database and keep it in a safe place.
+
 ### <a name="encryption_sql" />SQL interface
 
 **wxSQLite3** additionally defines the `wxsqlite3_config()` SQL function which can be used to get or set encryption parameters by using SQL queries.
@@ -360,10 +387,12 @@ wxsqlite3_config_cipher(db, "sqlcipher", "legacy_page_size", 1024);
 | `wxsqlite3_config(paramName TEXT, newValue)` | Set value of database encryption parameter `paramName` to `newValue` |
 | `wxsqlite3_config(cipherName TEXT, paramName TEXT)` | Get value of cipher `cipherName` encryption parameter `paramName` |
 | `wxsqlite3_config(cipherName TEXT, paramName TEXT, newValue)` | Set value of cipher `cipherName` encryption parameter `paramName` to `newValue` |
+| `wxsqlite3_codec_data(paramName TEXT)` | Get value of parameter `paramName` |
+| `wxsqlite3_codec_data(paramName TEXT, schemaName TEXT)` | Get value of parameter `paramName` from schema `schemaName` |
 
 **Note:** See the [`wxsqlite3_config_cipher()` function](#encryption_config_cipher) for the list of supported `cipherName`s.
 
-**Note:** The `paramName` can have a prefix. See the [`wxsqlite3_config()` function](#encryption_config) for details.
+**Note:** Calling the configuration functions, the `paramName` can have a prefix. See the [`wxsqlite3_config()` function](#encryption_config) for details.
 
 **Examples:**
 
@@ -396,6 +425,11 @@ SELECT wxsqlite3_config('sqlcipher', 'hmac_use', 0);
 SELECT wxsqlite3_config('sqlcipher', 'legacy', 1);
 SELECT wxsqlite3_config('sqlcipher', 'legacy_page_size', 1024);
 PRAGMA key='<passphrase>';
+```
+
+```SQL
+-- Get the random key salt as a hexadecimal encoded string (if database is encrypted and uses key salt)
+SELECT wxsqlite3_codec_data('salt');
 ```
 
 ## <a name="backupapi" />SQLite3 Backup API

@@ -40,6 +40,10 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
+* 4.2.0 - *October 2018*
+  - Added method wxSQLite3Database::GetKeySalt to access the key salt of encrypted databases
+  - Fixed memory leaks in methods wxSQLite3ResultSet::GetExpandedSQL and wxSQLite3Statement::GetExpandedSQL
+  - Adjusted encryption extension to support raw key (and salt) for the **ChaCha20 (sqleet)** encryption scheme
 * 4.1.1 - *October 2018*
   - Upgrade to SQLite version 3.25.2
 * 4.1.0 - *September 2018*
