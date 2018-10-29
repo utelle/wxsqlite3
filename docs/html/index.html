@@ -20,7 +20,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">4.1.1</span>
+   &#160;<span id="projectnumber">4.2.0</span>
    </div>
   </td>
  </tr>
@@ -57,6 +57,13 @@ What is wxSQLite3?</h1>
 <h1><a class="anchor" id="version"></a>
 Version history</h1>
 <dl>
+<dt><b>4.2.0</b> - <em>October 2018</em> </dt>
+<dd><p class="startdd">Added method <a class="el" href="classwx_s_q_lite3_database.html#a1706c4645c3a17a42a4e4f4098c3827c" title="Get the key salt of an encrypted database. ">wxSQLite3Database::GetKeySalt</a> to access the key salt of encrypted databases<br />
+ Fixed memory leaks in methods <a class="el" href="classwx_s_q_lite3_result_set.html#af184c6bde9e73165328ca921be83c6ec" title="Get the original SQL string for preparing the query statement with expanded bound parameters...">wxSQLite3ResultSet::GetExpandedSQL</a> and <a class="el" href="classwx_s_q_lite3_statement.html#ace522f3b316f817980a923d5911a8b84" title="Get the original SQL string for the prepared statement with expanded bound parameters. ">wxSQLite3Statement::GetExpandedSQL</a><br />
+ Adjusted encryption extension to support raw key (and salt) for the <b>ChaCha20 (sqleet)</b> encryption scheme<br />
+</p>
+<p class="enddd"></p>
+</dd>
 <dt><b>4.1.1</b> - <em>October 2018</em> </dt>
 <dd><p class="startdd">Upgrade to SQLite version 3.25.2<br />
 </p>
@@ -529,7 +536,7 @@ Tobias Langner (RAII class for managing transactions) </li>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 2 2018 23:28:05 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 29 2018 12:40:20 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>

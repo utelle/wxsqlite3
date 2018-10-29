@@ -20,7 +20,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">4.1.1</span>
+   &#160;<span id="projectnumber">4.2.0</span>
    </div>
   </td>
  </tr>
@@ -331,6 +331,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad71cdb9af52aaad0ca7940c16ca2d448"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#ad71cdb9af52aaad0ca7940c16ca2d448">IsEncrypted</a> () const</td></tr>
 <tr class="memdesc:ad71cdb9af52aaad0ca7940c16ca2d448"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the database is encrypted.  <a href="#ad71cdb9af52aaad0ca7940c16ca2d448">More...</a><br /></td></tr>
 <tr class="separator:ad71cdb9af52aaad0ca7940c16ca2d448"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1706c4645c3a17a42a4e4f4098c3827c"><td class="memItemLeft" align="right" valign="top">wxString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#a1706c4645c3a17a42a4e4f4098c3827c">GetKeySalt</a> (const wxString &amp;schemaName=wxEmptyString) const</td></tr>
+<tr class="memdesc:a1706c4645c3a17a42a4e4f4098c3827c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the key salt of an encrypted database.  <a href="#a1706c4645c3a17a42a4e4f4098c3827c">More...</a><br /></td></tr>
+<tr class="separator:a1706c4645c3a17a42a4e4f4098c3827c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a310de9baea0944d0b4303b4ac823ab65"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#a310de9baea0944d0b4303b4ac823ab65">UserLogin</a> (const wxString &amp;username, const wxString &amp;password)</td></tr>
 <tr class="memdesc:a310de9baea0944d0b4303b4ac823ab65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Authenticate the user on a database with user authentication.  <a href="#a310de9baea0944d0b4303b4ac823ab65">More...</a><br /></td></tr>
 <tr class="separator:a310de9baea0944d0b4303b4ac823ab65"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2174,6 +2177,35 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>active journal mode </dd></dl>
+
+</div>
+</div>
+<a id="a1706c4645c3a17a42a4e4f4098c3827c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1706c4645c3a17a42a4e4f4098c3827c">&#9670;&nbsp;</a></span>GetKeySalt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxString wxSQLite3Database::GetKeySalt </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;&#160;</td>
+          <td class="paramname"><em>schemaName</em> = <code>wxEmptyString</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the key salt of an encrypted database. </p>
+<p>If the database is encrypted and if the encryption scheme uses key salt, this method allows to get the key salt as a hexadecimal encoded string.</p>
+<p>In case of database header corruption it is essential to know the key salt of the encryption schemes ChaCha20 or SQLCipher. Without the correct key salt recovering such a corrupted database is almost impossible.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">schemaName</td><td>The name of the schema (attached database), default: "main"</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the key salt as a hexadecimal encoded string, empty if database not opened, or if no key salt is in use </dd></dl>
 
 </div>
 </div>
@@ -4938,7 +4970,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 2 2018 23:28:05 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 29 2018 12:40:20 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>
