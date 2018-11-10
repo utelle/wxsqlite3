@@ -90,6 +90,13 @@ void mySqlite3PagerSetCodec(
   sqlite3PagerSetCodec(pPager, xCodec, xCodecSizeChng, xCodecFree, pCodec);
 }
 
+/*
+** Declare function prototype for registering the codec extension functions
+*/
+static
+int registerCodecExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines *pApi);
+
+
 #include "rijndael.c"
 #include "codec.c"
 #include "codecext.c"
@@ -154,45 +161,64 @@ void mySqlite3PagerSetCodec(
 #include "series.c"
 #endif
 
-#if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV) || defined(SQLITE_ENABLE_SHA3) || defined(SQLITE_ENABLE_CARRAY) || defined(SQLITE_ENABLE_FILEIO) || defined(SQLITE_ENABLE_SERIES)
+#if defined(SQLITE_HAS_CODEC) || defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV) || defined(SQLITE_ENABLE_SHA3) || defined(SQLITE_ENABLE_CARRAY) || defined(SQLITE_ENABLE_FILEIO) || defined(SQLITE_ENABLE_SERIES)
+
+static
+int registerCodecExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines *pApi)
+{
+  int rc = SQLITE_OK;
+
+  if (sqlite3FindFunction(db, "wxsqlite3_config_table", 0, SQLITE_UTF8 | SQLITE_DETERMINISTIC, 0) != NULL)
+  {
+    /* Return if codec extension functions are already defined */
+    return rc;
+  }
+
+  CodecParameter* codecParameterTable = CloneCodecParameterTable();
+  rc = (codecParameterTable != NULL) ? SQLITE_OK : SQLITE_NOMEM;
+  if (rc == SQLITE_OK)
+  {
+    rc = sqlite3_create_function_v2(db, "wxsqlite3_config_table", 0, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
+      codecParameterTable, wxsqlite3_config_table, 0, 0, (void(*)(void*)) FreeCodecParameterTable);
+  }
+  if (rc == SQLITE_OK)
+  {
+    rc = sqlite3_create_function(db, "wxsqlite3_config", 1, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
+      codecParameterTable, wxsqlite3_config_params, 0, 0);
+  }
+  if (rc == SQLITE_OK)
+  {
+    rc = sqlite3_create_function(db, "wxsqlite3_config", 2, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
+      codecParameterTable, wxsqlite3_config_params, 0, 0);
+  }
+  if (rc == SQLITE_OK)
+  {
+    rc = sqlite3_create_function(db, "wxsqlite3_config", 3, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
+      codecParameterTable, wxsqlite3_config_params, 0, 0);
+  }
+  if (rc == SQLITE_OK)
+  {
+    rc = sqlite3_create_function(db, "wxsqlite3_codec_data", 1, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
+      NULL, wxsqlite3_codec_data_sql, 0, 0);
+  }
+  if (rc == SQLITE_OK)
+  {
+    rc = sqlite3_create_function(db, "wxsqlite3_codec_data", 2, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
+      NULL, wxsqlite3_codec_data_sql, 0, 0);
+  }
+  return rc;
+}
 
 static
 int registerAllExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines *pApi)
 {
   int rc = SQLITE_OK;
 #ifdef SQLITE_HAS_CODEC
-  CodecParameter* codecParameterTable = CloneCodecParameterTable();
-  rc = (codecParameterTable != NULL) ? SQLITE_OK : SQLITE_NOMEM;
-  if (rc == SQLITE_OK)
-  {
-    rc = sqlite3_create_function_v2(db, "wxsqlite3_config_table", 0, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-                                    codecParameterTable, wxsqlite3_config_table, 0, 0, (void(*)(void*)) FreeCodecParameterTable);
-  }
-  if (rc == SQLITE_OK)
-  {
-    rc = sqlite3_create_function(db, "wxsqlite3_config", 1, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-                                 codecParameterTable, wxsqlite3_config_params, 0, 0);
-  }
-  if (rc == SQLITE_OK)
-  {
-    rc = sqlite3_create_function(db, "wxsqlite3_config", 2, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-                                 codecParameterTable, wxsqlite3_config_params, 0, 0);
-  }
-  if (rc == SQLITE_OK)
-  {
-    rc = sqlite3_create_function(db, "wxsqlite3_config", 3, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-                                 codecParameterTable, wxsqlite3_config_params, 0, 0);
-  }
-  if (rc == SQLITE_OK)
-  {
-    rc = sqlite3_create_function(db, "wxsqlite3_codec_data", 1, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-                                 NULL, wxsqlite3_codec_data_sql, 0, 0);
-  }
-  if (rc == SQLITE_OK)
-  {
-    rc = sqlite3_create_function(db, "wxsqlite3_codec_data", 2, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-                                 NULL, wxsqlite3_codec_data_sql, 0, 0);
-  }
+  /*
+  ** Register the encryption extension functions and
+  ** configure the encryption extension from URI parameters as default
+  */
+  rc = CodecConfigureFromUri(db, NULL, 1);
 #endif
 #ifdef SQLITE_ENABLE_EXTFUNC
   if (rc == SQLITE_OK)

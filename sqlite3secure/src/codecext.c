@@ -214,9 +214,22 @@ int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
   }
   else
   {
-    /* Key specified, setup encryption key for database */
-    CodecSetBtree(codec, db->aDb[nDb].pBt);
-    rc = CodecSetup(codec, GetCipherType(db), (char*) zKey, nKey);
+    /* Configure cipher from URI in case of attached database */
+    if (nDb > 0)
+    {
+#if (SQLITE_VERSION_NUMBER >= 3015000)
+      const char* zDbName = db->aDb[nDb].zDbSName;
+#else
+      const char* zDbName = db->aDb[nDb].zName;
+#endif
+      rc = CodecConfigureFromUri(db, zDbName, 0);
+    }
+    if (rc == SQLITE_OK)
+    {
+      /* Key specified, setup encryption key for database */
+      CodecSetBtree(codec, db->aDb[nDb].pBt);
+      rc = CodecSetup(codec, GetCipherType(db), (char*) zKey, nKey);
+    }
     if (rc == SQLITE_OK)
     {
       mySqlite3AdjustBtree(db->aDb[nDb].pBt, CodecGetPageSizeWriteCipher(codec), CodecGetReservedWriteCipher(codec), CodecGetLegacyWriteCipher(codec));
@@ -295,6 +308,17 @@ int sqlite3_key_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
   int rc = SQLITE_ERROR;
   if ((db != NULL) && (zKey != NULL) && (nKey > 0))
   {
+    /* Configure cipher from URI parameters if requested */
+    if (sqlite3FindFunction(db, "wxsqlite3_config_table", 0, SQLITE_UTF8 | SQLITE_DETERMINISTIC, 0) == NULL)
+    {
+      /*
+      ** Encryption extension of database connection not yet initialized;
+      ** that is, sqlite3_key_v2 was called from the internal open function.
+      ** Therefore the URI should be checked for encryption configuration parameters.
+      */
+      rc = CodecConfigureFromUri(db, zDbName, 0);
+    }
+
     /* The key is only set for the main database, not the temp database  */
     int dbIndex = dbFindIndex(db, zDbName);
     rc = sqlite3CodecAttach(db, dbIndex, zKey, nKey);

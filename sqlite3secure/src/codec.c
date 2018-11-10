@@ -2548,3 +2548,73 @@ CodecDecrypt(Codec* codec, int page, unsigned char* data, int len)
   int reserved = (codec->m_readReserved >= 0) ? codec->m_readReserved : codec->m_reserved;
   return codecDescriptorTable[cipherType-1].m_decryptPage(cipher, page, data, len, reserved, codec->m_hmacCheck);
 }
+
+int
+CodecConfigureFromUri(sqlite3* db, const char *zDbName, int configDefault)
+{
+  /* Register codec extensions if necessary */
+  int rc = registerCodecExtensions(db, NULL, NULL);
+  if (rc == SQLITE_OK)
+  {
+    /* Check URI parameters if database filename is available */
+    const char* dbFileName = sqlite3_db_filename(db, zDbName);
+    if (dbFileName != NULL)
+    {
+      /* Check whether cipher is specified */
+      const char* cipherName = sqlite3_uri_parameter(dbFileName, "cipher");
+      if (cipherName != NULL)
+      {
+        int j = 0;
+        CipherParams* cipherParams = NULL;
+
+        /* Try to locate the cipher name */
+        for (j = 1; strlen(codecParameterTable[j].m_name) > 0; ++j)
+        {
+          if (sqlite3_stricmp(cipherName, codecParameterTable[j].m_name) == 0) break;
+        }
+
+        /* j is the index of the cipher name, if found */
+        cipherParams = (strlen(codecParameterTable[j].m_name) > 0) ? codecParameterTable[j].m_params : NULL;
+        if (cipherParams != NULL)
+        {
+          /* Set global parameters (cipher and hmac_check) */
+          int hmacCheck = sqlite3_uri_boolean(dbFileName, "hmac_check", 1);
+          if (configDefault)
+          {
+            wxsqlite3_config(db, "default:cipher", j);
+          }
+          else
+          {
+            wxsqlite3_config(db, "cipher", j);
+          }
+          if (!hmacCheck)
+          {
+            wxsqlite3_config(db, "hmac_check", hmacCheck);
+          }
+
+          /* Check all cipher specific parameters */
+          for (j = 0; strlen(cipherParams[j].m_name) > 0; ++j)
+          {
+            int value = (int) sqlite3_uri_int64(dbFileName, cipherParams[j].m_name, -1);
+            if (value >= 0)
+            {
+              /* Configure cipher parameter if it was given in the URI */
+              char* param = (configDefault) ? sqlite3_mprintf("default:%s", cipherParams[j].m_name) : cipherParams[j].m_name;
+              wxsqlite3_config_cipher(db, cipherName, param, value);
+              if (configDefault)
+              {
+                sqlite3_free(param);
+              }
+            }
+          }
+        }
+        else
+        {
+          rc = SQLITE_MISUSE;
+          sqlite3ErrorWithMsg(db, rc, "unknown cipher '%s'", cipherName);
+        }
+      }
+    }
+  }
+  return rc;
+}
