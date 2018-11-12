@@ -24,7 +24,13 @@
 ** To enable the FILEIO support define SQLITE_ENABLE_FILEIO on compiling this module
 ** To enable the SERIES support define SQLITE_ENABLE_SERIES on compiling this module
 */
-#if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV) || defined(SQLITE_ENABLE_SHA3) || defined(SQLITE_ENABLE_CARRAY) || defined(SQLITE_ENABLE_FILEIO) || defined(SQLITE_ENABLE_SERIES)
+#if defined(SQLITE_HAS_CODEC)      || \
+    defined(SQLITE_ENABLE_EXTFUNC) || \
+    defined(SQLITE_ENABLE_CSV)     || \
+    defined(SQLITE_ENABLE_SHA3)    || \
+    defined(SQLITE_ENABLE_CARRAY)  || \
+    defined(SQLITE_ENABLE_FILEIO)  || \
+    defined(SQLITE_ENABLE_SERIES)
 #define sqlite3_open    sqlite3_open_internal
 #define sqlite3_open16  sqlite3_open16_internal
 #define sqlite3_open_v2 sqlite3_open_v2_internal
@@ -52,23 +58,27 @@
 #include "userauth.c"
 #endif
 
-#if defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV) || defined(SQLITE_ENABLE_SHA3) || defined(SQLITE_ENABLE_CARRAY) || defined(SQLITE_ENABLE_FILEIO) || defined(SQLITE_ENABLE_SERIES)
+#if defined(SQLITE_HAS_CODEC)      || \
+    defined(SQLITE_ENABLE_EXTFUNC) || \
+    defined(SQLITE_ENABLE_CSV)     || \
+    defined(SQLITE_ENABLE_SHA3)    || \
+    defined(SQLITE_ENABLE_CARRAY)  || \
+    defined(SQLITE_ENABLE_FILEIO)  || \
+    defined(SQLITE_ENABLE_SERIES)
 #undef sqlite3_open
 #undef sqlite3_open16
 #undef sqlite3_open_v2
 #endif
 
 #ifndef SQLITE_OMIT_DISKIO
-
 #ifdef SQLITE_HAS_CODEC
 
 /*
 ** Get the codec argument for this pager
 */
-
-void* mySqlite3PagerGetCodec(
-  Pager *pPager
-){
+static void*
+mySqlite3PagerGetCodec(Pager *pPager)
+{
 #if (SQLITE_VERSION_NUMBER >= 3006016)
   return sqlite3PagerGetCodec(pPager);
 #else
@@ -79,31 +89,29 @@ void* mySqlite3PagerGetCodec(
 /*
 ** Set the codec argument for this pager
 */
-
-void mySqlite3PagerSetCodec(
-  Pager *pPager,
-  void *(*xCodec)(void*,void*,Pgno,int),
-  void (*xCodecSizeChng)(void*,int,int),
-  void (*xCodecFree)(void*),
-  void *pCodec
-){
+static void
+mySqlite3PagerSetCodec(Pager *pPager,
+                       void *(*xCodec)(void*,void*,Pgno,int),
+                       void (*xCodecSizeChng)(void*,int,int),
+                       void (*xCodecFree)(void*),
+                       void *pCodec)
+{
   sqlite3PagerSetCodec(pPager, xCodec, xCodecSizeChng, xCodecFree, pCodec);
 }
 
 /*
 ** Declare function prototype for registering the codec extension functions
 */
-static
-int registerCodecExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines *pApi);
+static int
+registerCodecExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines *pApi);
 
 
 #include "rijndael.c"
 #include "codec.c"
 #include "codecext.c"
 
-#endif
-
-#endif
+#endif /* SQLITE_HAS_CODEC */
+#endif /* SQLITE_OMIT_DISKIO */
 
 /*
 ** Extension functions
@@ -161,10 +169,16 @@ int registerCodecExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_rout
 #include "series.c"
 #endif
 
-#if defined(SQLITE_HAS_CODEC) || defined(SQLITE_ENABLE_EXTFUNC) || defined(SQLITE_ENABLE_CSV) || defined(SQLITE_ENABLE_SHA3) || defined(SQLITE_ENABLE_CARRAY) || defined(SQLITE_ENABLE_FILEIO) || defined(SQLITE_ENABLE_SERIES)
+#if defined(SQLITE_HAS_CODEC)      || \
+    defined(SQLITE_ENABLE_EXTFUNC) || \
+    defined(SQLITE_ENABLE_CSV)     || \
+    defined(SQLITE_ENABLE_SHA3)    || \
+    defined(SQLITE_ENABLE_CARRAY)  || \
+    defined(SQLITE_ENABLE_FILEIO)  || \
+    defined(SQLITE_ENABLE_SERIES)
 
-static
-int registerCodecExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines *pApi)
+static int
+registerCodecExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines *pApi)
 {
   int rc = SQLITE_OK;
 
@@ -209,8 +223,8 @@ int registerCodecExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_rout
   return rc;
 }
 
-static
-int registerAllExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines *pApi)
+static int
+registerAllExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines *pApi)
 {
   int rc = SQLITE_OK;
 #ifdef SQLITE_HAS_CODEC

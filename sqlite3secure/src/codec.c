@@ -13,7 +13,7 @@
 ** RC4 implementation
 */
 
-void
+static void
 CodecRC4(unsigned char* key, int keylen,
          unsigned char* textin, int textlen,
          unsigned char* textout)
@@ -52,7 +52,7 @@ CodecRC4(unsigned char* key, int keylen,
   }
 }
 
-void
+static void
 CodecGetMD5Binary(unsigned char* data, int length, unsigned char* digest)
 {
   MD5_CTX ctx;
@@ -61,7 +61,7 @@ CodecGetMD5Binary(unsigned char* data, int length, unsigned char* digest)
   MD5_Final(digest,&ctx);
 }
 
-void
+static void
 CodecGetSHABinary(unsigned char* data, int length, unsigned char* digest)
 {
   sha256(data, (unsigned int) length, digest);
@@ -69,7 +69,7 @@ CodecGetSHABinary(unsigned char* data, int length, unsigned char* digest)
 
 #define MODMULT(a, b, c, m, s) q = s / a; s = b * (s - a * q) - c * q; if (s < 0) s += m
 
-void
+static void
 CodecGenerateInitialVector(int seed, unsigned char iv[16])
 {
   unsigned char initkey[16];
@@ -86,7 +86,7 @@ CodecGenerateInitialVector(int seed, unsigned char iv[16])
   CodecGetMD5Binary((unsigned char*) initkey, 16, iv);
 }
 
-int
+static int
 CodecAES128(Rijndael* aesCtx, int page, int encrypt, unsigned char encryptionKey[KEYLENGTH_AES128],
             unsigned char* datain, int datalen, unsigned char* dataout)
 {
@@ -136,7 +136,7 @@ CodecAES128(Rijndael* aesCtx, int page, int encrypt, unsigned char encryptionKey
   return rc;
 }
 
-int
+static int
 CodecAES256(Rijndael* aesCtx, int page, int encrypt, unsigned char encryptionKey[KEYLENGTH_AES256],
             unsigned char* datain, int datalen, unsigned char* dataout)
 {
@@ -187,7 +187,8 @@ CodecAES256(Rijndael* aesCtx, int page, int encrypt, unsigned char encryptionKey
 }
 
 /* Check hex encoding */
-static int IsHexKey(const unsigned char* hex, int len)
+static int
+IsHexKey(const unsigned char* hex, int len)
 {
   int j;
   for (j = 0; j < len; ++j)
@@ -202,7 +203,8 @@ static int IsHexKey(const unsigned char* hex, int len)
 }
 
 /* Convert single hex digit */
-static int ConvertHex2Int(char c)
+static int
+ConvertHex2Int(char c)
 {
   return (c >= '0' && c <= '9') ? (c)-'0' :
     (c >= 'A' && c <= 'F') ? (c)-'A' + 10 :
@@ -210,7 +212,8 @@ static int ConvertHex2Int(char c)
 }
 
 /* Convert hex encoded string to binary */
-static void ConvertHex2Bin(const unsigned char* hex, int len, unsigned char* bin)
+static void
+ConvertHex2Bin(const unsigned char* hex, int len, unsigned char* bin)
 {
   int j;
   for (j = 0; j < len; j += 2)
@@ -243,7 +246,7 @@ typedef struct _CipherParams
 ** - hmac_check : flag whether page hmac should be verified on read
 */
 
-CipherParams commonParams[] =
+static CipherParams commonParams[] =
 {
   { "cipher",     CODEC_TYPE, CODEC_TYPE, 1, CODEC_TYPE_MAX },
   { "hmac_check",          1,          1, 0,              1 },
@@ -263,7 +266,7 @@ CipherParams commonParams[] =
 #define AES128_LEGACY_DEFAULT 0
 #endif
 
-CipherParams aes128Params[] =
+static CipherParams aes128Params[] =
 {
   { "legacy",            AES128_LEGACY_DEFAULT, AES128_LEGACY_DEFAULT, 0, 1 },
   { "legacy_page_size",  0,                     0,                     0, SQLITE_MAX_PAGE_SIZE },
@@ -284,7 +287,7 @@ CipherParams aes128Params[] =
 #define AES256_LEGACY_DEFAULT 0
 #endif
 
-CipherParams aes256Params[] =
+static CipherParams aes256Params[] =
 {
   { "legacy",            AES256_LEGACY_DEFAULT, AES256_LEGACY_DEFAULT, 0, 1 },
   { "legacy_page_size",  0,                     0,                     0, SQLITE_MAX_PAGE_SIZE },
@@ -311,7 +314,7 @@ CipherParams aes256Params[] =
 #define SQLEET_KDF_ITER           12345
 #define CHACHA20_LEGACY_PAGE_SIZE 4096
 
-CipherParams chacha20Params[] =
+static CipherParams chacha20Params[] =
 {
   { "legacy",            CHACHA20_LEGACY_DEFAULT,   CHACHA20_LEGACY_DEFAULT,   0, 1 },
   { "legacy_page_size",  CHACHA20_LEGACY_PAGE_SIZE, CHACHA20_LEGACY_PAGE_SIZE, 0, SQLITE_MAX_PAGE_SIZE },
@@ -344,7 +347,7 @@ CipherParams chacha20Params[] =
 #define SQLCIPHER_HMAC_SALT_MASK    0x3a
 #define SQLCIPHER_LEGACY_PAGE_SIZE  1024
 
-CipherParams sqlCipherParams[] =
+static CipherParams sqlCipherParams[] =
 {
   { "legacy",            SQLCIPHER_LEGACY_DEFAULT,   SQLCIPHER_LEGACY_DEFAULT,   0, 1 },
   { "legacy_page_size",  SQLCIPHER_LEGACY_PAGE_SIZE, SQLCIPHER_LEGACY_PAGE_SIZE, 0, SQLITE_MAX_PAGE_SIZE },
@@ -356,7 +359,7 @@ CipherParams sqlCipherParams[] =
   CIPHER_PARAMS_SENTINEL
 };
 
-int
+static int
 GetCipherParameter(CipherParams* cipherParams, const char* paramName)
 {
   int value = -1;
@@ -383,7 +386,7 @@ typedef struct _AES128Cipher
   Rijndael*     m_aes;
 } AES128Cipher;
 
-void*
+static void*
 AllocateAES128Cipher(sqlite3* db)
 {
   AES128Cipher* aesCipher = (AES128Cipher*) sqlite3_malloc(sizeof(AES128Cipher));
@@ -411,7 +414,7 @@ AllocateAES128Cipher(sqlite3* db)
   return aesCipher;
 }
 
-void
+static void
 FreeAES128Cipher(void* cipher)
 {
   AES128Cipher* localCipher = (AES128Cipher*) cipher;
@@ -421,7 +424,7 @@ FreeAES128Cipher(void* cipher)
   sqlite3_free(localCipher);
 }
 
-void
+static void
 CloneAES128Cipher(void* cipherTo, void* cipherFrom)
 {
   AES128Cipher* aesCipherTo = (AES128Cipher*) cipherTo;
@@ -434,14 +437,14 @@ CloneAES128Cipher(void* cipherTo, void* cipherFrom)
   RijndaelInvalidate(aesCipherFrom->m_aes);
 }
 
-int
+static int
 GetLegacyAES128Cipher(void* cipher)
 {
   AES128Cipher* aesCipher = (AES128Cipher*)cipher;
   return aesCipher->m_legacy;
 }
 
-int
+static int
 GetPageSizeAES128Cipher(void* cipher)
 {
   AES128Cipher* aesCipher = (AES128Cipher*) cipher;
@@ -457,19 +460,19 @@ GetPageSizeAES128Cipher(void* cipher)
   return pageSize;
 }
 
-int
+static int
 GetReservedAES128Cipher(void* cipher)
 {
   return 0;
 }
 
-unsigned char*
+static unsigned char*
 GetSaltAES128Cipher(void* cipher)
 {
   return NULL;
 }
 
-void
+static void
 GenerateKeyAES128Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey)
 {
   AES128Cipher* aesCipher = (AES128Cipher*) cipher;
@@ -527,7 +530,7 @@ GenerateKeyAES128Cipher(void* cipher, Btree* pBt, char* userPassword, int passwo
   memcpy(aesCipher->m_key, digest, aesCipher->m_keyLength);
 }
 
-int
+static int
 EncryptPageAES128Cipher(void* cipher, int page, unsigned char* data, int len, int reserved)
 {
   AES128Cipher* aesCipher = (AES128Cipher*) cipher;
@@ -562,7 +565,7 @@ EncryptPageAES128Cipher(void* cipher, int page, unsigned char* data, int len, in
   return rc;
 }
 
-int
+static int
 DecryptPageAES128Cipher(void* cipher, int page, unsigned char* data, int len, int reserved, int hmacCheck)
 {
   AES128Cipher* aesCipher = (AES128Cipher*) cipher;
@@ -618,7 +621,7 @@ typedef struct _AES256Cipher
   Rijndael*     m_aes;
 } AES256Cipher;
 
-void*
+static void*
 AllocateAES256Cipher(sqlite3* db)
 {
   AES256Cipher* aesCipher = (AES256Cipher*) sqlite3_malloc(sizeof(AES256Cipher));
@@ -647,7 +650,7 @@ AllocateAES256Cipher(sqlite3* db)
   return aesCipher;
 }
 
-void
+static void
 FreeAES256Cipher(void* cipher)
 {
   AES256Cipher* aesCipher = (AES256Cipher*) cipher;
@@ -657,7 +660,7 @@ FreeAES256Cipher(void* cipher)
   sqlite3_free(aesCipher);
 }
 
-void
+static void
 CloneAES256Cipher(void* cipherTo, void* cipherFrom)
 {
   AES256Cipher* aesCipherTo = (AES256Cipher*) cipherTo;
@@ -671,14 +674,14 @@ CloneAES256Cipher(void* cipherTo, void* cipherFrom)
   RijndaelInvalidate(aesCipherFrom->m_aes);
 }
 
-int
+static int
 GetLegacyAES256Cipher(void* cipher)
 {
   AES256Cipher* aesCipher = (AES256Cipher*)cipher;
   return aesCipher->m_legacy;
 }
 
-int
+static int
 GetPageSizeAES256Cipher(void* cipher)
 {
   AES256Cipher* aesCipher = (AES256Cipher*) cipher;
@@ -694,19 +697,19 @@ GetPageSizeAES256Cipher(void* cipher)
   return pageSize;
 }
 
-int
+static int
 GetReservedAES256Cipher(void* cipher)
 {
   return 0;
 }
 
-unsigned char*
+static unsigned char*
 GetSaltAES256Cipher(void* cipher)
 {
   return NULL;
 }
 
-void
+static void
 GenerateKeyAES256Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey)
 {
   AES256Cipher* aesCipher = (AES256Cipher*) cipher;
@@ -726,7 +729,7 @@ GenerateKeyAES256Cipher(void* cipher, Btree* pBt, char* userPassword, int passwo
   memcpy(aesCipher->m_key, digest, aesCipher->m_keyLength);
 }
 
-int
+static int
 EncryptPageAES256Cipher(void* cipher, int page, unsigned char* data, int len, int reserved)
 {
   AES256Cipher* aesCipher = (AES256Cipher*) cipher;
@@ -761,7 +764,7 @@ EncryptPageAES256Cipher(void* cipher, int page, unsigned char* data, int len, in
   return rc;
 }
 
-int
+static int
 DecryptPageAES256Cipher(void* cipher, int page, unsigned char* data, int len, int reserved, int hmacCheck)
 {
   AES256Cipher* aesCipher = (AES256Cipher*) cipher;
@@ -823,7 +826,7 @@ typedef struct _chacha20Cipher
   unsigned char m_salt[SALTLENGTH_CHACHA20];
 } ChaCha20Cipher;
 
-void*
+static void*
 AllocateChaCha20Cipher(sqlite3* db)
 {
   ChaCha20Cipher* chacha20Cipher = (ChaCha20Cipher*) sqlite3_malloc(sizeof(ChaCha20Cipher));
@@ -847,7 +850,7 @@ AllocateChaCha20Cipher(sqlite3* db)
   return chacha20Cipher;
 }
 
-void
+static void
 FreeChaCha20Cipher(void* cipher)
 {
   ChaCha20Cipher* chacha20Cipher = (ChaCha20Cipher*) cipher;
@@ -855,7 +858,7 @@ FreeChaCha20Cipher(void* cipher)
   sqlite3_free(chacha20Cipher);
 }
 
-void
+static void
 CloneChaCha20Cipher(void* cipherTo, void* cipherFrom)
 {
   ChaCha20Cipher* chacha20CipherTo = (ChaCha20Cipher*) cipherTo;
@@ -868,14 +871,14 @@ CloneChaCha20Cipher(void* cipherTo, void* cipherFrom)
   memcpy(chacha20CipherTo->m_salt, chacha20CipherFrom->m_salt, SALTLENGTH_CHACHA20);
 }
 
-int
+static int
 GetLegacyChaCha20Cipher(void* cipher)
 {
   ChaCha20Cipher* chacha20Cipher = (ChaCha20Cipher*)cipher;
   return chacha20Cipher->m_legacy;
 }
 
-int
+static int
 GetPageSizeChaCha20Cipher(void* cipher)
 {
   ChaCha20Cipher* chacha20Cipher = (ChaCha20Cipher*) cipher;
@@ -891,23 +894,24 @@ GetPageSizeChaCha20Cipher(void* cipher)
   return pageSize;
 }
 
-int
+static int
 GetReservedChaCha20Cipher(void* cipher)
 {
   return PAGE_RESERVED_CHACHA20;
 }
 
-unsigned char*
+static unsigned char*
 GetSaltChaCha20Cipher(void* cipher)
 {
   ChaCha20Cipher* chacha20Cipher = (ChaCha20Cipher*) cipher;
   return chacha20Cipher->m_salt;
 }
 
-void
+static void
 GenerateKeyChaCha20Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey)
 {
   ChaCha20Cipher* chacha20Cipher = (ChaCha20Cipher*) cipher;
+  int bypass = 0;
 
   Pager *pPager = pBt->pBt->pPager;
   sqlite3_file* fd = (isOpen(pPager->fd)) ? pPager->fd : NULL;
@@ -920,7 +924,6 @@ GenerateKeyChaCha20Cipher(void* cipher, Btree* pBt, char* userPassword, int pass
   }
 
   /* Bypass key derivation if the key string starts with "raw:" */
-  int bypass = 0;
   if (passwordLength > 4 && !memcmp(userPassword, "raw:", 4))
   {
     const int nRaw = passwordLength - 4;
@@ -975,7 +978,7 @@ GenerateKeyChaCha20Cipher(void* cipher, Btree* pBt, char* userPassword, int pass
   }
 }
 
-int
+static int
 EncryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, int reserved)
 {
   ChaCha20Cipher* chacha20Cipher = (ChaCha20Cipher*) cipher;
@@ -1032,7 +1035,7 @@ EncryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
   return rc;
 }
 
-int
+static int
 DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, int reserved, int hmacCheck)
 {
   ChaCha20Cipher* chacha20Cipher = (ChaCha20Cipher*) cipher;
@@ -1132,7 +1135,7 @@ typedef struct _sqlCipherCipher
   Rijndael*     m_aes;
 } SQLCipherCipher;
 
-void*
+static void*
 AllocateSQLCipherCipher(sqlite3* db)
 {
   SQLCipherCipher* sqlCipherCipher = (SQLCipherCipher*) sqlite3_malloc(sizeof(SQLCipherCipher));
@@ -1167,7 +1170,7 @@ AllocateSQLCipherCipher(sqlite3* db)
   return sqlCipherCipher;
 }
 
-void
+static void
 FreeSQLCipherCipher(void* cipher)
 {
   SQLCipherCipher* sqlCipherCipher = (SQLCipherCipher*) cipher;
@@ -1177,7 +1180,7 @@ FreeSQLCipherCipher(void* cipher)
   sqlite3_free(sqlCipherCipher);
 }
 
-void
+static void
 CloneSQLCipherCipher(void* cipherTo, void* cipherFrom)
 {
   SQLCipherCipher* sqlCipherCipherTo = (SQLCipherCipher*) cipherTo;
@@ -1197,14 +1200,14 @@ CloneSQLCipherCipher(void* cipherTo, void* cipherFrom)
   RijndaelInvalidate(sqlCipherCipherFrom->m_aes);
 }
 
-int
+static int
 GetLegacySQLCipherCipher(void* cipher)
 {
   SQLCipherCipher* sqlCipherCipher = (SQLCipherCipher*)cipher;
   return sqlCipherCipher->m_legacy;
 }
 
-int
+static int
 GetPageSizeSQLCipherCipher(void* cipher)
 {
   SQLCipherCipher* sqlCipherCipher = (SQLCipherCipher*) cipher;
@@ -1220,7 +1223,7 @@ GetPageSizeSQLCipherCipher(void* cipher)
   return pageSize;
 }
 
-int
+static int
 GetReservedSQLCipherCipher(void* cipher)
 {
   SQLCipherCipher* sqlCipherCipher = (SQLCipherCipher*) cipher;
@@ -1232,14 +1235,14 @@ GetReservedSQLCipherCipher(void* cipher)
   return reserved;
 }
 
-unsigned char*
+static unsigned char*
 GetSaltSQLCipherCipher(void* cipher)
 {
   SQLCipherCipher* sqlCipherCipher = (SQLCipherCipher*) cipher;
   return sqlCipherCipher->m_salt;
 }
 
-void
+static void
 GenerateKeySQLCipherCipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey)
 {
   SQLCipherCipher* sqlCipherCipher = (SQLCipherCipher*) cipher;
@@ -1290,7 +1293,7 @@ GenerateKeySQLCipherCipher(void* cipher, Btree* pBt, char* userPassword, int pas
   }
 }
 
-int
+static int
 EncryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len, int reserved)
 {
   SQLCipherCipher* sqlCipherCipher = (SQLCipherCipher*) cipher;
@@ -1354,7 +1357,7 @@ EncryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len,
   return rc;
 }
 
-int
+static int
 DecryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len, int reserved, int hmacCheck)
 {
   SQLCipherCipher* sqlCipherCipher = (SQLCipherCipher*) cipher;
@@ -1433,7 +1436,7 @@ typedef struct _CodecParameter
   CipherParams* m_params;
 } CodecParameter;
 
-CodecParameter codecParameterTable[] =
+static CodecParameter codecParameterTable[] =
 {
   { "global",    commonParams },
   { "aes128cbc", aes128Params },
@@ -1443,7 +1446,7 @@ CodecParameter codecParameterTable[] =
   { "",          NULL }
 };
 
-CodecParameter*
+static CodecParameter*
 CloneCodecParameterTable()
 {
   /* Count number of codecs and cipher parameters */
@@ -1496,7 +1499,7 @@ CloneCodecParameterTable()
   return cloneCodecParams;
 }
 
-void
+static void
 FreeCodecParameterTable(CodecParameter* codecParams)
 {
   sqlite3_free(codecParams[0].m_params);
@@ -1529,7 +1532,7 @@ typedef struct _CodecDescriptor
   DecryptPage_t    m_decryptPage;
 } CodecDescriptor;
 
-CodecDescriptor codecDescriptorTable[] =
+static CodecDescriptor codecDescriptorTable[] =
 {
   /* wxSQLite3 AES 128 bit CBC */
   { "aes128cbc", AllocateAES128Cipher,
@@ -1580,7 +1583,7 @@ CodecDescriptor codecDescriptorTable[] =
 
 /* --- Codec --- */
 
-void
+static void
 wxsqlite3_config_table(sqlite3_context* context, int argc, sqlite3_value** argv)
 {
   CodecParameter* codecParams = (CodecParameter*) sqlite3_user_data(context);
@@ -1588,7 +1591,7 @@ wxsqlite3_config_table(sqlite3_context* context, int argc, sqlite3_value** argv)
   sqlite3_result_pointer(context, codecParams, "wxsqlite3_codec_params", 0);
 }
 
-void
+static void
 wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv)
 {
   CodecParameter* codecParams;
@@ -1852,7 +1855,7 @@ wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv
   }
 }
 
-CodecParameter*
+static CodecParameter*
 GetCodecParams(sqlite3* db)
 {
 #if 0
@@ -2040,7 +2043,7 @@ wxsqlite3_config_cipher(sqlite3* db, const char* cipherName, const char* paramNa
 }
 
 /* Forward declaration */
-unsigned char* CodecGetSaltWriteCipher(Codec* codec);
+static unsigned char* CodecGetSaltWriteCipher(Codec* codec);
 
 unsigned char*
 wxsqlite3_codec_data(sqlite3* db, const char* zDbName, const char* paramName)
@@ -2088,7 +2091,7 @@ wxsqlite3_codec_data(sqlite3* db, const char* zDbName, const char* paramName)
   return result;
 }
 
-void
+static void
 wxsqlite3_codec_data_sql(sqlite3_context* context, int argc, sqlite3_value** argv)
 {
   const char* nameParam1 = NULL;
@@ -2132,7 +2135,7 @@ wxsqlite3_codec_data_sql(sqlite3_context* context, int argc, sqlite3_value** arg
   }
 }
 
-int
+static int
 GetCipherType(sqlite3* db)
 {
   CodecParameter* codecParams = (db != NULL) ? GetCodecParams(db) : codecParameterTable;
@@ -2151,7 +2154,7 @@ GetCipherType(sqlite3* db)
   return cipherType;
 }
 
-void*
+static void*
 GetCipherParams(sqlite3* db, int cypherType)
 {
   CodecParameter* codecParams = (db != NULL) ? GetCodecParams(db) : codecParameterTable;
@@ -2159,7 +2162,7 @@ GetCipherParams(sqlite3* db, int cypherType)
   return cipherParamTable;
 }
 
-int
+static int
 CodecInit(Codec* codec)
 {
   int rc = SQLITE_OK;
@@ -2191,7 +2194,7 @@ CodecInit(Codec* codec)
   return rc;
 }
 
-void
+static void
 CodecTerm(Codec* codec)
 {
   if (codec->m_readCipher != NULL)
@@ -2207,12 +2210,12 @@ CodecTerm(Codec* codec)
   memset(codec, 0, sizeof(Codec));
 }
 
-int
+static int
 CodecSetup(Codec* codec, int cipherType, char* userPassword, int passwordLength)
 {
   int rc = SQLITE_OK;
-  codec->m_isEncrypted = 1;
   CipherParams* globalParams = (CipherParams*) GetCipherParams(codec->m_db, 0);
+  codec->m_isEncrypted = 1;
   codec->m_hmacCheck = GetCipherParameter(globalParams, "hmac_check");
   codec->m_hasReadCipher = 1;
   codec->m_hasWriteCipher = 1;
@@ -2230,16 +2233,16 @@ CodecSetup(Codec* codec, int cipherType, char* userPassword, int passwordLength)
   return rc;
 }
 
-int
+static int
 CodecSetupWriteCipher(Codec* codec, int cipherType, char* userPassword, int passwordLength)
 {
   int rc = SQLITE_OK;
+  CipherParams* globalParams = (CipherParams*) GetCipherParams(codec->m_db, 0);
   if (codec->m_writeCipher != NULL)
   {
     codecDescriptorTable[codec->m_writeCipherType-1].m_freeCipher(codec->m_writeCipher);
   }
   codec->m_isEncrypted = 1;
-  CipherParams* globalParams = (CipherParams*) GetCipherParams(codec->m_db, 0);
   codec->m_hmacCheck = GetCipherParameter(globalParams, "hmac_check");
   codec->m_hasWriteCipher = 1;
   codec->m_writeCipherType = cipherType;
@@ -2255,129 +2258,131 @@ CodecSetupWriteCipher(Codec* codec, int cipherType, char* userPassword, int pass
   return rc;
 }
 
-void
+static void
 CodecSetIsEncrypted(Codec* codec, int isEncrypted)
 {
   codec->m_isEncrypted = isEncrypted;
 }
 
-void
+static void
 CodecSetReadCipherType(Codec* codec, int cipherType)
 {
   codec->m_readCipherType = cipherType;
 }
 
-void
+static void
 CodecSetWriteCipherType(Codec* codec, int cipherType)
 {
   codec->m_writeCipherType = cipherType;
 }
 
-void
+static void
 CodecSetHasReadCipher(Codec* codec, int hasReadCipher)
 {
   codec->m_hasReadCipher = hasReadCipher;
 }
 
-void
+static void
 CodecSetHasWriteCipher(Codec* codec, int hasWriteCipher)
 {
   codec->m_hasWriteCipher = hasWriteCipher;
 }
 
-void
+static void
 CodecSetDb(Codec* codec, sqlite3* db)
 {
   codec->m_db = db;
 }
 
-void
+static void
 CodecSetBtree(Codec* codec, Btree* bt)
 {
   codec->m_bt = bt;
 }
 
-void
+static void
 CodecSetReadReserved(Codec* codec, int reserved)
 {
   codec->m_readReserved = reserved;
 }
 
-void
+static void
 CodecSetWriteReserved(Codec* codec, int reserved)
 {
   codec->m_writeReserved = reserved;
 }
 
-int
+static int
 CodecIsEncrypted(Codec* codec)
 {
   return codec->m_isEncrypted;
 }
 
-int
+static int
 CodecHasReadCipher(Codec* codec)
 {
   return codec->m_hasReadCipher;
 }
 
-int
+static int
 CodecHasWriteCipher(Codec* codec)
 {
   return codec->m_hasWriteCipher;
 }
 
-Btree*
+static Btree*
 CodecGetBtree(Codec* codec)
 {
   return codec->m_bt;
 }
 
-int
+static int
 CodecGetReadReserved(Codec* codec)
 {
   return codec->m_readReserved;
 }
 
-int
+static int
 CodecGetWriteReserved(Codec* codec)
 {
   return codec->m_writeReserved;
 }
 
-unsigned char*
+static unsigned char*
 CodecGetPageBuffer(Codec* codec)
 {
   return &codec->m_page[4];
 }
 
-int CodecGetLegacyReadCipher(Codec* codec)
+static int
+CodecGetLegacyReadCipher(Codec* codec)
 {
   int legacy = (codec->m_hasReadCipher  && codec->m_readCipher != NULL) ? codecDescriptorTable[codec->m_readCipherType - 1].m_getLegacy(codec->m_readCipher) : 0;
   return legacy;
 }
 
-int CodecGetLegacyWriteCipher(Codec* codec)
+static int
+CodecGetLegacyWriteCipher(Codec* codec)
 {
   int legacy = (codec->m_hasWriteCipher && codec->m_writeCipher != NULL) ? codecDescriptorTable[codec->m_writeCipherType - 1].m_getLegacy(codec->m_writeCipher) : -1;
   return legacy;
 }
 
-int
+static int
 CodecGetPageSizeReadCipher(Codec* codec)
 {
   int pageSize = (codec->m_hasReadCipher  && codec->m_readCipher != NULL) ? codecDescriptorTable[codec->m_readCipherType - 1].m_getPageSize(codec->m_readCipher) : 0;
   return pageSize;
 }
 
-int
+static int
 CodecGetPageSizeWriteCipher(Codec* codec)
 {
   int pageSize = (codec->m_hasWriteCipher && codec->m_writeCipher != NULL) ? codecDescriptorTable[codec->m_writeCipherType - 1].m_getPageSize(codec->m_writeCipher) : -1;
   return pageSize;
 }
 
-int
+static int
 CodecGetReservedReadCipher(Codec* codec)
 {
   int reserved = (codec->m_hasReadCipher  && codec->m_readCipher != NULL) ? codecDescriptorTable[codec->m_readCipherType-1].m_getReserved(codec->m_readCipher) : -1;
@@ -2391,7 +2396,7 @@ CodecGetReservedWriteCipher(Codec* codec)
   return reserved;
 }
 
-int
+static int
 CodecReservedEqual(Codec* codec)
 {
   int readReserved  = (codec->m_hasReadCipher  && codec->m_readCipher  != NULL) ? codecDescriptorTable[codec->m_readCipherType-1].m_getReserved(codec->m_readCipher)   : -1;
@@ -2399,14 +2404,14 @@ CodecReservedEqual(Codec* codec)
   return (readReserved == writeReserved);
 }
 
-unsigned char*
+static unsigned char*
 CodecGetSaltWriteCipher(Codec* codec)
 {
   unsigned char* salt = (codec->m_hasWriteCipher && codec->m_writeCipher != NULL) ? codecDescriptorTable[codec->m_writeCipherType - 1].m_getSalt(codec->m_writeCipher) : NULL;
   return salt;
 }
 
-int
+static int
 CodecCopy(Codec* codec, Codec* other)
 {
   int rc = SQLITE_OK;
@@ -2451,7 +2456,7 @@ CodecCopy(Codec* codec, Codec* other)
   return rc;
 }
 
-int
+static int
 CodecCopyCipher(Codec* codec, int read2write)
 {
   int rc = SQLITE_OK;
@@ -2500,7 +2505,7 @@ CodecCopyCipher(Codec* codec, int read2write)
   return rc;
 }
 
-void
+static void
 CodecPadPassword(char* password, int pswdlen, unsigned char pswd[32])
 {
   int j;
@@ -2518,19 +2523,19 @@ CodecPadPassword(char* password, int pswdlen, unsigned char pswd[32])
   }
 }
 
-void
+static void
 CodecGenerateReadKey(Codec* codec, char* userPassword, int passwordLength)
 {
   codecDescriptorTable[codec->m_readCipherType-1].m_generateKey(codec->m_readCipher, codec->m_bt, userPassword, passwordLength, 0);
 }
 
-void
+static void
 CodecGenerateWriteKey(Codec* codec, char* userPassword, int passwordLength)
 {
   codecDescriptorTable[codec->m_writeCipherType-1].m_generateKey(codec->m_writeCipher, codec->m_bt, userPassword, passwordLength, 1);
 }
 
-int
+static int
 CodecEncrypt(Codec* codec, int page, unsigned char* data, int len, int useWriteKey)
 {
   int cipherType = (useWriteKey) ? codec->m_writeCipherType : codec->m_readCipherType;
@@ -2540,7 +2545,7 @@ CodecEncrypt(Codec* codec, int page, unsigned char* data, int len, int useWriteK
   return codecDescriptorTable[cipherType-1].m_encryptPage(cipher, page, data, len, reserved);
 }
 
-int
+static int
 CodecDecrypt(Codec* codec, int page, unsigned char* data, int len)
 {
   int cipherType = codec->m_readCipherType;
@@ -2549,7 +2554,7 @@ CodecDecrypt(Codec* codec, int page, unsigned char* data, int len)
   return codecDescriptorTable[cipherType-1].m_decryptPage(cipher, page, data, len, reserved, codec->m_hmacCheck);
 }
 
-int
+static int
 CodecConfigureFromUri(sqlite3* db, const char *zDbName, int configDefault)
 {
   /* Register codec extensions if necessary */
@@ -2610,7 +2615,7 @@ CodecConfigureFromUri(sqlite3* db, const char *zDbName, int configDefault)
         }
         else
         {
-          rc = SQLITE_MISUSE;
+          rc = SQLITE_ERROR;
           sqlite3ErrorWithMsg(db, rc, "unknown cipher '%s'", cipherName);
         }
       }

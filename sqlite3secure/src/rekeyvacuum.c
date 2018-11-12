@@ -20,7 +20,7 @@
 ** new version for relevant changes, and to incorporate them in the
 ** adjusted function below.
 **
-** The code below is based on SQLite version 3.24.0 - check when updating SQLite.
+** The code below is based on SQLite version 3.25.3 - check when updating SQLite.
 */
 
 /*

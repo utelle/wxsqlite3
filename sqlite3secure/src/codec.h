@@ -74,63 +74,63 @@ typedef struct _Codec
   int           m_reserved;
 } Codec;
 
-void wxsqlite3_config_table(sqlite3_context* context, int argc, sqlite3_value** argv);
-void wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv);
+static void wxsqlite3_config_table(sqlite3_context* context, int argc, sqlite3_value** argv);
+static void wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv);
 
 int wxsqlite3_config(sqlite3* db, const char* paramName, int newValue);
 int wxsqlite3_config_cipher(sqlite3* db, const char* cipherName, const char* paramName, int newValue);
 
-int GetCipherType(sqlite3* db);
-void* GetCipherParams(sqlite3* db, int cypherType);
-int CodecInit(Codec* codec);
-void CodecTerm(Codec* codec);
+static int GetCipherType(sqlite3* db);
+static void* GetCipherParams(sqlite3* db, int cypherType);
+static int CodecInit(Codec* codec);
+static void CodecTerm(Codec* codec);
 
-int CodecCopy(Codec* codec, Codec* other);
+static int CodecCopy(Codec* codec, Codec* other);
 
-void CodecGenerateReadKey(Codec* codec, char* userPassword, int passwordLength);
+static void CodecGenerateReadKey(Codec* codec, char* userPassword, int passwordLength);
 
-void CodecGenerateWriteKey(Codec* codec, char* userPassword, int passwordLength);
+static void CodecGenerateWriteKey(Codec* codec, char* userPassword, int passwordLength);
 
-int CodecEncrypt(Codec* codec, int page, unsigned char* data, int len, int useWriteKey);
+static int CodecEncrypt(Codec* codec, int page, unsigned char* data, int len, int useWriteKey);
 
-int CodecDecrypt(Codec* codec, int page, unsigned char* data, int len);
+static int CodecDecrypt(Codec* codec, int page, unsigned char* data, int len);
 
-int CodecCopyCipher(Codec* codec, int read2write);
+static int CodecCopyCipher(Codec* codec, int read2write);
 
-int CodecSetup(Codec* codec, int cipherType, char* userPassword, int passwordLength);
-int CodecSetupWriteCipher(Codec* codec, int cipherType, char* userPassword, int passwordLength);
+static int CodecSetup(Codec* codec, int cipherType, char* userPassword, int passwordLength);
+static int CodecSetupWriteCipher(Codec* codec, int cipherType, char* userPassword, int passwordLength);
 
-void CodecSetIsEncrypted(Codec* codec, int isEncrypted);
-void CodecSetReadCipherType(Codec* codec, int cipherType);
-void CodecSetWriteCipherType(Codec* codec, int cipherType);
-void CodecSetHasReadCipher(Codec* codec, int hasReadCipher);
-void CodecSetHasWriteCipher(Codec* codec, int hasWriteCipher);
-void CodecSetDb(Codec* codec, sqlite3* db);
-void CodecSetBtree(Codec* codec, Btree* bt);
-void CodecSetReadReserved(Codec* codec, int reserved);
-void CodecSetWriteReserved(Codec* codec, int reserved);
+static void CodecSetIsEncrypted(Codec* codec, int isEncrypted);
+static void CodecSetReadCipherType(Codec* codec, int cipherType);
+static void CodecSetWriteCipherType(Codec* codec, int cipherType);
+static void CodecSetHasReadCipher(Codec* codec, int hasReadCipher);
+static void CodecSetHasWriteCipher(Codec* codec, int hasWriteCipher);
+static void CodecSetDb(Codec* codec, sqlite3* db);
+static void CodecSetBtree(Codec* codec, Btree* bt);
+static void CodecSetReadReserved(Codec* codec, int reserved);
+static void CodecSetWriteReserved(Codec* codec, int reserved);
 
-int CodecIsEncrypted(Codec* codec);
-int CodecHasReadCipher(Codec* codec);
-int CodecHasWriteCipher(Codec* codec);
-Btree* CodecGetBtree(Codec* codec);
-int CodecGetReadReserved(Codec* codec);
-int CodecGetWriteReserved(Codec* codec);
-unsigned char* CodecGetPageBuffer(Codec* codec);
-int CodecGetLegacyReadCipher(Codec* codec);
-int CodecGetLegacyWriteCipher(Codec* codec);
-int CodecGetPageSizeReadCipher(Codec* codec);
-int CodecGetPageSizeWriteCipher(Codec* codec);
-int CodecGetReservedReadCipher(Codec* codec);
-int CodecGetReservedWriteCipher(Codec* codec);
-int CodecReservedEqual(Codec* codec);
+static int CodecIsEncrypted(Codec* codec);
+static int CodecHasReadCipher(Codec* codec);
+static int CodecHasWriteCipher(Codec* codec);
+static Btree* CodecGetBtree(Codec* codec);
+static int CodecGetReadReserved(Codec* codec);
+static int CodecGetWriteReserved(Codec* codec);
+static unsigned char* CodecGetPageBuffer(Codec* codec);
+static int CodecGetLegacyReadCipher(Codec* codec);
+static int CodecGetLegacyWriteCipher(Codec* codec);
+static int CodecGetPageSizeReadCipher(Codec* codec);
+static int CodecGetPageSizeWriteCipher(Codec* codec);
+static int CodecGetReservedReadCipher(Codec* codec);
+static int CodecGetReservedWriteCipher(Codec* codec);
+static int CodecReservedEqual(Codec* codec);
 
-void CodecPadPassword(char* password, int pswdlen, unsigned char pswd[32]);
-void CodecRC4(unsigned char* key, int keylen,
-              unsigned char* textin, int textlen,
-              unsigned char* textout);
-void CodecGetMD5Binary(unsigned char* data, int length, unsigned char* digest);
-void CodecGetSHABinary(unsigned char* data, int length, unsigned char* digest);
-void CodecGenerateInitialVector(int seed, unsigned char iv[16]);
+static void CodecPadPassword(char* password, int pswdlen, unsigned char pswd[32]);
+static void CodecRC4(unsigned char* key, int keylen,
+                     unsigned char* textin, int textlen,
+                     unsigned char* textout);
+static void CodecGetMD5Binary(unsigned char* data, int length, unsigned char* digest);
+static void CodecGetSHABinary(unsigned char* data, int length, unsigned char* digest);
+static void CodecGenerateInitialVector(int seed, unsigned char iv[16]);
 
 #endif
