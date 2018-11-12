@@ -182,7 +182,7 @@ registerCodecExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines
 {
   int rc = SQLITE_OK;
 
-  if (sqlite3FindFunction(db, "wxsqlite3_config_table", 0, SQLITE_UTF8 | SQLITE_DETERMINISTIC, 0) != NULL)
+  if (sqlite3FindFunction(db, "wxsqlite3_config_table", 0, SQLITE_UTF8, 0) != NULL)
   {
     /* Return if codec extension functions are already defined */
     return rc;

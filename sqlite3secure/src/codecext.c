@@ -322,7 +322,7 @@ sqlite3_key_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
   if ((db != NULL) && (zKey != NULL) && (nKey > 0))
   {
     /* Configure cipher from URI parameters if requested */
-    if (sqlite3FindFunction(db, "wxsqlite3_config_table", 0, SQLITE_UTF8 | SQLITE_DETERMINISTIC, 0) == NULL)
+    if (sqlite3FindFunction(db, "wxsqlite3_config_table", 0, SQLITE_UTF8, 0) == NULL)
     {
       /*
       ** Encryption extension of database connection not yet initialized;
