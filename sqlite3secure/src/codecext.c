@@ -160,7 +160,7 @@ mySqlite3AdjustBtree(Btree* pBt, int nPageSize, int nReserved, int isLegacy)
   return rc;
 }
 
-static int
+int
 sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
 {
   /* Attach a key to a database. */
@@ -266,7 +266,7 @@ sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
   return rc;
 }
 
-static void
+void
 sqlite3CodecGetKey(sqlite3* db, int nDb, void** zKey, int* nKey)
 {
   /*
