@@ -44,6 +44,12 @@
 
 <dl>
 
+<dt><b>4.3.0</b> - <i>November 2018</i></dt>
+<dd>
+Upgrade to SQLite version 3.25.3<br>
+Adjusted encryption extension to support cipher configuration via database URI<br>
+
+</dd>
 <dt><b>4.2.0</b> - <i>October 2018</i></dt>
 <dd>
 Added method wxSQLite3Database::GetKeySalt to access the key salt of encrypted databases<br>

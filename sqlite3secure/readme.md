@@ -439,19 +439,19 @@ SQLite3 allows to specify database file names as [SQLite Uniform Resource Identi
 
 | URI Parameter | Description |
 | :--- | :--- |
-| cipher=_cipher name_ | The `cipher` query parameter specifies which cipher should be used. It has to be the identifier name of one of the supported ciphers. |
-| key=_passphrase_ | The `key` query parameter allows to specify the passphrase used to initialize the encryption extension for the database connection. If the query string does not contain a `cipher` parameter, the default cipher selected at compile time is used. |
-| hexkey=_hex-passphrase_ | The `hexkey` query parameter allows to specify a hexadecimal encoded passphrase used to initialize the encryption extension for the database connection. If the query string does not contain a `cipher` parameter, the default cipher selected at compile time is used. |
+| `cipher`=_cipher name_ | The `cipher` query parameter specifies which cipher should be used. It has to be the identifier name of one of the supported ciphers. |
+| `key`=_passphrase_ | The `key` query parameter allows to specify the passphrase used to initialize the encryption extension for the database connection. If the query string does not contain a `cipher` parameter, the default cipher selected at compile time is used. |
+| `hexkey`=_hex-passphrase_ | The `hexkey` query parameter allows to specify a hexadecimal encoded passphrase used to initialize the encryption extension for the database connection. If the query string does not contain a `cipher` parameter, the default cipher selected at compile time is used. |
 
-**Note 1**: The URI query parameters `key` and `heykey` are detected and applied by the SQLite3 library itself. If one of them is used and if it is not intended to use the default cipher, then the `cipher` query parameter and optionally further cipher configuration parameters have to be given in the URI query string as well. 
+**Note 1**: The URI query parameters `key` and `hexkey` are detected and applied by the SQLite3 library itself. If one of them is used and if it is not intended to use the default cipher, then the `cipher` query parameter and optionally further cipher configuration parameters have to be given in the URI query string as well. 
 
-**Note 2**: The URI query parameters `key` and `heykey` are only respected by SQLite3 on **opening** a database, but not on **attaching** a database. To specify the passphrase on attaching a database the keyword `KEY` of the SQL command `ATTACH` has to be used.
+**Note 2**: The URI query parameters `key` and `hexkey` are only respected by SQLite3 on **opening** a database, but not on **attaching** a database. To specify the passphrase on attaching a database the keyword `KEY` of the SQL command `ATTACH` has to be used.
 
 Depending on the cipher selected via the `cipher` parameter, additional query parameters can be used to configure the encryption extension. All parameters as described for each supported cipher (like `legacy`, `kdf_iter`, and so on) can be used to modify the cipher configuration. Default values are used for all cipher parameters which are not explicitly added to the URI query string. Misspelled parameters are silently ignored.
 
-**Note 3**: The `cipher` query parameter is always required, if further query parameters should be used to configure the encryption extension. If this parameter is missing or specifies an unknown cipher, all other cipher configuration parameters are silently ignored.
+**Note 3**: The `cipher` query parameter is always required, if further query parameters should be used to configure the encryption extension. If this parameter is missing or specifies an unknown cipher, all other cipher configuration parameters are silently ignored, and the default cipher as selected at compile time will be used.
 
-**Note 4**: On opening a database all cipher configuration parameters given in the URI query string are used to set the default cipher configuration of the database connection. On attaching a database the cipher configuration parameters given in the URI query string will be used for the attached database, but will not change the defaults of the database connection.
+**Note 4**: On **opening** a database all cipher configuration parameters given in the URI query string are used to set the **default** cipher configuration of the database connection. On **attaching** a database the cipher configuration parameters given in the URI query string will be used for the attached database, but will not change the defaults of the database connection.
 
 Example: URI query string to select the legacy SQLCipher Version 2 encryption scheme:  
 ```

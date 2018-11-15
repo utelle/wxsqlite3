@@ -40,6 +40,9 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
+* 4.3.0 - *November 2018*
+  - Upgrade to SQLite version 3.25.3
+  - Adjusted encryption extension to support cipher configuration via database URI
 * 4.2.0 - *October 2018*
   - Added method wxSQLite3Database::GetKeySalt to access the key salt of encrypted databases
   - Fixed memory leaks in methods wxSQLite3ResultSet::GetExpandedSQL and wxSQLite3Statement::GetExpandedSQL
