@@ -321,6 +321,7 @@ sqlite3_key_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
   int rc = SQLITE_ERROR;
   if ((db != NULL) && (zKey != NULL) && (nKey > 0))
   {
+    int dbIndex;
     /* Configure cipher from URI parameters if requested */
     if (sqlite3FindFunction(db, "wxsqlite3_config_table", 0, SQLITE_UTF8, 0) == NULL)
     {
@@ -333,7 +334,7 @@ sqlite3_key_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
     }
 
     /* The key is only set for the main database, not the temp database  */
-    int dbIndex = dbFindIndex(db, zDbName);
+    dbIndex = dbFindIndex(db, zDbName);
     rc = sqlite3CodecAttach(db, dbIndex, zKey, nKey);
   }
   return rc;

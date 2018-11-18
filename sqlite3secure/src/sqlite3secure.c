@@ -181,6 +181,7 @@ static int
 registerCodecExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines *pApi)
 {
   int rc = SQLITE_OK;
+  CodecParameter* codecParameterTable = NULL;
 
   if (sqlite3FindFunction(db, "wxsqlite3_config_table", 0, SQLITE_UTF8, 0) != NULL)
   {
@@ -188,37 +189,37 @@ registerCodecExtensions(sqlite3 *db, char **pzErrMsg, const sqlite3_api_routines
     return rc;
   }
 
-  CodecParameter* codecParameterTable = CloneCodecParameterTable();
+  codecParameterTable = CloneCodecParameterTable();
   rc = (codecParameterTable != NULL) ? SQLITE_OK : SQLITE_NOMEM;
   if (rc == SQLITE_OK)
   {
     rc = sqlite3_create_function_v2(db, "wxsqlite3_config_table", 0, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-      codecParameterTable, wxsqlite3_config_table, 0, 0, (void(*)(void*)) FreeCodecParameterTable);
+                                    codecParameterTable, wxsqlite3_config_table, 0, 0, (void(*)(void*)) FreeCodecParameterTable);
   }
   if (rc == SQLITE_OK)
   {
     rc = sqlite3_create_function(db, "wxsqlite3_config", 1, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-      codecParameterTable, wxsqlite3_config_params, 0, 0);
+                                 codecParameterTable, wxsqlite3_config_params, 0, 0);
   }
   if (rc == SQLITE_OK)
   {
     rc = sqlite3_create_function(db, "wxsqlite3_config", 2, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-      codecParameterTable, wxsqlite3_config_params, 0, 0);
+                                 codecParameterTable, wxsqlite3_config_params, 0, 0);
   }
   if (rc == SQLITE_OK)
   {
     rc = sqlite3_create_function(db, "wxsqlite3_config", 3, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-      codecParameterTable, wxsqlite3_config_params, 0, 0);
+                                 codecParameterTable, wxsqlite3_config_params, 0, 0);
   }
   if (rc == SQLITE_OK)
   {
     rc = sqlite3_create_function(db, "wxsqlite3_codec_data", 1, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-      NULL, wxsqlite3_codec_data_sql, 0, 0);
+                                 NULL, wxsqlite3_codec_data_sql, 0, 0);
   }
   if (rc == SQLITE_OK)
   {
     rc = sqlite3_create_function(db, "wxsqlite3_codec_data", 2, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-      NULL, wxsqlite3_codec_data_sql, 0, 0);
+                                 NULL, wxsqlite3_codec_data_sql, 0, 0);
   }
   return rc;
 }
