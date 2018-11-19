@@ -7,7 +7,7 @@
 ** of the sqleet project (https://github.com/resilar/sqleet)
 */
 
-#include <stdint.h>
+#include "mystdint.h"
 
 #define ROL32(x, c) (((x) << (c)) | ((x) >> (32-(c))))
 #define ROR32(x, c) (((x) >> (c)) | ((x) << (32-(c))))

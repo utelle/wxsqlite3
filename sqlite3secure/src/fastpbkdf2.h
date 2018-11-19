@@ -16,7 +16,7 @@
 #define FASTPBKDF2_H
 
 #include <stdlib.h>
-#include <stdint.h>
+#include "mystdint.h"
 
 #ifdef __cplusplus
 extern "C" {
