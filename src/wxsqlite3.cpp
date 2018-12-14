@@ -4343,7 +4343,7 @@ wxString wxSQLite3Database::GetKeySalt(const wxString& schemaName) const
     {
       localSchemaName = strSchema;
     }
-    char* localKeySalt = (char*) wxsqlite3_codec_data(m_db->m_db, localSchemaName, "salt");
+    char* localKeySalt = (char*) wxsqlite3_codec_data(m_db->m_db, localSchemaName, "cipher_salt");
     if (localKeySalt != NULL)
     {
       keySalt = wxString::FromUTF8(localKeySalt);
@@ -6204,8 +6204,9 @@ wxSQLite3CipherChaCha20::Apply(void* dbHandle) const
 
 
 wxSQLite3CipherSQLCipher::wxSQLite3CipherSQLCipher()
-  : wxSQLite3Cipher(WXSQLITE_CIPHER_SQLCIPHER), m_legacy(false), m_kdfIter(64000),
-                    m_fastKdfIter(2), m_hmacUse(true), m_hmacPgNo(1), m_hmacSaltMask(0x3a)
+  : wxSQLite3Cipher(WXSQLITE_CIPHER_SQLCIPHER), m_legacy(false), m_kdfIter(256000),
+                    m_fastKdfIter(2), m_hmacUse(true), m_hmacPgNo(1), m_hmacSaltMask(0x3a),
+                    m_kdfAlgorithm(ALGORITHM_SHA512), m_hmacAlgorithm(ALGORITHM_SHA512)
 {
   SetInitialized(true);
 }
@@ -6213,7 +6214,8 @@ wxSQLite3CipherSQLCipher::wxSQLite3CipherSQLCipher()
 wxSQLite3CipherSQLCipher::wxSQLite3CipherSQLCipher(const wxSQLite3CipherSQLCipher&  cipher)
   : wxSQLite3Cipher(cipher), m_legacy(cipher.m_legacy), m_kdfIter(cipher.m_kdfIter),
     m_fastKdfIter(cipher.m_fastKdfIter), m_hmacUse(cipher.m_hmacUse), 
-    m_hmacPgNo(cipher.m_hmacPgNo), m_hmacSaltMask(cipher.m_hmacSaltMask)
+    m_hmacPgNo(cipher.m_hmacPgNo), m_hmacSaltMask(cipher.m_hmacSaltMask),
+    m_kdfAlgorithm(cipher.m_kdfAlgorithm), m_hmacAlgorithm(cipher.m_hmacAlgorithm)
 {
 }
 
@@ -6226,14 +6228,20 @@ wxSQLite3CipherSQLCipher::InitializeFromGlobalDefault()
 {
   int legacy = wxsqlite3_config_cipher(0, "sqlcipher", "legacy", -1);
   m_legacy = legacy != 0;
+  m_legacyVersion = legacy;
   m_kdfIter = wxsqlite3_config_cipher(0, "sqlcipher", "kdf_iter", -1);
   m_fastKdfIter = wxsqlite3_config_cipher(0, "sqlcipher", "fast_kdf_iter", -1);
   int hmacUse = wxsqlite3_config_cipher(0, "sqlcipher", "hmac_use", -1);
   m_hmacUse = hmacUse != 0;
   m_hmacPgNo = wxsqlite3_config_cipher(0, "sqlcipher", "hmac_pgno", -1);
   m_hmacSaltMask = wxsqlite3_config_cipher(0, "sqlcipher", "hmac_salt_mask", -1);
-  bool initialized = legacy >= 0 && m_kdfIter > 0 && m_fastKdfIter > 0 && 
-                     hmacUse >= 0 && m_hmacPgNo >= 0 && m_hmacSaltMask >= 0;
+  int kdfAlgorithm = wxsqlite3_config_cipher(0, "sqlcipher", "kdf_algorithm", -1);
+  if (kdfAlgorithm >= 0) m_kdfAlgorithm = (Algorithm) kdfAlgorithm;
+  int hmacAlgorithm = wxsqlite3_config_cipher(0, "sqlcipher", "hmac_algorithm", -1);
+  if (hmacAlgorithm >= 0) m_hmacAlgorithm = (Algorithm) hmacAlgorithm;
+  bool initialized = legacy >= 0 && m_kdfIter > 0 && m_fastKdfIter > 0 &&
+                     hmacUse >= 0 && m_hmacPgNo >= 0 && m_hmacSaltMask >= 0 &&
+                     kdfAlgorithm >= 0 && hmacAlgorithm >= 0;
   SetInitialized(initialized);
   return initialized;
 }
@@ -6250,8 +6258,13 @@ wxSQLite3CipherSQLCipher::InitializeFromCurrent(wxSQLite3Database& db)
   m_hmacUse = hmacUse != 0;
   m_hmacPgNo = wxsqlite3_config_cipher(dbHandle, "sqlcipher", "hmac_pgno", -1);
   m_hmacSaltMask = wxsqlite3_config_cipher(dbHandle, "sqlcipher", "hmac_salt_mask", -1);
+  int kdfAlgorithm = wxsqlite3_config_cipher(dbHandle, "sqlcipher", "kdf_algorithm", -1);
+  if (kdfAlgorithm >= 0) m_kdfAlgorithm = (Algorithm)kdfAlgorithm;
+  int hmacAlgorithm = wxsqlite3_config_cipher(dbHandle, "sqlcipher", "hmac_algorithm", -1);
+  if (hmacAlgorithm >= 0) m_hmacAlgorithm = (Algorithm)hmacAlgorithm;
   bool initialized = legacy >= 0 && m_kdfIter > 0 && m_fastKdfIter > 0 &&
-    hmacUse >= 0 && m_hmacPgNo >= 0 && m_hmacSaltMask >= 0;
+                     hmacUse >= 0 && m_hmacPgNo >= 0 && m_hmacSaltMask >= 0 &&
+                     kdfAlgorithm >= 0 && hmacAlgorithm >= 0;
   SetInitialized(initialized);
   return initialized;
 }
@@ -6268,8 +6281,13 @@ wxSQLite3CipherSQLCipher::InitializeFromCurrentDefault(wxSQLite3Database& db)
   m_hmacUse = hmacUse != 0;
   m_hmacPgNo = wxsqlite3_config_cipher(dbHandle, "sqlcipher", "default:hmac_pgno", -1);
   m_hmacSaltMask = wxsqlite3_config_cipher(dbHandle, "sqlcipher", "default:hmac_salt_mask", -1);
+  int kdfAlgorithm = wxsqlite3_config_cipher(dbHandle, "sqlcipher", "default:kdf_algorithm", -1);
+  if (kdfAlgorithm >= 0) m_kdfAlgorithm = (Algorithm)kdfAlgorithm;
+  int hmacAlgorithm = wxsqlite3_config_cipher(dbHandle, "sqlcipher", "default:hmac_algorithm", -1);
+  if (hmacAlgorithm >= 0) m_hmacAlgorithm = (Algorithm)hmacAlgorithm;
   bool initialized = legacy >= 0 && m_kdfIter > 0 && m_fastKdfIter > 0 &&
-    hmacUse >= 0 && m_hmacPgNo >= 0 && m_hmacSaltMask >= 0;
+                     hmacUse >= 0 && m_hmacPgNo >= 0 && m_hmacSaltMask >= 0 &&
+                     kdfAlgorithm >= 0 && hmacAlgorithm >= 0;
   SetInitialized(initialized);
   return initialized;
 }
@@ -6296,9 +6314,12 @@ wxSQLite3CipherSQLCipher::Apply(void* dbHandle) const
       int hmacUse = wxsqlite3_config_cipher((sqlite3*) dbHandle, "sqlcipher", "hmac_use", (m_hmacUse) ? 1 : 0);
       int hmacPgNo = wxsqlite3_config_cipher((sqlite3*) dbHandle, "sqlcipher", "hmac_pgno", m_hmacPgNo);
       int hmacSaltMask = wxsqlite3_config_cipher((sqlite3*) dbHandle, "sqlcipher", "hmac_salt_mask", m_hmacSaltMask);
-      applied = (legacy >= 0) && (legacyPageSize >= 0) && 
+      int kdfAlgorithm = wxsqlite3_config_cipher((sqlite3*) dbHandle, "sqlcipher", "kdf_algorithm", (int) m_kdfAlgorithm);
+      int hmacAlgorithm = wxsqlite3_config_cipher((sqlite3*) dbHandle, "sqlcipher", "hmac_algorithm", (int) m_hmacAlgorithm);
+      applied = (legacy >= 0) && (legacyPageSize >= 0) &&
                 (kdfIter > 0) && (fastKdfIter > 0) &&
-                (hmacUse >= 0) && (hmacPgNo >= 0) && (hmacSaltMask >= 0);
+                (hmacUse >= 0) && (hmacPgNo >= 0) && (hmacSaltMask >= 0) &&
+                (kdfAlgorithm >= 0) && (hmacAlgorithm >= 0);
     }
   }
   return applied;
@@ -6311,32 +6332,52 @@ wxSQLite3CipherSQLCipher::InitializeVersionDefault(int version)
   {
     case 1:
       m_legacy = true;
+      m_legacyVersion = 1;
       m_kdfIter = 4000;
       m_fastKdfIter = 2;
       m_hmacUse = false;
       m_hmacPgNo = 1;
       m_hmacSaltMask = 0x3a;
+      m_kdfAlgorithm = ALGORITHM_SHA1;
+      m_hmacAlgorithm = ALGORITHM_SHA1;
+      SetLegacyPageSize(1024);
       break;
     case 2:
       m_legacy = true;
+      m_legacyVersion = 2;
       m_kdfIter = 4000;
       m_fastKdfIter = 2;
       m_hmacUse = true;
       m_hmacPgNo = 1;
       m_hmacSaltMask = 0x3a;
+      m_kdfAlgorithm = ALGORITHM_SHA1;
+      m_hmacAlgorithm = ALGORITHM_SHA1;
+      SetLegacyPageSize(1024);
       break;
     case 3:
-    default:
       m_legacy = true;
+      m_legacyVersion = 3;
       m_kdfIter = 64000;
       m_fastKdfIter = 2;
       m_hmacUse = true;
       m_hmacPgNo = 1;
       m_hmacSaltMask = 0x3a;
+      m_kdfAlgorithm = ALGORITHM_SHA1;
+      m_hmacAlgorithm = ALGORITHM_SHA1;
+      SetLegacyPageSize(1024);
       break;
-  }
-  if (m_legacy)
-  {
-    SetLegacyPageSize(1024);
+    case 4:
+    default:
+      m_legacy = true;
+      m_legacyVersion = 4;
+      m_kdfIter = 256000;
+      m_fastKdfIter = 2;
+      m_hmacUse = true;
+      m_hmacPgNo = 1;
+      m_hmacSaltMask = 0x3a;
+      m_kdfAlgorithm = ALGORITHM_SHA512;
+      m_hmacAlgorithm = ALGORITHM_SHA512;
+      SetLegacyPageSize(4096);
+      break;
   }
 }

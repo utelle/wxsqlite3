@@ -26,7 +26,7 @@ Currently the following encryption schemes are supported:
 - AES 128 Bit CBC - No HMAC (wxSQLite3)
 - AES 256 Bit CBC - No HMAC (wxSQLite3)
 - ChaCha20 - Poly1305 HMAC (sqleet)
-- AES 256 Bit CBC - SHA1 HMAC (SQLCipher) 
+- AES 256 Bit CBC - SHA1/SHA256/SHA512 HMAC (SQLCipher) 
 
 ## Table of Contents
 
@@ -40,6 +40,9 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
+* 4.4.0 - *December 2018*
+  - Upgrade to SQLite version 3.26.0
+  - Added support for the SQLCipher 4 database format
 * 4.3.0 - *November 2018*
   - Upgrade to SQLite version 3.25.3
   - Adjusted encryption extension to support cipher configuration via database URI

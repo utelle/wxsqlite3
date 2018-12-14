@@ -1049,6 +1049,9 @@ public:
   /// Get legacy mode
   bool GetLegacy() const { return m_legacy; }
 
+  /// Get legacy version
+  int GetLegacyVersion() const { return m_legacyVersion; }
+
   /// Set iteration count of KDF function for ordinary key
   void SetKdfIter(int kdfIter) { m_kdfIter = kdfIter; }
 
@@ -1079,13 +1082,36 @@ public:
   /// Get the salt mask of the HMAC calculation
   int GetHmacSaltMask() const { return m_hmacSaltMask; }
 
+  /// KDF and HMAC algorithm types
+  enum Algorithm
+  {
+    ALGORITHM_SHA1,
+    ALGORITHM_SHA256,
+    ALGORITHM_SHA512
+  };
+
+  /// Set the algorithm for the KDF function
+  void SetKdfAlgorithm(Algorithm algorithm) { m_kdfAlgorithm = algorithm; }
+
+  /// Set the algorithm for the KDF function
+  Algorithm GetKdfAlgorithm() const { return m_kdfAlgorithm; }
+
+  /// Set the algorithm for the HMAC function
+  void SetHmacAlgorithm(Algorithm algorithm) { m_hmacAlgorithm = algorithm; }
+
+  /// Set the algorithm for the HMAC function
+  Algorithm GetHmacAlgorithm() const { return m_hmacAlgorithm; }
+
 private:
   bool m_legacy;        ///< Flag for legacy mode
+  int  m_legacyVersion; ///< Version number of a legacy SQLCipher database format
   int  m_kdfIter;       ///< Iteration count for KDF function for ordinary key
   int  m_fastKdfIter;   ///< Iteration count for KDF function for HMAC key
   bool m_hmacUse;       ///< Flag indicating whether HMACs should be used
   int  m_hmacPgNo;      ///< Encoding type for page number iin HMAC
   int  m_hmacSaltMask;  ///< Salt mask for HMAC calculation
+  Algorithm m_kdfAlgorithm;  ///< KDF algorithm
+  Algorithm m_hmacAlgorithm; ///< HMAC algorithm
 };
 
 

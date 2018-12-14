@@ -332,30 +332,61 @@ static CipherParams chacha20Params[] =
 ** - hmac_salt_mask  : mask byte for hmac salt
 */
 
-#ifdef WXSQLITE3_USE_SQLCIPHER_LEGACY
-#define SQLCIPHER_LEGACY_DEFAULT   1
-#else
-#define SQLCIPHER_LEGACY_DEFAULT   0
-#endif
-
-#define SQLCIPHER_KDF_ITER          64000
 #define SQLCIPHER_FAST_KDF_ITER     2
 #define SQLCIPHER_HMAC_USE          1
 #define SQLCIPHER_HMAC_PGNO_LE      1
 #define SQLCIPHER_HMAC_PGNO_BE      2
 #define SQLCIPHER_HMAC_PGNO_NATIVE  0
 #define SQLCIPHER_HMAC_SALT_MASK    0x3a
+
+#define SQLCIPHER_KDF_ALGORITHM_SHA1   0
+#define SQLCIPHER_KDF_ALGORITHM_SHA256 1
+#define SQLCIPHER_KDF_ALGORITHM_SHA512 2
+
+#define SQLCIPHER_HMAC_ALGORITHM_SHA1   0
+#define SQLCIPHER_HMAC_ALGORITHM_SHA256 1
+#define SQLCIPHER_HMAC_ALGORITHM_SHA512 2
+
+#define SQLCIPHER_VERSION_1   1
+#define SQLCIPHER_VERSION_2   2
+#define SQLCIPHER_VERSION_3   3
+#define SQLCIPHER_VERSION_4   4
+#define SQLCIPHER_VERSION_MAX SQLCIPHER_VERSION_4
+
+#ifndef SQLCIPHER_VERSION_DEFAULT
+#define SQLCIPHER_VERSION_DEFAULT SQLCIPHER_VERSION_4
+#endif
+
+#ifdef WXSQLITE3_USE_SQLCIPHER_LEGACY
+#define SQLCIPHER_LEGACY_DEFAULT   SQLCIPHER_VERSION_DEFAULT
+#else
+#define SQLCIPHER_LEGACY_DEFAULT   0
+#endif
+
+#if SQLCIPHER_VERSION_DEFAULT < SQLCIPHER_VERSION_4
+#define SQLCIPHER_KDF_ITER          64000
 #define SQLCIPHER_LEGACY_PAGE_SIZE  1024
+#define SQLCIPHER_KDF_ALGORITHM     SQLCIPHER_KDF_ALGORITHM_SHA1
+#define SQLCIPHER_HMAC_ALGORITHM    SQLCIPHER_HMAC_ALGORITHM_SHA1
+#else
+#define SQLCIPHER_KDF_ITER          256000
+#define SQLCIPHER_LEGACY_PAGE_SIZE  4096
+#define SQLCIPHER_KDF_ALGORITHM  SQLCIPHER_KDF_ALGORITHM_SHA512
+#define SQLCIPHER_HMAC_ALGORITHM SQLCIPHER_HMAC_ALGORITHM_SHA512
+#endif
 
 static CipherParams sqlCipherParams[] =
 {
-  { "legacy",            SQLCIPHER_LEGACY_DEFAULT,   SQLCIPHER_LEGACY_DEFAULT,   0, 1 },
-  { "legacy_page_size",  SQLCIPHER_LEGACY_PAGE_SIZE, SQLCIPHER_LEGACY_PAGE_SIZE, 0, SQLITE_MAX_PAGE_SIZE },
-  { "kdf_iter",          SQLCIPHER_KDF_ITER,         SQLCIPHER_KDF_ITER,         1, 0x7fffffff },
-  { "fast_kdf_iter",     SQLCIPHER_FAST_KDF_ITER,    SQLCIPHER_FAST_KDF_ITER,    1, 0x7fffffff },
-  { "hmac_use",          SQLCIPHER_HMAC_USE,         SQLCIPHER_HMAC_USE,         0, 1 },
-  { "hmac_pgno",         SQLCIPHER_HMAC_PGNO_LE,     SQLCIPHER_HMAC_PGNO_LE,     0, 2 },
-  { "hmac_salt_mask",    SQLCIPHER_HMAC_SALT_MASK,   SQLCIPHER_HMAC_SALT_MASK,   0x00, 0xff },
+  { "legacy",                SQLCIPHER_LEGACY_DEFAULT,   SQLCIPHER_LEGACY_DEFAULT,   0, SQLCIPHER_VERSION_MAX },
+  { "legacy_page_size",      SQLCIPHER_LEGACY_PAGE_SIZE, SQLCIPHER_LEGACY_PAGE_SIZE, 0, SQLITE_MAX_PAGE_SIZE },
+  { "kdf_iter",              SQLCIPHER_KDF_ITER,         SQLCIPHER_KDF_ITER,         1, 0x7fffffff },
+  { "fast_kdf_iter",         SQLCIPHER_FAST_KDF_ITER,    SQLCIPHER_FAST_KDF_ITER,    1, 0x7fffffff },
+  { "hmac_use",              SQLCIPHER_HMAC_USE,         SQLCIPHER_HMAC_USE,         0, 1 },
+  { "hmac_pgno",             SQLCIPHER_HMAC_PGNO_LE,     SQLCIPHER_HMAC_PGNO_LE,     0, 2 },
+  { "hmac_salt_mask",        SQLCIPHER_HMAC_SALT_MASK,   SQLCIPHER_HMAC_SALT_MASK,   0x00, 0xff },
+  { "kdf_algorithm",         SQLCIPHER_KDF_ALGORITHM,    SQLCIPHER_KDF_ALGORITHM,    0, 2 },
+  { "hmac_algorithm",        SQLCIPHER_HMAC_ALGORITHM,   SQLCIPHER_HMAC_ALGORITHM,   0, 2 },
+  { "plaintext_header_size", 0,                          0,                          0, 100 /* restrict to db header size */ },
   CIPHER_PARAMS_SENTINEL
 };
 
@@ -473,7 +504,7 @@ GetSaltAES128Cipher(void* cipher)
 }
 
 static void
-GenerateKeyAES128Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey)
+GenerateKeyAES128Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
 {
   AES128Cipher* aesCipher = (AES128Cipher*) cipher;
   unsigned char userPad[32];
@@ -710,7 +741,7 @@ GetSaltAES256Cipher(void* cipher)
 }
 
 static void
-GenerateKeyAES256Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey)
+GenerateKeyAES256Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
 {
   AES256Cipher* aesCipher = (AES256Cipher*) cipher;
   unsigned char userPad[32];
@@ -908,7 +939,7 @@ GetSaltChaCha20Cipher(void* cipher)
 }
 
 static void
-GenerateKeyChaCha20Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey)
+GenerateKeyChaCha20Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
 {
   ChaCha20Cipher* chacha20Cipher = (ChaCha20Cipher*) cipher;
   int bypass = 0;
@@ -1114,10 +1145,10 @@ DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
 
 /* --- SQLCipher AES256CBC-HMAC cipher --- */
 
-#define KEYLENGTH_SQLCIPHER      32
-#define SALTLENGTH_SQLCIPHER     16
-#define HMAC_LENGTH_SQLCIPHER    SHA1_DIGEST_SIZE
-#define PAGE_NONCE_LEN_SQLCIPHER 16
+#define KEYLENGTH_SQLCIPHER       32
+#define SALTLENGTH_SQLCIPHER      16
+#define MAX_HMAC_LENGTH_SQLCIPHER SHA512_DIGEST_SIZE
+#define PAGE_NONCE_LEN_SQLCIPHER  16
 
 typedef struct _sqlCipherCipher
 {
@@ -1128,6 +1159,9 @@ typedef struct _sqlCipherCipher
   int           m_hmacUse;
   int           m_hmacPgno;
   int           m_hmacSaltMask;
+  int           m_kdfAlgorithm;
+  int           m_hmacAlgorithm;
+  int           m_plaintextHeaderSize;
   int           m_keyLength;
   unsigned char m_key[KEYLENGTH_SQLCIPHER];
   unsigned char m_salt[SALTLENGTH_SQLCIPHER];
@@ -1147,7 +1181,7 @@ AllocateSQLCipherCipher(sqlite3* db)
       sqlCipherCipher->m_keyLength = KEYLENGTH_SQLCIPHER;
       memset(sqlCipherCipher->m_key, 0, KEYLENGTH_SQLCIPHER);
       memset(sqlCipherCipher->m_salt, 0, SALTLENGTH_SQLCIPHER);
-      memset(sqlCipherCipher->m_hmacKey, 0, KEYLENGTH_AES256);
+      memset(sqlCipherCipher->m_hmacKey, 0, KEYLENGTH_SQLCIPHER);
       RijndaelCreate(sqlCipherCipher->m_aes);
     }
     else
@@ -1166,6 +1200,17 @@ AllocateSQLCipherCipher(sqlite3* db)
     sqlCipherCipher->m_hmacUse = GetCipherParameter(cipherParams, "hmac_use");
     sqlCipherCipher->m_hmacPgno = GetCipherParameter(cipherParams, "hmac_pgno");
     sqlCipherCipher->m_hmacSaltMask = GetCipherParameter(cipherParams, "hmac_salt_mask");
+    sqlCipherCipher->m_kdfAlgorithm = GetCipherParameter(cipherParams, "kdf_algorithm");
+    sqlCipherCipher->m_hmacAlgorithm = GetCipherParameter(cipherParams, "hmac_algorithm");
+    if (sqlCipherCipher->m_legacy >= SQLCIPHER_VERSION_4)
+    {
+      int plaintextHeaderSize = GetCipherParameter(cipherParams, "plaintext_header_size");
+      sqlCipherCipher->m_plaintextHeaderSize = (plaintextHeaderSize >=0 && plaintextHeaderSize <= 100 && plaintextHeaderSize % 16 == 0) ? plaintextHeaderSize : 0;
+    }
+    else
+    {
+      sqlCipherCipher->m_plaintextHeaderSize = 0;
+    }
   }
   return sqlCipherCipher;
 }
@@ -1192,6 +1237,9 @@ CloneSQLCipherCipher(void* cipherTo, void* cipherFrom)
   sqlCipherCipherTo->m_hmacUse = sqlCipherCipherFrom->m_hmacUse;
   sqlCipherCipherTo->m_hmacPgno = sqlCipherCipherFrom->m_hmacPgno;
   sqlCipherCipherTo->m_hmacSaltMask = sqlCipherCipherFrom->m_hmacSaltMask;
+  sqlCipherCipherTo->m_kdfAlgorithm = sqlCipherCipherFrom->m_kdfAlgorithm;
+  sqlCipherCipherTo->m_hmacAlgorithm = sqlCipherCipherFrom->m_hmacAlgorithm;
+  sqlCipherCipherTo->m_plaintextHeaderSize = sqlCipherCipherFrom->m_plaintextHeaderSize;
   sqlCipherCipherTo->m_keyLength = sqlCipherCipherFrom->m_keyLength;
   memcpy(sqlCipherCipherTo->m_key, sqlCipherCipherFrom->m_key, KEYLENGTH_SQLCIPHER);
   memcpy(sqlCipherCipherTo->m_salt, sqlCipherCipherFrom->m_salt, SALTLENGTH_SQLCIPHER);
@@ -1230,7 +1278,17 @@ GetReservedSQLCipherCipher(void* cipher)
   int reserved = SALTLENGTH_SQLCIPHER;
   if (sqlCipherCipher->m_hmacUse != 0)
   {
-    reserved += 32;
+    switch (sqlCipherCipher->m_hmacAlgorithm)
+    {
+      case SQLCIPHER_HMAC_ALGORITHM_SHA1:
+      case SQLCIPHER_HMAC_ALGORITHM_SHA256:
+        reserved += SHA256_DIGEST_SIZE;
+        break;
+      case SQLCIPHER_HMAC_ALGORITHM_SHA512:
+      default:
+        reserved += SHA512_DIGEST_SIZE;
+        break;
+    }
   }
   return reserved;
 }
@@ -1243,7 +1301,7 @@ GetSaltSQLCipherCipher(void* cipher)
 }
 
 static void
-GenerateKeySQLCipherCipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey)
+GenerateKeySQLCipherCipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
 {
   SQLCipherCipher* sqlCipherCipher = (SQLCipherCipher*) cipher;
 
@@ -1254,26 +1312,48 @@ GenerateKeySQLCipherCipher(void* cipher, Btree* pBt, char* userPassword, int pas
   {
     chacha20_rng(sqlCipherCipher->m_salt, SALTLENGTH_SQLCIPHER);
   }
+  else if (cipherSalt != NULL)
+  {
+    memcpy(sqlCipherCipher->m_salt, cipherSalt, SALTLENGTH_SQLCIPHER);
+  }
 
   if (passwordLength == ((KEYLENGTH_SQLCIPHER * 2) + 3) &&
-    sqlite3_strnicmp(userPassword, "x'", 2) == 0 &&
-    IsHexKey((unsigned char*) (userPassword + 2), KEYLENGTH_SQLCIPHER * 2) != 0)
+      sqlite3_strnicmp(userPassword, "x'", 2) == 0 &&
+      IsHexKey((unsigned char*) (userPassword + 2), KEYLENGTH_SQLCIPHER * 2) != 0)
   {
     ConvertHex2Bin((unsigned char*) (userPassword + 2), passwordLength - 3, sqlCipherCipher->m_key);
   }
   else if (passwordLength == (((KEYLENGTH_SQLCIPHER + SALTLENGTH_SQLCIPHER) * 2) + 3) &&
-    sqlite3_strnicmp(userPassword, "x'", 2) == 0 &&
-    IsHexKey((unsigned char*) (userPassword + 2), (KEYLENGTH_SQLCIPHER + SALTLENGTH_SQLCIPHER) * 2) != 0)
+           sqlite3_strnicmp(userPassword, "x'", 2) == 0 &&
+           IsHexKey((unsigned char*) (userPassword + 2), (KEYLENGTH_SQLCIPHER + SALTLENGTH_SQLCIPHER) * 2) != 0)
   {
     ConvertHex2Bin((unsigned char*) (userPassword + 2), KEYLENGTH_SQLCIPHER * 2, sqlCipherCipher->m_key);
     ConvertHex2Bin((unsigned char*) (userPassword + 2 + KEYLENGTH_SQLCIPHER * 2), SALTLENGTH_SQLCIPHER * 2, sqlCipherCipher->m_salt);
   }
   else
   {
-    fastpbkdf2_hmac_sha1((unsigned char*) userPassword, passwordLength,
-                         sqlCipherCipher->m_salt, SALTLENGTH_SQLCIPHER,
-                         sqlCipherCipher->m_kdfIter,
-                         sqlCipherCipher->m_key, KEYLENGTH_SQLCIPHER);
+    switch (sqlCipherCipher->m_kdfAlgorithm)
+    {
+      case SQLCIPHER_KDF_ALGORITHM_SHA1:
+        fastpbkdf2_hmac_sha1((unsigned char*) userPassword, passwordLength,
+                             sqlCipherCipher->m_salt, SALTLENGTH_SQLCIPHER,
+                             sqlCipherCipher->m_kdfIter,
+                             sqlCipherCipher->m_key, KEYLENGTH_SQLCIPHER);
+        break;
+      case SQLCIPHER_KDF_ALGORITHM_SHA256:
+        fastpbkdf2_hmac_sha256((unsigned char*) userPassword, passwordLength,
+                               sqlCipherCipher->m_salt, SALTLENGTH_SQLCIPHER,
+                               sqlCipherCipher->m_kdfIter,
+                               sqlCipherCipher->m_key, KEYLENGTH_SQLCIPHER);
+        break;
+      case SQLCIPHER_KDF_ALGORITHM_SHA512:
+      default:
+        fastpbkdf2_hmac_sha512((unsigned char*) userPassword, passwordLength,
+                               sqlCipherCipher->m_salt, SALTLENGTH_SQLCIPHER,
+                               sqlCipherCipher->m_kdfIter,
+                               sqlCipherCipher->m_key, KEYLENGTH_SQLCIPHER);
+        break;
+    }
   }
 
   if (sqlCipherCipher->m_hmacUse != 0)
@@ -1286,11 +1366,47 @@ GenerateKeySQLCipherCipher(void* cipher, Btree* pBt, char* userPassword, int pas
     {
       hmacSalt[j] ^= hmacSaltMask;
     }
-    fastpbkdf2_hmac_sha1(sqlCipherCipher->m_key, KEYLENGTH_SQLCIPHER,
-                         hmacSalt, SALTLENGTH_SQLCIPHER,
-                         sqlCipherCipher->m_fastKdfIter,
-                         sqlCipherCipher->m_hmacKey, KEYLENGTH_SQLCIPHER);
+    switch (sqlCipherCipher->m_hmacAlgorithm)
+    {
+      case SQLCIPHER_HMAC_ALGORITHM_SHA1:
+        fastpbkdf2_hmac_sha1(sqlCipherCipher->m_key, KEYLENGTH_SQLCIPHER,
+                             hmacSalt, SALTLENGTH_SQLCIPHER,
+                             sqlCipherCipher->m_fastKdfIter,
+                             sqlCipherCipher->m_hmacKey, KEYLENGTH_SQLCIPHER);
+      break;
+      case SQLCIPHER_HMAC_ALGORITHM_SHA256:
+        fastpbkdf2_hmac_sha256(sqlCipherCipher->m_key, KEYLENGTH_SQLCIPHER,
+                               hmacSalt, SALTLENGTH_SQLCIPHER,
+                               sqlCipherCipher->m_fastKdfIter,
+                               sqlCipherCipher->m_hmacKey, KEYLENGTH_SQLCIPHER);
+        break;
+      case SQLCIPHER_HMAC_ALGORITHM_SHA512:
+      default:
+        fastpbkdf2_hmac_sha512(sqlCipherCipher->m_key, KEYLENGTH_SQLCIPHER,
+                               hmacSalt, SALTLENGTH_SQLCIPHER,
+                               sqlCipherCipher->m_fastKdfIter,
+                               sqlCipherCipher->m_hmacKey, KEYLENGTH_SQLCIPHER);
+        break;
+    }
   }
+}
+
+static int
+GetHmacSizeSQLCipherCipher(int algorithm)
+{
+  int hmacSize = SHA512_DIGEST_SIZE;
+  switch (algorithm)
+  {
+    case SQLCIPHER_HMAC_ALGORITHM_SHA1:
+      hmacSize = SHA1_DIGEST_SIZE;
+      break;
+    case SQLCIPHER_HMAC_ALGORITHM_SHA256:
+    case SQLCIPHER_HMAC_ALGORITHM_SHA512:
+    default:
+      hmacSize = SHA512_DIGEST_SIZE;
+      break;
+  }
+  return hmacSize;
 }
 
 static int
@@ -1304,6 +1420,14 @@ EncryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len,
   int offset = (page == 1) ? (sqlCipherCipher->m_legacy != 0) ? 16 : 24 : 0;
   int blen;
   unsigned char iv[64];
+  int usePlaintextHeader = 0;
+
+  /* Check whether a plaintext header should be used */
+  if (page == 1 && sqlCipherCipher->m_legacy >= SQLCIPHER_VERSION_4 && sqlCipherCipher->m_plaintextHeaderSize > 0)
+  {
+    usePlaintextHeader = 1;
+    offset = sqlCipherCipher->m_plaintextHeaderSize;
+  }
 
   /* Check whether number of required reserved bytes and actually reserved bytes match */
   if ((legacy == 0 && nReserved > reserved) || ((legacy != 0 && nReserved != reserved)))
@@ -1328,7 +1452,7 @@ EncryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len,
   {
     memcpy(data + n, iv, nReserved);
   }
-  if (page == 1)
+  if (page == 1 && usePlaintextHeader == 0)
   {
     memcpy(data, sqlCipherCipher->m_salt, SALTLENGTH_SQLCIPHER);
   }
@@ -1338,6 +1462,8 @@ EncryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len,
   {
     unsigned char pgno_raw[4];
     unsigned char hmac_out[64];
+    int hmac_size = GetHmacSizeSQLCipherCipher(sqlCipherCipher->m_hmacAlgorithm);
+
     if (sqlCipherCipher->m_hmacPgno == SQLCIPHER_HMAC_PGNO_LE)
     {
       STORE32_LE(pgno_raw, page);
@@ -1350,8 +1476,8 @@ EncryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len,
     {
       memcpy(pgno_raw, &page, 4);
     }
-    sqlcipher_hmac(sqlCipherCipher->m_hmacKey, KEYLENGTH_SQLCIPHER, data + offset, n + PAGE_NONCE_LEN_SQLCIPHER - offset, pgno_raw, 4, hmac_out);
-    memcpy(data + n + PAGE_NONCE_LEN_SQLCIPHER, hmac_out, HMAC_LENGTH_SQLCIPHER);
+    sqlcipher_hmac(sqlCipherCipher->m_hmacAlgorithm, sqlCipherCipher->m_hmacKey, KEYLENGTH_SQLCIPHER, data + offset, n + PAGE_NONCE_LEN_SQLCIPHER - offset, pgno_raw, 4, hmac_out);
+    memcpy(data + n + PAGE_NONCE_LEN_SQLCIPHER, hmac_out, hmac_size);
   }
 
   return rc;
@@ -1368,7 +1494,15 @@ DecryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len,
   int offset = (page == 1) ? (sqlCipherCipher->m_legacy != 0) ? 16 : 24 : 0;
   int hmacOk = 1;
   int blen;
-  unsigned char iv[64];
+  unsigned char iv[128];
+  int usePlaintextHeader = 0;
+
+  /* Check whether a plaintext header should be used */
+  if (page == 1 && sqlCipherCipher->m_legacy >= SQLCIPHER_VERSION_4 && sqlCipherCipher->m_plaintextHeaderSize > 0)
+  {
+    usePlaintextHeader = 1;
+    offset = sqlCipherCipher->m_plaintextHeaderSize;
+  }
 
   /* Check whether number of required reserved bytes and actually reserved bytes match */
   if ((legacy == 0 && nReserved > reserved) || ((legacy != 0 && nReserved != reserved)))
@@ -1391,6 +1525,7 @@ DecryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len,
   {
     unsigned char pgno_raw[4];
     unsigned char hmac_out[64];
+    int hmac_size = GetHmacSizeSQLCipherCipher(sqlCipherCipher->m_hmacAlgorithm);
     if (sqlCipherCipher->m_hmacPgno == SQLCIPHER_HMAC_PGNO_LE)
     {
       STORE32_LE(pgno_raw, page);
@@ -1403,8 +1538,8 @@ DecryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len,
     {
       memcpy(pgno_raw, &page, 4);
     }
-    sqlcipher_hmac(sqlCipherCipher->m_hmacKey, KEYLENGTH_SQLCIPHER, data + offset, n + PAGE_NONCE_LEN_SQLCIPHER - offset, pgno_raw, 4, hmac_out);
-    hmacOk = (memcmp(data + n + PAGE_NONCE_LEN_SQLCIPHER, hmac_out, HMAC_LENGTH_SQLCIPHER) == 0);
+    sqlcipher_hmac(sqlCipherCipher->m_hmacAlgorithm, sqlCipherCipher->m_hmacKey, KEYLENGTH_SQLCIPHER, data + offset, n + PAGE_NONCE_LEN_SQLCIPHER - offset, pgno_raw, 4, hmac_out);
+    hmacOk = (memcmp(data + n + PAGE_NONCE_LEN_SQLCIPHER, hmac_out, hmac_size) == 0);
   }
 
   if (hmacOk != 0)
@@ -1415,7 +1550,7 @@ DecryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len,
     {
       memcpy(data + n, iv, nReserved);
     }
-    if (page == 1)
+    if (page == 1 && usePlaintextHeader == 0)
     {
       memcpy(data, SQLITE_FILE_HEADER, 16);
     }
@@ -1513,7 +1648,7 @@ typedef int   (*GetLegacy_t)(void* cipher);
 typedef int   (*GetPageSize_t)(void* cipher);
 typedef int   (*GetReserved_t)(void* cipher);
 typedef unsigned char* (*GetSalt_t)(void* cipher);
-typedef void  (*GenerateKey_t)(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey);
+typedef void  (*GenerateKey_t)(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt);
 typedef int   (*EncryptPage_t)(void* cipher, int page, unsigned char* data, int len, int reserved);
 typedef int   (*DecryptPage_t)(void* cipher, int page, unsigned char* data, int len, int reserved, int hmacCheck);
 
@@ -1721,6 +1856,7 @@ wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv
   }
   else
   {
+    /* 2 or more arguments */
     int arg2Type = sqlite3_value_type(argv[1]);
     if (argc == 2 && isCommonParam1)
     {
@@ -1784,6 +1920,7 @@ wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv
     }
     else if (isCipherParam1 && arg2Type == SQLITE_TEXT)
     {
+      /* get or set cipher parameter */
       const char* nameParam2 = (const char*) sqlite3_value_text(argv[1]);
       CipherParams* param2 = cipherParamTable;
       hasDefaultPrefix = 0;
@@ -1808,6 +1945,24 @@ wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv
       {
         if (sqlite3_stricmp(nameParam2, param2->m_name) == 0) break;
       }
+
+      /* Special handling for SQLCipher legacy mode */
+      if (argc == 3 && 
+          sqlite3_stricmp(nameParam1, "sqlcipher") == 0 &&
+          sqlite3_stricmp(nameParam2, "legacy") == 0)
+      {
+        if (!hasMinPrefix && !hasMaxPrefix && sqlite3_value_type(argv[2]) == SQLITE_INTEGER)
+        {
+          int legacy = sqlite3_value_int(argv[2]);
+          if (legacy > 0 && legacy <= SQLCIPHER_VERSION_MAX)
+          {
+            static void CodecConfigureSQLCipherVersion(sqlite3* db, int configDefault, int legacyVersion);
+            sqlite3* db = sqlite3_context_db_handle(context);
+            CodecConfigureSQLCipherVersion(db, hasDefaultPrefix, legacy);
+          }
+        }
+      }
+
       if (strlen(param2->m_name) > 0)
       {
         if (argc == 2)
@@ -2005,6 +2160,18 @@ wxsqlite3_config_cipher(sqlite3* db, const char* cipherName, const char* paramNa
       paramName += 4;
     }
 
+    /* Special handling for SQLCipher legacy mode */
+    if (db != NULL &&
+        sqlite3_stricmp(cipherName, "sqlcipher") == 0 &&
+        sqlite3_stricmp(paramName, "legacy") == 0)
+    {
+      if (!hasMinPrefix && !hasMaxPrefix && newValue > 0 && newValue <= SQLCIPHER_VERSION_MAX)
+      {
+        static void CodecConfigureSQLCipherVersion(sqlite3* db, int configDefault, int legacyVersion);
+        CodecConfigureSQLCipherVersion(db, hasDefaultPrefix, newValue);
+      }
+    }
+
     for (; strlen(param->m_name) > 0; ++param)
     {
       if (sqlite3_stricmp(paramName, param->m_name) == 0) break;
@@ -2058,7 +2225,7 @@ wxsqlite3_codec_data(sqlite3* db, const char* zDbName, const char* paramName)
       toRaw = 1;
       paramName += 4;
     }
-    if ((sqlite3_stricmp(paramName, "salt") == 0) && (iDb >= 0))
+    if ((sqlite3_stricmp(paramName, "cipher_salt") == 0) && (iDb >= 0))
     {
       /* Check whether database is encrypted */
       Codec* codec = (Codec*) mySqlite3PagerGetCodec(sqlite3BtreePager(db->aDb[iDb].pBt));
@@ -2115,11 +2282,11 @@ wxsqlite3_codec_data_sql(sqlite3_context* context, int argc, sqlite3_value** arg
   }
 
   /* Check for known parameter name(s) */
-  if (sqlite3_stricmp(nameParam1, "salt") == 0)
+  if (sqlite3_stricmp(nameParam1, "cipher_salt") == 0)
   {
     /* Determine key salt */
     sqlite3* db = sqlite3_context_db_handle(context);
-    unsigned char* salt = wxsqlite3_codec_data(db, nameParam2, "salt");
+    unsigned char* salt = wxsqlite3_codec_data(db, nameParam2, "cipher_salt");
     if (salt != NULL)
     {
       sqlite3_result_text(context, salt, -1, sqlite3_free);
@@ -2186,6 +2353,8 @@ CodecInit(Codec* codec)
     memset(codec->m_page, 0, sizeof(codec->m_page));
     codec->m_pageSize = 0;
     codec->m_reserved = 0;
+    codec->m_hasKeySalt = 0;
+    memset(codec->m_keySalt, 0, sizeof(codec->m_keySalt));
   }
   else
   {
@@ -2210,6 +2379,13 @@ CodecTerm(Codec* codec)
   memset(codec, 0, sizeof(Codec));
 }
 
+static void
+CodecClearKeySalt(Codec* codec)
+{
+  codec->m_hasKeySalt = 0;
+  memset(codec->m_keySalt, 0, sizeof(codec->m_keySalt));
+}
+
 static int
 CodecSetup(Codec* codec, int cipherType, char* userPassword, int passwordLength)
 {
@@ -2223,7 +2399,8 @@ CodecSetup(Codec* codec, int cipherType, char* userPassword, int passwordLength)
   codec->m_readCipher = codecDescriptorTable[codec->m_readCipherType-1].m_allocateCipher(codec->m_db);
   if (codec->m_readCipher != NULL)
   {
-    CodecGenerateReadKey(codec, userPassword, passwordLength);
+    unsigned char* keySalt = (codec->m_hasKeySalt != 0) ? codec->m_keySalt : NULL;
+    CodecGenerateReadKey(codec, userPassword, passwordLength, keySalt);
     rc = CodecCopyCipher(codec, 1);
   }
   else
@@ -2249,7 +2426,8 @@ CodecSetupWriteCipher(Codec* codec, int cipherType, char* userPassword, int pass
   codec->m_writeCipher = codecDescriptorTable[codec->m_writeCipherType-1].m_allocateCipher(codec->m_db);
   if (codec->m_writeCipher != NULL)
   {
-    CodecGenerateWriteKey(codec, userPassword, passwordLength);
+    unsigned char* keySalt = (codec->m_hasKeySalt != 0) ? codec->m_keySalt : NULL;
+    CodecGenerateWriteKey(codec, userPassword, passwordLength, keySalt);
   }
   else
   {
@@ -2524,15 +2702,15 @@ CodecPadPassword(char* password, int pswdlen, unsigned char pswd[32])
 }
 
 static void
-CodecGenerateReadKey(Codec* codec, char* userPassword, int passwordLength)
+CodecGenerateReadKey(Codec* codec, char* userPassword, int passwordLength, unsigned char* cipherSalt)
 {
-  codecDescriptorTable[codec->m_readCipherType-1].m_generateKey(codec->m_readCipher, codec->m_bt, userPassword, passwordLength, 0);
+  codecDescriptorTable[codec->m_readCipherType-1].m_generateKey(codec->m_readCipher, codec->m_bt, userPassword, passwordLength, 0, cipherSalt);
 }
 
 static void
-CodecGenerateWriteKey(Codec* codec, char* userPassword, int passwordLength)
+CodecGenerateWriteKey(Codec* codec, char* userPassword, int passwordLength, unsigned char* cipherSalt)
 {
-  codecDescriptorTable[codec->m_writeCipherType-1].m_generateKey(codec->m_writeCipher, codec->m_bt, userPassword, passwordLength, 1);
+  codecDescriptorTable[codec->m_writeCipherType-1].m_generateKey(codec->m_writeCipher, codec->m_bt, userPassword, passwordLength, 1, cipherSalt);
 }
 
 static int
@@ -2552,6 +2730,30 @@ CodecDecrypt(Codec* codec, int page, unsigned char* data, int len)
   void* cipher = codec->m_readCipher;
   int reserved = (codec->m_readReserved >= 0) ? codec->m_readReserved : codec->m_reserved;
   return codecDescriptorTable[cipherType-1].m_decryptPage(cipher, page, data, len, reserved, codec->m_hmacCheck);
+}
+
+static void
+CodecConfigureSQLCipherVersion(sqlite3* db, int configDefault, int legacyVersion)
+{
+  static char* stdNames[] = { "legacy_page_size",         "kdf_iter",         "hmac_use",         "kdf_algorithm",         "hmac_algorithm",         NULL };
+  static char* defNames[] = { "default:legacy_page_size", "default:kdf_iter", "default:hmac_use", "default:kdf_algorithm", "default:hmac_algorithm", NULL };
+  static int versionParams[SQLCIPHER_VERSION_MAX][5] =
+  {
+    { 1024,   4000, 0, SQLCIPHER_KDF_ALGORITHM_SHA1,   SQLCIPHER_HMAC_ALGORITHM_SHA1   }, 
+    { 1024,   4000, 1, SQLCIPHER_KDF_ALGORITHM_SHA1,   SQLCIPHER_HMAC_ALGORITHM_SHA1   },
+    { 1024,  64000, 1, SQLCIPHER_KDF_ALGORITHM_SHA1,   SQLCIPHER_HMAC_ALGORITHM_SHA1   },
+    { 4096, 256000, 1, SQLCIPHER_KDF_ALGORITHM_SHA512, SQLCIPHER_HMAC_ALGORITHM_SHA512 }
+  };
+  if (legacyVersion > 0 && legacyVersion <= SQLCIPHER_VERSION_MAX)
+  {
+    char** names = (configDefault != 0) ? defNames : stdNames;
+    int* values = &versionParams[legacyVersion - 1][0];
+    int j;
+    for (j = 0; names[j] != NULL; ++j)
+    {
+      wxsqlite3_config_cipher(db, "sqlcipher", names[j], values[j]);
+    }
+  }
 }
 
 static int
@@ -2595,6 +2797,16 @@ CodecConfigureFromUri(sqlite3* db, const char *zDbName, int configDefault)
           if (!hmacCheck)
           {
             wxsqlite3_config(db, "hmac_check", hmacCheck);
+          }
+
+          /* Special handling for SQLCipher */
+          if (sqlite3_stricmp(cipherName, "sqlcipher") == 0)
+          {
+            int legacy = (int) sqlite3_uri_int64(dbFileName, "legacy", 0);
+            if (legacy > 0 && legacy <= SQLCIPHER_VERSION_MAX)
+            {
+              CodecConfigureSQLCipherVersion(db, configDefault, legacy);
+            }
           }
 
           /* Check all cipher specific parameters */

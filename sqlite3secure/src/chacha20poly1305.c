@@ -8,6 +8,7 @@
 */
 
 #include "mystdint.h"
+#include <string.h>
 
 #define ROL32(x, c) (((x) << (c)) | ((x) >> (32-(c))))
 #define ROR32(x, c) (((x) >> (c)) | ((x) << (32-(c))))
@@ -256,11 +257,17 @@ int poly1305_tagcmp(const unsigned char tag1[16], const unsigned char tag2[16])
  */
 #if defined(__unix__) || defined(__APPLE__)
 #define _GNU_SOURCE
-#include <unistd.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
 #include <sys/syscall.h>
+#include <unistd.h>
 
 #ifdef __linux__
 #include <linux/random.h>
+#include <sys/ioctl.h>
 #endif
 
 /* Returns the number of urandom bytes read (either 0 or n) */
@@ -357,24 +364,25 @@ static size_t entropy(void* buf, size_t n)
 void chacha20_rng(void* out, size_t n)
 {
   static size_t available = 0;
-  static uint32_t counter = 0xFFFFFFFF;
-  static unsigned char key[32], nonce[12], buffer[64];
-  sqlite3_mutex* mutex;
-  size_t m;
-    
-  mutex = sqlite3_mutex_alloc(SQLITE_MUTEX_STATIC_PRNG);
+  static uint32_t counter = UINT32_MAX;
+  static unsigned char key[32], nonce[12], buffer[64] = { 0 };
+
+#if SQLITE3_THREADSAFE
+  sqlite3_mutex* mutex = sqlite3_mutex_alloc(SQLITE_MUTEX_STATIC_PRNG);
   sqlite3_mutex_enter(mutex);
+#endif
+
   while (n > 0)
   {
+    size_t m;
     if (available == 0)
     {
-      if (counter == 0xFFFFFFFF)
+      if (counter == UINT32_MAX)
       {
         if (entropy(key, sizeof(key)) != sizeof(key))
           abort();
         if (entropy(nonce, sizeof(nonce)) != sizeof(nonce))
           abort();
-        counter = 0;
       }
       chacha20_xor(buffer, sizeof(buffer), key, nonce, ++counter);
       available = sizeof(buffer);
@@ -385,5 +393,8 @@ void chacha20_rng(void* out, size_t n)
     available -= m;
     n -= m;
   }
+
+#if SQLITE3_THREADSAFE
   sqlite3_mutex_leave(mutex);
+#endif
 }

@@ -4,7 +4,7 @@ dnl Copyright (C) 2017-2018 Ulrich Telle <ulrich@telle-online.de>, Vadim Zeitlin
 dnl
 dnl This file is covered by the same licence as the entire wxSQLite3 package.
 
-AC_INIT([wxsqlite3], [4.3.0], [ulrich@telle-online.de])
+AC_INIT([wxsqlite3], [4.4.0], [ulrich@telle-online.de])
 
 dnl This is the version tested with, might work with earlier ones.
 AC_PREREQ([2.69])
@@ -91,6 +91,7 @@ AC_CONFIG_LINKS([samples/sqlcipher-1.1.8-testkey.db:samples/sqlcipher-1.1.8-test
     samples/sqlcipher-2.0-be-testkey.db:samples/sqlcipher-2.0-be-testkey.db
     samples/sqlcipher-2.0-le-testkey.db:samples/sqlcipher-2.0-le-testkey.db
     samples/sqlcipher-3.0-testkey.db:samples/sqlcipher-3.0-testkey.db
+    samples/sqlcipher-4.0-testkey.db:samples/sqlcipher-4.0-testkey.db
 ])
 
 AC_CONFIG_FILES([Makefile wxsqlite3.pc])

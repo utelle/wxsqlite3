@@ -915,7 +915,7 @@ void Minimal::TestSQLCipher(wxSQLite3Cipher& cipher, const wxString& dbFileName,
     cout << endl << "Open database '" << (const char*) (dbFileName.mb_str()) << "'" << endl;
     db.Open(dbFileName, cipher, dbKey);
     wxString keySalt = db.GetKeySalt();
-    cout << "Key salt: " << (const char*) (keySalt.mb_str()) << endl;
+    cout << "Cipher salt: " << (const char*) (keySalt.mb_str()) << endl;
     int numRows = db.ExecuteScalar("SELECT COUNT(*) FROM t1");
     cout << "Total number of rows = " << numRows << endl;
     cout << "Distinct tuples:" << endl;
@@ -976,6 +976,12 @@ void Minimal::TestCiphers()
   wxSQLite3CipherSQLCipher sqlCipher3;
   sqlCipher3.InitializeVersionDefault(3);
   TestSQLCipher(sqlCipher3, wxS("sqlcipher-3.0-testkey.db"), wxS("testkey"));
+
+  // Test to access database encrypted with SQLCipher version 4
+  // Result: 78536 1 1 one one 1 2 one two
+  wxSQLite3CipherSQLCipher sqlCipher4;
+  sqlCipher3.InitializeVersionDefault(4);
+  TestSQLCipher(sqlCipher3, wxS("sqlcipher-4.0-testkey.db"), wxS("testkey"));
 
   cout << endl << "Finish testing ciphers" << endl;
 }

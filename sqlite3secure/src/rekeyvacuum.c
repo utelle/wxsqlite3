@@ -62,7 +62,12 @@ SQLITE_PRIVATE int sqlite3RunVacuumForRekey(char **pzErrMsg, sqlite3 *db, int iD
   saved_mTrace = db->mTrace;
   db->flags |= SQLITE_WriteSchema | SQLITE_IgnoreChecks;
   db->mDbFlags |= DBFLAG_PreferBuiltin | DBFLAG_Vacuum;
+#if (SQLITE_VERSION_NUMBER >= 3026000)
+  db->flags &= ~(SQLITE_ForeignKeys | SQLITE_ReverseOrder
+               | SQLITE_Defensive   | SQLITE_CountRows);
+#else
   db->flags &= ~(SQLITE_ForeignKeys | SQLITE_ReverseOrder | SQLITE_CountRows);
+#endif
   db->mTrace = 0;
 
   zDbMain = db->aDb[iDb].zDbSName;

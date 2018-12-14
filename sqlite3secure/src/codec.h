@@ -49,6 +49,7 @@ extern "C" {
 #define MAXKEYLENGTH     32
 #define KEYLENGTH_AES128 16
 #define KEYLENGTH_AES256 32
+#define KEYSALT_LENGTH   16
 
 #define CODEC_SHA_ITER 4001
 
@@ -72,6 +73,8 @@ typedef struct _Codec
   unsigned char m_page[SQLITE_MAX_PAGE_SIZE+24];
   int           m_pageSize;
   int           m_reserved;
+  int           m_hasKeySalt;
+  unsigned char m_keySalt[KEYSALT_LENGTH];
 } Codec;
 
 static void wxsqlite3_config_table(sqlite3_context* context, int argc, sqlite3_value** argv);
@@ -84,12 +87,13 @@ static int GetCipherType(sqlite3* db);
 static void* GetCipherParams(sqlite3* db, int cypherType);
 static int CodecInit(Codec* codec);
 static void CodecTerm(Codec* codec);
+static void CodecClearKeySalt(Codec* codec);
 
 static int CodecCopy(Codec* codec, Codec* other);
 
-static void CodecGenerateReadKey(Codec* codec, char* userPassword, int passwordLength);
+static void CodecGenerateReadKey(Codec* codec, char* userPassword, int passwordLength, unsigned char* cipherSalt);
 
-static void CodecGenerateWriteKey(Codec* codec, char* userPassword, int passwordLength);
+static void CodecGenerateWriteKey(Codec* codec, char* userPassword, int passwordLength, unsigned char* cipherSalt);
 
 static int CodecEncrypt(Codec* codec, int page, unsigned char* data, int len, int useWriteKey);
 
