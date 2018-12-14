@@ -52,6 +52,7 @@ var menudata={children:[
 {text:"Variables",url:"functions_vars.html"},
 {text:"Enumerations",url:"functions_enum.html"},
 {text:"Enumerator",url:"functions_eval.html",children:[
+{text:"a",url:"functions_eval.html#index_a"},
 {text:"s",url:"functions_eval.html#index_s"}]},
 {text:"Related Functions",url:"functions_rela.html"}]}]},
 {text:"Files",url:"files.html",children:[
