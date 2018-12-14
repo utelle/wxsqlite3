@@ -1719,6 +1719,9 @@ static CodecDescriptor codecDescriptorTable[] =
 /* --- Codec --- */
 
 static void
+CodecConfigureSQLCipherVersion(sqlite3* db, int configDefault, int legacyVersion);
+
+static void
 wxsqlite3_config_table(sqlite3_context* context, int argc, sqlite3_value** argv)
 {
   CodecParameter* codecParams = (CodecParameter*) sqlite3_user_data(context);
@@ -1956,7 +1959,6 @@ wxsqlite3_config_params(sqlite3_context* context, int argc, sqlite3_value** argv
           int legacy = sqlite3_value_int(argv[2]);
           if (legacy > 0 && legacy <= SQLCIPHER_VERSION_MAX)
           {
-            static void CodecConfigureSQLCipherVersion(sqlite3* db, int configDefault, int legacyVersion);
             sqlite3* db = sqlite3_context_db_handle(context);
             CodecConfigureSQLCipherVersion(db, hasDefaultPrefix, legacy);
           }
@@ -2167,7 +2169,6 @@ wxsqlite3_config_cipher(sqlite3* db, const char* cipherName, const char* paramNa
     {
       if (!hasMinPrefix && !hasMaxPrefix && newValue > 0 && newValue <= SQLCIPHER_VERSION_MAX)
       {
-        static void CodecConfigureSQLCipherVersion(sqlite3* db, int configDefault, int legacyVersion);
         CodecConfigureSQLCipherVersion(db, hasDefaultPrefix, newValue);
       }
     }
