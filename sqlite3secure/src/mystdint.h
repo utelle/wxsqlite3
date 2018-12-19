@@ -15,6 +15,11 @@ typedef unsigned char uint8_t;
 typedef unsigned short uint16_t;
 typedef unsigned int uint32_t;
 typedef unsigned long long uint64_t;
+
+#define UINT8_MAX 255
+#define UINT16_MAX 65535
+#define UINT32_MAX 0xffffffffU  /* 4294967295U */
+#define UINT64_MAX 0xffffffffffffffffULL /* 18446744073709551615ULL */ 
 #else
 #include <stdint.h>
 #endif
