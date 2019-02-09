@@ -5,6 +5,7 @@ This document describes the SQLite3 encryption extension provided by wxSQLite3. 
 ## Table of contents
 
 - [Installation](#installation)
+  - [General]{#general}
   - [wxMSW](#wxmsw)
   - [wxGTK](#wxgtk)
 - [Supported ciphers](#ciphers)
@@ -35,6 +36,12 @@ For Visual Studio 2010+ solutions it is possible to customize the build by creat
 For GNU Makefiles the file `config.gcc` serves the same purpose as the file wx_setup.props for Visual C++ projects.
 
 The customization files `wx_setup.props` resp. `config.gcc` allow to customize certain settings like for example the version number and the root directory of the wxWidgets library.
+
+### <a name="general" />General
+
+This implementation of the SQLite encryption support uses internally an adjusted version of the SQLite function `sqlite3RunVacuum` when rekeying a database. New versions of SQLite may change the implementation of this function. Therefore it is strongly recommended to regenerate the source file `rekeyvacuum.c` containing the adjusted implementation, whenever the SQLite version is updated. For this purposes the script `rekeyvacuum.sh` can be used. This script has been adopted from [sqleet](https://github.com/resilar/sqleet). Simply run `../rekeyvacuum.sh sqlite3.c >rekeyvacuum.c` from directory `sqlite3secure/src`. On Windows platforms one can use for example the __Git Bash__ coming with [Git for Windows](https://gitforwindows.org).
+
+Occasionally, the signature of function `sqlite3RunVaccum` changes. If that should be the case the code invoking the adjusted function needs to be adjusted as well.
 
 ### <a name="wxmsw" />wxMSW
 

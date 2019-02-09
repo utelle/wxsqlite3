@@ -420,7 +420,11 @@ sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
           char* err;
           CodecSetReadReserved(codec, nReserved);
           CodecSetWriteReserved(codec, nReservedWriteCipher);
+#if (SQLITE_VERSION_NUMBER >= 3027000)
+          rc = sqlite3RunVacuumForRekey(&err, db, dbIndex, NULL, nReservedWriteCipher);
+#else
           rc = sqlite3RunVacuumForRekey(&err, db, dbIndex, nReservedWriteCipher);
+#endif
           goto leave_rekey;
         }
       }
@@ -447,7 +451,11 @@ sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
       char* err;
       CodecSetReadReserved(codec, nReserved);
       CodecSetWriteReserved(codec, 0);
+#if (SQLITE_VERSION_NUMBER >= 3027000)
+      rc = sqlite3RunVacuumForRekey(&err, db, dbIndex, NULL, 0);
+#else
       rc = sqlite3RunVacuumForRekey(&err, db, dbIndex, 0);
+#endif
       goto leave_rekey;
     }
   }
@@ -468,7 +476,11 @@ sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
           char* err;
           CodecSetReadReserved(codec, nReserved);
           CodecSetWriteReserved(codec, nReservedWriteCipher);
+#if (SQLITE_VERSION_NUMBER >= 3027000)
+          rc = sqlite3RunVacuumForRekey(&err, db, dbIndex, NULL, nReservedWriteCipher);
+#else
           rc = sqlite3RunVacuumForRekey(&err, db, dbIndex, nReservedWriteCipher);
+#endif
           goto leave_rekey;
         }
       }
