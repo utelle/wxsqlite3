@@ -40,6 +40,8 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
+* 4.4.2 - *February 2019*
+  - Upgrade to SQLite version 3.27.2
 * 4.4.1 - *February 2019*
   - Upgrade to SQLite version 3.27.1
 * 4.4.0 - *December 2018*
