@@ -958,7 +958,7 @@ GenerateKeyChaCha20Cipher(void* cipher, Btree* pBt, char* userPassword, int pass
   if (passwordLength > 4 && !memcmp(userPassword, "raw:", 4))
   {
     const int nRaw = passwordLength - 4;
-    const char* zRaw = (const char*) userPassword + 4;
+    const unsigned char* zRaw = (const unsigned char*) userPassword + 4;
     switch (nRaw)
     {
       /* Binary key (and salt) */
@@ -2287,7 +2287,7 @@ wxsqlite3_codec_data_sql(sqlite3_context* context, int argc, sqlite3_value** arg
   {
     /* Determine key salt */
     sqlite3* db = sqlite3_context_db_handle(context);
-    unsigned char* salt = wxsqlite3_codec_data(db, nameParam2, "cipher_salt");
+    const char* salt = (const char*)wxsqlite3_codec_data(db, nameParam2, "cipher_salt");
     if (salt != NULL)
     {
       sqlite3_result_text(context, salt, -1, sqlite3_free);
