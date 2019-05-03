@@ -233,7 +233,7 @@ sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey)
     {
       /* Check whether key salt is provided in URI */
       const unsigned char* cipherSalt = (const unsigned char*)sqlite3_uri_parameter(dbFileName, "cipher_salt");
-      if ((cipherSalt != NULL) && (strlen(cipherSalt) >= 2 * KEYSALT_LENGTH) && IsHexKey(cipherSalt, 2 * KEYSALT_LENGTH))
+      if ((cipherSalt != NULL) && (strlen((const char*)cipherSalt) >= 2 * KEYSALT_LENGTH) && IsHexKey(cipherSalt, 2 * KEYSALT_LENGTH))
       {
         codec->m_hasKeySalt = 1;
         ConvertHex2Bin(cipherSalt, 2 * KEYSALT_LENGTH, codec->m_keySalt);
