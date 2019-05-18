@@ -191,6 +191,9 @@ DYNFUNC(return, int,                   sqlite3_step,                  (sqlite3_s
 #if SQLITE_VERSION_NUMBER >= 3007010
 DYNFUNC(return, int,                   sqlite3_stmt_busy,             (sqlite3_stmt* pStmt), (pStmt));
 #endif
+#if SQLITE_VERSION_NUMBER >= 3028000
+DYNFUNC(return, int,                   sqlite3_stmt_isexplain,        (sqlite3_stmt* pStmt), (pStmt));
+#endif
 #if SQLITE_VERSION_NUMBER >= 3007004
 DYNFUNC(return, int,                   sqlite3_stmt_readonly,         (sqlite3_stmt *pStmt), (pStmt));
 #endif
@@ -213,8 +216,15 @@ DYNFUNC(return, const void *,          sqlite3_value_blob,            (sqlite3_v
 DYNFUNC(return, int,                   sqlite3_value_bytes,           (sqlite3_value *pVal), (pVal));
 // DYNFUNC(return, int,                   sqlite3_value_bytes16,         (sqlite3_value *pVal), (pVal));
 DYNFUNC(return, double,                sqlite3_value_double,          (sqlite3_value *pVal), (pVal));
+#if SQLITE_VERSION_NUMBER >= 3028000
+DYNFUNC(return, int,                   sqlite3_value_frombind,        (sqlite3_value *pVal), (pVal));
+#endif
 DYNFUNC(return, int,                   sqlite3_value_int,             (sqlite3_value *pVal), (pVal));
 DYNFUNC(return, sqlite_int64,          sqlite3_value_int64,           (sqlite3_value *pVal), (pVal));
+#if SQLITE_VERSION_NUMBER >= 3022000
+DYNFUNC(return, int,                   sqlite3_value_nochange,        (sqlite3_value *pVal), (pVal));
+#endif
+DYNFUNC(return, int,                   sqlite3_value_numeric_type,    (sqlite3_value *pVal), (pVal));
 #if SQLITE_VERSION_NUMBER >= 3020000
 DYNFUNC(return, void *,                sqlite3_value_pointer,         (sqlite3_value *pVal, const char* ptrtype), (pVal, ptrtype));
 #endif

@@ -86,7 +86,7 @@ static void chacha20_block(unsigned char out[64], const uint32_t in[16])
 void chacha20_xor(unsigned char* data, size_t n, const unsigned char key[32],
                   const unsigned char nonce[12], uint32_t counter)
 {
-  size_t i;
+  int i;
   uint32_t state[16];
   unsigned char block[64];
   static const unsigned char sigma[16] = "expand 32-byte k";
@@ -139,23 +139,21 @@ void chacha20_xor(unsigned char* data, size_t n, const unsigned char key[32],
 void poly1305(const unsigned char* msg, size_t n, const unsigned char key[32],
               unsigned char tag[16])
 {
-  uint32_t c, m, w;
+  uint32_t hibit, m, w;
   uint32_t r0, r1, r2, r3, r4;
   uint32_t s1, s2, s3, s4;
   uint64_t f0, f1, f2, f3;
   uint32_t g0, g1, g2, g3, g4;
   uint32_t h0, h1, h2, h3, h4;
   unsigned char buf[16];
-  size_t i;
 
-  c = 1 << 24;
-  r0 = (LOAD32_LE(key +  0) >> 0) & 0x03FFFFFF;
-  r1 = (LOAD32_LE(key +  3) >> 2) & 0x03FFFF03;
-  r2 = (LOAD32_LE(key +  6) >> 4) & 0x03FFC0FF;
-  r3 = (LOAD32_LE(key +  9) >> 6) & 0x03F03FFF;
-  r4 = (LOAD32_LE(key + 12) >> 8) & 0x000FFFFF;
-  s1 = r1 * 5; s2 = r2 * 5; s3 = r3 * 5; s4 = r4 * 5;
+  hibit = 1 << 24;
   h0 = h1 = h2 = h3 = h4 = 0;
+  r0 = (LOAD32_LE(key +  0) >> 0) & 0x03FFFFFF;
+  r1 = (LOAD32_LE(key +  3) >> 2) & 0x03FFFF03; s1 = r1 * 5;
+  r2 = (LOAD32_LE(key +  6) >> 4) & 0x03FFC0FF; s2 = r2 * 5;
+  r3 = (LOAD32_LE(key +  9) >> 6) & 0x03F03FFF; s3 = r3 * 5;
+  r4 = (LOAD32_LE(key + 12) >> 8) & 0x000FFFFF; s4 = r4 * 5;
   while (n >= 16)
   {
     uint64_t d0, d1, d2, d3, d4;
@@ -164,7 +162,7 @@ process_block:
     h1 += (LOAD32_LE(msg +  3) >> 2) & 0x03FFFFFF;
     h2 += (LOAD32_LE(msg +  6) >> 4) & 0x03FFFFFF;
     h3 += (LOAD32_LE(msg +  9) >> 6) & 0x03FFFFFF;
-    h4 += (LOAD32_LE(msg + 12) >> 8) | c;
+    h4 += (LOAD32_LE(msg + 12) >> 8) | hibit;
 
     #define MUL(a,b) ((uint64_t)(a) * (b))
     d0 = MUL(h0,r0) + MUL(h1,s4) + MUL(h2,s3) + MUL(h3,s2) + MUL(h4,s1);
@@ -186,12 +184,13 @@ process_block:
   }
   if (n)
   {
+    int i;
     for (i = 0; i < n; i++) buf[i] = msg[i];
     buf[i++] = 1;
     while (i < 16) buf[i++] = 0;
     msg = buf;
+    hibit = 0;
     n = 16;
-    c = 0;
     goto process_block;
   }
   *(volatile uint32_t*) &r0 = 0;
@@ -219,10 +218,10 @@ process_block:
   h3 = (h3 & w) | (g3 & m);
   h4 = (h4 & w) | (g4 & m);
 
-  f0 = ((h0 >>  0) | (h1 << 26)) + (uint64_t) LOAD32_LE(&key[16]);
-  f1 = ((h1 >>  6) | (h2 << 20)) + (uint64_t) LOAD32_LE(&key[20]);
-  f2 = ((h2 >> 12) | (h3 << 14)) + (uint64_t) LOAD32_LE(&key[24]);
-  f3 = ((h3 >> 18) | (h4 <<  8)) + (uint64_t) LOAD32_LE(&key[28]);
+  f0 = ((h0 >>  0) | (h1 << 26)) + (uint64_t) LOAD32_LE(key + 16);
+  f1 = ((h1 >>  6) | (h2 << 20)) + (uint64_t) LOAD32_LE(key + 20);
+  f2 = ((h2 >> 12) | (h3 << 14)) + (uint64_t) LOAD32_LE(key + 24);
+  f3 = ((h3 >> 18) | (h4 <<  8)) + (uint64_t) LOAD32_LE(key + 28);
 
   STORE32_LE(tag +  0, f0); f1 += (f0 >> 32);
   STORE32_LE(tag +  4, f1); f2 += (f1 >> 32);
@@ -255,7 +254,7 @@ int poly1305_tagcmp(const unsigned char tag1[16], const unsigned char tag2[16])
 /*
  * Platform-specific entropy functions for seeding RNG
  */
-#if defined(__unix__) || defined(__APPLE__)
+#if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
 #define _GNU_SOURCE
 #include <errno.h>
 #include <fcntl.h>
@@ -266,8 +265,11 @@ int poly1305_tagcmp(const unsigned char tag1[16], const unsigned char tag2[16])
 #include <unistd.h>
 
 #ifdef __linux__
-#include <linux/random.h>
 #include <sys/ioctl.h>
+/* musl does not have <linux/random.h> so let's define RNDGETENTCNT here */
+#ifndef RNDGETENTCNT
+#define RNDGETENTCNT _IOR('R', 0x00, int)
+#endif
 #endif
 
 /* Returns the number of urandom bytes read (either 0 or n) */
@@ -367,7 +369,7 @@ void chacha20_rng(void* out, size_t n)
   static uint32_t counter = UINT32_MAX;
   static unsigned char key[32], nonce[12], buffer[64] = { 0 };
 
-#if SQLITE3_THREADSAFE
+#if SQLITE_THREADSAFE
   sqlite3_mutex* mutex = sqlite3_mutex_alloc(SQLITE_MUTEX_STATIC_PRNG);
   sqlite3_mutex_enter(mutex);
 #endif
@@ -394,7 +396,7 @@ void chacha20_rng(void* out, size_t n)
     n -= m;
   }
 
-#if SQLITE3_THREADSAFE
+#if SQLITE_THREADSAFE
   sqlite3_mutex_leave(mutex);
 #endif
 }

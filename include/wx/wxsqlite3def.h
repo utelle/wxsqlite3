@@ -44,6 +44,11 @@
 
 <dl>
 
+<dt><b>4.4.3</b> - <i>May 2019</i></dt>
+<dd>
+Upgrade to SQLite version 3.28.0<br>
+
+</dd>
 <dt><b>4.4.2</b> - <i>February 2019</i></dt>
 <dd>
 Upgrade to SQLite version 3.27.2<br>
