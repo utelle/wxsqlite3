@@ -80,6 +80,9 @@ struct SHA3Context {
 */
 static void KeccakF1600Step(SHA3Context *p){
   int i;
+#ifdef B0
+    #define B0 BB0
+#endif
   u64 B0, B1, B2, B3, B4;
   u64 C0, C1, C2, C3, C4;
   u64 D0, D1, D2, D3, D4;
