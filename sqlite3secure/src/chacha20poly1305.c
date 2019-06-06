@@ -332,13 +332,15 @@ fail:
   return 0;
 }
 
+extern int getentropy(void* buffer, size_t size) __attribute((weak_import));
+
 static size_t entropy(void* buf, size_t n)
 {
 #if defined(__linux__) && defined(SYS_getrandom)
   if (syscall(SYS_getrandom, buf, n, 0) == n)
     return n;
 #elif defined(SYS_getentropy)
-  if (syscall(SYS_getentropy, buf, n) == 0)
+  if (&getentropy != NULL && syscall(SYS_getentropy, buf, n) == 0)
     return n;
 #endif
   return read_urandom(buf, n);
