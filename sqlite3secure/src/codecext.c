@@ -417,7 +417,7 @@ sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
         if (nReserved != nReservedWriteCipher)
         {
           /* Use VACUUM to change the number of reserved bytes */
-          char* err;
+          char* err = NULL;
           CodecSetReadReserved(codec, nReserved);
           CodecSetWriteReserved(codec, nReservedWriteCipher);
 #if (SQLITE_VERSION_NUMBER >= 3027000)
@@ -448,7 +448,7 @@ sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
     if (nReserved > 0)
     {
       /* Use VACUUM to change the number of reserved bytes */
-      char* err;
+      char* err = NULL;
       CodecSetReadReserved(codec, nReserved);
       CodecSetWriteReserved(codec, 0);
 #if (SQLITE_VERSION_NUMBER >= 3027000)
@@ -473,7 +473,7 @@ sqlite3_rekey_v2(sqlite3 *db, const char *zDbName, const void *zKey, int nKey)
         if (nReserved != nReservedWriteCipher)
         {
           /* Use VACUUM to change the number of reserved bytes */
-          char* err;
+          char* err = NULL;
           CodecSetReadReserved(codec, nReserved);
           CodecSetWriteReserved(codec, nReservedWriteCipher);
 #if (SQLITE_VERSION_NUMBER >= 3027000)
