@@ -2346,18 +2346,17 @@ public:
   /**
   * \return state of object
   */
-  bool IsGood() const throw() { return m_good; }
+  bool IsOk() const { return (m_data != NULL); }
 
   /// Gets state of object (same as IsGood() method)
   /**
   * \return state of object
   */
-  operator bool() const throw() { return IsGood(); }
+  operator bool() const { return (m_data != NULL); }
 
 protected:
   wxString m_name; ///< Name of the collection
   void*    m_data; ///< Reference to the actual array of values representing the collection
-  bool     m_good; ///< State of object
 
   /// Constructor (internal use only)
   wxSQLite3NamedCollection(const wxString& collectionName, void* collectionData);

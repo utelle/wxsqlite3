@@ -199,6 +199,8 @@ const char* wxERRMSG_DBASSIGN_FAILED = wxTRANSLATE("Database assignment failed")
 const char* wxERRMSG_FINALIZE_FAILED = wxTRANSLATE("Finalize failed");
 
 const char* wxERRMSG_CIPHER_APPLY_FAILED = wxTRANSLATE("Application of cipher failed");
+
+const char* wxERRMSG_CORRUPTED_STATE = wxTRANSLATE("Collection object state is not properly initialized");
 #else
 const wxChar* wxERRMSG_NODB          = wxTRANSLATE("No Database opened");
 const wxChar* wxERRMSG_NOSTMT        = wxTRANSLATE("Statement not accessible");
@@ -246,6 +248,8 @@ const wxChar* wxERRMSG_DBASSIGN_FAILED = wxTRANSLATE("Database assignment failed
 const wxChar* wxERRMSG_FINALIZE_FAILED = wxTRANSLATE("Finalize failed");
 
 const wxChar* wxERRMSG_CIPHER_APPLY_FAILED = wxTRANSLATE("Application of cipher failed");
+
+const wxChar* wxERRMSG_CORRUPTED_STATE = wxTRANSLATE("Collection object state is not properly initialized");
 #endif
 
 static const char* LocalMakePointerTypeCopy(wxArrayPtrVoid& ptrTypes, const wxString& pointerType)
@@ -5535,12 +5539,12 @@ static sqlite3_module chararrayModule =
 #endif // WXSQLITE3_USE_NAMED_COLLECTIONS
 
 wxSQLite3NamedCollection::wxSQLite3NamedCollection(const wxString& collectionName, void* collectionData)
-  : m_name(collectionName), m_data(collectionData), m_good(collectionData != NULL)
+  : m_name(collectionName), m_data(collectionData)
 {
 }
 
 wxSQLite3NamedCollection::wxSQLite3NamedCollection(const wxSQLite3NamedCollection& collection)
-  : m_name(collection.m_name), m_data(collection.m_data), m_good(collection.m_good)
+  : m_name(collection.m_name), m_data(collection.m_data)
 {
 }
 
@@ -5551,7 +5555,6 @@ wxSQLite3NamedCollection::operator=(const wxSQLite3NamedCollection& collection)
   {
     m_name = collection.m_name;
     m_data = collection.m_data;
-    m_good = collection.m_good;
   }
   return *this;
 }
@@ -5587,9 +5590,9 @@ wxSQLite3IntegerCollection::~wxSQLite3IntegerCollection()
 void
 wxSQLite3IntegerCollection::Bind(const wxArrayInt& integerCollection)
 {
-  if (!IsGood())
+  if (!IsOk())
   {
-    throw wxSQLite3Exception(-1, wxS("Collection object state is not good"));
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CORRUPTED_STATE);
   }
 
   size_t n = integerCollection.Count();
@@ -5621,9 +5624,9 @@ wxSQLite3IntegerCollection::Bind(const wxArrayInt& integerCollection)
 void
 wxSQLite3IntegerCollection::Bind(int n, int* integerCollection)
 {
-  if (!IsGood())
+  if (!IsOk())
   {
-    throw wxSQLite3Exception(-1, wxS("Collection object state is not good"));
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CORRUPTED_STATE);
   }
 
   sqlite3_intarray* pIntArray = (sqlite3_intarray*) m_data;
@@ -5713,9 +5716,9 @@ wxSQLite3StringCollection::~wxSQLite3StringCollection()
 void
 wxSQLite3StringCollection::Bind(const wxArrayString& stringCollection)
 {
-  if (!IsGood())
+  if (!IsOk())
   {
-    throw wxSQLite3Exception(-1, wxS("Collection object state is not good"));
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CORRUPTED_STATE);
   }
 
   size_t n = stringCollection.Count();
