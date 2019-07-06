@@ -2348,11 +2348,11 @@ public:
   */
   bool IsOk() const { return (m_data != NULL); }
 
-  /// Gets state of object (same as IsGood() method)
+  /// Gets state of object (same as IsOk() method)
   /**
   * \return state of object
   */
-  operator bool() const { return (m_data != NULL); }
+  operator bool() const { return IsOk(); }
 
 protected:
   wxString m_name; ///< Name of the collection
