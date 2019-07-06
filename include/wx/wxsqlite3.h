@@ -2326,12 +2326,6 @@ private:
 class WXDLLIMPEXP_SQLITE3 wxSQLite3NamedCollection
 {
 public:
-  
-  /// Default constructor
-  /**
-    Creates fully empty object that must be set by assignment, be careful
-  */
-  wxSQLite3NamedCollection() : m_name(wxEmptyString), m_data(NULL) {}
 
   /// Copy constructor
   wxSQLite3NamedCollection(const wxSQLite3NamedCollection& collection);
@@ -2366,6 +2360,12 @@ protected:
 
   /// Constructor (internal use only)
   wxSQLite3NamedCollection(const wxString& collectionName, void* collectionData);
+
+  /// Default constructor
+  /**
+    Creates fully empty object that must be set by assignment, be careful
+  */
+  wxSQLite3NamedCollection() : m_name(wxEmptyString), m_data(NULL) {}
 
   friend class wxSQLite3Database;
 };
