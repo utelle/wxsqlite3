@@ -2326,6 +2326,12 @@ private:
 class WXDLLIMPEXP_SQLITE3 wxSQLite3NamedCollection
 {
 public:
+  
+  /// Default constructor
+  /**
+    Creates fully empty object that must be set by assignment, be careful
+  */
+  wxSQLite3NamedCollection() : m_name(wxEmptyString), m_data(NULL) {}
 
   /// Copy constructor
   wxSQLite3NamedCollection(const wxSQLite3NamedCollection& collection);
@@ -2369,6 +2375,12 @@ class WXDLLIMPEXP_SQLITE3 wxSQLite3IntegerCollection : public wxSQLite3NamedColl
 {
 public:
 
+  /// Default constructor
+  /**
+    Creates fully empty object that must be set by assignment, be careful
+  */
+  wxSQLite3IntegerCollection() {}
+
   /// Copy constructor
   wxSQLite3IntegerCollection(const wxSQLite3IntegerCollection& collection);
 
@@ -2410,6 +2422,12 @@ private:
 class WXDLLIMPEXP_SQLITE3 wxSQLite3StringCollection : public wxSQLite3NamedCollection
 {
 public:
+
+  /// Default constructor
+  /**
+    Creates fully empty object that must be set by assignment, be careful
+  */
+  wxSQLite3StringCollection() {}
 
   /// Copy constructor
   wxSQLite3StringCollection(const wxSQLite3StringCollection& collection);
