@@ -5587,7 +5587,7 @@ wxSQLite3IntegerCollection::~wxSQLite3IntegerCollection()
 void
 wxSQLite3IntegerCollection::Bind(const wxArrayInt& integerCollection)
 {
-  if (IsGood())
+  if (!IsGood())
   {
     throw wxSQLite3Exception(-1, wxS("Collection object state is not good"));
   }
@@ -5621,7 +5621,7 @@ wxSQLite3IntegerCollection::Bind(const wxArrayInt& integerCollection)
 void
 wxSQLite3IntegerCollection::Bind(int n, int* integerCollection)
 {
-  if (IsGood())
+  if (!IsGood())
   {
     throw wxSQLite3Exception(-1, wxS("Collection object state is not good"));
   }
@@ -5713,7 +5713,7 @@ wxSQLite3StringCollection::~wxSQLite3StringCollection()
 void
 wxSQLite3StringCollection::Bind(const wxArrayString& stringCollection)
 {
-  if (IsGood())
+  if (!IsGood())
   {
     throw wxSQLite3Exception(-1, wxS("Collection object state is not good"));
   }
