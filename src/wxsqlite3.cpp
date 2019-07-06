@@ -5535,12 +5535,12 @@ static sqlite3_module chararrayModule =
 #endif // WXSQLITE3_USE_NAMED_COLLECTIONS
 
 wxSQLite3NamedCollection::wxSQLite3NamedCollection(const wxString& collectionName, void* collectionData)
-    : m_name(collectionName), m_data(collectionData)
+  : m_name(collectionName), m_data(collectionData), m_good(collectionData != NULL)
 {
 }
 
 wxSQLite3NamedCollection::wxSQLite3NamedCollection(const wxSQLite3NamedCollection& collection)
-  : m_name(collection.m_name), m_data(collection.m_data)
+  : m_name(collection.m_name), m_data(collection.m_data), m_good(collection.m_good)
 {
 }
 
@@ -5551,6 +5551,7 @@ wxSQLite3NamedCollection::operator=(const wxSQLite3NamedCollection& collection)
   {
     m_name = collection.m_name;
     m_data = collection.m_data;
+    m_good = collection.m_good;
   }
   return *this;
 }
@@ -5586,8 +5587,10 @@ wxSQLite3IntegerCollection::~wxSQLite3IntegerCollection()
 void
 wxSQLite3IntegerCollection::Bind(const wxArrayInt& integerCollection)
 {
-  if (m_data == NULL)
-    return;
+  if (IsGood())
+  {
+    throw wxSQLite3Exception(-1, wxS("Collection object state is not good"));
+  }
 
   size_t n = integerCollection.Count();
   sqlite3_intarray* pIntArray = (sqlite3_intarray*) m_data;
@@ -5618,8 +5621,10 @@ wxSQLite3IntegerCollection::Bind(const wxArrayInt& integerCollection)
 void
 wxSQLite3IntegerCollection::Bind(int n, int* integerCollection)
 {
-  if (m_data == NULL)
-    return;
+  if (IsGood())
+  {
+    throw wxSQLite3Exception(-1, wxS("Collection object state is not good"));
+  }
 
   sqlite3_intarray* pIntArray = (sqlite3_intarray*) m_data;
   
@@ -5708,8 +5713,11 @@ wxSQLite3StringCollection::~wxSQLite3StringCollection()
 void
 wxSQLite3StringCollection::Bind(const wxArrayString& stringCollection)
 {
-  if (m_data == NULL)
-    return;
+  if (IsGood())
+  {
+    throw wxSQLite3Exception(-1, wxS("Collection object state is not good"));
+  }
+
   size_t n = stringCollection.Count();
   sqlite3_chararray* pCharArray = (sqlite3_chararray*) m_data;
   
