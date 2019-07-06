@@ -5598,14 +5598,15 @@ wxSQLite3IntegerCollection::~wxSQLite3IntegerCollection()
 void
 wxSQLite3IntegerCollection::Bind(const wxArrayInt& integerCollection)
 {
+  if (m_data == NULL)
+    return;
+
   size_t n = integerCollection.Count();
   sqlite3_intarray* pIntArray = (sqlite3_intarray*) m_data;
-  if (m_data != NULL)
+
+  if (pIntArray->a != NULL && pIntArray->xFree)
   {
-    if (pIntArray->a != NULL && pIntArray->xFree)
-    {
-      pIntArray->xFree(pIntArray->a);
-    }
+    pIntArray->xFree(pIntArray->a);
   }
   pIntArray->n = n;
   if (n > 0)
@@ -5629,13 +5630,14 @@ wxSQLite3IntegerCollection::Bind(const wxArrayInt& integerCollection)
 void
 wxSQLite3IntegerCollection::Bind(int n, int* integerCollection)
 {
+  if (m_data == NULL)
+    return;
+
   sqlite3_intarray* pIntArray = (sqlite3_intarray*) m_data;
-  if (m_data != NULL)
+  
+  if (pIntArray->a != NULL && pIntArray->xFree)
   {
-    if (pIntArray->a != NULL && pIntArray->xFree)
-    {
-      pIntArray->xFree(pIntArray->a);
-    }
+    pIntArray->xFree(pIntArray->a);
   }
   pIntArray->n = n;
   if (n > 0)
@@ -5723,14 +5725,14 @@ wxSQLite3StringCollection::~wxSQLite3StringCollection()
 void
 wxSQLite3StringCollection::Bind(const wxArrayString& stringCollection)
 {
+  if (m_data == NULL)
+    return;
   size_t n = stringCollection.Count();
   sqlite3_chararray* pCharArray = (sqlite3_chararray*) m_data;
-  if (m_data != NULL)
+  
+  if (pCharArray->a != NULL && pCharArray->xFree)
   {
-    if (pCharArray->a != NULL && pCharArray->xFree)
-    {
-      pCharArray->xFree(pCharArray->a);
-    }
+    pCharArray->xFree(pCharArray->a);
   }
   pCharArray->n = n;
   if (n > 0)
