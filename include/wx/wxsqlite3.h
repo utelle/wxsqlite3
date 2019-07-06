@@ -2326,17 +2326,12 @@ private:
 class WXDLLIMPEXP_SQLITE3 wxSQLite3NamedCollection
 {
 public:
-  /// Constructor
-  wxSQLite3NamedCollection();
 
   /// Copy constructor
   wxSQLite3NamedCollection(const wxSQLite3NamedCollection& collection);
 
   /// Assignment constructor
   wxSQLite3NamedCollection& operator=(const wxSQLite3NamedCollection& collection);
-
-  /// Constructor (internal use only)
-  wxSQLite3NamedCollection(const wxString& collectionName, void* collectionData);
 
   /// Destructor
   virtual ~wxSQLite3NamedCollection();
@@ -2351,6 +2346,9 @@ protected:
   wxString m_name; ///< Name of the collection
   void*    m_data; ///< Reference to the actual array of values representing the collection
 
+  /// Constructor (internal use only)
+  wxSQLite3NamedCollection(const wxString& collectionName, void* collectionData);
+
   friend class wxSQLite3Database;
 };
 
@@ -2358,17 +2356,12 @@ protected:
 class WXDLLIMPEXP_SQLITE3 wxSQLite3IntegerCollection : public wxSQLite3NamedCollection
 {
 public:
-  /// Constructor
-  wxSQLite3IntegerCollection();
 
   /// Copy constructor
   wxSQLite3IntegerCollection(const wxSQLite3IntegerCollection& collection);
 
   /// Assignment constructor
   wxSQLite3IntegerCollection& operator=(const wxSQLite3IntegerCollection& collection);
-
-  /// Constructor (internal use only)
-  wxSQLite3IntegerCollection(const wxString& collectionName, void* collectionData);
 
   /// Destructor
   virtual ~wxSQLite3IntegerCollection();
@@ -2392,6 +2385,11 @@ public:
   */
   void Bind(int n, int* integerCollection);
 
+protected:
+
+    /// Constructor (internal use only)
+    wxSQLite3IntegerCollection(const wxString& collectionName, void* collectionData);
+
 private:
   friend class wxSQLite3Database;
 };
@@ -2400,17 +2398,12 @@ private:
 class WXDLLIMPEXP_SQLITE3 wxSQLite3StringCollection : public wxSQLite3NamedCollection
 {
 public:
-  /// Constructor
-  wxSQLite3StringCollection();
 
   /// Copy constructor
   wxSQLite3StringCollection(const wxSQLite3StringCollection& collection);
 
   /// Assignment constructor
   wxSQLite3StringCollection& operator=(const wxSQLite3StringCollection& collection);
-
-  /// Constructor (internal use only)
-  wxSQLite3StringCollection(const wxString& collectionName, void* collectionData);
 
   /// Destructor
   virtual ~wxSQLite3StringCollection();
@@ -2423,6 +2416,10 @@ public:
   * database results in undefined behavior, i.e. the application is likely to crash.
   */
   void Bind(const wxArrayString& stringCollection);
+
+protected:
+  /// Constructor (internal use only)
+  wxSQLite3StringCollection(const wxString& collectionName, void* collectionData);
 
 private:
   friend class wxSQLite3Database;

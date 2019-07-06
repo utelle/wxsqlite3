@@ -5534,16 +5534,9 @@ static sqlite3_module chararrayModule =
 
 #endif // WXSQLITE3_USE_NAMED_COLLECTIONS
 
-wxSQLite3NamedCollection::wxSQLite3NamedCollection()
-{
-  m_name = wxEmptyString;
-  m_data = NULL;
-}
-
 wxSQLite3NamedCollection::wxSQLite3NamedCollection(const wxString& collectionName, void* collectionData)
+    : m_name(collectionName), m_data(collectionData)
 {
-  m_name = collectionName;
-  m_data = collectionData;
 }
 
 wxSQLite3NamedCollection::wxSQLite3NamedCollection(const wxSQLite3NamedCollection& collection)
@@ -5563,11 +5556,6 @@ wxSQLite3NamedCollection::operator=(const wxSQLite3NamedCollection& collection)
 }
 
 wxSQLite3NamedCollection::~wxSQLite3NamedCollection()
-{
-}
-
-wxSQLite3IntegerCollection::wxSQLite3IntegerCollection()
-  : wxSQLite3NamedCollection(wxEmptyString, NULL)
 {
 }
 
@@ -5691,11 +5679,6 @@ wxSQLite3Database::CreateIntegerCollection(const wxString& collectionName)
   wxUnusedVar(collectionName);
   throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_NOCOLLECTIONS);
 #endif // WXSQLITE3_USE_NAMED_COLLECTIONS
-}
-
-wxSQLite3StringCollection::wxSQLite3StringCollection()
-  : wxSQLite3NamedCollection(wxEmptyString, NULL)
-{
 }
 
 wxSQLite3StringCollection::wxSQLite3StringCollection(const wxSQLite3StringCollection& collection)
