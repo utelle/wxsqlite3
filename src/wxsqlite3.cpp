@@ -199,6 +199,8 @@ const char* wxERRMSG_DBASSIGN_FAILED = wxTRANSLATE("Database assignment failed")
 const char* wxERRMSG_FINALIZE_FAILED = wxTRANSLATE("Finalize failed");
 
 const char* wxERRMSG_CIPHER_APPLY_FAILED = wxTRANSLATE("Application of cipher failed");
+
+const char* wxERRMSG_CORRUPTED_STATE = wxTRANSLATE("Collection object state is not properly initialized");
 #else
 const wxChar* wxERRMSG_NODB          = wxTRANSLATE("No Database opened");
 const wxChar* wxERRMSG_NOSTMT        = wxTRANSLATE("Statement not accessible");
@@ -246,6 +248,8 @@ const wxChar* wxERRMSG_DBASSIGN_FAILED = wxTRANSLATE("Database assignment failed
 const wxChar* wxERRMSG_FINALIZE_FAILED = wxTRANSLATE("Finalize failed");
 
 const wxChar* wxERRMSG_CIPHER_APPLY_FAILED = wxTRANSLATE("Application of cipher failed");
+
+const wxChar* wxERRMSG_CORRUPTED_STATE = wxTRANSLATE("Collection object state is not properly initialized");
 #endif
 
 static const char* LocalMakePointerTypeCopy(wxArrayPtrVoid& ptrTypes, const wxString& pointerType)
@@ -5534,16 +5538,9 @@ static sqlite3_module chararrayModule =
 
 #endif // WXSQLITE3_USE_NAMED_COLLECTIONS
 
-wxSQLite3NamedCollection::wxSQLite3NamedCollection()
-{
-  m_name = wxEmptyString;
-  m_data = NULL;
-}
-
 wxSQLite3NamedCollection::wxSQLite3NamedCollection(const wxString& collectionName, void* collectionData)
+  : m_name(collectionName), m_data(collectionData)
 {
-  m_name = collectionName;
-  m_data = collectionData;
 }
 
 wxSQLite3NamedCollection::wxSQLite3NamedCollection(const wxSQLite3NamedCollection& collection)
@@ -5563,11 +5560,6 @@ wxSQLite3NamedCollection::operator=(const wxSQLite3NamedCollection& collection)
 }
 
 wxSQLite3NamedCollection::~wxSQLite3NamedCollection()
-{
-}
-
-wxSQLite3IntegerCollection::wxSQLite3IntegerCollection()
-  : wxSQLite3NamedCollection(wxEmptyString, NULL)
 {
 }
 
@@ -5598,14 +5590,17 @@ wxSQLite3IntegerCollection::~wxSQLite3IntegerCollection()
 void
 wxSQLite3IntegerCollection::Bind(const wxArrayInt& integerCollection)
 {
+  if (!IsOk())
+  {
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CORRUPTED_STATE);
+  }
+
   size_t n = integerCollection.Count();
   sqlite3_intarray* pIntArray = (sqlite3_intarray*) m_data;
-  if (m_data != NULL)
+
+  if (pIntArray->a != NULL && pIntArray->xFree)
   {
-    if (pIntArray->a != NULL && pIntArray->xFree)
-    {
-      pIntArray->xFree(pIntArray->a);
-    }
+    pIntArray->xFree(pIntArray->a);
   }
   pIntArray->n = n;
   if (n > 0)
@@ -5629,13 +5624,16 @@ wxSQLite3IntegerCollection::Bind(const wxArrayInt& integerCollection)
 void
 wxSQLite3IntegerCollection::Bind(int n, int* integerCollection)
 {
-  sqlite3_intarray* pIntArray = (sqlite3_intarray*) m_data;
-  if (m_data != NULL)
+  if (!IsOk())
   {
-    if (pIntArray->a != NULL && pIntArray->xFree)
-    {
-      pIntArray->xFree(pIntArray->a);
-    }
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CORRUPTED_STATE);
+  }
+
+  sqlite3_intarray* pIntArray = (sqlite3_intarray*) m_data;
+  
+  if (pIntArray->a != NULL && pIntArray->xFree)
+  {
+    pIntArray->xFree(pIntArray->a);
   }
   pIntArray->n = n;
   if (n > 0)
@@ -5691,11 +5689,6 @@ wxSQLite3Database::CreateIntegerCollection(const wxString& collectionName)
 #endif // WXSQLITE3_USE_NAMED_COLLECTIONS
 }
 
-wxSQLite3StringCollection::wxSQLite3StringCollection()
-  : wxSQLite3NamedCollection(wxEmptyString, NULL)
-{
-}
-
 wxSQLite3StringCollection::wxSQLite3StringCollection(const wxSQLite3StringCollection& collection)
   : wxSQLite3NamedCollection(collection)
 {
@@ -5723,14 +5716,17 @@ wxSQLite3StringCollection::~wxSQLite3StringCollection()
 void
 wxSQLite3StringCollection::Bind(const wxArrayString& stringCollection)
 {
+  if (!IsOk())
+  {
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CORRUPTED_STATE);
+  }
+
   size_t n = stringCollection.Count();
   sqlite3_chararray* pCharArray = (sqlite3_chararray*) m_data;
-  if (m_data != NULL)
+  
+  if (pCharArray->a != NULL && pCharArray->xFree)
   {
-    if (pCharArray->a != NULL && pCharArray->xFree)
-    {
-      pCharArray->xFree(pCharArray->a);
-    }
+    pCharArray->xFree(pCharArray->a);
   }
   pCharArray->n = n;
   if (n > 0)

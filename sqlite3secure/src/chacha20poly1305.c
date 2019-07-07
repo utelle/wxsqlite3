@@ -86,7 +86,7 @@ static void chacha20_block(unsigned char out[64], const uint32_t in[16])
 void chacha20_xor(unsigned char* data, size_t n, const unsigned char key[32],
                   const unsigned char nonce[12], uint32_t counter)
 {
-  int i;
+  size_t i;
   uint32_t state[16];
   unsigned char block[64];
   static const unsigned char sigma[16] = "expand 32-byte k";
@@ -184,7 +184,7 @@ process_block:
   }
   if (n)
   {
-    int i;
+    size_t i;
     for (i = 0; i < n; i++) buf[i] = msg[i];
     buf[i++] = 1;
     while (i < 16) buf[i++] = 0;
