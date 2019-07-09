@@ -16,10 +16,12 @@ matrix:
         - os: osx
           compiler: clang
           env: CXXFLAGS=-Wno-potentially-evaluated-expression
-        - os: osx
-          osx_image: xcode8
-          compiler: clang
-          env: CXXFLAGS=-Wno-potentially-evaluated-expression
+# Test OS X 10.11 with XCode 8 (issue #53)
+# (platform and toolchain outdated => test removed)
+#        - os: osx
+#          osx_image: xcode8
+#          compiler: clang
+#          env: CXXFLAGS=-Wno-potentially-evaluated-expression
 
 branches:
     only:
