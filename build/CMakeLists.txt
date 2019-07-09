@@ -5,6 +5,10 @@ project(wxSQLite3)
 option(STATIC_RUNTIME "link with c++ runtime statically" "ON")
 option(USE_32 "create 32 bit binaries (64 bit unix only)" "OFF")
 option(SQLITE_DEBUG "enable SQLite debug" "OFF")
+option(PEDANTIC_COMPILER_FLAGS "Enable additional checking for ill-formed code" "ON")
+option(CPP_EXCEPTIONS_ONLY "Catch only C++ exceptions(/EHsc) instead of catching all exceptions(/EHa)(Visual Studio only)" "ON")
+option(THREAD_SAVE_STATIC_INIT "Enable thread safe initialization of static variables" "OFF")
+option(RELEASE_DEBUG_SYMBOLS "Generate debugging symbols for optimized build" "OFF")
 set(SQLITE_CODEC_TYPE "DEFAULT" CACHE STRING "DB Codec(AES128, AES256, CHACHA20, DEFAULT)")
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
@@ -64,30 +68,42 @@ endif(WIN32)
 if(MSVC)
     add_compile_options(/Zi     # pdb
                         /W4     # warning level 4
-                        /EHsc   # exceptions: sync
                         /J      # use unsigned char
                         /Gd     # use cdecl
-                        # treat warnings as errors
-                        /we4715 # not all control paths return a value
-                        /we4828 # disallow invalid characters
-                        # prinf-like functions: format mismatch
-                        /we4473 # <function> : not enough arguments passed for format string 
-                        /we4474 # <function> : too many arguments passed for format string 
-                        /we4475 # <function> : length modifier <length> cannot be used with type field character <conversion-specifier> in format specifier 
-                        /we4476 # <function> : unknown type field character <conversion-specifier> in format specifier 
-                        /we4477 # <function> : format string <format-string> requires an argument of type <type>, but variadic argument <position> has type <type>
-                        /we4478 # <function> : positional and non-positional placeholders cannot be mixed in the same format string 
-                        /we4775 # nonstandard extension used in format string <format-string> of function <function>
-                        /we4776 # %<conversion-specifier> is not allowed in the format string of function <function> 
-                        /we4777 # <function> : format string <format-string> requires an argument of type <type>, but variadic argument <position> has type <type>
-                        /we4778 # <function> : unterminated format string <format-string>
-                        # macro arg mismatch
-                        /we4002 # too many actual parameters for macro 'identifier'
-                        /we4003 # not enough actual parameters for macro 'identifier'
-                        /Zc:threadSafeInit- # https://connect.microsoft.com/VisualStudio/feedback/details/1789709/visual-c-2015-runtime-broken-on-windows-server-2003-c-11-magic-statics
                         /MP     # multiprocessor compilation
-                        /utf-8  # utf-8 source & exec
+                        /utf-8  # utf-8 source
                         /GF)    # eliminate duplicate strings
+                        
+    if(PEDANTIC_COMPILER_FLAGS)
+        add_compile_options(# treat warnings as errors
+                            /we4715 # not all control paths return a value
+                            /we4828 # disallow invalid characters
+                            # prinf-like functions: format mismatch
+                            /we4473 # <function> : not enough arguments passed for format string 
+                            /we4474 # <function> : too many arguments passed for format string 
+                            /we4475 # <function> : length modifier <length> cannot be used with type field character <conversion-specifier> in format specifier 
+                            /we4476 # <function> : unknown type field character <conversion-specifier> in format specifier 
+                            /we4477 # <function> : format string <format-string> requires an argument of type <type>, but variadic argument <position> has type <type>
+                            /we4478 # <function> : positional and non-positional placeholders cannot be mixed in the same format string 
+                            /we4775 # nonstandard extension used in format string <format-string> of function <function>
+                            /we4776 # %<conversion-specifier> is not allowed in the format string of function <function> 
+                            /we4777 # <function> : format string <format-string> requires an argument of type <type>, but variadic argument <position> has type <type>
+                            /we4778 # <function> : unterminated format string <format-string>
+                            # macro arg mismatch
+                            /we4002 # too many actual parameters for macro 'identifier'
+                            /we4003 # not enough actual parameters for macro 'identifier'
+        )
+    endif(PEDANTIC_COMPILER_FLAGS)
+    
+    if(CPP_EXCEPTIONS_ONLY)
+        add_compile_options(/EHsc) # exceptions: sync
+    else()
+        add_compile_options(/EHa) # exceptions: sync
+    endif(CPP_EXCEPTIONS_ONLY)
+    
+    if((NOT THREAD_SAVE_STATIC_INIT) AND (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 19.00))
+        add_compile_options(/Zc:threadSafeInit-) # https://connect.microsoft.com/VisualStudio/feedback/details/1789709/visual-c-2015-runtime-broken-on-windows-server-2003-c-11-magic-statics
+    endif()
     
     set(CMAKE_CXX_FLAGS ${CMAKE_C_FLAGS})
     
@@ -101,55 +117,67 @@ if(MSVC)
         set(DEBUG_RUNTIME "/MDd")
     endif(STATIC_RUNTIME)
     
+    if(RELEASE_DEBUG_SYMBOLS)
+        set(DBG_LINKER_FLAG /DEBUG)
+    endif(RELEASE_DEBUG_SYMBOLS)
+    
     set(CMAKE_EXE_LINKER_FLAGS "/LARGEADDRESSAWARE /SUBSYSTEM:WINDOWS")
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /LTCG /OPT:REF,ICF /DEBUG")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /LTCG /OPT:REF,ICF ${DBG_LINKER_FLAG}")
+    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /LTCG /OPT:REF,ICF ${DBG_LINKER_FLAG}")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG /Ox /Ob2 /Oi /Ot /Oy /GS- /Gy /GR- /GL /Gw ${RELEASE_RUNTIME}")
     set(CMAKE_C_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /GS -D_DEBUG ${DEBUG_RUNTIME}")
     set(CMAKE_C_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 else()
     add_compile_options(-pipe
+                        -funsigned-char
+                        -fno-rtti
                         -W
                         -Wall
-
-                        -Wextra
-                        -Wwrite-strings
-                        -Wframe-larger-than=16384
-                        -Wstack-usage=16384
-                        -fdiagnostics-show-option
-                        -Wmissing-declarations
-                        -Wredundant-decls
-                        -Wcast-qual
-                        -Wsuggest-attribute=noreturn
-                        -Wunused-but-set-variable
-                        -Wunused-but-set-parameter
-
-                        -Wframe-larger-than=4096
-
-                        -Wno-multichar
-                        -Wno-strict-aliasing
-                        -Wno-missing-field-initializers
-
-                        -Werror=return-type
-                        -Werror=pointer-arith
-                        -Werror=unused-value
-                        -Werror=sizeof-pointer-memaccess
-                        -Werror=implicit-function-declaration
-
-#                        -Werror=missing-declarations
-#                        -Werror=missing-prototypes
-                        -Werror=reorder
-                        -Werror=declaration-after-statement
-                        
-                        -funsigned-char
-
-                        -fno-rtti
                         )
-    
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=delete-non-virtual-dtor -U__STRICT_ANSI__ -fno-operator-names")       
-    set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wimplicit-int -Wmissing-prototypes -Werror=implicit-int")
+                        
+    if(PEDANTIC_COMPILER_FLAGS)
+        add_compile_options(-Wextra
+                            -Wwrite-strings
+                            -Wframe-larger-than=16384
+                            -Wstack-usage=16384
+                            -fdiagnostics-show-option
+                            -Wmissing-declarations
+                            -Wredundant-decls
+                            -Wcast-qual
+                            -Wsuggest-attribute=noreturn
+                            -Wunused-but-set-variable
+                            -Wunused-but-set-parameter
+                            
+                            -Wframe-larger-than=4096
+                            
+                            -Wno-multichar
+                            -Wno-strict-aliasing
+                            -Wno-missing-field-initializers
+                            
+                            -Werror=return-type
+                            -Werror=pointer-arith
+                            -Werror=unused-value
+                            -Werror=sizeof-pointer-memaccess
+                            -Werror=implicit-function-declaration
+                            
+#                            -Werror=missing-declarations
+#                            -Werror=missing-prototypes
+                            -Werror=reorder
+                            -Werror=declaration-after-statement
+        )
+        
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=delete-non-virtual-dtor -U__STRICT_ANSI__ -fno-operator-names")       
+        set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wimplicit-int -Werror=implicit-int")
+    endif(PEDANTIC_COMPILER_FLAGS)
 
-    set(CMAKE_CXX_FLAGS_RELEASE  "-O2 -s -DNDEBUG")
+    if(RELEASE_DEBUG_SYMBOLS)
+        set(DBG_FLAG -g)
+    else()
+        set(DBG_FLAG -s)
+    endif(RELEASE_DEBUG_SYMBOLS)
+
+    set(CMAKE_CXX_FLAGS_RELEASE  "-O2 ${DBG_FLAG} -DNDEBUG")
     set(CMAKE_C_FLAGS_RELEASE    ${CMAKE_CXX_FLAGS_RELEASE})
     set(CMAKE_CXX_FLAGS_DEBUG    "-O0 -g -D_DEBUG -D__DEBUG__ -DDEBUG_LEVEL=3 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC")
     set(CMAKE_C_FLAGS_DEBUG      ${CMAKE_CXX_FLAGS_DEBUG})
@@ -160,8 +188,8 @@ else()
     set(CMAKE_EXE_LINKER_FLAGS_VALGRIND     "${CMAKE_EXE_LINKER_FLAGS} -g")
     set(CMAKE_SHARED_LINKER_FLAGS_VALGRIND  "${CMAKE_SHARED_LINKER_FLAGS} -g")
     
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE    "${CMAKE_EXE_LINKER_FLAGS} -s")
-    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS} -s")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE    "${CMAKE_EXE_LINKER_FLAGS} ${DBG_FLAG}")
+    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS} ${DBG_FLAG}")
     
     if(USE_32)
         add_compile_options (-m32)
