@@ -3182,7 +3182,7 @@ void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback,
                                 const wxString& sourceFileName, const wxString& key,
                                 const wxString& targetDatabaseName)
 {
-  Restore(NULL, sourceFileName, wxSQLite3Cipher(), key, targetDatabaseName);
+  Restore(progressCallback, sourceFileName, wxSQLite3Cipher(), key, targetDatabaseName);
 }
 
 void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback,
@@ -3208,7 +3208,7 @@ void wxSQLite3Database::Restore(const wxString& sourceFileName, const wxMemoryBu
 void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback, const wxString& sourceFileName,
                                 const wxMemoryBuffer& key, const wxString& targetDatabaseName)
 {
-  Restore(NULL, sourceFileName, wxSQLite3Cipher(), key, targetDatabaseName);
+  Restore(progressCallback, sourceFileName, wxSQLite3Cipher(), key, targetDatabaseName);
 }
 
 void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback,
