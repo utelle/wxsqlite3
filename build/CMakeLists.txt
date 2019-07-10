@@ -3,11 +3,17 @@ cmake_minimum_required(VERSION 3.6)
 project(wxSQLite3)
 
 option(STATIC_RUNTIME "link with c++ runtime statically" "ON")
-option(USE_32 "create 32 bit binaries (64 bit unix only)" "OFF")
+
+if((CMAKE_SIZEOF_VOID_P EQUAL 8) AND CMAKE_COMPILER_IS_GNUCC)
+    option(USE_32 "create 32 bit binaries" "OFF")
+endif()
+
 option(SQLITE_DEBUG "enable SQLite debug" "OFF")
 option(PEDANTIC_COMPILER_FLAGS "Enable additional checking for ill-formed code" "ON")
-option(CPP_EXCEPTIONS_ONLY "Catch only C++ exceptions(/EHsc) instead of catching all exceptions(/EHa)(Visual Studio only)" "ON")
-option(THREAD_SAVE_STATIC_INIT "Enable thread safe initialization of static variables" "OFF")
+if(MSVC)
+    option(CPP_EXCEPTIONS_ONLY "Catch only C++ exceptions(/EHsc) instead of catching all exceptions(/EHa)" "ON")
+    option(THREAD_SAVE_STATIC_INIT "Enable thread safe initialization of static variables" "OFF")
+endif(MSVC)
 option(RELEASE_DEBUG_SYMBOLS "Generate debugging symbols for optimized build" "OFF")
 set(SQLITE_CODEC_TYPE "DEFAULT" CACHE STRING "DB Codec(AES128, AES256, CHACHA20, DEFAULT)")
 
@@ -72,7 +78,9 @@ if(MSVC)
                         /Gd     # use cdecl
                         /MP     # multiprocessor compilation
                         /utf-8  # utf-8 source
-                        /GF)    # eliminate duplicate strings
+                        /GF     # eliminate duplicate strings
+                        /wd4996 # disable 'The POSIX name for this item is deprecated ...'
+    )
                         
     if(PEDANTIC_COMPILER_FLAGS)
         add_compile_options(# treat warnings as errors
@@ -128,7 +136,7 @@ if(MSVC)
     set(CMAKE_C_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /GS -D_DEBUG ${DEBUG_RUNTIME}")
     set(CMAKE_C_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
-else()
+elseif(CMAKE_COMPILER_IS_GNUCC)
     add_compile_options(-pipe
                         -funsigned-char
                         -fno-rtti
@@ -149,12 +157,6 @@ else()
                             -Wunused-but-set-variable
                             -Wunused-but-set-parameter
                             
-                            -Wframe-larger-than=4096
-                            
-                            -Wno-multichar
-                            -Wno-strict-aliasing
-                            -Wno-missing-field-initializers
-                            
                             -Werror=return-type
                             -Werror=pointer-arith
                             -Werror=unused-value
@@ -165,9 +167,10 @@ else()
 #                            -Werror=missing-prototypes
                             -Werror=reorder
                             -Werror=declaration-after-statement
+                            -Werror=stringop-overflow
         )
         
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=delete-non-virtual-dtor -U__STRICT_ANSI__ -fno-operator-names")       
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=delete-non-virtual-dtor")       
         set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wimplicit-int -Werror=implicit-int")
     endif(PEDANTIC_COMPILER_FLAGS)
 
@@ -198,21 +201,16 @@ else()
     endif(USE_32)
     
     if(STATIC_RUNTIME)
-        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
-        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-libgcc -static-libstdc++")
+        if(MINGW)
+            set(STATIC_LINKER_FLAGS "-static -Wl,--allow-multiple-definition")
+        else()
+            set(STATIC_LINKER_FLAGS "-static-libgcc -static-libstdc++")
+        endif(MINGW)
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${STATIC_LINKER_FLAGS}")
+        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${STATIC_LINKER_FLAGS}")
     endif(STATIC_RUNTIME)
-endif(MSVC)
-
-string(TIMESTAMP BUILD_YEAR "%Y")
-add_definitions(-DBUILD_YEAR="${BUILD_YEAR}")
-
-add_definitions(-DPVOID_SIZE=${CMAKE_SIZEOF_VOID_P})
-
-if(WIN32)
-    add_definitions(-D__NT__)
-else()
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN'" )
-endif()
+endif(MSVC)
 
 include_directories(
     "../include/"
@@ -227,7 +225,7 @@ add_library(
 )
 
 if(SQLITE_DEBUG)
-set(SQLITE_DEBUG_MACRO "-DSQLITE_ENABLE_DEBUG=1")
+    set(SQLITE_DEBUG_MACRO "-DSQLITE_ENABLE_DEBUG=1")
 endif(SQLITE_DEBUG)
 
 set_target_properties(wxsqlite3 PROPERTIES COMPILE_FLAGS "-D_LIB \
@@ -287,22 +285,63 @@ target_link_libraries(minimal wxsqlite3)
 
 IF(MSVC)
     set_target_properties(minimal PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
-ENDIF()
+ENDIF(MSVC)
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT treeview)
 
+message("//===--- current configuration ---===//")
+
+if(MSVC)
+    set(COMPILER_SPECIFIC_OPTIONS  CPP_EXCEPTIONS_ONLY
+                                   THREAD_SAVE_STATIC_INIT
+    )
+elseif(CMAKE_COMPILER_IS_GNUCC)
+    set(COMPILER_SPECIFIC_OPTIONS  CPP_EXCEPTIONS_ONLY)
+endif(MSVC)
+
+option(STATIC_RUNTIME "link with c++ runtime statically" "ON")
+option(SQLITE_DEBUG "enable SQLite debug" "OFF")
+option(PEDANTIC_COMPILER_FLAGS "Enable additional checking for ill-formed code" "ON")
+option(THREAD_SAVE_STATIC_INIT "Enable thread safe initialization of static variables" "OFF")
+option(RELEASE_DEBUG_SYMBOLS "Generate debugging symbols for optimized build" "OFF")
+set(SQLITE_CODEC_TYPE "DEFAULT" CACHE STRING "DB Codec(AES128, AES256, CHACHA20, DEFAULT)")
+
+foreach(V   ${COMPILER_SPECIFIC_OPTIONS}
+            STATIC_RUNTIME
+            SQLITE_DEBUG
+            PEDANTIC_COMPILER_FLAGS
+            THREAD_SAVE_STATIC_INIT
+            RELEASE_DEBUG_SYMBOLS
+            SQLITE_CODEC_TYPE
+       )
+    message("${V}: ${${V}}")
+endforeach()
+
+message("")
+
 find_package (wxWidgets REQUIRED core base adv)
 if(wxWidgets_FOUND)
+    set(WXDEFS "wxWidgets definitions:")
     foreach(F ${wxWidgets_DEFINITIONS})
         add_definitions("-D${F}")
+        set(WXDEFS "${WXDEFS} ${F}")
     endforeach()
 
+    set(WXFLAGS "wxWidgets compiler flags:")
     foreach(F ${wxWidgets_CXX_FLAGS})
         set(CMAKE_CXX_FLAGS "${COMMON_CXX_FLAGS} ${F}")
+        set(WXFLAGS "${WXFLAGS} ${F}")
     endforeach()
   
     include_directories(${wxWidgets_INCLUDE_DIRS})
     target_link_libraries (treeview ${wxWidgets_LIBRARIES})
     target_link_libraries (minimal ${wxWidgets_LIBRARIES})
+    
+    message(${WXDEFS})
+    message(${WXFLAGS})
+    message("wxWidgets include derectories: ${wxWidgets_INCLUDE_DIRS}")
+    message("wxWidgets libraries: ${wxWidgets_LIBRARIES}")
 endif(wxWidgets_FOUND)
 
+message("")
+message("//===---          ***          ---===//")
