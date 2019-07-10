@@ -157,12 +157,6 @@ elseif(CMAKE_COMPILER_IS_GNUCC)
                             -Wunused-but-set-variable
                             -Wunused-but-set-parameter
                             
-                            -Wframe-larger-than=4096
-                            
-                            -Wno-multichar
-                            -Wno-strict-aliasing
-                            -Wno-missing-field-initializers
-                            
                             -Werror=return-type
                             -Werror=pointer-arith
                             -Werror=unused-value
@@ -173,10 +167,10 @@ elseif(CMAKE_COMPILER_IS_GNUCC)
 #                            -Werror=missing-prototypes
                             -Werror=reorder
                             -Werror=declaration-after-statement
-                            -Werror=stringop-overflow=
+                            -Werror=stringop-overflow
         )
         
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=delete-non-virtual-dtor -U__STRICT_ANSI__ -fno-operator-names")       
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=delete-non-virtual-dtor")       
         set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wimplicit-int -Werror=implicit-int")
     endif(PEDANTIC_COMPILER_FLAGS)
 
