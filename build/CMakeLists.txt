@@ -173,6 +173,7 @@ elseif(CMAKE_COMPILER_IS_GNUCC)
 #                            -Werror=missing-prototypes
                             -Werror=reorder
                             -Werror=declaration-after-statement
+                            -Werror=stringop-overflow=
         )
         
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=delete-non-virtual-dtor -U__STRICT_ANSI__ -fno-operator-names")       
