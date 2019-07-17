@@ -1,5 +1,5 @@
 /*
-** This file contains th implementation for
+** This file contains the implementation for
 **   - the ChaCha20 cipher
 **   - the Poly1305 message digest
 **
@@ -78,8 +78,7 @@ static void chacha20_block(unsigned char out[64], const uint32_t in[16])
   for (i = 0; i < 16; i++)
   {
     const uint32_t v = x[i] + in[i];
-    STORE32_LE(out, v);
-    out += 4;
+    STORE32_LE(&out[4*i], v);
   }
 }
 
@@ -139,12 +138,11 @@ void chacha20_xor(unsigned char* data, size_t n, const unsigned char key[32],
 void poly1305(const unsigned char* msg, size_t n, const unsigned char key[32],
               unsigned char tag[16])
 {
-  uint32_t hibit, m, w;
+  uint32_t hibit;
+  uint64_t d0, d1, d2, d3, d4;
+  uint32_t h0, h1, h2, h3, h4;
   uint32_t r0, r1, r2, r3, r4;
   uint32_t s1, s2, s3, s4;
-  uint64_t f0, f1, f2, f3;
-  uint32_t g0, g1, g2, g3, g4;
-  uint32_t h0, h1, h2, h3, h4;
   unsigned char buf[16];
 
   hibit = 1 << 24;
@@ -156,7 +154,6 @@ void poly1305(const unsigned char* msg, size_t n, const unsigned char key[32],
   r4 = (LOAD32_LE(key + 12) >> 8) & 0x000FFFFF; s4 = r4 * 5;
   while (n >= 16)
   {
-    uint64_t d0, d1, d2, d3, d4;
 process_block:
     h0 += (LOAD32_LE(msg +  0) >> 0) & 0x03FFFFFF;
     h1 += (LOAD32_LE(msg +  3) >> 2) & 0x03FFFFFF;
@@ -172,12 +169,11 @@ process_block:
     d4 = MUL(h0,r4) + MUL(h1,r3) + MUL(h2,r2) + MUL(h3,r1) + MUL(h4,r0);
     #undef MUL
 
-    h0 = d0 & 0x03FFFFFF; d1 += (uint32_t)(d0 >> 26);
-    h1 = d1 & 0x03FFFFFF; d2 += (uint32_t)(d1 >> 26);
-    h2 = d2 & 0x03FFFFFF; d3 += (uint32_t)(d2 >> 26);
-    h3 = d3 & 0x03FFFFFF; d4 += (uint32_t)(d3 >> 26);
-    h4 = d4 & 0x03FFFFFF; h0 += (uint32_t)(d4 >> 26) * 5;
-    h1 += (h0 >> 26); h0 = h0 & 0x03FFFFFF;
+    h0 = d0 & 0x03FFFFFF; d1 += (d0 >> 26);
+    h1 = d1 & 0x03FFFFFF; d2 += (d1 >> 26);
+    h2 = d2 & 0x03FFFFFF; d3 += (d2 >> 26);
+    h3 = d3 & 0x03FFFFFF; d4 += (d3 >> 26);
+    h4 = d4 & 0x03FFFFFF; h0 += (d4 >> 26) * 5;
 
     msg += 16;
     n -= 16;
@@ -193,40 +189,28 @@ process_block:
     n = 16;
     goto process_block;
   }
-  *(volatile uint32_t*) &r0 = 0;
-  *(volatile uint32_t*) &r1 = 0; *(volatile uint32_t*) &s1 = 0;
-  *(volatile uint32_t*) &r2 = 0; *(volatile uint32_t*) &s2 = 0;
-  *(volatile uint32_t*) &r3 = 0; *(volatile uint32_t*) &s3 = 0;
-  *(volatile uint32_t*) &r4 = 0; *(volatile uint32_t*) &s4 = 0;
 
-  h2 += (h1 >> 26);     h1 &= 0x03FFFFFF;
-  h3 += (h2 >> 26);     h2 &= 0x03FFFFFF;
-  h4 += (h3 >> 26);     h3 &= 0x03FFFFFF;
-  h0 += (h4 >> 26) * 5; h4 &= 0x03FFFFFF;
-  h1 += (h0 >> 26);     h0 &= 0x03FFFFFF;
+  r0 = h0 + 5;
+  r1 = h1 + (r0 >> 26); *(volatile uint32_t *)&r0 = 0;
+  r2 = h2 + (r1 >> 26); *(volatile uint32_t *)&r1 = 0;
+  r3 = h3 + (r2 >> 26); *(volatile uint32_t *)&r2 = 0;
+  r4 = h4 + (r3 >> 26); *(volatile uint32_t *)&r3 = 0;
+  h0 = h0 + (r4 >> 26) * 5; *(volatile uint32_t *)&r4 = 0;
 
-  g0 = h0 + 5;
-  g1 = h1 + (g0 >> 26); g0 &= 0x03FFFFFF;
-  g2 = h2 + (g1 >> 26); g1 &= 0x03FFFFFF;
-  g3 = h3 + (g2 >> 26); g2 &= 0x03FFFFFF;
-  g4 = h4 + (g3 >> 26) - (1 << 26); g3 &= 0x03FFFFFF;
+  d0 = (uint64_t)LOAD32_LE(key + 16) + (h0 >>  0) + (h1 << 26);
+  d1 = (uint64_t)LOAD32_LE(key + 20) + (h1 >>  6) + (h2 << 20) + (d0 >> 32);
+  d2 = (uint64_t)LOAD32_LE(key + 24) + (h2 >> 12) + (h3 << 14) + (d1 >> 32);
+  d3 = (uint64_t)LOAD32_LE(key + 28) + (h3 >> 18) + (h4 <<  8) + (d2 >> 32);
 
-  w = ~(m = (g4 >> 31) - 1);
-  h0 = (h0 & w) | (g0 & m);
-  h1 = (h1 & w) | (g1 & m);
-  h2 = (h2 & w) | (g2 & m);
-  h3 = (h3 & w) | (g3 & m);
-  h4 = (h4 & w) | (g4 & m);
-
-  f0 = ((h0 >>  0) | (h1 << 26)) + (uint64_t) LOAD32_LE(key + 16);
-  f1 = ((h1 >>  6) | (h2 << 20)) + (uint64_t) LOAD32_LE(key + 20);
-  f2 = ((h2 >> 12) | (h3 << 14)) + (uint64_t) LOAD32_LE(key + 24);
-  f3 = ((h3 >> 18) | (h4 <<  8)) + (uint64_t) LOAD32_LE(key + 28);
-
-  STORE32_LE(tag +  0, f0); f1 += (f0 >> 32);
-  STORE32_LE(tag +  4, f1); f2 += (f1 >> 32);
-  STORE32_LE(tag +  8, f2); f3 += (f2 >> 32);
-  STORE32_LE(tag + 12, f3);
+  STORE32_LE(tag +  0, d0); *(volatile uint32_t *)&s1 = 0;
+  STORE32_LE(tag +  4, d1); *(volatile uint32_t *)&s2 = 0;
+  STORE32_LE(tag +  8, d2); *(volatile uint32_t *)&s3 = 0;
+  STORE32_LE(tag + 12, d3); *(volatile uint32_t *)&s4 = 0;
+  *(volatile uint64_t *)&d0 = 0; *(volatile uint32_t *)&h0 = 0;
+  *(volatile uint64_t *)&d1 = 0; *(volatile uint32_t *)&h1 = 0;
+  *(volatile uint64_t *)&d2 = 0; *(volatile uint32_t *)&h2 = 0;
+  *(volatile uint64_t *)&d3 = 0; *(volatile uint32_t *)&h3 = 0;
+  *(volatile uint64_t *)&d4 = 0; *(volatile uint32_t *)&h4 = 0;
 }
 
 int poly1305_tagcmp(const unsigned char tag1[16], const unsigned char tag2[16])
@@ -254,7 +238,16 @@ int poly1305_tagcmp(const unsigned char tag1[16], const unsigned char tag2[16])
 /*
  * Platform-specific entropy functions for seeding RNG
  */
-#if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
+#if defined(_WIN32) || defined(__CYGWIN__)
+#include <windows.h>
+#define RtlGenRandom SystemFunction036
+BOOLEAN NTAPI RtlGenRandom(PVOID RandomBuffer, ULONG RandomBufferLength);
+#pragma comment(lib, "advapi32.lib")
+static size_t entropy(void* buf, size_t n)
+{
+  return RtlGenRandom(buf, n) ? n : 0;
+}
+#elif defined(__linux__) || defined(__unix__) || defined(__APPLE__)
 #define _GNU_SOURCE
 #include <errno.h>
 #include <fcntl.h>
@@ -318,7 +311,7 @@ static size_t read_urandom(void* buf, size_t n)
   /* Verify that the random device returned non-zero data */
   for (i = 0; i < n; i++)
   {
-    if (((unsigned char *)buf)[i] != 0)
+    if (((unsigned char*) buf)[i] != 0)
     {
       errno = errnold;
       return n;
@@ -343,21 +336,8 @@ static size_t entropy(void* buf, size_t n)
 #endif
   return read_urandom(buf, n);
 }
-
-#elif defined(_WIN32)
-
-#include <windows.h>
-#define RtlGenRandom SystemFunction036
-BOOLEAN NTAPI RtlGenRandom(PVOID RandomBuffer, ULONG RandomBufferLength);
-#pragma comment(lib, "advapi32.lib")
-
-static size_t entropy(void* buf, size_t n)
-{
-  return RtlGenRandom(buf, n) ? n : 0;
-}
-
 #else
-# error "Secure pseudorandom number generator unimplemented for this OS"
+# error "Secure pseudorandom number generator not implemented for this OS"
 #endif
 
 /*
@@ -366,7 +346,7 @@ static size_t entropy(void* buf, size_t n)
 void chacha20_rng(void* out, size_t n)
 {
   static size_t available = 0;
-  static uint32_t counter = UINT32_MAX;
+  static uint32_t counter = 0;
   static unsigned char key[32], nonce[12], buffer[64] = { 0 };
 
 #if SQLITE_THREADSAFE
@@ -379,14 +359,14 @@ void chacha20_rng(void* out, size_t n)
     size_t m;
     if (available == 0)
     {
-      if (counter == UINT32_MAX)
+      if (counter == 0)
       {
         if (entropy(key, sizeof(key)) != sizeof(key))
           abort();
         if (entropy(nonce, sizeof(nonce)) != sizeof(nonce))
           abort();
       }
-      chacha20_xor(buffer, sizeof(buffer), key, nonce, ++counter);
+      chacha20_xor(buffer, sizeof(buffer), key, nonce, counter++);
       available = sizeof(buffer);
     }
     m = (available < n) ? available : n;

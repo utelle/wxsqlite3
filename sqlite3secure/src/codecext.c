@@ -3,12 +3,18 @@
 ** Purpose:     Implementation of SQLite codec API
 ** Author:      Ulrich Telle
 ** Created:     2006-12-06
-** Copyright:   (c) 2006-2018 Ulrich Telle
+** Copyright:   (c) 2006-2019 Ulrich Telle
 ** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
 #ifndef SQLITE_OMIT_DISKIO
 #ifdef SQLITE_HAS_CODEC
+
+/*
+** Prototypes for codec functions
+*/
+int sqlite3CodecAttach(sqlite3* db, int nDb, const void* zKey, int nKey);
+void sqlite3CodecGetKey(sqlite3* db, int nDb, void** zKey, int* nKey);
 
 /*
 ** Include a "special" version of the VACUUM command

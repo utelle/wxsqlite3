@@ -27,9 +27,9 @@ This document describes the SQLite3 encryption extension provided by wxSQLite3. 
 
 ## <a name="installation" />Installation
 
-The build system is based on [Premake5](http://premake.github.io/). Premake 5.0-alpha11 or higher is recommended.
+The build system is based on [Premake5](http://premake.github.io/). Premake 5.0-alpha14 or higher is recommended.
 
-Ready to use project files are provided for Visual C++ 2010, 2012, 2013, 2015, and 2017. Additionally, GNU Makefiles are provided supporting for example TDM-GCC MinGW.
+Ready to use project files are provided for Visual C++ 2010, 2012, 2013, 2015, 2017, and 2019. Additionally, GNU Makefiles are provided supporting for example TDM-GCC MinGW.
 
 For Visual Studio 2010+ solutions it is possible to customize the build by creating a `wx_local.props` file in the build directory which is used, if it exists, by the projects. The settings in that file override the default values for the properties. The typical way to make the file is to copy `wx_setup.props` to `wx_local.props` and then edit locally.
 

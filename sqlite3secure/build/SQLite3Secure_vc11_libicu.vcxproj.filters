@@ -15,6 +15,12 @@
     <ClInclude Include="..\src\fastpbkdf2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\msvc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mystdint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\src\rijndael.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -31,6 +31,8 @@ elseif _ACTION == "vs2015" then
   vc_version = 14
 elseif _ACTION == "vs2017" then
   vc_version = 15
+elseif _ACTION == "vs2019" then
+  vc_version = 16
 end
 
 is_msvc = false
@@ -86,7 +88,7 @@ workspace "SQLite3Secure"
     defines {
       "NDEBUG"
     }
-    flags { "Optimize" }  
+    optimize "On"  
 
   filter {}
 
@@ -109,14 +111,15 @@ project "sqlite3lib"
     ["Source Files"] = { "**/sqlite3secure.c", "**.def", "**.rc" }
   }
   characterset ("Unicode")
-  flags { "StaticRuntime" }  
+  staticruntime "On"  
 
   location( BUILDDIR )
   targetname "sqlite3"
 
   defines {
     "_LIB",
-    "THREADSAFE=1",
+    "SQLITE_THREADSAFE=1",
+    "SQLITE_DQS=0",
     "SQLITE_MAX_ATTACHED=10",
     "SQLITE_ENABLE_EXPLAIN_COMMENTS",
     "SQLITE_SOUNDEX",
@@ -187,14 +190,15 @@ project "sqlite3dll"
     ["Source Files"] = { "**/sqlite3secure.c", "**.def", "**.rc" }
   }
   characterset ("Unicode")
-  flags { "StaticRuntime" }  
+  staticruntime "On"  
 
   location( BUILDDIR )
   targetname "sqlite3"
 
   defines {
     "_USRDLL",
-    "THREADSAFE=1",
+    "SQLITE_THREADSAFE=1",
+    "SQLITE_DQS=0",
     "SQLITE_MAX_ATTACHED=10",
     "SQLITE_SOUNDEX",
     "SQLITE_ENABLE_COLUMN_METADATA",
@@ -259,7 +263,7 @@ project "sqlite3shell"
   }
   files { "src/sqlite3.h", "src/shell.c", "src/sqlite3shell.rc" }
   characterset ("Unicode")
-  flags { "StaticRuntime" }  
+  staticruntime "On"  
   links { "sqlite3lib" }
 
   location( BUILDDIR )
@@ -310,7 +314,7 @@ project "sqlite3libicu"
     ["Source Files"] = { "**/sqlite3secure.c", "**.def", "**.rc" }
   }
   characterset ("Unicode")
-  flags { "StaticRuntime" }
+  staticruntime "On"  
   includedirs { "$(LIBICU_PATH)/include" }
 
   location( BUILDDIR )
@@ -318,8 +322,9 @@ project "sqlite3libicu"
 
   defines {
     "_LIB",
-    "THREADSAFE=1",
+    "SQLITE_THREADSAFE=1",
     "SQLITE_ENABLE_ICU",
+    "SQLITE_DQS=0",
     "SQLITE_MAX_ATTACHED=10",
     "SQLITE_ENABLE_EXPLAIN_COMMENTS",
     "SQLITE_SOUNDEX",
@@ -390,7 +395,7 @@ project "sqlite3dllicu"
     ["Source Files"] = { "**/sqlite3secure.c", "**.def", "**.rc" }
   }
   characterset ("Unicode")
-  flags { "StaticRuntime" } 
+  staticruntime "On"  
   includedirs { "$(LIBICU_PATH)/include" }  
 
   filter { "platforms:Win32" }
@@ -410,8 +415,9 @@ project "sqlite3dllicu"
 
   defines {
     "_USRDLL",
-    "THREADSAFE=1",
+    "SQLITE_THREADSAFE=1",
     "SQLITE_ENABLE_ICU",
+    "SQLITE_DQS=0",
     "SQLITE_MAX_ATTACHED=10",
     "SQLITE_SOUNDEX",
     "SQLITE_ENABLE_COLUMN_METADATA",
@@ -476,7 +482,7 @@ project "sqlite3shellicu"
   }
   files { "src/sqlite3.h", "src/shell.c", "src/sqlite3shell.rc" }
   characterset ("Unicode")
-  flags { "StaticRuntime" }  
+  staticruntime "On"  
   links { "sqlite3libicu" }
 
   filter { "platforms:Win32" }

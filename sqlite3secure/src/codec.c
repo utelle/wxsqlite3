@@ -3,7 +3,7 @@
 ** Purpose:     Implementation of SQLite codecs
 ** Author:      Ulrich Telle
 ** Created:     2006-12-06
-** Copyright:   (c) 2006-2018 Ulrich Telle
+** Copyright:   (c) 2006-2019 Ulrich Telle
 ** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
@@ -2119,14 +2119,26 @@ wxsqlite3_config_cipher(sqlite3* db, const char* cipherName, const char* paramNa
   CipherParams* cipherParamTable = NULL;
   int j = 0;
 
-  if (cipherName == NULL || paramName == NULL || (db == NULL && newValue >= 0))
+  if (cipherName == NULL || paramName == NULL)
   {
+    sqlite3_log(SQLITE_WARNING,
+                "wxsqlite3_config_cipher: cipher name ('%s*) or parameter ('%s*) missing",
+                (cipherName == NULL) ? "" : cipherName, (paramName == NULL) ? "" : paramName);
+    return value;
+  }
+  else if (db == NULL && newValue >= 0)
+  {
+    sqlite3_log(SQLITE_WARNING,
+                "wxsqlite3_config_cipher: global change of parameter '%s' for cipher '%s' not supported",
+                paramName, cipherName);
     return value;
   }
 
   codecParams = (db != NULL) ? GetCodecParams(db) : codecParameterTable;
   if (codecParams == NULL)
   {
+    sqlite3_log(SQLITE_WARNING,
+                "wxsqlite3_config_cipher: codec parameter table not found");
     return value;
   }
 
@@ -2167,9 +2179,18 @@ wxsqlite3_config_cipher(sqlite3* db, const char* cipherName, const char* paramNa
         sqlite3_stricmp(cipherName, "sqlcipher") == 0 &&
         sqlite3_stricmp(paramName, "legacy") == 0)
     {
-      if (!hasMinPrefix && !hasMaxPrefix && newValue > 0 && newValue <= SQLCIPHER_VERSION_MAX)
+      if (!hasMinPrefix && !hasMaxPrefix)
       {
-        CodecConfigureSQLCipherVersion(db, hasDefaultPrefix, newValue);
+        if (newValue > 0 && newValue <= SQLCIPHER_VERSION_MAX)
+        {
+          CodecConfigureSQLCipherVersion(db, hasDefaultPrefix, newValue);
+        }
+        else
+        {
+          sqlite3_log(SQLITE_WARNING,
+                      "wxsqlite3_config_cipher: SQLCipher legacy version %d out of range [%d..%d]",
+                      newValue, 1, SQLCIPHER_VERSION_MAX);
+        }
       }
     }
 
@@ -2188,14 +2209,23 @@ wxsqlite3_config_cipher(sqlite3* db, const char* cipherName, const char* paramNa
         sqlite3_mutex_enter(sqlite3_mutex_alloc(SQLITE_MUTEX_STATIC_MASTER));
       }
       value = (hasDefaultPrefix) ? param->m_default : (hasMinPrefix) ? param->m_minValue : (hasMaxPrefix) ? param->m_maxValue : param->m_value;
-      if (!hasMinPrefix && !hasMaxPrefix && newValue >= 0 && newValue >= param->m_minValue && newValue <= param->m_maxValue)
+      if (!hasMinPrefix && !hasMaxPrefix)
       {
-        if (hasDefaultPrefix)
+        if (newValue >= 0 && newValue >= param->m_minValue && newValue <= param->m_maxValue)
         {
-          param->m_default = newValue;
+          if (hasDefaultPrefix)
+          {
+            param->m_default = newValue;
+          }
+          param->m_value = newValue;
+          value = newValue;
         }
-        param->m_value = newValue;
-        value = newValue;
+        else
+        {
+          sqlite3_log(SQLITE_WARNING,
+                      "wxsqlite3_config_cipher: Value %d for parameter '%s' of cipher '%s' out of range [%d..%d]",
+                      newValue, paramName, cipherName, param->m_minValue, param->m_maxValue);
+        }
       }
       if (db != NULL)
       {
