@@ -34,7 +34,7 @@ using namespace std;
 
 // Test of RAII transaction class
 
-wxSQLite3Database* initDB(void)
+static wxSQLite3Database* initDB(void)
 {
 	wxString testDBName = wxGetCwd() + wxS("/test2.db");
 	if (wxFileExists(testDBName))
@@ -47,14 +47,14 @@ wxSQLite3Database* initDB(void)
 	return db;
 }
 
-void clearDB(wxSQLite3Database* db)
+static void clearDB(wxSQLite3Database* db)
 {
 	assert(db != NULL);
 	db->Close();
 	delete db;
 }
 
-void testTransaction()
+static void testTransaction()
 {
   bool exceptionCaught = false;
   wxSQLite3Database* db = initDB();
@@ -123,7 +123,7 @@ void testTransaction()
 	clearDB(db);
 }
 
-void testUserAuthentication()
+static void testUserAuthentication()
 {
   wxString testDBName = wxGetCwd() + wxS("/test3.db");
   if (wxFileExists(testDBName))
@@ -986,4 +986,5 @@ void Minimal::TestCiphers()
   cout << endl << "Finish testing ciphers" << endl;
 }
 
+wxDECLARE_APP(Minimal);
 IMPLEMENT_APP_CONSOLE(Minimal)
