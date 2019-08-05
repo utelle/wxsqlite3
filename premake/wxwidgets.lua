@@ -47,7 +47,7 @@ if not _OPTIONS["wx_env"] then
    _OPTIONS["wx_env"] = "WXWIN"
 end
 
-wxMonolithic = (_ACTION == "gmake" and _OPTIONS["monolithic"])
+wxMonolithic = ((_ACTION == "gmake" or _ACTION == "gmake2") and _OPTIONS["monolithic"])
 
 -- Determine version of Visual Studio action
 msvc_useProps = false
@@ -68,6 +68,8 @@ elseif _ACTION == "vs2015" then
   vc_version = 14
 elseif _ACTION == "vs2017" then
   vc_version = 15
+elseif _ACTION == "vs2019" then
+  vc_version = 16
 end
 
 is_msvc = false
@@ -145,7 +147,7 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
     if wxUnicode == "yes" then defines { "_UNICODE" } end
  
     if wxDebug == "yes" then defines { "__WXDEBUG__" }
-    elseif wxDebug == "no" then flags { "Optimize" } end
+    elseif wxDebug == "no" then optimize "On" end
  
     if wxStatic == "yes" then
         -- flags { "StaticRuntime" }
@@ -292,7 +294,7 @@ function wx_config_Private(wxRoot, wxDebug, wxHost, wxVersion, wxStatic, wxUnico
 --~         wx_config_for_windows("vc")
 --~     configuration {"windows", "codeblocks or gmake or codelitle"}
 --~         wx_config_for_windows("gcc")
-    if os.get() ~= "windows" then
+    if os.target() ~= "windows" then
         wx_config_for_posix()
     else
         local allowedCompiler = {"vc", "gcc"}
@@ -333,7 +335,7 @@ function init_filters()
     defines {
       "NDEBUG"
     }
-    flags { "Optimize" }  
+    optimize "On"
 
   filter {}
 end
@@ -373,7 +375,7 @@ function make_filters(libname,libtarget,wxlibs)
       targetextension ".a"
     end
 
-  filter { "configurations:not DLL*", "platforms:x32" }
+  filter { "configurations:Debug or Release", "platforms:x32" }
     if (is_msvc) then
       if (msvc_useProps) then
         targetdir("$(wxOutDir)")
@@ -383,7 +385,17 @@ function make_filters(libname,libtarget,wxlibs)
     else
       targetdir("lib/gcc_lib")
     end
-  filter { "configurations:not DLL*", "platforms:x64" }
+  filter { "configurations:*wxDLL", "platforms:x32" }
+    if (is_msvc) then
+      if (msvc_useProps) then
+        targetdir("$(wxOutDir)")
+      else
+        targetdir("lib/vc_lib_wxdll")
+      end
+    else
+      targetdir("lib/gcc_lib_wxdll")
+    end
+  filter { "configurations:Debug or Release", "platforms:x64" }
     if (is_msvc) then
       if (msvc_useProps) then
         targetdir("$(wxOutDir)")
@@ -392,6 +404,16 @@ function make_filters(libname,libtarget,wxlibs)
       end
     else
       targetdir("lib/gcc_x64_lib")
+    end
+  filter { "configurations:*wxDLL", "platforms:x64" }
+    if (is_msvc) then
+      if (msvc_useProps) then
+        targetdir("$(wxOutDir)")
+      else
+        targetdir("lib/vc_x64_lib_wxdll")
+      end
+    else
+      targetdir("lib/gcc_x64_lib_wxdll")
     end
 
   filter { "configurations:DLL*" }

@@ -7,6 +7,9 @@
     <wxShortVersionString>31</wxShortVersionString>
     <wxToolkitPrefix>msw</wxToolkitPrefix>
     <wxCompilerPrefix>vc</wxCompilerPrefix>
+    <!-- Use following definition to include the toolset version in the compiler prefix
+    <wxCompilerPrefix>vc$(PlatformToolsetVersion)</wxCompilerPrefix>
+    -->
     <wxFlavour></wxFlavour>
     <!-- Use following definition to include wxWidgets platform information in library name
     <wxFlavour>_$(wxToolkitPrefix)$(wxShortVersionString)u</wxFlavour>
@@ -55,7 +58,10 @@
   <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='DLL Debug' or '$(Configuration)'=='DLL Release'">
     <wxLibTypeSuffix>dll</wxLibTypeSuffix>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'!='DLL Debug' and '$(Configuration)'!='DLL Release'">
+  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Debug wxDLL' or '$(Configuration)'=='Release wxDLL'">
+    <wxLibTypeSuffix>lib_wxdll</wxLibTypeSuffix>
+  </PropertyGroup>
+  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Debug' or '$(Configuration)'=='Release'">
     <wxLibTypeSuffix>lib</wxLibTypeSuffix>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros">

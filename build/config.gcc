@@ -26,8 +26,9 @@ wxShortVersionString ?= 31
 wxToolkitPrefix ?= msw
 
 # Compiler prefix
-# Note: wxWidgets offers 2 pre-compiled library versions for MinGW 5.1 and 7.2
-# For these versions use compiler prefixes "gcc510TDM" resp "gcc720"
+# Note: wxWidgets offers 2 pre-compiled library versions for MinGW 5.1, 7.3, and 8.1
+# Note: Compiling the SQLite Encryption Extension fails for MinGW 5.1
+# For these versions use compiler prefixes "gcc510TDM" resp "gcc730" resp "gcc810"
 wxCompilerPrefix ?= gcc
 
 # Monolithic wxWidgets build

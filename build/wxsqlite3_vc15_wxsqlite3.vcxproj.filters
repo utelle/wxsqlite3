@@ -30,6 +30,12 @@
     <ClInclude Include="..\sqlite3secure\src\fastpbkdf2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\sqlite3secure\src\msvc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sqlite3secure\src\mystdint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\sqlite3secure\src\rijndael.h">
       <Filter>Header Files</Filter>
     </ClInclude>

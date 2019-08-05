@@ -14,7 +14,6 @@ if(MSVC)
     option(CPP_EXCEPTIONS_ONLY "Catch only C++ exceptions(/EHsc) instead of catching all exceptions(/EHa)" "ON")
     option(THREAD_SAVE_STATIC_INIT "Enable thread safe initialization of static variables" "OFF")
 endif(MSVC)
-option(DISABLE_RTTI "disable RTTI support" "OFF")
 option(RELEASE_DEBUG_SYMBOLS "Generate debugging symbols for optimized build" "OFF")
 set(SQLITE_CODEC_TYPE "DEFAULT" CACHE STRING "DB Codec(AES128, AES256, CHACHA20, DEFAULT)")
 
@@ -110,10 +109,6 @@ if(MSVC)
         add_compile_options(/EHa) # exceptions: sync
     endif(CPP_EXCEPTIONS_ONLY)
     
-    if(DISABLE_RTTI)
-        add_compile_options(/GR-)
-    endif(DISABLE_RTTI)
-    
     if((NOT THREAD_SAVE_STATIC_INIT) AND (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 19.00))
         add_compile_options(/Zc:threadSafeInit-) # https://connect.microsoft.com/VisualStudio/feedback/details/1789709/visual-c-2015-runtime-broken-on-windows-server-2003-c-11-magic-statics
     endif()
@@ -137,13 +132,14 @@ if(MSVC)
     set(CMAKE_EXE_LINKER_FLAGS "/LARGEADDRESSAWARE /SUBSYSTEM:WINDOWS")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /LTCG /OPT:REF,ICF ${DBG_LINKER_FLAG}")
     set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /LTCG /OPT:REF,ICF ${DBG_LINKER_FLAG}")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG /Ox /Ob2 /Oi /Ot /Oy /GS- /Gy /GL /Gw ${RELEASE_RUNTIME}")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG /Ox /Ob2 /Oi /Ot /Oy /GS- /Gy /GR- /GL /Gw ${RELEASE_RUNTIME}")
     set(CMAKE_C_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /GS -D_DEBUG ${DEBUG_RUNTIME}")
     set(CMAKE_C_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 elseif(CMAKE_COMPILER_IS_GNUCC)
     add_compile_options(-pipe
                         -funsigned-char
+                        -fno-rtti
                         -W
                         -Wall
                         )
@@ -167,8 +163,8 @@ elseif(CMAKE_COMPILER_IS_GNUCC)
                             -Werror=sizeof-pointer-memaccess
                             -Werror=implicit-function-declaration
                             
-                            -Werror=missing-declarations
-                            -Werror=missing-prototypes
+#                            -Werror=missing-declarations
+#                            -Werror=missing-prototypes
                             -Werror=reorder
                             -Werror=declaration-after-statement
                             -Werror=stringop-overflow
@@ -177,18 +173,14 @@ elseif(CMAKE_COMPILER_IS_GNUCC)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=delete-non-virtual-dtor")       
         set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wimplicit-int -Werror=implicit-int")
     endif(PEDANTIC_COMPILER_FLAGS)
-    
-    if(DISABLE_RTTI)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
-    endif(DISABLE_RTTI)
 
     if(RELEASE_DEBUG_SYMBOLS)
-        set(DBG_COMPILER_FLAGS "-g")
+        set(DBG_FLAG -g)
     else()
-        set(DBG_LINKER_FLAGS "-s")
+        set(DBG_FLAG -s)
     endif(RELEASE_DEBUG_SYMBOLS)
 
-    set(CMAKE_CXX_FLAGS_RELEASE  "-O2 ${DBG_COMPILER_FLAGS} -DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE  "-O2 ${DBG_FLAG} -DNDEBUG")
     set(CMAKE_C_FLAGS_RELEASE    ${CMAKE_CXX_FLAGS_RELEASE})
     set(CMAKE_CXX_FLAGS_DEBUG    "-O0 -g -D_DEBUG -D__DEBUG__ -DDEBUG_LEVEL=3 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC")
     set(CMAKE_C_FLAGS_DEBUG      ${CMAKE_CXX_FLAGS_DEBUG})
@@ -199,8 +191,8 @@ elseif(CMAKE_COMPILER_IS_GNUCC)
     set(CMAKE_EXE_LINKER_FLAGS_VALGRIND     "${CMAKE_EXE_LINKER_FLAGS} -g")
     set(CMAKE_SHARED_LINKER_FLAGS_VALGRIND  "${CMAKE_SHARED_LINKER_FLAGS} -g")
     
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE    "${CMAKE_EXE_LINKER_FLAGS} ${DBG_LINKER_FLAGS}")
-    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS} ${DBG_LINKER_FLAGS}")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE    "${CMAKE_EXE_LINKER_FLAGS} ${DBG_FLAG}")
+    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS} ${DBG_FLAG}")
     
     if(USE_32)
         add_compile_options (-m32)
@@ -210,7 +202,7 @@ elseif(CMAKE_COMPILER_IS_GNUCC)
     
     if(STATIC_RUNTIME)
         if(MINGW)
-            set(STATIC_LINKER_FLAGS "-static")
+            set(STATIC_LINKER_FLAGS "-static -Wl,--allow-multiple-definition")
         else()
             set(STATIC_LINKER_FLAGS "-static-libgcc -static-libstdc++")
         endif(MINGW)
@@ -304,10 +296,15 @@ if(MSVC)
                                    THREAD_SAVE_STATIC_INIT
     )
 elseif(CMAKE_COMPILER_IS_GNUCC)
-    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-        set(COMPILER_SPECIFIC_OPTIONS  USE_32)
-    endif()
+    set(COMPILER_SPECIFIC_OPTIONS  CPP_EXCEPTIONS_ONLY)
 endif(MSVC)
+
+option(STATIC_RUNTIME "link with c++ runtime statically" "ON")
+option(SQLITE_DEBUG "enable SQLite debug" "OFF")
+option(PEDANTIC_COMPILER_FLAGS "Enable additional checking for ill-formed code" "ON")
+option(THREAD_SAVE_STATIC_INIT "Enable thread safe initialization of static variables" "OFF")
+option(RELEASE_DEBUG_SYMBOLS "Generate debugging symbols for optimized build" "OFF")
+set(SQLITE_CODEC_TYPE "DEFAULT" CACHE STRING "DB Codec(AES128, AES256, CHACHA20, DEFAULT)")
 
 foreach(V   ${COMPILER_SPECIFIC_OPTIONS}
             STATIC_RUNTIME

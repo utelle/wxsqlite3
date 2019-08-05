@@ -49,7 +49,8 @@ project "wxsqlite3"
     "WXSQLITE3_USER_AUTHENTICATION=1",
     "WXSQLITE3_HAVE_CODEC=1",
     "WXSQLITE3_HAVE_LOAD_EXTENSION=0",
-    "THREADSAFE=1",
+    "SQLITE_THREADSAFE=1",
+    "SQLITE_DQS=0",
     "SQLITE_MAX_ATTACHED=10",
     "SQLITE_ENABLE_EXPLAIN_COMMENTS",
     "SQLITE_SOUNDEX",
@@ -110,7 +111,6 @@ project "minimal"
   }
   includedirs { "samples", "include" }
   characterset "Unicode"
-  flags { "WinMain" }  
   links { "wxsqlite3" }
 
 -- Minimal wxSQLite3 sample
@@ -137,5 +137,5 @@ project "treeview"
   }
   includedirs { "samples/treeview", "include" }
   characterset "Unicode"
-  flags { "WinMain" }  
+  entrypoint "WinMainCRTStartup"
   links { "wxsqlite3" }
