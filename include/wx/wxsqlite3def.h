@@ -44,6 +44,19 @@
 
 <dl>
 
+<dt><b>4.4.4</b> - <i>August 2019</i></dt>
+<dd>
+Upgrade to SQLite version 3.29.0<br>
+Added SQLite logging support<br>
+Added build support for VS2019<br>
+Added CMake support (PR #63)<br>
+Updated build files to overcome problems with static builds (issue #73)<br>
+Eliminated duplication of error messages for different wxWidgets builds (PR #64)<br>
+Fixed missing call to progress callback in wxSQLite3Database::Restore (PR #66)<br>
+Fixed issue #58 with silently failing wxSQLite3Transaction::Commit method<br>
+Fixed issue with named collections which could result in crashes (PR #59)<br>
+
+</dd>
 <dt><b>4.4.3</b> - <i>May 2019</i></dt>
 <dd>
 Upgrade to SQLite version 3.28.0<br>
@@ -609,6 +622,7 @@ The following people have contributed to wxSQLite3:
 <li>Francesco Montorsi (enhancement of the build system)</li>
 <li>Neville Dastur (enhancement of the method TableExists)</li>
 <li>Tobias Langner (RAII class for managing transactions)</li>
+<li>Deamhan (CMake support and various bug fixes)</li>
 </ul>
 
  */

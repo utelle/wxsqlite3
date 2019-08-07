@@ -158,54 +158,54 @@ typedef char err_char_t;
 typedef wxChar err_char_t;
 #endif
 
-const err_char_t* wxERRMSG_NODB                = wxTRANSLATE("No Database opened");
-const err_char_t* wxERRMSG_NOSTMT              = wxTRANSLATE("Statement not accessible");
-const err_char_t* wxERRMSG_NOMEM               = wxTRANSLATE("Out of memory");
-const err_char_t* wxERRMSG_DECODE              = wxTRANSLATE("Cannot decode binary");
-const err_char_t* wxERRMSG_INVALID_INDEX       = wxTRANSLATE("Invalid field index");
-const err_char_t* wxERRMSG_INVALID_NAME        = wxTRANSLATE("Invalid field name");
-const err_char_t* wxERRMSG_INVALID_ROW         = wxTRANSLATE("Invalid row index");
-const err_char_t* wxERRMSG_INVALID_QUERY       = wxTRANSLATE("Invalid scalar query");
-const err_char_t* wxERRMSG_INVALID_BLOB        = wxTRANSLATE("Invalid BLOB handle");
-                                               
-const err_char_t* wxERRMSG_NORESULT            = wxTRANSLATE("Null Results pointer");
-const err_char_t* wxERRMSG_BIND_STR            = wxTRANSLATE("Error binding string param");
-const err_char_t* wxERRMSG_BIND_INT            = wxTRANSLATE("Error binding int param");
-const err_char_t* wxERRMSG_BIND_INT64          = wxTRANSLATE("Error binding int64 param");
-const err_char_t* wxERRMSG_BIND_DBL            = wxTRANSLATE("Error binding double param");
-const err_char_t* wxERRMSG_BIND_BLOB           = wxTRANSLATE("Error binding blob param");
-const err_char_t* wxERRMSG_BIND_DATETIME       = wxTRANSLATE("Error binding date/time param");
-const err_char_t* wxERRMSG_BIND_NULL           = wxTRANSLATE("Error binding NULL param");
-const err_char_t* wxERRMSG_BIND_ZEROBLOB       = wxTRANSLATE("Error binding zero blob param");
-const err_char_t* wxERRMSG_BIND_POINTER        = wxTRANSLATE("Error binding pointer param");
-const err_char_t* wxERRMSG_BIND_CLEAR          = wxTRANSLATE("Error clearing bindings");
-                                               
-const err_char_t* wxERRMSG_NOMETADATA          = wxTRANSLATE("Meta data support not available");
-const err_char_t* wxERRMSG_NOCODEC             = wxTRANSLATE("Encryption support not available");
-const err_char_t* wxERRMSG_NOLOADEXT           = wxTRANSLATE("Loadable extension support not available");
-const err_char_t* wxERRMSG_NOINCBLOB           = wxTRANSLATE("Incremental BLOB support not available");
-const err_char_t* wxERRMSG_NOBLOBREBIND        = wxTRANSLATE("Rebind BLOB support not available");
-const err_char_t* wxERRMSG_NOPOINTER           = wxTRANSLATE("Pointer parameter support not available");
-const err_char_t* wxERRMSG_NOSAVEPOINT         = wxTRANSLATE("Savepoint support not available");
-const err_char_t* wxERRMSG_NOBACKUP            = wxTRANSLATE("Backup/restore support not available");
-const err_char_t* wxERRMSG_NOWAL               = wxTRANSLATE("Write Ahead Log support not available");
-const err_char_t* wxERRMSG_NOCOLLECTIONS       = wxTRANSLATE("Named collection support not available");
+const err_char_t* wxERRMSG_NODB = wxTRANSLATE("No Database opened");
+const err_char_t* wxERRMSG_NOSTMT = wxTRANSLATE("Statement not accessible");
+const err_char_t* wxERRMSG_NOMEM = wxTRANSLATE("Out of memory");
+const err_char_t* wxERRMSG_DECODE = wxTRANSLATE("Cannot decode binary");
+const err_char_t* wxERRMSG_INVALID_INDEX = wxTRANSLATE("Invalid field index");
+const err_char_t* wxERRMSG_INVALID_NAME = wxTRANSLATE("Invalid field name");
+const err_char_t* wxERRMSG_INVALID_ROW = wxTRANSLATE("Invalid row index");
+const err_char_t* wxERRMSG_INVALID_QUERY = wxTRANSLATE("Invalid scalar query");
+const err_char_t* wxERRMSG_INVALID_BLOB = wxTRANSLATE("Invalid BLOB handle");
 
-const err_char_t* wxERRMSG_SHARED_CACHE        = wxTRANSLATE("Setting SQLite shared cache mode failed");
+const err_char_t* wxERRMSG_NORESULT = wxTRANSLATE("Null Results pointer");
+const err_char_t* wxERRMSG_BIND_STR = wxTRANSLATE("Error binding string param");
+const err_char_t* wxERRMSG_BIND_INT = wxTRANSLATE("Error binding int param");
+const err_char_t* wxERRMSG_BIND_INT64 = wxTRANSLATE("Error binding int64 param");
+const err_char_t* wxERRMSG_BIND_DBL = wxTRANSLATE("Error binding double param");
+const err_char_t* wxERRMSG_BIND_BLOB = wxTRANSLATE("Error binding blob param");
+const err_char_t* wxERRMSG_BIND_DATETIME = wxTRANSLATE("Error binding date/time param");
+const err_char_t* wxERRMSG_BIND_NULL = wxTRANSLATE("Error binding NULL param");
+const err_char_t* wxERRMSG_BIND_ZEROBLOB = wxTRANSLATE("Error binding zero blob param");
+const err_char_t* wxERRMSG_BIND_POINTER = wxTRANSLATE("Error binding pointer param");
+const err_char_t* wxERRMSG_BIND_CLEAR = wxTRANSLATE("Error clearing bindings");
 
-const err_char_t* wxERRMSG_INITIALIZE          = wxTRANSLATE("Initialization of SQLite failed");
-const err_char_t* wxERRMSG_SHUTDOWN            = wxTRANSLATE("Shutdown of SQLite failed");
-const err_char_t* wxERRMSG_TEMPDIR             = wxTRANSLATE("Setting temporary directory failed");
+const err_char_t* wxERRMSG_NOMETADATA = wxTRANSLATE("Meta data support not available");
+const err_char_t* wxERRMSG_NOCODEC = wxTRANSLATE("Encryption support not available");
+const err_char_t* wxERRMSG_NOLOADEXT = wxTRANSLATE("Loadable extension support not available");
+const err_char_t* wxERRMSG_NOINCBLOB = wxTRANSLATE("Incremental BLOB support not available");
+const err_char_t* wxERRMSG_NOBLOBREBIND = wxTRANSLATE("Rebind BLOB support not available");
+const err_char_t* wxERRMSG_NOPOINTER = wxTRANSLATE("Pointer parameter support not available");
+const err_char_t* wxERRMSG_NOSAVEPOINT = wxTRANSLATE("Savepoint support not available");
+const err_char_t* wxERRMSG_NOBACKUP = wxTRANSLATE("Backup/restore support not available");
+const err_char_t* wxERRMSG_NOWAL = wxTRANSLATE("Write Ahead Log support not available");
+const err_char_t* wxERRMSG_NOCOLLECTIONS = wxTRANSLATE("Named collection support not available");
 
-const err_char_t* wxERRMSG_SOURCEDB_BUSY       = wxTRANSLATE("Source database is busy");
-const err_char_t* wxERRMSG_DBOPEN_FAILED       = wxTRANSLATE("Database open failed");
-const err_char_t* wxERRMSG_DBCLOSE_FAILED      = wxTRANSLATE("Database close failed");
-const err_char_t* wxERRMSG_DBASSIGN_FAILED     = wxTRANSLATE("Database assignment failed");
-const err_char_t* wxERRMSG_FINALIZE_FAILED     = wxTRANSLATE("Finalize failed");
+const err_char_t* wxERRMSG_SHARED_CACHE = wxTRANSLATE("Setting SQLite shared cache mode failed");
+
+const err_char_t* wxERRMSG_INITIALIZE = wxTRANSLATE("Initialization of SQLite failed");
+const err_char_t* wxERRMSG_SHUTDOWN = wxTRANSLATE("Shutdown of SQLite failed");
+const err_char_t* wxERRMSG_TEMPDIR = wxTRANSLATE("Setting temporary directory failed");
+
+const err_char_t* wxERRMSG_SOURCEDB_BUSY = wxTRANSLATE("Source database is busy");
+const err_char_t* wxERRMSG_DBOPEN_FAILED = wxTRANSLATE("Database open failed");
+const err_char_t* wxERRMSG_DBCLOSE_FAILED = wxTRANSLATE("Database close failed");
+const err_char_t* wxERRMSG_DBASSIGN_FAILED = wxTRANSLATE("Database assignment failed");
+const err_char_t* wxERRMSG_FINALIZE_FAILED = wxTRANSLATE("Finalize failed");
 
 const err_char_t* wxERRMSG_CIPHER_APPLY_FAILED = wxTRANSLATE("Application of cipher failed");
 
-const err_char_t* wxERRMSG_CORRUPTED_STATE     = wxTRANSLATE("Collection object state is not properly initialized");
+const err_char_t* wxERRMSG_INVALID_COLLECTION = wxTRANSLATE("Collection instance not properly initialized");
 
 static const char* LocalMakePointerTypeCopy(wxArrayPtrVoid& ptrTypes, const wxString& pointerType)
 {
@@ -3137,10 +3137,6 @@ void wxSQLite3Database::Backup(wxSQLite3BackupProgress* progressCallback,
         rc = SQLITE_DONE;
       }
     }
-#if 0
-    xProgress(sqlite3_backup_remaining(pBackup),
-              sqlite3_backup_pagecount(pBackup));
-#endif
     if (rc == SQLITE_BUSY || rc == SQLITE_LOCKED)
     {
       sqlite3_sleep(250);
@@ -3182,7 +3178,7 @@ void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback,
                                 const wxString& sourceFileName, const wxString& key,
                                 const wxString& targetDatabaseName)
 {
-  Restore(progressCallback, sourceFileName, wxSQLite3Cipher(), key, targetDatabaseName);
+  Restore(NULL, sourceFileName, wxSQLite3Cipher(), key, targetDatabaseName);
 }
 
 void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback,
@@ -3208,7 +3204,7 @@ void wxSQLite3Database::Restore(const wxString& sourceFileName, const wxMemoryBu
 void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback, const wxString& sourceFileName,
                                 const wxMemoryBuffer& key, const wxString& targetDatabaseName)
 {
-  Restore(progressCallback, sourceFileName, wxSQLite3Cipher(), key, targetDatabaseName);
+  Restore(NULL, sourceFileName, wxSQLite3Cipher(), key, targetDatabaseName);
 }
 
 void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback,
@@ -4443,14 +4439,6 @@ void wxSQLite3Database::GetUserList(wxArrayString& userList)
 #endif
 }
 
-#if 0
-CREATE TABLE sqlite_user(
-  uname TEXT PRIMARY KEY,
-  isAdmin BOOLEAN,
-  pw BLOB
-  ) WITHOUT ROWID;
-#endif
-
 int wxSQLite3Database::GetLimit(wxSQLite3LimitType id) const
 {
   int value = -1;
@@ -4553,6 +4541,20 @@ void wxSQLite3Database::InitializeSQLite()
 }
 
 /* static */
+void wxSQLite3Database::InitializeSQLite(const wxSQLite3Logger& logger)
+{
+  int rc = sqlite3_config(SQLITE_CONFIG_LOG, wxSQLite3Logger::ExecLoggerHook, &logger);
+  if (rc == SQLITE_OK)
+  {
+    InitializeSQLite();
+  }
+  else
+  {
+    throw wxSQLite3Exception(rc, wxERRMSG_INITIALIZE);
+  }
+}
+
+/* static */
 void wxSQLite3Database::ShutdownSQLite()
 {
 #if SQLITE_VERSION_NUMBER >= 3006000
@@ -4580,12 +4582,6 @@ bool wxSQLite3Database::SetTemporaryDirectory(const wxString& tempDirectory)
 #endif
   int rc = sqlite3_win32_set_directory(SQLITE_WIN32_TEMP_DIRECTORY_TYPE, (void*) zValue);
   ok = (rc == SQLITE_OK);
-#if 0
-  if (rc != SQLITE_OK)
-  {
-    throw wxSQLite3Exception(rc, wxERRMSG_TEMPDIR);
-  }
-#endif
 #endif
 #endif
   return ok;
@@ -5075,28 +5071,41 @@ wxSQLite3Transaction::~wxSQLite3Transaction()
 
 void wxSQLite3Transaction::Commit()
 {
-  try
-  {
-    m_database->Commit();
-  }
-  catch (...)
-  {
-    m_database->Rollback();
-  }
+  m_database->Commit();
   m_database = NULL;
 }
 
 void wxSQLite3Transaction::Rollback()
 {
-  try
-  {
-    m_database->Rollback();
-  }
-  catch (...)
-  {
-    m_database->Rollback();
-  }
+  m_database->Rollback();
   m_database = NULL;
+}
+
+// --- SQLite logging
+
+wxSQLite3Logger::wxSQLite3Logger()
+  : m_isActive(false)
+{
+}
+
+wxSQLite3Logger::~wxSQLite3Logger()
+{
+}
+
+void
+wxSQLite3Logger::HandleLogMessage(int errorCode, const wxString& errorMessage)
+{
+  if (m_isActive)
+  {
+    wxLogInfo(wxS("SQLite3 %s (%d): %s"), wxSQLite3Exception::ErrorCodeAsString(errorCode), errorCode, errorMessage);
+  }
+}
+
+/* static */
+void
+wxSQLite3Logger::ExecLoggerHook(void* logger, int errorCode, const char* errorMsg)
+{
+  ((wxSQLite3Logger*) logger)->HandleLogMessage(errorCode, wxString::FromUTF8(errorMsg));
 }
 
 // --- User defined function classes
@@ -5545,67 +5554,69 @@ wxSQLite3IntegerCollection::~wxSQLite3IntegerCollection()
 void
 wxSQLite3IntegerCollection::Bind(const wxArrayInt& integerCollection)
 {
-  if (!IsOk())
+  if (IsOk())
   {
-    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CORRUPTED_STATE);
-  }
+    size_t n = integerCollection.Count();
+    sqlite3_intarray* pIntArray = (sqlite3_intarray*) m_data;
+    if (pIntArray->a != NULL && pIntArray->xFree)
+    {
+      pIntArray->xFree(pIntArray->a);
+    }
+    pIntArray->n = n;
+    if (n > 0)
+    {
+      pIntArray->a = (sqlite3_int64*) sqlite3_malloc(sizeof(sqlite3_int64)*n);
+      pIntArray->xFree = sqlite3_free;
+    }
+    else
+    {
+      pIntArray->a = NULL;
+      pIntArray->xFree = NULL;
+    }
 
-  size_t n = integerCollection.Count();
-  sqlite3_intarray* pIntArray = (sqlite3_intarray*) m_data;
-
-  if (pIntArray->a != NULL && pIntArray->xFree)
-  {
-    pIntArray->xFree(pIntArray->a);
-  }
-  pIntArray->n = n;
-  if (n > 0)
-  {
-    pIntArray->a = (sqlite3_int64*) sqlite3_malloc(sizeof(sqlite3_int64)*n);
-    pIntArray->xFree = sqlite3_free;
+    size_t j;
+    for (j = 0; j < n; ++j)
+    {
+      pIntArray->a[j] = integerCollection[j];
+    }
   }
   else
   {
-    pIntArray->a = NULL;
-    pIntArray->xFree = NULL;
-  }
-
-  size_t j;
-  for (j = 0; j < n; ++j)
-  {
-    pIntArray->a[j] = integerCollection[j];
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_INVALID_COLLECTION);
   }
 }
 
 void
 wxSQLite3IntegerCollection::Bind(int n, int* integerCollection)
 {
-  if (!IsOk())
+  if (IsOk())
   {
-    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CORRUPTED_STATE);
-  }
+    sqlite3_intarray* pIntArray = (sqlite3_intarray*) m_data;
+    if (pIntArray->a != NULL && pIntArray->xFree)
+    {
+      pIntArray->xFree(pIntArray->a);
+    }
+    pIntArray->n = n;
+    if (n > 0)
+    {
+      pIntArray->a = (sqlite3_int64*) sqlite3_malloc(sizeof(sqlite3_int64)*n);
+      pIntArray->xFree = sqlite3_free;
+    }
+    else
+    {
+      pIntArray->a = NULL;
+      pIntArray->xFree = NULL;
+    }
 
-  sqlite3_intarray* pIntArray = (sqlite3_intarray*) m_data;
-  
-  if (pIntArray->a != NULL && pIntArray->xFree)
-  {
-    pIntArray->xFree(pIntArray->a);
-  }
-  pIntArray->n = n;
-  if (n > 0)
-  {
-    pIntArray->a = (sqlite3_int64*) sqlite3_malloc(sizeof(sqlite3_int64)*n);
-    pIntArray->xFree = sqlite3_free;
+    int j;
+    for (j = 0; j < n; ++j)
+    {
+      pIntArray->a[j] = integerCollection[j];
+    }
   }
   else
   {
-    pIntArray->a = NULL;
-    pIntArray->xFree = NULL;
-  }
-
-  int j;
-  for (j = 0; j < n; ++j)
-  {
-    pIntArray->a[j] = integerCollection[j];
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_INVALID_COLLECTION);
   }
 }
 
@@ -5671,38 +5682,39 @@ wxSQLite3StringCollection::~wxSQLite3StringCollection()
 void
 wxSQLite3StringCollection::Bind(const wxArrayString& stringCollection)
 {
-  if (!IsOk())
+  if (IsOk())
   {
-    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CORRUPTED_STATE);
-  }
+    size_t n = stringCollection.Count();
+    sqlite3_chararray* pCharArray = (sqlite3_chararray*) m_data;
+    if (pCharArray->a != NULL && pCharArray->xFree)
+    {
+      pCharArray->xFree(pCharArray->a);
+    }
+    pCharArray->n = n;
+    if (n > 0)
+    {
+      pCharArray->a = (char**) sqlite3_malloc(sizeof(char*)*n);
+      pCharArray->xFree = sqlite3_free;
+    }
+    else
+    {
+      pCharArray->a = NULL;
+      pCharArray->xFree = NULL;
+    }
 
-  size_t n = stringCollection.Count();
-  sqlite3_chararray* pCharArray = (sqlite3_chararray*) m_data;
-  
-  if (pCharArray->a != NULL && pCharArray->xFree)
-  {
-    pCharArray->xFree(pCharArray->a);
-  }
-  pCharArray->n = n;
-  if (n > 0)
-  {
-    pCharArray->a = (char**) sqlite3_malloc(sizeof(char*)*n);
-    pCharArray->xFree = sqlite3_free;
+    size_t j;
+    for (j = 0; j < n; ++j)
+    {
+      wxCharBuffer strValue = stringCollection[j].ToUTF8();
+      const char* zValue = strValue;
+      size_t k = strlen(zValue) + 1;
+      pCharArray->a[j] = (char*) sqlite3_malloc(sizeof(char)*k);
+      strcpy(pCharArray->a[j], zValue);
+    }
   }
   else
   {
-    pCharArray->a = NULL;
-    pCharArray->xFree = NULL;
-  }
-
-  size_t j;
-  for (j = 0; j < n; ++j)
-  {
-    wxCharBuffer strValue = stringCollection[j].ToUTF8();
-    const char* zValue = strValue;
-    size_t k = strlen(zValue) + 1;
-    pCharArray->a[j] = (char*) sqlite3_malloc(sizeof(char)*k);
-    strcpy(pCharArray->a[j], zValue);
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_INVALID_COLLECTION);
   }
 }
 

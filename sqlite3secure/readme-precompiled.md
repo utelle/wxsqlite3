@@ -1,10 +1,10 @@
 # Release notes
 
-May 18, 2019
+August 7, 2019
 
 The SQLite3 shell applications are now compatible with the official
 SQLite3 shell in respect to the compile time options
-`SQLITE_ENABLE_DBSTAT_VTAB`, SQLITE_ENABLE_STMTVTAB`, and
+`SQLITE_ENABLE_DBSTAT_VTAB`, `SQLITE_ENABLE_STMTVTAB`, and
 `SQLITE_ENABLE_UNKNOWN_SQL_FUNCTION`.
 
 This archive with precompiled Windows DLLs for SQLite3 contains
@@ -14,14 +14,15 @@ versions without ICU support.
 The required ICU DLLs are not included in this archive; they have
 to be downloaded from
 
-https://www.npcglib.org/~stathis/blog/precompiled-icu
+https://github.com/unicode-org/icu/releases/latest
 
-ICU support for SQLite3 is based on the pre-built ICU Libraries v59.1.
-These are compiled for 32/64-bit Windows, using Visual Studio 2015.
+ICU support for SQLite3 is based on the pre-built ICU Libraries v64.2.
+These are compiled for 32/64-bit Windows, using Visual Studio 2017.
 
 When using the ICU DLLs you may need to specify an environment variable
 ICU_DATA pointing to the data folder, where the icudtXXl.dat file lives
 (e.g. set ICU_DATA=F:\icu\data).
+
 
 ## Archive content
 

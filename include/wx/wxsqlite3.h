@@ -3,7 +3,7 @@
 ** Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
 ** Author:      Ulrich Telle
 ** Created:     2005-07-14
-** Copyright:   (c) 2005-2018 Ulrich Telle
+** Copyright:   (c) 2005-2019 Ulrich Telle
 ** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
@@ -213,6 +213,33 @@ public:
 private:
   char* m_buffer;  ///< Internal buffer
 };
+
+/// SQLite logging hook
+class WXDLLIMPEXP_SQLITE3 wxSQLite3Logger
+{
+public:
+  /// Constructor
+  wxSQLite3Logger();
+
+  /// Destructor
+  virtual ~wxSQLite3Logger();
+
+  void Activate(bool active = true) { m_isActive = active; }
+  void Deactivate() { m_isActive = false;  }
+  bool IsActive() const { return m_isActive;  }
+
+  virtual void HandleLogMessage(int errorCode, const wxString& errorMessage);
+
+  /// Execute the user defined commit hook (internal use only)
+  static void ExecLoggerHook(void* logger, int errorCode, const char* errorMsg);
+
+private:
+  /// Copy constructor
+  wxSQLite3Logger(const wxSQLite3Logger&  logger);
+
+  bool m_isActive;
+};
+
 
 /// Context for user defined scalar or aggregate functions
 /**
@@ -2326,7 +2353,6 @@ private:
 class WXDLLIMPEXP_SQLITE3 wxSQLite3NamedCollection
 {
 public:
-
   /// Copy constructor
   wxSQLite3NamedCollection(const wxSQLite3NamedCollection& collection);
 
@@ -2342,30 +2368,30 @@ public:
   */
   const wxString& GetName() const { return m_name; }
 
-  /// Gets state of object 
+  /// Gets state of the collection 
   /**
-  * \return state of object
+  * \return state of the collection
   */
   bool IsOk() const { return (m_data != NULL); }
 
-  /// Gets state of object (same as IsOk() method)
+  /// Gets state of the collection (same as IsOk() method)
   /**
-  * \return state of object
+  * \return state of the collection
   */
   operator bool() const { return IsOk(); }
 
 protected:
-  wxString m_name; ///< Name of the collection
-  void*    m_data; ///< Reference to the actual array of values representing the collection
-
   /// Constructor (internal use only)
   wxSQLite3NamedCollection(const wxString& collectionName, void* collectionData);
 
   /// Default constructor
   /**
-    Creates fully empty object that must be set by assignment, be careful
+    Creates completely empty collection instance that must be set by assignment, be careful
   */
   wxSQLite3NamedCollection() : m_name(wxEmptyString), m_data(NULL) {}
+
+  wxString m_name; ///< Name of the collection
+  void*    m_data; ///< Reference to the actual array of values representing the collection
 
   friend class wxSQLite3Database;
 };
@@ -2374,10 +2400,9 @@ protected:
 class WXDLLIMPEXP_SQLITE3 wxSQLite3IntegerCollection : public wxSQLite3NamedCollection
 {
 public:
-
   /// Default constructor
   /**
-    Creates fully empty object that must be set by assignment, be careful
+  *  Creates completely empty collection instance that must be set by assignment, be careful
   */
   wxSQLite3IntegerCollection() {}
 
@@ -2410,9 +2435,8 @@ public:
   void Bind(int n, int* integerCollection);
 
 protected:
-
-    /// Constructor (internal use only)
-    wxSQLite3IntegerCollection(const wxString& collectionName, void* collectionData);
+  /// Constructor (internal use only)
+  wxSQLite3IntegerCollection(const wxString& collectionName, void* collectionData);
 
 private:
   friend class wxSQLite3Database;
@@ -2422,10 +2446,9 @@ private:
 class WXDLLIMPEXP_SQLITE3 wxSQLite3StringCollection : public wxSQLite3NamedCollection
 {
 public:
-
   /// Default constructor
   /**
-    Creates fully empty object that must be set by assignment, be careful
+  *  Creates completely empty collection instance that must be set by assignment, be careful
   */
   wxSQLite3StringCollection() {}
 
@@ -3458,6 +3481,7 @@ public:
   * any SQLite databases.
   */
   static void InitializeSQLite();
+  static void InitializeSQLite(const wxSQLite3Logger& logger);
 
   /// Shutdown the SQLite library
   /**
@@ -3770,6 +3794,7 @@ private:
 
   wxSQLite3Database* m_database; ///< Pointer to the associated database (no ownership)
 };
+
 
 #if wxUSE_REGEX
 

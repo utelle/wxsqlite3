@@ -40,6 +40,16 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
+* 4.4.4 - *August 2019*
+  - Upgrade to SQLite version 3.29.0
+  - Added SQLite logging support
+  - Added build support for VS2019
+  - Added CMake support (PR #63)
+  - Updated build files to overcome problems with static builds (issue #73)
+  - Eliminated duplication of error messages for different wxWidgets builds (PR #64)
+  - Fixed missing call to progress callback in wxSQLite3Database::Restore (PR #66)
+  - Fixed issue #58 with silently failing wxSQLite3Transaction::Commit method
+  - Fixed issue with named collections which could result in crashes (PR #59)
 * 4.4.3 - *May 2019*
   - Upgrade to SQLite version 3.28.0
 * 4.4.2 - *February 2019*

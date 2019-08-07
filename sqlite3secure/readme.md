@@ -5,7 +5,7 @@ This document describes the SQLite3 encryption extension provided by wxSQLite3. 
 ## Table of contents
 
 - [Installation](#installation)
-  - [General]{#general}
+  - [General](#general)
   - [wxMSW](#wxmsw)
   - [wxGTK](#wxgtk)
 - [Supported ciphers](#ciphers)
