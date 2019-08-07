@@ -5097,7 +5097,11 @@ wxSQLite3Logger::HandleLogMessage(int errorCode, const wxString& errorMessage)
 {
   if (m_isActive)
   {
+#if wxCHECK_VERSION(2,9,0)
     wxLogInfo(wxS("SQLite3 %s (%d): %s"), wxSQLite3Exception::ErrorCodeAsString(errorCode), errorCode, errorMessage);
+#else
+    wxLogInfo(wxS("SQLite3 %s (%d): %s"), wxSQLite3Exception::ErrorCodeAsString(errorCode).c_str(), errorCode, errorMessage.c_str());
+#endif
   }
 }
 
