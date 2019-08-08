@@ -40,6 +40,8 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
+* 4.4.5 - *August 2019*
+  - Fixed broken compatibility with wxWidgets 2.8.12
 * 4.4.4 - *August 2019*
   - Upgrade to SQLite version 3.29.0
   - Added SQLite logging support

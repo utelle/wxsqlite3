@@ -44,6 +44,11 @@
 
 <dl>
 
+<dt><b>4.4.5</b> - <i>August 2019</i></dt>
+<dd>
+Fixed broken compatibility with wxWidgets 2.8.12<br>
+
+</dd>
 <dt><b>4.4.4</b> - <i>August 2019</i></dt>
 <dd>
 Upgrade to SQLite version 3.29.0<br>
