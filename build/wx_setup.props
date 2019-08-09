@@ -23,7 +23,7 @@
     <wxMsvcVersion>XX</wxMsvcVersion>
     -->
     <!-- Set wxMsvcVersionAuto to any non-empty value, if the compiler-specific prefix should be determined automatically -->
-    <wxMsvcVersionAuto></wxMsvcVersionAuto>
+    <wxMsvcVersionAuto>1</wxMsvcVersionAuto>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros" Condition="'$(Platform)'=='Win32'">
     <wxArchSuffix>
