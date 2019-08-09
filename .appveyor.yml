@@ -38,3 +38,6 @@ before_build:
 
 # build script
 build_script: c:\projects\wxsqlite3\admin\appveyor\appveyor.bat
+
+# testing
+test_script: c:\projects\wxsqlite3\admin\appveyor\appveyor-test.bat
