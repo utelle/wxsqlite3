@@ -6,10 +6,12 @@
     <wxRootDir>$(WXWIN)</wxRootDir>
     <wxShortVersionString>31</wxShortVersionString>
     <wxToolkitPrefix>msw</wxToolkitPrefix>
+    <!-- Use following definition to exclude the toolset version in the compiler prefix
     <wxCompilerPrefix>vc</wxCompilerPrefix>
-    <!-- Use following definition to include the toolset version in the compiler prefix
-    <wxCompilerPrefix>vc$(PlatformToolsetVersion)</wxCompilerPrefix>
     -->
+    <!-- Use following definition to include the toolset version in the compiler prefix
+    -->
+    <wxCompilerPrefix>vc$(PlatformToolsetVersion)</wxCompilerPrefix>
     <wxFlavour></wxFlavour>
     <!-- Use following definition to include wxWidgets platform information in library name
     <wxFlavour>_$(wxToolkitPrefix)$(wxShortVersionString)u</wxFlavour>
