@@ -49,12 +49,9 @@
 /*
  * ChaCha20 stream cipher
  */
-static void chacha20_block(unsigned char out[64], const uint32_t in[16])
+static void chacha20_block(uint32_t x[16])
 {
   int i;
-  uint32_t x[16];
-  memcpy(x, in, sizeof(uint32_t) * 16);
-
   #define QR(x, a, b, c, d)                           \
   x[a] += x[b]; x[d] ^= x[a]; x[d] = ROL32(x[d], 16); \
   x[c] += x[d]; x[b] ^= x[c]; x[b] = ROL32(x[b], 12); \
@@ -74,26 +71,23 @@ static void chacha20_block(unsigned char out[64], const uint32_t in[16])
     QR(x, 3, 4, 9, 14)
   }
   #undef QR
-
-  for (i = 0; i < 16; i++)
-  {
-    const uint32_t v = x[i] + in[i];
-    STORE32_LE(&out[4*i], v);
-  }
 }
 
-void chacha20_xor(unsigned char* data, size_t n, const unsigned char key[32],
-                  const unsigned char nonce[12], uint32_t counter)
+void chacha20_xor(void* buffer, size_t n, const uint8_t key[32],
+                  const uint8_t nonce[12], uint32_t counter)
 {
   size_t i;
+  union {
+    uint8_t bytes[64];
+    uint32_t words[16];
+  } block;
   uint32_t state[16];
-  unsigned char block[64];
-  static const unsigned char sigma[16] = "expand 32-byte k";
+  uint8_t* buf = buffer;
 
-  state[ 0] = LOAD32_LE(sigma +  0);
-  state[ 1] = LOAD32_LE(sigma +  4);
-  state[ 2] = LOAD32_LE(sigma +  8);
-  state[ 3] = LOAD32_LE(sigma + 12);
+  state[ 0] = 0x61707865; /* 'expa' */
+  state[ 1] = 0x3320646e; /* 'nd 3' */
+  state[ 2] = 0x79622d32; /* '2-by' */
+  state[ 3] = 0x6b206574; /* 'te k' */
 
   state[ 4] = LOAD32_LE(key +  0);
   state[ 5] = LOAD32_LE(key +  4);
@@ -105,47 +99,62 @@ void chacha20_xor(unsigned char* data, size_t n, const unsigned char key[32],
   state[11] = LOAD32_LE(key + 28);
 
   state[12] = counter;
-
   state[13] = LOAD32_LE(nonce + 0);
   state[14] = LOAD32_LE(nonce + 4);
   state[15] = LOAD32_LE(nonce + 8);
 
-  while (n >= 64)
+  while (n > 64)
   {
-    chacha20_block(block, state);
-    for (i = 0; i < 64; i++)
+    for (i = 0; i < 16; ++i)
     {
-      data[i] ^= block[i];
+      block.words[i] = state[i];
     }
-    state[12]++;
-    data += 64;
+    chacha20_block(block.words);
+    for (i = 0; i < 16; ++i)
+    {
+      block.words[i] += state[i];
+      block.words[i] ^= LOAD32_LE(buf);
+      STORE32_LE(buf, block.words[i]);
+      buf += 4;
+    }
+    ++state[12];
     n -= 64;
   }
 
-  if (n > 0)
+  for (i = 0; i < 16; ++i)
   {
-    chacha20_block(block, state);
-    for (i = 0; i < n; i++)
-    {
-      data[i] ^= block[i];
-    }
+    block.words[i] = state[i];
+  }
+  chacha20_block(state);
+  for (i = 0; i < 16; ++i)
+  {
+    state[i] += block.words[i];
+    STORE32_LE(&block.bytes[4*i], state[i]);
+  }
+  for (i = 0; i < n; i++)
+  {
+    buf[i] ^= block.bytes[i];
+  }
+  for (i = 0; i < 16; ++i)
+  {
+    *(volatile uint32_t*)&block.words[i] = 0;
+    *(volatile uint32_t*)&state[i] = 0;
   }
 }
 
 /*
  * Poly1305 authentication tags
  */
-void poly1305(const unsigned char* msg, size_t n, const unsigned char key[32],
-              unsigned char tag[16])
+void poly1305(const uint8_t* msg, size_t n, const uint8_t key[32],
+              uint8_t tag[16])
 {
   uint32_t hibit;
   uint64_t d0, d1, d2, d3, d4;
   uint32_t h0, h1, h2, h3, h4;
   uint32_t r0, r1, r2, r3, r4;
   uint32_t s1, s2, s3, s4;
-  unsigned char buf[16];
 
-  hibit = 1 << 24;
+  hibit = (uint32_t) 1 << 24;
   h0 = h1 = h2 = h3 = h4 = 0;
   r0 = (LOAD32_LE(key +  0) >> 0) & 0x03FFFFFF;
   r1 = (LOAD32_LE(key +  3) >> 2) & 0x03FFFF03; s1 = r1 * 5;
@@ -173,7 +182,7 @@ process_block:
     h1 = d1 & 0x03FFFFFF; d2 += (d1 >> 26);
     h2 = d2 & 0x03FFFFFF; d3 += (d2 >> 26);
     h3 = d3 & 0x03FFFFFF; d4 += (d3 >> 26);
-    h4 = d4 & 0x03FFFFFF; h0 += (d4 >> 26) * 5;
+    h4 = d4 & 0x03FFFFFF; h0 += (uint32_t)(d4 >> 26) * 5;
 
     msg += 16;
     n -= 16;
@@ -181,10 +190,9 @@ process_block:
   if (n)
   {
     size_t i;
-    for (i = 0; i < n; i++) buf[i] = msg[i];
-    buf[i++] = 1;
-    while (i < 16) buf[i++] = 0;
-    msg = buf;
+    for (i = 0; i < n; tag[i] = msg[i], i++);
+    for (tag[i++] = 1; i < 16; tag[i++] = 0);
+    msg = tag;
     hibit = 0;
     n = 16;
     goto process_block;
@@ -213,9 +221,9 @@ process_block:
   *(volatile uint64_t *)&d4 = 0; *(volatile uint32_t *)&h4 = 0;
 }
 
-int poly1305_tagcmp(const unsigned char tag1[16], const unsigned char tag2[16])
+int poly1305_tagcmp(const uint8_t tag1[16], const uint8_t tag2[16])
 {
-  unsigned int d = 0;
+  uint8_t d = 0;
   d |= tag1[ 0] ^ tag2[ 0];
   d |= tag1[ 1] ^ tag2[ 1];
   d |= tag1[ 2] ^ tag2[ 2];
@@ -232,7 +240,7 @@ int poly1305_tagcmp(const unsigned char tag1[16], const unsigned char tag2[16])
   d |= tag1[13] ^ tag2[13];
   d |= tag1[14] ^ tag2[14];
   d |= tag1[15] ^ tag2[15];
-  return d;
+  return (int) d;
 }
 
 /*
@@ -311,7 +319,7 @@ static size_t read_urandom(void* buf, size_t n)
   /* Verify that the random device returned non-zero data */
   for (i = 0; i < n; i++)
   {
-    if (((unsigned char*) buf)[i] != 0)
+    if (((uint8_t*) buf)[i] != 0)
     {
       errno = errnold;
       return n;
@@ -320,7 +328,7 @@ static size_t read_urandom(void* buf, size_t n)
 
   /* Tiny n may unintentionally fall through! */
 fail:
-  fprintf(stderr, "bad /dev/urandom RNG)\n");
+  fprintf(stderr, "bad /dev/urandom RNG\n");
   abort(); /* PANIC! */
   return 0;
 }
@@ -347,7 +355,7 @@ void chacha20_rng(void* out, size_t n)
 {
   static size_t available = 0;
   static uint32_t counter = 0;
-  static unsigned char key[32], nonce[12], buffer[64] = { 0 };
+  static uint8_t key[32], nonce[12], buffer[64] = { 0 };
 
 #if SQLITE_THREADSAFE
   sqlite3_mutex* mutex = sqlite3_mutex_alloc(SQLITE_MUTEX_STATIC_PRNG);
@@ -371,7 +379,7 @@ void chacha20_rng(void* out, size_t n)
     }
     m = (available < n) ? available : n;
     memcpy(out, buffer + (sizeof(buffer) - available), m);
-    out = (unsigned char *)out + m;
+    out = (uint8_t*)out + m;
     available -= m;
     n -= m;
   }

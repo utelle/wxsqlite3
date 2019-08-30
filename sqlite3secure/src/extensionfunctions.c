@@ -637,7 +637,7 @@ static void ceilFunc(sqlite3_context *context, int argc, sqlite3_value **argv){
   assert( argc==1 );
   switch( sqlite3_value_type(argv[0]) ){
     case SQLITE_INTEGER: {
-      i64 iVal = sqlite3_value_int64(argv[0]);
+      iVal = sqlite3_value_int64(argv[0]);
       sqlite3_result_int64(context, iVal);
       break;
     }
@@ -662,7 +662,7 @@ static void floorFunc(sqlite3_context *context, int argc, sqlite3_value **argv){
   assert( argc==1 );
   switch( sqlite3_value_type(argv[0]) ){
     case SQLITE_INTEGER: {
-      i64 iVal = sqlite3_value_int64(argv[0]);
+      iVal = sqlite3_value_int64(argv[0]);
       sqlite3_result_int64(context, iVal);
       break;
     }

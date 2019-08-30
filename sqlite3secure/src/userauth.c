@@ -293,7 +293,7 @@ int sqlite3_user_change(
   int isAdmin            /* Modified admin privilege for the user */
 ){
   sqlite3_stmt *pStmt;
-  int rc;
+  int rc = SQLITE_OK;
   u8 authLevel;
 
   authLevel = db->auth.authLevel;

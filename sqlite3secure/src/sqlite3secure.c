@@ -67,9 +67,9 @@ extern LPWSTR sqlite3_win32_utf8_to_unicode(const char *);
 #include "fastpbkdf2.c"
 
 /* Prototypes for several crypto functions to make pedantic compilers happy */
-void chacha20_xor(unsigned char* data, size_t n, const unsigned char key[32], const unsigned char nonce[12], uint32_t counter);
-void poly1305(const unsigned char* msg, size_t n, const unsigned char key[32], unsigned char tag[16]);
-int poly1305_tagcmp(const unsigned char tag1[16], const unsigned char tag2[16]);
+void chacha20_xor(void* data, size_t n, const uint8_t key[32], const uint8_t nonce[12], uint32_t counter);
+void poly1305(const uint8_t* msg, size_t n, const uint8_t key[32], uint8_t tag[16]);
+int poly1305_tagcmp(const uint8_t tag1[16], const uint8_t tag2[16]);
 void chacha20_rng(void* out, size_t n);
 
 #include "chacha20poly1305.c"

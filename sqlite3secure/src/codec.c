@@ -410,11 +410,11 @@ GetCipherParameter(CipherParams* cipherParams, const char* paramName)
 
 typedef struct _AES128Cipher
 {
-  int           m_legacy;
-  int           m_legacyPageSize;
-  int           m_keyLength;
-  unsigned char m_key[KEYLENGTH_AES128];
-  Rijndael*     m_aes;
+  int       m_legacy;
+  int       m_legacyPageSize;
+  int       m_keyLength;
+  uint8_t   m_key[KEYLENGTH_AES128];
+  Rijndael* m_aes;
 } AES128Cipher;
 
 static void*
@@ -644,12 +644,12 @@ DecryptPageAES128Cipher(void* cipher, int page, unsigned char* data, int len, in
 
 typedef struct _AES256Cipher
 {
-  int           m_legacy;
-  int           m_legacyPageSize;
-  int           m_kdfIter;
-  int           m_keyLength;
-  unsigned char m_key[KEYLENGTH_AES256];
-  Rijndael*     m_aes;
+  int       m_legacy;
+  int       m_legacyPageSize;
+  int       m_kdfIter;
+  int       m_keyLength;
+  uint8_t   m_key[KEYLENGTH_AES256];
+  Rijndael* m_aes;
 } AES256Cipher;
 
 static void*
@@ -849,12 +849,12 @@ DecryptPageAES256Cipher(void* cipher, int page, unsigned char* data, int len, in
 
 typedef struct _chacha20Cipher
 {
-  int           m_legacy;
-  int           m_legacyPageSize;
-  int           m_kdfIter;
-  int           m_keyLength;
-  unsigned char m_key[KEYLENGTH_CHACHA20];
-  unsigned char m_salt[SALTLENGTH_CHACHA20];
+  int     m_legacy;
+  int     m_legacyPageSize;
+  int     m_kdfIter;
+  int     m_keyLength;
+  uint8_t m_key[KEYLENGTH_CHACHA20];
+  uint8_t m_salt[SALTLENGTH_CHACHA20];
 } ChaCha20Cipher;
 
 static void*
@@ -1019,7 +1019,7 @@ EncryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
   int n = len - nReserved;
 
   /* Generate one-time keys */
-  unsigned char otk[64];
+  uint8_t otk[64];
   uint32_t counter;
   int offset;
 
@@ -1048,7 +1048,7 @@ EncryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
   else
   {
     /* Encrypt only */
-    unsigned char nonce[PAGE_NONCE_LEN_CHACHA20];
+    uint8_t nonce[PAGE_NONCE_LEN_CHACHA20];
     memset(otk, 0, 64);
     CodecGenerateInitialVector(page, nonce);
     counter = LOAD32_LE(&nonce[PAGE_NONCE_LEN_CHACHA20 - 4]) ^ page;
@@ -1076,9 +1076,9 @@ DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
   int n = len - nReserved;
 
   /* Generate one-time keys */
-  unsigned char otk[64];
+  uint8_t otk[64];
   uint32_t counter;
-  unsigned char tag[16];
+  uint8_t tag[16];
   int offset;
 
   /* Check whether number of required reserved bytes and actually reserved bytes match */
@@ -1125,7 +1125,7 @@ DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
   else
   {
     /* Decrypt only */
-    unsigned char nonce[PAGE_NONCE_LEN_CHACHA20];
+    uint8_t nonce[PAGE_NONCE_LEN_CHACHA20];
     memset(otk, 0, 64);
     CodecGenerateInitialVector(page, nonce);
     counter = LOAD32_LE(&nonce[PAGE_NONCE_LEN_CHACHA20 - 4]) ^ page;
@@ -1152,21 +1152,21 @@ DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
 
 typedef struct _sqlCipherCipher
 {
-  int           m_legacy;
-  int           m_legacyPageSize;
-  int           m_kdfIter;
-  int           m_fastKdfIter;
-  int           m_hmacUse;
-  int           m_hmacPgno;
-  int           m_hmacSaltMask;
-  int           m_kdfAlgorithm;
-  int           m_hmacAlgorithm;
-  int           m_plaintextHeaderSize;
-  int           m_keyLength;
-  unsigned char m_key[KEYLENGTH_SQLCIPHER];
-  unsigned char m_salt[SALTLENGTH_SQLCIPHER];
-  unsigned char m_hmacKey[KEYLENGTH_SQLCIPHER];
-  Rijndael*     m_aes;
+  int       m_legacy;
+  int       m_legacyPageSize;
+  int       m_kdfIter;
+  int       m_fastKdfIter;
+  int       m_hmacUse;
+  int       m_hmacPgno;
+  int       m_hmacSaltMask;
+  int       m_kdfAlgorithm;
+  int       m_hmacAlgorithm;
+  int       m_plaintextHeaderSize;
+  int       m_keyLength;
+  uint8_t   m_key[KEYLENGTH_SQLCIPHER];
+  uint8_t   m_salt[SALTLENGTH_SQLCIPHER];
+  uint8_t   m_hmacKey[KEYLENGTH_SQLCIPHER];
+  Rijndael* m_aes;
 } SQLCipherCipher;
 
 static void*
@@ -1571,7 +1571,7 @@ typedef struct _CodecParameter
   CipherParams* m_params;
 } CodecParameter;
 
-static CodecParameter codecParameterTable[] =
+static CodecParameter globalCodecParameterTable[] =
 {
   { "global",    commonParams },
   { "aes128cbc", aes128Params },
@@ -1591,9 +1591,9 @@ CloneCodecParameterTable()
   CipherParams* cloneCipherParams;
   CodecParameter* cloneCodecParams;
 
-  for (j = 0; strlen(codecParameterTable[j].m_name) > 0; ++j)
+  for (j = 0; strlen(globalCodecParameterTable[j].m_name) > 0; ++j)
   {
-    CipherParams* params = codecParameterTable[j].m_params;
+    CipherParams* params = globalCodecParameterTable[j].m_params;
     for (k = 0; strlen(params[k].m_name) > 0; ++k);
     nParams += k;
   }
@@ -1609,8 +1609,8 @@ CloneCodecParameterTable()
     int offset = 0;
     for (j = 0; j < nTables; ++j)
     {
-      CipherParams* params = codecParameterTable[j].m_params;
-      cloneCodecParams[j].m_name = codecParameterTable[j].m_name;
+      CipherParams* params = globalCodecParameterTable[j].m_params;
+      cloneCodecParams[j].m_name = globalCodecParameterTable[j].m_name;
       cloneCodecParams[j].m_params = &cloneCipherParams[offset];
       for (n = 0; strlen(params[n].m_name) > 0; ++n);
       /* Copy all parameters of the current table (including sentinel) */
@@ -1624,7 +1624,7 @@ CloneCodecParameterTable()
       }
       offset += (n + 1);
     }
-    cloneCodecParams[nTables].m_name = codecParameterTable[nTables].m_name;
+    cloneCodecParams[nTables].m_name = globalCodecParameterTable[nTables].m_name;
     cloneCodecParams[nTables].m_params = NULL;
   }
   else
@@ -2051,7 +2051,7 @@ wxsqlite3_config(sqlite3* db, const char* paramName, int newValue)
     return value;
   }
 
-  codecParams = (db != NULL) ? GetCodecParams(db) : codecParameterTable;
+  codecParams = (db != NULL) ? GetCodecParams(db) : globalCodecParameterTable;
   if (codecParams == NULL)
   {
     return value;
@@ -2134,7 +2134,7 @@ wxsqlite3_config_cipher(sqlite3* db, const char* cipherName, const char* paramNa
     return value;
   }
 
-  codecParams = (db != NULL) ? GetCodecParams(db) : codecParameterTable;
+  codecParams = (db != NULL) ? GetCodecParams(db) : globalCodecParameterTable;
   if (codecParams == NULL)
   {
     sqlite3_log(SQLITE_WARNING,
@@ -2336,7 +2336,7 @@ wxsqlite3_codec_data_sql(sqlite3_context* context, int argc, sqlite3_value** arg
 static int
 GetCipherType(sqlite3* db)
 {
-  CodecParameter* codecParams = (db != NULL) ? GetCodecParams(db) : codecParameterTable;
+  CodecParameter* codecParams = (db != NULL) ? GetCodecParams(db) : globalCodecParameterTable;
   CipherParams* cipherParamTable = (codecParams != NULL) ? codecParams[0].m_params : commonParams;
   int cipherType = CODEC_TYPE;
   CipherParams* cipher = cipherParamTable;
@@ -2355,8 +2355,8 @@ GetCipherType(sqlite3* db)
 static void*
 GetCipherParams(sqlite3* db, int cypherType)
 {
-  CodecParameter* codecParams = (db != NULL) ? GetCodecParams(db) : codecParameterTable;
-  CipherParams* cipherParamTable = (codecParams != NULL) ? codecParams[cypherType].m_params : codecParameterTable[cypherType].m_params;
+  CodecParameter* codecParams = (db != NULL) ? GetCodecParams(db) : globalCodecParameterTable;
+  CipherParams* cipherParamTable = (codecParams != NULL) ? codecParams[cypherType].m_params : globalCodecParameterTable[cypherType].m_params;
   return cipherParamTable;
 }
 
@@ -2806,13 +2806,13 @@ CodecConfigureFromUri(sqlite3* db, const char *zDbName, int configDefault)
         CipherParams* cipherParams = NULL;
 
         /* Try to locate the cipher name */
-        for (j = 1; strlen(codecParameterTable[j].m_name) > 0; ++j)
+        for (j = 1; strlen(globalCodecParameterTable[j].m_name) > 0; ++j)
         {
-          if (sqlite3_stricmp(cipherName, codecParameterTable[j].m_name) == 0) break;
+          if (sqlite3_stricmp(cipherName, globalCodecParameterTable[j].m_name) == 0) break;
         }
 
         /* j is the index of the cipher name, if found */
-        cipherParams = (strlen(codecParameterTable[j].m_name) > 0) ? codecParameterTable[j].m_params : NULL;
+        cipherParams = (strlen(globalCodecParameterTable[j].m_name) > 0) ? globalCodecParameterTable[j].m_params : NULL;
         if (cipherParams != NULL)
         {
           /* Set global parameters (cipher and hmac_check) */
