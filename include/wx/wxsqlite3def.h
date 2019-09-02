@@ -44,6 +44,11 @@
 
 <dl>
 
+<dt><b>4.4.6</b> - <i>September 2019</i></dt>
+<dd>
+Fixed missing cipher application in method wxSQLite3Database::Rekey<br>
+
+</dd>
 <dt><b>4.4.5</b> - <i>August 2019</i></dt>
 <dd>
 Fixed broken compatibility with wxWidgets 2.8.12<br>

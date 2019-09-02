@@ -3,7 +3,7 @@
 ** Purpose:     Implementation of wxSQLite3 classes
 ** Author:      Ulrich Telle
 ** Created:     2005-07-06
-** Copyright:   (c) 2005-2018 Ulrich Telle and the wxSQLite3 contributors
+** Copyright:   (c) 2005-2019 Ulrich Telle and the wxSQLite3 contributors
 ** SPDX-License-Identifier: LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
@@ -4274,6 +4274,13 @@ void wxSQLite3Database::ReKey(const wxSQLite3Cipher& cipher, const wxMemoryBuffe
 {
 #if WXSQLITE3_HAVE_CODEC
   CheckDatabase();
+  if (cipher.IsOk())
+  {
+    if (!cipher.Apply(m_db->m_db))
+    {
+      throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_APPLY_FAILED);
+    }
+  }
   int rc = sqlite3_rekey(m_db->m_db, newKey.GetData(), (int) newKey.GetDataLen());
   if (rc != SQLITE_OK)
   {
@@ -5064,7 +5071,7 @@ wxSQLite3Transaction::~wxSQLite3Transaction()
     }
     catch (...)
     {
-	    // Intentionally do nothing
+      // Intentionally do nothing
     }
   }
 }
