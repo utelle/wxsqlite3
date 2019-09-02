@@ -41,7 +41,7 @@ Currently the following encryption schemes are supported:
 ## <a name="history"></a>Version history
 
 * 4.4.6 - *September 2019*
-  - Fixed missing cipher application in method wxSQLite3Database::Rekey
+  - Fixed missing cipher application in method wxSQLite3Database::ReKey
 * 4.4.5 - *August 2019*
   - Fixed broken compatibility with wxWidgets 2.8.12
 * 4.4.4 - *August 2019*
