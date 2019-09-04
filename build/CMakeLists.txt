@@ -4,6 +4,7 @@ project(wxSQLite3)
 
 option(STATIC_RUNTIME "link with c++ runtime statically" "ON")
 option(WXSQLITE3_BUILD_SHARED "Build wxSQLite3 as shared library" ON)
+option(BUILD_SHARED_LIBS "Link with shared wxWidgets library" ON)
 
 if((CMAKE_SIZEOF_VOID_P EQUAL 8) AND CMAKE_COMPILER_IS_GNUCC)
     option(USE_32 "create 32 bit binaries" "OFF")
