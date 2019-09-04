@@ -264,7 +264,7 @@ set_target_properties(wxsqlite3 PROPERTIES COMPILE_FLAGS "-D_LIB \
 
 add_executable(
     treeview
-    
+    WIN32
     ${TREEVIEW_SOURCES}
 )
 
