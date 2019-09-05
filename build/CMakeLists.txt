@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.6)
 project(wxSQLite3)
 
 option(STATIC_RUNTIME "link with c++ runtime statically" "ON")
+option(WXSQLITE3_BUILD_SHARED "Build wxSQLite3 as shared library" ON)
+option(BUILD_SHARED_LIBS "Link with shared wxWidgets library" ON)
 
 if((CMAKE_SIZEOF_VOID_P EQUAL 8) AND CMAKE_COMPILER_IS_GNUCC)
     option(USE_32 "create 32 bit binaries" "OFF")
@@ -217,9 +219,19 @@ include_directories(
     "../sqlite3secure/src/"
 )
 
+if (WXSQLITE3_BUILD_SHARED)
+    set(WXSQLITE3_LIBRARY_TYPE SHARED)
+    set(WXSQLITE3_MAKING_DEF "WXMAKINGDLL_WXSQLITE3")
+    set(WXSQLITE3_USING_DEF "WXUSINGDLL_WXSQLITE3")
+else()
+    set(WXSQLITE3_LIBRARY_TYPE STATIC)
+    set(WXSQLITE3_MAKING_DEF "WXMAKINGLIB_WXSQLITE3")
+    set(WXSQLITE3_USING_DEF "WXUSINGLIB_WXSQLITE3")
+endif(WXSQLITE3_BUILD_SHARED)
+
 add_library(
     wxsqlite3
-    STATIC
+    ${WXSQLITE3_LIBRARY_TYPE}
 
     ${LIBRARY_SOURCES}
 )
@@ -229,7 +241,7 @@ if(SQLITE_DEBUG)
 endif(SQLITE_DEBUG)
 
 set_target_properties(wxsqlite3 PROPERTIES COMPILE_FLAGS "-D_LIB \
-                                                          -DWXMAKINGLIB_WXSQLITE3 \
+                                                          -D${WXSQLITE3_MAKING_DEF} \
                                                           -DwxUSE_DYNAMIC_SQLITE3_LOAD=0 \
                                                           -DWXSQLITE3_HAVE_METADATA=1 \
                                                           -DWXSQLITE3_USER_AUTHENTICATION=1 \
@@ -264,11 +276,11 @@ set_target_properties(wxsqlite3 PROPERTIES COMPILE_FLAGS "-D_LIB \
 
 add_executable(
     treeview
-    
+    WIN32
     ${TREEVIEW_SOURCES}
 )
 
-set_target_properties(treeview PROPERTIES COMPILE_FLAGS -DWXUSINGLIB_WXSQLITE3)
+set_target_properties(treeview PROPERTIES COMPILE_FLAGS -D${WXSQLITE3_USING_DEF})
 
 add_executable(
     minimal
@@ -276,7 +288,7 @@ add_executable(
     ${MINIMAL_SOURCES}
 )
 
-set_target_properties(minimal PROPERTIES COMPILE_FLAGS -DWXUSINGLIB_WXSQLITE3)
+set_target_properties(minimal PROPERTIES COMPILE_FLAGS -D${WXSQLITE3_USING_DEF})
 
 add_dependencies(treeview wxsqlite3)
 add_dependencies(minimal wxsqlite3)
@@ -299,7 +311,6 @@ elseif(CMAKE_COMPILER_IS_GNUCC)
     set(COMPILER_SPECIFIC_OPTIONS  CPP_EXCEPTIONS_ONLY)
 endif(MSVC)
 
-option(STATIC_RUNTIME "link with c++ runtime statically" "ON")
 option(SQLITE_DEBUG "enable SQLite debug" "OFF")
 option(PEDANTIC_COMPILER_FLAGS "Enable additional checking for ill-formed code" "ON")
 option(THREAD_SAVE_STATIC_INIT "Enable thread safe initialization of static variables" "OFF")
@@ -313,6 +324,7 @@ foreach(V   ${COMPILER_SPECIFIC_OPTIONS}
             THREAD_SAVE_STATIC_INIT
             RELEASE_DEBUG_SYMBOLS
             SQLITE_CODEC_TYPE
+            WXSQLITE3_BUILD_SHARED
        )
     message("${V}: ${${V}}")
 endforeach()
@@ -336,10 +348,13 @@ if(wxWidgets_FOUND)
     include_directories(${wxWidgets_INCLUDE_DIRS})
     target_link_libraries (treeview ${wxWidgets_LIBRARIES})
     target_link_libraries (minimal ${wxWidgets_LIBRARIES})
+    if (WXSQLITE3_BUILD_SHARED)
+        target_link_libraries (wxsqlite3 ${wxWidgets_LIBRARIES})
+    endif(WXSQLITE3_BUILD_SHARED)
     
     message(${WXDEFS})
     message(${WXFLAGS})
-    message("wxWidgets include derectories: ${wxWidgets_INCLUDE_DIRS}")
+    message("wxWidgets include directories: ${wxWidgets_INCLUDE_DIRS}")
     message("wxWidgets libraries: ${wxWidgets_LIBRARIES}")
 endif(wxWidgets_FOUND)
 
