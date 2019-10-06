@@ -1094,32 +1094,23 @@ DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
     counter = LOAD32_LE(data + n + PAGE_NONCE_LEN_CHACHA20 - 4) ^ page;
     chacha20_xor(otk, 64, chacha20Cipher->m_key, data + n, counter);
 
+    /* Determine MAC and decrypt */
+    poly1305(data, n + PAGE_NONCE_LEN_CHACHA20, otk, tag);
+    offset = (page == 1) ? (chacha20Cipher->m_legacy != 0) ? 0 : CIPHER_PAGE1_OFFSET : 0;
+    chacha20_xor(data + offset, n - offset, otk + 32, data + n, counter + 1);
+
     if (hmacCheck != 0)
     {
       /* Verify the MAC */
-      poly1305(data, n + PAGE_NONCE_LEN_CHACHA20, otk, tag);
-      if (!poly1305_tagcmp(data + n + PAGE_NONCE_LEN_CHACHA20, tag))
-      {
-        /* Decrypt */
-        offset = (page == 1) ? (chacha20Cipher->m_legacy != 0) ? 0 : CIPHER_PAGE1_OFFSET : 0;
-        chacha20_xor(data + offset, n - offset, otk + 32, data + n, counter + 1);
-        if (page == 1)
-        {
-          memcpy(data, SQLITE_FILE_HEADER, 16);
-        }
-      }
-      else
+      if (poly1305_tagcmp(data + n + PAGE_NONCE_LEN_CHACHA20, tag))
       {
         /* Bad MAC */
         rc = SQLITE_CORRUPT;
       }
     }
-    else
+    if (page == 1 && rc == SQLITE_OK)
     {
-      if (page == 1)
-      {
-        memcpy(data, SQLITE_FILE_HEADER, 16);
-      }
+      memcpy(data, SQLITE_FILE_HEADER, 16);
     }
   }
   else

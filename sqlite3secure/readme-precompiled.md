@@ -1,32 +1,35 @@
 # Release notes
 
-August 7, 2019
+October 5, 2019
 
 The SQLite3 shell applications are now compatible with the official
 SQLite3 shell in respect to the compile time options
 `SQLITE_ENABLE_DBSTAT_VTAB`, `SQLITE_ENABLE_STMTVTAB`, and
 `SQLITE_ENABLE_UNKNOWN_SQL_FUNCTION`.
 
-This archive with precompiled Windows DLLs for SQLite3 contains
-experimental versions with enabled ICU support, in addition to the
-versions without ICU support.
+Starting from October 2019 separate archives are provided with resp.
+without enabled ICU support for 32-bit and 64-bit Windows.
 
-The required ICU DLLs are not included in this archive; they have
-to be downloaded from
+ICU support for SQLite3 is currently based on the pre-built ICU
+Libraries v65.1, which were compiled with Visual Studio 2017.
+The required ICU DLLs are now included in the archives in folder `bin`.
+They were downloaded from
 
 https://github.com/unicode-org/icu/releases/latest
 
-ICU support for SQLite3 is based on the pre-built ICU Libraries v64.2.
-These are compiled for 32/64-bit Windows, using Visual Studio 2017.
-
-When using the ICU DLLs you may need to specify an environment variable
-ICU_DATA pointing to the data folder, where the icudtXXl.dat file lives
-(e.g. set ICU_DATA=F:\icu\data).
-
+In addition, the Visual C++ 2017 runtime is required to be installed,
+because the ICU DLLs depend on it.
 
 ## Archive content
 
-Archive name: `wxsqlite3-sqlite3-multicipher.zip`
+Archive names:
+
+1) `wxsqlite3-sqlite3-x.y.z-win32.zip` - 32-bit Windows without ICU support
+2) `wxsqlite3-sqlite3-x.y.z-win64.zip` - 64-bit Windows without ICU support
+3) `wxsqlite3-sqlite3-x.y.z-icu-win32.zip` - 32-bit Windows with ICU support
+4) `wxsqlite3-sqlite3-x.y.z-icu-win64.zip` - 64-bit Windows with ICU support
+
+where `x.y.z` designates the version of the SQLite3 library.
 
 32 Bit   | 64 Bit       | Description
 :------- | :----------- | :--------

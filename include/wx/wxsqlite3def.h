@@ -44,6 +44,11 @@
 
 <dl>
 
+<dt><b>4.4.7</b> - <i>October 2019</i></dt>
+<dd>
+Upgrade to SQLite version 3.30.0<br>
+
+</dd>
 <dt><b>4.4.6</b> - <i>September 2019</i></dt>
 <dd>
 Fixed missing cipher application in method wxSQLite3Database::ReKey<br>

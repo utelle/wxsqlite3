@@ -135,11 +135,6 @@ void chacha20_xor(void* buffer, size_t n, const uint8_t key[32],
   {
     buf[i] ^= block.bytes[i];
   }
-  for (i = 0; i < 16; ++i)
-  {
-    *(volatile uint32_t*)&block.words[i] = 0;
-    *(volatile uint32_t*)&state[i] = 0;
-  }
 }
 
 /*
@@ -353,9 +348,9 @@ static size_t entropy(void* buf, size_t n)
  */
 void chacha20_rng(void* out, size_t n)
 {
-  static size_t available = 0;
-  static uint32_t counter = 0;
   static uint8_t key[32], nonce[12], buffer[64] = { 0 };
+  static uint32_t counter = 0;
+  static size_t available = 0;
 
 #if SQLITE_THREADSAFE
   sqlite3_mutex* mutex = sqlite3_mutex_alloc(SQLITE_MUTEX_STATIC_PRNG);
