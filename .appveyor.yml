@@ -14,10 +14,10 @@ environment:
   - TOOLSET: msbuild
     CONFIGURATION: Release wxDLL
     ARCH: x64
-#  - TOOLSET: cmake
-#    GENERATOR: 'Visual Studio 14.1'
-#    SHARED: ON
-#    CONFIGURATION: Release
+  - TOOLSET: cmake
+    GENERATOR: 'Visual Studio 15'
+    SHARED: ON
+    CONFIGURATION: Release
 
 # clone directory
 clone_folder: c:\projects\wxsqlite3

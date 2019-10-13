@@ -44,6 +44,12 @@
 
 <dl>
 
+<dt><b>4.4.8</b> - <i>October 2019</i></dt>
+<dd>
+Upgrade to SQLite version 3.30.1<br>
+Adjusted encryption extension to support SQLite's shared cache mode<br>
+
+</dd>
 <dt><b>4.4.7</b> - <i>October 2019</i></dt>
 <dd>
 Upgrade to SQLite version 3.30.0<br>

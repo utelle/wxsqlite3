@@ -70,6 +70,7 @@ typedef struct _Codec
 
   sqlite3*      m_db; /* Pointer to DB */
   Btree*        m_bt; /* Pointer to B-tree used by DB */
+  BtShared*     m_btShared; /* Pointer to shared B-tree used by DB */
   unsigned char m_page[SQLITE_MAX_PAGE_SIZE+24];
   int           m_pageSize;
   int           m_reserved;
@@ -118,6 +119,8 @@ static int CodecIsEncrypted(Codec* codec);
 static int CodecHasReadCipher(Codec* codec);
 static int CodecHasWriteCipher(Codec* codec);
 static Btree* CodecGetBtree(Codec* codec);
+static BtShared* CodecGetBtShared(Codec* codec);
+static int CodecGetPageSize(Codec* codec);
 static int CodecGetReadReserved(Codec* codec);
 static int CodecGetWriteReserved(Codec* codec);
 static unsigned char* CodecGetPageBuffer(Codec* codec);

@@ -35,12 +35,14 @@ sqlite3_activate_see(const char *info)
 static void
 sqlite3CodecFree(void *pCodecArg)
 {
+#ifndef TEST_CODEC_NOFREE
   if (pCodecArg)
   {
     CodecTerm(pCodecArg);
     sqlite3_free(pCodecArg);
     pCodecArg = NULL;
   }
+#endif
 }
 
 static void
@@ -49,17 +51,14 @@ sqlite3CodecSizeChange(void *pArg, int pageSize, int reservedSize)
   Codec* pCodec = (Codec*) pArg;
   pCodec->m_pageSize = pageSize;
   pCodec->m_reserved = reservedSize;
-#if 0
-  fprintf(stdout, "sqlite3CodecSizeChange c=0x%08x p=%d, r=%d\n", (unsigned int) pArg, pageSize, reservedSize);
-#endif
 }
 
 static void
-reportCodecError(Btree* pBt, int error)
+reportCodecError(BtShared* pBt, int error)
 {
-  pBt->pBt->pPager->errCode = error;
-  setGetterMethod(pBt->pBt->pPager);
-  pBt->pBt->db->errCode = error;
+  pBt->pPager->errCode = error;
+  setGetterMethod(pBt->pPager);
+  pBt->db->errCode = error;
 }
 
 /*
@@ -80,8 +79,8 @@ sqlite3Codec(void* pCodecArg, void* data, Pgno nPageNum, int nMode)
   {
     return data;
   }
-  
-  pageSize = sqlite3BtreeGetPageSize(CodecGetBtree(codec));
+
+  pageSize = CodecGetPageSize(codec);
 
   switch(nMode)
   {
@@ -91,7 +90,7 @@ sqlite3Codec(void* pCodecArg, void* data, Pgno nPageNum, int nMode)
       if (CodecHasReadCipher(codec))
       {
         rc = CodecDecrypt(codec, nPageNum, (unsigned char*) data, pageSize);
-        if (rc != SQLITE_OK) reportCodecError(CodecGetBtree(codec), rc);
+        if (rc != SQLITE_OK) reportCodecError(CodecGetBtShared(codec), rc);
       }
       break;
 
@@ -102,7 +101,7 @@ sqlite3Codec(void* pCodecArg, void* data, Pgno nPageNum, int nMode)
         memcpy(pageBuffer, data, pageSize);
         data = pageBuffer;
         rc = CodecEncrypt(codec, nPageNum, (unsigned char*) data, pageSize, 1);
-        if (rc != SQLITE_OK) reportCodecError(CodecGetBtree(codec), rc);
+        if (rc != SQLITE_OK) reportCodecError(CodecGetBtShared(codec), rc);
       }
       break;
 
@@ -121,7 +120,7 @@ sqlite3Codec(void* pCodecArg, void* data, Pgno nPageNum, int nMode)
         memcpy(pageBuffer, data, pageSize);
         data = pageBuffer;
         rc = CodecEncrypt(codec, nPageNum, (unsigned char*) data, pageSize, 0);
-        if (rc != SQLITE_OK) reportCodecError(CodecGetBtree(codec), rc);
+        if (rc != SQLITE_OK) reportCodecError(CodecGetBtShared(codec), rc);
       }
       break;
   }

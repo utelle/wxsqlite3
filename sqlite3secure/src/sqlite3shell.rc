@@ -6,8 +6,8 @@ ID_SQLITE3 ICON "sqlite370.ico"
 #include <windows.h>
 
 VS_VERSION_INFO VERSIONINFO
-  FILEVERSION 3,30,0,0
-  PRODUCTVERSION 3,30,0,0
+  FILEVERSION 3,30,1,0
+  PRODUCTVERSION 3,30,1,0
   FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
   FILEFLAGS 0x1L
@@ -24,12 +24,12 @@ BEGIN
     BEGIN
       VALUE "CompanyName", "SQLite"
       VALUE "FileDescription", "SQLite3 Database Shell (with encryption support)"
-      VALUE "FileVersion", "3.30.0.0"
+      VALUE "FileVersion", "3.30.1.0"
       VALUE "InternalName", "sqlite3shell.exe"
       VALUE "LegalCopyright", "Public Domain"
       VALUE "OriginalFilename", "sqlite3shell.exe"
       VALUE "ProductName", "SQLite3"
-      VALUE "ProductVersion", "3.30.0.0"
+      VALUE "ProductVersion", "3.30.1.0"
     END
   END
   BLOCK "VarFileInfo"

@@ -504,7 +504,7 @@ GetSaltAES128Cipher(void* cipher)
 }
 
 static void
-GenerateKeyAES128Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
+GenerateKeyAES128Cipher(void* cipher, BtShared* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
 {
   AES128Cipher* aesCipher = (AES128Cipher*) cipher;
   unsigned char userPad[32];
@@ -741,7 +741,7 @@ GetSaltAES256Cipher(void* cipher)
 }
 
 static void
-GenerateKeyAES256Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
+GenerateKeyAES256Cipher(void* cipher, BtShared* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
 {
   AES256Cipher* aesCipher = (AES256Cipher*) cipher;
   unsigned char userPad[32];
@@ -863,6 +863,7 @@ AllocateChaCha20Cipher(sqlite3* db)
   ChaCha20Cipher* chacha20Cipher = (ChaCha20Cipher*) sqlite3_malloc(sizeof(ChaCha20Cipher));
   if (chacha20Cipher != NULL)
   {
+    memset(chacha20Cipher, 0, sizeof(ChaCha20Cipher));
     chacha20Cipher->m_keyLength = KEYLENGTH_CHACHA20;
     memset(chacha20Cipher->m_key, 0, KEYLENGTH_CHACHA20);
     memset(chacha20Cipher->m_salt, 0, SALTLENGTH_CHACHA20);
@@ -939,12 +940,12 @@ GetSaltChaCha20Cipher(void* cipher)
 }
 
 static void
-GenerateKeyChaCha20Cipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
+GenerateKeyChaCha20Cipher(void* cipher, BtShared* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
 {
   ChaCha20Cipher* chacha20Cipher = (ChaCha20Cipher*) cipher;
   int bypass = 0;
 
-  Pager *pPager = pBt->pBt->pPager;
+  Pager *pPager = pBt->pPager;
   sqlite3_file* fd = (isOpen(pPager->fd)) ? pPager->fd : NULL;
 
   int keyOnly = 1;
@@ -1292,11 +1293,11 @@ GetSaltSQLCipherCipher(void* cipher)
 }
 
 static void
-GenerateKeySQLCipherCipher(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
+GenerateKeySQLCipherCipher(void* cipher, BtShared* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
 {
   SQLCipherCipher* sqlCipherCipher = (SQLCipherCipher*) cipher;
 
-  Pager *pPager = pBt->pBt->pPager;
+  Pager *pPager = pBt->pPager;
   sqlite3_file* fd = (isOpen(pPager->fd)) ? pPager->fd : NULL;
 
   if (rekey || fd == NULL || sqlite3OsRead(fd, sqlCipherCipher->m_salt, SALTLENGTH_SQLCIPHER, 0) != SQLITE_OK)
@@ -1639,7 +1640,7 @@ typedef int   (*GetLegacy_t)(void* cipher);
 typedef int   (*GetPageSize_t)(void* cipher);
 typedef int   (*GetReserved_t)(void* cipher);
 typedef unsigned char* (*GetSalt_t)(void* cipher);
-typedef void  (*GenerateKey_t)(void* cipher, Btree* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt);
+typedef void  (*GenerateKey_t)(void* cipher, BtShared* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt);
 typedef int   (*EncryptPage_t)(void* cipher, int page, unsigned char* data, int len, int reserved);
 typedef int   (*DecryptPage_t)(void* cipher, int page, unsigned char* data, int len, int reserved, int hmacCheck);
 
@@ -2372,6 +2373,7 @@ CodecInit(Codec* codec)
 
     codec->m_db = NULL;
     codec->m_bt = NULL;
+    codec->m_btShared = NULL;
     memset(codec->m_page, 0, sizeof(codec->m_page));
     codec->m_pageSize = 0;
     codec->m_reserved = 0;
@@ -2388,17 +2390,19 @@ CodecInit(Codec* codec)
 static void
 CodecTerm(Codec* codec)
 {
+#ifndef TEST_CODEC_NOFREE
   if (codec->m_readCipher != NULL)
   {
-    codecDescriptorTable[codec->m_readCipherType-1].m_freeCipher(codec->m_readCipher);
+    codecDescriptorTable[codec->m_readCipherType - 1].m_freeCipher(codec->m_readCipher);
     codec->m_readCipher = NULL;
   }
   if (codec->m_writeCipher != NULL)
   {
-    codecDescriptorTable[codec->m_writeCipherType-1].m_freeCipher(codec->m_writeCipher);
+    codecDescriptorTable[codec->m_writeCipherType - 1].m_freeCipher(codec->m_writeCipher);
     codec->m_writeCipher = NULL;
   }
   memset(codec, 0, sizeof(Codec));
+#endif
 }
 
 static void
@@ -2498,6 +2502,7 @@ static void
 CodecSetBtree(Codec* codec, Btree* bt)
 {
   codec->m_bt = bt;
+  codec->m_btShared = bt->pBt;
 }
 
 static void
@@ -2534,6 +2539,18 @@ static Btree*
 CodecGetBtree(Codec* codec)
 {
   return codec->m_bt;
+}
+
+static BtShared*
+CodecGetBtShared(Codec* codec)
+{
+  return codec->m_btShared;
+}
+
+static int
+CodecGetPageSize(Codec* codec)
+{
+  return codec->m_btShared->pageSize;
 }
 
 static int
@@ -2653,6 +2670,7 @@ CodecCopy(Codec* codec, Codec* other)
   }
   codec->m_db = other->m_db;
   codec->m_bt = other->m_bt;
+  codec->m_btShared = other->m_btShared;
   return rc;
 }
 
@@ -2726,13 +2744,13 @@ CodecPadPassword(char* password, int pswdlen, unsigned char pswd[32])
 static void
 CodecGenerateReadKey(Codec* codec, char* userPassword, int passwordLength, unsigned char* cipherSalt)
 {
-  codecDescriptorTable[codec->m_readCipherType-1].m_generateKey(codec->m_readCipher, codec->m_bt, userPassword, passwordLength, 0, cipherSalt);
+  codecDescriptorTable[codec->m_readCipherType-1].m_generateKey(codec->m_readCipher, codec->m_btShared, userPassword, passwordLength, 0, cipherSalt);
 }
 
 static void
 CodecGenerateWriteKey(Codec* codec, char* userPassword, int passwordLength, unsigned char* cipherSalt)
 {
-  codecDescriptorTable[codec->m_writeCipherType-1].m_generateKey(codec->m_writeCipher, codec->m_bt, userPassword, passwordLength, 1, cipherSalt);
+  codecDescriptorTable[codec->m_writeCipherType-1].m_generateKey(codec->m_writeCipher, codec->m_btShared, userPassword, passwordLength, 1, cipherSalt);
 }
 
 static int

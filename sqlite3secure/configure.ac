@@ -1,10 +1,10 @@
 dnl Process this script with autoconf to create configure for sqlite3secure library
 dnl
-dnl Copyright (C) 2018 Ulrich Telle <ulrich@telle-online.de>
+dnl Copyright (C) 2018-2019 Ulrich Telle <ulrich@telle-online.de>
 dnl
 dnl This file is covered by the same licence as the entire wxSQLite3 package.
 
-AC_INIT([sqlite3secure], [3.30.0], [ulrich@telle-online.de])
+AC_INIT([sqlite3secure], [3.30.1], [ulrich@telle-online.de])
 
 dnl This is the version tested with, might work with earlier ones.
 AC_PREREQ([2.69])
