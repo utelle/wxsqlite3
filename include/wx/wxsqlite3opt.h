@@ -52,4 +52,32 @@
 #define WXSQLITE3_USE_NAMED_COLLECTIONS 1
 #endif
 
+//! To disable support for AES 128 Bit CBC Encryption define WXSQLITE3_HAVE_CIPHER_AES_128_CBC as 0 here.
+//! Attention: if WXSQLITE3_HAVE_CIPHER_AES_128_CBC is defined as 1 (default SQLite needs to be
+//! compiled with HAVE_CIPHER_AES_128_CBC for this to work
+#ifndef WXSQLITE3_HAVE_CIPHER_AES_128_CBC
+#define WXSQLITE3_HAVE_CIPHER_AES_128_CBC 1
+#endif
+
+//! To disable support for AES 256 Bit CBC Encryption define WXSQLITE3_HAVE_CIPHER_AES_256_CBC as 0 here.
+//! Attention: if WXSQLITE3_HAVE_CIPHER_AES_256_CBC is defined as 1 (default SQLite needs to be
+//! compiled with HAVE_CIPHER_AES_256_CBC for this to work
+#ifndef WXSQLITE3_HAVE_CIPHER_AES_256_CBC
+#define WXSQLITE3_HAVE_CIPHER_AES_256_CBC 1
+#endif
+
+//! To disable support for ChaCha20-Poly1305 Encryption define WXSQLITE3_HAVE_CIPHER_CHACHA20 as 0 here.
+//! Attention: if WXSQLITE3_HAVE_CIPHER_CHACHA20 is defined as 1 (default SQLite needs to be
+//! compiled with HAVE_CIPHER_CHACHA20 for this to work
+#ifndef WXSQLITE3_HAVE_CIPHER_CHACHA20
+#define WXSQLITE3_HAVE_CIPHER_CHACHA20 1
+#endif
+
+//! To disable support for SQLCipher Encryption define WXSQLITE3_HAVE_CIPHER_SQLCIPHER as 0 here.
+//! Attention: if WXSQLITE3_HAVE_CIPHER_SQLCIPHER is defined as 1 (default SQLite needs to be
+//! compiled with HAVE_CIPHER_SQLCIPHER for this to work
+#ifndef WXSQLITE3_HAVE_CIPHER_SQLCIPHER
+#define WXSQLITE3_HAVE_CIPHER_SQLCIPHER 1
+#endif
+
 #endif // _WX_SQLITE3_OPT_H_

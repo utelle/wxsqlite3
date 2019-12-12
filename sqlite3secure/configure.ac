@@ -68,6 +68,43 @@ AC_ARG_ENABLE(sqlite-debug,
       AC_DEFINE([SQLITE_DEBUG])
     ])
 
+AC_ARG_WITH([aes128cbc],
+    [AS_HELP_STRING([--without-aes128cbc],
+        [Disable support for AES 128 Bit CBC Encryption])],
+    [], 
+    [with_aes128cbc=yes])
+
+
+AS_IF([test "x$with_aes128cbc" = xno],
+    [AC_DEFINE([HAVE_CIPHER_AES_128_CBC], [0], [Define if you have AES 128 Bit CBC disabled])])
+
+AC_ARG_WITH([aes256cbc],
+    [AS_HELP_STRING([--without-aes256cbc],
+        [Disable support for AES 256 Bit CBC Encryption])],
+    [],
+    [with_aes256cbc=yes])
+
+AS_IF([test "x$with_aes256cbc" = xno],
+    [AC_DEFINE([HAVE_CIPHER_AES_256_CBC], [0], [Define if you have AES 256 Bit CBC disabled])])
+
+AC_ARG_WITH([chacha20],
+    [AS_HELP_STRING([--without-chacha20],
+        [Disable support for ChaCha20-Poly1305 Encryption])],
+    [],
+    [with_chacha20=yes])
+
+AS_IF([test "x$with_chacha20" = xno],
+    [AC_DEFINE([HAVE_CIPHER_CHACHA20], [0], [Define if you have ChaCha20-Poly1305 disabled])])
+
+AC_ARG_WITH([sqlcipher],
+    [AS_HELP_STRING([--without-sqlcipher],
+        [Disable support for SQLCipher Encryption])],
+    [],
+    [with_sqlcipher=yes])
+
+AS_IF([test "x$with_sqlcipher" = xno],
+    [AC_DEFINE([HAVE_CIPHER_SQLCIPHER], [0], [Define if you have SQLCipher disabled])])
+
 AC_SUBST(SQLITE3SECURE_LIBNAME, "sqlite3secure")
 AC_SUBST( LIBDIR, "lib" )
 

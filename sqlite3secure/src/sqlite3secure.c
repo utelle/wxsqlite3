@@ -57,6 +57,7 @@ extern LPWSTR sqlite3_win32_utf8_to_unicode(const char *);
 #endif
 
 #include "sqlite3.c"
+#include "sqlite3secure.h"
 
 /*
 ** Crypto algorithms
@@ -64,6 +65,8 @@ extern LPWSTR sqlite3_win32_utf8_to_unicode(const char *);
 #include "md5.c"
 #include "sha1.c"
 #include "sha2.c"
+
+#if HAVE_CIPHER_SQLCIPHER || HAVE_CIPHER_SQLCIPHER
 #include "fastpbkdf2.c"
 
 /* Prototypes for several crypto functions to make pedantic compilers happy */
@@ -73,6 +76,7 @@ int poly1305_tagcmp(const uint8_t tag1[16], const uint8_t tag2[16]);
 void chacha20_rng(void* out, size_t n);
 
 #include "chacha20poly1305.c"
+#endif
 
 #ifdef SQLITE_USER_AUTHENTICATION
 #include "sqlite3userauth.h"

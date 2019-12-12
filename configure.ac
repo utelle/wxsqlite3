@@ -29,35 +29,72 @@ WX_CONFIG_CHECK([2.8.0],
     [base,core]
 )
 
-AC_ARG_ENABLE(codec,
-    [  --enable-codec[=<codec type>] Specify the codec type:
-                              aes128: AES 128 Bit CBC Encryption
-                              aes256: AES 256 Bit CBC Encryption
-                              chacha20 [default]: ChaCha20-Poly1305 Encryption
-                              sqlcipher: SQLCipher Encryption],
-    [ if   test "x$enableval" = "xaes128" ; then
-        codec_type=CODEC_TYPE_AES128
-      elif test "x$enableval" = "xaes256" ; then
-        codec_type=CODEC_TYPE_AES256
-      elif test "x$enableval" = "xchacha20" ; then
-        codec_type=CODEC_TYPE_CHACHA20
-      elif test "x$enableval" = "xsqlcipher" ; then
-        codec_type=CODEC_TYPE_SQLCIPHER
-      else
-        echo
-        echo "Error!"
-        echo "Unknown codec type"
-        exit -1
-     fi
-     AC_DEFINE_UNQUOTED([CODEC_TYPE], [$codec_type])
-    ])
-
 AC_ARG_ENABLE(sqlite-debug,
     [  --enable-sqlite-debug  Enable SQLite Debug assertions
                          This is a debugging feature
                          which should usually not be enabled],
     [ 
       AC_DEFINE([SQLITE_DEBUG])
+    ])
+
+AC_ARG_WITH([aes128cbc],
+    [AS_HELP_STRING([--without-aes128cbc],
+        [Disable support for AES 128 Bit CBC Encryption])],
+    [], 
+    [with_aes128cbc=yes])
+
+
+AS_IF([test "x$with_aes128cbc" = xno],
+    [AC_DEFINE([WXSQLITE3_HAVE_CIPHER_AES_128_CBC], [0], [Define if you have AES 128 Bit CBC disabled])])
+
+AC_ARG_WITH([aes256cbc],
+    [AS_HELP_STRING([--without-aes256cbc],
+        [Disable support for AES 256 Bit CBC Encryption])],
+    [],
+    [with_aes256cbc=yes])
+
+AS_IF([test "x$with_aes256cbc" = xno],
+    [AC_DEFINE([WXSQLITE3_HAVE_CIPHER_AES_256_CBC], [0], [Define if you have AES 256 Bit CBC disabled])])
+
+AC_ARG_WITH([chacha20],
+    [AS_HELP_STRING([--without-chacha20],
+        [Disable support for ChaCha20-Poly1305 Encryption])],
+    [],
+    [with_chacha20=yes])
+
+AS_IF([test "x$with_chacha20" = xno],
+    [AC_DEFINE([WXSQLITE3_HAVE_CIPHER_CHACHA20], [0], [Define if you have ChaCha20-Poly1305 disabled])])
+
+AC_ARG_WITH([sqlcipher],
+    [AS_HELP_STRING([--without-sqlcipher],
+        [Disable support for SQLCipher Encryption])],
+    [],
+    [with_sqlcipher=yes])
+
+AS_IF([test "x$with_sqlcipher" = xno],
+    [AC_DEFINE([WXSQLITE3_HAVE_CIPHER_SQLCIPHER], [0], [Define if you have SQLCipher disabled])])
+
+AC_ARG_ENABLE(codec,
+    [  --enable-codec[=<codec type>] Specify the codec type:
+                              aes128: AES 128 Bit CBC Encryption
+                              aes256: AES 256 Bit CBC Encryption
+                              chacha20 [default]: ChaCha20-Poly1305 Encryption
+                              sqlcipher: SQLCipher Encryption],
+      [if   test "x$enableval" = "xaes128" && test "x$with_aes128cbc" = xyes ; then
+        codec_type=CODEC_TYPE_AES128
+      elif test "x$enableval" = "xaes256" && test "x$with_aes256cbc" = xyes ; then
+        codec_type=CODEC_TYPE_AES256
+      elif test "x$enableval" = "xchacha20" && test "x$with_chacha20" = xyes ; then
+        codec_type=CODEC_TYPE_CHACHA20
+      elif test "x$enableval" = "xsqlcipher" && test "x$with_sqlcipher" = xyes ; then
+        codec_type=CODEC_TYPE_SQLCIPHER
+      else
+        echo
+        echo "Error!"
+        echo "Unknown or Unsupported codec type"
+        exit -1
+     fi
+     AC_DEFINE_UNQUOTED([CODEC_TYPE], [$codec_type])
     ])
 
 dnl We only need the libraries above for the main library itself, but the
@@ -96,3 +133,4 @@ AC_CONFIG_LINKS([samples/sqlcipher-1.1.8-testkey.db:samples/sqlcipher-1.1.8-test
 
 AC_CONFIG_FILES([Makefile wxsqlite3.pc])
 AC_OUTPUT
+

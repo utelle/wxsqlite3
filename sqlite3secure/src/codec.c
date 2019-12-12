@@ -407,7 +407,7 @@ GetCipherParameter(CipherParams* cipherParams, const char* paramName)
 }
 
 /* --- AES 128-bit cipher (wxSQLite3) --- */
-
+#if HAVE_CIPHER_AES_128_CBC
 typedef struct _AES128Cipher
 {
   int       m_legacy;
@@ -639,9 +639,9 @@ DecryptPageAES128Cipher(void* cipher, int page, unsigned char* data, int len, in
   }
   return rc;
 }
-
+#endif
 /* --- AES 256-bit cipher (wxSQLite3) --- */
-
+#if HAVE_CIPHER_AES_256_CBC
 typedef struct _AES256Cipher
 {
   int       m_legacy;
@@ -838,9 +838,9 @@ DecryptPageAES256Cipher(void* cipher, int page, unsigned char* data, int len, in
   }
   return rc;
 }
-
+#endif
 /* --- ChaCha20-Poly1305 cipher (plus sqleet variant) --- */
-
+#if HAVE_CIPHER_CHACHA20 || HAVE_CIPHER_SQLCIPHER
 #define KEYLENGTH_CHACHA20       32
 #define SALTLENGTH_CHACHA20      16
 #define PAGE_NONCE_LEN_CHACHA20  16
@@ -1134,9 +1134,9 @@ DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
 
   return rc;
 }
-
+#endif
 /* --- SQLCipher AES256CBC-HMAC cipher --- */
-
+#if HAVE_CIPHER_SQLCIPHER
 #define KEYLENGTH_SQLCIPHER       32
 #define SALTLENGTH_SQLCIPHER      16
 #define MAX_HMAC_LENGTH_SQLCIPHER SHA512_DIGEST_SIZE
@@ -1555,7 +1555,7 @@ DecryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len,
 
   return rc;
 }
-
+#endif
 
 typedef struct _CodecParameter
 {
@@ -1566,10 +1566,16 @@ typedef struct _CodecParameter
 static CodecParameter globalCodecParameterTable[] =
 {
   { "global",    commonParams },
+#if HAVE_CIPHER_AES_128_CBC
   { "aes128cbc", aes128Params },
+#endif
+#if HAVE_CIPHER_AES_128_CBC
   { "aes256cbc", aes256Params },
+#endif
+#if HAVE_CIPHER_CHACHA20 || HAVE_CIPHER_SQLCIPHER
   { "chacha20",  chacha20Params },
   { "sqlcipher", sqlCipherParams },
+#endif
   { "",          NULL }
 };
 
@@ -1661,6 +1667,7 @@ typedef struct _CodecDescriptor
 
 static CodecDescriptor codecDescriptorTable[] =
 {
+#if HAVE_CIPHER_AES_128_CBC
   /* wxSQLite3 AES 128 bit CBC */
   { "aes128cbc", AllocateAES128Cipher,
                  FreeAES128Cipher,
@@ -1672,6 +1679,8 @@ static CodecDescriptor codecDescriptorTable[] =
                  GenerateKeyAES128Cipher,
                  EncryptPageAES128Cipher,
                  DecryptPageAES128Cipher },
+#endif
+#if HAVE_CIPHER_AES_256_CBC
   /* wxSQLite3 AES 128 bit CBC */
   { "aes256cbc", AllocateAES256Cipher,
                  FreeAES256Cipher,
@@ -1683,6 +1692,8 @@ static CodecDescriptor codecDescriptorTable[] =
                  GenerateKeyAES256Cipher,
                  EncryptPageAES256Cipher,
                  DecryptPageAES256Cipher },
+#endif
+#if HAVE_CIPHER_CHACHA20 || HAVE_CIPHER_SQLCIPHER
   /* ChaCha20 - Poly1305 (including sqleet legacy */
   { "chacha20",  AllocateChaCha20Cipher,
                  FreeChaCha20Cipher,
@@ -1705,6 +1716,7 @@ static CodecDescriptor codecDescriptorTable[] =
                  GenerateKeySQLCipherCipher,
                  EncryptPageSQLCipherCipher,
                  DecryptPageSQLCipherCipher },
+#endif
   { "", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL }
 };
 
