@@ -37,41 +37,18 @@ LT_INIT()
 AC_PROG_CXX
 AC_LANG(C++)
 
-AC_ARG_ENABLE(codec,
-    [  --enable-codec[=<codec type>] Specify the codec type:
-                              aes128: AES 128 Bit CBC Encryption
-                              aes256: AES 256 Bit CBC Encryption
-                              chacha20 [default]: ChaCha20-Poly1305 Encryption
-                              sqlcipher: SQLCipher Encryption],
-    [ if   test "x$enableval" = "xaes128" ; then
-        codec_type=CODEC_TYPE_AES128
-      elif test "x$enableval" = "xaes256" ; then
-        codec_type=CODEC_TYPE_AES256
-      elif test "x$enableval" = "xchacha20" ; then
-        codec_type=CODEC_TYPE_CHACHA20
-      elif test "x$enableval" = "xsqlcipher" ; then
-        codec_type=CODEC_TYPE_SQLCIPHER
-      else
-        echo
-        echo "Error!"
-        echo "Unknown codec type"
-        exit -1
-     fi
-     AC_DEFINE_UNQUOTED([CODEC_TYPE], [$codec_type])
-    ])
-
 AC_ARG_ENABLE(sqlite-debug,
     [  --enable-sqlite-debug  Enable SQLite Debug assertions
                          This is a debugging feature
                          which should usually not be enabled],
-    [ 
+    [
       AC_DEFINE([SQLITE_DEBUG])
     ])
 
 AC_ARG_WITH([aes128cbc],
     [AS_HELP_STRING([--without-aes128cbc],
         [Disable support for AES 128 Bit CBC Encryption])],
-    [], 
+    [],
     [with_aes128cbc=yes])
 
 
@@ -104,6 +81,35 @@ AC_ARG_WITH([sqlcipher],
 
 AS_IF([test "x$with_sqlcipher" = xno],
     [AC_DEFINE([HAVE_CIPHER_SQLCIPHER], [0], [Define if you have SQLCipher disabled])])
+
+AC_ARG_ENABLE(codec,
+    [  --enable-codec[=<codec type>] Specify the codec type:
+                              aes128: AES 128 Bit CBC Encryption
+                              aes256: AES 256 Bit CBC Encryption
+                              chacha20 [default]: ChaCha20-Poly1305 Encryption
+                              sqlcipher: SQLCipher Encryption],
+      [if   test "x$enableval" = "xaes128" && test "x$with_aes128cbc" = xyes ; then
+        codec_type=CODEC_TYPE_AES128
+      elif test "x$enableval" = "xaes256" && test "x$with_aes256cbc" = xyes ; then
+        codec_type=CODEC_TYPE_AES256
+      elif test "x$enableval" = "xchacha20" && test "x$with_chacha20" = xyes ; then
+        codec_type=CODEC_TYPE_CHACHA20
+      elif test "x$enableval" = "xsqlcipher" && test "x$with_sqlcipher" = xyes ; then
+        codec_type=CODEC_TYPE_SQLCIPHER
+      else
+        echo
+        echo "Error!"
+        echo "Unknown or Unsupported codec type"
+        exit -1
+     fi
+     AC_DEFINE_UNQUOTED([CODEC_TYPE], [$codec_type])
+    ])
+
+AS_IF([test "x$with_aes128cbc" = xno &&
+       test "x$with_aes256cbc" = xno &&
+       test "x$with_chacha20" = xno &&
+       test "x$with_sqlcipher" = xno],
+       [AC_DEFINE([SQLITE_HAS_CODEC], [0], [All ciphers disabled so encryption is disabled])])
 
 AC_SUBST(SQLITE3SECURE_LIBNAME, "sqlite3secure")
 AC_SUBST( LIBDIR, "lib" )

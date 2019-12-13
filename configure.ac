@@ -33,14 +33,14 @@ AC_ARG_ENABLE(sqlite-debug,
     [  --enable-sqlite-debug  Enable SQLite Debug assertions
                          This is a debugging feature
                          which should usually not be enabled],
-    [ 
+    [
       AC_DEFINE([SQLITE_DEBUG])
     ])
 
 AC_ARG_WITH([aes128cbc],
     [AS_HELP_STRING([--without-aes128cbc],
         [Disable support for AES 128 Bit CBC Encryption])],
-    [], 
+    [],
     [with_aes128cbc=yes])
 
 
@@ -97,6 +97,12 @@ AC_ARG_ENABLE(codec,
      AC_DEFINE_UNQUOTED([CODEC_TYPE], [$codec_type])
     ])
 
+AS_IF([test "x$with_aes128cbc" = xno &&
+       test "x$with_aes256cbc" = xno &&
+       test "x$with_chacha20" = xno &&
+       test "x$with_sqlcipher" = xno],
+       [AC_DEFINE([WXSQLITE3_HAVE_CODEC], [0], [All ciphers disabled so encryption is disabled])])
+
 dnl We only need the libraries above for the main library itself, but the
 dnl pdfdc sample has additional requirements, check for them too (notice that
 dnl we can't use "--optional-libs" wx-config option to do it all in one check
@@ -133,4 +139,3 @@ AC_CONFIG_LINKS([samples/sqlcipher-1.1.8-testkey.db:samples/sqlcipher-1.1.8-test
 
 AC_CONFIG_FILES([Makefile wxsqlite3.pc])
 AC_OUTPUT
-

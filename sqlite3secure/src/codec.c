@@ -1136,7 +1136,7 @@ DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
 }
 #endif
 /* --- SQLCipher AES256CBC-HMAC cipher --- */
-#if HAVE_CIPHER_SQLCIPHER
+#if HAVE_CIPHER_SQLCIPHER || HAVE_CIPHER_CHACHA20
 #define KEYLENGTH_SQLCIPHER       32
 #define SALTLENGTH_SQLCIPHER      16
 #define MAX_HMAC_LENGTH_SQLCIPHER SHA512_DIGEST_SIZE
