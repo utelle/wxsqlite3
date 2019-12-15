@@ -204,6 +204,7 @@ const err_char_t* wxERRMSG_DBASSIGN_FAILED = wxTRANSLATE("Database assignment fa
 const err_char_t* wxERRMSG_FINALIZE_FAILED = wxTRANSLATE("Finalize failed");
 
 const err_char_t* wxERRMSG_CIPHER_APPLY_FAILED = wxTRANSLATE("Application of cipher failed");
+const err_char_t* wxERRMSG_CIPHER_NOT_SUPPORTED = wxTRANSLATE("Cipher not supported");
 
 const err_char_t* wxERRMSG_INVALID_COLLECTION = wxTRANSLATE("Collection instance not properly initialized");
 
@@ -5975,33 +5976,45 @@ wxSQLite3CipherAes128::~wxSQLite3CipherAes128()
 bool
 wxSQLite3CipherAes128::InitializeFromGlobalDefault()
 {
+#if WXSQLITE3_HAVE_CIPHER_AES_128_CBC
   int legacy = wxsqlite3_config_cipher(0, "aes128cbc", "legacy", -1);
   m_legacy = legacy != 0;
   bool initialized = legacy >= 0;
   SetInitialized(initialized);
   return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 bool
 wxSQLite3CipherAes128::InitializeFromCurrent(wxSQLite3Database& db)
 {
+#if WXSQLITE3_HAVE_CIPHER_AES_128_CBC
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
   int legacy = wxsqlite3_config_cipher(dbHandle, "aes128cbc", "legacy", -1);
   m_legacy = legacy != 0;
   bool initialized = legacy >= 0;
   SetInitialized(initialized);
   return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 bool
 wxSQLite3CipherAes128::InitializeFromCurrentDefault(wxSQLite3Database& db)
 {
+#if WXSQLITE3_HAVE_CIPHER_AES_128_CBC
   sqlite3* dbHandle = (sqlite3*)GetDatabaseHandle(db);
   int legacy = wxsqlite3_config_cipher(dbHandle, "aes128cbc", "default:legacy", -1);
   m_legacy = legacy != 0;
   bool initialized = legacy >= 0;
   SetInitialized(initialized);
   return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 bool
@@ -6013,6 +6026,7 @@ wxSQLite3CipherAes128::Apply(wxSQLite3Database& db) const
 bool
 wxSQLite3CipherAes128::Apply(void* dbHandle) const
 {
+#if WXSQLITE3_HAVE_CIPHER_AES_128_CBC
   bool applied = false;
   if (IsOk())
   {
@@ -6025,6 +6039,9 @@ wxSQLite3CipherAes128::Apply(void* dbHandle) const
     }
   }
   return applied;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 
@@ -6046,17 +6063,22 @@ wxSQLite3CipherAes256::~wxSQLite3CipherAes256()
 bool
 wxSQLite3CipherAes256::InitializeFromGlobalDefault()
 {
+#if WXSQLITE3_HAVE_CIPHER_AES_256_CBC
   int legacy = wxsqlite3_config_cipher(0, "aes256cbc", "legacy", -1);
   m_legacy = legacy != 0;
   m_kdfIter = wxsqlite3_config_cipher(0, "aes256cbc", "kdf_iter", -1);
   bool initialized = legacy >= 0 && m_kdfIter > 0;
   SetInitialized(initialized);
   return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 bool
 wxSQLite3CipherAes256::InitializeFromCurrent(wxSQLite3Database& db)
 {
+#if WXSQLITE3_HAVE_CIPHER_AES_256_CBC
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
   int legacy = wxsqlite3_config_cipher(dbHandle, "aes256cbc", "legacy", -1);
   m_legacy = legacy != 0;
@@ -6064,11 +6086,15 @@ wxSQLite3CipherAes256::InitializeFromCurrent(wxSQLite3Database& db)
   bool initialized = legacy >= 0 && m_kdfIter > 0;
   SetInitialized(initialized);
   return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 bool
 wxSQLite3CipherAes256::InitializeFromCurrentDefault(wxSQLite3Database& db)
 {
+#if WXSQLITE3_HAVE_CIPHER_AES_256_CBC
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
   int legacy = wxsqlite3_config_cipher(dbHandle, "aes256cbc", "default:legacy", -1);
   m_legacy = legacy != 0;
@@ -6076,6 +6102,9 @@ wxSQLite3CipherAes256::InitializeFromCurrentDefault(wxSQLite3Database& db)
   bool initialized = legacy >= 0 && m_kdfIter > 0;
   SetInitialized(initialized);
   return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 bool
@@ -6087,6 +6116,7 @@ wxSQLite3CipherAes256::Apply(wxSQLite3Database& db) const
 bool
 wxSQLite3CipherAes256::Apply(void* dbHandle) const
 {
+#if WXSQLITE3_HAVE_CIPHER_AES_256_CBC
   bool applied = false;
   if (IsOk())
   {
@@ -6100,6 +6130,9 @@ wxSQLite3CipherAes256::Apply(void* dbHandle) const
     }
   }
   return applied;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 wxSQLite3CipherChaCha20::wxSQLite3CipherChaCha20()
@@ -6120,17 +6153,22 @@ wxSQLite3CipherChaCha20::~wxSQLite3CipherChaCha20()
 bool
 wxSQLite3CipherChaCha20::InitializeFromGlobalDefault()
 {
+#if WXSQLITE3_HAVE_CIPHER_CHACHA20
   int legacy = wxsqlite3_config_cipher(0, "chacha20", "legacy", -1);
   m_legacy = legacy != 0;
   m_kdfIter = wxsqlite3_config_cipher(0, "chacha20", "kdf_iter", -1);
   bool initialized = legacy >= 0 && m_kdfIter > 0;
   SetInitialized(initialized);
   return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 bool
 wxSQLite3CipherChaCha20::InitializeFromCurrent(wxSQLite3Database& db)
 {
+#if WXSQLITE3_HAVE_CIPHER_CHACHA20
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
   int legacy = wxsqlite3_config_cipher(dbHandle, "chacha20", "legacy", -1);
   m_legacy = legacy != 0;
@@ -6138,11 +6176,15 @@ wxSQLite3CipherChaCha20::InitializeFromCurrent(wxSQLite3Database& db)
   bool initialized = legacy >= 0 && m_kdfIter > 0;
   SetInitialized(initialized);
   return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 bool
 wxSQLite3CipherChaCha20::InitializeFromCurrentDefault(wxSQLite3Database& db)
 {
+#if WXSQLITE3_HAVE_CIPHER_CHACHA20
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
   int legacy = wxsqlite3_config_cipher(dbHandle, "chacha20", "default:legacy", -1);
   m_legacy = legacy != 0;
@@ -6150,6 +6192,9 @@ wxSQLite3CipherChaCha20::InitializeFromCurrentDefault(wxSQLite3Database& db)
   bool initialized = legacy >= 0 && m_kdfIter > 0;
   SetInitialized(initialized);
   return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 bool
@@ -6161,6 +6206,7 @@ wxSQLite3CipherChaCha20::Apply(wxSQLite3Database& db) const
 bool
 wxSQLite3CipherChaCha20::Apply(void* dbHandle) const
 {
+#if WXSQLITE3_HAVE_CIPHER_CHACHA20
   bool applied = false;
   if (IsOk())
   {
@@ -6174,6 +6220,9 @@ wxSQLite3CipherChaCha20::Apply(void* dbHandle) const
     }
   }
   return applied;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 
@@ -6200,6 +6249,7 @@ wxSQLite3CipherSQLCipher::~wxSQLite3CipherSQLCipher()
 bool
 wxSQLite3CipherSQLCipher::InitializeFromGlobalDefault()
 {
+#if WXSQLITE3_HAVE_CIPHER_SQLCIPHER
   int legacy = wxsqlite3_config_cipher(0, "sqlcipher", "legacy", -1);
   m_legacy = legacy != 0;
   m_legacyVersion = legacy;
@@ -6218,11 +6268,15 @@ wxSQLite3CipherSQLCipher::InitializeFromGlobalDefault()
                      kdfAlgorithm >= 0 && hmacAlgorithm >= 0;
   SetInitialized(initialized);
   return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 bool
 wxSQLite3CipherSQLCipher::InitializeFromCurrent(wxSQLite3Database& db)
 {
+#if WXSQLITE3_HAVE_CIPHER_SQLCIPHER
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
   int legacy = wxsqlite3_config_cipher(dbHandle, "sqlcipher", "legacy", -1);
   m_legacy = legacy != 0;
@@ -6241,11 +6295,15 @@ wxSQLite3CipherSQLCipher::InitializeFromCurrent(wxSQLite3Database& db)
                      kdfAlgorithm >= 0 && hmacAlgorithm >= 0;
   SetInitialized(initialized);
   return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 bool
 wxSQLite3CipherSQLCipher::InitializeFromCurrentDefault(wxSQLite3Database& db)
 {
+#if WXSQLITE3_HAVE_CIPHER_SQLCIPHER
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
   int legacy = wxsqlite3_config_cipher(dbHandle, "sqlcipher", "default:legacy", -1);
   m_legacy = legacy != 0;
@@ -6264,6 +6322,9 @@ wxSQLite3CipherSQLCipher::InitializeFromCurrentDefault(wxSQLite3Database& db)
                      kdfAlgorithm >= 0 && hmacAlgorithm >= 0;
   SetInitialized(initialized);
   return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 bool
@@ -6275,6 +6336,7 @@ wxSQLite3CipherSQLCipher::Apply(wxSQLite3Database& db) const
 bool
 wxSQLite3CipherSQLCipher::Apply(void* dbHandle) const
 {
+#if WXSQLITE3_HAVE_CIPHER_SQLCIPHER
   bool applied = false;
   if (IsOk())
   {
@@ -6297,11 +6359,15 @@ wxSQLite3CipherSQLCipher::Apply(void* dbHandle) const
     }
   }
   return applied;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
 
 void
 wxSQLite3CipherSQLCipher::InitializeVersionDefault(int version)
 {
+#if WXSQLITE3_HAVE_CIPHER_SQLCIPHER
   switch (version)
   {
     case 1:
@@ -6354,4 +6420,7 @@ wxSQLite3CipherSQLCipher::InitializeVersionDefault(int version)
       SetLegacyPageSize(4096);
       break;
   }
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
 }
