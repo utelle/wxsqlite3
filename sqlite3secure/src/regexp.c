@@ -156,7 +156,7 @@ static unsigned re_next_char(ReInput *p){
            && (p->z[p->i+1]&0xc0)==0x80 ){
       c = (c&0x0f)<<12 | ((p->z[p->i]&0x3f)<<6) | (p->z[p->i+1]&0x3f);
       p->i += 2;
-      if( c<=0x3ff || (c>=0xd800 && c<=0xdfff) ) c = 0xfffd;
+      if( c<=0x7ff || (c>=0xd800 && c<=0xdfff) ) c = 0xfffd;
     }else if( (c&0xf8)==0xf0 && p->i+3<p->mx && (p->z[p->i]&0xc0)==0x80
            && (p->z[p->i+1]&0xc0)==0x80 && (p->z[p->i+2]&0xc0)==0x80 ){
       c = (c&0x07)<<18 | ((p->z[p->i]&0x3f)<<12) | ((p->z[p->i+1]&0x3f)<<6)
@@ -610,7 +610,7 @@ static const char *re_subcompile_string(ReCompiled *p){
 ** regular expression.  Applications should invoke this routine once
 ** for every call to re_compile() to avoid memory leaks.
 */
-void re_free(ReCompiled *pRe){
+static void re_free(ReCompiled *pRe){
   if( pRe ){
     sqlite3_free(pRe->aOp);
     sqlite3_free(pRe->aArg);
@@ -624,7 +624,7 @@ void re_free(ReCompiled *pRe){
 ** compiled regular expression in *ppRe.  Return NULL on success or an
 ** error message if something goes wrong.
 */
-const char *re_compile(ReCompiled **ppRe, const char *zIn, int noCase){
+static const char *re_compile(ReCompiled **ppRe, const char *zIn, int noCase){
   ReCompiled *pRe;
   const char *zErr;
   int i, j;
@@ -754,7 +754,7 @@ int sqlite3_regexp_init(
 ){
   int rc = SQLITE_OK;
   SQLITE_EXTENSION_INIT2(pApi);
-  rc = sqlite3_create_function(db, "regexp", 2, SQLITE_UTF8, 0,
-                                 re_sql_func, 0, 0);
+  rc = sqlite3_create_function(db, "regexp", 2, SQLITE_UTF8|SQLITE_INNOCUOUS,
+                               0, re_sql_func, 0, 0);
   return rc;
 }

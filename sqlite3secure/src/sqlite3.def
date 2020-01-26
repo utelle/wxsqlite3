@@ -98,6 +98,9 @@ sqlite3_expired
 sqlite3_extended_errcode
 sqlite3_extended_result_codes
 sqlite3_file_control
+sqlite3_filename_database
+sqlite3_filename_journal
+sqlite3_filename_wal
 sqlite3_finalize
 sqlite3_free
 sqlite3_free_table
@@ -105,6 +108,7 @@ sqlite3_get_autocommit
 sqlite3_get_auxdata
 sqlite3_get_table
 sqlite3_global_recover
+sqlite3_hard_heap_limit64
 sqlite3_initialize
 sqlite3_interrupt
 sqlite3_key
@@ -221,6 +225,7 @@ sqlite3_transfer_bindings
 sqlite3_update_hook
 sqlite3_uri_boolean
 sqlite3_uri_int64
+sqlite3_uri_key
 sqlite3_uri_parameter
 sqlite3_user_data
 sqlite3_user_add
