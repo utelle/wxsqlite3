@@ -1,6 +1,6 @@
 # Release notes
 
-October 13, 2019
+January 26, 2020
 
 The SQLite3 shell applications are now compatible with the official
 SQLite3 shell in respect to the compile time options
