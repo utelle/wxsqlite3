@@ -1,6 +1,6 @@
 # Process this file with automake to create Makefile.in for wxsqlite3 library
 #
-# Copyright (C) 2017-2018 Ulrich Telle <ulrich@telle-online.de>, Vadim Zeitlin <vadim@wxwidgets.org>
+# Copyright (C) 2017-2020 Ulrich Telle <ulrich@telle-online.de>, Vadim Zeitlin <vadim@wxwidgets.org>
 #
 # This file is covered by the same licence as the entire wxSQLite3 package.
 

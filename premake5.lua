@@ -1,6 +1,6 @@
 -- wxSQLite3 configuration file for premake5
 --
--- Copyright (C) 2017-2018 Ulrich Telle <ulrich@telle-online.de>
+-- Copyright (C) 2017-2020 Ulrich Telle <ulrich@telle-online.de>
 --
 -- This file is covered by the same licence as the entire wxsqlite3 package. 
 
@@ -73,6 +73,7 @@ project "wxsqlite3"
     "SQLITE_ENABLE_CARRAY",
     "SQLITE_ENABLE_FILEIO",
     "SQLITE_ENABLE_SERIES",
+    "SQLITE_ENABLE_UID",
     "SQLITE_TEMP_STORE=2",
     "SQLITE_USE_URI",
     "SQLITE_USER_AUTHENTICATION"

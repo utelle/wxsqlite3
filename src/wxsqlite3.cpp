@@ -3887,17 +3887,14 @@ wxString wxSQLite3Database::GetCompileOptionName(int optionIndex)
 #endif
 }
 
-bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, wxSQLite3ScalarFunction& function, bool isDeterministic)
+bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, wxSQLite3ScalarFunction& function, int functionFlags)
 {
   CheckDatabase();
   wxCharBuffer strFuncName = funcName.ToUTF8();
   const char* localFuncName = strFuncName;
   int flags = SQLITE_UTF8;
 #if SQLITE_VERSION_NUMBER >= 3008003
-  if (isDeterministic)
-  {
-    flags |= SQLITE_DETERMINISTIC;
-  }
+  flags |= functionFlags;
 #endif
   int rc = sqlite3_create_function(m_db->m_db, localFuncName, argCount,
                                    flags, &function,
@@ -3905,17 +3902,14 @@ bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, w
   return rc == SQLITE_OK;
 }
 
-bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, wxSQLite3AggregateFunction& function, bool isDeterministic)
+bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, wxSQLite3AggregateFunction& function, int functionFlags)
 {
   CheckDatabase();
   wxCharBuffer strFuncName = funcName.ToUTF8();
   const char* localFuncName = strFuncName;
   int flags = SQLITE_UTF8;
 #if SQLITE_VERSION_NUMBER >= 3008003
-  if (isDeterministic)
-  {
-    flags |= SQLITE_DETERMINISTIC;
-  }
+  flags |= functionFlags;
 #endif
   int rc = sqlite3_create_function(m_db->m_db, localFuncName, argCount,
                                    flags, &function,
@@ -3925,17 +3919,13 @@ bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, w
   return rc == SQLITE_OK;
 }
 
-bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, wxSQLite3WindowFunction& function, bool isDeterministic)
+bool wxSQLite3Database::CreateFunction(const wxString& funcName, int argCount, wxSQLite3WindowFunction& function, int functionFlags)
 {
 #if SQLITE_VERSION_NUMBER >= 3025000
   CheckDatabase();
   wxCharBuffer strFuncName = funcName.ToUTF8();
   const char* localFuncName = strFuncName;
-  int flags = SQLITE_UTF8;
-  if (isDeterministic)
-  {
-    flags |= SQLITE_DETERMINISTIC;
-  }
+  int flags = SQLITE_UTF8 | functionFlags;
   int rc = sqlite3_create_window_function(m_db->m_db, localFuncName, argCount,
                                           flags, &function,
                                           (void(*)(sqlite3_context*, int, sqlite3_value**)) wxSQLite3FunctionContext::ExecWindowStep,

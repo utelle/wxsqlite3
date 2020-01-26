@@ -97,7 +97,10 @@ enum wxSQLite3StatementStatus
   WXSQLITE_STMTSTATUS_FULLSCAN_STEP = 1,
   WXSQLITE_STMTSTATUS_SORT          = 2,
   WXSQLITE_STMTSTATUS_AUTOINDEX     = 3,
-  WXSQLITE_STMTSTATUS_VM_STEP       = 4
+  WXSQLITE_STMTSTATUS_VM_STEP       = 4,
+  WXSQLITE_STMTSTATUS_REPREPARE     = 5,
+  WXSQLITE_STMTSTATUS_RUN           = 6,
+  WXSQLITE_STMTSTATUS_MEMUSED       = 99
 };
 
 #define WXSQLITE_OPEN_READONLY         0x00000001
@@ -109,11 +112,17 @@ enum wxSQLite3StatementStatus
 #define WXSQLITE_OPEN_FULLMUTEX        0x00010000
 #define WXSQLITE_OPEN_SHAREDCACHE      0x00020000
 #define WXSQLITE_OPEN_PRIVATECACHE     0x00040000
-
+#define WXSQLITE_OPEN_NOFOLLOW         0x01000000
+ 
 #define WXSQLITE_CHECKPOINT_PASSIVE  0
 #define WXSQLITE_CHECKPOINT_FULL     1
 #define WXSQLITE_CHECKPOINT_RESTART  2
 #define WXSQLITE_CHECKPOINT_TRUNCATE 3
+
+#define WXSQLITE_DETERMINISTIC    0x000000800
+#define WXSQLITE_DIRECTONLY       0x000080000
+#define WXSQLITE_SUBTYPE          0x000100000
+#define WXSQLITE_INNOCUOUS        0x000200000
 
 inline void operator++(wxSQLite3LimitType& value)
 {
@@ -3181,11 +3190,12 @@ public:
   * \param argCount number of arguments the scalar function takes.
   *                 If this argument is -1 then the scalar function may take any number of arguments.
   * \param function instance of an scalar function
-  * \param isDeterministic signals whether the function will always return the same result
-  *                        for the same input within a single SQL statement. (Default: false)
+  * \param flags    specifies a combination of function flags (WXSQLITE_DETERMINISTIC, WXSQLITE_DIRECTONLY,
+  *                 WXSQLITE_SUBTYPE, WXSQLITE_INNOCUOUS). (Default: none)
+  *                 (see https://www.sqlite.org/c3ref/c_deterministic.html for detailed explanations
   * \return TRUE on successful registration, FALSE otherwise
   */
-  bool CreateFunction(const wxString& funcName, int argCount, wxSQLite3ScalarFunction& function, bool isDeterministic = false);
+  bool CreateFunction(const wxString& funcName, int argCount, wxSQLite3ScalarFunction& function, int flags = 0);
 
   /// Create a user-defined aggregate function
   /**
@@ -3194,11 +3204,12 @@ public:
   * \param argCount number of arguments the aggregate function takes.
   *                 If this argument is -1 then the aggregate function may take any number of arguments.
   * \param function instance of an aggregate function
-  * \param isDeterministic signals whether the function will always return the same result
-  *                        for the same input within a single SQL statement. (Default: false)
+  * \param flags    specifies a combination of function flags (WXSQLITE_DETERMINISTIC, WXSQLITE_DIRECTONLY,
+  *                 WXSQLITE_SUBTYPE, WXSQLITE_INNOCUOUS). (Default: none)
+  *                 (see https://www.sqlite.org/c3ref/c_deterministic.html for detailed explanations
   * \return TRUE on successful registration, FALSE otherwise
   */
-  bool CreateFunction(const wxString& funcName, int argCount, wxSQLite3AggregateFunction& function, bool isDeterministic = false);
+  bool CreateFunction(const wxString& funcName, int argCount, wxSQLite3AggregateFunction& function, int flags = 0);
 
   /// Create a user-defined aggregate window function
   /**
@@ -3207,11 +3218,12 @@ public:
   * \param argCount number of arguments the aggregate window function takes.
   *                 If this argument is -1 then the aggregate function may take any number of arguments.
   * \param function instance of an aggregate window function
-  * \param isDeterministic signals whether the function will always return the same result
-  *                        for the same input within a single SQL statement. (Default: false)
+  * \param flags    specifies a combination of function flags (WXSQLITE_DETERMINISTIC, WXSQLITE_DIRECTONLY,
+  *                 WXSQLITE_SUBTYPE, WXSQLITE_INNOCUOUS). (Default: none)
+  *                 (see https://www.sqlite.org/c3ref/c_deterministic.html for detailed explanations
   * \return TRUE on successful registration, FALSE otherwise
   */
-  bool CreateFunction(const wxString& funcName, int argCount, wxSQLite3WindowFunction& function, bool isDeterministic = false);
+  bool CreateFunction(const wxString& funcName, int argCount, wxSQLite3WindowFunction& function, int flags = 0);
 
   /// Create a user-defined authorizer function
   /**

@@ -51,7 +51,7 @@ BEGIN
       VALUE "FileDescription", "wxSQLite3"
       VALUE "FileVersion", WXSQLITE3_VERSION_NUM_DOT_STRING
       VALUE "InternalName", WXSQLITE3_STRINGIZE(WXSQLITE3_DLLNAME) ".dll"
-      VALUE "LegalCopyright", "Copyright (C) 2005-2018, Ulrich Telle"
+      VALUE "LegalCopyright", "Copyright (C) 2005-2020, Ulrich Telle"
       VALUE "OriginalFilename", WXSQLITE3_STRINGIZE(WXSQLITE3_DLLNAME) ".dll"
       VALUE "ProductName", "wxSQLite3"
       VALUE "ProductVersion", WXSQLITE3_VERSION_NUM_DOT_STRING
