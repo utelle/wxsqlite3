@@ -20,7 +20,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">4.4.8</span>
+   &#160;<span id="projectnumber">4.5.0</span>
    </div>
   </td>
  </tr>
@@ -137,6 +137,9 @@ $(function() {
 <li>wxERRMSG_CIPHER_APPLY_FAILED
 : <a class="el" href="wxsqlite3_8cpp.html#a43e7be0336018cc588862f36b7fe7db0">wxsqlite3.cpp</a>
 </li>
+<li>wxERRMSG_CIPHER_NOT_SUPPORTED
+: <a class="el" href="wxsqlite3_8cpp.html#af12712fe5aa83dc2d94a7af0752e2ae3">wxsqlite3.cpp</a>
+</li>
 <li>wxERRMSG_DBASSIGN_FAILED
 : <a class="el" href="wxsqlite3_8cpp.html#a34a149be72e8f65208e98e7df1ba28be">wxsqlite3.cpp</a>
 </li>
@@ -233,6 +236,18 @@ $(function() {
 <li>wxsqlite3_config_cipher()
 : <a class="el" href="wxsqlite3_8cpp.html#af4c6b4eb2881bea1cd0149755e2ec352">wxsqlite3.cpp</a>
 </li>
+<li>WXSQLITE3_HAVE_CIPHER_AES_128_CBC
+: <a class="el" href="wxsqlite3opt_8h.html#a672d926a3cb25ba88dba72d81fc878b1">wxsqlite3opt.h</a>
+</li>
+<li>WXSQLITE3_HAVE_CIPHER_AES_256_CBC
+: <a class="el" href="wxsqlite3opt_8h.html#ad418175e1f1adf9a90a3c2c47fffb2a4">wxsqlite3opt.h</a>
+</li>
+<li>WXSQLITE3_HAVE_CIPHER_CHACHA20
+: <a class="el" href="wxsqlite3opt_8h.html#a6bb93b1008c8e4e39d44dc470b29fa1e">wxsqlite3opt.h</a>
+</li>
+<li>WXSQLITE3_HAVE_CIPHER_SQLCIPHER
+: <a class="el" href="wxsqlite3opt_8h.html#a700d604cfe7a485e672f82633fe9521d">wxsqlite3opt.h</a>
+</li>
 <li>WXSQLITE3_HAVE_LOAD_EXTENSION
 : <a class="el" href="wxsqlite3opt_8h.html#a9b7bf2974f571aa3598d3723e595a57d">wxsqlite3opt.h</a>
 </li>
@@ -314,11 +329,20 @@ $(function() {
 <li>WXSQLITE_CIPHER_UNKNOWN
 : <a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8ae0dc1072a0e87129f8fa45e68b76e5f1">wxsqlite3.h</a>
 </li>
+<li>WXSQLITE_DETERMINISTIC
+: <a class="el" href="wxsqlite3_8h.html#a2f4b3f24ea5a45684cef9d95344897b2">wxsqlite3.h</a>
+</li>
+<li>WXSQLITE_DIRECTONLY
+: <a class="el" href="wxsqlite3_8h.html#ad49f8bab61d2d13ec1aae629045e3ddd">wxsqlite3.h</a>
+</li>
 <li>WXSQLITE_ERROR
 : <a class="el" href="wxsqlite3_8h.html#a38c517d13ae7fb3bdff2e93896d78b7a">wxsqlite3.h</a>
 </li>
 <li>WXSQLITE_FLOAT
 : <a class="el" href="wxsqlite3_8h.html#a6461668ec51a5afef3324f2245d8adf1">wxsqlite3.h</a>
+</li>
+<li>WXSQLITE_INNOCUOUS
+: <a class="el" href="wxsqlite3_8h.html#a3d61be2be227ec733330035d658f5204">wxsqlite3.h</a>
 </li>
 <li>wxsqlite_int64
 : <a class="el" href="wxsqlite3_8h.html#a861d8a16f5c18e7a6bfbc5f7405108c1">wxsqlite3.h</a>
@@ -392,6 +416,9 @@ $(function() {
 <li>WXSQLITE_OPEN_MEMORY
 : <a class="el" href="wxsqlite3_8h.html#acb475c46a785d5cee9266660da166e88">wxsqlite3.h</a>
 </li>
+<li>WXSQLITE_OPEN_NOFOLLOW
+: <a class="el" href="wxsqlite3_8h.html#a5a9313c3b4146d8febbd1f8b32e5860e">wxsqlite3.h</a>
+</li>
 <li>WXSQLITE_OPEN_NOMUTEX
 : <a class="el" href="wxsqlite3_8h.html#ae2cab02d9c49c8347840046d66009bb8">wxsqlite3.h</a>
 </li>
@@ -416,11 +443,23 @@ $(function() {
 <li>WXSQLITE_STMTSTATUS_FULLSCAN_STEP
 : <a class="el" href="wxsqlite3_8h.html#ae8ec729633cb94b85468fba5b91936eeacaf2d41bdc4663f2150731ffab2ce549">wxsqlite3.h</a>
 </li>
+<li>WXSQLITE_STMTSTATUS_MEMUSED
+: <a class="el" href="wxsqlite3_8h.html#ae8ec729633cb94b85468fba5b91936eeabc8fe09f5fd1e01177948c34bff8f0e5">wxsqlite3.h</a>
+</li>
+<li>WXSQLITE_STMTSTATUS_REPREPARE
+: <a class="el" href="wxsqlite3_8h.html#ae8ec729633cb94b85468fba5b91936eea9dc206619cdd11b303edcfb7d4d5d8c6">wxsqlite3.h</a>
+</li>
+<li>WXSQLITE_STMTSTATUS_RUN
+: <a class="el" href="wxsqlite3_8h.html#ae8ec729633cb94b85468fba5b91936eeaa02cf23588b7b97106ed4d088a35d02a">wxsqlite3.h</a>
+</li>
 <li>WXSQLITE_STMTSTATUS_SORT
 : <a class="el" href="wxsqlite3_8h.html#ae8ec729633cb94b85468fba5b91936eeaaf8ab15ef1b2aac6e25116de530c69ea">wxsqlite3.h</a>
 </li>
 <li>WXSQLITE_STMTSTATUS_VM_STEP
 : <a class="el" href="wxsqlite3_8h.html#ae8ec729633cb94b85468fba5b91936eea071cb99bfcf88da8dbae0bbecdd7a360">wxsqlite3.h</a>
+</li>
+<li>WXSQLITE_SUBTYPE
+: <a class="el" href="wxsqlite3_8h.html#a2b9f5d48083a85953d10ca8c04be6d2b">wxsqlite3.h</a>
 </li>
 <li>WXSQLITE_TEXT
 : <a class="el" href="wxsqlite3_8h.html#add160b782b9342cfd748b91021b31c7f">wxsqlite3.h</a>
@@ -444,7 +483,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 13 2019 22:11:39 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 26 2020 21:26:11 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>
