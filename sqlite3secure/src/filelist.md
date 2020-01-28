@@ -82,6 +82,7 @@ The following files belong to **SQLite3** extensions contained in the official *
 | shathree.c        | Functions computing SHA3 hashes |
 | sqlite3userauth.h | Header for user-authentication extension feature |
 | userauth.c        | User-authentication extension feature (modified password hash function) |
+| uuid.c            | Functions handling RFC-4122 UUIDs |
 
 All files are in the public domain.
 

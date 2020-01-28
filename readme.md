@@ -40,6 +40,8 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
+* 4.5.1 - *January 2020*
+  - Upgrade to SQLite version 3.31.1
 * 4.5.0 - *January 2020*
   - Upgrade to SQLite version 3.31.0
   - Modified API for wxSQLite3Database::CreateFunction methods
