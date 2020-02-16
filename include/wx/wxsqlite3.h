@@ -37,7 +37,8 @@ enum wxSQLite3CipherType
   WXSQLITE_CIPHER_AES128,
   WXSQLITE_CIPHER_AES256,
   WXSQLITE_CIPHER_CHACHA20,
-  WXSQLITE_CIPHER_SQLCIPHER
+  WXSQLITE_CIPHER_SQLCIPHER,
+  WXSQLITE_CIPHER_RC4
 };
 
 #define WXSQLITE_ERROR 1000
@@ -1148,6 +1149,66 @@ private:
   int  m_hmacSaltMask;  ///< Salt mask for HMAC calculation
   Algorithm m_kdfAlgorithm;  ///< KDF algorithm
   Algorithm m_hmacAlgorithm; ///< HMAC algorithm
+};
+
+/// Cipher class representing RC4 encryption (System.Data.SQLite)
+class WXDLLIMPEXP_SQLITE3 wxSQLite3CipherRC4 : public wxSQLite3Cipher
+{
+public:
+  /// Constructor
+  wxSQLite3CipherRC4();
+
+  /// Copy constructor
+  wxSQLite3CipherRC4(const wxSQLite3CipherRC4& cipher);
+
+  /// Destructor
+  virtual ~wxSQLite3CipherRC4();
+
+  /// Initialize the cipher instance based on global default settings
+  /**
+  * The parameters of the cipher instance are initialize with the global default settings of the associated cipher type.
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromGlobalDefault();
+
+  /// Initialize the cipher instance based on current settings
+  /**
+  * The parameters of the cipher instance are initialize with the current settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrent(wxSQLite3Database& db);
+
+  /// Initialize the cipher instance based on current default settings
+  /**
+  * The parameters of the cipher instance are initialize with the current default settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrentDefault(wxSQLite3Database& db);
+
+  /// Apply the cipher parameters to a database connection
+  /**
+  * The parameters of the cipher instance are applied to the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher parameters could be applied successfully, false otherwise
+  */
+  virtual bool Apply(wxSQLite3Database& db) const;
+  virtual bool Apply(void* dbHandle) const;
+
+#if 0
+  // Currently no non-legacy mode available
+  /// Set legacy mode
+  void SetLegacy(bool legacy) { m_legacy = legacy; }
+#endif
+
+  /// Get legacy mode
+  bool GetLegacy() const { return m_legacy; }
+
+private:
+  bool m_legacy; ///< Flag for legacy mode
 };
 
 

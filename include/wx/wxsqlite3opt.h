@@ -80,4 +80,11 @@
 #define WXSQLITE3_HAVE_CIPHER_SQLCIPHER 1
 #endif
 
+//! To disable support for RC4 Encryption define WXSQLITE3_HAVE_CIPHER_RC4 as 0 here.
+//! Attention: if WXSQLITE3_HAVE_CIPHER_RC4 is defined as 1 (default SQLite needs to be
+//! compiled with HAVE_CIPHER_RC4 for this to work
+#ifndef WXSQLITE3_HAVE_CIPHER_RC4
+#define WXSQLITE3_HAVE_CIPHER_RC4 1
+#endif
+
 #endif // _WX_SQLITE3_OPT_H_

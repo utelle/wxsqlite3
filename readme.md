@@ -27,6 +27,7 @@ Currently the following encryption schemes are supported:
 - AES 256 Bit CBC - No HMAC (wxSQLite3)
 - ChaCha20 - Poly1305 HMAC (sqleet)
 - AES 256 Bit CBC - SHA1/SHA256/SHA512 HMAC (SQLCipher) 
+- RC4 - No HMAC (System.Data.SQLite)
 
 ## Table of Contents
 
@@ -40,6 +41,8 @@ Currently the following encryption schemes are supported:
 
 ## <a name="history"></a>Version history
 
+* 4.6.0 - *February 2020*
+  - Added support for System.Data.SQLite's RC4 encryption
 * 4.5.1 - *January 2020*
   - Upgrade to SQLite version 3.31.1
 * 4.5.0 - *January 2020*

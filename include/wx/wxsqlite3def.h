@@ -44,6 +44,11 @@
 
 <dl>
 
+<dt><b>4.6.0</b> - <i>February 2020</i></dt>
+<dd>
+Added support for System.Data.SQLite's RC4 encryption<br>
+
+</dd>
 <dt><b>4.5.1</b> - <i>January 2020</i></dt>
 <dd>
 Upgrade to SQLite version 3.31.1<br>

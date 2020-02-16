@@ -5848,6 +5848,7 @@ wxSQLite3Cipher::GetCipherName(wxSQLite3CipherType cipherType)
   case WXSQLITE_CIPHER_AES256:    cipherName = wxS("aes256cbc"); break;
   case WXSQLITE_CIPHER_CHACHA20:  cipherName = wxS("chacha20");  break;
   case WXSQLITE_CIPHER_SQLCIPHER: cipherName = wxS("sqlcipher"); break;
+  case WXSQLITE_CIPHER_RC4:       cipherName = wxS("rc4"); break;
   default:                        cipherName = wxS("unknown");   break;
   }
   return cipherName;
@@ -5857,10 +5858,11 @@ wxSQLite3CipherType
 wxSQLite3Cipher::GetCipherType(const wxString& cipherName)
 {
   wxSQLite3CipherType cipherType;
-  if (cipherName.IsSameAs(wxS("aes128cbc"), false)) cipherType = WXSQLITE_CIPHER_AES128;
+  if (cipherName.IsSameAs(wxS("aes128cbc"), false))      cipherType = WXSQLITE_CIPHER_AES128;
   else if (cipherName.IsSameAs(wxS("aes256cbc"), false)) cipherType = WXSQLITE_CIPHER_AES256;
-  else if (cipherName.IsSameAs(wxS("chacha20"), false)) cipherType = WXSQLITE_CIPHER_CHACHA20;
+  else if (cipherName.IsSameAs(wxS("chacha20"), false))  cipherType = WXSQLITE_CIPHER_CHACHA20;
   else if (cipherName.IsSameAs(wxS("sqlcipher"), false)) cipherType = WXSQLITE_CIPHER_SQLCIPHER;
+  else if (cipherName.IsSameAs(wxS("rc4"), false))       cipherType = WXSQLITE_CIPHER_RC4;
   else                                                   cipherType = WXSQLITE_CIPHER_UNKNOWN;
   return cipherType;
 }
@@ -6410,6 +6412,92 @@ wxSQLite3CipherSQLCipher::InitializeVersionDefault(int version)
       SetLegacyPageSize(4096);
       break;
   }
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
+}
+
+wxSQLite3CipherRC4::wxSQLite3CipherRC4()
+  : wxSQLite3Cipher(WXSQLITE_CIPHER_RC4), m_legacy(true)
+{
+  SetInitialized(true);
+}
+
+wxSQLite3CipherRC4::wxSQLite3CipherRC4(const wxSQLite3CipherRC4&  cipher)
+  : wxSQLite3Cipher(cipher), m_legacy(cipher.m_legacy)
+{
+}
+
+wxSQLite3CipherRC4::~wxSQLite3CipherRC4()
+{
+}
+
+bool
+wxSQLite3CipherRC4::InitializeFromGlobalDefault()
+{
+#if WXSQLITE3_HAVE_CIPHER_RC4
+  int legacy = wxsqlite3_config_cipher(0, "rc4", "legacy", -1);
+  m_legacy = legacy != 0;
+  bool initialized = legacy >= 0;
+  SetInitialized(initialized);
+  return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
+}
+
+bool
+wxSQLite3CipherRC4::InitializeFromCurrent(wxSQLite3Database& db)
+{
+#if WXSQLITE3_HAVE_CIPHER_RC4
+  sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
+  int legacy = wxsqlite3_config_cipher(dbHandle, "rc4", "legacy", -1);
+  m_legacy = legacy != 0;
+  bool initialized = legacy >= 0;
+  SetInitialized(initialized);
+  return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
+}
+
+bool
+wxSQLite3CipherRC4::InitializeFromCurrentDefault(wxSQLite3Database& db)
+{
+#if WXSQLITE3_HAVE_CIPHER_RC4
+  sqlite3* dbHandle = (sqlite3*)GetDatabaseHandle(db);
+  int legacy = wxsqlite3_config_cipher(dbHandle, "rc4", "default:legacy", -1);
+  m_legacy = legacy != 0;
+  bool initialized = legacy >= 0;
+  SetInitialized(initialized);
+  return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
+}
+
+bool
+wxSQLite3CipherRC4::Apply(wxSQLite3Database& db) const
+{
+  return Apply(GetDatabaseHandle(db));
+}
+
+bool
+wxSQLite3CipherRC4::Apply(void* dbHandle) const
+{
+#if WXSQLITE3_HAVE_CIPHER_RC4
+  bool applied = false;
+  if (IsOk())
+  {
+    if (dbHandle != NULL)
+    {
+      int newCipherType = wxsqlite3_config((sqlite3*) dbHandle, "cipher", GetCipherType());
+      int legacy = wxsqlite3_config_cipher((sqlite3*) dbHandle, "rc4", "legacy", (m_legacy) ? 1 : 0);
+      int legacyPageSize = wxsqlite3_config_cipher((sqlite3*) dbHandle, "rc4", "legacy_page_size", GetLegacyPageSize());
+      applied = (legacy >= 0) && (legacyPageSize >= 0);
+    }
+  }
+  return applied;
 #else
   throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
 #endif
