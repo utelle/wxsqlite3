@@ -13,6 +13,7 @@ This document describes the SQLite3 encryption extension provided by wxSQLite3. 
   - [wxSQLite3: AES 256 Bit CBC - No HMAC](#cipher_aes256cbc)
   - [sqleet: ChaCha20 - Poly1305 HMAC](#cipher_chacha20)
   - [SQLCipher: AES 256 Bit CBC - SHA1/SHA256/SHA512 HMAC](#cipher_sqlcipher)
+  - [System.Data.SQLite: RC4](#cipher_rc4)
 - [Legacy cipher modes](#legacy)
 - [Encryption API](#encryptionapi)
   - [Overview](#encryption_overview)
@@ -90,6 +91,7 @@ The following ciphers are currently supported by **wxSQLite3**:
 - [AES 256 Bit CBC - No HMAC (wxSQLite3)](#cipher_aes256cbc)
 - [ChaCha20 - Poly1305 HMAC (sqleet)](#cipher_chacha20)
 - [AES 256 Bit CBC - SHA1/SHA256/SHA512 HMAC (SQLCipher)](#cipher_sqlcipher)
+- [RC4 - No HMAC (System.Data.SQLite)](#cipher_rc4)
 
 Definition of abbreviations:
 
@@ -101,6 +103,7 @@ Definition of abbreviations:
 - SHA1 = Secure Hash Algorithm 1
 - SHA256 = Secure Hash Algorithm 2 (256 bit hash)
 - SHA512 = Secure Hash Algorithm 2 (512 bit hash)
+- RC4 = Rivest Cipher 4 stream cipher developed by Ron Rivest for RSA Security
 
 ### <a name="cipher_aes128cbc"/>wxSQLite3: AES 128 Bit CBC - No HMAC
 
@@ -189,6 +192,23 @@ The following table lists all parameters related to this cipher that can be set 
 **Note**: It is not recommended to use _legacy_ mode for encrypting new databases. It is supported for compatibility reasons only, so that databases that were encrypted in _legacy_ mode can be accessed. However, the default _legacy_ mode for the various SQLCipher versions can be easily set using just the parameter `legacy` set to the requested version number. That is, all other parameters have to be specified only, if their requested value deviates from the default value.
 
 **Note**: Version 4 of SQLCipher introduces a new parameter `plain_text_header_size` to overcome an issue with shared encrypted databases under **iOS**. If this parameter is set to a non-zero value (like 16 or 32), the corresponding number of bytes at the beginning of the database header are not encrypted allowing **iOS** to identify the file as a SQLite database file. The drawback of this approach is that the cipher salt used for the key derivation can't be stored in the database header any longer. Therefore it is necessary to retrieve the cipher salt on creating a new database, and to specify the salt on opening an existing database. The cipher salt can be retrieved with the function `wxsqlite3_codec_data` using parameter `cipher_salt`, and has to be supplied on opening a database via the database URI parameter `cipher_salt`.
+
+### <a name="cipher_rc4"/> System.Data.SQLite: RC4 - No HMAC
+
+This cipher is included with [System.Data.SQLite](http://system.data.sqlite.org), an ADO.NET provider for SQLite. It provides a 128 bit RC4 encryption. This encryption scheme has been added to **wxSQLite3** in early 2020 to allow cross-platform access to databases created with _System.Data.SQLite_ based applications.
+
+The encryption key is derived from the passphrase using an SHA1 hash function.
+
+The cipher does not use a Hash Message Authentication Code (HMAC), and requires therefore no reserved bytes per database page.
+
+The following table lists all parameters related to this cipher that can be set before activating database encryption.
+
+| Parameter | Default | Min | Max | Description |
+| :--- | :---: | :---: | :---: | :--- |
+| `legacy` | 1 | 1 | 1 | Boolean flag whether the legacy mode should be used |
+| `legacy_page_size` | 0 | 0 | 65536 | Page size to use in legacy mode, 0 = default SQLite page size |
+
+**Note**: It is not recommended to use _legacy_ mode for encrypting new databases. It is supported for compatibility reasons only, so that databases that were encrypted in _legacy_ mode can be accessed. Currently no non-legacy mode is implemented and it is not intended to implement one in the future, because RC4 encryption has known weaknesses (for example, the use of RC4 in TLS was prohibited by RFC 7465 published in February 2015). **The use of this cipher scheme for new applications is strongly discouraged.**
 
 ## <a name="legacy" /> Legacy cipher modes
 
@@ -359,6 +379,7 @@ The following cipher names are supported for `cipherName`:
 | `aes256cbc` | `CODEC_TYPE_AES256` (Cipher ID 2) | [AES 256 Bit CBC - No HMAC (wxSQLite3)](#cipher_aes256cbc) |
 | `chacha20`  | `CODEC_TYPE_CHACHA20` (Cipher ID 3) | [ChaCha20 - Poly1305 HMAC (sqleet)](#cipher_chacha20) |
 | `sqlcipher` | `CODEC_TYPE_SQLCIPHER` (Cipher ID 4) | [AES 256 Bit CBC - SHA1 HMAC (SQLCipher)](#cipher_sqlcipher) |
+| `rc4`       | `CODEC_TYPE_RC4` (Cipher ID 5) | [RC4 (System.Data.SQLite)](#cipher_rc4) |
 
 The return value always is the current parameter value on success, or **-1** on failure.
 

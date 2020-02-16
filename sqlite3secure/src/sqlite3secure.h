@@ -18,7 +18,8 @@
 #define CODEC_TYPE_AES256    2
 #define CODEC_TYPE_CHACHA20  3
 #define CODEC_TYPE_SQLCIPHER 4
-#define CODEC_TYPE_MAX       4
+#define CODEC_TYPE_RC4       5
+#define CODEC_TYPE_MAX       5
 
 #ifdef WXSQLITE3_HAVE_CODEC
 #undef SQLITE_HAS_CODEC
@@ -60,6 +61,14 @@
 
 #ifndef HAVE_CIPHER_SQLCIPHER
 #define HAVE_CIPHER_SQLCIPHER 1
+#endif
+
+#ifdef WXSQLITE3_HAVE_CIPHER_RC4
+#define HAVE_CIPHER_RC4 WXSQLITE3_HAVE_CIPHER_RC4
+#endif
+
+#ifndef HAVE_CIPHER_RC4
+#define HAVE_CIPHER_RC4 1
 #endif
 
 // Define Windows specific SQLite API functions (not defined in sqlite3.h)

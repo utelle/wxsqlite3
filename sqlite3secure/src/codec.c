@@ -390,6 +390,24 @@ static CipherParams sqlCipherParams[] =
   CIPHER_PARAMS_SENTINEL
 };
 
+/*
+** Configuration parameters for "rc4"
+**
+** - legacy mode : compatibility with System.Data.SQLite encryption
+**                 (page 1 fully encrypted)
+**                 only legacy mode is supported
+**                 possible value:  1 = yes
+*/
+
+#define RC4_LEGACY_DEFAULT 1
+
+static CipherParams rc4Params[] =
+{
+  { "legacy",           RC4_LEGACY_DEFAULT, RC4_LEGACY_DEFAULT, RC4_LEGACY_DEFAULT, RC4_LEGACY_DEFAULT },
+  { "legacy_page_size", 0,                  0,                  0,                  SQLITE_MAX_PAGE_SIZE },
+  CIPHER_PARAMS_SENTINEL
+};
+
 static int
 GetCipherParameter(CipherParams* cipherParams, const char* paramName)
 {
@@ -640,6 +658,7 @@ DecryptPageAES128Cipher(void* cipher, int page, unsigned char* data, int len, in
   return rc;
 }
 #endif
+
 /* --- AES 256-bit cipher (wxSQLite3) --- */
 #if HAVE_CIPHER_AES_256_CBC
 typedef struct _AES256Cipher
@@ -839,6 +858,7 @@ DecryptPageAES256Cipher(void* cipher, int page, unsigned char* data, int len, in
   return rc;
 }
 #endif
+
 /* --- ChaCha20-Poly1305 cipher (plus sqleet variant) --- */
 #if HAVE_CIPHER_CHACHA20 || HAVE_CIPHER_SQLCIPHER
 #define KEYLENGTH_CHACHA20       32
@@ -1135,8 +1155,10 @@ DecryptPageChaCha20Cipher(void* cipher, int page, unsigned char* data, int len, 
   return rc;
 }
 #endif
+
 /* --- SQLCipher AES256CBC-HMAC cipher --- */
 #if HAVE_CIPHER_SQLCIPHER || HAVE_CIPHER_CHACHA20
+
 #define KEYLENGTH_SQLCIPHER       32
 #define SALTLENGTH_SQLCIPHER      16
 #define MAX_HMAC_LENGTH_SQLCIPHER SHA512_DIGEST_SIZE
@@ -1557,6 +1579,132 @@ DecryptPageSQLCipherCipher(void* cipher, int page, unsigned char* data, int len,
 }
 #endif
 
+/* --- RC4 cipher --- */
+#if HAVE_CIPHER_RC4
+
+#define KEYLENGTH_RC4 16
+
+typedef struct _RC4Cipher
+{
+  int       m_legacy;
+  int       m_legacyPageSize;
+  int       m_keyLength;
+  uint8_t   m_key[KEYLENGTH_RC4];
+} RC4Cipher;
+
+static void*
+AllocateRC4Cipher(sqlite3* db)
+{
+  RC4Cipher* rc4Cipher = (RC4Cipher*) sqlite3_malloc(sizeof(RC4Cipher));
+  if (rc4Cipher != NULL)
+  {
+    rc4Cipher->m_keyLength = KEYLENGTH_RC4;
+    memset(rc4Cipher->m_key, 0, KEYLENGTH_RC4);
+  }
+  if (rc4Cipher != NULL)
+  {
+    CipherParams* cipherParams = (CipherParams*) GetCipherParams(db, CODEC_TYPE_RC4);
+    rc4Cipher->m_legacy = GetCipherParameter(cipherParams, "legacy");
+    rc4Cipher->m_legacyPageSize = GetCipherParameter(cipherParams, "legacy_page_size");
+  }
+  return rc4Cipher;
+}
+
+static void
+FreeRC4Cipher(void* cipher)
+{
+  RC4Cipher* localCipher = (RC4Cipher*) cipher;
+  memset(localCipher, 0, sizeof(RC4Cipher));
+  sqlite3_free(localCipher);
+}
+
+static void
+CloneRC4Cipher(void* cipherTo, void* cipherFrom)
+{
+  RC4Cipher* rc4CipherTo = (RC4Cipher*) cipherTo;
+  RC4Cipher* rc4CipherFrom = (RC4Cipher*) cipherFrom;
+  rc4CipherTo->m_legacy = rc4CipherFrom->m_legacy;
+  rc4CipherTo->m_legacyPageSize = rc4CipherFrom->m_legacyPageSize;
+  rc4CipherTo->m_keyLength = rc4CipherFrom->m_keyLength;
+  memcpy(rc4CipherTo->m_key, rc4CipherFrom->m_key, KEYLENGTH_RC4);
+}
+
+static int
+GetLegacyRC4Cipher(void* cipher)
+{
+  RC4Cipher* rc4Cipher = (RC4Cipher*)cipher;
+  return rc4Cipher->m_legacy;
+}
+
+static int
+GetPageSizeRC4Cipher(void* cipher)
+{
+  RC4Cipher* rc4Cipher = (RC4Cipher*) cipher;
+  int pageSize = 0;
+  if (rc4Cipher->m_legacy != 0)
+  {
+    pageSize = rc4Cipher->m_legacyPageSize;
+    if ((pageSize < 512) || (pageSize > SQLITE_MAX_PAGE_SIZE) || (((pageSize - 1) & pageSize) != 0))
+    {
+      pageSize = 0;
+    }
+  }
+  return pageSize;
+}
+
+static int
+GetReservedRC4Cipher(void* cipher)
+{
+  return 0;
+}
+
+static unsigned char*
+GetSaltRC4Cipher(void* cipher)
+{
+  return NULL;
+}
+
+static void
+GenerateKeyRC4Cipher(void* cipher, BtShared* pBt, char* userPassword, int passwordLength, int rekey, unsigned char* cipherSalt)
+{
+  RC4Cipher* rc4Cipher = (RC4Cipher*) cipher;
+  unsigned char digest[SHA1_DIGEST_SIZE];
+  sha1_ctx ctx;
+
+  sha1_init(&ctx);
+  sha1_update(&ctx, userPassword, passwordLength);
+  sha1_final(&ctx, digest);
+
+  memcpy(rc4Cipher->m_key, digest, 16);
+/*  memset(rc4Cipher->m_key+5, 0, rc4Cipher->m_keyLength-5);*/
+}
+
+static int
+EncryptPageRC4Cipher(void* cipher, int page, unsigned char* data, int len, int reserved)
+{
+  RC4Cipher* rc4Cipher = (RC4Cipher*) cipher;
+  int rc = SQLITE_OK;
+
+  /* Use the legacy encryption scheme */
+  unsigned char* key = rc4Cipher->m_key;
+  CodecRC4(key, rc4Cipher->m_keyLength, data, len, data);
+
+  return rc;
+}
+
+static int
+DecryptPageRC4Cipher(void* cipher, int page, unsigned char* data, int len, int reserved, int hmacCheck)
+{
+  RC4Cipher* rc4Cipher = (RC4Cipher*) cipher;
+  int rc = SQLITE_OK;
+
+  /* Use the legacy encryption scheme */
+  CodecRC4(rc4Cipher->m_key, rc4Cipher->m_keyLength, data, len, data);
+
+  return rc;
+}
+#endif
+
 typedef struct _CodecParameter
 {
   char*         m_name;
@@ -1575,6 +1723,9 @@ static CodecParameter globalCodecParameterTable[] =
 #if HAVE_CIPHER_CHACHA20 || HAVE_CIPHER_SQLCIPHER
   { "chacha20",  chacha20Params },
   { "sqlcipher", sqlCipherParams },
+#endif
+#if HAVE_CIPHER_RC4
+  { "rc4",       rc4Params },
 #endif
   { "",          NULL }
 };
@@ -1716,6 +1867,19 @@ static CodecDescriptor codecDescriptorTable[] =
                  GenerateKeySQLCipherCipher,
                  EncryptPageSQLCipherCipher,
                  DecryptPageSQLCipherCipher },
+#endif
+#if HAVE_CIPHER_RC4
+  /* RC4 */
+  { "rc4",       AllocateRC4Cipher,
+                 FreeRC4Cipher,
+                 CloneRC4Cipher,
+                 GetLegacyRC4Cipher,
+                 GetPageSizeRC4Cipher,
+                 GetReservedRC4Cipher,
+                 GetSaltRC4Cipher,
+                 GenerateKeyRC4Cipher,
+                 EncryptPageRC4Cipher,
+                 DecryptPageRC4Cipher },
 #endif
   { "", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL }
 };
