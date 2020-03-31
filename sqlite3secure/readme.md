@@ -2,6 +2,8 @@
 
 This document describes the SQLite3 encryption extension provided by wxSQLite3. The document is work in progress and still incomplete.
 
+**Note [March 31, 2020]**: Further development of the _SQLite3 encryption extension_ will be done in the separate project [SQLite3MultipleCiphers](https://github.com/utelle/SQLite3MultipleCiphers). Maintaining the current implementation in the future would require major efforts, because there were changes to the public SQLite code on Feb 7, 2020: [“Simplify the code by removing the unsupported and undocumented SQLITE_HAS_CODEC compile-time option”](https://www.sqlite.org/src/timeline?c=5a877221ce90e752). A first preliminary implementation of a completely new approach supporting the upcoming _SQLite version 3.32.0_ is already available for testing. Future versions of wxSQLite3 will be based on the new approach as soon as the new implementation is mature and stable enough.
+
 ## Table of contents
 
 - [Installation](#installation)
