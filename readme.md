@@ -29,6 +29,12 @@ Currently the following encryption schemes are supported:
 - AES 256 Bit CBC - SHA1/SHA256/SHA512 HMAC (SQLCipher) 
 - RC4 - No HMAC (System.Data.SQLite)
 
+## Important Notes
+
+With the release of SQLite version 3.32.0 on May 22, 2020 critical changes to the public SQLite code finally took officially effect, although they weren't officially announced. They were introduced on Feb 7, 2020: [“Simplify the code by removing the unsupported and undocumented SQLITE_HAS_CODEC compile-time option”](https://www.sqlite.org/src/timeline?c=5a877221ce90e752). As a consequence, updating the _wxSQLite3 encryption extension_ to support SQLite version 3.32.0 and later is currently impossible.
+
+Work is in progress in a separate project, [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers), to provide a new implementation of the encryption extension capable of supporting SQLite version 3.32.0 and later. The _wxSQLite3 encryption extension_ will be replaced by the new implementation in a future release. However, no release date has been scheduled yet.
+
 ## Table of Contents
 
 - [Version history](#history)
