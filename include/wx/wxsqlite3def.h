@@ -40,12 +40,16 @@
   since wxWidgets 2.8.4) are used for the conversion. Special care has to be taken if external administration
   tools are used to modify the database contents, since not all of these tools operate in Unicode or UTF-8 mode.
 
+\note With the release of SQLite version 3.32.0 on May 22, 2020 critical changes to the public SQLite code finally took officially effect, although they weren't officially announced. They were introduced on Feb 7, 2020: ["Simplify the code by removing the unsupported and undocumented SQLITE_HAS_CODEC compile-time option"](https://www.sqlite.org/src/timeline?c=5a877221ce90e752). Since August 2020 a new implementation of an encryption extension, capable of supporting SQLite version 3.32.0 and later, is available as a separate project, [**SQLite3 Multiple Ciphers**](https://github.com/utelle/SQLite3MultipleCiphers). Starting with the release of **wxSQLite3 4.6.0** this new implementation will be used.
+
 \section version Version history
 
 <dl>
 
-<dt><b>4.6.0</b> - <i>February 2020</i></dt>
+<dt><b>4.6.0</b> - <i>August 2020</i></dt>
 <dd>
+Use SQLite encryption extension "SQLite3 Multiple Ciphers"<br>
+Upgrade to SQLite version 3.33.0<br>
 Added support for System.Data.SQLite's RC4 encryption<br>
 
 </dd>
@@ -664,8 +668,8 @@ The following people have contributed to wxSQLite3:
 
  */
 
-#ifndef _WX_SQLITE3_DEF_H_
-#define _WX_SQLITE3_DEF_H_
+#ifndef WX_SQLITE3_DEF_H_
+#define WX_SQLITE3_DEF_H_
 
 #if defined(WXMAKINGLIB_WXSQLITE3)
   #define WXDLLIMPEXP_SQLITE3
@@ -689,4 +693,4 @@ The following people have contributed to wxSQLite3:
   #define WXDLLIMPEXP_FWD_SQLITE3 WXDLLIMPEXP_SQLITE3
 #endif
 
-#endif // _WX_SQLITE3_DEF_H_
+#endif // WX_SQLITE3_DEF_H_

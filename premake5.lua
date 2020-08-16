@@ -44,48 +44,44 @@ project "wxsqlite3"
   make_filters( "WXSQLITE3", "wxsqlite3", "core" )
 
   defines {
-    "wxUSE_DYNAMIC_SQLITE3_LOAD=0",
-    "WXSQLITE3_HAVE_METADATA=1",
-    "WXSQLITE3_USER_AUTHENTICATION=1",
-    "WXSQLITE3_HAVE_CODEC=1",
-    "WXSQLITE3_HAVE_LOAD_EXTENSION=0",
+    "CODEC_TYPE=$(CODEC_TYPE)",
+    "SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG)",
     "SQLITE_THREADSAFE=1",
     "SQLITE_DQS=0",
     "SQLITE_MAX_ATTACHED=10",
-    "SQLITE_ENABLE_EXPLAIN_COMMENTS",
-    "SQLITE_SOUNDEX",
-    "SQLITE_ENABLE_COLUMN_METADATA",
-    "SQLITE_HAS_CODEC=1",
-    "CODEC_TYPE=$(CODEC_TYPE)",
-    "SQLITE_ENABLE_DEBUG=$(SQLITE_ENABLE_DEBUG)",
-    "SQLITE_SECURE_DELETE",
-    "SQLITE_ENABLE_FTS3",
-    "SQLITE_ENABLE_FTS3_PARENTHESIS",
-    "SQLITE_ENABLE_FTS4",
-    "SQLITE_ENABLE_FTS5",
-    "SQLITE_ENABLE_JSON1",
-    "SQLITE_ENABLE_RTREE",
-    "SQLITE_ENABLE_GEOPOLY",
-    "SQLITE_CORE",
-    "SQLITE_ENABLE_EXTFUNC",
-    "SQLITE_ENABLE_CSV",
-    "SQLITE_ENABLE_SHA3",
-    "SQLITE_ENABLE_CARRAY",
-    "SQLITE_ENABLE_FILEIO",
-    "SQLITE_ENABLE_SERIES",
-    "SQLITE_ENABLE_UID",
+    "SQLITE_ENABLE_EXPLAIN_COMMENTS=1",
+    "SQLITE_SOUNDEX=1",
+    "SQLITE_ENABLE_COLUMN_METADATA=1",
+    "SQLITE_SECURE_DELETE=1",
+    "SQLITE_ENABLE_DESERIALIZE=1",
+    "SQLITE_ENABLE_FTS3=1",
+    "SQLITE_ENABLE_FTS3_PARENTHESIS=1",
+    "SQLITE_ENABLE_FTS4=1",
+    "SQLITE_ENABLE_FTS5=1",
+    "SQLITE_ENABLE_JSON1=1",
+    "SQLITE_ENABLE_RTREE=1",
+    "SQLITE_ENABLE_GEOPOLY=1",
+    "SQLITE_CORE=1",
+    "SQLITE_ENABLE_EXTFUNC=1",
+    "SQLITE_ENABLE_CSV=1",
+    "SQLITE_ENABLE_SHA3=1",
+    "SQLITE_ENABLE_CARRAY=1",
+    "SQLITE_ENABLE_FILEIO=1",
+    "SQLITE_ENABLE_SERIES=1",
+    "SQLITE_ENABLE_UUID=1",
+    "SQLITE_ENABLE_REGEXP=1",
     "SQLITE_TEMP_STORE=2",
-    "SQLITE_USE_URI",
-    "SQLITE_USER_AUTHENTICATION"
+    "SQLITE_USE_URI=1",
+    "SQLITE_USER_AUTHENTICATION=1"
   }
 
   files { "src/*.cpp", "src/*.rc", "include/wx/*.h",
-          "sqlite3secure/src/sqlite3secure.c", "sqlite3secure/src/*.h" }
+          "src/sqlite3mc*.c", "src/*.h" }
   vpaths {
     ["Header Files"] = { "**.h" },
-    ["Source Files"] = { "**.cpp", "**.rc", "**/sqlite3secure.c", "**.def" }
+    ["Source Files"] = { "**.cpp", "**.rc", "**/sqlite3mc*.c", "**.def" }
   }
-  includedirs { "include", "sqlite3secure/src" }
+  includedirs { "include", "src" }
   characterset "Unicode"
 
 -- Minimal wxSQLite3 sample

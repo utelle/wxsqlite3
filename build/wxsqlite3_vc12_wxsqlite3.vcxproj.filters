@@ -18,51 +18,15 @@
     <ClInclude Include="..\include\wx\wxsqlite3def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\wx\wxsqlite3dyn.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\wx\wxsqlite3opt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\sqlite3secure\src\codec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\sqlite3secure\src\fastpbkdf2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\sqlite3secure\src\msvc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\sqlite3secure\src\mystdint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\sqlite3secure\src\rijndael.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\sqlite3secure\src\sha1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\sqlite3secure\src\sha2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\sqlite3secure\src\sqlite3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\sqlite3secure\src\sqlite3ext.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\sqlite3secure\src\sqlite3secure.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\sqlite3secure\src\sqlite3userauth.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\sqlite3secure\src\test_windirent.h">
+    <ClInclude Include="..\src\sqlite3mc_amalgamation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\sqlite3secure\src\sqlite3secure.c">
+    <ClCompile Include="..\src\sqlite3mc_amalgamation.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\wxsqlite3.cpp">

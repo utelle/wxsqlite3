@@ -18,9 +18,6 @@
 #include <wx/wx.h>
 #endif
 
-////@begin includes
-////@end includes
-
 #include "treeviewapp.h"
 
 /*
@@ -85,7 +82,7 @@ TreeviewSampleApp::OnInit()
 #if wxUSE_GIF
   wxImage::AddHandler(new wxGIFHandler);
 #endif
-
+  wxSQLite3Database::InitializeSQLite();
   ok = InitializeDatabase();
   if (ok)
   {
@@ -104,7 +101,8 @@ TreeviewSampleApp::OnInit()
 
 int
 TreeviewSampleApp::OnExit()
-{    
+{
+  wxSQLite3Database::ShutdownSQLite();
   return wxApp::OnExit();
 }
 

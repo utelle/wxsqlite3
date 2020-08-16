@@ -17,27 +17,17 @@ if(MSVC)
     option(THREAD_SAVE_STATIC_INIT "Enable thread safe initialization of static variables" "OFF")
 endif(MSVC)
 option(RELEASE_DEBUG_SYMBOLS "Generate debugging symbols for optimized build" "OFF")
-set(SQLITE_CODEC_TYPE "DEFAULT" CACHE STRING "DB Codec(AES128, AES256, CHACHA20, DEFAULT)")
+set(SQLITE_CODEC_TYPE "DEFAULT" CACHE STRING "DB Codec(AES128, AES256, CHACHA20, SQLCIPHER, RC4, DEFAULT)")
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
 set(LIBRARY_SOURCES
     "../include/wx/wxsqlite3_version.h"
     "../include/wx/wxsqlite3def.h"
-    "../include/wx/wxsqlite3dyn.h"
     "../include/wx/wxsqlite3opt.h"
-    "../sqlite3secure/src/codec.h"
-    "../sqlite3secure/src/fastpbkdf2.h"
-    "../sqlite3secure/src/rijndael.h"
-    "../sqlite3secure/src/sha1.h"
-    "../sqlite3secure/src/sha2.h"
-    "../sqlite3secure/src/sqlite3.h"
-    "../sqlite3secure/src/sqlite3ext.h"
-    "../sqlite3secure/src/sqlite3secure.h"
-    "../sqlite3secure/src/sqlite3userauth.h"
-    "../sqlite3secure/src/test_windirent.h"
+    "../src/sqlite3mc_amalgamation.h"
     
-    "../sqlite3secure/src/sqlite3secure.c"
+    "../src/sqlite3mc_amalgamation.c"
     "../src/wxsqlite3.cpp"
 )
 
@@ -216,7 +206,7 @@ endif(MSVC)
 
 include_directories(
     "../include/"
-    "../sqlite3secure/src/"
+    "../src/"
 )
 
 if (WXSQLITE3_BUILD_SHARED)
@@ -242,35 +232,33 @@ endif(SQLITE_DEBUG)
 
 set_target_properties(wxsqlite3 PROPERTIES COMPILE_FLAGS "-D_LIB \
                                                           -D${WXSQLITE3_MAKING_DEF} \
-                                                          -DwxUSE_DYNAMIC_SQLITE3_LOAD=0 \
-                                                          -DWXSQLITE3_HAVE_METADATA=1 \
-                                                          -DWXSQLITE3_USER_AUTHENTICATION=1 \
-                                                          -DWXSQLITE3_HAVE_CODEC=1 \
-                                                          -DWXSQLITE3_HAVE_LOAD_EXTENSION=0 \
-                                                          -DTHREADSAFE=1 \
+                                                          -DSQLITE_THREADSAFE=1 \
                                                           -DSQLITE_MAX_ATTACHED=10 \
-                                                          -DSQLITE_ENABLE_EXPLAIN_COMMENTS \
-                                                          -DSQLITE_SOUNDEX \
-                                                          -DSQLITE_ENABLE_COLUMN_METADATA \
-                                                          -DSQLITE_HAS_CODEC=1 \
-                                                          -DSQLITE_SECURE_DELETE \
-                                                          -DSQLITE_ENABLE_FTS3 \
-                                                          -DSQLITE_ENABLE_FTS3_PARENTHESIS \
-                                                          -DSQLITE_ENABLE_FTS4 \
-                                                          -DSQLITE_ENABLE_FTS5 \
-                                                          -DSQLITE_ENABLE_JSON1 \
-                                                          -DSQLITE_ENABLE_RTREE \
-                                                          -DSQLITE_ENABLE_GEOPOLY \
-                                                          -DSQLITE_CORE \
-                                                          -DSQLITE_ENABLE_EXTFUNC \
-                                                          -DSQLITE_ENABLE_CSV \
-                                                          -DSQLITE_ENABLE_SHA3 \
-                                                          -DSQLITE_ENABLE_CARRAY \
-                                                          -DSQLITE_ENABLE_FILEIO \
-                                                          -DSQLITE_ENABLE_SERIES \
+                                                          -DSQLITE_DQS=0 \
+                                                          -DSQLITE_ENABLE_EXPLAIN_COMMENTS=1 \
+                                                          -DSQLITE_SOUNDEX=1 \
+                                                          -DSQLITE_ENABLE_COLUMN_METADATA=1 \
+                                                          -DSQLITE_SECURE_DELETE=1 \
+                                                          -DSQLITE_ENABLE_DESERIALIZE=1 \
+                                                          -DSQLITE_ENABLE_FTS3=1 \
+                                                          -DSQLITE_ENABLE_FTS3_PARENTHESIS=1 \
+                                                          -DSQLITE_ENABLE_FTS4=1 \
+                                                          -DSQLITE_ENABLE_FTS5=1 \
+                                                          -DSQLITE_ENABLE_JSON1=1 \
+                                                          -DSQLITE_ENABLE_RTREE=1 \
+                                                          -DSQLITE_ENABLE_GEOPOLY=1 \
+                                                          -DSQLITE_CORE=1 \
+                                                          -DSQLITE_ENABLE_EXTFUNC=1 \
+                                                          -DSQLITE_ENABLE_CSV=1 \
+                                                          -DSQLITE_ENABLE_SHA3=1 \
+                                                          -DSQLITE_ENABLE_CARRAY=1 \
+                                                          -DSQLITE_ENABLE_FILEIO=1 \
+                                                          -DSQLITE_ENABLE_SERIES=1 \
+                                                          -DSQLITE_ENABLE_UUID=1 \
+                                                          -DSQLITE_ENABLE_REGEXP=1 \
                                                           -DSQLITE_TEMP_STORE=2 \
-                                                          -DSQLITE_USE_URI \
-                                                          -DSQLITE_USER_AUTHENTICATION \
+                                                          -DSQLITE_USE_URI=1 \
+                                                          -DSQLITE_USER_AUTHENTICATION=1 \
                                                           -DCODEC_TYPE=CODEC_TYPE_${SQLITE_CODEC_TYPE} \
                                                           ${SQLITE_DEBUG_MACRO}")
 
@@ -315,7 +303,7 @@ option(SQLITE_DEBUG "enable SQLite debug" "OFF")
 option(PEDANTIC_COMPILER_FLAGS "Enable additional checking for ill-formed code" "ON")
 option(THREAD_SAVE_STATIC_INIT "Enable thread safe initialization of static variables" "OFF")
 option(RELEASE_DEBUG_SYMBOLS "Generate debugging symbols for optimized build" "OFF")
-set(SQLITE_CODEC_TYPE "DEFAULT" CACHE STRING "DB Codec(AES128, AES256, CHACHA20, DEFAULT)")
+set(SQLITE_CODEC_TYPE "DEFAULT" CACHE STRING "DB Codec(AES128, AES256, CHACHA20, SQLCIPHER, RC4, DEFAULT)")
 
 foreach(V   ${COMPILER_SPECIFIC_OPTIONS}
             STATIC_RUNTIME

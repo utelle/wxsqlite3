@@ -3,14 +3,14 @@
 ** Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
 ** Author:      Ulrich Telle
 ** Created:     2005-07-14
-** Copyright:   (c) 2005-2019 Ulrich Telle
+** Copyright:   (c) 2005-2020 Ulrich Telle
 ** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
 /// \file wxsqlite3.h Interface of the wxSQLite3 class
 
-#ifndef _WX_SQLITE3_H_
-#define _WX_SQLITE3_H_
+#ifndef WX_SQLITE3_H_
+#define WX_SQLITE3_H_
 
 #if defined(__GNUG__) && !defined(__APPLE__)
     #pragma interface "wxsqlite3.h"
@@ -1393,7 +1393,7 @@ public:
   * \param columnIndex index of the column. Indices start with 0.
   * \return database name the column belongs to or empty string
   *
-  * This method is only available if WXSQLITE3_HAVE_METADATA is defined and SQLite has been compiled with SQLITE_ENABLE_COLUMN_METADATA defined.
+  * This method is only available if SQLite has been compiled with SQLITE_ENABLE_COLUMN_METADATA defined.
   */
   wxString GetDatabaseName(int columnIndex) const;
 
@@ -1402,7 +1402,7 @@ public:
   * \param columnIndex index of the column. Indices start with 0.
   * \return table name the column belongs to or empty string
   *
-  * This method is only available if WXSQLITE3_HAVE_METADATA is defined and SQLite has been compiled with SQLITE_ENABLE_COLUMN_METADATA defined.
+  * This method is only available if SQLite has been compiled with SQLITE_ENABLE_COLUMN_METADATA defined.
   */
   wxString GetTableName(int columnIndex) const;
 
@@ -1411,7 +1411,7 @@ public:
   * \param columnIndex index of the column. Indices start with 0.
   * \return origin name the column belongs to or empty string
   *
-  * This method is only available if WXSQLITE3_HAVE_METADATA is defined and SQLite has been compiled with SQLITE_ENABLE_COLUMN_METADATA defined.
+  * This method is only available if SQLite has been compiled with SQLITE_ENABLE_COLUMN_METADATA defined.
   */
   wxString GetOriginName(int columnIndex) const;
 
@@ -3394,7 +3394,7 @@ public:
   * \param primaryKey output flag whether the column is part of the primary key. Pass NULL if information not needed.
   * \param autoIncrement output flag whether the column is an auto increment column. Pass NULL if information not needed.
   *
-  * This method is only available if WXSQLITE3_HAVE_METADATA is defined and SQLite has been compiled with SQLITE_ENABLE_COLUMN_METADATA defined.
+  * This method is only available if SQLite has been compiled with SQLITE_ENABLE_COLUMN_METADATA defined.
   */
   void GetMetaData(const wxString& dbName, const wxString& tableName, const wxString& columnName,
                    wxString* dataType = NULL, wxString* collation = NULL,
