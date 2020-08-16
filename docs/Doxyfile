@@ -38,7 +38,7 @@ PROJECT_NAME           = wxSQLite3
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = 4.5.1
+PROJECT_NUMBER         = 4.6.0
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
@@ -839,10 +839,7 @@ INPUT_ENCODING         = UTF-8
 # *.m, *.markdown, *.md, *.mm, *.dox, *.py, *.pyw, *.f90, *.f95, *.f03, *.f08,
 # *.f, *.for, *.tcl, *.vhd, *.vhdl, *.ucf, *.qsf and *.ice.
 
-FILE_PATTERNS          = *.c \
-                         *.cc \
-                         *.cxx \
-                         *.cpp \
+FILE_PATTERNS          = *.cpp \
                          *.c++ \
                          *.d \
                          *.java \
@@ -879,7 +876,8 @@ RECURSIVE              = YES
 # Note that relative paths are relative to the directory from which doxygen is
 # run.
 
-EXCLUDE                =
+EXCLUDE                = ../src/sqlite3mc_amalgamation.h \
+                         ../src/sqlite3mc_amalgamation.c
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
@@ -2155,7 +2153,8 @@ INCLUDE_FILE_PATTERNS  =
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
 PREDEFINED             = WXSQLITE3_HAVE_METADATA \
-                         WXSQLITE3_HAVE_CODEC
+                         WXSQLITE3_HAVE_CODEC \
+                         wxUSE_REGEX
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The

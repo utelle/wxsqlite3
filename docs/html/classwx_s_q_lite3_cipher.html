@@ -20,7 +20,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">4.5.1</span>
+   &#160;<span id="projectnumber">4.6.0</span>
    </div>
   </td>
  </tr>
@@ -64,7 +64,8 @@ Inheritance diagram for wxSQLite3Cipher:</div>
 <area href="classwx_s_q_lite3_cipher_aes128.html" title="Cipher class representing AES 128 bit encryption in CBC mode." alt="wxSQLite3CipherAes128" shape="rect" coords="0,56,173,80"/>
 <area href="classwx_s_q_lite3_cipher_aes256.html" title="Cipher class representing AES 256 bit encryption in CBC mode." alt="wxSQLite3CipherAes256" shape="rect" coords="183,56,356,80"/>
 <area href="classwx_s_q_lite3_cipher_cha_cha20.html" title="Cipher class representing ChaCha20 encryption with Poly1305 HMAC." alt="wxSQLite3CipherChaCha20" shape="rect" coords="366,56,539,80"/>
-<area href="classwx_s_q_lite3_cipher_s_q_l_cipher.html" title="Cipher class representing SQLCipher encryption (AES 256 bit in CBC mode with SHA1 HMAC)" alt="wxSQLite3CipherSQLCipher" shape="rect" coords="549,56,722,80"/>
+<area href="classwx_s_q_lite3_cipher_r_c4.html" title="Cipher class representing RC4 encryption (System.Data.SQLite)" alt="wxSQLite3CipherRC4" shape="rect" coords="549,56,722,80"/>
+<area href="classwx_s_q_lite3_cipher_s_q_l_cipher.html" title="Cipher class representing SQLCipher encryption (AES 256 bit in CBC mode with SHA1 HMAC)" alt="wxSQLite3CipherSQLCipher" shape="rect" coords="732,56,905,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -297,7 +298,7 @@ Static Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the cipher parameters could be applied successfully, false otherwise </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#a1674fa47ec1fbf04d27878a16bfc30bc">wxSQLite3CipherSQLCipher</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#aa5b3239be6d6ea47a884777798dfbf31">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#a3f6951cf97fa1c0a3f881a494a7e06ef">wxSQLite3CipherAes256</a>, and <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#a465d35eb444571d710c7c023c6140727">wxSQLite3CipherAes128</a>.</p>
+<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_r_c4.html#abb4bf5ed80b8d1ee222d985d0c316035">wxSQLite3CipherRC4</a>, <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#a1674fa47ec1fbf04d27878a16bfc30bc">wxSQLite3CipherSQLCipher</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#aa5b3239be6d6ea47a884777798dfbf31">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#a3f6951cf97fa1c0a3f881a494a7e06ef">wxSQLite3CipherAes256</a>, and <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#a465d35eb444571d710c7c023c6140727">wxSQLite3CipherAes128</a>.</p>
 
 </div>
 </div>
@@ -325,7 +326,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#a3eb36cdf9dbce51347226701342154f8">wxSQLite3CipherSQLCipher</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#a5be4933bdbbb1b416752ec97364e6e98">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#a1a684caf37ba78d73bbd9bdeab5d022c">wxSQLite3CipherAes256</a>, and <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#addfe419bfc267047ab5b1ad41a1335cc">wxSQLite3CipherAes128</a>.</p>
+<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_r_c4.html#adb6ca014c82d2583fd0a4c1b0343b803">wxSQLite3CipherRC4</a>, <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#a3eb36cdf9dbce51347226701342154f8">wxSQLite3CipherSQLCipher</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#a5be4933bdbbb1b416752ec97364e6e98">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#a1a684caf37ba78d73bbd9bdeab5d022c">wxSQLite3CipherAes256</a>, and <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#addfe419bfc267047ab5b1ad41a1335cc">wxSQLite3CipherAes128</a>.</p>
 
 </div>
 </div>
@@ -694,7 +695,7 @@ Static Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the cipher instance could be initialized successfully, false otherwise </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#acb49782a5a37d8b19aaf786d39d1a6b8">wxSQLite3CipherSQLCipher</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#a9933e0dfabb8e03182f5cb4a7db28e11">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#af8732c690a642c13ea01c6f5cd3c9b35">wxSQLite3CipherAes256</a>, and <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#ad6f6142c39e63ebfedc14a79a5c7b721">wxSQLite3CipherAes128</a>.</p>
+<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_r_c4.html#a3cb0aedbd5a6a545a18e6951a05e7258">wxSQLite3CipherRC4</a>, <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#acb49782a5a37d8b19aaf786d39d1a6b8">wxSQLite3CipherSQLCipher</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#a9933e0dfabb8e03182f5cb4a7db28e11">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#af8732c690a642c13ea01c6f5cd3c9b35">wxSQLite3CipherAes256</a>, and <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#ad6f6142c39e63ebfedc14a79a5c7b721">wxSQLite3CipherAes128</a>.</p>
 
 </div>
 </div>
@@ -731,7 +732,7 @@ Static Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the cipher instance could be initialized successfully, false otherwise </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#a742dc2c3b8f6c10eb0a7739ce35046b4">wxSQLite3CipherSQLCipher</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#a0e4e3f8662562a686abff402338d7c31">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#ab60d689622e79b813f05233cc77df62c">wxSQLite3CipherAes256</a>, and <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#a0319ef77be244d33115ad3c4e6c46521">wxSQLite3CipherAes128</a>.</p>
+<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_r_c4.html#aff0b346118f1063eea8354c1351749b9">wxSQLite3CipherRC4</a>, <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#a742dc2c3b8f6c10eb0a7739ce35046b4">wxSQLite3CipherSQLCipher</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#a0e4e3f8662562a686abff402338d7c31">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#ab60d689622e79b813f05233cc77df62c">wxSQLite3CipherAes256</a>, and <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#a0319ef77be244d33115ad3c4e6c46521">wxSQLite3CipherAes128</a>.</p>
 
 </div>
 </div>
@@ -761,7 +762,7 @@ Static Protected Member Functions</h2></td></tr>
 <p>Initialize the cipher instance based on global default settings. </p>
 <p>The parameters of the cipher instance are initialize with the global default settings of the associated cipher type. </p><dl class="section return"><dt>Returns</dt><dd>true if the cipher instance could be initialized successfully, false otherwise </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#a3f55caa4a3a70981893505cb70c602fe">wxSQLite3CipherSQLCipher</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#a39d4d8cd64c42d24cf82361d683feda3">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#a5a20e4e0d6057474f5ffbe2466302a41">wxSQLite3CipherAes256</a>, and <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#a78403e8d26a58daa881f5a70dde8c528">wxSQLite3CipherAes128</a>.</p>
+<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_r_c4.html#a949b383564fadc22591384d71b6810b1">wxSQLite3CipherRC4</a>, <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#a3f55caa4a3a70981893505cb70c602fe">wxSQLite3CipherSQLCipher</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#a39d4d8cd64c42d24cf82361d683feda3">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#a5a20e4e0d6057474f5ffbe2466302a41">wxSQLite3CipherAes256</a>, and <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#a78403e8d26a58daa881f5a70dde8c528">wxSQLite3CipherAes128</a>.</p>
 
 </div>
 </div>
@@ -970,7 +971,7 @@ Static Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 28 2020 13:25:13 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 16 2020 21:51:25 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

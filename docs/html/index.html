@@ -20,7 +20,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">4.5.1</span>
+   &#160;<span id="projectnumber">4.6.0</span>
    </div>
   </td>
  </tr>
@@ -55,9 +55,17 @@ What is wxSQLite3?</h1>
 </ul>
 <p>The component <b>wxSQLite3</b> was inspired by all three mentioned SQLite wrappers. <b>wxSQLite3</b> does not try to hide the underlying database, in contrary almost all special features of the SQLite3 version 3.x are supported, like for example the creation of user defined scalar or aggregate functions.</p>
 <p>Since SQLite stores strings in UTF-8 encoding, the wxSQLite3 methods provide automatic conversion between wxStrings and UTF-8 strings. The methods ToUTF8 and FromUTF8 of the wxString class (available since wxWidgets 2.8.4) are used for the conversion. Special care has to be taken if external administration tools are used to modify the database contents, since not all of these tools operate in Unicode or UTF-8 mode.</p>
+<dl class="section note"><dt>Note</dt><dd>With the release of SQLite version 3.32.0 on May 22, 2020 critical changes to the public SQLite code finally took officially effect, although they weren't officially announced. They were introduced on Feb 7, 2020: <a href="https://www.sqlite.org/src/timeline?c=5a877221ce90e752">"Simplify the code by removing the unsupported and undocumented SQLITE_HAS_CODEC compile-time option"</a>. Since August 2020 a new implementation of an encryption extension, capable of supporting SQLite version 3.32.0 and later, is available as a separate project, <a href="https://github.com/utelle/SQLite3MultipleCiphers"><b>SQLite3 Multiple Ciphers</b></a>. Starting with the release of <b>wxSQLite3 4.6.0</b> this new implementation will be used.</dd></dl>
 <h1><a class="anchor" id="version"></a>
 Version history</h1>
 <dl>
+<dt><b>4.6.0</b> - <em>August 2020</em> </dt>
+<dd><p class="startdd">Use SQLite encryption extension "SQLite3 Multiple Ciphers"<br />
+ Upgrade to SQLite version 3.33.0<br />
+ Added support for System.Data.SQLite's RC4 encryption<br />
+</p>
+<p class="enddd"></p>
+</dd>
 <dt><b>4.5.1</b> - <em>January 2020</em> </dt>
 <dd><p class="startdd">Upgrade to SQLite version 3.31.1<br />
 </p>
@@ -612,7 +620,7 @@ Deamhan (CMake support and various bug fixes) </li>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 28 2020 13:25:13 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 16 2020 21:51:25 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

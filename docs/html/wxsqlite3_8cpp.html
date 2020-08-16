@@ -20,7 +20,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">4.5.1</span>
+   &#160;<span id="projectnumber">4.6.0</span>
    </div>
   </td>
  </tr>
@@ -46,7 +46,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -64,7 +63,7 @@ $(function() {
 <code>#include &quot;wx/thread.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="wxsqlite3_8h.html">wx/wxsqlite3.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="wxsqlite3opt_8h.html">wx/wxsqlite3opt.h</a>&quot;</code><br />
-<code>#include &quot;sqlite3secure.h&quot;</code><br />
+<code>#include &quot;sqlite3mc_amalgamation.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -78,11 +77,6 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference counted blob object (internal)  <a href="classwx_s_q_lite3_blob_reference.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a1b0fe9c9dcda4cf034bb1f634f31848a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8cpp.html#a1b0fe9c9dcda4cf034bb1f634f31848a">SQLITE_HAS_CODEC</a>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a1b0fe9c9dcda4cf034bb1f634f31848a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:ac1bb22e5e099a8a88ca733305dc500a4"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8cpp.html#ac1bb22e5e099a8a88ca733305dc500a4">sqlite3_xauth</a>) (void *, int, const char *, const char *, const char *, const char *)</td></tr>
@@ -92,10 +86,6 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae810ac90b48e76ba87275357b5edba3b"><td class="memItemLeft" align="right" valign="top">SQLITE_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8cpp.html#ae810ac90b48e76ba87275357b5edba3b">wxsqlite3_config</a> (sqlite3 *db, const char *paramName, int newValue)</td></tr>
-<tr class="separator:ae810ac90b48e76ba87275357b5edba3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4c6b4eb2881bea1cd0149755e2ec352"><td class="memItemLeft" align="right" valign="top">SQLITE_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8cpp.html#af4c6b4eb2881bea1cd0149755e2ec352">wxsqlite3_config_cipher</a> (sqlite3 *db, const char *cipherName, const char *paramName, int newValue)</td></tr>
-<tr class="separator:af4c6b4eb2881bea1cd0149755e2ec352"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a786c347eddb9bb33b9bba6d40ef96141"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8cpp.html#a786c347eddb9bb33b9bba6d40ef96141">wxSQLite3FunctionContextExecAuthorizer</a> (void *func, int type, const char *arg1, const char *arg2, const char *arg3, const char *arg4)</td></tr>
 <tr class="separator:a786c347eddb9bb33b9bba6d40ef96141"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8ddf939662a165ae581938fab098b07"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8cpp.html#ae8ddf939662a165ae581938fab098b07">LocalMakePointerTypeCopy</a> (wxArrayPtrVoid &amp;ptrTypes, const wxString &amp;pointerType)</td></tr>
@@ -200,22 +190,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of the wxSQLite3 class. </p>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a1b0fe9c9dcda4cf034bb1f634f31848a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b0fe9c9dcda4cf034bb1f634f31848a">&#9670;&nbsp;</a></span>SQLITE_HAS_CODEC</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SQLITE_HAS_CODEC&#160;&#160;&#160;1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Typedef Documentation</h2>
+</div><h2 class="groupheader">Typedef Documentation</h2>
 <a id="a8c893cdbe8160b1646b2ace75280cce6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8c893cdbe8160b1646b2ace75280cce6">&#9670;&nbsp;</a></span>err_char_t</h2>
 
@@ -355,80 +330,6 @@ Variables</h2></td></tr>
 <span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae810ac90b48e76ba87275357b5edba3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae810ac90b48e76ba87275357b5edba3b">&#9670;&nbsp;</a></span>wxsqlite3_config()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SQLITE_API int wxsqlite3_config </td>
-          <td>(</td>
-          <td class="paramtype">sqlite3 *&#160;</td>
-          <td class="paramname"><em>db</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>paramName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>newValue</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af4c6b4eb2881bea1cd0149755e2ec352"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4c6b4eb2881bea1cd0149755e2ec352">&#9670;&nbsp;</a></span>wxsqlite3_config_cipher()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SQLITE_API int wxsqlite3_config_cipher </td>
-          <td>(</td>
-          <td class="paramtype">sqlite3 *&#160;</td>
-          <td class="paramname"><em>db</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>cipherName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>paramName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>newValue</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
 </div><div class="memdoc">
 
 </div>
@@ -1155,7 +1056,7 @@ Variables</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 28 2020 13:25:13 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 16 2020 21:51:25 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

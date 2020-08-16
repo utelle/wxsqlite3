@@ -20,7 +20,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">4.5.1</span>
+   &#160;<span id="projectnumber">4.6.0</span>
    </div>
   </td>
  </tr>
@@ -109,6 +109,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html">wxSQLite3CipherSQLCipher</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher class representing SQLCipher encryption (AES 256 bit in CBC mode with SHA1 HMAC)  <a href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_cipher_r_c4.html">wxSQLite3CipherRC4</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher class representing RC4 encryption (System.Data.SQLite)  <a href="classwx_s_q_lite3_cipher_r_c4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_hook.html">wxSQLite3Hook</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for a user defined hook function.  <a href="classwx_s_q_lite3_hook.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,6 +147,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_transaction.html">wxSQLite3Transaction</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII class for managing transactions.  <a href="classwx_s_q_lite3_transaction.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_reg_exp_operator.html">wxSQLite3RegExpOperator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">User defined function for REGEXP operator.  <a href="classwx_s_q_lite3_reg_exp_operator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -213,7 +219,8 @@ Enumerations</h2></td></tr>
 <a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8a09924c97302ec536c0b4feb7dce94abb">WXSQLITE_CIPHER_AES256</a>, 
 <a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8a8bdb5062149381a16f052a500f5f5870">WXSQLITE_CIPHER_CHACHA20</a>, 
 <br />
-&#160;&#160;<a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8accbdfbcb956b86c32b64f028a3431109">WXSQLITE_CIPHER_SQLCIPHER</a>
+&#160;&#160;<a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8accbdfbcb956b86c32b64f028a3431109">WXSQLITE_CIPHER_SQLCIPHER</a>, 
+<a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8af77da565604dba69aa98d43785f33ee0">WXSQLITE_CIPHER_RC4</a>
 <br />
  }</td></tr>
 <tr class="memdesc:aaf4137ac9a105d08d3bbf95f2a1785a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of supported cipher types.  <a href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">More...</a><br /></td></tr>
@@ -670,6 +677,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="aaf4137ac9a105d08d3bbf95f2a1785a8a09924c97302ec536c0b4feb7dce94abb"></a>WXSQLITE_CIPHER_AES256&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aaf4137ac9a105d08d3bbf95f2a1785a8a8bdb5062149381a16f052a500f5f5870"></a>WXSQLITE_CIPHER_CHACHA20&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aaf4137ac9a105d08d3bbf95f2a1785a8accbdfbcb956b86c32b64f028a3431109"></a>WXSQLITE_CIPHER_SQLCIPHER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaf4137ac9a105d08d3bbf95f2a1785a8af77da565604dba69aa98d43785f33ee0"></a>WXSQLITE_CIPHER_RC4&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -820,7 +828,7 @@ Variables</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 28 2020 13:25:13 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 16 2020 21:51:25 for wxSQLite3 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>
