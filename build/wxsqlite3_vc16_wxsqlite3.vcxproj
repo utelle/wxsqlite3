@@ -107,24 +107,32 @@
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'" Label="Configuration">
+    <!-- ga2k - Added property VcpkgConfiguration so Configuration DLL Debug is identified as a Debug build -->
+    <VcpkgConfiguration Condition="'$(Configuration)' == 'DLL Debug'">Debug</VcpkgConfiguration>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Debug|x64'" Label="Configuration">
+    <!-- ga2k - Added property VcpkgConfiguration so Configuration DLL Debug is identified as a Debug build -->
+    <VcpkgConfiguration Condition="'$(Configuration)' == 'DLL Debug'">Debug</VcpkgConfiguration>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|Win32'" Label="Configuration">
+    <!-- ga2k - Added property VcpkgConfiguration so Configuration DLL Release is identified as a Release build -->
+    <VcpkgConfiguration Condition="'$(Configuration)' == 'DLL Release'">Release</VcpkgConfiguration>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'" Label="Configuration">
+    <!-- ga2k - Added property VcpkgConfiguration so Configuration DLL Release is identified as a Release build -->
+    <VcpkgConfiguration Condition="'$(Configuration)' == 'DLL Release'">Release</VcpkgConfiguration>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
