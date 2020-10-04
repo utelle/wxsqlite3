@@ -48,6 +48,8 @@ Since August 2020 a new implementation of an encryption extension, capable of su
 
 ## <a name="history"></a>Version history
 
+* 4.6.1 - *October 2020*
+  - Added SQLite VSV extension (Variably Separated Values)
 * 4.6.0 - *August 2020*
   - Use SQLite encryption extension _SQLite3 Multiple Ciphers_
   - Upgrade to SQLite version 3.33.0

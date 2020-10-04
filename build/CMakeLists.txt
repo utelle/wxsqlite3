@@ -250,6 +250,7 @@ set_target_properties(wxsqlite3 PROPERTIES COMPILE_FLAGS "-D_LIB \
                                                           -DSQLITE_CORE=1 \
                                                           -DSQLITE_ENABLE_EXTFUNC=1 \
                                                           -DSQLITE_ENABLE_CSV=1 \
+                                                          -DSQLITE_ENABLE_VSV=1 \
                                                           -DSQLITE_ENABLE_SHA3=1 \
                                                           -DSQLITE_ENABLE_CARRAY=1 \
                                                           -DSQLITE_ENABLE_FILEIO=1 \

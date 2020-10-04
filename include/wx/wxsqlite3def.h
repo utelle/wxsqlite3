@@ -46,6 +46,11 @@
 
 <dl>
 
+<dt><b>4.6.1</b> - <i>October 2020</i></dt>
+<dd>
+Added SQLite VSV extension (Variably Separated Values)<br>
+
+</dd>
 <dt><b>4.6.0</b> - <i>August 2020</i></dt>
 <dd>
 Use SQLite encryption extension "SQLite3 Multiple Ciphers"<br>
