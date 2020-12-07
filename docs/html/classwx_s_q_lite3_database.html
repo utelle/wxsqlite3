@@ -20,7 +20,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">4.6.1</span>
+   &#160;<span id="projectnumber">4.6.2</span>
    </div>
   </td>
  </tr>
@@ -154,6 +154,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a03c3d6aaf3e1162f1c4b3e4771236c48"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#a03c3d6aaf3e1162f1c4b3e4771236c48">QueryRollbackState</a> () const</td></tr>
 <tr class="memdesc:a03c3d6aaf3e1162f1c4b3e4771236c48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the return code of the last rollback.  <a href="classwx_s_q_lite3_database.html#a03c3d6aaf3e1162f1c4b3e4771236c48">More...</a><br /></td></tr>
 <tr class="separator:a03c3d6aaf3e1162f1c4b3e4771236c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6489076ad3925fc7b4a9f3162f40f7a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="wxsqlite3_8h.html#a7e374ef6aa338d31b05e4be5d5fe6661">wxSQLite3TransactionState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#a6489076ad3925fc7b4a9f3162f40f7a8">QueryTransactionState</a> (const wxString &amp;schemaName=wxEmptyString) const</td></tr>
+<tr class="memdesc:a6489076ad3925fc7b4a9f3162f40f7a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the transaction state of a database.  <a href="classwx_s_q_lite3_database.html#a6489076ad3925fc7b4a9f3162f40f7a8">More...</a><br /></td></tr>
+<tr class="separator:a6489076ad3925fc7b4a9f3162f40f7a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e1c5cadeb17bb56cb98e24703016f0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwx_s_q_lite3_database.html#a3e1c5cadeb17bb56cb98e24703016f0d">Savepoint</a> (const wxString &amp;savepointName)</td></tr>
 <tr class="memdesc:a3e1c5cadeb17bb56cb98e24703016f0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set savepoint.  <a href="classwx_s_q_lite3_database.html#a3e1c5cadeb17bb56cb98e24703016f0d">More...</a><br /></td></tr>
 <tr class="separator:a3e1c5cadeb17bb56cb98e24703016f0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -605,6 +608,7 @@ Friends</h2></td></tr>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fileName</td><td>Name of the database file that should be attached. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">schemaName</td><td>Name of the schema that should be used for the attached database. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cipher</td><td>Cipher to be used for database encryption. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">key</td><td>Pass phrase for the attached database. </td></tr>
   </table>
   </dd>
@@ -3291,6 +3295,7 @@ Friends</h2></td></tr>
 <p>Opens the SQLite database file "filename". The "filename" is UTF-8 encoded. If the database could not be opened (or created) successfully, then an exception is thrown. If the database file does not exist, then a new database will be created as needed. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">fileName</td><td>Name of the database file. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cipher</td><td>Cipher to be used for database encryption. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">key</td><td>Database encryption key. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">flags</td><td>Control over the database connection (see <a href="http://www.sqlite.org/c3ref/open.html">http://www.sqlite.org/c3ref/open.html</a> for further information). Flag values are prefixed by WX to distinguish them from the original SQLite flag values. </td></tr>
   </table>
@@ -3577,6 +3582,39 @@ Friends</h2></td></tr>
 <p>Query the return code of the last rollback. </p>
 <p>When using the class <a class="el" href="classwx_s_q_lite3_transaction.html" title="RAII class for managing transactions.">wxSQLite3Transaction</a> there is the possibility that the automatic rollback which is executed in case of an exception fails. This method allows to query the return code of that operation to check whether the automatic rollback succeeded or not. </p><dl class="section return"><dt>Returns</dt><dd>the return code of the last rollback. </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In case of a successful rollback the value 0 is returned. </dd></dl>
+
+</div>
+</div>
+<a id="a6489076ad3925fc7b4a9f3162f40f7a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6489076ad3925fc7b4a9f3162f40f7a8">&#9670;&nbsp;</a></span>QueryTransactionState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="wxsqlite3_8h.html#a7e374ef6aa338d31b05e4be5d5fe6661">wxSQLite3TransactionState</a> wxSQLite3Database::QueryTransactionState </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;&#160;</td>
+          <td class="paramname"><em>schemaName</em> = <code>wxEmptyString</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Query the transaction state of a database. </p>
+<p>Describes the transaction state of the given schema in the database connection. If no schema is given, then the highest transaction state of any schema on the database connection is returned. The transaction state can be one of the following:</p><ul>
+<li>WXSQLITE_TRANSACTION_NONE : No transaction is currently pending.</li>
+<li>WXSQLITE_TRANSACTION_READ : The database is currently in a read transaction. Content has been read from the database file but nothing in the database file has changed. The transaction state will advanced to WXSQLITE_TRANSACTION_WRITE if any changes occur and there are no other conflicting concurrent write transactions. The transaction state will revert to WXSQLITE_TRANSACTION_NONE following a ROLLBACK or COMMIT.</li>
+<li>WXSQLITE_TRANSACTION_WRITE : The database is currently in a write transaction. Content has been written to the database file but has not yet committed. The transaction state will change to to WXSQLITE_TRANSACTION_NONE at the next ROLLBACK or COMMIT. <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">schemaName</td><td>Name of the schema (optional) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the return code of the last rollback. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In case of a successful rollback the value 0 is returned. </dd></dl>
+</li>
+</ul>
 
 </div>
 </div>
@@ -4999,7 +5037,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 4 2020 11:10:21 for wxSQLite3 by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+Generated on Mon Dec 7 2020 22:12:59 for wxSQLite3 by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
 </small></address>
 </body>
 </html>

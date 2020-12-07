@@ -20,7 +20,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">4.6.1</span>
+   &#160;<span id="projectnumber">4.6.2</span>
    </div>
   </td>
  </tr>
@@ -232,6 +232,13 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:af49cafcb237029e7e744a5b2076e2e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of transaction types.  <a href="wxsqlite3_8h.html#af49cafcb237029e7e744a5b2076e2e5d">More...</a><br /></td></tr>
 <tr class="separator:af49cafcb237029e7e744a5b2076e2e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e374ef6aa338d31b05e4be5d5fe6661"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8h.html#a7e374ef6aa338d31b05e4be5d5fe6661">wxSQLite3TransactionState</a> { <a class="el" href="wxsqlite3_8h.html#a7e374ef6aa338d31b05e4be5d5fe6661af861975b195280b5f4257ff7fab20826">WXSQLITE_TRANSACTION_INVALID</a>, 
+<a class="el" href="wxsqlite3_8h.html#a7e374ef6aa338d31b05e4be5d5fe6661a6a3f0341d90ebfcb15079e8780e407ba">WXSQLITE_TRANSACTION_NONE</a>, 
+<a class="el" href="wxsqlite3_8h.html#a7e374ef6aa338d31b05e4be5d5fe6661ae9359e729ef9577a1bea66097a030222">WXSQLITE_TRANSACTION_READ</a>, 
+<a class="el" href="wxsqlite3_8h.html#a7e374ef6aa338d31b05e4be5d5fe6661ac8f6d8baf26c396b6fc69559723d9feb">WXSQLITE_TRANSACTION_WRITE</a>
+ }</td></tr>
+<tr class="memdesc:a7e374ef6aa338d31b05e4be5d5fe6661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of transaction state.  <a href="wxsqlite3_8h.html#a7e374ef6aa338d31b05e4be5d5fe6661">More...</a><br /></td></tr>
+<tr class="separator:a7e374ef6aa338d31b05e4be5d5fe6661"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec74080be17a473d33fa1a5933c236eb"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wxsqlite3_8h.html#aec74080be17a473d33fa1a5933c236eb">wxSQLite3LimitType</a> { <br />
 &#160;&#160;<a class="el" href="wxsqlite3_8h.html#aec74080be17a473d33fa1a5933c236eba5f51c79e8e243e672746c8c21c976384">WXSQLITE_LIMIT_LENGTH</a> = 0, 
 <a class="el" href="wxsqlite3_8h.html#aec74080be17a473d33fa1a5933c236ebadae2ade523bb2e1e60432412b6847900">WXSQLITE_LIMIT_SQL_LENGTH</a> = 1, 
@@ -761,6 +768,28 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a7e374ef6aa338d31b05e4be5d5fe6661"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e374ef6aa338d31b05e4be5d5fe6661">&#9670;&nbsp;</a></span>wxSQLite3TransactionState</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="wxsqlite3_8h.html#a7e374ef6aa338d31b05e4be5d5fe6661">wxSQLite3TransactionState</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enumeration of transaction state. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7e374ef6aa338d31b05e4be5d5fe6661af861975b195280b5f4257ff7fab20826"></a>WXSQLITE_TRANSACTION_INVALID&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7e374ef6aa338d31b05e4be5d5fe6661a6a3f0341d90ebfcb15079e8780e407ba"></a>WXSQLITE_TRANSACTION_NONE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7e374ef6aa338d31b05e4be5d5fe6661ae9359e729ef9577a1bea66097a030222"></a>WXSQLITE_TRANSACTION_READ&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7e374ef6aa338d31b05e4be5d5fe6661ac8f6d8baf26c396b6fc69559723d9feb"></a>WXSQLITE_TRANSACTION_WRITE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="af49cafcb237029e7e744a5b2076e2e5d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af49cafcb237029e7e744a5b2076e2e5d">&#9670;&nbsp;</a></span>wxSQLite3TransactionType</h2>
 
@@ -828,7 +857,7 @@ Variables</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 4 2020 11:10:21 for wxSQLite3 by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+Generated on Mon Dec 7 2020 22:12:59 for wxSQLite3 by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
 </small></address>
 </body>
 </html>
