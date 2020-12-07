@@ -149,5 +149,13 @@ AC_CONFIG_LINKS([samples/sqlcipher-1.1.8-testkey.db:samples/sqlcipher-1.1.8-test
     samples/sqlcipher-4.0-testkey.db:samples/sqlcipher-4.0-testkey.db
 ])
 
+AC_CANONICAL_HOST
+hostX86 = false
+AS_CASE([$host_cpu],
+  [i?86], [hostX86=true],
+  [x86_64], [hostX86=true]
+)
+AM_CONDITIONAL([HOST_X86], [test x$hostX86 = xtrue])
+
 AC_CONFIG_FILES([Makefile wxsqlite3.pc])
 AC_OUTPUT
