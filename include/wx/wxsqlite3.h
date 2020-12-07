@@ -64,6 +64,15 @@ enum wxSQLite3TransactionType
   WXSQLITE_TRANSACTION_EXCLUSIVE
 };
 
+/// Enumeration of transaction state
+enum wxSQLite3TransactionState
+{
+  WXSQLITE_TRANSACTION_INVALID,
+  WXSQLITE_TRANSACTION_NONE,
+  WXSQLITE_TRANSACTION_READ,
+  WXSQLITE_TRANSACTION_WRITE
+};
+
 /// Enumeration of SQLite limitation types
 enum wxSQLite3LimitType
 {
@@ -335,6 +344,7 @@ public:
   /// Get a function argument as a pointer value
   /**
   * \param argIndex index of the function argument. Indices start with 0.
+  * \param pointerType a name identifying the pointer type.
   * \return argument value
   */
   void* GetPointer(int argIndex, const wxString& pointerType) const;
@@ -2612,6 +2622,7 @@ public:
   * If the database could not be opened (or created) successfully, then an exception is thrown.
   * If the database file does not exist, then a new database will be created as needed.
   * \param[in] fileName Name of the database file.
+  * \param[in] cipher Cipher to be used for database encryption.
   * \param[in] key Database encryption key.
   * \param[in] flags Control over the database connection (see http://www.sqlite.org/c3ref/open.html for further information).
   * Flag values are prefixed by WX to distinguish them from the original SQLite flag values.
@@ -2684,6 +2695,7 @@ public:
   *
   * \param[in] fileName Name of the database file that should be attached.
   * \param[in] schemaName Name of the schema that should be used for the attached database.
+  * \param[in] cipher Cipher to be used for database encryption.
   * \param[in] key Pass phrase for the attached database.
   */
   void AttachDatabase(const wxString& fileName, const wxString& schemaName, const wxSQLite3Cipher& cipher, const wxString& key);
@@ -2882,6 +2894,20 @@ public:
   * \note In case of a successful rollback the value 0 is returned.
   */
   int QueryRollbackState() const;
+
+  /// Query the transaction state of a database
+  /**
+  * Describes the transaction state of the given schema in the database connection. If no schema is given,
+  * then the highest transaction state of any schema on the database connection is returned.
+  * The transaction state can be one of the following:
+  * - WXSQLITE_TRANSACTION_NONE : No transaction is currently pending.
+  * - WXSQLITE_TRANSACTION_READ : The database is currently in a read transaction. Content has been read from the database file but nothing in the database file has changed. The transaction state will advanced to WXSQLITE_TRANSACTION_WRITE if any changes occur and there are no other conflicting concurrent write transactions. The transaction state will revert to WXSQLITE_TRANSACTION_NONE following a ROLLBACK or COMMIT.
+  * - WXSQLITE_TRANSACTION_WRITE : The database is currently in a write transaction. Content has been written to the database file but has not yet committed. The transaction state will change to to WXSQLITE_TRANSACTION_NONE at the next ROLLBACK or COMMIT.
+  * \param[in] schemaName Name of the schema (optional)
+  * \return the return code of the last rollback.
+  * \note In case of a successful rollback the value 0 is returned.
+  */
+  wxSQLite3TransactionState QueryTransactionState(const wxString& schemaName = wxEmptyString) const;
 
   /// Set savepoint
   /*

@@ -46,6 +46,13 @@
 
 <dl>
 
+<dt><b>4.6.2</b> - <i>December 2020</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 1.1.1</i><br>
+Upgrade to <i>SQLite version 3.34.0</i><br>
+Added method wxSQLite3Database::QueryTransactionState<br>
+
+</dd>
 <dt><b>4.6.1</b> - <i>October 2020</i></dt>
 <dd>
 Added SQLite VSV extension (Variably Separated Values)<br>

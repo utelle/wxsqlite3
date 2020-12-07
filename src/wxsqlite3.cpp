@@ -117,6 +117,8 @@ const err_char_t* wxERRMSG_CIPHER_NOT_SUPPORTED = wxTRANSLATE("Cipher not suppor
 
 const err_char_t* wxERRMSG_INVALID_COLLECTION = wxTRANSLATE("Collection instance not properly initialized");
 
+const err_char_t* wxERRMSG_SCHEMANAME_UNKNOWN = wxTRANSLATE("Schema name unknown");
+
 static const char* LocalMakePointerTypeCopy(wxArrayPtrVoid& ptrTypes, const wxString& pointerType)
 {
   // Convert pointer type to char*
@@ -3221,6 +3223,44 @@ bool wxSQLite3Database::GetAutoCommit() const
 int wxSQLite3Database::QueryRollbackState() const
 {
   return m_lastRollbackRC;
+}
+
+wxSQLite3TransactionState wxSQLite3Database::QueryTransactionState(const wxString& schemaName) const
+{
+  wxSQLite3TransactionState state = WXSQLITE_TRANSACTION_NONE;
+  int txnState;
+  CheckDatabase();
+  if (schemaName.IsEmpty())
+  {
+    txnState = sqlite3_txn_state(m_db->m_db, NULL);
+  }
+  else
+  {
+    wxCharBuffer strSchema = schemaName.ToUTF8();
+    const char* localSchema = strSchema;
+    txnState = sqlite3_txn_state(m_db->m_db, localSchema);
+  }
+  if (txnState < 0)
+  {
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_SCHEMANAME_UNKNOWN);
+  }
+  else
+  {
+    switch (txnState)
+    {
+      case SQLITE_TXN_READ:
+        state = WXSQLITE_TRANSACTION_READ;
+        break;
+      case SQLITE_TXN_WRITE:
+        state = WXSQLITE_TRANSACTION_WRITE;
+        break;
+      case SQLITE_TXN_NONE:
+      default:
+        state = WXSQLITE_TRANSACTION_NONE;
+        break;
+    }
+  }
+  return state;
 }
 
 void wxSQLite3Database::Savepoint(const wxString& savepointName)

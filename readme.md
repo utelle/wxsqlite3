@@ -34,7 +34,7 @@ Currently the following encryption schemes are supported:
 
 With the release of SQLite version 3.32.0 on May 22, 2020 critical changes to the public SQLite code finally took officially effect, although they weren't officially announced. They were introduced on Feb 7, 2020: ["Simplify the code by removing the unsupported and undocumented SQLITE_HAS_CODEC compile-time option"](https://www.sqlite.org/src/timeline?c=5a877221ce90e752). As a consequence, updating the _wxSQLite3 encryption extension_ to support SQLite version 3.32.0 and later was no longer possible.
 
-Since August 2020 a new implementation of an encryption extension, capable of supporting SQLite version 3.32.0 and later, is available as a separate project, [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers). Starting with the release of **wxSQLite3 4.6.0** this new implementation will be used.
+Since August 2020 a new implementation of an encryption extension, capable of supporting SQLite version 3.32.0 and later, is available as a separate project, [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers). Starting with the release of **wxSQLite3 4.6.0** this new implementation is used.
 
 ## Table of Contents
 
@@ -48,6 +48,10 @@ Since August 2020 a new implementation of an encryption extension, capable of su
 
 ## <a name="history"></a>Version history
 
+* 4.6.2 - *December 2020*
+  - Upgrade to SQLite3 Multiple Ciphers version 1.1.1
+  - Upgrade to SQLite version 3.34.0
+  - Added method `wxSQLite3Database::QueryTransactionState`
 * 4.6.1 - *October 2020*
   - Added SQLite VSV extension (Variably Separated Values)
 * 4.6.0 - *August 2020*
