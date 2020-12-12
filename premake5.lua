@@ -35,7 +35,10 @@ project "wxsqlite3"
   if (is_msvc) then
     local prj = project()
     prj.filename = "wxsqlite3_" .. vc_with_ver .. "_wxsqlite3"
+  else
+    buildoptions { "-msse4.2 -maes" }
   end
+  
   if wxMonolithic then
     local prj = project()
     prj.filename = "wxsqlite3_mono"

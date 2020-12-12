@@ -1,4 +1,4 @@
-/*
+  /*
 ** Name:        wxsqlite3def.h
 ** Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
 ** Author:      Ulrich Telle
@@ -46,6 +46,12 @@
 
 <dl>
 
+<dt><b>4.6.3</b> - <i>December 2020</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 1.1.2</i><br>
+Adjusted build files for MinGW<br>
+
+</dd>
 <dt><b>4.6.2</b> - <i>December 2020</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 1.1.1</i><br>
