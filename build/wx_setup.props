@@ -7,17 +7,16 @@
     <wxShortVersionString>31</wxShortVersionString>
     <wxToolkitPrefix>msw</wxToolkitPrefix>
     <!-- Use following definition to exclude the toolset version in the compiler prefix
-    <wxCompilerPrefix>vc</wxCompilerPrefix>
     -->
+    <wxCompilerPrefix>vc14x</wxCompilerPrefix>
     <!-- Use following definition to include the toolset version in the compiler prefix
-    -->
     <wxCompilerPrefix>vc$(PlatformToolsetVersion)</wxCompilerPrefix>
+    -->
     <wxFlavour></wxFlavour>
     <!-- Use following definition to include wxWidgets platform information in library name
     <wxFlavour>_$(wxToolkitPrefix)$(wxShortVersionString)u</wxFlavour>
     -->
-    <wxCfg>
-    </wxCfg>
+    <wxCfg></wxCfg>
     <wxVendor>custom</wxVendor>
     <!-- Uncomment the definition of the user macro wxMsvcVersion, if a compiler-specific prefix should be used -->
     <!-- Replace XX by the version symbol used for wxCompilerPrefix, i.e. 'vcXX' -->
@@ -26,6 +25,7 @@
     -->
     <!-- Set wxMsvcVersionAuto to any non-empty value, if the compiler-specific prefix should be determined automatically -->
     <wxMsvcVersionAuto>1</wxMsvcVersionAuto>
+    <wxMsvcVersionAbiCompat>1</wxMsvcVersionAbiCompat>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros" Condition="'$(Platform)'=='Win32'">
     <wxArchSuffix>
@@ -37,49 +37,43 @@
   <PropertyGroup Label="UserMacros" Condition="'$(Platform)'=='Itanium'">
     <wxArchSuffix>_ia64</wxArchSuffix>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="('$(Configuration)'=='Debug' or '$(Configuration)'=='Debug wxDLL' or '$(Configuration)'=='DLL Debug') and '$(CharacterSet)'=='Unicode'">
+  <PropertyGroup Label="UserMacros" Condition="$(Configuration.StartsWith('Debug')) and '$(CharacterSet)'=='Unicode'">
     <wxSuffix>ud</wxSuffix>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="('$(Configuration)'=='Debug' or '$(Configuration)'=='Debug wxDLL' or '$(Configuration)'=='DLL Debug') and '$(CharacterSet)'!='Unicode'">
+  <PropertyGroup Label="UserMacros" Condition="$(Configuration.StartsWith('Debug')) and '$(CharacterSet)'!='Unicode'">
     <wxSuffix>d</wxSuffix>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="('$(Configuration)'=='Release' or '$(Configuration)'=='Release wxDLL' or '$(Configuration)'=='DLL Release') and '$(CharacterSet)'=='Unicode'">
+  <PropertyGroup Label="UserMacros" Condition="$(Configuration.StartsWith('Release')) and '$(CharacterSet)'=='Unicode'">
     <wxSuffix>u</wxSuffix>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="('$(Configuration)'=='Release' or '$(Configuration)'=='Release wxDLL' or '$(Configuration)'=='DLL Release') and '$(CharacterSet)'!='Unicode'">
+  <PropertyGroup Label="UserMacros" Condition="$(Configuration.StartsWith('Release')) and '$(CharacterSet)'!='Unicode'">
     <wxSuffix>
     </wxSuffix>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Debug' or '$(Configuration)'=='Debug wxDLL' or '$(Configuration)'=='DLL Debug'">
+  <PropertyGroup Label="UserMacros" Condition="$(Configuration.StartsWith('Debug'))">
     <wxSuffixDebug>d</wxSuffixDebug>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'!='Debug' and '$(Configuration)'!='Debug wxDLL' and '$(Configuration)'!='DLL Debug'">
+  <PropertyGroup Label="UserMacros" Condition="$(Configuration.StartsWith('Release'))">
     <wxSuffixDebug>
     </wxSuffixDebug>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='DLL Debug' or '$(Configuration)'=='DLL Release'">
+  <PropertyGroup Label="UserMacros" Condition="$(Configuration.StartsWith('Debug DLL')) or $(Configuration.StartsWith('Release DLL'))">
     <wxLibTypeSuffix>dll</wxLibTypeSuffix>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Debug wxDLL' or '$(Configuration)'=='Release wxDLL'">
+  <PropertyGroup Label="UserMacros" Condition="$(Configuration.Contains('wxDLL'))">
     <wxLibTypeSuffix>lib_wxdll</wxLibTypeSuffix>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Debug' or '$(Configuration)'=='Release'">
+  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Debug' or '$(Configuration)'=='Release' or '$(Configuration)'=='Debug Win64' or '$(Configuration)'=='Release Win64'">
     <wxLibTypeSuffix>lib</wxLibTypeSuffix>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros">
     <wxOutDirName>$(wxCompilerPrefix)$(wxArchSuffix)_$(wxLibTypeSuffix)$(wxCfg)</wxOutDirName>
-    <wxOutDir>..\lib\$(wxOutDirName)\</wxOutDir>
+    <wxOutDir>..\lib\$(wxOutDirName)</wxOutDir>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='DLL Debug'">
+  <PropertyGroup Label="UserMacros" Condition="$(Configuration.StartsWith('Debug DLL')) or $(Configuration.StartsWith('Release DLL'))">
     <wxIntRootDir>$(wxCompilerPrefix)$(wxArchSuffix)_$(wxToolkitPrefix)$(wxSuffix)dll\</wxIntRootDir>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='DLL Release'">
-    <wxIntRootDir>$(wxCompilerPrefix)$(wxArchSuffix)_$(wxToolkitPrefix)$(wxSuffix)dll\</wxIntRootDir>
-  </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Debug'">
-    <wxIntRootDir>$(wxCompilerPrefix)$(wxArchSuffix)_$(wxToolkitPrefix)$(wxSuffix)\</wxIntRootDir>
-  </PropertyGroup>
-  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Release'">
+  <PropertyGroup Label="UserMacros" Condition="'$(Configuration)'=='Debug' or '$(Configuration)'=='Release' or '$(Configuration)'=='Debug Win64' or '$(Configuration)'=='Release Win64'">
     <wxIntRootDir>$(wxCompilerPrefix)$(wxArchSuffix)_$(wxToolkitPrefix)$(wxSuffix)\</wxIntRootDir>
   </PropertyGroup>
   <PropertyGroup Label="UserMacros">
@@ -94,29 +88,39 @@
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;shell32.lib;shlwapi.lib;ole32.lib;oleaut32.lib;uuid.lib;advapi32.lib;version.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(wxMsvcVersion)'!='' and '$(wxCfg)'!='' and '$(wxMsvcVersionAuto)'==''">
+  <ItemDefinitionGroup Condition="'$(wxMsvcVersion)'!='' and '$(wxCfg)'!='' and '$(wxMsvcVersionAuto)'=='' and '$(wxMsvcVersionAbiCompat)'==''">
     <ClCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);wxMSVC_VERSION=$(wxMsvcVersion);wxCFG=$(wxCfg)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(wxMsvcVersion)'!='' and '$(wxCfg)'=='' and '$(wxMsvcVersionAuto)'==''">
+  <ItemDefinitionGroup Condition="'$(wxMsvcVersion)'!='' and '$(wxCfg)'=='' and '$(wxMsvcVersionAuto)'=='' and '$(wxMsvcVersionAbiCompat)'==''">
     <ClCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);wxMSVC_VERSION=$(wxMsvcVersion)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(wxMsvcVersion)'=='' and '$(wxCfg)'!='' and '$(wxMsvcVersionAuto)'==''">
+  <ItemDefinitionGroup Condition="'$(wxMsvcVersion)'=='' and '$(wxCfg)'!='' and '$(wxMsvcVersionAuto)'=='' and '$(wxMsvcVersionAbiCompat)'==''">
     <ClCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);wxCFG=$(wxCfg)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(wxCfg)'!='' and '$(wxMsvcVersionAuto)'!=''">
+  <ItemDefinitionGroup Condition="'$(wxCfg)'!='' and '$(wxMsvcVersionAuto)'!='' and '$(wxMsvcVersionAbiCompat)'==''">
     <ClCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);wxCFG=$(wxCfg);wxMSVC_VERSION_AUTO</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(wxCfg)'=='' and '$(wxMsvcVersionAuto)'!=''">
+  <ItemDefinitionGroup Condition="'$(wxCfg)'=='' and '$(wxMsvcVersionAuto)'!='' and '$(wxMsvcVersionAbiCompat)'==''">
     <ClCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);wxMSVC_VERSION_AUTO</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(wxCfg)'!='' and '$(wxMsvcVersionAuto)'!='' and '$(wxMsvcVersionAbiCompat)'!=''">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);wxCFG=$(wxCfg);wxMSVC_VERSION_AUTO;wxMSVC_VERSION_ABI_COMPAT</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(wxCfg)'=='' and '$(wxMsvcVersionAuto)'!='' and '$(wxMsvcVersionAbiCompat)'!=''">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);wxMSVC_VERSION_AUTO;wxMSVC_VERSION_ABI_COMPAT</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

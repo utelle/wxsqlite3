@@ -3,72 +3,72 @@
 include config.gcc
 
 ifndef config
-  config=debug_x32
+  config=debug_win32
 endif
 
 ifndef verbose
   SILENT = @
 endif
 
-ifeq ($(config),debug_x32)
-  wxsqlite3_config = debug_x32
-  minimal_config = debug_x32
-  treeview_config = debug_x32
+ifeq ($(config),debug_win32)
+  wxsqlite3_config = debug_win32
+  minimal_config = debug_win32
+  treeview_config = debug_win32
 
-else ifeq ($(config),debug_x64)
-  wxsqlite3_config = debug_x64
-  minimal_config = debug_x64
-  treeview_config = debug_x64
+else ifeq ($(config),debug_win64)
+  wxsqlite3_config = debug_win64
+  minimal_config = debug_win64
+  treeview_config = debug_win64
 
-else ifeq ($(config),release_x32)
-  wxsqlite3_config = release_x32
-  minimal_config = release_x32
-  treeview_config = release_x32
+else ifeq ($(config),release_win32)
+  wxsqlite3_config = release_win32
+  minimal_config = release_win32
+  treeview_config = release_win32
 
-else ifeq ($(config),release_x64)
-  wxsqlite3_config = release_x64
-  minimal_config = release_x64
-  treeview_config = release_x64
+else ifeq ($(config),release_win64)
+  wxsqlite3_config = release_win64
+  minimal_config = release_win64
+  treeview_config = release_win64
 
-else ifeq ($(config),debug_wxdll_x32)
-  wxsqlite3_config = debug_wxdll_x32
-  minimal_config = debug_wxdll_x32
-  treeview_config = debug_wxdll_x32
+else ifeq ($(config),debug_wxdll_win32)
+  wxsqlite3_config = debug_wxdll_win32
+  minimal_config = debug_wxdll_win32
+  treeview_config = debug_wxdll_win32
 
-else ifeq ($(config),debug_wxdll_x64)
-  wxsqlite3_config = debug_wxdll_x64
-  minimal_config = debug_wxdll_x64
-  treeview_config = debug_wxdll_x64
+else ifeq ($(config),debug_wxdll_win64)
+  wxsqlite3_config = debug_wxdll_win64
+  minimal_config = debug_wxdll_win64
+  treeview_config = debug_wxdll_win64
 
-else ifeq ($(config),release_wxdll_x32)
-  wxsqlite3_config = release_wxdll_x32
-  minimal_config = release_wxdll_x32
-  treeview_config = release_wxdll_x32
+else ifeq ($(config),release_wxdll_win32)
+  wxsqlite3_config = release_wxdll_win32
+  minimal_config = release_wxdll_win32
+  treeview_config = release_wxdll_win32
 
-else ifeq ($(config),release_wxdll_x64)
-  wxsqlite3_config = release_wxdll_x64
-  minimal_config = release_wxdll_x64
-  treeview_config = release_wxdll_x64
+else ifeq ($(config),release_wxdll_win64)
+  wxsqlite3_config = release_wxdll_win64
+  minimal_config = release_wxdll_win64
+  treeview_config = release_wxdll_win64
 
-else ifeq ($(config),dll_debug_x32)
-  wxsqlite3_config = dll_debug_x32
-  minimal_config = dll_debug_x32
-  treeview_config = dll_debug_x32
+else ifeq ($(config),debug_dll_win32)
+  wxsqlite3_config = debug_dll_win32
+  minimal_config = debug_dll_win32
+  treeview_config = debug_dll_win32
 
-else ifeq ($(config),dll_debug_x64)
-  wxsqlite3_config = dll_debug_x64
-  minimal_config = dll_debug_x64
-  treeview_config = dll_debug_x64
+else ifeq ($(config),debug_dll_win64)
+  wxsqlite3_config = debug_dll_win64
+  minimal_config = debug_dll_win64
+  treeview_config = debug_dll_win64
 
-else ifeq ($(config),dll_release_x32)
-  wxsqlite3_config = dll_release_x32
-  minimal_config = dll_release_x32
-  treeview_config = dll_release_x32
+else ifeq ($(config),release_dll_win32)
+  wxsqlite3_config = release_dll_win32
+  minimal_config = release_dll_win32
+  treeview_config = release_dll_win32
 
-else ifeq ($(config),dll_release_x64)
-  wxsqlite3_config = dll_release_x64
-  minimal_config = dll_release_x64
-  treeview_config = dll_release_x64
+else ifeq ($(config),release_dll_win64)
+  wxsqlite3_config = release_dll_win64
+  minimal_config = release_dll_win64
+  treeview_config = release_dll_win64
 
 else
   $(error "invalid configuration $(config)")
@@ -125,18 +125,18 @@ help:
 	@echo "Usage: make [config=name] [target]"
 	@echo ""
 	@echo "CONFIGURATIONS:"
-	@echo "  debug_x32"
-	@echo "  debug_x64"
-	@echo "  release_x32"
-	@echo "  release_x64"
-	@echo "  debug_wxdll_x32"
-	@echo "  debug_wxdll_x64"
-	@echo "  release_wxdll_x32"
-	@echo "  release_wxdll_x64"
-	@echo "  dll_debug_x32"
-	@echo "  dll_debug_x64"
-	@echo "  dll_release_x32"
-	@echo "  dll_release_x64"
+	@echo "  debug_win32"
+	@echo "  debug_win64"
+	@echo "  release_win32"
+	@echo "  release_win64"
+	@echo "  debug_wxdll_win32"
+	@echo "  debug_wxdll_win64"
+	@echo "  release_wxdll_win32"
+	@echo "  release_wxdll_win64"
+	@echo "  debug_dll_win32"
+	@echo "  debug_dll_win64"
+	@echo "  release_dll_win32"
+	@echo "  release_dll_win64"
 	@echo ""
 	@echo "TARGETS:"
 	@echo "   all (default)"

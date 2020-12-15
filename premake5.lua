@@ -9,8 +9,8 @@ dofile "premake/wxwidgets.lua"
 BUILDDIR = _OPTIONS["builddir"] or "build"
 
 workspace "wxsqlite3"
-  configurations { "Debug", "Release", "Debug wxDLL", "Release wxDLL", "DLL Debug", "DLL Release" }
-  platforms { "x32", "x64" }
+  configurations { "Debug", "Release", "Debug wxDLL", "Release wxDLL", "Debug DLL", "Release DLL" }
+  platforms { "Win32", "Win64" }
   location(BUILDDIR)
 
   if (is_msvc) then
