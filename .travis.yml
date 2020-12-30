@@ -7,7 +7,7 @@ sudo: required
 
 matrix:
     include:
-        - dist: xenial
+        - dist: trusty
           compiler: gcc
           env: WXGTK_PACKAGE=libwxgtk2.8-dev
 # Following CI tests replaced by GitHub Actions
