@@ -46,6 +46,12 @@
 
 <dl>
 
+<dt><b>4.6.4</b> - <i>December 2020</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 1.1.3</i><br>
+Adjusted autotool build files to enable AES hardware support if available<br>
+
+</dd>
 <dt><b>4.6.3</b> - <i>December 2020</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 1.1.2</i><br>

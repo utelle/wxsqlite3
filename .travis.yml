@@ -7,27 +7,21 @@ sudo: required
 
 matrix:
     include:
-        - dist: trusty
+        - dist: xenial
           compiler: gcc
           env: WXGTK_PACKAGE=libwxgtk2.8-dev
-        - dist: trusty
-          compiler: gcc
-          env: WXGTK_PACKAGE=libwxgtk3.0-dev
-        - os: osx
-          osx_image: xcode11.4
-          compiler: clang
-          env: CXXFLAGS=-Wno-potentially-evaluated-expression
-# Test OS X 10.11 with XCode 8 (issue #53)
-# (platform and toolchain outdated => test removed)
+# Following CI tests replaced by GitHub Actions
+#        - dist: xenial
+#          compiler: gcc
+#          env: WXGTK_PACKAGE=libwxgtk3.0-dev
 #        - os: osx
-#          osx_image: xcode8
+#          osx_image: xcode11.4
 #          compiler: clang
 #          env: CXXFLAGS=-Wno-potentially-evaluated-expression
 
 branches:
     only:
         - master
-        - multi-cipher
 
 before_install:
     - ./admin/travis/before_install.sh

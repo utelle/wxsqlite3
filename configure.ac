@@ -4,7 +4,7 @@ dnl Copyright (C) 2017-2020 Ulrich Telle <ulrich@telle-online.de>, Vadim Zeitlin
 dnl
 dnl This file is covered by the same licence as the entire wxSQLite3 package.
 
-AC_INIT([wxsqlite3], [4.6.3], [ulrich@telle-online.de])
+AC_INIT([wxsqlite3], [4.6.4], [ulrich@telle-online.de])
 
 dnl This is the version tested with, might work with earlier ones.
 AC_PREREQ([2.69])
@@ -150,12 +150,15 @@ AC_CONFIG_LINKS([samples/sqlcipher-1.1.8-testkey.db:samples/sqlcipher-1.1.8-test
 ])
 
 AC_CANONICAL_HOST
-hostX86 = false
+hostX86=false
+hostARM=false
 AS_CASE([$host_cpu],
   [i?86], [hostX86=true],
-  [x86_64], [hostX86=true]
+  [x86_64], [hostX86=true],
+  [arm*|aarch64*], [hostARM=true]
 )
 AM_CONDITIONAL([HOST_X86], [test x$hostX86 = xtrue])
+AM_CONDITIONAL([HOST_ARM], [test x$hostARM = xtrue])
 
 AC_CONFIG_FILES([Makefile wxsqlite3.pc])
 AC_OUTPUT
