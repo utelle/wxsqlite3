@@ -420,13 +420,6 @@ function make_filters(libname,libtarget,wxlibs)
 
   makesettings { "include config.gcc" }
 
-  if (wx_compiler == "gcc") then
-    targetprefix "lib"
-    targetextension ".a"
-    implibprefix "lib"
-    implibextension ".a"
-  end
-
   -- Intermediate directory
   if (is_msvc) then
     objdir (BUILDDIR .. "/obj/" .. vc_with_ver)
@@ -440,6 +433,12 @@ function make_filters(libname,libtarget,wxlibs)
       "_LIB",
       "WXMAKINGLIB_" .. libname
     }
+    if (wx_compiler == "gcc") then
+      targetprefix "lib"
+      targetextension ".a"
+      implibprefix "lib"
+      implibextension ".a"
+    end
   filter { "configurations:Release or Debug", "platforms:Win32" }
     if (is_msvc) then
       if (msvc_useProps) then
@@ -487,6 +486,11 @@ function make_filters(libname,libtarget,wxlibs)
       "_USRDLL",
       "WXMAKINGDLL_" .. libname
     }
+    if (wx_compiler == "gcc") then
+      targetprefix "lib"
+      implibprefix "lib"
+      implibextension ".a"
+    end
 
   filter { "configurations:Release DLL or Debug DLL", "platforms:Win32" }
     if (is_msvc) then
