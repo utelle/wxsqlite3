@@ -3659,7 +3659,9 @@ wxSQLite3Table wxSQLite3Database::GetTable(const char* sql)
   }
   else
   {
-    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+    wxString errmsg = wxString::FromUTF8(localError);
+    sqlite3_free(localError);
+    throw wxSQLite3Exception(rc, errmsg);
   }
 }
 
