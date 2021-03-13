@@ -3,7 +3,7 @@
 ** Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
 ** Author:      Ulrich Telle
 ** Created:     2005-07-14
-** Copyright:   (c) 2005-2020 Ulrich Telle
+** Copyright:   (c) 2005-2021 Ulrich Telle
 ** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
@@ -46,6 +46,14 @@
 
 <dl>
 
+<dt><b>4.6.5</b> - <i>March 2021</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 1.2.0 (SQLite version 3.35.0)</i><br>
+Enabled new SQLite Math Extension<br>
+Fixed a memory leak in method wxSQLite3Database::GetTable<br>
+Adjusted build files (DLL builds with MinGW/GCC used wrong DLL file extension)<br>
+
+</dd>
 <dt><b>4.6.4</b> - <i>December 2020</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 1.1.3</i><br>

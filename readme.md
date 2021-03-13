@@ -48,6 +48,11 @@ Since August 2020 a new implementation of an encryption extension, capable of su
 
 ## <a name="history"></a>Version history
 
+* 4.6.5 - *March 2021*
+  - Upgrade to SQLite3 Multiple Ciphers version 1.2.0 (SQLite version 3.35.0)
+  - Enabled new SQLite Math Extension
+  - Fixed a memory leak in method wxSQLite3Database::GetTable
+  - Adjusted build files (DLL builds with MinGW/GCC used wrong DLL file extension)
 * 4.6.4 - *December 2020*
   - Upgrade to SQLite3 Multiple Ciphers version 1.1.3
   - Adjusted autotool build files to enable AES hardware support if available
