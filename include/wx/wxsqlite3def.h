@@ -46,6 +46,11 @@
 
 <dl>
 
+<dt><b>4.7.5</b> - <i>November 2021</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 1.3.5 (SQLite version 3.37.0)</i><br>
+
+</dd>
 <dt><b>4.7.4</b> - <i>July 2021</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 1.3.4 (SQLite version 3.36.0)</i><br>

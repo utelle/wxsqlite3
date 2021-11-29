@@ -40,6 +40,7 @@
 #pragma warning (disable:4610)
 #endif
 
+#include "sqlite3mc_config.h"
 #include "sqlite3mc_amalgamation.h"
 
 // Check for minimal required SQLite version

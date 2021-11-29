@@ -6,7 +6,7 @@ image:
 # branches to build
 branches:
   only:
-    - master
+    - main
 
 # environments
 environment:
