@@ -48,6 +48,8 @@ Since August 2020 a new implementation of an encryption extension, capable of su
 
 ## <a name="history"></a>Version history
 
+* 4.7.6 - *January 2022*
+  - Upgrade to SQLite3 Multiple Ciphers version 1.3.7 (SQLite version 3.37.2)
 * 4.7.5 - *November 2021*
   - Upgrade to SQLite3 Multiple Ciphers version 1.3.5 (SQLite version 3.37.0)
   - Added build support for Visual C++ 2022
