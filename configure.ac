@@ -1,6 +1,6 @@
 dnl Process this script with autoconf to create configure for wxsqlite3 library
 dnl
-dnl Copyright (C) 2017-2021 Ulrich Telle <ulrich@telle-online.de>, Vadim Zeitlin <vadim@wxwidgets.org>
+dnl Copyright (C) 2017-2022 Ulrich Telle <ulrich@telle-online.de>, Vadim Zeitlin <vadim@wxwidgets.org>
 dnl
 dnl This file is covered by the same licence as the entire wxSQLite3 package.
 
@@ -114,6 +114,14 @@ AS_IF([test "x$with_aes128cbc" = xno &&
        test "x$with_sqlcipher" = xno &&
        test "x$with_rc4" = xno],
        [AC_DEFINE([WXSQLITE3_HAVE_CODEC], [0], [All ciphers disabled so encryption is disabled])])
+
+dnl check for dlopen() in libdl
+HAVE_DLOPEN=false
+AC_CHECK_LIB(dl, dlopen,
+  [
+    HAVE_DLOPEN=true
+  ])
+AM_CONDITIONAL([HAVE_LIBDL], [test x$HAVE_DLOPEN = xtrue])
 
 dnl We only need the libraries above for the main library itself, but the
 dnl pdfdc sample has additional requirements, check for them too (notice that
