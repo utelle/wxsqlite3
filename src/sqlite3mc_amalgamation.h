@@ -31,9 +31,9 @@
 
 #define SQLITE3MC_VERSION_MAJOR      1
 #define SQLITE3MC_VERSION_MINOR      3
-#define SQLITE3MC_VERSION_RELEASE    9
+#define SQLITE3MC_VERSION_RELEASE    10
 #define SQLITE3MC_VERSION_SUBRELEASE 0
-#define SQLITE3MC_VERSION_STRING     "SQLite3 Multiple Ciphers 1.3.9"
+#define SQLITE3MC_VERSION_STRING     "SQLite3 Multiple Ciphers 1.3.10"
 
 #endif /* SQLITE3MC_VERSION_H_ */
 /*** End of #include "sqlite3mc_version.h" ***/
@@ -192,9 +192,9 @@ extern "C" {
 ** [sqlite3_libversion_number()], [sqlite3_sourceid()],
 ** [sqlite_version()] and [sqlite_source_id()].
 */
-#define SQLITE_VERSION        "3.38.1"
-#define SQLITE_VERSION_NUMBER 3038001
-#define SQLITE_SOURCE_ID      "2022-03-12 13:37:29 38c210fdd258658321c85ec9c01a072fda3ada94540e3239d29b34dc547a8cbc"
+#define SQLITE_VERSION        "3.38.2"
+#define SQLITE_VERSION_NUMBER 3038002
+#define SQLITE_SOURCE_ID      "2022-03-26 13:51:10 d33c709cc0af66bc5b6dc6216eba9f1f0b40960b9ae83694c986fbf4c1d6f08f"
 
 /*
 ** CAPI3REF: Run-Time Library Version Numbers
