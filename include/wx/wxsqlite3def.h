@@ -46,6 +46,12 @@
 
 <dl>
 
+<dt><b>4.8.1</b> - <i>May 2022</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 1.4.3 (SQLite version 3.38.5)</i><br>
+
+</dd>
+
 <dt><b>4.8.0</b> - <i>April 2022</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 1.4.2 (SQLite version 3.38.3)</i><br>
