@@ -433,6 +433,27 @@ root directory of the wxWidgets library.
 When building on Win32 or Win64, you can use the makefiles or one of the
 Microsoft Visual Studio solution files in the `build` folder.
 
+The Visual Studio solution files reference the property file `wx_setup.props`
+in the build subdirectory. This file is configured in a way to allow running
+AppVeyor CI without any modifications. Especially, specific library directories
+are used for different compiler versions (as it is used by the pre-built
+wxWidgets libraries) by adding the toolkit version (i.e., 141 for VS 2015,
+142 for VS 2019) to the library path name.
+
+To get library path names without toolkit version (as you usually get when
+compiling wxWidgets yourself) please adjust the 2 parameters `wxCompilerPrefix`
+and `wxMsvcVersionAuto` in file `wx_setup.props` as follows:
+
+```
+<wxCompilerPrefix>vc</wxCompilerPrefix>
+<wxMsvcVersionAuto></wxMsvcVersionAuto>
+```
+
+Additionally, the property file assumes that the environment variable `WXWIN`
+is defined and points to the root directory of the wxWidgets installation.
+Make sure that `WXWIN` is set up properly, or replace it by a environment
+variable of your choice or by an absolute path specification.
+
 For Visual C++ the debugging properties are set up in such a way that
 debugging the sample applications should work right out of the box. For
 release builds you may need to copy the wxSQLite3 DLL or add the
