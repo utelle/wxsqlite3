@@ -48,6 +48,8 @@ Since August 2020 a new implementation of an encryption extension, capable of su
 
 ## <a name="history"></a>Version history
 
+* 4.8.2 - *July 2022*
+  - Upgrade to SQLite3 Multiple Ciphers version 1.4.6 (SQLite version 3.39.1)
 * 4.8.1 - *May 2022*
   - Upgrade to SQLite3 Multiple Ciphers version 1.4.3 (SQLite version 3.38.5)
 * 4.8.0 - *April 2022*
