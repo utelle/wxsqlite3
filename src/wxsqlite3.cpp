@@ -5715,17 +5715,19 @@ wxSQLite3Cipher::GetCipherType(const wxString& cipherName)
 bool
 wxSQLite3Cipher::SetCipher(wxSQLite3Database& db, wxSQLite3CipherType cipherType)
 {
+  const char* cipherName = GetCipherName(cipherType).utf8_str();
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
-  int newCipherType = (dbHandle != NULL) ? sqlite3mc_config(dbHandle, "cipher", cipherType) : WXSQLITE_CIPHER_UNKNOWN;
-  return (newCipherType == (int) cipherType && newCipherType != WXSQLITE_CIPHER_UNKNOWN);
+  int newCipherType = (dbHandle != NULL) ? sqlite3mc_config(dbHandle, "cipher", sqlite3mc_cipher_index(cipherName)) : WXSQLITE_CIPHER_UNKNOWN;
+  return (newCipherType > 0 && newCipherType == (int) cipherType && newCipherType != WXSQLITE_CIPHER_UNKNOWN);
 }
 
 bool
 wxSQLite3Cipher::SetCipherDefault(wxSQLite3Database& db, wxSQLite3CipherType cipherType)
 {
+  const char* cipherName = GetCipherName(cipherType).utf8_str();
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
-  int newCipherType = (dbHandle != NULL) ? sqlite3mc_config(dbHandle, "default:cipher", cipherType) : WXSQLITE_CIPHER_UNKNOWN;
-  return (newCipherType == (int) cipherType && newCipherType != WXSQLITE_CIPHER_UNKNOWN);
+  int newCipherType = (dbHandle != NULL) ? sqlite3mc_config(dbHandle, "default:cipher", sqlite3mc_cipher_index(cipherName)) : WXSQLITE_CIPHER_UNKNOWN;
+  return (newCipherType > 0 && newCipherType == (int) cipherType && newCipherType != WXSQLITE_CIPHER_UNKNOWN);
 }
 
 wxSQLite3CipherType
@@ -5733,8 +5735,7 @@ wxSQLite3Cipher::GetCipher(wxSQLite3Database& db)
 {
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
   int cipherType = sqlite3mc_config(dbHandle, "cipher", -1);
-  if (cipherType < 1) cipherType = 0;
-  return (wxSQLite3CipherType) cipherType;
+  return GetCipherType(sqlite3mc_cipher_name(cipherType));
 }
 
 wxSQLite3CipherType
@@ -5742,16 +5743,14 @@ wxSQLite3Cipher::GetCipherDefault(wxSQLite3Database& db)
 {
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
   int cipherType = sqlite3mc_config(dbHandle, "default:cipher", -1);
-  if (cipherType < 1) cipherType = 0;
-  return (wxSQLite3CipherType) cipherType;
+  return GetCipherType(sqlite3mc_cipher_name(cipherType));
 }
 
 wxSQLite3CipherType
 wxSQLite3Cipher::GetGlobalCipherDefault()
 {
   int cipherType = sqlite3mc_config(0, "default:cipher", -1);
-  if (cipherType < 1) cipherType = 0;
-  return (wxSQLite3CipherType) cipherType;
+  return GetCipherType(sqlite3mc_cipher_name(cipherType));
 }
 
 int
@@ -5869,10 +5868,10 @@ wxSQLite3CipherAes128::Apply(void* dbHandle) const
   {
     if (dbHandle != NULL)
     {
-      int newCipherType = sqlite3mc_config((sqlite3*) dbHandle, "cipher", GetCipherType());
+      int newCipherType = sqlite3mc_config((sqlite3*) dbHandle, "cipher", sqlite3mc_cipher_index("aes128cbc"));
       int legacy = sqlite3mc_config_cipher((sqlite3*) dbHandle, "aes128cbc", "legacy", (m_legacy) ? 1 : 0);
       int legacyPageSize = sqlite3mc_config_cipher((sqlite3*) dbHandle, "aes128cbc", "legacy_page_size", GetLegacyPageSize());
-      applied = (legacy >= 0) && (legacyPageSize >= 0);
+      applied = (newCipherType > 0) && (legacy >= 0) && (legacyPageSize >= 0);
     }
   }
   return applied;
@@ -5959,11 +5958,11 @@ wxSQLite3CipherAes256::Apply(void* dbHandle) const
   {
     if (dbHandle != NULL)
     {
-      int newCipherType = sqlite3mc_config((sqlite3*) dbHandle, "cipher", GetCipherType());
+      int newCipherType = sqlite3mc_config((sqlite3*) dbHandle, "cipher", sqlite3mc_cipher_index("aes256cbc"));
       int legacy = sqlite3mc_config_cipher((sqlite3*) dbHandle, "aes256cbc", "legacy", (m_legacy) ? 1 : 0);
       int legacyPageSize = sqlite3mc_config_cipher((sqlite3*)dbHandle, "aes256cbc", "legacy_page_size", GetLegacyPageSize());
       int kdfIter = sqlite3mc_config_cipher((sqlite3*) dbHandle, "aes256cbc", "kdf_iter", m_kdfIter);
-      applied = (legacy >= 0) && (legacyPageSize >= 0) && (kdfIter > 0);
+      applied = (newCipherType > 0) && (legacy >= 0) && (legacyPageSize >= 0) && (kdfIter > 0);
     }
   }
   return applied;
@@ -6049,11 +6048,11 @@ wxSQLite3CipherChaCha20::Apply(void* dbHandle) const
   {
     if (dbHandle != NULL)
     {
-      int newCipherType = sqlite3mc_config((sqlite3*) dbHandle, "cipher", GetCipherType());
+      int newCipherType = sqlite3mc_config((sqlite3*) dbHandle, "cipher", sqlite3mc_cipher_index("chacha20"));
       int legacy = sqlite3mc_config_cipher((sqlite3*) dbHandle, "chacha20", "legacy", (m_legacy) ? 1 : 0);
       int legacyPageSize = sqlite3mc_config_cipher((sqlite3*) dbHandle, "chacha20", "legacy_page_size", GetLegacyPageSize());
       int kdfIter = sqlite3mc_config_cipher((sqlite3*) dbHandle, "chacha20", "kdf_iter", m_kdfIter);
-      applied = (legacy >= 0) && (legacyPageSize >= 0) && (kdfIter > 0);
+      applied = (newCipherType > 0) && (legacy >= 0) && (legacyPageSize >= 0) && (kdfIter > 0);
     }
   }
   return applied;
@@ -6179,7 +6178,7 @@ wxSQLite3CipherSQLCipher::Apply(void* dbHandle) const
   {
     if (dbHandle != NULL)
     {
-      int newCipherType = sqlite3mc_config((sqlite3*) dbHandle, "cipher", GetCipherType());
+      int newCipherType = sqlite3mc_config((sqlite3*) dbHandle, "cipher", sqlite3mc_cipher_index("sqlcipher"));
       int legacy = sqlite3mc_config_cipher((sqlite3*) dbHandle, "sqlcipher", "legacy", (m_legacy) ? 1 : 0);
       int legacyPageSize = sqlite3mc_config_cipher((sqlite3*) dbHandle, "sqlcipher", "legacy_page_size", GetLegacyPageSize());
       int kdfIter = sqlite3mc_config_cipher((sqlite3*) dbHandle, "sqlcipher", "kdf_iter", m_kdfIter);
@@ -6189,7 +6188,7 @@ wxSQLite3CipherSQLCipher::Apply(void* dbHandle) const
       int hmacSaltMask = sqlite3mc_config_cipher((sqlite3*) dbHandle, "sqlcipher", "hmac_salt_mask", m_hmacSaltMask);
       int kdfAlgorithm = sqlite3mc_config_cipher((sqlite3*) dbHandle, "sqlcipher", "kdf_algorithm", (int) m_kdfAlgorithm);
       int hmacAlgorithm = sqlite3mc_config_cipher((sqlite3*) dbHandle, "sqlcipher", "hmac_algorithm", (int) m_hmacAlgorithm);
-      applied = (legacy >= 0) && (legacyPageSize >= 0) &&
+      applied = (newCipherType > 0) && (legacy >= 0) && (legacyPageSize >= 0) &&
                 (kdfIter > 0) && (fastKdfIter > 0) &&
                 (hmacUse >= 0) && (hmacPgNo >= 0) && (hmacSaltMask >= 0) &&
                 (kdfAlgorithm >= 0) && (hmacAlgorithm >= 0);
@@ -6336,10 +6335,10 @@ wxSQLite3CipherRC4::Apply(void* dbHandle) const
   {
     if (dbHandle != NULL)
     {
-      int newCipherType = sqlite3mc_config((sqlite3*) dbHandle, "cipher", GetCipherType());
+      int newCipherType = sqlite3mc_config((sqlite3*) dbHandle, "cipher", sqlite3mc_cipher_index("rc4"));
       int legacy = sqlite3mc_config_cipher((sqlite3*) dbHandle, "rc4", "legacy", (m_legacy) ? 1 : 0);
       int legacyPageSize = sqlite3mc_config_cipher((sqlite3*) dbHandle, "rc4", "legacy_page_size", GetLegacyPageSize());
-      applied = (legacy >= 0) && (legacyPageSize >= 0);
+      applied = (newCipherType > 0) && (legacy >= 0) && (legacyPageSize >= 0);
     }
   }
   return applied;
