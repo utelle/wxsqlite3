@@ -3500,13 +3500,13 @@ wxString wxSQLite3Database::ConvertJournalMode(wxSQLite3JournalMode mode)
 wxSQLite3JournalMode wxSQLite3Database::ConvertJournalMode(const wxString& mode)
 {
   wxSQLite3JournalMode journalMode;
-  if      (mode.IsSameAs(wxS("DELETE")))   journalMode = WXSQLITE_JOURNALMODE_DELETE;
-  else if (mode.IsSameAs(wxS("PERSIST")))  journalMode = WXSQLITE_JOURNALMODE_PERSIST;
-  else if (mode.IsSameAs(wxS("OFF")))      journalMode = WXSQLITE_JOURNALMODE_OFF;
-  else if (mode.IsSameAs(wxS("TRUNCATE"))) journalMode = WXSQLITE_JOURNALMODE_TRUNCATE;
-  else if (mode.IsSameAs(wxS("MEMORY")))   journalMode = WXSQLITE_JOURNALMODE_MEMORY;
-  else if (mode.IsSameAs(wxS("WAL")))      journalMode = WXSQLITE_JOURNALMODE_WAL;
-  else                                     journalMode = WXSQLITE_JOURNALMODE_DELETE;
+  if      (mode.IsSameAs(wxS("DELETE"), false))   journalMode = WXSQLITE_JOURNALMODE_DELETE;
+  else if (mode.IsSameAs(wxS("PERSIST"), false))  journalMode = WXSQLITE_JOURNALMODE_PERSIST;
+  else if (mode.IsSameAs(wxS("OFF"), false))      journalMode = WXSQLITE_JOURNALMODE_OFF;
+  else if (mode.IsSameAs(wxS("TRUNCATE"), false)) journalMode = WXSQLITE_JOURNALMODE_TRUNCATE;
+  else if (mode.IsSameAs(wxS("MEMORY"), false))   journalMode = WXSQLITE_JOURNALMODE_MEMORY;
+  else if (mode.IsSameAs(wxS("WAL"), false))      journalMode = WXSQLITE_JOURNALMODE_WAL;
+  else                                            journalMode = WXSQLITE_JOURNALMODE_DELETE;
   return journalMode;
 }
 
