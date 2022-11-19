@@ -3,7 +3,7 @@
 ** Purpose:     Implementation of wxSQLite3 classes
 ** Author:      Ulrich Telle
 ** Created:     2005-07-06
-** Copyright:   (c) 2005-2020 Ulrich Telle and the wxSQLite3 contributors
+** Copyright:   (c) 2005-2022 Ulrich Telle and the wxSQLite3 contributors
 ** SPDX-License-Identifier: LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
