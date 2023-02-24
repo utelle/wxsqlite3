@@ -3,7 +3,7 @@
 ** Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
 ** Author:      Ulrich Telle
 ** Created:     2005-07-14
-** Copyright:   (c) 2005-2022 Ulrich Telle
+** Copyright:   (c) 2005-2023 Ulrich Telle
 ** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
@@ -2585,9 +2585,13 @@ public:
   * \param[in] key Database encryption key.
   * \param[in] flags Control over the database connection (see http://www.sqlite.org/c3ref/open.html for further information).
   * Flag values are prefixed by WX to distinguish them from the original SQLite flag values.
+  * \param[in] vfs Name of VFS to be used.
+  * Use the VFS name prefix "multipleciphers-" to enable encryption support.
+  * An empty VFS name refers to the default VFS.
   */
   void Open(const wxString& fileName, const wxString& key = wxEmptyString,
-            int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE);
+            int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE,
+            const wxString& vfs = wxEmptyString);
 
   /// Open a SQLite3 database using a binary key
   /**
@@ -2598,9 +2602,13 @@ public:
   * \param[in] key Database encryption key.
   * \param[in] flags Control over the database connection (see http://www.sqlite.org/c3ref/open.html for further information).
   * Flag values are prefixed by WX to distinguish them from the original SQLite flag values.
+  * \param[in] vfs Name of VFS to be used.
+  * Use the VFS name prefix "multipleciphers-" to enable encryption support.
+  * An empty VFS name refers to the default VFS.
   */
   void Open(const wxString& fileName, const wxMemoryBuffer& key,
-            int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE);
+            int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE,
+            const wxString& vfs = wxEmptyString);
 
   /// Open a SQLite3 database
   /**
@@ -2612,9 +2620,13 @@ public:
   * \param[in] key Database encryption key.
   * \param[in] flags Control over the database connection (see http://www.sqlite.org/c3ref/open.html for further information).
   * Flag values are prefixed by WX to distinguish them from the original SQLite flag values.
+  * \param[in] vfs Name of VFS to be used.
+  * Use the VFS name prefix "multipleciphers-" to enable encryption support.
+  * An empty VFS name refers to the default VFS.
   */
   void Open(const wxString& fileName, const wxSQLite3Cipher& cipher, const wxString& key,
-            int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE);
+            int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE,
+            const wxString& vfs = wxEmptyString);
 
   /// Open a SQLite3 database using a binary key
   /**
@@ -2626,9 +2638,13 @@ public:
   * \param[in] key Database encryption key.
   * \param[in] flags Control over the database connection (see http://www.sqlite.org/c3ref/open.html for further information).
   * Flag values are prefixed by WX to distinguish them from the original SQLite flag values.
+  * \param[in] vfs Name of VFS to be used.
+  * Use the VFS name prefix "multipleciphers-" to enable encryption support.
+  * An empty VFS name refers to the default VFS.
   */
   void Open(const wxString& fileName, const wxSQLite3Cipher& cipher, const wxMemoryBuffer& key,
-            int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE);
+            int flags = WXSQLITE_OPEN_READWRITE | WXSQLITE_OPEN_CREATE,
+            const wxString& vfs = wxEmptyString);
 
   /// Check whether the database has been opened
   /**
@@ -3259,6 +3275,12 @@ public:
   * or Ctrl-C where the user wants a long query operation to halt immediately.
   */
   void Interrupt();
+
+  /// Determine whether or not an interrupt is currently in effect
+  /**
+  * \return TRUE if an interrupt is in effect, FALSE otherwise.
+  */
+  bool IsInterrupted();
 
   /// Set the busy timeout
   /**

@@ -48,6 +48,11 @@ Since August 2020 a new implementation of an encryption extension, capable of su
 
 ## <a name="history"></a>Version history
 
+* 4.9.2 - *February 2023*
+  - Upgrade to SQLite3 Multiple Ciphers version 1.6.0 (SQLite version 3.41.0)
+  - Enhanced method wxSQLite3Database::Open allowing to set the VFS to be used
+  - Added method wxSQLite3Database::IsInterrupted
+
 * 4.9.1 - *November 2022*
   - Upgrade to SQLite3 Multiple Ciphers version 1.5.4 (SQLite version 3.40.0)
 * 4.9.0 - *September 2022*

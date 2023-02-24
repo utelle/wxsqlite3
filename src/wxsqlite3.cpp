@@ -3,7 +3,7 @@
 ** Purpose:     Implementation of wxSQLite3 classes
 ** Author:      Ulrich Telle
 ** Created:     2005-07-06
-** Copyright:   (c) 2005-2022 Ulrich Telle and the wxSQLite3 contributors
+** Copyright:   (c) 2005-2023 Ulrich Telle and the wxSQLite3 contributors
 ** SPDX-License-Identifier: LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
@@ -2667,7 +2667,7 @@ wxSQLite3Database& wxSQLite3Database::operator=(const wxSQLite3Database& db)
   return *this;
 }
 
-void wxSQLite3Database::Open(const wxString& fileName, const wxString& key, int flags)
+void wxSQLite3Database::Open(const wxString& fileName, const wxString& key, int flags, const wxString& vfs)
 {
   wxCharBuffer strLocalKey = key.ToUTF8();
   const char* localKey = strLocalKey;
@@ -2676,16 +2676,18 @@ void wxSQLite3Database::Open(const wxString& fileName, const wxString& key, int 
   {
     binaryKey.AppendData((void*) localKey, strlen(localKey));
   }
-  Open(fileName, binaryKey, flags);
+  Open(fileName, binaryKey, flags, vfs);
 }
 
-void wxSQLite3Database::Open(const wxString& fileName, const wxMemoryBuffer& key, int flags)
+void wxSQLite3Database::Open(const wxString& fileName, const wxMemoryBuffer& key, int flags, const wxString& vfs)
 {
   wxCharBuffer strFileName = fileName.ToUTF8();
   const char* localFileName = strFileName;
+  wxCharBuffer strVfs = vfs.ToUTF8();
+  const char* localVfs = (!vfs.IsEmpty()) ? strVfs : (const char* ) NULL;
   sqlite3* db;
 
-  int rc = sqlite3_open_v2((const char*) localFileName, &db, flags, NULL);
+  int rc = sqlite3_open_v2((const char*) localFileName, &db, flags, localVfs);
 
   if (rc != SQLITE_OK)
   {
@@ -2728,7 +2730,7 @@ void wxSQLite3Database::Open(const wxString& fileName, const wxMemoryBuffer& key
   }
 }
 
-void wxSQLite3Database::Open(const wxString& fileName, const wxSQLite3Cipher& cipher, const wxString& key, int flags)
+void wxSQLite3Database::Open(const wxString& fileName, const wxSQLite3Cipher& cipher, const wxString& key, int flags, const wxString& vfs)
 {
   wxCharBuffer strLocalKey = key.ToUTF8();
   const char* localKey = strLocalKey;
@@ -2737,16 +2739,18 @@ void wxSQLite3Database::Open(const wxString& fileName, const wxSQLite3Cipher& ci
   {
     binaryKey.AppendData((void*)localKey, strlen(localKey));
   }
-  Open(fileName, cipher, binaryKey, flags);
+  Open(fileName, cipher, binaryKey, flags, vfs);
 }
 
-void wxSQLite3Database::Open(const wxString& fileName, const wxSQLite3Cipher& cipher, const wxMemoryBuffer& key, int flags)
+void wxSQLite3Database::Open(const wxString& fileName, const wxSQLite3Cipher& cipher, const wxMemoryBuffer& key, int flags, const wxString& vfs)
 {
   wxCharBuffer strFileName = fileName.ToUTF8();
   const char* localFileName = strFileName;
+  wxCharBuffer strVfs = vfs.ToUTF8();
+  const char* localVfs = (!vfs.IsEmpty()) ? strVfs : (const char*) NULL;
   sqlite3* db;
 
-  int rc = sqlite3_open_v2((const char*) localFileName, &db, flags, NULL);
+  int rc = sqlite3_open_v2((const char*) localFileName, &db, flags, localVfs);
 
   if (rc != SQLITE_OK)
   {
@@ -3727,6 +3731,12 @@ void wxSQLite3Database::Interrupt()
 {
   CheckDatabase();
   sqlite3_interrupt(m_db->m_db);
+}
+
+bool wxSQLite3Database::IsInterrupted()
+{
+  CheckDatabase();
+  return (sqlite3_is_interrupted(m_db->m_db) != 0);
 }
 
 void wxSQLite3Database::SetBusyTimeout(int nMillisecs)
