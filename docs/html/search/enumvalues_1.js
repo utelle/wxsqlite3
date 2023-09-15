@@ -13,7 +13,7 @@ var searchData=
   ['sqlite_5fcreate_5ftrigger_10',['SQLITE_CREATE_TRIGGER',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449a94ee457d6311d72e8222eda2898b75af',1,'wxSQLite3Authorizer']]],
   ['sqlite_5fcreate_5fview_11',['SQLITE_CREATE_VIEW',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449a912471d8e5d1d9b35a9af4b6d8bf4313',1,'wxSQLite3Authorizer']]],
   ['sqlite_5fcreate_5fvtable_12',['SQLITE_CREATE_VTABLE',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449a650da929b6b6497f5857bd24d07a5895',1,'wxSQLite3Authorizer']]],
-  ['sqlite_5fdelete_13',['SQLITE_DELETE',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449ab9b1eac6f94af9f3df7531bfd4ef81c0',1,'wxSQLite3Authorizer::SQLITE_DELETE'],['../classwx_s_q_lite3_hook.html#aaf1da5402c7ceb813ed216d237edc5cda56f263980a9e19009fcb7393f2fc0a5f',1,'wxSQLite3Hook::SQLITE_DELETE']]],
+  ['sqlite_5fdelete_13',['sqlite_delete',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449ab9b1eac6f94af9f3df7531bfd4ef81c0',1,'wxSQLite3Authorizer::SQLITE_DELETE'],['../classwx_s_q_lite3_hook.html#aaf1da5402c7ceb813ed216d237edc5cda56f263980a9e19009fcb7393f2fc0a5f',1,'wxSQLite3Hook::SQLITE_DELETE']]],
   ['sqlite_5fdeny_14',['SQLITE_DENY',['../classwx_s_q_lite3_authorizer.html#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0a19a70cfdbafef198796469030fac240d',1,'wxSQLite3Authorizer']]],
   ['sqlite_5fdetach_15',['SQLITE_DETACH',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449a68cdc6359f56b502990a55e433f6e113',1,'wxSQLite3Authorizer']]],
   ['sqlite_5fdrop_5findex_16',['SQLITE_DROP_INDEX',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449a0056e3ab1fbd8d2f32b83e738f5974d3',1,'wxSQLite3Authorizer']]],
@@ -27,7 +27,7 @@ var searchData=
   ['sqlite_5fdrop_5fvtable_24',['SQLITE_DROP_VTABLE',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449ae33d2ea3287af411d042ad6fd3e2f72c',1,'wxSQLite3Authorizer']]],
   ['sqlite_5ffunction_25',['SQLITE_FUNCTION',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449a29e6e1a6ca7e21c9a348380e7e718b5e',1,'wxSQLite3Authorizer']]],
   ['sqlite_5fignore_26',['SQLITE_IGNORE',['../classwx_s_q_lite3_authorizer.html#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0a9c257b2053949ce76bfa2f9effb2b21b',1,'wxSQLite3Authorizer']]],
-  ['sqlite_5finsert_27',['SQLITE_INSERT',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449a4ea9d8fed6c9c02164b87fab72e3cc0b',1,'wxSQLite3Authorizer::SQLITE_INSERT'],['../classwx_s_q_lite3_hook.html#aaf1da5402c7ceb813ed216d237edc5cdacfbcb685be81f2e787012c2f8218cec1',1,'wxSQLite3Hook::SQLITE_INSERT']]],
+  ['sqlite_5finsert_27',['sqlite_insert',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449a4ea9d8fed6c9c02164b87fab72e3cc0b',1,'wxSQLite3Authorizer::SQLITE_INSERT'],['../classwx_s_q_lite3_hook.html#aaf1da5402c7ceb813ed216d237edc5cdacfbcb685be81f2e787012c2f8218cec1',1,'wxSQLite3Hook::SQLITE_INSERT']]],
   ['sqlite_5fmax_5fcode_28',['SQLITE_MAX_CODE',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449ab8e82faac9a1b6f1134410f9d251ec88',1,'wxSQLite3Authorizer']]],
   ['sqlite_5fok_29',['SQLITE_OK',['../classwx_s_q_lite3_authorizer.html#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0a1f82b212f21a22bab654b5983f0f6ccf',1,'wxSQLite3Authorizer']]],
   ['sqlite_5fpragma_30',['SQLITE_PRAGMA',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449add5cd0f00868dd34ff75ff1b9ee2eb02',1,'wxSQLite3Authorizer']]],
@@ -37,5 +37,5 @@ var searchData=
   ['sqlite_5fsavepoint_34',['SQLITE_SAVEPOINT',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449a68f57e3f72e28f7e5e1a328f86ed8f1d',1,'wxSQLite3Authorizer']]],
   ['sqlite_5fselect_35',['SQLITE_SELECT',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449a8e3be7d96c0c533a6f2a3f3e2918ca2e',1,'wxSQLite3Authorizer']]],
   ['sqlite_5ftransaction_36',['SQLITE_TRANSACTION',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449aec26527da7d827b1beb0f1d768fdd80e',1,'wxSQLite3Authorizer']]],
-  ['sqlite_5fupdate_37',['SQLITE_UPDATE',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449aea7c9ecb1592af78243263e687ee83f0',1,'wxSQLite3Authorizer::SQLITE_UPDATE'],['../classwx_s_q_lite3_hook.html#aaf1da5402c7ceb813ed216d237edc5cda4f7a431bf5027937aa0342558ad088a1',1,'wxSQLite3Hook::SQLITE_UPDATE']]]
+  ['sqlite_5fupdate_37',['sqlite_update',['../classwx_s_q_lite3_authorizer.html#adf245bc8ba906a2440d8eddd11d2e449aea7c9ecb1592af78243263e687ee83f0',1,'wxSQLite3Authorizer::SQLITE_UPDATE'],['../classwx_s_q_lite3_hook.html#aaf1da5402c7ceb813ed216d237edc5cda4f7a431bf5027937aa0342558ad088a1',1,'wxSQLite3Hook::SQLITE_UPDATE']]]
 ];
