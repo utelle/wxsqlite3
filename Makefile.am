@@ -29,6 +29,10 @@ AM_CFLAGS += -std=c99 -DSQLITE_THREADSAFE=1 -DSQLITE_DQS=0 -DSQLITE_MAX_ATTACHED
 
 AM_LDFLAGS = -pthread -ldl -lm
 
+if HOST_OSX
+AM_LDFLAGS += -framework Security
+endif
+
 LDADD = lib@WXSQLITE3_LIBNAME@.la $(WX_LIBS)
 
 # Define the directory where the library headers are installed.
@@ -71,6 +75,10 @@ samples_minimal_SOURCES = \
 
 samples_minimal_LDFLAGS = -no-install
 
+if HOST_OSX
+samples_minimal_LDFLAGS += -framework Security
+endif
+
 samples_treeview_treeview_SOURCES = \
     samples/treeview/foldertree.cpp \
     samples/treeview/projectlist.cpp \
@@ -84,3 +92,7 @@ samples_treeview_treeview_SOURCES = \
 samples_treeview_treeview_LDADD = $(WX_LIBS_TREEVIEW_SAMPLE) $(LDADD)
 
 samples_treeview_treeview_LDFLAGS = -no-install
+
+if HOST_OSX
+samples_treeview_treeview_LDFLAGS += -framework Security
+endif

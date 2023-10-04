@@ -160,5 +160,31 @@ AS_CASE([$host_cpu],
 AM_CONDITIONAL([HOST_X86], [test x$hostX86 = xtrue])
 AM_CONDITIONAL([HOST_ARM], [test x$hostARM = xtrue])
 
+dnl Detect the target system
+
+build_linux=no
+build_windows=no
+build_mac=no
+
+case "${host_os}" in
+    linux*)
+        build_linux=yes
+        ;;
+    cygwin*|mingw*)
+        build_windows=yes
+        ;;
+    darwin*)
+        build_mac=yes
+        ;;
+    *)
+        AC_MSG_ERROR(["OS $host_os is not supported"])
+        ;;
+esac
+
+dnl Pass the conditionals to automake
+AM_CONDITIONAL([HOST_LINUX], [test "$build_linux" = "yes"])
+AM_CONDITIONAL([HOST_WINDOWS], [test "$build_windows" = "yes"])
+AM_CONDITIONAL([HOST_OSX], [test "$build_mac" = "yes"])
+
 AC_CONFIG_FILES([Makefile wxsqlite3.pc])
 AC_OUTPUT
