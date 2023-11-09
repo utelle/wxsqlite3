@@ -48,6 +48,9 @@ Since August 2020 a new implementation of an encryption extension, capable of su
 
 ## <a name="history"></a>Version history
 
+* 4.9.7 - *November 2023*
+  - Upgrade to SQLite3 Multiple Ciphers version 1.7.4 (SQLite version 3.44.0)
+  - Prevent crashes due to uninitialized cipher tables (issue #113)
 * 4.9.6 - *October 2023*
   - Upgrade to SQLite3 Multiple Ciphers version 1.7.0 (SQLite version 3.43.1)
 * 4.9.5 - *September 2023*
