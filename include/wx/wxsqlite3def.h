@@ -46,7 +46,7 @@
 
 <dl>
 
-<dt><b>4.9.7</b> - <i>October 2023</i></dt>
+<dt><b>4.9.7</b> - <i>November 2023</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 1.7.4 (SQLite version 3.44.0)</i><br>
 Prevent crashes due to uninitialized cipher tables (issue #113)
