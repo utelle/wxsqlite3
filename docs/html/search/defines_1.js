@@ -8,7 +8,7 @@ var searchData=
   ['wxsqlite3_5frelease_5fnumber_5',['WXSQLITE3_RELEASE_NUMBER',['../wxsqlite3__version_8h.html#a0184240568ce0fcc2bbd96576e8c65d2',1,'wxsqlite3_version.h']]],
   ['wxsqlite3_5fsubrelease_5fnumber_6',['WXSQLITE3_SUBRELEASE_NUMBER',['../wxsqlite3__version_8h.html#a61b0968acd1f1390d383436193c20728',1,'wxsqlite3_version.h']]],
   ['wxsqlite3_5fuse_5fnamed_5fcollections_7',['WXSQLITE3_USE_NAMED_COLLECTIONS',['../wxsqlite3opt_8h.html#a95923bec4a7c4244a4448993e228a84b',1,'wxsqlite3opt.h']]],
-  ['wxsqlite3_5fversion_5fstring_8',['wxsqlite3_version_string',['../wxsqlite3__version_8h.html#a98269d7cb2c61d581fbc67c55a7e9afa',1,'WXSQLITE3_VERSION_STRING:&#160;wxsqlite3_version.h'],['../wxsqlite3_8h.html#a464a1fadb9e1e20444732b509e838884',1,'wxSQLITE3_VERSION_STRING:&#160;wxsqlite3.h']]],
+  ['wxsqlite3_5fversion_5fstring_8',['wxsqlite3_version_string',['../wxsqlite3_8h.html#a464a1fadb9e1e20444732b509e838884',1,'wxSQLITE3_VERSION_STRING:&#160;wxsqlite3.h'],['../wxsqlite3__version_8h.html#a98269d7cb2c61d581fbc67c55a7e9afa',1,'WXSQLITE3_VERSION_STRING:&#160;wxsqlite3_version.h']]],
   ['wxsqlite_5fblob_9',['WXSQLITE_BLOB',['../wxsqlite3_8h.html#ac6fb08c8f4adf3ba9e2cce82700e9273',1,'wxsqlite3.h']]],
   ['wxsqlite_5fcheckpoint_5ffull_10',['WXSQLITE_CHECKPOINT_FULL',['../wxsqlite3_8h.html#a9ce6fb0b357fbfb7c5f102aab50b8ae9',1,'wxsqlite3.h']]],
   ['wxsqlite_5fcheckpoint_5fpassive_11',['WXSQLITE_CHECKPOINT_PASSIVE',['../wxsqlite3_8h.html#a34f63fbbcef73800a33501b43c6ae965',1,'wxsqlite3.h']]],
@@ -31,6 +31,7 @@ var searchData=
   ['wxsqlite_5fopen_5freadwrite_28',['WXSQLITE_OPEN_READWRITE',['../wxsqlite3_8h.html#ab704a8a198d449a0563fd9e3cf6a72e4',1,'wxsqlite3.h']]],
   ['wxsqlite_5fopen_5fsharedcache_29',['WXSQLITE_OPEN_SHAREDCACHE',['../wxsqlite3_8h.html#a97fbb929e530382ea75c0b734c6b357b',1,'wxsqlite3.h']]],
   ['wxsqlite_5fopen_5furi_30',['WXSQLITE_OPEN_URI',['../wxsqlite3_8h.html#afdc9019d3ac1c76e469c69ffed1258ea',1,'wxsqlite3.h']]],
-  ['wxsqlite_5fsubtype_31',['WXSQLITE_SUBTYPE',['../wxsqlite3_8h.html#a2b9f5d48083a85953d10ca8c04be6d2b',1,'wxsqlite3.h']]],
-  ['wxsqlite_5ftext_32',['WXSQLITE_TEXT',['../wxsqlite3_8h.html#add160b782b9342cfd748b91021b31c7f',1,'wxsqlite3.h']]]
+  ['wxsqlite_5fresult_5fsubtype_31',['WXSQLITE_RESULT_SUBTYPE',['../wxsqlite3_8h.html#a18b4bbffbcffa376ad574c3742e1f7d3',1,'wxsqlite3.h']]],
+  ['wxsqlite_5fsubtype_32',['WXSQLITE_SUBTYPE',['../wxsqlite3_8h.html#a2b9f5d48083a85953d10ca8c04be6d2b',1,'wxsqlite3.h']]],
+  ['wxsqlite_5ftext_33',['WXSQLITE_TEXT',['../wxsqlite3_8h.html#add160b782b9342cfd748b91021b31c7f',1,'wxsqlite3.h']]]
 ];
