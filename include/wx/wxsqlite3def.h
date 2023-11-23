@@ -46,6 +46,13 @@
 
 <dl>
 
+<dt><b>4.9.8</b> - <i>November 2023</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 1.8.0 (SQLite version 3.44.1)</i><br>
+Added new cipher scheme Ascon-128 (Lightweight Authenticated Encryption)
+
+</dd>
+
 <dt><b>4.9.7</b> - <i>November 2023</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 1.7.4 (SQLite version 3.44.0)</i><br>

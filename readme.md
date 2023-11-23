@@ -28,7 +28,8 @@ Currently the following encryption schemes are supported:
 - AES 256 Bit CBC - No HMAC ([wxSQLite3](https://github.com/utelle/wxsqlite3))
 - ChaCha20 - Poly1305 HMAC ([sqleet](https://github.com/resilar/sqleet)) (**default**)
 - AES 256 Bit CBC - SHA1/SHA256/SHA512 HMAC ([SQLCipher](https://www.zetetic.net/sqlcipher/) versions 1 - 4) 
-- RC4 - No HMAC ([System.Data.SQLite](http://system.data.sqlite.org/))
+- RC4 - No HMAC ([System.Data.SQLite](https://system.data.sqlite.org/))
+- Ascon 128 - Ascon Tag ([Ascon](https://ascon.iaik.tugraz.at/)) (since version 4.9.8)
 
 ## Important Notes
 
@@ -48,6 +49,9 @@ Since August 2020 a new implementation of an encryption extension, capable of su
 
 ## <a name="history"></a>Version history
 
+* 4.9.8 - *November 2023*
+  - Upgrade to SQLite3 Multiple Ciphers version 1.8.0 (SQLite version 3.44.1)
+  - Added new cipher scheme Ascon-128 (Lightweight Authenticated Encryption)
 * 4.9.7 - *November 2023*
   - Upgrade to SQLite3 Multiple Ciphers version 1.7.4 (SQLite version 3.44.0)
   - Prevent crashes due to uninitialized cipher tables (issue #113)

@@ -6358,3 +6358,101 @@ wxSQLite3CipherRC4::Apply(void* dbHandle) const
   throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
 #endif
 }
+
+wxSQLite3CipherAscon128::wxSQLite3CipherAscon128()
+  : wxSQLite3Cipher(WXSQLITE_CIPHER_ASCON128), m_legacy(false), m_kdfIter(64007)
+{
+  SetInitialized(true);
+}
+
+wxSQLite3CipherAscon128::wxSQLite3CipherAscon128(const wxSQLite3CipherAscon128&  cipher)
+  : wxSQLite3Cipher(cipher), m_legacy(cipher.m_legacy), m_kdfIter(cipher.m_kdfIter)
+{
+}
+
+wxSQLite3CipherAscon128::~wxSQLite3CipherAscon128()
+{
+}
+
+bool
+wxSQLite3CipherAscon128::InitializeFromGlobalDefault()
+{
+#if HAVE_CIPHER_ASCON128
+#if 0
+  int legacy = sqlite3mc_config_cipher(0, "ascon128", "legacy", -1);
+  m_legacy = legacy != 0;
+#endif
+  m_kdfIter = sqlite3mc_config_cipher(0, "ascon128", "kdf_iter", -1);
+  bool initialized = m_kdfIter > 0;
+  SetInitialized(initialized);
+  return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
+}
+
+bool
+wxSQLite3CipherAscon128::InitializeFromCurrent(wxSQLite3Database& db)
+{
+#if HAVE_CIPHER_ASCON128
+  sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
+#if 0
+  int legacy = sqlite3mc_config_cipher(dbHandle, "ascon128", "legacy", -1);
+  m_legacy = legacy != 0;
+#endif
+  m_kdfIter = sqlite3mc_config_cipher(dbHandle, "ascon128", "kdf_iter", -1);
+  bool initialized = m_kdfIter > 0;
+  SetInitialized(initialized);
+  return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
+}
+
+bool
+wxSQLite3CipherAscon128::InitializeFromCurrentDefault(wxSQLite3Database& db)
+{
+#if HAVE_CIPHER_ASCON128
+  sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
+#if 0
+  int legacy = sqlite3mc_config_cipher(dbHandle, "ascon128", "default:legacy", -1);
+  m_legacy = legacy != 0;
+#endif
+  m_kdfIter = sqlite3mc_config_cipher(dbHandle, "ascon128", "default:kdf_iter", -1);
+  bool initialized = m_kdfIter > 0;
+  SetInitialized(initialized);
+  return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
+}
+
+bool
+wxSQLite3CipherAscon128::Apply(wxSQLite3Database& db) const
+{
+  return Apply(GetDatabaseHandle(db));
+}
+
+bool
+wxSQLite3CipherAscon128::Apply(void* dbHandle) const
+{
+#if HAVE_CIPHER_ASCON128
+  bool applied = false;
+  if (IsOk())
+  {
+    if (dbHandle != NULL)
+    {
+      int newCipherType = sqlite3mc_config((sqlite3*) dbHandle, "cipher", sqlite3mc_cipher_index("ascon128"));
+#if 0
+      int legacy = sqlite3mc_config_cipher((sqlite3*) dbHandle, "ascon128", "legacy", (m_legacy) ? 1 : 0);
+      int legacyPageSize = sqlite3mc_config_cipher((sqlite3*) dbHandle, "ascon128", "legacy_page_size", GetLegacyPageSize());
+#endif
+      int kdfIter = sqlite3mc_config_cipher((sqlite3*) dbHandle, "ascon128", "kdf_iter", m_kdfIter);
+      applied = (newCipherType > 0) /* && (legacy >= 0) && (legacyPageSize >= 0) */ && (kdfIter > 0);
+    }
+  }
+  return applied;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
+}

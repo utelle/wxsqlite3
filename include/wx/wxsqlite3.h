@@ -38,7 +38,8 @@ enum wxSQLite3CipherType
   WXSQLITE_CIPHER_AES256,
   WXSQLITE_CIPHER_CHACHA20,
   WXSQLITE_CIPHER_SQLCIPHER,
-  WXSQLITE_CIPHER_RC4
+  WXSQLITE_CIPHER_RC4,
+  WXSQLITE_CIPHER_ASCON128
 };
 
 #define WXSQLITE_ERROR 1000
@@ -133,6 +134,7 @@ enum wxSQLite3StatementStatus
 #define WXSQLITE_DIRECTONLY       0x000080000
 #define WXSQLITE_SUBTYPE          0x000100000
 #define WXSQLITE_INNOCUOUS        0x000200000
+#define WXSQLITE_RESULT_SUBTYPE   0x001000000
 
 inline void operator++(wxSQLite3LimitType& value)
 {
@@ -1219,6 +1221,73 @@ public:
 
 private:
   bool m_legacy; ///< Flag for legacy mode
+};
+
+/// Cipher class representing Ascon-128 encryption with Ascon tag
+class WXDLLIMPEXP_SQLITE3 wxSQLite3CipherAscon128 : public wxSQLite3Cipher
+{
+public:
+  /// Constructor
+  wxSQLite3CipherAscon128();
+
+  /// Copy constructor
+  wxSQLite3CipherAscon128(const wxSQLite3CipherAscon128& cipher);
+
+  /// Destructor
+  virtual ~wxSQLite3CipherAscon128();
+
+  /// Initialize the cipher instance based on global default settings
+  /**
+  * The parameters of the cipher instance are initialize with the global default settings of the associated cipher type.
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromGlobalDefault();
+
+  /// Initialize the cipher instance based on current settings
+  /**
+  * The parameters of the cipher instance are initialize with the current settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrent(wxSQLite3Database& db);
+
+  /// Initialize the cipher instance based on current default settings
+  /**
+  * The parameters of the cipher instance are initialize with the current default settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrentDefault(wxSQLite3Database& db);
+
+  /// Apply the cipher parameters to a database connection
+  /**
+  * The parameters of the cipher instance are applied to the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher parameters could be applied successfully, false otherwise
+  */
+  virtual bool Apply(wxSQLite3Database& db) const;
+  virtual bool Apply(void* dbHandle) const;
+
+#if 0
+  // Currently no legacy mode available
+  /// Set legacy mode
+  void SetLegacy(bool legacy) { m_legacy = legacy; }
+
+  /// Get legacy mode
+  bool GetLegacy() const { return m_legacy; }
+#endif
+
+  /// Set iteration count of KDF function for ordinary key
+  void SetKdfIter(int kdfIter) { m_kdfIter = kdfIter; }
+
+  /// Get iteration count of KDF function for ordinary key
+  int GetKdfIter() const { return m_kdfIter; }
+
+private:
+  bool m_legacy;   ///< Flag for legacy mode
+  int  m_kdfIter;  ///< Iteration count for KDF function
 };
 
 

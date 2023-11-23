@@ -102,6 +102,14 @@ TreeviewSampleApp::OnInit()
 int
 TreeviewSampleApp::OnExit()
 {
+  try
+  {
+    m_db.Close();
+  }
+  catch (wxSQLite3Exception& e)
+  {
+  }
+
   wxSQLite3Database::ShutdownSQLite();
   return wxApp::OnExit();
 }
