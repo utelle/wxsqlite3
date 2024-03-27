@@ -31,10 +31,10 @@ before_build:
   - ps: Start-FileDownload 'https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxMSW-3.2.4_vc14x_x64_ReleaseDLL.7z'
   - ps: Start-FileDownload 'https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxMSW-3.2.4_vc14x_x64_ReleasePDB.7z'
   - ps: Start-FileDownload 'https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxWidgets-3.2.4-headers.7z'
-  - cmd: 7z x wxMSW-3.2.4_vc14x_x64_Dev.7z -oC:\wxWidgets
-  - cmd: 7z x wxMSW-3.2.4_vc14x_x64_ReleaseDLL.7z -oC:\wxWidgets
-  - cmd: 7z x wxMSW-3.2.4_vc14x_x64_ReleasePDB.7z -oC:\wxWidgets
-  - cmd: 7z x wxWidgets-3.2.4-headers.7z -oC:\wxWidgets
+  - cmd: 7z x wxMSW-3.2.4_vc14x_x64_Dev.7z -oC:\wxWidgets -aoa
+  - cmd: 7z x wxMSW-3.2.4_vc14x_x64_ReleaseDLL.7z -oC:\wxWidgets -aoa
+  - cmd: 7z x wxMSW-3.2.4_vc14x_x64_ReleasePDB.7z -oC:\wxWidgets -aoa
+  - cmd: 7z x wxWidgets-3.2.4-headers.7z -oC:\wxWidgets -aoa
 
 # build script
 build_script: c:\projects\wxsqlite3\admin\appveyor\appveyor.bat
