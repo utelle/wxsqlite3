@@ -20,7 +20,7 @@ SQLITE_ENABLE_DEBUG ?= 0
 wxRootDir ?= $(WXWIN)
 
 # Short version number of wxWidgets
-wxShortVersionString ?= 31
+wxShortVersionString ?= 32
 
 # wxWidgets toolkit prefix
 wxToolkitPrefix ?= msw

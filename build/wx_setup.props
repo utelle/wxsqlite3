@@ -4,7 +4,7 @@
     <CODEC_TYPE>CODEC_TYPE_CHACHA20</CODEC_TYPE>
     <SQLITE_ENABLE_DEBUG>0</SQLITE_ENABLE_DEBUG>
     <wxRootDir>$(WXWIN)</wxRootDir>
-    <wxShortVersionString>31</wxShortVersionString>
+    <wxShortVersionString>32</wxShortVersionString>
     <wxToolkitPrefix>msw</wxToolkitPrefix>
     <!-- Use following definition to exclude the toolset version in the compiler prefix
     -->
