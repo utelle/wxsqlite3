@@ -4,7 +4,7 @@
 **              This example is based on the CppSQLite example.
 ** Author:      Ulrich Telle
 ** Created:     2005-07-14
-** Copyright:   (c) 2005-2018 Ulrich Telle
+** Copyright:   (c) 2005-2024 Ulrich Telle
 ** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
@@ -121,69 +121,6 @@ static void testTransaction()
 		cout << "Exception not caught" << endl;
 	}
 	clearDB(db);
-}
-
-static void testUserAuthentication()
-{
-  wxString testDBName = wxGetCwd() + wxS("/test3.db");
-  if (wxFileExists(testDBName))
-  {
-    wxRemoveFile(testDBName);
-  }
-  wxSQLite3Database* db = new wxSQLite3Database();
-  try
-  {
-    db->Open(testDBName);
-    db->UserAdd(wxS("testuser"), wxS("testpswd"), true);
-    cout << "User authentication enabled for database using 'testuser'." << endl;
-    if (db->UserLogin(wxS("sampleuser"), wxS("samplepswd")))
-    {
-      cout << "'sampleuser' successfully logged in, but this shouldn't happen due to enabled user authentication." << endl;
-    }
-    else
-    {
-      cout << "Login of 'sampleuser' rejected." << endl;
-    }
-    if (db->UserLogin(wxS("testuser"), wxS("testpswd")))
-    {
-      cout << "Login of 'testuser' succeeded." << endl;
-      db->ExecuteUpdate(wxS("CREATE TABLE test (col1 INTEGER)"));
-      db->ExecuteUpdate(wxS("INSERT INTO test (col1) VALUES (2)"));
-      db->UserAdd(wxS("myuser"), wxS("mypswd"), false);
-      cout << "Added 'myuser' without privileges." << endl;
-      if (db->UserIsPrivileged(wxS("myuser")))
-      {
-        cout << "'myuser' is privileged." << endl;
-      }
-      else
-      {
-        cout << "'myuser' is NOT privileged." << endl;
-      }
-      db->UserChange(wxS("myuser"), wxS("mypswd"), true);
-      cout << "Make 'myuser' privileged." << endl;
-      if (db->UserIsPrivileged(wxS("myuser")))
-      {
-        cout << "'myuser' is now privileged." << endl;
-      }
-      else
-      {
-        cout << "'myuser' is still NOT privileged." << endl;
-      }
-      db->UserDelete(wxS("myuser"));
-      cout << "'myuser' deleted." << endl;
-    }
-    else
-    {
-      cout << "Login of 'testuser' failed unexpectedly." << endl;
-    }
-    db->Close();
-  }
-  catch (wxSQLite3Exception& e)
-  {
-    cerr << e.GetErrorCode() << ":" << (const char*)(e.GetMessage().mb_str()) << endl;
-  }
-
-  delete db;
 }
 
 // User defined aggregate function
@@ -863,12 +800,6 @@ int Minimal::OnRun()
 
     cout << endl << "Test of RAII transactions" << endl;
     testTransaction();
-
-    if (wxSQLite3Database::HasUserAuthenticationSupport())
-    {
-      cout << endl << "Test of user authentication" << endl;
-      testUserAuthentication();
-    }
 
     // Test accessing encrypted database files (currently SQLCipher only)
     TestCiphers();

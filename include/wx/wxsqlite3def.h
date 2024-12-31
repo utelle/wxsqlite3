@@ -46,6 +46,14 @@
 
 <dl>
 
+<dt><b>4.10.0</b> - <i>December 2024</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 2.0.0 (SQLite version 3.47.2)</i><br>
+Removed <i>User Authentication</i> extension<br>
+Added new cipher scheme AEGIS
+
+</dd>
+
 <dt><b>4.9.12</b> - <i>October 2024</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 1.9.0 (SQLite version 3.47.0)</i>

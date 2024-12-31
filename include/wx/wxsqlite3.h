@@ -3,7 +3,7 @@
 ** Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
 ** Author:      Ulrich Telle
 ** Created:     2005-07-14
-** Copyright:   (c) 2005-2023 Ulrich Telle
+** Copyright:   (c) 2005-2024 Ulrich Telle
 ** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
@@ -39,7 +39,8 @@ enum wxSQLite3CipherType
   WXSQLITE_CIPHER_CHACHA20,
   WXSQLITE_CIPHER_SQLCIPHER,
   WXSQLITE_CIPHER_RC4,
-  WXSQLITE_CIPHER_ASCON128
+  WXSQLITE_CIPHER_ASCON128,
+  WXSQLITE_CIPHER_AEGIS
 };
 
 #define WXSQLITE_ERROR 1000
@@ -1288,6 +1289,105 @@ public:
 private:
   bool m_legacy;   ///< Flag for legacy mode
   int  m_kdfIter;  ///< Iteration count for KDF function
+};
+
+/// Cipher class representing Aegis encryption with Ascon tag
+class WXDLLIMPEXP_SQLITE3 wxSQLite3CipherAegis : public wxSQLite3Cipher
+{
+public:
+  /// Constructor
+  wxSQLite3CipherAegis();
+
+  /// Copy constructor
+  wxSQLite3CipherAegis(const wxSQLite3CipherAegis& cipher);
+
+  /// Destructor
+  virtual ~wxSQLite3CipherAegis();
+
+  /// Initialize the cipher instance based on global default settings
+  /**
+  * The parameters of the cipher instance are initialize with the global default settings of the associated cipher type.
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromGlobalDefault();
+
+  /// Initialize the cipher instance based on current settings
+  /**
+  * The parameters of the cipher instance are initialize with the current settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrent(wxSQLite3Database& db);
+
+  /// Initialize the cipher instance based on current default settings
+  /**
+  * The parameters of the cipher instance are initialize with the current default settings of the associated cipher type
+  * as defined in the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher instance could be initialized successfully, false otherwise
+  */
+  virtual bool InitializeFromCurrentDefault(wxSQLite3Database& db);
+
+  /// Apply the cipher parameters to a database connection
+  /**
+  * The parameters of the cipher instance are applied to the given database connection.
+  * \param db database instance representing a database connection
+  * \return true if the cipher parameters could be applied successfully, false otherwise
+  */
+  virtual bool Apply(wxSQLite3Database& db) const;
+  virtual bool Apply(void* dbHandle) const;
+
+#if 0
+  // Currently no legacy mode available
+  /// Set legacy mode
+  void SetLegacy(bool legacy) { m_legacy = legacy; }
+
+  /// Get legacy mode
+  bool GetLegacy() const { return m_legacy; }
+#endif
+
+  /// Set number of iterations of KDF function for ordinary key
+  void SetIterCount(int iterCount) { m_tcost = iterCount; }
+
+  /// Get number of iterations of KDF function for ordinary key
+  int GetIterCount() const { return m_tcost; }
+
+  /// Set size of memory in kB of KDF function for ordinary key
+  void SetMemorySize(int memSize) { m_mcost = memSize; }
+
+  /// Get size of memory in kB of KDF function for ordinary key
+  int GetMemorySize() const { return m_mcost; }
+
+  /// Set number of threads of KDF function for ordinary key
+  void SetThreadCount(int threads) { m_pcost = threads; }
+
+  /// Get number of threads of KDF function for ordinary key
+  int GetThreadCount() const { return m_pcost; }
+
+  /// Aegis algorithm types
+  enum Algorithm
+  {
+    ALGORITHM_AEGIS_128L = 1,
+    ALGORITHM_AEGIS_128X2,
+    ALGORITHM_AEGIS_128X4,
+    ALGORITHM_AEGIS_256,
+    ALGORITHM_AEGIS_256X2,
+    ALGORITHM_AEGIS_256X4
+  };
+
+  /// Set Aegis algorithm to be used for encryption
+  void SetAlgorithm(Algorithm algorithm) { m_algorithm = algorithm; }
+
+  /// Get Aegis algorithm used for encryption
+  Algorithm GetAlgorithm() const { return m_algorithm; }
+
+private:
+  bool m_legacy;  ///< Flag for legacy mode
+  int  m_tcost;   ///< Time cost (number of iterations) for KDF function
+  int  m_mcost;   ///< Amount of memory in kB for KDF function
+  int  m_pcost;   ///< Parallelism (number of threads) for KDF function
+  Algorithm m_algorithm; ///< Aegis algorithm to be used for encryption
 };
 
 

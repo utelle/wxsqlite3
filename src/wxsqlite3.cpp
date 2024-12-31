@@ -3,7 +3,7 @@
 ** Purpose:     Implementation of wxSQLite3 classes
 ** Author:      Ulrich Telle
 ** Created:     2005-07-06
-** Copyright:   (c) 2005-2023 Ulrich Telle and the wxSQLite3 contributors
+** Copyright:   (c) 2005-2024 Ulrich Telle and the wxSQLite3 contributors
 ** SPDX-License-Identifier: LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
@@ -55,9 +55,6 @@ typedef int (*sqlite3_xauth)(void*,int,const char*,const char*,const char*,const
 static int wxSQLite3FunctionContextExecAuthorizer(void* func, int type,
   const char* arg1, const char* arg2,
   const char* arg3, const char* arg4
-#if SQLITE_USER_AUTHENTICATION
-  , const char* arg5
-#endif
   );
 
 // Error messages
@@ -2514,11 +2511,7 @@ bool wxSQLite3Database::ms_hasMetaDataSupport = true;
 bool wxSQLite3Database::ms_hasMetaDataSupport = false;
 #endif
 
-#if SQLITE_USER_AUTHENTICATION
-bool wxSQLite3Database::ms_hasUserAuthentication = true;
-#else
 bool wxSQLite3Database::ms_hasUserAuthentication = false;
-#endif
 
 #if WXSQLITE3_HAVE_LOAD_EXTENSION
 bool wxSQLite3Database::ms_hasLoadExtSupport = true;
@@ -4201,132 +4194,42 @@ wxString wxSQLite3Database::GetKeySalt(const wxString& schemaName) const
 
 bool wxSQLite3Database::UserLogin(const wxString& username, const wxString& password)
 {
-#if SQLITE_USER_AUTHENTICATION
-  CheckDatabase();
-  wxCharBuffer strUsername = username.ToUTF8();
-  const char* localUsername = strUsername;
-  wxCharBuffer strPassword = password.ToUTF8();
-  const char* localPassword = strPassword;
-
-  int rc = sqlite3_user_authenticate(m_db->m_db, localUsername, localPassword, strlen(localPassword));
-  bool authenticated = (rc == SQLITE_OK);
-  if (rc != SQLITE_OK && rc != SQLITE_AUTH)
-  {
-    const char* localError = sqlite3_errmsg(m_db->m_db);
-    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
-  }
-  return authenticated;
-#else
   wxUnusedVar(username);
   wxUnusedVar(password);
   return true;
-#endif
 }
 
 bool wxSQLite3Database::UserAdd(const wxString& username, const wxString& password, bool isAdmin)
 {
-#if SQLITE_USER_AUTHENTICATION
-  CheckDatabase();
-  wxCharBuffer strUsername = username.ToUTF8();
-  const char* localUsername = strUsername;
-  wxCharBuffer strPassword = password.ToUTF8();
-  const char* localPassword = strPassword;
-  int nIsAdmin = (isAdmin) ? 1 : 0;
-  int rc = sqlite3_user_add(m_db->m_db, localUsername, localPassword, strlen(localPassword), nIsAdmin);
-  bool authenticated = (rc == SQLITE_OK);
-  if (rc != SQLITE_OK && rc != SQLITE_AUTH)
-  {
-    const char* localError = sqlite3_errmsg(m_db->m_db);
-    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
-  }
-  return authenticated;
-#else
   wxUnusedVar(username);
   wxUnusedVar(password);
   wxUnusedVar(isAdmin);
   return true;
-#endif
 }
 
 bool wxSQLite3Database::UserChange(const wxString& username, const wxString& password, bool isAdmin)
 {
-#if SQLITE_USER_AUTHENTICATION
-  CheckDatabase();
-  wxCharBuffer strUsername = username.ToUTF8();
-  const char* localUsername = strUsername;
-  wxCharBuffer strPassword = password.ToUTF8();
-  const char* localPassword = strPassword;
-  int nIsAdmin = (isAdmin) ? 1 : 0;
-  int rc = sqlite3_user_change(m_db->m_db, localUsername, localPassword, strlen(localPassword), nIsAdmin);
-  bool authenticated = (rc == SQLITE_OK);
-  if (rc != SQLITE_OK && rc != SQLITE_AUTH)
-  {
-    const char* localError = sqlite3_errmsg(m_db->m_db);
-    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
-  }
-  return authenticated;
-#else
   wxUnusedVar(username);
   wxUnusedVar(password);
   wxUnusedVar(isAdmin);
   return false;
-#endif
 }
 
 bool wxSQLite3Database::UserDelete(const wxString& username)
 {
-#if SQLITE_USER_AUTHENTICATION
-  CheckDatabase();
-  wxCharBuffer strUsername = username.ToUTF8();
-  const char* localUsername = strUsername;
-
-  int rc = sqlite3_user_delete(m_db->m_db, localUsername);
-  bool authenticated = (rc == SQLITE_OK);
-  if (rc != SQLITE_OK && rc != SQLITE_AUTH)
-  {
-    const char* localError = sqlite3_errmsg(m_db->m_db);
-    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
-  }
-  return authenticated;
-#else
   wxUnusedVar(username);
   return false;
-#endif
 }
 
 bool wxSQLite3Database::UserIsPrivileged(const wxString& username)
 {
-#if SQLITE_USER_AUTHENTICATION
-  CheckDatabase();
-  bool isPrivileged = false;
-  wxString sql = wxS("select isAdmin from main.sqlite_user where uname=?;");
-  wxSQLite3Statement stmt = PrepareStatement(sql);
-  stmt.Bind(1, username);
-  wxSQLite3ResultSet resultSet = stmt.ExecuteQuery();
-  if (resultSet.NextRow())
-  {
-    isPrivileged = resultSet.GetBool(0);
-  }
-  return isPrivileged;
-#else
   wxUnusedVar(username);
   return false;
-#endif
 }
 
 void wxSQLite3Database::GetUserList(wxArrayString& userList)
 {
   userList.Empty();
-#if SQLITE_USER_AUTHENTICATION
-  CheckDatabase();
-  wxSQLite3ResultSet resultSet = ExecuteQuery("select uname from main.sqlite_user order by uname;");
-  while (resultSet.NextRow())
-  {
-    userList.Add(resultSet.GetString(0));
-  }
-#else
-  wxUnusedVar(userList);
-#endif
 }
 
 int wxSQLite3Database::GetLimit(wxSQLite3LimitType id) const
@@ -4779,20 +4682,13 @@ void wxSQLite3FunctionContext::ExecWindowInverse(void* ctx, int argc, void** arg
 static int wxSQLite3FunctionContextExecAuthorizer(void* func, int type,
                                            const char* arg1, const char* arg2,
                                            const char* arg3, const char* arg4
-#if SQLITE_USER_AUTHENTICATION
-                                         , const char* arg5
-#endif
                                           )
 {
   wxString locArg1 = wxString::FromUTF8(arg1);
   wxString locArg2 = wxString::FromUTF8(arg2);
   wxString locArg3 = wxString::FromUTF8(arg3);
   wxString locArg4 = wxString::FromUTF8(arg4);
-#if SQLITE_USER_AUTHENTICATION
-  wxString locArg5 = wxString::FromUTF8(arg5);
-#else
   wxString locArg5 = wxEmptyString;
-#endif
   wxSQLite3Authorizer::wxAuthorizationCode localType = (wxSQLite3Authorizer::wxAuthorizationCode) type;
   return (int) ((wxSQLite3Authorizer*) func)->Authorize(localType, locArg1, locArg2, locArg3, locArg4, locArg5);
 }
@@ -6449,6 +6345,122 @@ wxSQLite3CipherAscon128::Apply(void* dbHandle) const
 #endif
       int kdfIter = sqlite3mc_config_cipher((sqlite3*) dbHandle, "ascon128", "kdf_iter", m_kdfIter);
       applied = (newCipherType > 0) /* && (legacy >= 0) && (legacyPageSize >= 0) */ && (kdfIter > 0);
+    }
+  }
+  return applied;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
+}
+
+wxSQLite3CipherAegis::wxSQLite3CipherAegis()
+  : wxSQLite3Cipher(WXSQLITE_CIPHER_AEGIS), m_legacy(false),
+    m_tcost(2), m_mcost(19*1024), m_pcost(1), m_algorithm(ALGORITHM_AEGIS_256)
+{
+  SetInitialized(true);
+}
+
+wxSQLite3CipherAegis::wxSQLite3CipherAegis(const wxSQLite3CipherAegis&  cipher)
+  : wxSQLite3Cipher(cipher), m_legacy(cipher.m_legacy),
+    m_tcost(cipher.m_tcost), m_mcost(cipher.m_mcost), m_pcost(cipher.m_pcost),
+    m_algorithm(cipher.m_algorithm)
+{
+}
+
+wxSQLite3CipherAegis::~wxSQLite3CipherAegis()
+{
+}
+
+bool
+wxSQLite3CipherAegis::InitializeFromGlobalDefault()
+{
+#if HAVE_CIPHER_AEGIS
+#if 0
+  int legacy = sqlite3mc_config_cipher(0, "aegis", "legacy", -1);
+  m_legacy = legacy != 0;
+#endif
+  m_tcost = sqlite3mc_config_cipher(0, "aegis", "tcost", -1);
+  m_mcost = sqlite3mc_config_cipher(0, "aegis", "mcost", -1);
+  m_pcost = sqlite3mc_config_cipher(0, "aegis", "pcost", -1);
+  int algorithm = (Algorithm)sqlite3mc_config_cipher(0, "aegis", "algorithm", -1);
+  if (algorithm > 0) m_algorithm = (Algorithm)algorithm;
+  bool initialized = m_tcost > 0 && m_mcost > 0 && m_pcost > 0 && m_algorithm > 0;
+  SetInitialized(initialized);
+  return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
+}
+
+bool
+wxSQLite3CipherAegis::InitializeFromCurrent(wxSQLite3Database& db)
+{
+#if HAVE_CIPHER_AEGIS
+  sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
+#if 0
+  int legacy = sqlite3mc_config_cipher(dbHandle, "aegis", "legacy", -1);
+  m_legacy = legacy != 0;
+#endif
+  m_tcost = sqlite3mc_config_cipher(dbHandle, "aegis", "tcost", -1);
+  m_mcost = sqlite3mc_config_cipher(dbHandle, "aegis", "mcost", -1);
+  m_pcost = sqlite3mc_config_cipher(dbHandle, "aegis", "pcost", -1);
+  int algorithm = (Algorithm) sqlite3mc_config_cipher(dbHandle, "aegis", "algorithm", -1);
+  if (algorithm > 0) m_algorithm = (Algorithm) algorithm;
+  bool initialized = m_tcost > 0 && m_mcost > 0 && m_pcost > 0 && m_algorithm > 0;
+  SetInitialized(initialized);
+  return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
+}
+
+bool
+wxSQLite3CipherAegis::InitializeFromCurrentDefault(wxSQLite3Database& db)
+{
+#if HAVE_CIPHER_AEGIS
+  sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
+#if 0
+  int legacy = sqlite3mc_config_cipher(dbHandle, "aegis", "default:legacy", -1);
+  m_legacy = legacy != 0;
+#endif
+  m_tcost = sqlite3mc_config_cipher(dbHandle, "aegis", "default:tcost", -1);
+  m_mcost = sqlite3mc_config_cipher(dbHandle, "aegis", "default:mcost", -1);
+  m_pcost = sqlite3mc_config_cipher(dbHandle, "aegis", "default:pcost", -1);
+  int algorithm = sqlite3mc_config_cipher(dbHandle, "aegis", "default:algorithm", -1);
+  if (algorithm > 0) m_algorithm = (Algorithm) algorithm;
+  bool initialized = m_tcost > 0 && m_mcost > 0 && m_pcost > 0 && m_algorithm > 0;
+  SetInitialized(initialized);
+  return initialized;
+#else
+  throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_CIPHER_NOT_SUPPORTED);
+#endif
+}
+
+bool
+wxSQLite3CipherAegis::Apply(wxSQLite3Database& db) const
+{
+  return Apply(GetDatabaseHandle(db));
+}
+
+bool
+wxSQLite3CipherAegis::Apply(void* dbHandle) const
+{
+#if HAVE_CIPHER_AEGIS
+  bool applied = false;
+  if (IsOk())
+  {
+    if (dbHandle != NULL)
+    {
+      int newCipherType = sqlite3mc_config((sqlite3*) dbHandle, "cipher", sqlite3mc_cipher_index("aegis"));
+#if 0
+      int legacy = sqlite3mc_config_cipher((sqlite3*) dbHandle, "aegis", "legacy", (m_legacy) ? 1 : 0);
+      int legacyPageSize = sqlite3mc_config_cipher((sqlite3*) dbHandle, "aegis", "legacy_page_size", GetLegacyPageSize());
+#endif
+      int tcost = sqlite3mc_config_cipher((sqlite3*) dbHandle, "aegis", "tcost", m_tcost);
+      int mcost = sqlite3mc_config_cipher((sqlite3*) dbHandle, "aegis", "mcost", m_mcost);
+      int pcost = sqlite3mc_config_cipher((sqlite3*) dbHandle, "aegis", "pcost", m_pcost);
+      int algorithm = sqlite3mc_config_cipher((sqlite3*) dbHandle, "aegis", "algorithm", (int) m_algorithm);
+      applied = (newCipherType > 0) && (tcost > 0) && (mcost > 0) && (pcost > 0) && (algorithm > 0);
     }
   }
   return applied;

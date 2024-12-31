@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Upgrade to SQLite3 Multiple Ciphers version 2.0.0 (SQLite version 3.47.2)
+- Removed support for User Authentication extension
+- Added new cipher scheme AEGIS
+
 ## [4.9.12] - 2024-10-22
 
 - Upgrade to SQLite3 Multiple Ciphers version 1.9.0 (SQLite version 3.47.0)

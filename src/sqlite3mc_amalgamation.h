@@ -29,11 +29,11 @@
 #ifndef SQLITE3MC_VERSION_H_
 #define SQLITE3MC_VERSION_H_
 
-#define SQLITE3MC_VERSION_MAJOR      1
-#define SQLITE3MC_VERSION_MINOR      9
+#define SQLITE3MC_VERSION_MAJOR      2
+#define SQLITE3MC_VERSION_MINOR      0
 #define SQLITE3MC_VERSION_RELEASE    0
 #define SQLITE3MC_VERSION_SUBRELEASE 0
-#define SQLITE3MC_VERSION_STRING     "SQLite3 Multiple Ciphers 1.9.0"
+#define SQLITE3MC_VERSION_STRING     "SQLite3 Multiple Ciphers 2.0.0"
 
 #endif /* SQLITE3MC_VERSION_H_ */
 /*** End of #include "sqlite3mc_version.h" ***/
@@ -192,9 +192,9 @@ extern "C" {
 ** [sqlite3_libversion_number()], [sqlite3_sourceid()],
 ** [sqlite_version()] and [sqlite_source_id()].
 */
-#define SQLITE_VERSION        "3.47.0"
-#define SQLITE_VERSION_NUMBER 3047000
-#define SQLITE_SOURCE_ID      "2024-10-21 16:30:22 03a9703e27c44437c39363d0baf82db4ebc94538a0f28411c85dda156f82636e"
+#define SQLITE_VERSION        "3.47.2"
+#define SQLITE_VERSION_NUMBER 3047002
+#define SQLITE_SOURCE_ID      "2024-12-07 20:39:59 2aabe05e2e8cae4847a802ee2daddc1d7413d8fc560254d93ee3e72c14685b6c"
 
 /*
 ** CAPI3REF: Run-Time Library Version Numbers
@@ -698,6 +698,13 @@ SQLITE_API int sqlite3_exec(
 ** filesystem supports doing multiple write operations atomically when those
 ** write operations are bracketed by [SQLITE_FCNTL_BEGIN_ATOMIC_WRITE] and
 ** [SQLITE_FCNTL_COMMIT_ATOMIC_WRITE].
+**
+** The SQLITE_IOCAP_SUBPAGE_READ property means that it is ok to read
+** from the database file in amounts that are not a multiple of the
+** page size and that do not begin at a page boundary.  Without this
+** property, SQLite is careful to only do full-page reads and write
+** on aligned pages, with the one exception that it will do a sub-page
+** read of the first page to access the database header.
 */
 #define SQLITE_IOCAP_ATOMIC                 0x00000001
 #define SQLITE_IOCAP_ATOMIC512              0x00000002
@@ -714,6 +721,7 @@ SQLITE_API int sqlite3_exec(
 #define SQLITE_IOCAP_POWERSAFE_OVERWRITE    0x00001000
 #define SQLITE_IOCAP_IMMUTABLE              0x00002000
 #define SQLITE_IOCAP_BATCH_ATOMIC           0x00004000
+#define SQLITE_IOCAP_SUBPAGE_READ           0x00008000
 
 /*
 ** CAPI3REF: File Locking Levels
@@ -860,6 +868,7 @@ struct sqlite3_file {
 ** <li> [SQLITE_IOCAP_POWERSAFE_OVERWRITE]
 ** <li> [SQLITE_IOCAP_IMMUTABLE]
 ** <li> [SQLITE_IOCAP_BATCH_ATOMIC]
+** <li> [SQLITE_IOCAP_SUBPAGE_READ]
 ** </ul>
 **
 ** The SQLITE_IOCAP_ATOMIC property means that all writes of
@@ -13622,106 +13631,7 @@ struct fts5_api {
 
 
 #ifdef SQLITE_USER_AUTHENTICATION
-/* #include "sqlite3userauth.h" */
-/*** Begin of #include "sqlite3userauth.h" ***/
-/*
-** 2014-09-08
-**
-** The author disclaims copyright to this source code.  In place of
-** a legal notice, here is a blessing:
-**
-**    May you do good and not evil.
-**    May you find forgiveness for yourself and forgive others.
-**    May you share freely, never taking more than you give.
-**
-*************************************************************************
-**
-** This file contains the application interface definitions for the
-** user-authentication extension feature.
-**
-** To compile with the user-authentication feature, append this file to
-** end of an SQLite amalgamation header file ("sqlite3.h"), then add
-** the SQLITE_USER_AUTHENTICATION compile-time option.  See the
-** user-auth.txt file in the same source directory as this file for
-** additional information.
-*/
-#ifdef SQLITE_USER_AUTHENTICATION
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/*
-** If a database contains the SQLITE_USER table, then the
-** sqlite3_user_authenticate() interface must be invoked with an
-** appropriate username and password prior to enable read and write
-** access to the database.
-**
-** Return SQLITE_OK on success or SQLITE_ERROR if the username/password
-** combination is incorrect or unknown.
-**
-** If the SQLITE_USER table is not present in the database file, then
-** this interface is a harmless no-op returnning SQLITE_OK.
-*/
-SQLITE_API int sqlite3_user_authenticate(
-  sqlite3 *db,           /* The database connection */
-  const char *zUsername, /* Username */
-  const char *aPW,       /* Password or credentials */
-  int nPW                /* Number of bytes in aPW[] */
-);
-
-/*
-** The sqlite3_user_add() interface can be used (by an admin user only)
-** to create a new user.  When called on a no-authentication-required
-** database, this routine converts the database into an authentication-
-** required database, automatically makes the added user an
-** administrator, and logs in the current connection as that user.
-** The sqlite3_user_add() interface only works for the "main" database, not
-** for any ATTACH-ed databases.  Any call to sqlite3_user_add() by a
-** non-admin user results in an error.
-*/
-SQLITE_API int sqlite3_user_add(
-  sqlite3 *db,           /* Database connection */
-  const char *zUsername, /* Username to be added */
-  const char *aPW,       /* Password or credentials */
-  int nPW,               /* Number of bytes in aPW[] */
-  int isAdmin            /* True to give new user admin privilege */
-);
-
-/*
-** The sqlite3_user_change() interface can be used to change a users
-** login credentials or admin privilege.  Any user can change their own
-** login credentials.  Only an admin user can change another users login
-** credentials or admin privilege setting.  No user may change their own
-** admin privilege setting.
-*/
-SQLITE_API int sqlite3_user_change(
-  sqlite3 *db,           /* Database connection */
-  const char *zUsername, /* Username to change */
-  const char *aPW,       /* New password or credentials */
-  int nPW,               /* Number of bytes in aPW[] */
-  int isAdmin            /* Modified admin privilege for the user */
-);
-
-/*
-** The sqlite3_user_delete() interface can be used (by an admin user only)
-** to delete a user.  The currently logged-in user cannot be deleted,
-** which guarantees that there is always an admin user and hence that
-** the database cannot be converted into a no-authentication-required
-** database.
-*/
-SQLITE_API int sqlite3_user_delete(
-  sqlite3 *db,           /* Database connection */
-  const char *zUsername  /* Username to remove */
-);
-
-#ifdef __cplusplus
-}  /* end of the 'extern "C"' block */
-#endif
-
-#endif /* SQLITE_USER_AUTHENTICATION */
-/*** End of #include "sqlite3userauth.h" ***/
-
+#undef SQLITE_USER_AUTHENTICATION
 #endif
 
 /*
@@ -13734,7 +13644,8 @@ SQLITE_API int sqlite3_user_delete(
 #define CODEC_TYPE_SQLCIPHER   4
 #define CODEC_TYPE_RC4         5
 #define CODEC_TYPE_ASCON128    6
-#define CODEC_TYPE_MAX_BUILTIN 6
+#define CODEC_TYPE_AEGIS       7
+#define CODEC_TYPE_MAX_BUILTIN 7
 
 /*
 ** Definition of API functions
