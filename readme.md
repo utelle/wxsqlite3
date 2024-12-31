@@ -37,6 +37,8 @@ With the release of SQLite version 3.32.0 on May 22, 2020 critical changes to th
 
 Since August 2020 a new implementation of an encryption extension, capable of supporting SQLite version 3.32.0 and later, is available as a separate project, [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers). Starting with the release of **wxSQLite3 4.6.0** this new implementation is used.
 
+Currently the _CMake_ support is experimental and limited to Windows platforms (and may or may not work). 
+
 ## Table of Contents
 
 - [Version history](#history)
