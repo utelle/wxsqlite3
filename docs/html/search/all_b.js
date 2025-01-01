@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['nextrow_0',['NextRow',['../classwx_s_q_lite3_result_set.html#abbcdb3c3524a4bfcbda9c5c757d5b3cd',1,'wxSQLite3ResultSet']]]
+  ['n_0',['n',['../structsqlite3__intarray.html#a033f48d27af8c0a5767178c3ed45a602',1,'sqlite3_intarray::n'],['../structsqlite3__chararray.html#a9a7b08fe3d2a5deab496d47e285a7450',1,'sqlite3_chararray::n']]],
+  ['nextrow_1',['NextRow',['../classwx_s_q_lite3_result_set.html#abbcdb3c3524a4bfcbda9c5c757d5b3cd',1,'wxSQLite3ResultSet']]]
 ];

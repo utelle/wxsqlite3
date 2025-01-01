@@ -11,11 +11,12 @@ var searchData=
   ['hassavepointsupport_8',['HasSavepointSupport',['../classwx_s_q_lite3_database.html#a0dc81fa8e6b7ead308453b4dea9d7b6d',1,'wxSQLite3Database']]],
   ['hasuserauthenticationsupport_9',['HasUserAuthenticationSupport',['../classwx_s_q_lite3_database.html#aa1065b6c9a25f3a56c90d484c6cbc548',1,'wxSQLite3Database']]],
   ['haswriteaheadlogsupport_10',['HasWriteAheadLogSupport',['../classwx_s_q_lite3_database.html#a24a2edc618588e1160f4c4436ba8104c',1,'wxSQLite3Database']]],
-  ['have_5fcipher_5faes_5f128_5fcbc_11',['HAVE_CIPHER_AES_128_CBC',['../sqlite3mc__config_8h.html#ad66aa77113c4a1f266cd6f429b74525d',1,'sqlite3mc_config.h']]],
-  ['have_5fcipher_5faes_5f256_5fcbc_12',['HAVE_CIPHER_AES_256_CBC',['../sqlite3mc__config_8h.html#a9ff8a2e673c7726dc9d9969cf421e919',1,'sqlite3mc_config.h']]],
-  ['have_5fcipher_5fascon128_13',['HAVE_CIPHER_ASCON128',['../sqlite3mc__config_8h.html#ad5403c7962c715d7b4446f63142a221b',1,'sqlite3mc_config.h']]],
-  ['have_5fcipher_5fchacha20_14',['HAVE_CIPHER_CHACHA20',['../sqlite3mc__config_8h.html#a675edd30b7c0b05d40247c0e2ca95ffd',1,'sqlite3mc_config.h']]],
-  ['have_5fcipher_5frc4_15',['HAVE_CIPHER_RC4',['../sqlite3mc__config_8h.html#ad20d5b49e113ecea8e05e0bf2c9b9d7f',1,'sqlite3mc_config.h']]],
-  ['have_5fcipher_5fsqlcipher_16',['HAVE_CIPHER_SQLCIPHER',['../sqlite3mc__config_8h.html#a3834c4e298b68aebef771f8d8f9db9ec',1,'sqlite3mc_config.h']]],
-  ['history_17',['Version history',['../index.html#version',1,'']]]
+  ['have_5fcipher_5faegis_11',['HAVE_CIPHER_AEGIS',['../sqlite3mc__config_8h.html#af61bf50b1ede3cbca360eb2e90f2cdf8',1,'sqlite3mc_config.h']]],
+  ['have_5fcipher_5faes_5f128_5fcbc_12',['HAVE_CIPHER_AES_128_CBC',['../sqlite3mc__config_8h.html#ad66aa77113c4a1f266cd6f429b74525d',1,'sqlite3mc_config.h']]],
+  ['have_5fcipher_5faes_5f256_5fcbc_13',['HAVE_CIPHER_AES_256_CBC',['../sqlite3mc__config_8h.html#a9ff8a2e673c7726dc9d9969cf421e919',1,'sqlite3mc_config.h']]],
+  ['have_5fcipher_5fascon128_14',['HAVE_CIPHER_ASCON128',['../sqlite3mc__config_8h.html#ad5403c7962c715d7b4446f63142a221b',1,'sqlite3mc_config.h']]],
+  ['have_5fcipher_5fchacha20_15',['HAVE_CIPHER_CHACHA20',['../sqlite3mc__config_8h.html#a675edd30b7c0b05d40247c0e2ca95ffd',1,'sqlite3mc_config.h']]],
+  ['have_5fcipher_5frc4_16',['HAVE_CIPHER_RC4',['../sqlite3mc__config_8h.html#ad20d5b49e113ecea8e05e0bf2c9b9d7f',1,'sqlite3mc_config.h']]],
+  ['have_5fcipher_5fsqlcipher_17',['HAVE_CIPHER_SQLCIPHER',['../sqlite3mc__config_8h.html#a3834c4e298b68aebef771f8d8f9db9ec',1,'sqlite3mc_config.h']]],
+  ['history_18',['Version history',['../index.html#version',1,'']]]
 ];

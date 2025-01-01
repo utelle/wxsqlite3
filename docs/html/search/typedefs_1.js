@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sqlite3_5fxauth_0',['sqlite3_xauth',['../wxsqlite3_8cpp.html#ac1bb22e5e099a8a88ca733305dc500a4',1,'wxsqlite3.cpp']]]
+  ['err_5fchar_5ft_0',['err_char_t',['../wxsqlite3_8cpp.html#a8c893cdbe8160b1646b2ace75280cce6',1,'wxsqlite3.cpp']]]
 ];
