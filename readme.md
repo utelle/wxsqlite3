@@ -30,6 +30,7 @@ Currently the following encryption schemes are supported:
 - AES 256 Bit CBC - SHA1/SHA256/SHA512 HMAC ([SQLCipher](https://www.zetetic.net/sqlcipher/) versions 1 - 4) 
 - RC4 - No HMAC ([System.Data.SQLite](https://system.data.sqlite.org/))
 - Ascon 128 - Ascon Tag ([Ascon](https://ascon.iaik.tugraz.at/)) (since version 4.9.8)
+- AEGIS - AEGIS Tag ([AEGIS](https://cfrg.github.io/draft-irtf-cfrg-aegis-aead/draft-irtf-cfrg-aegis-aead.html)) (since version 4.10.0)
 
 ## Important Notes
 
@@ -51,9 +52,11 @@ Currently the _CMake_ support is experimental and limited to Windows platforms (
 
 ## <a name="history"></a>Version history
 
-* 4.9.12 - *October 2024*
+* 4.10.0 - *December 2024*
 
-  - Upgrade to SQLite3 Multiple Ciphers version 1.9.0 (SQLite version 3.47.0)
+  - Upgrade to SQLite3 Multiple Ciphers version 2.0.0 (SQLite version 3.47.2)
+  - Removed support for _User Authentication_ extension
+  - Added new cipher scheme AEGIS
 
 For further version information please consult the [CHANGELOG](CHANGELOG.md).
 
