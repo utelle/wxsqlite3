@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.10.1] - 2025-01-06
+
+  - Upgrade to SQLite3 Multiple Ciphers version 2.0.1 (SQLite version 3.47.2)
+  - Fixed issue #120 - crashes on some Linux systems due to _illegal instruction_ exceptions related to the code of the new cipher scheme _AEGIS_
+
 ## [4.10.0] - 2024-12-31
 
 - Upgrade to SQLite3 Multiple Ciphers version 2.0.0 (SQLite version 3.47.2)
@@ -649,12 +654,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First public release
 
-
-### Changed
-### Fixed
-### Added
-
-[Unreleased]: ../../compare/v4.10.0...HEAD
+[Unreleased]: ../../compare/v4.10.1...HEAD
+[4.10.1]: ../../compare/v4.10.0...v4.10.1
 [4.10.0]: ../../compare/v4.9.12...v4.10.0
 [4.9.12]: ../../compare/v4.9.11...v4.9.12
 [4.9.11]: ../../compare/v4.9.10...v4.9.11
