@@ -52,10 +52,9 @@ Currently the _CMake_ support is experimental and limited to Windows platforms (
 
 ## <a name="history"></a>Version history
 
-* 4.10.1 - *January 2025*
+* 4.10.2 - *January 2025*
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.0.1 (SQLite version 3.47.2)
-  - Fixed issue #120 - crashes on some Linux systems due to _illegal instruction_ exceptions related to the code of the new cipher scheme _AEGIS_
+  - Upgrade to SQLite3 Multiple Ciphers version 2.0.2 (SQLite version 3.48.0)
 
 For further version information please consult the [CHANGELOG](CHANGELOG.md).
 

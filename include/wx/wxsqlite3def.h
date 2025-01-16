@@ -46,10 +46,16 @@
 
 <dl>
 
+<dt><b>4.10.2</b> - <i>January 2025</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 2.0.2 (SQLite version 3.48.0)</i>
+
+</dd>
+
 <dt><b>4.10.1</b> - <i>January 2025</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 2.0.1 (SQLite version 3.47.2)</i><br>
-Fixed issue #120 - crashes on some Linux systems due to <i>illegal instruction</i> exceptions related to the code of the new cipher scheme <i>AEGIS</i><br>
+Fixed issue #120 - crashes on some Linux systems due to <i>illegal instruction</i> exceptions related to the code of the new cipher scheme <i>AEGIS</i>
 
 </dd>
 
