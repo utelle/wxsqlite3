@@ -52,9 +52,10 @@ Currently the _CMake_ support is experimental and limited to Windows platforms (
 
 ## <a name="history"></a>Version history
 
-* 4.10.4 - *February 2025*
+* 4.10.5 - *March 2025*
 
-  - Upgrade to [SQLite3 Multiple Ciphers 2.0.4](https://github.com/utelle/SQLite3MultipleCiphers/releases/tag/v2.0.4) ([SQLite 3.49.1](https://sqlite.org/releaselog/3_49_1.html))
+  - Upgrade to [SQLite3 Multiple Ciphers 2.1.0](https://github.com/utelle/SQLite3MultipleCiphers/releases/tag/v2.1.0) ([SQLite 3.49.1](https://sqlite.org/releaselog/3_49_1.html))
+  - Disable AEGIS cipher scheme when compiling with MSVC 2015 or below
 
 For further version information please consult the [CHANGELOG](CHANGELOG.md).
 

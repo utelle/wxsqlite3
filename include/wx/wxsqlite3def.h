@@ -46,6 +46,13 @@
 
 <dl>
 
+<dt><b>4.10.5</b> - <i>March 2025</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 2.1.0 (SQLite version 3.49.1)</i><br>
+Disable AEGIS cipher scheme when compiling with MSVC 2015 or below
+
+</dd>
+
 <dt><b>4.10.4</b> - <i>February 2025</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 2.0.4 (SQLite version 3.49.1)</i>
