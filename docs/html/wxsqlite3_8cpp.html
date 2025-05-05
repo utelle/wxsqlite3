@@ -26,7 +26,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign">
-   <div id="projectname">wxSQLite3<span id="projectnumber">&#160;4.10.5</span>
+   <div id="projectname">wxSQLite3<span id="projectnumber">&#160;4.10.6</span>
    </div>
   </td>
  </tr>
@@ -302,6 +302,8 @@ Variables</h2></td></tr>
 <tr class="separator:affa080c795759610d7875f853f479013"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66c7aa483266433c39f5d7ec8ce62c02" id="r_a66c7aa483266433c39f5d7ec8ce62c02"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66c7aa483266433c39f5d7ec8ce62c02">wxERRMSG_SCHEMANAME_UNKNOWN</a> = wxTRANSLATE(&quot;Schema name unknown&quot;)</td></tr>
 <tr class="separator:a66c7aa483266433c39f5d7ec8ce62c02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a263bb69206941c08e8106221077727fb" id="r_a263bb69206941c08e8106221077727fb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a263bb69206941c08e8106221077727fb">wxERRMSG_DBCONFIG_OPTION_UNKNOWN</a> = wxTRANSLATE(&quot;Database configuration option unknown&quot;)</td></tr>
+<tr class="separator:a263bb69206941c08e8106221077727fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9bf53c1fd9ca12883b0f63a184fb5fe" id="r_ae9bf53c1fd9ca12883b0f63a184fb5fe"><td class="memItemLeft" align="right" valign="top">static const wxChar *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9bf53c1fd9ca12883b0f63a184fb5fe">limitCodeString</a> []</td></tr>
 <tr class="separator:ae9bf53c1fd9ca12883b0f63a184fb5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1d772e0c0f927a2a83746e5c1204dad" id="r_af1d772e0c0f927a2a83746e5c1204dad"><td class="memItemLeft" align="right" valign="top">static const wxChar *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1d772e0c0f927a2a83746e5c1204dad">authCodeString</a> []</td></tr>
@@ -1326,16 +1328,16 @@ Variables</h2></td></tr>
 <div class="line">  0,                           </div>
 <div class="line">  0                            </div>
 <div class="line">}</div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a281bb852d750a9c5e745d74e732d958b"><div class="ttname"><a href="#a281bb852d750a9c5e745d74e732d958b">chararrayNext</a></div><div class="ttdeci">static int chararrayNext(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5205</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a2bdaa3e0345b08de898d1ada3837e49d"><div class="ttname"><a href="#a2bdaa3e0345b08de898d1ada3837e49d">chararrayClose</a></div><div class="ttdeci">static int chararrayClose(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5170</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a45d3a6006e05c1d7fa2dcaa1339b36a6"><div class="ttname"><a href="#a45d3a6006e05c1d7fa2dcaa1339b36a6">chararrayOpen</a></div><div class="ttdeci">static int chararrayOpen(sqlite3_vtab *, sqlite3_vtab_cursor **ppCursor)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5156</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a69b9d10a733d24e552eeb2e7ca3916bc"><div class="ttname"><a href="#a69b9d10a733d24e552eeb2e7ca3916bc">chararrayEof</a></div><div class="ttdeci">static int chararrayEof(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5197</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a69eab81d4ca6a0578f1ba73e9c21bd82"><div class="ttname"><a href="#a69eab81d4ca6a0578f1ba73e9c21bd82">chararrayRowid</a></div><div class="ttdeci">static int chararrayRowid(sqlite3_vtab_cursor *cur, sqlite_int64 *pRowid)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5190</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a6cea2b59e8e610584becc237ed78f1b3"><div class="ttname"><a href="#a6cea2b59e8e610584becc237ed78f1b3">chararrayBestIndex</a></div><div class="ttdeci">static int chararrayBestIndex(sqlite3_vtab *, sqlite3_index_info *)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5223</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_aa287d3f89eed3102148dd8a4037a14c6"><div class="ttname"><a href="#aa287d3f89eed3102148dd8a4037a14c6">chararrayColumn</a></div><div class="ttdeci">static int chararrayColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5178</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_ad2ac66a80447a4f17b7326c39e096a53"><div class="ttname"><a href="#ad2ac66a80447a4f17b7326c39e096a53">chararrayDestroy</a></div><div class="ttdeci">static int chararrayDestroy(sqlite3_vtab *p)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5127</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_ae21b3c5da72d3a1dd6e206beda91bf1d"><div class="ttname"><a href="#ae21b3c5da72d3a1dd6e206beda91bf1d">chararrayFilter</a></div><div class="ttdeci">static int chararrayFilter(sqlite3_vtab_cursor *pVtabCursor, int, const char *, int, sqlite3_value **)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5213</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_afac9d8839634ee9670661edb08b3b6d5"><div class="ttname"><a href="#afac9d8839634ee9670661edb08b3b6d5">chararrayCreate</a></div><div class="ttdeci">static int chararrayCreate(sqlite3 *db, void *pAux, int, const char *const *, sqlite3_vtab **ppVtab, char **)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5135</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a281bb852d750a9c5e745d74e732d958b"><div class="ttname"><a href="#a281bb852d750a9c5e745d74e732d958b">chararrayNext</a></div><div class="ttdeci">static int chararrayNext(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5233</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a2bdaa3e0345b08de898d1ada3837e49d"><div class="ttname"><a href="#a2bdaa3e0345b08de898d1ada3837e49d">chararrayClose</a></div><div class="ttdeci">static int chararrayClose(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5198</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a45d3a6006e05c1d7fa2dcaa1339b36a6"><div class="ttname"><a href="#a45d3a6006e05c1d7fa2dcaa1339b36a6">chararrayOpen</a></div><div class="ttdeci">static int chararrayOpen(sqlite3_vtab *, sqlite3_vtab_cursor **ppCursor)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5184</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a69b9d10a733d24e552eeb2e7ca3916bc"><div class="ttname"><a href="#a69b9d10a733d24e552eeb2e7ca3916bc">chararrayEof</a></div><div class="ttdeci">static int chararrayEof(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5225</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a69eab81d4ca6a0578f1ba73e9c21bd82"><div class="ttname"><a href="#a69eab81d4ca6a0578f1ba73e9c21bd82">chararrayRowid</a></div><div class="ttdeci">static int chararrayRowid(sqlite3_vtab_cursor *cur, sqlite_int64 *pRowid)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5218</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a6cea2b59e8e610584becc237ed78f1b3"><div class="ttname"><a href="#a6cea2b59e8e610584becc237ed78f1b3">chararrayBestIndex</a></div><div class="ttdeci">static int chararrayBestIndex(sqlite3_vtab *, sqlite3_index_info *)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5251</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_aa287d3f89eed3102148dd8a4037a14c6"><div class="ttname"><a href="#aa287d3f89eed3102148dd8a4037a14c6">chararrayColumn</a></div><div class="ttdeci">static int chararrayColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5206</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_ad2ac66a80447a4f17b7326c39e096a53"><div class="ttname"><a href="#ad2ac66a80447a4f17b7326c39e096a53">chararrayDestroy</a></div><div class="ttdeci">static int chararrayDestroy(sqlite3_vtab *p)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5155</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_ae21b3c5da72d3a1dd6e206beda91bf1d"><div class="ttname"><a href="#ae21b3c5da72d3a1dd6e206beda91bf1d">chararrayFilter</a></div><div class="ttdeci">static int chararrayFilter(sqlite3_vtab_cursor *pVtabCursor, int, const char *, int, sqlite3_value **)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5241</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_afac9d8839634ee9670661edb08b3b6d5"><div class="ttname"><a href="#afac9d8839634ee9670661edb08b3b6d5">chararrayCreate</a></div><div class="ttdeci">static int chararrayCreate(sqlite3 *db, void *pAux, int, const char *const *, sqlite3_vtab **ppVtab, char **)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5163</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1386,16 +1388,16 @@ Variables</h2></td></tr>
 <div class="line">  0                            </div>
 <div class="line"> </div>
 <div class="line">}</div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a21401b955e0bd4a1e4745c5249a9592f"><div class="ttname"><a href="#a21401b955e0bd4a1e4745c5249a9592f">intarrayNext</a></div><div class="ttdeci">static int intarrayNext(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5032</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a294e264af696db287860e7d1b1020592"><div class="ttname"><a href="#a294e264af696db287860e7d1b1020592">intarrayCreate</a></div><div class="ttdeci">static int intarrayCreate(sqlite3 *db, void *pAux, int, const char *const *, sqlite3_vtab **ppVtab, char **)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:4962</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a4be4098759315243604b841484deca1e"><div class="ttname"><a href="#a4be4098759315243604b841484deca1e">intarrayBestIndex</a></div><div class="ttdeci">static int intarrayBestIndex(sqlite3_vtab *, sqlite3_index_info *)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5050</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a528eeaa88fc8bef9f273fe5da45e63e0"><div class="ttname"><a href="#a528eeaa88fc8bef9f273fe5da45e63e0">intarrayDestroy</a></div><div class="ttdeci">static int intarrayDestroy(sqlite3_vtab *p)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:4954</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a5ef338e8071d5b7b6ab29822da8d6919"><div class="ttname"><a href="#a5ef338e8071d5b7b6ab29822da8d6919">intarrayOpen</a></div><div class="ttdeci">static int intarrayOpen(sqlite3_vtab *, sqlite3_vtab_cursor **ppCursor)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:4983</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a61f3b49a229d527804696ddb3266137f"><div class="ttname"><a href="#a61f3b49a229d527804696ddb3266137f">intarrayRowid</a></div><div class="ttdeci">static int intarrayRowid(sqlite3_vtab_cursor *cur, sqlite_int64 *pRowid)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5017</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_a7aef64fb60709077ed1f3569855a6014"><div class="ttname"><a href="#a7aef64fb60709077ed1f3569855a6014">intarrayColumn</a></div><div class="ttdeci">static int intarrayColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5005</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_aa19d2a8e5898a8bf9960c80dbd2e5e46"><div class="ttname"><a href="#aa19d2a8e5898a8bf9960c80dbd2e5e46">intarrayEof</a></div><div class="ttdeci">static int intarrayEof(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5024</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_aacb559d3371b534dc5255d189eaf7036"><div class="ttname"><a href="#aacb559d3371b534dc5255d189eaf7036">intarrayClose</a></div><div class="ttdeci">static int intarrayClose(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:4997</div></div>
-<div class="ttc" id="awxsqlite3_8cpp_html_ac80cc8cafc9445fd047c5d50935586e3"><div class="ttname"><a href="#ac80cc8cafc9445fd047c5d50935586e3">intarrayFilter</a></div><div class="ttdeci">static int intarrayFilter(sqlite3_vtab_cursor *pVtabCursor, int, const char *, int, sqlite3_value **)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5040</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a21401b955e0bd4a1e4745c5249a9592f"><div class="ttname"><a href="#a21401b955e0bd4a1e4745c5249a9592f">intarrayNext</a></div><div class="ttdeci">static int intarrayNext(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5060</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a294e264af696db287860e7d1b1020592"><div class="ttname"><a href="#a294e264af696db287860e7d1b1020592">intarrayCreate</a></div><div class="ttdeci">static int intarrayCreate(sqlite3 *db, void *pAux, int, const char *const *, sqlite3_vtab **ppVtab, char **)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:4990</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a4be4098759315243604b841484deca1e"><div class="ttname"><a href="#a4be4098759315243604b841484deca1e">intarrayBestIndex</a></div><div class="ttdeci">static int intarrayBestIndex(sqlite3_vtab *, sqlite3_index_info *)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5078</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a528eeaa88fc8bef9f273fe5da45e63e0"><div class="ttname"><a href="#a528eeaa88fc8bef9f273fe5da45e63e0">intarrayDestroy</a></div><div class="ttdeci">static int intarrayDestroy(sqlite3_vtab *p)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:4982</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a5ef338e8071d5b7b6ab29822da8d6919"><div class="ttname"><a href="#a5ef338e8071d5b7b6ab29822da8d6919">intarrayOpen</a></div><div class="ttdeci">static int intarrayOpen(sqlite3_vtab *, sqlite3_vtab_cursor **ppCursor)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5011</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a61f3b49a229d527804696ddb3266137f"><div class="ttname"><a href="#a61f3b49a229d527804696ddb3266137f">intarrayRowid</a></div><div class="ttdeci">static int intarrayRowid(sqlite3_vtab_cursor *cur, sqlite_int64 *pRowid)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5045</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a7aef64fb60709077ed1f3569855a6014"><div class="ttname"><a href="#a7aef64fb60709077ed1f3569855a6014">intarrayColumn</a></div><div class="ttdeci">static int intarrayColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5033</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_aa19d2a8e5898a8bf9960c80dbd2e5e46"><div class="ttname"><a href="#aa19d2a8e5898a8bf9960c80dbd2e5e46">intarrayEof</a></div><div class="ttdeci">static int intarrayEof(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5052</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_aacb559d3371b534dc5255d189eaf7036"><div class="ttname"><a href="#aacb559d3371b534dc5255d189eaf7036">intarrayClose</a></div><div class="ttdeci">static int intarrayClose(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5025</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_ac80cc8cafc9445fd047c5d50935586e3"><div class="ttname"><a href="#ac80cc8cafc9445fd047c5d50935586e3">intarrayFilter</a></div><div class="ttdeci">static int intarrayFilter(sqlite3_vtab_cursor *pVtabCursor, int, const char *, int, sqlite3_value **)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5068</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1620,6 +1622,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_DBCLOSE_FAILED = wxTRANSLATE(&quot;Database close failed&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a263bb69206941c08e8106221077727fb" name="a263bb69206941c08e8106221077727fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a263bb69206941c08e8106221077727fb">&#9670;&#160;</a></span>wxERRMSG_DBCONFIG_OPTION_UNKNOWN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_DBCONFIG_OPTION_UNKNOWN = wxTRANSLATE(&quot;Database configuration option unknown&quot;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

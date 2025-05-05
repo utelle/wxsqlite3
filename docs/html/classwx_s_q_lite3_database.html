@@ -26,7 +26,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign">
-   <div id="projectname">wxSQLite3<span id="projectnumber">&#160;4.10.5</span>
+   <div id="projectname">wxSQLite3<span id="projectnumber">&#160;4.10.6</span>
    </div>
   </td>
  </tr>
@@ -324,6 +324,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab10be3c5e75eaf8af6ec33ecb38b9bd9" id="r_ab10be3c5e75eaf8af6ec33ecb38b9bd9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab10be3c5e75eaf8af6ec33ecb38b9bd9">SetBusyTimeout</a> (int milliSeconds)</td></tr>
 <tr class="memdesc:ab10be3c5e75eaf8af6ec33ecb38b9bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the busy timeout.  <br /></td></tr>
 <tr class="separator:ab10be3c5e75eaf8af6ec33ecb38b9bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f0763819d314edf661edda5b1e1c7cb" id="r_a6f0763819d314edf661edda5b1e1c7cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f0763819d314edf661edda5b1e1c7cb">Configure</a> (<a class="el" href="wxsqlite3_8h.html#ad52a48fbd0cc888a23adcd3033f463ba">wxSQLite3DbConfig</a> cfgType, int cfgValue, int &amp;cfgResult)</td></tr>
+<tr class="memdesc:a6f0763819d314edf661edda5b1e1c7cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a database configuration option.  <br /></td></tr>
+<tr class="separator:a6f0763819d314edf661edda5b1e1c7cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5618895252b5e69f5f21014e8dc0cbd" id="r_ad5618895252b5e69f5f21014e8dc0cbd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5618895252b5e69f5f21014e8dc0cbd">CreateFunction</a> (const wxString &amp;funcName, int argCount, <a class="el" href="classwx_s_q_lite3_scalar_function.html">wxSQLite3ScalarFunction</a> &amp;function, int flags=0)</td></tr>
 <tr class="memdesc:ad5618895252b5e69f5f21014e8dc0cbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a user-defined scalar function.  <br /></td></tr>
 <tr class="separator:ad5618895252b5e69f5f21014e8dc0cbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1162,6 +1165,42 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>TRUE if the compile option was in use, FALSE otherwise</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If the option name is unknown or if the SQLite version is lower than 3.6.23 this method returns FALSE. </dd></dl>
+
+</div>
+</div>
+<a id="a6f0763819d314edf661edda5b1e1c7cb" name="a6f0763819d314edf661edda5b1e1c7cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f0763819d314edf661edda5b1e1c7cb">&#9670;&#160;</a></span>Configure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wxSQLite3Database::Configure </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="wxsqlite3_8h.html#ad52a48fbd0cc888a23adcd3033f463ba">wxSQLite3DbConfig</a></td>          <td class="paramname"><span class="paramname"><em>cfgType</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cfgValue</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;</td>          <td class="paramname"><span class="paramname"><em>cfgResult</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set a database configuration option. </p>
+<p>This method allows to configure several database settings. Most settings can be changed via PRAGMA commands, too. The configuration identifiers and their meaning can be found in the SQLite documenation (<a href="https://sqlite.org/c3ref/c_dbconfig_defensive.html">https://sqlite.org/c3ref/c_dbconfig_defensive.html</a>). Currently only those identifiers are supported which are specified with an integer value. Except for a WX prefix in their name the identifiers are identical to the original SQLite identifiers. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cfgType</td><td>configuration type identifier </td></tr>
+    <tr><td class="paramname">cfgValue</td><td>intended value of the configuration option </td></tr>
+    <tr><td class="paramname">cfgResult</td><td>resulting value of the configuration option </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
