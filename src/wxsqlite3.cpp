@@ -117,6 +117,8 @@ const err_char_t* wxERRMSG_INVALID_COLLECTION = wxTRANSLATE("Collection instance
 
 const err_char_t* wxERRMSG_SCHEMANAME_UNKNOWN = wxTRANSLATE("Schema name unknown");
 
+const err_char_t* wxERRMSG_DBCONFIG_OPTION_UNKNOWN = wxTRANSLATE("Database configuration option unknown");
+
 static const char* LocalMakePointerTypeCopy(wxArrayPtrVoid& ptrTypes, const wxString& pointerType)
 {
   // Convert pointer type to char*
@@ -602,7 +604,7 @@ wxSQLite3ResultSet::wxSQLite3ResultSet(wxSQLite3DatabaseReference* db,
   CheckStmt();
   m_eof = eof;
   m_first = first;
-  m_cols = sqlite3_column_count(m_stmt->m_stmt);
+  m_cols = (m_stmt != NULL) ? sqlite3_column_count(m_stmt->m_stmt) : 0;
 }
 
 wxSQLite3ResultSet::~wxSQLite3ResultSet()
@@ -3039,7 +3041,7 @@ void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback,
                                 const wxString& sourceFileName, const wxString& key,
                                 const wxString& targetDatabaseName)
 {
-  Restore(NULL, sourceFileName, wxSQLite3Cipher(), key, targetDatabaseName);
+  Restore(progressCallback, sourceFileName, wxSQLite3Cipher(), key, targetDatabaseName);
 }
 
 void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback,
@@ -3065,7 +3067,13 @@ void wxSQLite3Database::Restore(const wxString& sourceFileName, const wxMemoryBu
 void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback, const wxString& sourceFileName,
                                 const wxMemoryBuffer& key, const wxString& targetDatabaseName)
 {
-  Restore(NULL, sourceFileName, wxSQLite3Cipher(), key, targetDatabaseName);
+  Restore(progressCallback, sourceFileName, wxSQLite3Cipher(), key, targetDatabaseName);
+}
+
+void wxSQLite3Database::Restore(const wxString& sourceFileName, const wxSQLite3Cipher& cipher,
+                                const wxMemoryBuffer& key, const wxString& targetDatabaseName)
+{
+    Restore(NULL, sourceFileName, cipher, key, targetDatabaseName);
 }
 
 void wxSQLite3Database::Restore(wxSQLite3BackupProgress* progressCallback,
@@ -3737,6 +3745,26 @@ void wxSQLite3Database::SetBusyTimeout(int nMillisecs)
   CheckDatabase();
   m_busyTimeoutMs = nMillisecs;
   sqlite3_busy_timeout(m_db->m_db, m_busyTimeoutMs);
+}
+
+void wxSQLite3Database::Configure(wxSQLite3DbConfig cfgType, int cfgValue, int& cfgResult)
+{
+  CheckDatabase();
+  int rc = SQLITE_ERROR;
+  int localCfgType = static_cast<int>(cfgType);
+  if (localCfgType >= SQLITE_DBCONFIG_ENABLE_FKEY && localCfgType <= SQLITE_DBCONFIG_ENABLE_COMMENTS)
+  {
+    rc = sqlite3_db_config(m_db->m_db, cfgType, cfgValue, &cfgResult);
+    if (rc != SQLITE_OK)
+    {
+        const char* localError = sqlite3_errmsg(m_db->m_db);
+        throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+    }
+  }
+  else
+  {
+    throw wxSQLite3Exception(WXSQLITE_ERROR, wxERRMSG_DBCONFIG_OPTION_UNKNOWN);
+  }
 }
 
 wxString wxSQLite3Database::GetWrapperVersion()
@@ -5595,12 +5623,14 @@ wxSQLite3Cipher::GetCipherName(wxSQLite3CipherType cipherType)
   wxString cipherName;
   switch (cipherType)
   {
-  case WXSQLITE_CIPHER_AES128:    cipherName = wxS("aes128cbc"); break;
-  case WXSQLITE_CIPHER_AES256:    cipherName = wxS("aes256cbc"); break;
-  case WXSQLITE_CIPHER_CHACHA20:  cipherName = wxS("chacha20");  break;
-  case WXSQLITE_CIPHER_SQLCIPHER: cipherName = wxS("sqlcipher"); break;
-  case WXSQLITE_CIPHER_RC4:       cipherName = wxS("rc4"); break;
-  default:                        cipherName = wxS("unknown");   break;
+    case WXSQLITE_CIPHER_AES128:    cipherName = wxS("aes128cbc"); break;
+    case WXSQLITE_CIPHER_AES256:    cipherName = wxS("aes256cbc"); break;
+    case WXSQLITE_CIPHER_CHACHA20:  cipherName = wxS("chacha20");  break;
+    case WXSQLITE_CIPHER_SQLCIPHER: cipherName = wxS("sqlcipher"); break;
+    case WXSQLITE_CIPHER_RC4:       cipherName = wxS("rc4");       break;
+    case WXSQLITE_CIPHER_ASCON128:  cipherName = wxS("ascon128");  break;
+    case WXSQLITE_CIPHER_AEGIS:     cipherName = wxS("aegis");     break;
+    default:                        cipherName = wxS("unknown");   break;
   }
   return cipherName;
 }
@@ -5614,6 +5644,8 @@ wxSQLite3Cipher::GetCipherType(const wxString& cipherName)
   else if (cipherName.IsSameAs(wxS("chacha20"), false))  cipherType = WXSQLITE_CIPHER_CHACHA20;
   else if (cipherName.IsSameAs(wxS("sqlcipher"), false)) cipherType = WXSQLITE_CIPHER_SQLCIPHER;
   else if (cipherName.IsSameAs(wxS("rc4"), false))       cipherType = WXSQLITE_CIPHER_RC4;
+  else if (cipherName.IsSameAs(wxS("ascon128"), false))  cipherType = WXSQLITE_CIPHER_ASCON128;
+  else if (cipherName.IsSameAs(wxS("aegis"), false))     cipherType = WXSQLITE_CIPHER_AEGIS;
   else                                                   cipherType = WXSQLITE_CIPHER_UNKNOWN;
   return cipherType;
 }
@@ -5971,7 +6003,7 @@ wxSQLite3CipherChaCha20::Apply(void* dbHandle) const
 
 
 wxSQLite3CipherSQLCipher::wxSQLite3CipherSQLCipher()
-  : wxSQLite3Cipher(WXSQLITE_CIPHER_SQLCIPHER), m_legacy(false), m_kdfIter(256000),
+  : wxSQLite3Cipher(WXSQLITE_CIPHER_SQLCIPHER), m_legacy(false), m_legacyVersion(0), m_kdfIter(256000),
                     m_fastKdfIter(2), m_hmacUse(true), m_hmacPgNo(1), m_hmacSaltMask(0x3a),
                     m_kdfAlgorithm(ALGORITHM_SHA512), m_hmacAlgorithm(ALGORITHM_SHA512)
 {
@@ -5979,7 +6011,7 @@ wxSQLite3CipherSQLCipher::wxSQLite3CipherSQLCipher()
 }
 
 wxSQLite3CipherSQLCipher::wxSQLite3CipherSQLCipher(const wxSQLite3CipherSQLCipher&  cipher)
-  : wxSQLite3Cipher(cipher), m_legacy(cipher.m_legacy), m_kdfIter(cipher.m_kdfIter),
+  : wxSQLite3Cipher(cipher), m_legacy(cipher.m_legacy), m_legacyVersion(cipher.m_legacyVersion), m_kdfIter(cipher.m_kdfIter),
     m_fastKdfIter(cipher.m_fastKdfIter), m_hmacUse(cipher.m_hmacUse), 
     m_hmacPgNo(cipher.m_hmacPgNo), m_hmacSaltMask(cipher.m_hmacSaltMask),
     m_kdfAlgorithm(cipher.m_kdfAlgorithm), m_hmacAlgorithm(cipher.m_hmacAlgorithm)

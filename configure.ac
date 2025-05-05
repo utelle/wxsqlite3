@@ -4,7 +4,7 @@ dnl Copyright (C) 2017-2025 Ulrich Telle <github@telle-online.de>, Vadim Zeitlin
 dnl
 dnl This file is covered by the same licence as the entire wxSQLite3 package.
 
-AC_INIT([wxsqlite3], [4.10.5], [github@telle-online.de])
+AC_INIT([wxsqlite3], [4.10.6], [github@telle-online.de])
 
 dnl This is the version tested with, might work with earlier ones.
 AC_PREREQ([2.69])
@@ -173,6 +173,8 @@ AC_CONFIG_LINKS([samples/sqlcipher-1.1.8-testkey.db:samples/sqlcipher-1.1.8-test
     samples/sqlcipher-2.0-le-testkey.db:samples/sqlcipher-2.0-le-testkey.db
     samples/sqlcipher-3.0-testkey.db:samples/sqlcipher-3.0-testkey.db
     samples/sqlcipher-4.0-testkey.db:samples/sqlcipher-4.0-testkey.db
+    samples/persons-ascon128-testkey.db3:samples/persons-ascon128-testkey.db3
+    samples/persons-aegis-testkey.db3:samples/persons-aegis-testkey.db3
 ])
 
 AC_CANONICAL_HOST

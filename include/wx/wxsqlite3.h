@@ -115,6 +115,32 @@ enum wxSQLite3StatementStatus
   WXSQLITE_STMTSTATUS_MEMUSED       = 99
 };
 
+/// Enumeration of statement status counters
+enum wxSQLite3DbConfig
+{
+  WXSQLITE_DBCONFIG_ENABLE_FKEY           = 1002,
+  WXSQLITE_DBCONFIG_ENABLE_TRIGGER        = 1003,
+  WXSQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER = 1004,
+  WXSQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION = 1005,
+  WXSQLITE_DBCONFIG_NO_CKPT_ON_CLOSE      = 1006,
+  WXSQLITE_DBCONFIG_ENABLE_QPSG           = 1007,
+  WXSQLITE_DBCONFIG_TRIGGER_EQP           = 1008,
+  WXSQLITE_DBCONFIG_RESET_DATABASE        = 1009,
+  WXSQLITE_DBCONFIG_DEFENSIVE             = 1010,
+  WXSQLITE_DBCONFIG_WRITABLE_SCHEMA       = 1011,
+  WXSQLITE_DBCONFIG_LEGACY_ALTER_TABLE    = 1012,
+  WXSQLITE_DBCONFIG_DQS_DML               = 1013,
+  WXSQLITE_DBCONFIG_DQS_DDL               = 1014,
+  WXSQLITE_DBCONFIG_ENABLE_VIEW           = 1015,
+  WXSQLITE_DBCONFIG_LEGACY_FILE_FORMAT    = 1016,
+  WXSQLITE_DBCONFIG_TRUSTED_SCHEMA        = 1017,
+  WXSQLITE_DBCONFIG_STMT_SCANSTATUS       = 1018,
+  WXSQLITE_DBCONFIG_REVERSE_SCANORDER     = 1019,
+  WXSQLITE_DBCONFIG_ENABLE_ATTACH_CREATE  = 1020,
+  WXSQLITE_DBCONFIG_ENABLE_ATTACH_WRITE   = 1021,
+  WXSQLITE_DBCONFIG_ENABLE_COMMENTS       = 1022
+};
+
 #define WXSQLITE_OPEN_READONLY         0x00000001
 #define WXSQLITE_OPEN_READWRITE        0x00000002
 #define WXSQLITE_OPEN_CREATE           0x00000004
@@ -3460,6 +3486,20 @@ public:
   * \param milliSeconds timeout in milliseconds
   */
   void SetBusyTimeout(int milliSeconds);
+
+  /// Set a database configuration option
+  /**
+  * This method allows to configure several database settings. Most settings can be changed
+  * via PRAGMA commands, too.
+  * The configuration identifiers and their meaning can be found in the SQLite documenation
+  * (https://sqlite.org/c3ref/c_dbconfig_defensive.html). Currently only those identifiers are
+  * supported which are specified with an integer value. Except for a WX prefix in their name
+  * the identifiers are identical to the original SQLite identifiers.
+  * \param cfgType configuration type identifier
+  * \param cfgValue intended value of the configuration option
+  * \param cfgResult resulting value of the configuration option
+  */
+  void Configure(wxSQLite3DbConfig cfgType, int cfgValue, int& cfgResult);
 
   /// Create a user-defined scalar function
   /**

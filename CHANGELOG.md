@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.10.6] - 2025-05-05
+
+  - Add method wxSQLite3Database::Configure()<br>
+  - Add missing wxSQLite3Database::Restore() method variant
+  - Fix mapping between cipher ids and cipher names<br>
+
 ## [4.10.5] - 2025-03-04
 
   - Upgrade to SQLite3 Multiple Ciphers version 2.1.0 (SQLite version 3.49.1)
@@ -671,7 +677,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First public release
 
-[Unreleased]: ../../compare/v4.10.5...HEAD
+[Unreleased]: ../../compare/v4.10.6...HEAD
+[4.10.6]: ../../compare/v4.10.5...v4.10.6
 [4.10.5]: ../../compare/v4.10.4...v4.10.5
 [4.10.4]: ../../compare/v4.10.3...v4.10.4
 [4.10.3]: ../../compare/v4.10.2...v4.10.3

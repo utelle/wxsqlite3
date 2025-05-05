@@ -8,7 +8,7 @@
 -- Optional environment variable specifying the wxWidgets version
 newoption {
   trigger     = "wx_ver",
-  value       = "3.1",
+  value       = "3.2",
   description = "Version of the wxWidgets build to be used"
 }
 
@@ -40,14 +40,14 @@ newoption {
 }
 
 if not _OPTIONS["wx_ver"] then
-   _OPTIONS["wx_ver"] = "3.1"
+   _OPTIONS["wx_ver"] = "3.2"
 end
 
 if not _OPTIONS["wx_env"] then
    _OPTIONS["wx_env"] = "WXWIN"
 end
 
-wxMonolithic = ((_ACTION == "gmake" or _ACTION == "gmake2") and _OPTIONS["monolithic"])
+wxMonolithic = ((_ACTION == "gmakelegacy" or _ACTION == "gmake") and _OPTIONS["monolithic"])
 
 -- Determine version of Visual Studio action
 msvc_useProps = false
@@ -85,7 +85,7 @@ if ( vc_version ~= "" ) then
 end
 
 require('vstudio')
-require('gmake2')
+require('gmake')
 
 premake.api.register {
   name = "wxUseProps",
@@ -114,13 +114,13 @@ premake.override(premake.vstudio.vc2010.elements, "project", function(base, prj)
 	return calls
 end)
 
-premake.override(premake.modules.gmake2, "target", function(base, cfg, toolset)
+premake.override(premake.modules.gmake, "target", function(base, cfg, toolset)
   local targetpath = string.gsub(premake.project.getrelative(cfg.project, cfg.buildtarget.directory), ' ', '_')
   premake.outln('TARGETDIR = ' .. targetpath)
   premake.outln('TARGET = $(TARGETDIR)/' .. cfg.buildtarget.name)
 end)
   
-premake.override(premake.modules.gmake2, "objdir", function(base, cfg, toolset)
+premake.override(premake.modules.gmake, "objdir", function(base, cfg, toolset)
   local objpath = string.gsub(premake.project.getrelative(cfg.project, cfg.objdir), ' ', '_')
   premake.outln('OBJDIR = ' .. objpath)
 end)
@@ -143,7 +143,7 @@ end
 --   Root      : path to wx root folder. Can be left empty if WXWIN is defined
 --               or if wx-config is accessible.
 --   Debug     : "yes" use debug version of wxwidgets. Default to "no"
---   Version   : one of '2.8', '2.9', '3.0', '3.1'. Default to '3.1'
+--   Version   : one of '2.8', '2.9', '3.0', '3.1', '3.2'. Default to '3.2'
 --   Static    : indicates how wx is to be linked. Values are
 --               either "yes" for static linking or "no" for shared linking, Default to "no"
 --   Unicode   : use "yes" for unicode or "no" for ansi version.
@@ -171,7 +171,7 @@ function wx_config(options)
   wx_config_Private( options.Root or "",
                      options.Debug or "",
                      options.Host or "",
-                     options.Version or "3.1",
+                     options.Version or "3.2",
                      options.Static or "",
                      options.Unicode or "yes",
                      options.Universal or "",

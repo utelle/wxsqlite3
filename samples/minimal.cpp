@@ -261,6 +261,7 @@ public:
   int OnRun();
   int OnExit();
   void TestSQLCipher(wxSQLite3Cipher& cipher, const wxString& dbFileName, const wxString& dbKey);
+  void TestPersonsDb(wxSQLite3Cipher& cipher, const wxString& dbFileName, const wxString& dbKey);
   void TestCiphers();
 private:
   wxString m_workDirectory;
@@ -283,6 +284,8 @@ static const wxCmdLineEntryDesc cmdLineDesc[] =
 
 bool Minimal::OnInit()
 {
+  m_rc = 0;
+  m_testMode = false;
   // Gets the parameters from cmd line
   wxCmdLineParser parser(cmdLineDesc, argc, argv);
   wxString logo = wxS("wxSQLite3 Minimal Sample\n");
@@ -374,6 +377,10 @@ int Minimal::OnRun()
     {
       db.Open(dbFile);
     }
+
+    int cfgResult;
+    db.Configure(WXSQLITE_DBCONFIG_DEFENSIVE, 1, cfgResult);
+    cout << "SQLite3 Configuration: Defensive mode is " << ((cfgResult != 0) ? "enabled" : "disabled") << endl;
 
     cout << "SQLite3 Journal Mode: " << (const char*) wxSQLite3Database::ConvertJournalMode(db.GetJournalMode()).mb_str(wxConvUTF8) << endl;
     // Check status of support for foreign key constraints
@@ -867,6 +874,35 @@ void Minimal::TestSQLCipher(wxSQLite3Cipher& cipher, const wxString& dbFileName,
   }
 }
 
+void Minimal::TestPersonsDb(wxSQLite3Cipher& cipher, const wxString& dbFileName, const wxString& dbKey)
+{
+  try
+  {
+    wxSQLite3Database db;
+    cout << endl << "Open database '" << (const char*)(dbFileName.mb_str()) << "'" << endl;
+    db.Open(dbFileName, cipher, dbKey);
+    wxString keySalt = db.GetKeySalt();
+    cout << "Cipher salt: " << (const char*)(keySalt.mb_str()) << endl;
+    int numRows = db.ExecuteScalar("SELECT COUNT(*) FROM persons");
+    cout << "Total number of rows = " << numRows << endl;
+    cout << "Distinct persons in Rom:" << endl;
+    wxSQLite3ResultSet set = db.ExecuteQuery("SELECT DISTINCT lastname, firstname FROM persons WHERE city='Rom'");
+    int count = 0;
+    while (set.NextRow())
+    {
+      ++count;
+      wxString col1 = set.GetString(0);
+      wxString col2 = set.GetString(1);
+      cout << count << ": " << (const char*)(col1.mb_str()) << ", " << (const char*)(col2.mb_str()) << endl;
+    }
+    db.Close();
+  }
+  catch (wxSQLite3Exception& e)
+  {
+    cerr << e.GetErrorCode() << ":" << (const char*)(e.GetMessage().mb_str()) << endl;
+  }
+}
+
 void Minimal::TestCiphers()
 {
   cout << endl << "Start testing ciphers" << endl;
@@ -913,6 +949,18 @@ void Minimal::TestCiphers()
   wxSQLite3CipherSQLCipher sqlCipher4;
   sqlCipher3.InitializeVersionDefault(4);
   TestSQLCipher(sqlCipher3, wxS("sqlcipher-4.0-testkey.db"), wxS("testkey"));
+
+  // Test to access database encrypted with Ascon128
+  // Result: 200 (and 10 entries of names)
+  wxSQLite3CipherAscon128 ascon128;
+  ascon128.InitializeFromGlobalDefault();
+  TestPersonsDb(ascon128, wxS("persons-ascon128-testkey.db3"), wxS("testkey"));
+
+  // Test to access database encrypted with AEGIS
+  // Result: 200 (and 10 entries of names)
+  wxSQLite3CipherAegis aegis;
+  aegis.InitializeFromGlobalDefault();
+  TestPersonsDb(aegis, wxS("persons-aegis-testkey.db3"), wxS("testkey"));
 
   cout << endl << "Finish testing ciphers" << endl;
 }

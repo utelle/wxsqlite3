@@ -52,17 +52,18 @@ Currently the _CMake_ support is experimental and limited to Windows platforms (
 
 ## <a name="history"></a>Version history
 
-* 4.10.5 - *March 2025*
+* 4.10.6 - *May 2025*
 
-  - Upgrade to [SQLite3 Multiple Ciphers 2.1.0](https://github.com/utelle/SQLite3MultipleCiphers/releases/tag/v2.1.0) ([SQLite 3.49.1](https://sqlite.org/releaselog/3_49_1.html))
-  - Disable AEGIS cipher scheme when compiling with MSVC 2015 or below
+  - Add method wxSQLite3Database::Configure()<br>
+  - Add missing wxSQLite3Database::Restore() method variant
+  - Fix mapping between cipher ids and cipher names<br>
 
 For further version information please consult the [CHANGELOG](CHANGELOG.md).
 
 ## <a name="install" />Installation
 
 The build files for Windows platforms are now generated with
-[Premake 5](https://premake.github.io/) (version Premake 5.0 alpha 15).
+[Premake 5](https://premake.github.io/) (version Premake 5.0 beta 5).
 
 Ready to use project files are provided for Visual C++ 2010, 2012, 2013,
 2015, 2017, 2019, and 2022. Additionally, GNU Makefiles are provided supporting for

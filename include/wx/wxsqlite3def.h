@@ -46,6 +46,14 @@
 
 <dl>
 
+<dt><b>4.10.6</b> - <i>May 2025</i></dt>
+<dd>
+Add method wxSQLite3Database::Configure()<br>
+Add missing wxSQLite3Database::Restore() method variant<br>
+Fix mapping between cipher ids and cipher names
+
+</dd>
+
 <dt><b>4.10.5</b> - <i>March 2025</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 2.1.0 (SQLite version 3.49.1)</i><br>
