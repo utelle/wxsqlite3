@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.10.7] - 2025-06-01
+
+  - Upgrade to SQLite3 Multiple Ciphers version 2.1.2 (SQLite version 3.50.0)
+  - Add method wxSQLite3Database::SetLockTimeout()
+
 ## [4.10.6] - 2025-05-05
 
-  - Add method wxSQLite3Database::Configure()<br>
+  - Add method wxSQLite3Database::Configure()
   - Add missing wxSQLite3Database::Restore() method variant
-  - Fix mapping between cipher ids and cipher names<br>
+  - Fix mapping between cipher ids and cipher names
 
 ## [4.10.5] - 2025-03-04
 
@@ -677,7 +682,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First public release
 
-[Unreleased]: ../../compare/v4.10.6...HEAD
+[Unreleased]: ../../compare/v4.10.7...HEAD
+[4.10.7]: ../../compare/v4.10.6...v4.10.7
 [4.10.6]: ../../compare/v4.10.5...v4.10.6
 [4.10.5]: ../../compare/v4.10.4...v4.10.5
 [4.10.4]: ../../compare/v4.10.3...v4.10.4

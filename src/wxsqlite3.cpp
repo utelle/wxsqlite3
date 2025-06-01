@@ -3,7 +3,7 @@
 ** Purpose:     Implementation of wxSQLite3 classes
 ** Author:      Ulrich Telle
 ** Created:     2005-07-06
-** Copyright:   (c) 2005-2024 Ulrich Telle and the wxSQLite3 contributors
+** Copyright:   (c) 2005-2025 Ulrich Telle and the wxSQLite3 contributors
 ** SPDX-License-Identifier: LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
@@ -3745,6 +3745,22 @@ void wxSQLite3Database::SetBusyTimeout(int nMillisecs)
   CheckDatabase();
   m_busyTimeoutMs = nMillisecs;
   sqlite3_busy_timeout(m_db->m_db, m_busyTimeoutMs);
+}
+
+void wxSQLite3Database::SetLockTimeout(int nMillisecs, bool blockOnConnect)
+{
+#if SQLITE_VERSION_NUMBER >= 3050000
+  CheckDatabase();
+  int rc = sqlite3_setlk_timeout(m_db->m_db, nMillisecs, (blockOnConnect) ? 1 : 0);
+  if (rc != SQLITE_OK)
+  {
+    const char* localError = sqlite3_errmsg(m_db->m_db);
+    throw wxSQLite3Exception(rc, wxString::FromUTF8(localError));
+  }
+#else
+  wxUnusedVar(nMillisecs);
+  wxUnusedVar(blockOnConnect);
+#endif
 }
 
 void wxSQLite3Database::Configure(wxSQLite3DbConfig cfgType, int cfgValue, int& cfgResult)

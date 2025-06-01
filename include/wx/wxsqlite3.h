@@ -3,7 +3,7 @@
 ** Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
 ** Author:      Ulrich Telle
 ** Created:     2005-07-14
-** Copyright:   (c) 2005-2024 Ulrich Telle
+** Copyright:   (c) 2005-2025 Ulrich Telle
 ** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
@@ -3487,6 +3487,33 @@ public:
   */
   void SetBusyTimeout(int milliSeconds);
 
+  /// Set the setlk timeout
+  /**
+  * This method sets a setlk timeout in ms used by eligible locks taken on wal mode databases
+  * by the specified database handle, if the VFS supports blocking locks. If the VFS does not
+  * support blocking locks, this function is a no-op.
+  *
+  * Passing 0 to this function disables blocking locks altogether. Passing -1 to this function
+  * requests that the VFS blocks for a long time - indefinitely if possible. The results of
+  * passing any other negative value are undefined.
+  *
+  * Internally, each SQLite database handle stores two timeout values - the busy-timeout
+  * (used for rollback mode databases, or if the VFS does not support blocking locks) and
+  * the setlk-timeout (used for blocking locks on wal-mode databases). The method
+  * SetBusyTimeout() sets both values, while this method sets only the setlk-timeout value.
+  * Therefore, to configure separate busy-timeout and setlk-timeout values for a single database
+  * handle, call SetBusyTimeout() followed by this method.
+  *
+  * Whenever the number of connections to a wal mode database falls from 1 to 0, the last
+  * connection takes an exclusive lock on the database, then checkpoints and deletes the wal file.
+  * While it is doing this, any new connection that tries to read from the database fails with an
+  * SQLITE_BUSY error. Or, if the blockOnConnect flag is true, the new connection blocks until
+  * the exclusive lock has been released. 
+  * \param milliSeconds timeout in milliseconds
+  * \param blockOnConnect flag whether new connections should block until exclusive lock has been released
+  */
+  void SetLockTimeout(int milliSeconds, bool blockOnConnect = false);
+
   /// Set a database configuration option
   /**
   * This method allows to configure several database settings. Most settings can be changed
@@ -4027,7 +4054,7 @@ private:
 
   wxSQLite3DatabaseReference* m_db;  ///< associated SQLite3 database
   bool  m_isOpen;          ///< Flag whether the database is opened or not
-  int   m_busyTimeoutMs;   ///< Timeout in milli seconds
+  int   m_busyTimeoutMs;   ///< Busy timeout in milli seconds
   bool  m_isEncrypted;     ///< Flag whether the database is encrypted or not
   int   m_lastRollbackRC;  ///< The return code of the last executed rollback operation
   int   m_backupPageCount; ///< Number of pages per slice for backup and restore operations

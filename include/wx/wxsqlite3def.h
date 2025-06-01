@@ -46,6 +46,13 @@
 
 <dl>
 
+<dt><b>4.10.7</b> - <i>June 2025</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 2.1.2 (SQLite version 3.50.0)</i><br>
+Add method wxSQLite3Database::SetLockTimeout()
+
+</dd>
+
 <dt><b>4.10.6</b> - <i>May 2025</i></dt>
 <dd>
 Add method wxSQLite3Database::Configure()<br>
