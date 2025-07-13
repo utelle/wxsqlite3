@@ -31,9 +31,9 @@
 
 #define SQLITE3MC_VERSION_MAJOR      2
 #define SQLITE3MC_VERSION_MINOR      2
-#define SQLITE3MC_VERSION_RELEASE    1
+#define SQLITE3MC_VERSION_RELEASE    2
 #define SQLITE3MC_VERSION_SUBRELEASE 0
-#define SQLITE3MC_VERSION_STRING     "SQLite3 Multiple Ciphers 2.2.1"
+#define SQLITE3MC_VERSION_STRING     "SQLite3 Multiple Ciphers 2.2.2"
 
 #endif /* SQLITE3MC_VERSION_H_ */
 /*** End of #include "sqlite3mc_version.h" ***/
