@@ -46,6 +46,13 @@
 
 <dl>
 
+<dt><b>4.10.11</b> - <i>July 2025</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 2.2.3 (SQLite version 3.50.3)</i>
+to fix issue #127
+
+</dd>
+
 <dt><b>4.10.10</b> - <i>July 2025</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 2.2.2 (SQLite version 3.50.2)</i>
