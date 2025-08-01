@@ -46,6 +46,12 @@
 
 <dl>
 
+<dt><b>4.10.12</b> - <i>August 2025</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 2.2.4 (SQLite version 3.50.4)</i>
+
+</dd>
+
 <dt><b>4.10.11</b> - <i>July 2025</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 2.2.3 (SQLite version 3.50.3)</i>
