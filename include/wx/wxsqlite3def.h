@@ -46,6 +46,14 @@
 
 <dl>
 
+<dt><b>4.11.0</b> - <i>November 2025</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 2.2.5 (SQLite version 3.51.0)</i><br>
+Enable extension PERCENTILE<br>
+Drop build support for Visual Studio versions below VS 2015
+
+</dd>
+
 <dt><b>4.10.12</b> - <i>August 2025</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 2.2.4 (SQLite version 3.50.4)</i>

@@ -7,58 +7,64 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.11.0] - 2025-11-09
+
+- Upgrade to SQLite3 Multiple Ciphers version 2.2.5 (SQLite version 3.51.0)
+- Enable extension PERCENTILE
+- Drop build support for Visual Studio versions below VS 2015
+
 ## [4.10.12] - 2025-08-01
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.2.4 (SQLite version 3.50.4)
+- Upgrade to SQLite3 Multiple Ciphers version 2.2.4 (SQLite version 3.50.4)
 
 ## [4.10.11] - 2025-07-18
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.2.3 (SQLite version 3.50.3) to fix issue #127
+- Upgrade to SQLite3 Multiple Ciphers version 2.2.3 (SQLite version 3.50.3) to fix issue #127
 
 ## [4.10.10] - 2025-07-14
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.2.2 (SQLite version 3.50.2) to fix issue #126
+- Upgrade to SQLite3 Multiple Ciphers version 2.2.2 (SQLite version 3.50.2) to fix issue #126
 
 ## [4.10.9] - 2025-07-09
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.2.1 (SQLite version 3.50.2)
+- Upgrade to SQLite3 Multiple Ciphers version 2.2.1 (SQLite version 3.50.2)
 
 ## [4.10.8] - 2025-06-07
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.1.3 (SQLite version 3.50.1)
+- Upgrade to SQLite3 Multiple Ciphers version 2.1.3 (SQLite version 3.50.1)
 
 ## [4.10.7] - 2025-06-01
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.1.2 (SQLite version 3.50.0)
-  - Add method wxSQLite3Database::SetLockTimeout()
+- Upgrade to SQLite3 Multiple Ciphers version 2.1.2 (SQLite version 3.50.0)
+- Add method wxSQLite3Database::SetLockTimeout()
 
 ## [4.10.6] - 2025-05-05
 
-  - Add method wxSQLite3Database::Configure()
-  - Add missing wxSQLite3Database::Restore() method variant
-  - Fix mapping between cipher ids and cipher names
+- Add method wxSQLite3Database::Configure()
+- Add missing wxSQLite3Database::Restore() method variant
+- Fix mapping between cipher ids and cipher names
 
 ## [4.10.5] - 2025-03-04
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.1.0 (SQLite version 3.49.1)
-  - Disable AEGIS cipher scheme when compiling with MSVC 2015 or below
+- Upgrade to SQLite3 Multiple Ciphers version 2.1.0 (SQLite version 3.49.1)
+- Disable AEGIS cipher scheme when compiling with MSVC 2015 or below
 
 ## [4.10.4] - 2025-02-21
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.0.4 (SQLite version 3.49.1)
+- Upgrade to SQLite3 Multiple Ciphers version 2.0.4 (SQLite version 3.49.1)
 
 ## [4.10.3] - 2025-02-10
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.0.3 (SQLite version 3.49.0)
+- Upgrade to SQLite3 Multiple Ciphers version 2.0.3 (SQLite version 3.49.0)
 
 ## [4.10.2] - 2025-01-16
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.0.2 (SQLite version 3.48.0)
+- Upgrade to SQLite3 Multiple Ciphers version 2.0.2 (SQLite version 3.48.0)
 
 ## [4.10.1] - 2025-01-06
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.0.1 (SQLite version 3.47.2)
-  - Fixed issue #120 - crashes on some Linux systems due to _illegal instruction_ exceptions related to the code of the new cipher scheme _AEGIS_
+- Upgrade to SQLite3 Multiple Ciphers version 2.0.1 (SQLite version 3.47.2)
+- Fixed issue #120 - crashes on some Linux systems due to _illegal instruction_ exceptions related to the code of the new cipher scheme _AEGIS_
 
 ## [4.10.0] - 2024-12-31
 
@@ -702,7 +708,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First public release
 
-[Unreleased]: ../../compare/v4.10.11...HEAD
+[Unreleased]: ../../compare/v4.11.0...HEAD
+[4.11.0]: ../../compare/v4.10.12...v4.11.0
+[4.10.12]: ../../compare/v4.10.11...v4.10.12
 [4.10.11]: ../../compare/v4.10.10...v4.10.11
 [4.10.10]: ../../compare/v4.10.9...v4.10.10
 [4.10.9]: ../../compare/v4.10.8...v4.10.9
