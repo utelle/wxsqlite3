@@ -64,7 +64,7 @@ noinst_HEADERS = \
     src/sqlite3mc_amalgamation.h 
 
 lib@WXSQLITE3_LIBNAME@_la_LDFLAGS = -no-undefined $(AM_LDFLAGS)
-lib@WXSQLITE3_LIBNAME@_la_LIBADD = $(WX_LIBS)
+lib@WXSQLITE3_LIBNAME@_la_LIBADD =
 
 
 # Samples (don't need to be installed).
