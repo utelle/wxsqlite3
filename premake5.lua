@@ -10,7 +10,7 @@ BUILDDIR = _OPTIONS["builddir"] or "build"
 
 workspace "wxsqlite3"
   configurations { "Debug", "Release", "Debug wxDLL", "Release wxDLL", "Debug DLL", "Release DLL" }
-  platforms { "Win32", "Win64" }
+  platforms { "Win32", "Win64", "MacOsx" }
   location(BUILDDIR)
 
   if (is_msvc) then
@@ -18,12 +18,19 @@ workspace "wxsqlite3"
     wks.filename = "wxsqlite3_" .. vc_with_ver
   end
 
+  
   defines {
-    "_WINDOWS",
-    "_CRT_SECURE_NO_WARNINGS",
-    "_CRT_SECURE_NO_DEPRECATE",
-    "_CRT_NONSTDC_NO_DEPRECATE"
+   "_FILE_OFFSET_BITS=64"
   }
+
+  if (is_msvc) then
+    defines {
+      "_WINDOWS",
+      "_CRT_SECURE_NO_WARNINGS",
+      "_CRT_SECURE_NO_DEPRECATE",
+      "_CRT_NONSTDC_NO_DEPRECATE"
+    }
+  end
 
   init_filters()
 
@@ -79,8 +86,11 @@ project "wxsqlite3"
     "SQLITE_USE_URI=1"
   }
 
-  files { "src/*.cpp", "src/*.rc", "include/wx/*.h",
+  files { "src/*.cpp", "include/wx/*.h",
           "src/sqlite3mc*.c", "src/*.h" }
+  filter { "platforms:Win32 or platforms:Win64" }
+    files { "src/*.rc" }
+  filter {}
   vpaths {
     ["Header Files"] = { "**.h" },
     ["Source Files"] = { "**.cpp", "**.rc", "**/sqlite3mc*.c", "**.def" }
@@ -105,7 +115,10 @@ project "minimal"
 
   use_filters( "WXSQLITE3", "samples", "core" )
 
-  files { "samples/*.cpp", "samples/*.rc" }
+  files { "samples/*.cpp" }
+  filter { "platforms:Win32 or platforms:Win64" }
+    files { "samples/*.rc" }
+  filter {}
   vpaths {
     ["Header Files"] = { "**.h" },
     ["Source Files"] = { "**.cpp", "**.rc" }
@@ -131,12 +144,17 @@ project "treeview"
 
   use_filters( "WXSQLITE3", "samples/treeview", "adv,core,xml" )
 
-  files { "samples/treeview/*.cpp", "samples/treeview/*.rc" }
+  files { "samples/treeview/*.cpp" }
+  filter { "platforms:Win32 or platforms:Win64" }
+    files { "samples/treeview/*.rc" }
+  filter {}
   vpaths {
     ["Header Files"] = { "**.h" },
     ["Source Files"] = { "**.cpp", "**.rc" }
   }
   includedirs { "samples/treeview", "include" }
   characterset "Unicode"
-  entrypoint "WinMainCRTStartup"
+  filter { "platforms:Win32 or platforms:Win64" }
+    entrypoint "WinMainCRTStartup"
+  filter {}
   links { "wxsqlite3" }
