@@ -12,7 +12,7 @@ branches:
 environment:
   matrix:
   - TOOLSET: msbuild
-    CONFIGURATION: Release wxDLL
+    CONFIGURATION: Release_wxDLL
     ARCH: Win64
 #  - TOOLSET: cmake
 #    GENERATOR: 'Visual Studio 14.1'
