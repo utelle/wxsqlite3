@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.11.2] - 2026-01-12
+
+- Upgrade to SQLite3 Multiple Ciphers version 2.2.7 (SQLite version 3.51.2)
+- Change build files to use intermediary directory names without space characters
+
 ## [4.11.1] - 2025-11-30
 
 - Upgrade to SQLite3 Multiple Ciphers version 2.2.6 (SQLite version 3.51.1)
@@ -712,7 +717,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First public release
 
-[Unreleased]: ../../compare/v4.11.1...HEAD
+[Unreleased]: ../../compare/v4.11.2...HEAD
+[4.11.2]: ../../compare/v4.11.1...v4.11.2
 [4.11.1]: ../../compare/v4.11.0...v4.11.1
 [4.11.0]: ../../compare/v4.10.12...v4.11.0
 [4.10.12]: ../../compare/v4.10.11...v4.10.12

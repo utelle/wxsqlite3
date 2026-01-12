@@ -1,6 +1,6 @@
 -- wxSQLite3 configuration file for premake5
 --
--- Copyright (C) 2017-2024 Ulrich Telle <ulrich@telle-online.de>
+-- Copyright (C) 2017-2026 Ulrich Telle <ulrich@telle-online.de>
 --
 -- This file is covered by the same licence as the entire wxsqlite3 package. 
 
@@ -9,7 +9,7 @@ dofile "premake/wxwidgets.lua"
 BUILDDIR = _OPTIONS["builddir"] or "build"
 
 workspace "wxsqlite3"
-  configurations { "Debug", "Release", "Debug wxDLL", "Release wxDLL", "Debug DLL", "Release DLL" }
+  configurations { "Debug", "Release", "Debug_wxDLL", "Release_wxDLL", "Debug_DLL", "Release_DLL" }
   platforms { "Win32", "Win64" }
   location(BUILDDIR)
 

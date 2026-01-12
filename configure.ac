@@ -1,10 +1,10 @@
 dnl Process this script with autoconf to create configure for wxsqlite3 library
 dnl
-dnl Copyright (C) 2017-2025 Ulrich Telle <github@telle-online.de>, Vadim Zeitlin <vadim@wxwidgets.org>
+dnl Copyright (C) 2017-2026 Ulrich Telle <github@telle-online.de>, Vadim Zeitlin <vadim@wxwidgets.org>
 dnl
 dnl This file is covered by the same licence as the entire wxSQLite3 package.
 
-AC_INIT([wxsqlite3], [4.11.1], [github@telle-online.de])
+AC_INIT([wxsqlite3], [4.11.2], [github@telle-online.de])
 
 dnl This is the version tested with, might work with earlier ones.
 AC_PREREQ([2.69])
@@ -213,8 +213,6 @@ dnl Pass the conditionals to automake
 AM_CONDITIONAL([HOST_LINUX], [test "$build_linux" = "yes"])
 AM_CONDITIONAL([HOST_WINDOWS], [test "$build_windows" = "yes"])
 AM_CONDITIONAL([HOST_OSX], [test "$build_mac" = "yes"])
-
-AM_CONDITIONAL([USE_SHARED], [test "x$enable_shared" = xyes])
 
 AC_CONFIG_FILES([Makefile wxsqlite3.pc])
 AC_OUTPUT

@@ -52,9 +52,10 @@ Currently the _CMake_ support is experimental and limited to Windows platforms (
 
 ## <a name="history"></a>Version history
 
-* 4.11.1 - *November 2025*
+* 4.11.2 - *January 2026*
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.2.6 (SQLite version 3.51.1)
+  - Upgrade to SQLite3 Multiple Ciphers version 2.2.7 (SQLite version 3.51.2)
+  - Change build files to use intermediary directory names without space characters
 
 For further version information please consult the [CHANGELOG](CHANGELOG.md).
 

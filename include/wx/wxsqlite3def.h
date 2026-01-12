@@ -3,7 +3,7 @@
 ** Purpose:     wxWidgets wrapper around the SQLite3 embedded database library.
 ** Author:      Ulrich Telle
 ** Created:     2005-07-14
-** Copyright:   (c) 2005-2025 Ulrich Telle
+** Copyright:   (c) 2005-2026 Ulrich Telle
 ** License:     LGPL-3.0+ WITH WxWindows-exception-3.1
 */
 
@@ -45,6 +45,13 @@
 \section version Version history
 
 <dl>
+
+<dt><b>4.11.2</b> - <i>January 2026</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 2.2.7 (SQLite version 3.51.2)</i><br>
+Change build files to use intermediary directory names without space characters
+
+</dd>
 
 <dt><b>4.11.1</b> - <i>November 2025</i></dt>
 <dd>
