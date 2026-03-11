@@ -1,7 +1,7 @@
 # AppVeyor script for wxSQLite3
 
 image:
-  - Visual Studio 2017 
+  - Visual Studio 2022 
 
 # branches to build
 branches:
@@ -13,7 +13,7 @@ environment:
   matrix:
   - TOOLSET: msbuild
     CONFIGURATION: Release_wxDLL
-    ARCH: Win64
+    ARCH: x64
 #  - TOOLSET: cmake
 #    GENERATOR: 'Visual Studio 14.1'
 #    SHARED: ON
@@ -27,14 +27,14 @@ before_build:
   # set environment variables for wxWidgets
   - set WXWIN=C:\wxWidgets
   - set wxWidgets_ROOT_DIR=%WXWIN%
-  - ps: Start-FileDownload 'https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxMSW-3.2.4_vc14x_x64_Dev.7z'
-  - ps: Start-FileDownload 'https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxMSW-3.2.4_vc14x_x64_ReleaseDLL.7z'
-  - ps: Start-FileDownload 'https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxMSW-3.2.4_vc14x_x64_ReleasePDB.7z'
-  - ps: Start-FileDownload 'https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxWidgets-3.2.4-headers.7z'
-  - cmd: 7z x wxMSW-3.2.4_vc14x_x64_Dev.7z -oC:\wxWidgets -aoa
-  - cmd: 7z x wxMSW-3.2.4_vc14x_x64_ReleaseDLL.7z -oC:\wxWidgets -aoa
-  - cmd: 7z x wxMSW-3.2.4_vc14x_x64_ReleasePDB.7z -oC:\wxWidgets -aoa
-  - cmd: 7z x wxWidgets-3.2.4-headers.7z -oC:\wxWidgets -aoa
+  - ps: Start-FileDownload 'https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.10/wxMSW-3.2.10_vc14x_x64_Dev.7z'
+  - ps: Start-FileDownload 'https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.10/wxMSW-3.2.10_vc14x_x64_ReleaseDLL.7z'
+  - ps: Start-FileDownload 'https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.10/wxMSW-3.2.10_vc14x_x64_ReleasePDB.7z'
+  - ps: Start-FileDownload 'https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.10/wxWidgets-3.2.10-headers.7z'
+  - cmd: 7z x wxMSW-3.2.10_vc14x_x64_Dev.7z -oC:\wxWidgets -aoa
+  - cmd: 7z x wxMSW-3.2.10_vc14x_x64_ReleaseDLL.7z -oC:\wxWidgets -aoa
+  - cmd: 7z x wxMSW-3.2.10_vc14x_x64_ReleasePDB.7z -oC:\wxWidgets -aoa
+  - cmd: 7z x wxWidgets-3.2.10-headers.7z -oC:\wxWidgets -aoa
 
 # build script
 build_script: c:\projects\wxsqlite3\admin\appveyor\appveyor.bat

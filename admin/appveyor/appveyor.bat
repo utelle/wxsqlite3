@@ -3,7 +3,7 @@ goto %TOOLSET%
 
 :msbuild
 cd build
-msbuild /m:2 /v:n /p:Platform=%ARCH% /p:Configuration="%CONFIGURATION%" wxsqlite3_vc15.sln %MSBUILD_LOGGER%
+msbuild /m:2 /v:n /p:Platform=%ARCH% /p:Configuration="%CONFIGURATION%" wxsqlite3_vc17.sln %MSBUILD_LOGGER%
 goto :eof
 
 :error

@@ -8,7 +8,7 @@ goto %TOOLSET%
 
 :msbuild
 PATH=%WXWIN%\lib\vc14x_x64_dll;%PATH%
-".\build\bin\vc15\%ARCH%\%CONFIGURATION%\minimal.exe" -t -s .\samples
+".\build\bin\vc17\%ARCH%\%CONFIGURATION%\minimal.exe" -t -s .\samples
 goto :eof
 
 :error

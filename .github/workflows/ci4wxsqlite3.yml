@@ -27,7 +27,7 @@ jobs:
         brew install wxmac
       if: matrix.os == 'macos-latest'
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Configure
       run: |
         autoreconf
