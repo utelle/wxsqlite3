@@ -46,6 +46,14 @@
 
 <dl>
 
+<dt><b>4.12.0</b> - <i>March 2026</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 2.3.0 (SQLite version 3.52.0)</i><br>
+Add build support for VS2026<br>
+Unify architecture names (use <i>x64</i> instead of <i>Win64</i>) to avoid conflicts with VS2026
+
+</dd>
+
 <dt><b>4.11.2</b> - <i>January 2026</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 2.2.7 (SQLite version 3.51.2)</i><br>

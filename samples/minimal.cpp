@@ -345,6 +345,7 @@ int Minimal::OnRun()
     wxSQLite3Database db;
 
     cout << "wxSQLite3 Version:    " << (const char*) wxSQLite3Database::GetWrapperVersion().mb_str(wxConvUTF8) << endl;
+    cout << "SQLite3MC Version:    " << (const char*) db.GetMCVersion().mb_str(wxConvUTF8) << endl;
     cout << "SQLite3 Version:      " << (const char*) db.GetVersion().mb_str(wxConvUTF8) << endl;
     cout << "SQLite3 Source Id:    " << (const char*) db.GetSourceId().mb_str(wxConvUTF8) << endl;
 

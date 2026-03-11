@@ -9,28 +9,12 @@
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug Win64|Win32">
-      <Configuration>Debug Win64</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug Win64|x64">
-      <Configuration>Debug Win64</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release Win64|Win32">
-      <Configuration>Release Win64</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release Win64|x64">
-      <Configuration>Release Win64</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug_wxDLL|Win32">
@@ -41,28 +25,12 @@
       <Configuration>Debug_wxDLL</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug_wxDLL Win64|Win32">
-      <Configuration>Debug_wxDLL Win64</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug_wxDLL Win64|x64">
-      <Configuration>Debug_wxDLL Win64</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release_wxDLL|Win32">
       <Configuration>Release_wxDLL</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release_wxDLL|x64">
       <Configuration>Release_wxDLL</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release_wxDLL Win64|Win32">
-      <Configuration>Release_wxDLL Win64</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release_wxDLL Win64|x64">
-      <Configuration>Release_wxDLL Win64</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug_DLL|Win32">
@@ -73,28 +41,12 @@
       <Configuration>Debug_DLL</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug_DLL Win64|Win32">
-      <Configuration>Debug_DLL Win64</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug_DLL Win64|x64">
-      <Configuration>Debug_DLL Win64</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release_DLL|Win32">
       <Configuration>Release_DLL</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release_DLL|x64">
       <Configuration>Release_DLL</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release_DLL Win64|Win32">
-      <Configuration>Release_DLL Win64</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release_DLL Win64|x64">
-      <Configuration>Release_DLL Win64</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -113,7 +65,7 @@
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Win64|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
@@ -125,7 +77,7 @@
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Win64|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
@@ -137,7 +89,7 @@
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_wxDLL Win64|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_wxDLL|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
@@ -149,7 +101,7 @@
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_wxDLL Win64|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_wxDLL|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
@@ -161,7 +113,7 @@
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL Win64|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
@@ -173,7 +125,7 @@
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL Win64|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
@@ -189,37 +141,37 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug Win64|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release Win64|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug_wxDLL|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug_wxDLL Win64|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug_wxDLL|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release_wxDLL|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release_wxDLL Win64|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release_wxDLL|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug_DLL Win64|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release_DLL|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release_DLL Win64|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -230,10 +182,10 @@
     <TargetName>treeviewd</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Win64|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\vc15\Win64\Debug\</OutDir>
-    <IntDir>$(ProjectDir)obj\vc15\Win64\Debug\treeview\</IntDir>
+    <OutDir>$(ProjectDir)bin\vc15\x64\Debug\</OutDir>
+    <IntDir>$(ProjectDir)obj\vc15\x64\Debug\treeview\</IntDir>
     <TargetName>treeviewd</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
@@ -244,10 +196,10 @@
     <TargetName>treeview</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Win64|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\vc15\Win64\Release\</OutDir>
-    <IntDir>$(ProjectDir)obj\vc15\Win64\Release\treeview\</IntDir>
+    <OutDir>$(ProjectDir)bin\vc15\x64\Release\</OutDir>
+    <IntDir>$(ProjectDir)obj\vc15\x64\Release\treeview\</IntDir>
     <TargetName>treeview</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
@@ -258,10 +210,10 @@
     <TargetName>treeviewd</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_wxDLL Win64|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_wxDLL|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\vc15\Win64\Debug_wxDLL\</OutDir>
-    <IntDir>$(ProjectDir)obj\vc15\Win64\Debug_wxDLL\treeview\</IntDir>
+    <OutDir>$(ProjectDir)bin\vc15\x64\Debug_wxDLL\</OutDir>
+    <IntDir>$(ProjectDir)obj\vc15\x64\Debug_wxDLL\treeview\</IntDir>
     <TargetName>treeviewd</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
@@ -272,10 +224,10 @@
     <TargetName>treeview</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_wxDLL Win64|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_wxDLL|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\vc15\Win64\Release_wxDLL\</OutDir>
-    <IntDir>$(ProjectDir)obj\vc15\Win64\Release_wxDLL\treeview\</IntDir>
+    <OutDir>$(ProjectDir)bin\vc15\x64\Release_wxDLL\</OutDir>
+    <IntDir>$(ProjectDir)obj\vc15\x64\Release_wxDLL\treeview\</IntDir>
     <TargetName>treeview</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
@@ -286,10 +238,10 @@
     <TargetName>treeviewd</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL Win64|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\vc15\Win64\Debug_DLL\</OutDir>
-    <IntDir>$(ProjectDir)obj\vc15\Win64\Debug_DLL\treeview\</IntDir>
+    <OutDir>$(ProjectDir)bin\vc15\x64\Debug_DLL\</OutDir>
+    <IntDir>$(ProjectDir)obj\vc15\x64\Debug_DLL\treeview\</IntDir>
     <TargetName>treeviewd</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
@@ -300,10 +252,10 @@
     <TargetName>treeview</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL Win64|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\vc15\Win64\Release_DLL\</OutDir>
-    <IntDir>$(ProjectDir)obj\vc15\Win64\Release_DLL\treeview\</IntDir>
+    <OutDir>$(ProjectDir)bin\vc15\x64\Release_DLL\</OutDir>
+    <IntDir>$(ProjectDir)obj\vc15\x64\Release_DLL\treeview\</IntDir>
     <TargetName>treeview</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
@@ -326,8 +278,10 @@
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Win64|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -346,6 +300,8 @@
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -370,8 +326,10 @@
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release Win64|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -394,6 +352,8 @@
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_wxDLL|Win32'">
     <ClCompile>
@@ -414,8 +374,10 @@
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_wxDLL Win64|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_wxDLL|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -434,6 +396,8 @@
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_wxDLL|Win32'">
     <ClCompile>
@@ -458,8 +422,10 @@
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_wxDLL Win64|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_wxDLL|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -482,6 +448,8 @@
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|Win32'">
     <ClCompile>
@@ -502,8 +470,10 @@
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL Win64|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -522,6 +492,8 @@
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|Win32'">
     <ClCompile>
@@ -546,8 +518,10 @@
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL Win64|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -570,6 +544,8 @@
       <AdditionalLibraryDirectories>$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\samples\treeview\foldertree.cpp" />

@@ -72,6 +72,8 @@ elseif _ACTION == "vs2019" then
   vc_version = 16
 elseif _ACTION == "vs2022" then
   vc_version = 17
+elseif _ACTION == "vs2026" then
+  vc_version = 18
 end
 
 is_msvc = false
@@ -82,6 +84,12 @@ if ( vc_version ~= "" ) then
   wx_compiler = "vc"
   msvc_useProps = vc_version >= 10
   vc_with_ver = "vc"..vc_version
+end
+if (is_msvc) then
+  platform_win64 = "x64"
+else
+--  platform_win64 = "Win64"
+  platform_win64 = "x64"
 end
 
 require('vstudio')
@@ -374,9 +382,9 @@ end
 function init_filters()
   filter { "platforms:Win32" }
     system "Windows"
-    architecture "x32"
+    architecture "x86"
 
-  filter { "platforms:Win64" }
+  filter { "platforms:x64 or Win64" }
     system "Windows"
     architecture "x64"
 
@@ -461,7 +469,7 @@ function make_filters(libname,libtarget,wxlibs)
     else
       targetdir("lib/gcc_lib_wxdll")
     end
-  filter { "configurations:Release or Debug", "platforms:Win64" }
+  filter { "configurations:Release or Debug", "platforms:x64 or Win64" }
     if (is_msvc) then
       if (msvc_useProps) then
         targetdir("$(wxOutDir)")
@@ -471,7 +479,7 @@ function make_filters(libname,libtarget,wxlibs)
     else
       targetdir("lib/gcc_x64_lib")
     end
-  filter { "configurations:Release_wxDLL or Debug_wxDLL", "platforms:Win64" }
+  filter { "configurations:Release_wxDLL or Debug_wxDLL", "platforms:x64 or Win64" }
     if (is_msvc) then
       if (msvc_useProps) then
         targetdir("$(wxOutDir)")
@@ -504,7 +512,7 @@ function make_filters(libname,libtarget,wxlibs)
     else
       targetdir("lib/gcc_dll")
     end
-  filter { "configurations:Release_DLL or Debug_DLL", "platforms:Win64" }
+  filter { "configurations:Release_DLL or Debug_DLL", "platforms:x64 or Win64" }
     if (is_msvc) then
       if (msvc_useProps) then
         targetdir("$(wxOutDir)")
@@ -523,32 +531,32 @@ function make_filters(libname,libtarget,wxlibs)
 
   filter { "configurations:Debug", "platforms:Win32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="yes", WindowsCompiler=wx_compiler, Libs=wxlibs }
-  filter { "configurations:Debug", "platforms:Win64" }
+  filter { "configurations:Debug", "platforms:x64 or Win64" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="yes", Arch="Win64", WindowsCompiler=wx_compiler, Libs=wxlibs }
 
   filter { "configurations:Debug_wxDLL", "platforms:Win32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="yes", WindowsCompiler=wx_compiler, Libs=wxlibs }
-  filter { "configurations:Debug_wxDLL", "platforms:Win64" }
+  filter { "configurations:Debug_wxDLL", "platforms:x64 or Win64" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="yes", Arch="Win64", WindowsCompiler=wx_compiler, Libs=wxlibs }
 
   filter { "configurations:Debug_DLL", "platforms:Win32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="yes", WindowsCompiler=wx_compiler, Libs=wxlibs }
-  filter { "configurations:Debug_DLL", "platforms:Win64" }
+  filter { "configurations:Debug_DLL", "platforms:x64 or Win64" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="yes", Arch="Win64", WindowsCompiler=wx_compiler, Libs=wxlibs }
 
   filter { "configurations:Release", "platforms:Win32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="no", WindowsCompiler=wx_compiler, Libs=wxlibs }
-  filter { "configurations:Release", "platforms:Win64" }
+  filter { "configurations:Release", "platforms:x64 or Win64" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="no", Arch="Win64", WindowsCompiler=wx_compiler, Libs=wxlibs }
 
   filter { "configurations:Release_wxDLL", "platforms:Win32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="no", WindowsCompiler=wx_compiler, Libs=wxlibs }
-  filter { "configurations:Release_wxDLL", "platforms:Win64" }
+  filter { "configurations:Release_wxDLL", "platforms:x64 or Win64" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="no", Arch="Win64", WindowsCompiler=wx_compiler, Libs=wxlibs }
 
   filter { "configurations:Release_DLL", "platforms:Win32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="no", WindowsCompiler=wx_compiler, Libs=wxlibs }
-  filter { "configurations:Release_DLL", "platforms:Win64" }
+  filter { "configurations:Release_DLL", "platforms:x64 or Win64" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="no", Arch="Win64", WindowsCompiler=wx_compiler, Libs=wxlibs }
 
   filter {}
@@ -594,44 +602,44 @@ function use_filters(libname, debugcwd, wxlibs)
   filter { "configurations:Debug", "platforms:Win32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="yes", WindowsCompiler=wx_compiler, Libs=wxlibs }
     wxSetTargetDirectory("Win32", "Debug")
-  filter { "configurations:Debug", "platforms:Win64" }
+  filter { "configurations:Debug", "platforms:x64 or Win64" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="yes", Arch="Win64", WindowsCompiler=wx_compiler, Libs=wxlibs }
-    wxSetTargetDirectory("Win64", "Debug")
+    wxSetTargetDirectory(platform_win64, "Debug")
 
   filter { "configurations:Debug_wxDLL", "platforms:Win32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="yes", WindowsCompiler=wx_compiler, Libs=wxlibs }
     wxSetTargetDirectory("Win32", "Debug_wxDLL")
-  filter { "configurations:Debug_wxDLL", "platforms:Win64" }
+  filter { "configurations:Debug_wxDLL", "platforms:x64 or Win64" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="yes", Arch="Win64", WindowsCompiler=wx_compiler, Libs=wxlibs }
-    wxSetTargetDirectory("Win64", "Debug_wxDLL")
+    wxSetTargetDirectory(platform_win64, "Debug_wxDLL")
 
   filter { "configurations:Debug_DLL", "platforms:Win32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="yes", WindowsCompiler=wx_compiler, Libs=wxlibs }
     wxSetTargetDirectory("Win32", "Debug_DLL")
-  filter { "configurations:Debug_DLL", "platforms:Win64" }
+  filter { "configurations:Debug_DLL", "platforms:x64 or Win64" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="yes", Arch="Win64", WindowsCompiler=wx_compiler, Libs=wxlibs }
-    wxSetTargetDirectory("Win64", "Debug_DLL")
+    wxSetTargetDirectory(platform_win64, "Debug_DLL")
 
   filter { "configurations:Release", "platforms:Win32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="no", WindowsCompiler=wx_compiler, Libs=wxlibs }
     wxSetTargetDirectory("Win32", "Release")
-  filter { "configurations:Release", "platforms:Win64" }
+  filter { "configurations:Release", "platforms:x64 or Win64" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="yes", Debug="no", Arch="Win64", WindowsCompiler=wx_compiler, Libs=wxlibs }
-    wxSetTargetDirectory("Win64", "Release")
+    wxSetTargetDirectory(platform_win64, "Release")
 
   filter { "configurations:Release_wxDLL", "platforms:Win32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="no", WindowsCompiler=wx_compiler, Libs=wxlibs }
     wxSetTargetDirectory("Win32", "Release_wxDLL")
-  filter { "configurations:Release_wxDLL", "platforms:Win64" }
+  filter { "configurations:Release_wxDLL", "platforms:x64 or Win64" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="no", Arch="Win64", WindowsCompiler=wx_compiler, Libs=wxlibs }
-    wxSetTargetDirectory("Win64", "Release_wxDLL")
+    wxSetTargetDirectory(platform_win64, "Release_wxDLL")
 
   filter { "configurations:Release_DLL", "platforms:Win32" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="no", WindowsCompiler=wx_compiler, Libs=wxlibs}
     wxSetTargetDirectory("Win32", "Release_DLL")
-  filter { "configurations:Release_DLL", "platforms:Win64" }
+  filter { "configurations:Release_DLL", "platforms:x64 or Win64" }
     wx_config {Unicode="yes", Version=_OPTIONS["wx_ver"], Static="no", Debug="no", Arch="Win64", WindowsCompiler=wx_compiler, Libs=wxlibs }
-    wxSetTargetDirectory("Win64", "Release_DLL")
+    wxSetTargetDirectory(platform_win64, "Release_DLL")
 
   filter {}
 end

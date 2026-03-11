@@ -3788,6 +3788,11 @@ wxString wxSQLite3Database::GetWrapperVersion()
   return wxString(wxSQLITE3_VERSION_STRING);
 }
 
+wxString wxSQLite3Database::GetMCVersion()
+{
+    return wxString::FromUTF8(sqlite3mc_version());
+}
+
 wxString wxSQLite3Database::GetVersion()
 {
   return wxString::FromUTF8(sqlite3_libversion());

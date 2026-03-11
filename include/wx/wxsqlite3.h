@@ -3895,6 +3895,12 @@ public:
   */
   static wxString GetWrapperVersion();
 
+  /// Get the version of the underlying SQLite3MC library
+  /**
+  * \return a string which contains the version number of the library
+  */
+  static wxString GetMCVersion();
+
   /// Get the version of the underlying SQLite3 library
   /**
   * \return a string which contains the version number of the library

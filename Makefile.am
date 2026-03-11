@@ -1,11 +1,12 @@
 # Process this file with automake to create Makefile.in for wxsqlite3 library
 #
-# Copyright (C) 2017-2025 Ulrich Telle <ulrich@telle-online.de>, Vadim Zeitlin <vadim@wxwidgets.org>
+# Copyright (C) 2017-2026 Ulrich Telle <ulrich@telle-online.de>, Vadim Zeitlin <vadim@wxwidgets.org>
 #
 # This file is covered by the same licence as the entire wxSQLite3 package.
 
 if HOST_X86
-X86_FLAGS = -msse4.2 -maes 
+#X86_FLAGS = -msse4.2 -maes 
+X86_FLAGS =
 else
 X86_FLAGS =
 endif
@@ -64,11 +65,7 @@ noinst_HEADERS = \
     src/sqlite3mc_amalgamation.h 
 
 lib@WXSQLITE3_LIBNAME@_la_LDFLAGS = -no-undefined $(AM_LDFLAGS)
-if USE_SHARED
 lib@WXSQLITE3_LIBNAME@_la_LIBADD = $(WX_LIBS)
-else
-lib@WXSQLITE3_LIBNAME@_la_LIBADD =
-endif
 
 
 # Samples (don't need to be installed).
