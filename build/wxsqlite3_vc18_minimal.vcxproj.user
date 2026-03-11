@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerWorkingDirectory>..\samples</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>PATH=$(ProjectDir)..\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerWorkingDirectory>..\samples</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>PATH=$(ProjectDir)..\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LocalDebuggerWorkingDirectory>..\samples</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>PATH=$(ProjectDir)..\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LocalDebuggerWorkingDirectory>..\samples</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>PATH=$(ProjectDir)..\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_lib</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_wxDLL|Win32'">
+    <LocalDebuggerWorkingDirectory>..\samples</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>PATH=$(ProjectDir)..\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_wxDLL|x64'">
+    <LocalDebuggerWorkingDirectory>..\samples</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>PATH=$(ProjectDir)..\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_wxDLL|Win32'">
+    <LocalDebuggerWorkingDirectory>..\samples</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>PATH=$(ProjectDir)..\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_wxDLL|x64'">
+    <LocalDebuggerWorkingDirectory>..\samples</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>PATH=$(ProjectDir)..\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|Win32'">
+    <LocalDebuggerWorkingDirectory>..\samples</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>PATH=$(ProjectDir)..\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|x64'">
+    <LocalDebuggerWorkingDirectory>..\samples</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>PATH=$(ProjectDir)..\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|Win32'">
+    <LocalDebuggerWorkingDirectory>..\samples</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>PATH=$(ProjectDir)..\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DLL|x64'">
+    <LocalDebuggerWorkingDirectory>..\samples</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>PATH=$(ProjectDir)..\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll;$(wxRootDir)\lib\$(wxCompilerPrefix)$(wxArchSuffix)_dll</LocalDebuggerEnvironment>
+  </PropertyGroup>
+</Project>
