@@ -5696,7 +5696,9 @@ wxSQLite3Cipher::GetCipher(wxSQLite3Database& db)
 {
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
   int cipherType = sqlite3mc_config(dbHandle, "cipher", -1);
-  return GetCipherType(sqlite3mc_cipher_name(cipherType));
+  char cipherName[32] = "";
+  int rc = sqlite3mc_cipher_name_copy(cipherType, cipherName, 32);
+  return GetCipherType(wxString((rc == 1) ? cipherName : ""));
 }
 
 wxSQLite3CipherType
@@ -5704,14 +5706,18 @@ wxSQLite3Cipher::GetCipherDefault(wxSQLite3Database& db)
 {
   sqlite3* dbHandle = (sqlite3*) GetDatabaseHandle(db);
   int cipherType = sqlite3mc_config(dbHandle, "default:cipher", -1);
-  return GetCipherType(sqlite3mc_cipher_name(cipherType));
+  char cipherName[32] = "";
+  int rc = sqlite3mc_cipher_name_copy(cipherType, cipherName, 32);
+  return GetCipherType(wxString((rc == 1) ? cipherName : ""));
 }
 
 wxSQLite3CipherType
 wxSQLite3Cipher::GetGlobalCipherDefault()
 {
   int cipherType = sqlite3mc_config(0, "default:cipher", -1);
-  return GetCipherType(sqlite3mc_cipher_name(cipherType));
+  char cipherName[32] = "";
+  int rc = sqlite3mc_cipher_name_copy(cipherType, cipherName, 32);
+  return GetCipherType(wxString((rc == 1) ? cipherName : ""));
 }
 
 int

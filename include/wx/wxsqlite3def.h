@@ -46,10 +46,17 @@
 
 <dl>
 
+<dt><b>4.12.2</b> - <i>March 2026</i></dt>
+<dd>
+Upgrade to <i>SQLite3 Multiple Ciphers version 2.3.2 (SQLite version 3.51.3)</i><br>
+Use internally new API function sqlite3mc_cipher_name_copy instead of sqlite3mc_cipher_name
+
+</dd>
+
 <dt><b>4.12.1</b> - <i>March 2026</i></dt>
 <dd>
 Upgrade to <i>SQLite3 Multiple Ciphers version 2.3.1 (SQLite version 3.51.3)</i><br>
-Downgrade to SQLite 3.51.3 due to withdrawl of SQLite 3.52.0
+Downgrade to SQLite 3.51.3 due to withdrawal of SQLite 3.52.0
 
 </dd>
 
