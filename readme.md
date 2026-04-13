@@ -52,9 +52,9 @@ Currently the _CMake_ support is experimental and limited to Windows platforms (
 
 ## <a name="history"></a>Version history
 
-* 4.12.2 - *March 2026*
+* 4.12.3 - *April 2026*
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.3.2 (SQLite version 3.51.3)
+  - Upgrade to SQLite3 Multiple Ciphers version 2.3.3 (SQLite version 3.53.0)
 
 For further version information please consult the [CHANGELOG](CHANGELOG.md).
 

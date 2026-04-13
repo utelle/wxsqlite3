@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.12.3] - 2026-04-13
+
+- Upgrade to SQLite3 Multiple Ciphers version 2.3.2 (SQLite version 3.51.3)
+- Use internally new API function `sqlite3mc_cipher_name_copy` instead of `sqlite3mc_cipher_name`
+
 ## [4.12.2] - 2026-03-19
 
 - Upgrade to SQLite3 Multiple Ciphers version 2.3.2 (SQLite version 3.51.3)
@@ -733,7 +738,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First public release
 
-[Unreleased]: ../../compare/v4.12.2...HEAD
+[Unreleased]: ../../compare/v4.12.3...HEAD
+[4.12.3]: ../../compare/v4.12.2...v4.12.3
 [4.12.2]: ../../compare/v4.12.1...v4.12.2
 [4.12.1]: ../../compare/v4.12.0...v4.12.1
 [4.12.0]: ../../compare/v4.11.2...v4.12.0
