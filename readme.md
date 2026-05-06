@@ -1,26 +1,12 @@
 # wxSQLite3 - a lightweight wrapper for SQLite
 
-**wxSQLite3** is a C++ wrapper around the public domain SQLite 3.x database
-and is specifically designed for use in programs based on the wxWidgets
-library.
+**wxSQLite3** is a C++ wrapper around the public domain SQLite 3.x database and is specifically designed for use in programs based on the wxWidgets library.
 
-**wxSQLite3** does not try to hide the underlying database, in contrary
-almost all special features of the current SQLite3 version are
-supported, like for example the creation of user defined scalar or
-aggregate functions.
+**wxSQLite3** does not try to hide the underlying database, in contrary almost all special features of the current SQLite3 version are supported, like for example the creation of user defined scalar or aggregate functions.
 
-Since SQLite stores strings in UTF-8 encoding, the wxSQLite3 methods
-provide automatic conversion between wxStrings and UTF-8 strings. This
-works best for the Unicode builds of wxWidgets. In ANSI builds the
-current locale conversion object (wxConvCurrent) is used for conversion
-to/from UTF-8. Special care has to be taken if external administration
-tools are used to modify the database contents, since not all of these
-tools operate in Unicode or UTF-8 mode.
+Since SQLite stores strings in UTF-8 encoding, the wxSQLite3 methods provide automatic conversion between wxStrings and UTF-8 strings. This works best for the Unicode builds of wxWidgets. In ANSI builds the current locale conversion object (wxConvCurrent) is used for conversion to/from UTF-8. Special care has to be taken if external administration tools are used to modify the database contents, since not all of these tools operate in Unicode or UTF-8 mode.
 
-Since version 1.7.0 **wxSQLite3** includes a key-based SQLite3 encryption
-extension using AES encryption. The decision whether to use 128 bit or
-256 bit AES encryption had to be made at compile time. Starting with version
-4.0.0 the encryption extension allows to select the cipher scheme at runtime.
+Since version 1.7.0 **wxSQLite3** includes a key-based SQLite3 encryption extension using AES encryption. The decision whether to use 128 bit or 256 bit AES encryption had to be made at compile time. Starting with version 4.0.0 the encryption extension allows to select the cipher scheme at runtime.
 
 Currently the following encryption schemes are supported:
 
@@ -52,9 +38,9 @@ Currently the _CMake_ support is experimental and limited to Windows platforms (
 
 ## <a name="history"></a>Version history
 
-* 4.12.3 - *April 2026*
+* 4.12.4 - *May 2026*
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.3.3 (SQLite version 3.53.0)
+  - Upgrade to SQLite3 Multiple Ciphers version 2.3.4 (SQLite version 3.53.1)
 
 For further version information please consult the [CHANGELOG](CHANGELOG.md).
 
@@ -63,61 +49,34 @@ For further version information please consult the [CHANGELOG](CHANGELOG.md).
 The build files for Windows platforms are now generated with
 [Premake 5](https://premake.github.io/) (version Premake 5.0 beta 5).
 
-Ready to use project files are provided for Visual C++ 2010, 2012, 2013,
-2015, 2017, 2019, and 2022. Additionally, GNU Makefiles are provided supporting for
-example MinGW-w64.
+Ready to use project files are provided for Visual C++ 2015, 2017, 2019, 2022, and 2026. Additionally, GNU Makefiles are provided supporting for example MinGW-w64.
 
-For Visual Studio 2010+ solutions it is possible to customize the build
-by creating a `wx_local.props` file in the build directory which is used,
-if it exists, by the projects. The settings in that file override the
-default values for the properties. The typical way to make the file is
-to copy `wx_setup.props` to `wx_local.props` and then edit locally.
+For the Visual Studio solutions it is possible to customize the build by creating a `wx_local.props` file in the build directory which is used, if it exists, by the projects. The settings in that file override the default values for the properties. The typical way to make the file is to copy `wx_setup.props` to `wx_local.props` and then edit locally.
 
-For GNU Makefiles the file `config.gcc` serves the same purpose as the
-file wx_setup.props for Visual C++ projects.
+For GNU Makefiles the file `config.gcc` serves the same purpose as the file wx_setup.props for Visual C++ projects.
 
-The customization files `wx_setup.props` resp. `config.gcc` allow to
-customize certain settings like for example the version number and the
-root directory of the wxWidgets library.
+The customization files `wx_setup.props` resp. `config.gcc` allow to customize certain settings like for example the version number and the root directory of the wxWidgets library.
 
 ### wxMSW
 
-When building on Win32 or Win64, you can use the makefiles or one of the
-Microsoft Visual Studio solution files in the `build` folder.
+When building on Win32 or Win64, you can use the makefiles or one of the Microsoft Visual Studio solution files in the `build` folder.
 
-The Visual Studio solution files reference the property file `wx_setup.props`
-in the build subdirectory. This file is configured in a way to allow running
-AppVeyor CI without any modifications. Especially, specific library directories
-are used for different compiler versions (as it is used by the pre-built
-wxWidgets libraries) by adding the toolkit version (i.e., 141 for VS 2015,
-142 for VS 2019) to the library path name.
+The Visual Studio solution files reference the property file `wx_setup.props` in the build subdirectory. This file is configured in a way to allow running AppVeyor CI without any modifications. Especially, specific library directories are used for different compiler versions (as it is used by the pre-built wxWidgets libraries) by adding the toolkit version (i.e., 141 for VS 2015, 142 for VS 2019) to the library path name.
 
-To get library path names without toolkit version (as you usually get when
-compiling wxWidgets yourself) please adjust the 2 parameters `wxCompilerPrefix`
-and `wxMsvcVersionAuto` in file `wx_setup.props` as follows:
+To get library path names without toolkit version (as you usually get when compiling wxWidgets yourself) please adjust the 2 parameters `wxCompilerPrefix` and `wxMsvcVersionAuto` in file `wx_setup.props` as follows:
 
 ```
 <wxCompilerPrefix>vc</wxCompilerPrefix>
 <wxMsvcVersionAuto></wxMsvcVersionAuto>
 ```
 
-Additionally, the property file assumes that the environment variable `WXWIN`
-is defined and points to the root directory of the wxWidgets installation.
-Make sure that `WXWIN` is set up properly, or replace it by a environment
-variable of your choice or by an absolute path specification.
+Additionally, the property file assumes that the environment variable `WXWIN` is defined and points to the root directory of the wxWidgets installation. Make sure that `WXWIN` is set up properly, or replace it by a environment variable of your choice or by an absolute path specification.
 
-For Visual C++ the debugging properties are set up in such a way that
-debugging the sample applications should work right out of the box. For
-release builds you may need to copy the wxSQLite3 DLL or add the
-`lib` folder path to the Windows search path (PATH environment variable).
+For Visual C++ the debugging properties are set up in such a way that debugging the sample applications should work right out of the box. For release builds you may need to copy the wxSQLite3 DLL or add the `lib` folder path to the Windows search path (PATH environment variable).
 
-The SQLite3 library is now compiled as an integrated part of wxSQLite3.
-The advantage is that SQLite3 and wxSQLite3 are always compiled with
-matching configuration options. Additionally, the SQLite3 encryption
-extension is automatically enabled, too.
+The SQLite3 library is now compiled as an integrated part of wxSQLite3. The advantage is that SQLite3 and wxSQLite3 are always compiled with matching configuration options. Additionally, the SQLite3 encryption extension is automatically enabled, too.
 
-A precompiled SQLite shell program supporting encrypted
-databases is provided as a separate download. Use
+A precompiled SQLite shell program supporting encrypted databases is provided as a separate download. Use
 ```
 PRAGMA KEY="encryption key";
 ```
@@ -129,8 +88,7 @@ to attach an encrypted database.
 
 ### wxGTK
 
-When building on an autoconf-based system (like Linux/GNU-based
-systems), the first setup is to recreate the configure script doing:
+When building on an autoconf-based system (like Linux/GNU-based systems), the first setup is to recreate the configure script doing:
 
 ```
   autoreconf
@@ -147,18 +105,13 @@ Thereafter you should create a build directory
  
 Type `../configure --help` for more info.
 
-The autoconf-based system also supports a `make install` target which
-builds the library and then copies the headers of the component to
-`/usr/local/include` and the lib to `/usr/local/lib`.
+The autoconf-based system also supports a `make install` target which builds the library and then copies the headers of the component to `/usr/local/include` and the lib to `/usr/local/lib`.
 
 ## <a name="optional" />Optional features
 
-SQLite has many optional features and offers a number of optional extensions.
-The below table lists the features that are enabled for **wxSQLite3** as
-default. For details, please see [SQLite Compile Time Options](https://www.sqlite.org/compile.html).
+SQLite has many optional features and offers a number of optional extensions. The below table lists the features that are enabled for **wxSQLite3** as default. For details, please see [SQLite Compile Time Options](https://www.sqlite.org/compile.html).
 
-In case of memory constraints it is of course possible to disable unneeded features.
-However, this will usually require to modify the build files.
+In case of memory constraints it is of course possible to disable unneeded features. However, this will usually require to modify the build files.
 
 | Symbol | Description|
 | :--- | :--- |
@@ -191,37 +144,26 @@ However, this will usually require to modify the build files.
 
 ## <a name="encryption" />Key based database encryption support
 
-The public release of SQLite contains hooks for key based database
-encryption, but the code for implementing this feature is not freely
-available. D. Richard Hipp offers a commercial solution
-(see [http://www.hwaci.com/sw/sqlite/prosupport.html#crypto](http://www.hwaci.com/sw/sqlite/prosupport.html#crypto)).
+The public release of SQLite contains hooks for key based database encryption, but the code for implementing this feature is not freely available. D. Richard Hipp offers a commercial solution (see [http://www.hwaci.com/sw/sqlite/prosupport.html#crypto](http://www.hwaci.com/sw/sqlite/prosupport.html#crypto)).
 
 There exist other closed-source commercial solutions, among them:
 
 - [http://www.sqlcrypt.com](http://www.sqlcrypt.com)
 - [http://www.sqlite-crypt.com](http://www.sqlite-crypt.com)
 
-Both use a slightly different encryption API, which is currently _NOT_
-supported by wxSQLite3.
+Both use a slightly different encryption API, which is currently _NOT_ supported by wxSQLite3.
 
-For Windows based systems there exists an open source solution:
-[System.Data.SQLite](http://System.Data.SQLite.org). For SQLite version 3.32.0 or higher encryption support has been dropped.
-However, the new encryption extension _SQLite3 Multiple Ciphers_ allows to use this encryption scheme on all supported platforms.
+For Windows based systems there exists an open source solution: [System.Data.SQLite](http://System.Data.SQLite.org). For SQLite version 3.32.0 or higher encryption support has been dropped. However, the new encryption extension _SQLite3 Multiple Ciphers_ allows to use this encryption scheme on all supported platforms.
 
-**wxSQLite3** uses now the new encryption extension [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers).
-Precompiled binaries of the SQLite3 DLL and the SQLite3 shell  for Windows are now provided by this new separate project.
+**wxSQLite3** uses now the new encryption extension [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers). Precompiled binaries of the SQLite3 DLL and the SQLite3 shell  for Windows are now provided by this new separate project.
 
 ## <a name="sqlite-static"></a>Using statically linked SQLite library on Windows
 
-Starting with wxSQLite3 version 3.5.0 the SQLite3 library is compiled as an
-integrated part of wxSQLite3. A separate SQLite3 DLL is not required any longer.
+Starting with wxSQLite3 version 3.5.0 the SQLite3 library is compiled as an integrated part of wxSQLite3. A separate SQLite3 DLL is not required any longer.
 
 ## <a name="license" />License
 
-**wxSQLite3** is free software: you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License version 3
-or later as published by the Free Software Foundation,
-with the wxWindows 3.1 exception.
+**wxSQLite3** is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License version 3 or later as published by the Free Software Foundation, with the wxWindows 3.1 exception.
 
 ## <a name="acknowledge" />Acknowledgements
 

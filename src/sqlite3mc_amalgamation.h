@@ -31,9 +31,9 @@
 
 #define SQLITE3MC_VERSION_MAJOR      2
 #define SQLITE3MC_VERSION_MINOR      3
-#define SQLITE3MC_VERSION_RELEASE    3
+#define SQLITE3MC_VERSION_RELEASE    4
 #define SQLITE3MC_VERSION_SUBRELEASE 0
-#define SQLITE3MC_VERSION_STRING     "SQLite3 Multiple Ciphers 2.3.3"
+#define SQLITE3MC_VERSION_STRING     "SQLite3 Multiple Ciphers 2.3.4"
 
 #endif /* SQLITE3MC_VERSION_H_ */
 /*** End of #include "sqlite3mc_version.h" ***/
@@ -192,12 +192,12 @@ extern "C" {
 ** [sqlite3_libversion_number()], [sqlite3_sourceid()],
 ** [sqlite_version()] and [sqlite_source_id()].
 */
-#define SQLITE_VERSION        "3.53.0"
-#define SQLITE_VERSION_NUMBER 3053000
-#define SQLITE_SOURCE_ID      "2026-04-09 11:41:38 4525003a53a7fc63ca75c59b22c79608659ca12f0131f52c18637f829977f20b"
-#define SQLITE_SCM_BRANCH     "trunk"
-#define SQLITE_SCM_TAGS       "release major-release version-3.53.0"
-#define SQLITE_SCM_DATETIME   "2026-04-09T11:41:38.498Z"
+#define SQLITE_VERSION        "3.53.1"
+#define SQLITE_VERSION_NUMBER 3053001
+#define SQLITE_SOURCE_ID      "2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9"
+#define SQLITE_SCM_BRANCH     "branch-3.53"
+#define SQLITE_SCM_TAGS       "release version-3.53.1"
+#define SQLITE_SCM_DATETIME   "2026-05-05T10:34:17.344Z"
 
 /*
 ** CAPI3REF: Run-Time Library Version Numbers
