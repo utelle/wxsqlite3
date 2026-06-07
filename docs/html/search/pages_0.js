@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wxsqlite3_0',['wxSQLite3',['../index.html',1,'']]]
+  ['acknowledgments_0',['Acknowledgments',['../index.html#ackn',1,'']]]
 ];
