@@ -478,7 +478,7 @@ int Minimal::OnRun()
     for (i = 0; i < nRowsToCreate; i++)
     {
       char buf[128];
-      sprintf(buf, "insert into emp values (%d, 'empname%06d', %d.50);", i, i, i);
+      snprintf(buf, 128, "insert into emp values (%d, 'empname%06d', %d.50);", i, i, i);
       db.ExecuteUpdate(buf);
     }
 
@@ -528,7 +528,7 @@ int Minimal::OnRun()
     for (i = 0; i < 5; i++)
     {
       char buf[128];
-      sprintf(buf, "insert into emp (empname,salary) values ('empname%06d',%d.57);", i+1,(i+1)*10000);
+      snprintf(buf, 128, "insert into emp (empname,salary) values ('empname%06d',%d.57);", i+1,(i+1)*10000);
       db.ExecuteUpdate(buf);
       cout << " primary key: " << db.GetLastRowId().ToLong() << endl;
     }
@@ -718,7 +718,7 @@ int Minimal::OnRun()
     for (i = 0; i < nRowsToCreate; i++)
     {
       char buf[16];
-      sprintf(buf, "EmpName%06d", i);
+      snprintf(buf, 16, "EmpName%06d", i);
       stmt2.Bind(1, i);
       stmt2.Bind(2, buf);
       stmt2.Bind(3, (double) (i + 0.5));
