@@ -98,7 +98,7 @@ TreeviewSample::TreeviewSample()
   Init();
 }
 
-TreeviewSample::TreeviewSample( wxSQLite3Database* db, wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style )
+TreeviewSample::TreeviewSample( wxSQLite3::Database* db, wxWindow* parent, wxWindowID id, const wxString& caption, const wxPoint& pos, const wxSize& size, long style )
 {
   m_db = db;
   Init();
@@ -324,22 +324,22 @@ TreeviewSample::DeleteFromDatabase(int projectId)
   try
   {
     m_db->Begin();
-    wxSQLite3Statement stmt1 = m_db->PrepareStatement("delete from projects where pid=?;");
+    wxSQLite3::Statement stmt1 = m_db->PrepareStatement("delete from projects where pid=?;");
     stmt1.Bind(1, projectId);
     stmt1.ExecuteUpdate();
-    wxSQLite3Statement stmt2 = m_db->PrepareStatement("delete from folderprojects where pid=?;");
+    wxSQLite3::Statement stmt2 = m_db->PrepareStatement("delete from folderprojects where pid=?;");
     stmt2.Bind(1, projectId);
     stmt2.ExecuteUpdate();
     m_db->Commit();
   }
-  catch (wxSQLite3Exception& e)
+  catch (wxSQLite3::Exception& e)
   {
     wxUnusedVar(e);
     try
     {
       m_db->Rollback();
     }
-    catch (wxSQLite3Exception& e2)
+    catch (wxSQLite3::Exception& e2)
     {
       wxUnusedVar(e2);
     }
@@ -387,18 +387,18 @@ TreeviewSample::InsertIntoDatabase(const wxString& projectTitle)
     m_db->Begin();
     projectIdMax = m_db->ExecuteScalar(sqlMaxProjectId);
     projectId = projectIdMax + 1;
-    wxSQLite3Statement stmtInsertProject = m_db->PrepareStatement(sqlInsertProject);
+    wxSQLite3::Statement stmtInsertProject = m_db->PrepareStatement(sqlInsertProject);
     stmtInsertProject.Bind(1, projectId);
     stmtInsertProject.Bind(2, projectTitle);
     stmtInsertProject.ExecuteUpdate();
-    wxSQLite3Statement stmtInsertReference = m_db->PrepareStatement(sqlInsertReference);
+    wxSQLite3::Statement stmtInsertReference = m_db->PrepareStatement(sqlInsertReference);
     stmtInsertReference.Bind(1, m_activeFolder);
     stmtInsertReference.Bind(2, projectId);
     stmtInsertReference.ExecuteUpdate();
     m_db->Commit();
     RefreshProjectList();
   }
-  catch (wxSQLite3Exception& e)
+  catch (wxSQLite3::Exception& e)
   {
     wxUnusedVar(e);
     projectId = -1;
@@ -406,7 +406,7 @@ TreeviewSample::InsertIntoDatabase(const wxString& projectTitle)
     {
       m_db->Rollback();
     }
-    catch (wxSQLite3Exception& e2)
+    catch (wxSQLite3::Exception& e2)
     {
       wxUnusedVar(e2);
     }
@@ -423,7 +423,7 @@ TreeviewSample::GetProjectReferenceCount(int projectId)
   {
     refCount = m_db->ExecuteScalar(sqlRefCount);
   }
-  catch (wxSQLite3Exception& e)
+  catch (wxSQLite3::Exception& e)
   {
     wxUnusedVar(e);
     refCount = 0;
@@ -441,7 +441,7 @@ TreeviewSample::RemoveProjectReference(int projectId)
     m_db->ExecuteUpdate(sqlRemoveRef);
     RefreshProjectList();
   }
-  catch (wxSQLite3Exception& e)
+  catch (wxSQLite3::Exception& e)
   {
     wxUnusedVar(e);
     ok = false;

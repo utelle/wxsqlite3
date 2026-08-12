@@ -3,9 +3,26 @@
 ** Purpose:     Amalgamation of the SQLite3 Multiple Ciphers encryption extension for SQLite
 ** Author:      Ulrich Telle
 ** Created:     2020-02-28
-** Copyright:   (c) 2006-2025 Ulrich Telle
+** Copyright:   (c) 2006-2026 Ulrich Telle
 ** License:     MIT
 */
+
+/*
+** If SQLite functions should be called through a dispatch table,
+** thus hiding all SQLite function symbols from the linker,
+** define the symbol SQLITE3MC_USE_DISPATCH_TABLE.
+*/
+
+#ifdef SQLITE3MC_USE_DISPATCH_TABLE
+#ifdef SQLITE_API
+#undef SQLITE_API
+#endif
+#ifdef SQLITE_PRIVATE
+#undef SQLITE_PRIVATE
+#endif
+#define SQLITE_API static
+#define SQLITE_PRIVATE static
+#endif
 
 /*
 ** Force some options required for WASM builds
@@ -270076,10 +270093,10 @@ SQLITE_API const char *sqlite3_sourceid(void){ return SQLITE_SOURCE_ID; }
 #define SQLITE3MC_VERSION_H_
 
 #define SQLITE3MC_VERSION_MAJOR      2
-#define SQLITE3MC_VERSION_MINOR      4
+#define SQLITE3MC_VERSION_MINOR      5
 #define SQLITE3MC_VERSION_RELEASE    0
 #define SQLITE3MC_VERSION_SUBRELEASE 0
-#define SQLITE3MC_VERSION_STRING     "SQLite3 Multiple Ciphers 2.4.0"
+#define SQLITE3MC_VERSION_STRING     "SQLite3 Multiple Ciphers 2.5.0"
 
 #endif /* SQLITE3MC_VERSION_H_ */
 /*** End of #include "sqlite3mc_version.h" ***/
@@ -284665,7 +284682,933 @@ SQLITE_API void sqlite3mc_vfs_shutdown();
 /*** End of #include "sqlite3mc_vfs.h" ***/
 
 
+/*
+** Dispatch table support
+*/
+
+#ifdef SQLITE3MC_USE_DISPATCH_TABLE
+
+/*
+** Instead of making the SQLite symbols public dispatch tables can be
+** used. In that case only the pointers to the dispatch tables are
+** made public, hiding all other SQLite symbols. This is useful for
+** modules which want to use an embedded SQLite version without
+** conflicts with other SQLite implementation.
+**
+** The only rule to obey is that such an embedded SQLite instance
+** should not access the same database files as a separate SQLite
+** instance within the same process, because that could lead to
+** database corruption.
+**
+** Define symbol SQLITE3MC_USE_DISPATCH_TABLE to activate the use of
+** dispatch tables.
+**
+** Define symbol SQLITE3MC_API_TABLE_PREFIX to specify your own
+** global symbols for the dispatch tables to avoid name clashes.
+**
+** Example: #define SQLITE3MC_API_TABLE_PREFIX MyApplication
+**
+** The default prefix is "sqlite3mc".
+*/
+
+#ifndef SQLITE3MC_API_TABLE_PREFIX
+#define SQLITE3MC_API_TABLE_PREFIX  sqlite3mc
 #endif
+
+#define SQLITE3MC_CONCAT(A,B) SQLITE3MC_CONCAT_(A,B)
+#define SQLITE3MC_CONCAT_(A,B) A##B
+#define SQLITE3MC_API_TABLE(name) SQLITE3MC_CONCAT(SQLITE3MC_API_TABLE_PREFIX,SQLITE3MC_CONCAT(_,name))
+
+#define SQLITE3MC_API_TABLE_EXT  SQLITE3MC_API_TABLE(api_ext)
+#define SQLITE3MC_API_TABLE_CORE SQLITE3MC_API_TABLE(api_core)
+#define SQLITE3MC_API_TABLE_MC   SQLITE3MC_API_TABLE(api_mc)
+
+/* Define the dispatch table name for sqlite3ext.h */
+#define sqlite3_api SQLITE3MC_API_TABLE_EXT
+
+/* #include "sqlite3ext.h" */
+/*** Begin of #include "sqlite3ext.h" ***/
+/*
+** 2006 June 7
+**
+** The author disclaims copyright to this source code.  In place of
+** a legal notice, here is a blessing:
+**
+**    May you do good and not evil.
+**    May you find forgiveness for yourself and forgive others.
+**    May you share freely, never taking more than you give.
+**
+*************************************************************************
+** This header file defines the SQLite interface for use by
+** shared libraries that want to be imported as extensions into
+** an SQLite instance.  Shared libraries that intend to be loaded
+** as extensions by SQLite should #include this file instead of
+** sqlite3.h.
+*/
+#ifndef SQLITE3EXT_H
+#define SQLITE3EXT_H
+/* #include "sqlite3.h" */
+
+
+/*
+** The following structure holds pointers to all of the SQLite API
+** routines.
+**
+** WARNING:  In order to maintain backwards compatibility, add new
+** interfaces to the end of this structure only.  If you insert new
+** interfaces in the middle of this structure, then older different
+** versions of SQLite will not be able to load each other's shared
+** libraries!
+*/
+struct sqlite3_api_routines {
+  void * (*aggregate_context)(sqlite3_context*,int nBytes);
+  int  (*aggregate_count)(sqlite3_context*);
+  int  (*bind_blob)(sqlite3_stmt*,int,const void*,int n,void(*)(void*));
+  int  (*bind_double)(sqlite3_stmt*,int,double);
+  int  (*bind_int)(sqlite3_stmt*,int,int);
+  int  (*bind_int64)(sqlite3_stmt*,int,sqlite_int64);
+  int  (*bind_null)(sqlite3_stmt*,int);
+  int  (*bind_parameter_count)(sqlite3_stmt*);
+  int  (*bind_parameter_index)(sqlite3_stmt*,const char*zName);
+  const char * (*bind_parameter_name)(sqlite3_stmt*,int);
+  int  (*bind_text)(sqlite3_stmt*,int,const char*,int n,void(*)(void*));
+  int  (*bind_text16)(sqlite3_stmt*,int,const void*,int,void(*)(void*));
+  int  (*bind_value)(sqlite3_stmt*,int,const sqlite3_value*);
+  int  (*busy_handler)(sqlite3*,int(*)(void*,int),void*);
+  int  (*busy_timeout)(sqlite3*,int ms);
+  int  (*changes)(sqlite3*);
+  int  (*close)(sqlite3*);
+  int  (*collation_needed)(sqlite3*,void*,void(*)(void*,sqlite3*,
+                           int eTextRep,const char*));
+  int  (*collation_needed16)(sqlite3*,void*,void(*)(void*,sqlite3*,
+                             int eTextRep,const void*));
+  const void * (*column_blob)(sqlite3_stmt*,int iCol);
+  int  (*column_bytes)(sqlite3_stmt*,int iCol);
+  int  (*column_bytes16)(sqlite3_stmt*,int iCol);
+  int  (*column_count)(sqlite3_stmt*pStmt);
+  const char * (*column_database_name)(sqlite3_stmt*,int);
+  const void * (*column_database_name16)(sqlite3_stmt*,int);
+  const char * (*column_decltype)(sqlite3_stmt*,int i);
+  const void * (*column_decltype16)(sqlite3_stmt*,int);
+  double  (*column_double)(sqlite3_stmt*,int iCol);
+  int  (*column_int)(sqlite3_stmt*,int iCol);
+  sqlite_int64  (*column_int64)(sqlite3_stmt*,int iCol);
+  const char * (*column_name)(sqlite3_stmt*,int);
+  const void * (*column_name16)(sqlite3_stmt*,int);
+  const char * (*column_origin_name)(sqlite3_stmt*,int);
+  const void * (*column_origin_name16)(sqlite3_stmt*,int);
+  const char * (*column_table_name)(sqlite3_stmt*,int);
+  const void * (*column_table_name16)(sqlite3_stmt*,int);
+  const unsigned char * (*column_text)(sqlite3_stmt*,int iCol);
+  const void * (*column_text16)(sqlite3_stmt*,int iCol);
+  int  (*column_type)(sqlite3_stmt*,int iCol);
+  sqlite3_value* (*column_value)(sqlite3_stmt*,int iCol);
+  void * (*commit_hook)(sqlite3*,int(*)(void*),void*);
+  int  (*complete)(const char*sql);
+  int  (*complete16)(const void*sql);
+  int  (*create_collation)(sqlite3*,const char*,int,void*,
+                           int(*)(void*,int,const void*,int,const void*));
+  int  (*create_collation16)(sqlite3*,const void*,int,void*,
+                             int(*)(void*,int,const void*,int,const void*));
+  int  (*create_function)(sqlite3*,const char*,int,int,void*,
+                          void (*xFunc)(sqlite3_context*,int,sqlite3_value**),
+                          void (*xStep)(sqlite3_context*,int,sqlite3_value**),
+                          void (*xFinal)(sqlite3_context*));
+  int  (*create_function16)(sqlite3*,const void*,int,int,void*,
+                            void (*xFunc)(sqlite3_context*,int,sqlite3_value**),
+                            void (*xStep)(sqlite3_context*,int,sqlite3_value**),
+                            void (*xFinal)(sqlite3_context*));
+  int (*create_module)(sqlite3*,const char*,const sqlite3_module*,void*);
+  int  (*data_count)(sqlite3_stmt*pStmt);
+  sqlite3 * (*db_handle)(sqlite3_stmt*);
+  int (*declare_vtab)(sqlite3*,const char*);
+  int  (*enable_shared_cache)(int);
+  int  (*errcode)(sqlite3*db);
+  const char * (*errmsg)(sqlite3*);
+  const void * (*errmsg16)(sqlite3*);
+  int  (*exec)(sqlite3*,const char*,sqlite3_callback,void*,char**);
+  int  (*expired)(sqlite3_stmt*);
+  int  (*finalize)(sqlite3_stmt*pStmt);
+  void  (*free)(void*);
+  void  (*free_table)(char**result);
+  int  (*get_autocommit)(sqlite3*);
+  void * (*get_auxdata)(sqlite3_context*,int);
+  int  (*get_table)(sqlite3*,const char*,char***,int*,int*,char**);
+  int  (*global_recover)(void);
+  void  (*interruptx)(sqlite3*);
+  sqlite_int64  (*last_insert_rowid)(sqlite3*);
+  const char * (*libversion)(void);
+  int  (*libversion_number)(void);
+  void *(*malloc)(int);
+  char * (*mprintf)(const char*,...);
+  int  (*open)(const char*,sqlite3**);
+  int  (*open16)(const void*,sqlite3**);
+  int  (*prepare)(sqlite3*,const char*,int,sqlite3_stmt**,const char**);
+  int  (*prepare16)(sqlite3*,const void*,int,sqlite3_stmt**,const void**);
+  void * (*profile)(sqlite3*,void(*)(void*,const char*,sqlite_uint64),void*);
+  void  (*progress_handler)(sqlite3*,int,int(*)(void*),void*);
+  void *(*realloc)(void*,int);
+  int  (*reset)(sqlite3_stmt*pStmt);
+  void  (*result_blob)(sqlite3_context*,const void*,int,void(*)(void*));
+  void  (*result_double)(sqlite3_context*,double);
+  void  (*result_error)(sqlite3_context*,const char*,int);
+  void  (*result_error16)(sqlite3_context*,const void*,int);
+  void  (*result_int)(sqlite3_context*,int);
+  void  (*result_int64)(sqlite3_context*,sqlite_int64);
+  void  (*result_null)(sqlite3_context*);
+  void  (*result_text)(sqlite3_context*,const char*,int,void(*)(void*));
+  void  (*result_text16)(sqlite3_context*,const void*,int,void(*)(void*));
+  void  (*result_text16be)(sqlite3_context*,const void*,int,void(*)(void*));
+  void  (*result_text16le)(sqlite3_context*,const void*,int,void(*)(void*));
+  void  (*result_value)(sqlite3_context*,sqlite3_value*);
+  void * (*rollback_hook)(sqlite3*,void(*)(void*),void*);
+  int  (*set_authorizer)(sqlite3*,int(*)(void*,int,const char*,const char*,
+                         const char*,const char*),void*);
+  void  (*set_auxdata)(sqlite3_context*,int,void*,void (*)(void*));
+  char * (*xsnprintf)(int,char*,const char*,...);
+  int  (*step)(sqlite3_stmt*);
+  int  (*table_column_metadata)(sqlite3*,const char*,const char*,const char*,
+                                char const**,char const**,int*,int*,int*);
+  void  (*thread_cleanup)(void);
+  int  (*total_changes)(sqlite3*);
+  void * (*trace)(sqlite3*,void(*xTrace)(void*,const char*),void*);
+  int  (*transfer_bindings)(sqlite3_stmt*,sqlite3_stmt*);
+  void * (*update_hook)(sqlite3*,void(*)(void*,int ,char const*,char const*,
+                                         sqlite_int64),void*);
+  void * (*user_data)(sqlite3_context*);
+  const void * (*value_blob)(sqlite3_value*);
+  int  (*value_bytes)(sqlite3_value*);
+  int  (*value_bytes16)(sqlite3_value*);
+  double  (*value_double)(sqlite3_value*);
+  int  (*value_int)(sqlite3_value*);
+  sqlite_int64  (*value_int64)(sqlite3_value*);
+  int  (*value_numeric_type)(sqlite3_value*);
+  const unsigned char * (*value_text)(sqlite3_value*);
+  const void * (*value_text16)(sqlite3_value*);
+  const void * (*value_text16be)(sqlite3_value*);
+  const void * (*value_text16le)(sqlite3_value*);
+  int  (*value_type)(sqlite3_value*);
+  char *(*vmprintf)(const char*,va_list);
+  /* Added ??? */
+  int (*overload_function)(sqlite3*, const char *zFuncName, int nArg);
+  /* Added by 3.3.13 */
+  int (*prepare_v2)(sqlite3*,const char*,int,sqlite3_stmt**,const char**);
+  int (*prepare16_v2)(sqlite3*,const void*,int,sqlite3_stmt**,const void**);
+  int (*clear_bindings)(sqlite3_stmt*);
+  /* Added by 3.4.1 */
+  int (*create_module_v2)(sqlite3*,const char*,const sqlite3_module*,void*,
+                          void (*xDestroy)(void *));
+  /* Added by 3.5.0 */
+  int (*bind_zeroblob)(sqlite3_stmt*,int,int);
+  int (*blob_bytes)(sqlite3_blob*);
+  int (*blob_close)(sqlite3_blob*);
+  int (*blob_open)(sqlite3*,const char*,const char*,const char*,sqlite3_int64,
+                   int,sqlite3_blob**);
+  int (*blob_read)(sqlite3_blob*,void*,int,int);
+  int (*blob_write)(sqlite3_blob*,const void*,int,int);
+  int (*create_collation_v2)(sqlite3*,const char*,int,void*,
+                             int(*)(void*,int,const void*,int,const void*),
+                             void(*)(void*));
+  int (*file_control)(sqlite3*,const char*,int,void*);
+  sqlite3_int64 (*memory_highwater)(int);
+  sqlite3_int64 (*memory_used)(void);
+  sqlite3_mutex *(*mutex_alloc)(int);
+  void (*mutex_enter)(sqlite3_mutex*);
+  void (*mutex_free)(sqlite3_mutex*);
+  void (*mutex_leave)(sqlite3_mutex*);
+  int (*mutex_try)(sqlite3_mutex*);
+  int (*open_v2)(const char*,sqlite3**,int,const char*);
+  int (*release_memory)(int);
+  void (*result_error_nomem)(sqlite3_context*);
+  void (*result_error_toobig)(sqlite3_context*);
+  int (*sleep)(int);
+  void (*soft_heap_limit)(int);
+  sqlite3_vfs *(*vfs_find)(const char*);
+  int (*vfs_register)(sqlite3_vfs*,int);
+  int (*vfs_unregister)(sqlite3_vfs*);
+  int (*xthreadsafe)(void);
+  void (*result_zeroblob)(sqlite3_context*,int);
+  void (*result_error_code)(sqlite3_context*,int);
+  int (*test_control)(int, ...);
+  void (*randomness)(int,void*);
+  sqlite3 *(*context_db_handle)(sqlite3_context*);
+  int (*extended_result_codes)(sqlite3*,int);
+  int (*limit)(sqlite3*,int,int);
+  sqlite3_stmt *(*next_stmt)(sqlite3*,sqlite3_stmt*);
+  const char *(*sql)(sqlite3_stmt*);
+  int (*status)(int,int*,int*,int);
+  int (*backup_finish)(sqlite3_backup*);
+  sqlite3_backup *(*backup_init)(sqlite3*,const char*,sqlite3*,const char*);
+  int (*backup_pagecount)(sqlite3_backup*);
+  int (*backup_remaining)(sqlite3_backup*);
+  int (*backup_step)(sqlite3_backup*,int);
+  const char *(*compileoption_get)(int);
+  int (*compileoption_used)(const char*);
+  int (*create_function_v2)(sqlite3*,const char*,int,int,void*,
+                            void (*xFunc)(sqlite3_context*,int,sqlite3_value**),
+                            void (*xStep)(sqlite3_context*,int,sqlite3_value**),
+                            void (*xFinal)(sqlite3_context*),
+                            void(*xDestroy)(void*));
+  int (*db_config)(sqlite3*,int,...);
+  sqlite3_mutex *(*db_mutex)(sqlite3*);
+  int (*db_status)(sqlite3*,int,int*,int*,int);
+  int (*extended_errcode)(sqlite3*);
+  void (*log)(int,const char*,...);
+  sqlite3_int64 (*soft_heap_limit64)(sqlite3_int64);
+  const char *(*sourceid)(void);
+  int (*stmt_status)(sqlite3_stmt*,int,int);
+  int (*strnicmp)(const char*,const char*,int);
+  int (*unlock_notify)(sqlite3*,void(*)(void**,int),void*);
+  int (*wal_autocheckpoint)(sqlite3*,int);
+  int (*wal_checkpoint)(sqlite3*,const char*);
+  void *(*wal_hook)(sqlite3*,int(*)(void*,sqlite3*,const char*,int),void*);
+  int (*blob_reopen)(sqlite3_blob*,sqlite3_int64);
+  int (*vtab_config)(sqlite3*,int op,...);
+  int (*vtab_on_conflict)(sqlite3*);
+  /* Version 3.7.16 and later */
+  int (*close_v2)(sqlite3*);
+  const char *(*db_filename)(sqlite3*,const char*);
+  int (*db_readonly)(sqlite3*,const char*);
+  int (*db_release_memory)(sqlite3*);
+  const char *(*errstr)(int);
+  int (*stmt_busy)(sqlite3_stmt*);
+  int (*stmt_readonly)(sqlite3_stmt*);
+  int (*stricmp)(const char*,const char*);
+  int (*uri_boolean)(const char*,const char*,int);
+  sqlite3_int64 (*uri_int64)(const char*,const char*,sqlite3_int64);
+  const char *(*uri_parameter)(const char*,const char*);
+  char *(*xvsnprintf)(int,char*,const char*,va_list);
+  int (*wal_checkpoint_v2)(sqlite3*,const char*,int,int*,int*);
+  /* Version 3.8.7 and later */
+  int (*auto_extension)(void(*)(void));
+  int (*bind_blob64)(sqlite3_stmt*,int,const void*,sqlite3_uint64,
+                     void(*)(void*));
+  int (*bind_text64)(sqlite3_stmt*,int,const char*,sqlite3_uint64,
+                      void(*)(void*),unsigned char);
+  int (*cancel_auto_extension)(void(*)(void));
+  int (*load_extension)(sqlite3*,const char*,const char*,char**);
+  void *(*malloc64)(sqlite3_uint64);
+  sqlite3_uint64 (*msize)(void*);
+  void *(*realloc64)(void*,sqlite3_uint64);
+  void (*reset_auto_extension)(void);
+  void (*result_blob64)(sqlite3_context*,const void*,sqlite3_uint64,
+                        void(*)(void*));
+  void (*result_text64)(sqlite3_context*,const char*,sqlite3_uint64,
+                         void(*)(void*), unsigned char);
+  int (*strglob)(const char*,const char*);
+  /* Version 3.8.11 and later */
+  sqlite3_value *(*value_dup)(const sqlite3_value*);
+  void (*value_free)(sqlite3_value*);
+  int (*result_zeroblob64)(sqlite3_context*,sqlite3_uint64);
+  int (*bind_zeroblob64)(sqlite3_stmt*, int, sqlite3_uint64);
+  /* Version 3.9.0 and later */
+  unsigned int (*value_subtype)(sqlite3_value*);
+  void (*result_subtype)(sqlite3_context*,unsigned int);
+  /* Version 3.10.0 and later */
+  int (*status64)(int,sqlite3_int64*,sqlite3_int64*,int);
+  int (*strlike)(const char*,const char*,unsigned int);
+  int (*db_cacheflush)(sqlite3*);
+  /* Version 3.12.0 and later */
+  int (*system_errno)(sqlite3*);
+  /* Version 3.14.0 and later */
+  int (*trace_v2)(sqlite3*,unsigned,int(*)(unsigned,void*,void*,void*),void*);
+  char *(*expanded_sql)(sqlite3_stmt*);
+  /* Version 3.18.0 and later */
+  void (*set_last_insert_rowid)(sqlite3*,sqlite3_int64);
+  /* Version 3.20.0 and later */
+  int (*prepare_v3)(sqlite3*,const char*,int,unsigned int,
+                    sqlite3_stmt**,const char**);
+  int (*prepare16_v3)(sqlite3*,const void*,int,unsigned int,
+                      sqlite3_stmt**,const void**);
+  int (*bind_pointer)(sqlite3_stmt*,int,void*,const char*,void(*)(void*));
+  void (*result_pointer)(sqlite3_context*,void*,const char*,void(*)(void*));
+  void *(*value_pointer)(sqlite3_value*,const char*);
+  int (*vtab_nochange)(sqlite3_context*);
+  int (*value_nochange)(sqlite3_value*);
+  const char *(*vtab_collation)(sqlite3_index_info*,int);
+  /* Version 3.24.0 and later */
+  int (*keyword_count)(void);
+  int (*keyword_name)(int,const char**,int*);
+  int (*keyword_check)(const char*,int);
+  sqlite3_str *(*str_new)(sqlite3*);
+  char *(*str_finish)(sqlite3_str*);
+  void (*str_appendf)(sqlite3_str*, const char *zFormat, ...);
+  void (*str_vappendf)(sqlite3_str*, const char *zFormat, va_list);
+  void (*str_append)(sqlite3_str*, const char *zIn, int N);
+  void (*str_appendall)(sqlite3_str*, const char *zIn);
+  void (*str_appendchar)(sqlite3_str*, int N, char C);
+  void (*str_reset)(sqlite3_str*);
+  int (*str_errcode)(sqlite3_str*);
+  int (*str_length)(sqlite3_str*);
+  char *(*str_value)(sqlite3_str*);
+  /* Version 3.25.0 and later */
+  int (*create_window_function)(sqlite3*,const char*,int,int,void*,
+                            void (*xStep)(sqlite3_context*,int,sqlite3_value**),
+                            void (*xFinal)(sqlite3_context*),
+                            void (*xValue)(sqlite3_context*),
+                            void (*xInv)(sqlite3_context*,int,sqlite3_value**),
+                            void(*xDestroy)(void*));
+  /* Version 3.26.0 and later */
+  const char *(*normalized_sql)(sqlite3_stmt*);
+  /* Version 3.28.0 and later */
+  int (*stmt_isexplain)(sqlite3_stmt*);
+  int (*value_frombind)(sqlite3_value*);
+  /* Version 3.30.0 and later */
+  int (*drop_modules)(sqlite3*,const char**);
+  /* Version 3.31.0 and later */
+  sqlite3_int64 (*hard_heap_limit64)(sqlite3_int64);
+  const char *(*uri_key)(const char*,int);
+  const char *(*filename_database)(const char*);
+  const char *(*filename_journal)(const char*);
+  const char *(*filename_wal)(const char*);
+  /* Version 3.32.0 and later */
+  const char *(*create_filename)(const char*,const char*,const char*,
+                           int,const char**);
+  void (*free_filename)(const char*);
+  sqlite3_file *(*database_file_object)(const char*);
+  /* Version 3.34.0 and later */
+  int (*txn_state)(sqlite3*,const char*);
+  /* Version 3.36.1 and later */
+  sqlite3_int64 (*changes64)(sqlite3*);
+  sqlite3_int64 (*total_changes64)(sqlite3*);
+  /* Version 3.37.0 and later */
+  int (*autovacuum_pages)(sqlite3*,
+     unsigned int(*)(void*,const char*,unsigned int,unsigned int,unsigned int),
+     void*, void(*)(void*));
+  /* Version 3.38.0 and later */
+  int (*error_offset)(sqlite3*);
+  int (*vtab_rhs_value)(sqlite3_index_info*,int,sqlite3_value**);
+  int (*vtab_distinct)(sqlite3_index_info*);
+  int (*vtab_in)(sqlite3_index_info*,int,int);
+  int (*vtab_in_first)(sqlite3_value*,sqlite3_value**);
+  int (*vtab_in_next)(sqlite3_value*,sqlite3_value**);
+  /* Version 3.39.0 and later */
+  int (*deserialize)(sqlite3*,const char*,unsigned char*,
+                     sqlite3_int64,sqlite3_int64,unsigned);
+  unsigned char *(*serialize)(sqlite3*,const char *,sqlite3_int64*,
+                              unsigned int);
+  const char *(*db_name)(sqlite3*,int);
+  /* Version 3.40.0 and later */
+  int (*value_encoding)(sqlite3_value*);
+  /* Version 3.41.0 and later */
+  int (*is_interrupted)(sqlite3*);
+  /* Version 3.43.0 and later */
+  int (*stmt_explain)(sqlite3_stmt*,int);
+  /* Version 3.44.0 and later */
+  void *(*get_clientdata)(sqlite3*,const char*);
+  int (*set_clientdata)(sqlite3*, const char*, void*, void(*)(void*));
+  /* Version 3.50.0 and later */
+  int (*setlk_timeout)(sqlite3*,int,int);
+  /* Version 3.51.0 and later */
+  int (*set_errmsg)(sqlite3*,int,const char*);
+  int (*db_status64)(sqlite3*,int,sqlite3_int64*,sqlite3_int64*,int);
+  /* Version 3.52.0 and later */
+  void (*str_truncate)(sqlite3_str*,int);
+  void (*str_free)(sqlite3_str*);
+  int (*carray_bind)(sqlite3_stmt*,int,void*,int,int,void(*)(void*));
+  int (*carray_bind_v2)(sqlite3_stmt*,int,void*,int,int,void(*)(void*),void*);
+};
+
+/*
+** This is the function signature used for all extension entry points.  It
+** is also defined in the file "loadext.c".
+*/
+typedef int (*sqlite3_loadext_entry)(
+  sqlite3 *db,                       /* Handle to the database. */
+  char **pzErrMsg,                   /* Used to set error string on failure. */
+  const sqlite3_api_routines *pThunk /* Extension API function pointers. */
+);
+
+/*
+** The following macros redefine the API routines so that they are
+** redirected through the global sqlite3_api structure.
+**
+** This header file is also used by the loadext.c source file
+** (part of the main SQLite library - not an extension) so that
+** it can get access to the sqlite3_api_routines structure
+** definition.  But the main library does not want to redefine
+** the API.  So the redefinition macros are only valid if the
+** SQLITE_CORE macros is undefined.
+*/
+#if !defined(SQLITE_CORE) && !defined(SQLITE_OMIT_LOAD_EXTENSION)
+#define sqlite3_aggregate_context      sqlite3_api->aggregate_context
+#ifndef SQLITE_OMIT_DEPRECATED
+#define sqlite3_aggregate_count        sqlite3_api->aggregate_count
+#endif
+#define sqlite3_bind_blob              sqlite3_api->bind_blob
+#define sqlite3_bind_double            sqlite3_api->bind_double
+#define sqlite3_bind_int               sqlite3_api->bind_int
+#define sqlite3_bind_int64             sqlite3_api->bind_int64
+#define sqlite3_bind_null              sqlite3_api->bind_null
+#define sqlite3_bind_parameter_count   sqlite3_api->bind_parameter_count
+#define sqlite3_bind_parameter_index   sqlite3_api->bind_parameter_index
+#define sqlite3_bind_parameter_name    sqlite3_api->bind_parameter_name
+#define sqlite3_bind_text              sqlite3_api->bind_text
+#define sqlite3_bind_text16            sqlite3_api->bind_text16
+#define sqlite3_bind_value             sqlite3_api->bind_value
+#define sqlite3_busy_handler           sqlite3_api->busy_handler
+#define sqlite3_busy_timeout           sqlite3_api->busy_timeout
+#define sqlite3_changes                sqlite3_api->changes
+#define sqlite3_close                  sqlite3_api->close
+#define sqlite3_collation_needed       sqlite3_api->collation_needed
+#define sqlite3_collation_needed16     sqlite3_api->collation_needed16
+#define sqlite3_column_blob            sqlite3_api->column_blob
+#define sqlite3_column_bytes           sqlite3_api->column_bytes
+#define sqlite3_column_bytes16         sqlite3_api->column_bytes16
+#define sqlite3_column_count           sqlite3_api->column_count
+#define sqlite3_column_database_name   sqlite3_api->column_database_name
+#define sqlite3_column_database_name16 sqlite3_api->column_database_name16
+#define sqlite3_column_decltype        sqlite3_api->column_decltype
+#define sqlite3_column_decltype16      sqlite3_api->column_decltype16
+#define sqlite3_column_double          sqlite3_api->column_double
+#define sqlite3_column_int             sqlite3_api->column_int
+#define sqlite3_column_int64           sqlite3_api->column_int64
+#define sqlite3_column_name            sqlite3_api->column_name
+#define sqlite3_column_name16          sqlite3_api->column_name16
+#define sqlite3_column_origin_name     sqlite3_api->column_origin_name
+#define sqlite3_column_origin_name16   sqlite3_api->column_origin_name16
+#define sqlite3_column_table_name      sqlite3_api->column_table_name
+#define sqlite3_column_table_name16    sqlite3_api->column_table_name16
+#define sqlite3_column_text            sqlite3_api->column_text
+#define sqlite3_column_text16          sqlite3_api->column_text16
+#define sqlite3_column_type            sqlite3_api->column_type
+#define sqlite3_column_value           sqlite3_api->column_value
+#define sqlite3_commit_hook            sqlite3_api->commit_hook
+#define sqlite3_complete               sqlite3_api->complete
+#define sqlite3_complete16             sqlite3_api->complete16
+#define sqlite3_create_collation       sqlite3_api->create_collation
+#define sqlite3_create_collation16     sqlite3_api->create_collation16
+#define sqlite3_create_function        sqlite3_api->create_function
+#define sqlite3_create_function16      sqlite3_api->create_function16
+#define sqlite3_create_module          sqlite3_api->create_module
+#define sqlite3_create_module_v2       sqlite3_api->create_module_v2
+#define sqlite3_data_count             sqlite3_api->data_count
+#define sqlite3_db_handle              sqlite3_api->db_handle
+#define sqlite3_declare_vtab           sqlite3_api->declare_vtab
+#define sqlite3_enable_shared_cache    sqlite3_api->enable_shared_cache
+#define sqlite3_errcode                sqlite3_api->errcode
+#define sqlite3_errmsg                 sqlite3_api->errmsg
+#define sqlite3_errmsg16               sqlite3_api->errmsg16
+#define sqlite3_exec                   sqlite3_api->exec
+#ifndef SQLITE_OMIT_DEPRECATED
+#define sqlite3_expired                sqlite3_api->expired
+#endif
+#define sqlite3_finalize               sqlite3_api->finalize
+#define sqlite3_free                   sqlite3_api->free
+#define sqlite3_free_table             sqlite3_api->free_table
+#define sqlite3_get_autocommit         sqlite3_api->get_autocommit
+#define sqlite3_get_auxdata            sqlite3_api->get_auxdata
+#define sqlite3_get_table              sqlite3_api->get_table
+#ifndef SQLITE_OMIT_DEPRECATED
+#define sqlite3_global_recover         sqlite3_api->global_recover
+#endif
+#define sqlite3_interrupt              sqlite3_api->interruptx
+#define sqlite3_last_insert_rowid      sqlite3_api->last_insert_rowid
+#define sqlite3_libversion             sqlite3_api->libversion
+#define sqlite3_libversion_number      sqlite3_api->libversion_number
+#define sqlite3_malloc                 sqlite3_api->malloc
+#define sqlite3_mprintf                sqlite3_api->mprintf
+#define sqlite3_open                   sqlite3_api->open
+#define sqlite3_open16                 sqlite3_api->open16
+#define sqlite3_prepare                sqlite3_api->prepare
+#define sqlite3_prepare16              sqlite3_api->prepare16
+#define sqlite3_prepare_v2             sqlite3_api->prepare_v2
+#define sqlite3_prepare16_v2           sqlite3_api->prepare16_v2
+#define sqlite3_profile                sqlite3_api->profile
+#define sqlite3_progress_handler       sqlite3_api->progress_handler
+#define sqlite3_realloc                sqlite3_api->realloc
+#define sqlite3_reset                  sqlite3_api->reset
+#define sqlite3_result_blob            sqlite3_api->result_blob
+#define sqlite3_result_double          sqlite3_api->result_double
+#define sqlite3_result_error           sqlite3_api->result_error
+#define sqlite3_result_error16         sqlite3_api->result_error16
+#define sqlite3_result_int             sqlite3_api->result_int
+#define sqlite3_result_int64           sqlite3_api->result_int64
+#define sqlite3_result_null            sqlite3_api->result_null
+#define sqlite3_result_text            sqlite3_api->result_text
+#define sqlite3_result_text16          sqlite3_api->result_text16
+#define sqlite3_result_text16be        sqlite3_api->result_text16be
+#define sqlite3_result_text16le        sqlite3_api->result_text16le
+#define sqlite3_result_value           sqlite3_api->result_value
+#define sqlite3_rollback_hook          sqlite3_api->rollback_hook
+#define sqlite3_set_authorizer         sqlite3_api->set_authorizer
+#define sqlite3_set_auxdata            sqlite3_api->set_auxdata
+#define sqlite3_snprintf               sqlite3_api->xsnprintf
+#define sqlite3_step                   sqlite3_api->step
+#define sqlite3_table_column_metadata  sqlite3_api->table_column_metadata
+#define sqlite3_thread_cleanup         sqlite3_api->thread_cleanup
+#define sqlite3_total_changes          sqlite3_api->total_changes
+#define sqlite3_trace                  sqlite3_api->trace
+#ifndef SQLITE_OMIT_DEPRECATED
+#define sqlite3_transfer_bindings      sqlite3_api->transfer_bindings
+#endif
+#define sqlite3_update_hook            sqlite3_api->update_hook
+#define sqlite3_user_data              sqlite3_api->user_data
+#define sqlite3_value_blob             sqlite3_api->value_blob
+#define sqlite3_value_bytes            sqlite3_api->value_bytes
+#define sqlite3_value_bytes16          sqlite3_api->value_bytes16
+#define sqlite3_value_double           sqlite3_api->value_double
+#define sqlite3_value_int              sqlite3_api->value_int
+#define sqlite3_value_int64            sqlite3_api->value_int64
+#define sqlite3_value_numeric_type     sqlite3_api->value_numeric_type
+#define sqlite3_value_text             sqlite3_api->value_text
+#define sqlite3_value_text16           sqlite3_api->value_text16
+#define sqlite3_value_text16be         sqlite3_api->value_text16be
+#define sqlite3_value_text16le         sqlite3_api->value_text16le
+#define sqlite3_value_type             sqlite3_api->value_type
+#define sqlite3_vmprintf               sqlite3_api->vmprintf
+#define sqlite3_vsnprintf              sqlite3_api->xvsnprintf
+#define sqlite3_overload_function      sqlite3_api->overload_function
+#define sqlite3_prepare_v2             sqlite3_api->prepare_v2
+#define sqlite3_prepare16_v2           sqlite3_api->prepare16_v2
+#define sqlite3_clear_bindings         sqlite3_api->clear_bindings
+#define sqlite3_bind_zeroblob          sqlite3_api->bind_zeroblob
+#define sqlite3_blob_bytes             sqlite3_api->blob_bytes
+#define sqlite3_blob_close             sqlite3_api->blob_close
+#define sqlite3_blob_open              sqlite3_api->blob_open
+#define sqlite3_blob_read              sqlite3_api->blob_read
+#define sqlite3_blob_write             sqlite3_api->blob_write
+#define sqlite3_create_collation_v2    sqlite3_api->create_collation_v2
+#define sqlite3_file_control           sqlite3_api->file_control
+#define sqlite3_memory_highwater       sqlite3_api->memory_highwater
+#define sqlite3_memory_used            sqlite3_api->memory_used
+#define sqlite3_mutex_alloc            sqlite3_api->mutex_alloc
+#define sqlite3_mutex_enter            sqlite3_api->mutex_enter
+#define sqlite3_mutex_free             sqlite3_api->mutex_free
+#define sqlite3_mutex_leave            sqlite3_api->mutex_leave
+#define sqlite3_mutex_try              sqlite3_api->mutex_try
+#define sqlite3_open_v2                sqlite3_api->open_v2
+#define sqlite3_release_memory         sqlite3_api->release_memory
+#define sqlite3_result_error_nomem     sqlite3_api->result_error_nomem
+#define sqlite3_result_error_toobig    sqlite3_api->result_error_toobig
+#define sqlite3_sleep                  sqlite3_api->sleep
+#define sqlite3_soft_heap_limit        sqlite3_api->soft_heap_limit
+#define sqlite3_vfs_find               sqlite3_api->vfs_find
+#define sqlite3_vfs_register           sqlite3_api->vfs_register
+#define sqlite3_vfs_unregister         sqlite3_api->vfs_unregister
+#define sqlite3_threadsafe             sqlite3_api->xthreadsafe
+#define sqlite3_result_zeroblob        sqlite3_api->result_zeroblob
+#define sqlite3_result_error_code      sqlite3_api->result_error_code
+#define sqlite3_test_control           sqlite3_api->test_control
+#define sqlite3_randomness             sqlite3_api->randomness
+#define sqlite3_context_db_handle      sqlite3_api->context_db_handle
+#define sqlite3_extended_result_codes  sqlite3_api->extended_result_codes
+#define sqlite3_limit                  sqlite3_api->limit
+#define sqlite3_next_stmt              sqlite3_api->next_stmt
+#define sqlite3_sql                    sqlite3_api->sql
+#define sqlite3_status                 sqlite3_api->status
+#define sqlite3_backup_finish          sqlite3_api->backup_finish
+#define sqlite3_backup_init            sqlite3_api->backup_init
+#define sqlite3_backup_pagecount       sqlite3_api->backup_pagecount
+#define sqlite3_backup_remaining       sqlite3_api->backup_remaining
+#define sqlite3_backup_step            sqlite3_api->backup_step
+#define sqlite3_compileoption_get      sqlite3_api->compileoption_get
+#define sqlite3_compileoption_used     sqlite3_api->compileoption_used
+#define sqlite3_create_function_v2     sqlite3_api->create_function_v2
+#define sqlite3_db_config              sqlite3_api->db_config
+#define sqlite3_db_mutex               sqlite3_api->db_mutex
+#define sqlite3_db_status              sqlite3_api->db_status
+#define sqlite3_extended_errcode       sqlite3_api->extended_errcode
+#define sqlite3_log                    sqlite3_api->log
+#define sqlite3_soft_heap_limit64      sqlite3_api->soft_heap_limit64
+#define sqlite3_sourceid               sqlite3_api->sourceid
+#define sqlite3_stmt_status            sqlite3_api->stmt_status
+#define sqlite3_strnicmp               sqlite3_api->strnicmp
+#define sqlite3_unlock_notify          sqlite3_api->unlock_notify
+#define sqlite3_wal_autocheckpoint     sqlite3_api->wal_autocheckpoint
+#define sqlite3_wal_checkpoint         sqlite3_api->wal_checkpoint
+#define sqlite3_wal_hook               sqlite3_api->wal_hook
+#define sqlite3_blob_reopen            sqlite3_api->blob_reopen
+#define sqlite3_vtab_config            sqlite3_api->vtab_config
+#define sqlite3_vtab_on_conflict       sqlite3_api->vtab_on_conflict
+/* Version 3.7.16 and later */
+#define sqlite3_close_v2               sqlite3_api->close_v2
+#define sqlite3_db_filename            sqlite3_api->db_filename
+#define sqlite3_db_readonly            sqlite3_api->db_readonly
+#define sqlite3_db_release_memory      sqlite3_api->db_release_memory
+#define sqlite3_errstr                 sqlite3_api->errstr
+#define sqlite3_stmt_busy              sqlite3_api->stmt_busy
+#define sqlite3_stmt_readonly          sqlite3_api->stmt_readonly
+#define sqlite3_stricmp                sqlite3_api->stricmp
+#define sqlite3_uri_boolean            sqlite3_api->uri_boolean
+#define sqlite3_uri_int64              sqlite3_api->uri_int64
+#define sqlite3_uri_parameter          sqlite3_api->uri_parameter
+#define sqlite3_uri_vsnprintf          sqlite3_api->xvsnprintf
+#define sqlite3_wal_checkpoint_v2      sqlite3_api->wal_checkpoint_v2
+/* Version 3.8.7 and later */
+#define sqlite3_auto_extension         sqlite3_api->auto_extension
+#define sqlite3_bind_blob64            sqlite3_api->bind_blob64
+#define sqlite3_bind_text64            sqlite3_api->bind_text64
+#define sqlite3_cancel_auto_extension  sqlite3_api->cancel_auto_extension
+#define sqlite3_load_extension         sqlite3_api->load_extension
+#define sqlite3_malloc64               sqlite3_api->malloc64
+#define sqlite3_msize                  sqlite3_api->msize
+#define sqlite3_realloc64              sqlite3_api->realloc64
+#define sqlite3_reset_auto_extension   sqlite3_api->reset_auto_extension
+#define sqlite3_result_blob64          sqlite3_api->result_blob64
+#define sqlite3_result_text64          sqlite3_api->result_text64
+#define sqlite3_strglob                sqlite3_api->strglob
+/* Version 3.8.11 and later */
+#define sqlite3_value_dup              sqlite3_api->value_dup
+#define sqlite3_value_free             sqlite3_api->value_free
+#define sqlite3_result_zeroblob64      sqlite3_api->result_zeroblob64
+#define sqlite3_bind_zeroblob64        sqlite3_api->bind_zeroblob64
+/* Version 3.9.0 and later */
+#define sqlite3_value_subtype          sqlite3_api->value_subtype
+#define sqlite3_result_subtype         sqlite3_api->result_subtype
+/* Version 3.10.0 and later */
+#define sqlite3_status64               sqlite3_api->status64
+#define sqlite3_strlike                sqlite3_api->strlike
+#define sqlite3_db_cacheflush          sqlite3_api->db_cacheflush
+/* Version 3.12.0 and later */
+#define sqlite3_system_errno           sqlite3_api->system_errno
+/* Version 3.14.0 and later */
+#define sqlite3_trace_v2               sqlite3_api->trace_v2
+#define sqlite3_expanded_sql           sqlite3_api->expanded_sql
+/* Version 3.18.0 and later */
+#define sqlite3_set_last_insert_rowid  sqlite3_api->set_last_insert_rowid
+/* Version 3.20.0 and later */
+#define sqlite3_prepare_v3             sqlite3_api->prepare_v3
+#define sqlite3_prepare16_v3           sqlite3_api->prepare16_v3
+#define sqlite3_bind_pointer           sqlite3_api->bind_pointer
+#define sqlite3_result_pointer         sqlite3_api->result_pointer
+#define sqlite3_value_pointer          sqlite3_api->value_pointer
+/* Version 3.22.0 and later */
+#define sqlite3_vtab_nochange          sqlite3_api->vtab_nochange
+#define sqlite3_value_nochange         sqlite3_api->value_nochange
+#define sqlite3_vtab_collation         sqlite3_api->vtab_collation
+/* Version 3.24.0 and later */
+#define sqlite3_keyword_count          sqlite3_api->keyword_count
+#define sqlite3_keyword_name           sqlite3_api->keyword_name
+#define sqlite3_keyword_check          sqlite3_api->keyword_check
+#define sqlite3_str_new                sqlite3_api->str_new
+#define sqlite3_str_finish             sqlite3_api->str_finish
+#define sqlite3_str_appendf            sqlite3_api->str_appendf
+#define sqlite3_str_vappendf           sqlite3_api->str_vappendf
+#define sqlite3_str_append             sqlite3_api->str_append
+#define sqlite3_str_appendall          sqlite3_api->str_appendall
+#define sqlite3_str_appendchar         sqlite3_api->str_appendchar
+#define sqlite3_str_reset              sqlite3_api->str_reset
+#define sqlite3_str_errcode            sqlite3_api->str_errcode
+#define sqlite3_str_length             sqlite3_api->str_length
+#define sqlite3_str_value              sqlite3_api->str_value
+/* Version 3.25.0 and later */
+#define sqlite3_create_window_function sqlite3_api->create_window_function
+/* Version 3.26.0 and later */
+#define sqlite3_normalized_sql         sqlite3_api->normalized_sql
+/* Version 3.28.0 and later */
+#define sqlite3_stmt_isexplain         sqlite3_api->stmt_isexplain
+#define sqlite3_value_frombind         sqlite3_api->value_frombind
+/* Version 3.30.0 and later */
+#define sqlite3_drop_modules           sqlite3_api->drop_modules
+/* Version 3.31.0 and later */
+#define sqlite3_hard_heap_limit64      sqlite3_api->hard_heap_limit64
+#define sqlite3_uri_key                sqlite3_api->uri_key
+#define sqlite3_filename_database      sqlite3_api->filename_database
+#define sqlite3_filename_journal       sqlite3_api->filename_journal
+#define sqlite3_filename_wal           sqlite3_api->filename_wal
+/* Version 3.32.0 and later */
+#define sqlite3_create_filename        sqlite3_api->create_filename
+#define sqlite3_free_filename          sqlite3_api->free_filename
+#define sqlite3_database_file_object   sqlite3_api->database_file_object
+/* Version 3.34.0 and later */
+#define sqlite3_txn_state              sqlite3_api->txn_state
+/* Version 3.36.1 and later */
+#define sqlite3_changes64              sqlite3_api->changes64
+#define sqlite3_total_changes64        sqlite3_api->total_changes64
+/* Version 3.37.0 and later */
+#define sqlite3_autovacuum_pages       sqlite3_api->autovacuum_pages
+/* Version 3.38.0 and later */
+#define sqlite3_error_offset           sqlite3_api->error_offset
+#define sqlite3_vtab_rhs_value         sqlite3_api->vtab_rhs_value
+#define sqlite3_vtab_distinct          sqlite3_api->vtab_distinct
+#define sqlite3_vtab_in                sqlite3_api->vtab_in
+#define sqlite3_vtab_in_first          sqlite3_api->vtab_in_first
+#define sqlite3_vtab_in_next           sqlite3_api->vtab_in_next
+/* Version 3.39.0 and later */
+#ifndef SQLITE_OMIT_DESERIALIZE
+#define sqlite3_deserialize            sqlite3_api->deserialize
+#define sqlite3_serialize              sqlite3_api->serialize
+#endif
+#define sqlite3_db_name                sqlite3_api->db_name
+/* Version 3.40.0 and later */
+#define sqlite3_value_encoding         sqlite3_api->value_encoding
+/* Version 3.41.0 and later */
+#define sqlite3_is_interrupted         sqlite3_api->is_interrupted
+/* Version 3.43.0 and later */
+#define sqlite3_stmt_explain           sqlite3_api->stmt_explain
+/* Version 3.44.0 and later */
+#define sqlite3_get_clientdata         sqlite3_api->get_clientdata
+#define sqlite3_set_clientdata         sqlite3_api->set_clientdata
+/* Version 3.50.0 and later */
+#define sqlite3_setlk_timeout          sqlite3_api->setlk_timeout
+/* Version 3.51.0 and later */
+#define sqlite3_set_errmsg             sqlite3_api->set_errmsg
+#define sqlite3_db_status64            sqlite3_api->db_status64
+/* Version 3.52.0 and later */
+#define sqlite3_str_truncate           sqlite3_api->str_truncate
+#define sqlite3_str_free               sqlite3_api->str_free
+#define sqlite3_carray_bind            sqlite3_api->carray_bind
+#define sqlite3_carray_bind_v2         sqlite3_api->carray_bind_v2
+#endif /* !defined(SQLITE_CORE) && !defined(SQLITE_OMIT_LOAD_EXTENSION) */
+
+#if !defined(SQLITE_CORE) && !defined(SQLITE_OMIT_LOAD_EXTENSION)
+  /* This case when the file really is being compiled as a loadable
+  ** extension */
+# define SQLITE_EXTENSION_INIT1     const sqlite3_api_routines *sqlite3_api=0;
+# define SQLITE_EXTENSION_INIT2(v)  sqlite3_api=v;
+# define SQLITE_EXTENSION_INIT3     \
+    extern const sqlite3_api_routines *sqlite3_api;
+#else
+  /* This case when the file is being statically linked into the
+  ** application */
+# define SQLITE_EXTENSION_INIT1     /*no-op*/
+# define SQLITE_EXTENSION_INIT2(v)  (void)v; /* unused parameter */
+# define SQLITE_EXTENSION_INIT3     /*no-op*/
+#endif
+
+#endif /* SQLITE3EXT_H */
+/*** End of #include "sqlite3ext.h" ***/
+
+
+struct sqlite3mc_core_routines {
+  int (*initialize)(void);
+  int (*shutdown)(void);
+  int (*config)(int, ...);
+  int (*enable_load_extension)(sqlite3*, int);
+  int (*memory_alarm)(void(*)(void*, sqlite3_int64, int), void*, sqlite3_int64);
+  int (*mutex_held)(sqlite3_mutex*);
+  int (*mutex_notheld)(sqlite3_mutex*);
+  int (*os_init)(void);
+  int (*os_end)(void);
+  int (*preupdate_blobwrite)(sqlite3*);
+  int (*preupdate_count)(sqlite3*);
+  int (*preupdate_depth)(sqlite3*);
+  void* (*preupdate_hook)(sqlite3*,
+                          void(*xPreUpdate)(void*, sqlite3*, int, char const*, char const*, sqlite3_int64, sqlite3_int64),
+                          void*);
+  int (*preupdate_old)(sqlite3*, int, sqlite3_value**);
+  int (*preupdate_new)(sqlite3*, int, sqlite3_value**);
+
+  int (*snapshot_cmp)(sqlite3_snapshot*, sqlite3_snapshot*);
+  void (*snapshot_free)(sqlite3_snapshot*);
+  int (*snapshot_get)(sqlite3*, const char*, sqlite3_snapshot**);
+  int (*snapshot_open)(sqlite3*, const char*, sqlite3_snapshot*);
+  int (*snapshot_recover)(sqlite3*, const char*);
+
+  int (*stmt_scanstatus)(sqlite3_stmt*, int, int, void*);
+  int (*stmt_scanstatus_v2)(sqlite3_stmt*, int, int, int, void*);
+  void (*stmt_scanstatus_reset)(sqlite3_stmt*);
+
+  int (*win32_set_directory)(unsigned long type, void* zValue);
+  int (*win32_set_directory8)(unsigned long type, const char* zValue);
+  int (*win32_set_directory16)(unsigned long type, const void* zValue);
+};
+
+struct sqlite3mc_api_routines {
+    void (*activate_see)(const char* zPassPhrase);
+    int (*key)(sqlite3* db, const void* pKey, int nKey);
+    int (*key_v2)(sqlite3*, const char* zDbName, const void* pKey, int nKey);
+    int (*rekey)(sqlite3*, const void* pKey, int nKey);
+    int (*rekey_v2)(sqlite3*, const char* zDbName, const void* pKey, int nKey);
+
+    const char* (*mc_version)();
+    int (*mc_cipher_count)();
+    int (*mc_cipher_index)(const char* cipherName);
+    const char* (*mc_cipher_name)(int cipherIndex);
+    int (*mc_cipher_name_copy)(int cipherIndex, char* cipherName, int maxCipherNameSize);
+    int (*mc_config)(sqlite3* db, const char* paramName, int newValue);
+    int (*mc_config_cipher)(sqlite3* db, const char* cipherName, const char* paramName, int newValue);
+    unsigned char* (*mc_codec_data)(sqlite3* db, const char* zDbName, const char* paramName);
+
+    int (*mc_vfs_create)(const char* zVfsReal, int makeDefault);
+    void (*mc_vfs_destroy)(const char* zName);
+    void (*mc_vfs_shutdown)();
+};
+
+typedef struct sqlite3mc_core_routines sqlite3mc_core_routines;
+typedef struct sqlite3mc_api_routines sqlite3mc_api_routines;
+
+#ifndef SQLITE3MC_DISPATCH_API
+#if defined(_WIN32)
+#define SQLITE3MC_DISPATCH_API __declspec(dllexport)
+#else
+#define SQLITE3MC_DISPATCH_API
+#endif
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+SQLITE3MC_DISPATCH_API extern const sqlite3_api_routines*    SQLITE3MC_API_TABLE_EXT;
+SQLITE3MC_DISPATCH_API extern const sqlite3mc_core_routines* SQLITE3MC_API_TABLE_CORE;
+SQLITE3MC_DISPATCH_API extern const sqlite3mc_api_routines*  SQLITE3MC_API_TABLE_MC;
+
+#ifdef __cplusplus
+}  /* End of the 'extern "C"' block */
+#endif
+
+#if !defined(SQLITE_CORE)
+
+/* SQLite core API - not defined in sqlite3ext.h */
+
+#define sqlite3_initialize            SQLITE3MC_API_TABLE_CORE->initialize
+#define sqlite3_shutdown              SQLITE3MC_API_TABLE_CORE->shutdown
+#define sqlite3_config                SQLITE3MC_API_TABLE_CORE->config
+#define sqlite3_enable_load_extension SQLITE3MC_API_TABLE_CORE->enable_load_extension
+#define sqlite3_memory_alarm          SQLITE3MC_API_TABLE_CORE->memory_alarm
+#define sqlite3_mutex_held            SQLITE3MC_API_TABLE_CORE->mutex_held
+#define sqlite3_mutex_notheld         SQLITE3MC_API_TABLE_CORE->mutex_notheld
+#define sqlite3_os_init               SQLITE3MC_API_TABLE_CORE->os_init
+#define sqlite3_os_end                SQLITE3MC_API_TABLE_CORE->os_end
+#define sqlite3_preupdate_blobwrite   SQLITE3MC_API_TABLE_CORE->preupdate_blobwrite
+#define sqlite3_preupdate_count       SQLITE3MC_API_TABLE_CORE->preupdate_count
+#define sqlite3_preupdate_depth       SQLITE3MC_API_TABLE_CORE->preupdate_depth
+#define sqlite3_preupdate_hook        SQLITE3MC_API_TABLE_CORE->preupdate_hook
+#define sqlite3_preupdate_old         SQLITE3MC_API_TABLE_CORE->preupdate_old
+#define sqlite3_preupdate_new         SQLITE3MC_API_TABLE_CORE->preupdate_new
+
+#define sqlite3_snapshot_cmp          SQLITE3MC_API_TABLE_CORE->snapshot_cmp
+#define sqlite3_snapshot_free         SQLITE3MC_API_TABLE_CORE->snapshot_free
+#define sqlite3_snapshot_get          SQLITE3MC_API_TABLE_CORE->snapshot_get
+#define sqlite3_snapshot_open         SQLITE3MC_API_TABLE_CORE->snapshot_open
+#define sqlite3_snapshot_recover      SQLITE3MC_API_TABLE_CORE->snapshot_recover
+
+#define sqlite3_stmt_scanstatus       SQLITE3MC_API_TABLE_CORE->stmt_scanstatus
+#define sqlite3_stmt_scanstatus_v2    SQLITE3MC_API_TABLE_CORE->stmt_scanstatus_v2
+#define sqlite3_stmt_scanstatus_reset SQLITE3MC_API_TABLE_CORE->stmt_scanstatus_reset
+
+#define sqlite3_win32_set_directory   SQLITE3MC_API_TABLE_CORE->win32_set_directory
+#define sqlite3_win32_set_directory8  SQLITE3MC_API_TABLE_CORE->win32_set_directory8
+#define sqlite3_win32_set_directory16 SQLITE3MC_API_TABLE_CORE->win32_set_directory16
+
+/* SQLite3 Multiple Ciphers API */
+
+#define sqlite3_activate_see        SQLITE3MC_API_TABLE_MC->activate_see
+#define sqlite3_key                 SQLITE3MC_API_TABLE_MC->key
+#define sqlite3_key_v2              SQLITE3MC_API_TABLE_MC->key_v2
+#define sqlite3_rekey               SQLITE3MC_API_TABLE_MC->rekey
+#define sqlite3_rekey_v2            SQLITE3MC_API_TABLE_MC->rekey_v2
+
+#define sqlite3mc_version           SQLITE3MC_API_TABLE_MC->mc_version
+#define sqlite3mc_cipher_count      SQLITE3MC_API_TABLE_MC->mc_cipher_count
+#define sqlite3mc_cipher_index      SQLITE3MC_API_TABLE_MC->mc_cipher_index
+#define sqlite3mc_cipher_name       SQLITE3MC_API_TABLE_MC->mc_cipher_name
+#define sqlite3mc_cipher_name_copy  SQLITE3MC_API_TABLE_MC->mc_cipher_name_copy
+#define sqlite3mc_config            SQLITE3MC_API_TABLE_MC->mc_config
+#define sqlite3mc_config_cipher     SQLITE3MC_API_TABLE_MC->mc_config_cipher
+#define sqlite3mc_codec_data        SQLITE3MC_API_TABLE_MC->mc_codec_data
+
+#define sqlite3mc_vfs_create        SQLITE3MC_API_TABLE_MC->mc_vfs_create
+#define sqlite3mc_vfs_destroy       SQLITE3MC_API_TABLE_MC->mc_vfs_destroy
+#define sqlite3mc_vfs_shutdown      SQLITE3MC_API_TABLE_MC->mc_vfs_shutdown
+
+#endif /* !SQLITE_CORE */
+
+#endif /* SQLITE3MC_USE_DISPATCH_TABLE */
+
+#endif /* SQLITE3MC_H_ */
 /*** End of #include "sqlite3mc.h" ***/
 
 
@@ -290472,18 +291415,21 @@ void RijndaelInvalidate(Rijndael* rijndael)
 */
 
 #ifndef AEGIS_API
-#define AEGIS_API
+#define AEGIS_API static
 #endif
 #ifndef AEGIS_PRIVATE
 #define AEGIS_PRIVATE static
+#endif
+#ifndef AEGIS_EXTERN
+#define AEGIS_EXTERN static
 #endif
 
 /* Namespacing to avoid conflicts with libsodium 1.0.21+ */
 
 /* Base Implementation Structs */
 #define aegis128l_implementation             sqlite3mc_aegis128l_implementation
-#define aegis128lx2_implementation           sqlite3mc_aegis128lx2_implementation
-#define aegis128lx4_implementation           sqlite3mc_aegis128lx4_implementation
+#define aegis128x2_implementation            sqlite3mc_aegis128x2_implementation
+#define aegis128x4_implementation            sqlite3mc_aegis128x4_implementation
 #define aegis256_implementation              sqlite3mc_aegis256_implementation
 #define aegis256x2_implementation            sqlite3mc_aegis256x2_implementation
 #define aegis256x4_implementation            sqlite3mc_aegis256x4_implementation
@@ -290753,6 +291699,9 @@ int aegis_runtime_has_altivec(void);
 #endif
 #ifndef AEGIS_PRIVATE
 #define AEGIS_PRIVATE static
+#endif
+#ifndef AEGIS_EXTERN
+#define AEGIS_EXTERN extern
 #endif
 
 /* #include "aegis128l.h" */
@@ -293969,7 +294918,7 @@ softaes_block_encrypt(const SoftAesBlock block, const SoftAesBlock rk)
 }
 #else
 
-uint32_t _aes_lut[256] __attribute__((visibility("hidden"))) = {
+static uint32_t _aes_lut[256] __attribute__((visibility("hidden"))) = {
     0xa56363c6, 0x847c7cf8, 0x997777ee, 0x8d7b7bf6, 0x0df2f2ff, 0xbd6b6bd6, 0xb16f6fde, 0x54c5c591,
     0x50303060, 0x03010102, 0xa96767ce, 0x7d2b2b56, 0x19fefee7, 0x62d7d7b5, 0xe6abab4d, 0x9a7676ec,
     0x45caca8f, 0x9d82821f, 0x40c9c989, 0x877d7dfa, 0x15fafaef, 0xeb5959b2, 0xc947478e, 0x0bf0f0fb,
@@ -294478,7 +295427,7 @@ typedef struct aegis256x4_implementation {
 /* #include "implementations.h" */
 
 
-extern struct aegis128l_implementation aegis128l_soft_implementation;
+AEGIS_EXTERN struct aegis128l_implementation aegis128l_soft_implementation;
 
 #endif /* AEGIS128L_SOFT_H */
 /*** End of #include "aegis128l_soft.h" ***/
@@ -295322,6 +296271,7 @@ AEGIS_state_mac_clone(aegis128l_mac_state *dst, const aegis128l_mac_state *src)
 /*** End of #include "aegis128l_common.h" ***/
 
 
+AEGIS_API
 struct aegis128l_implementation aegis128l_soft_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -295462,7 +296412,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis128x2_implementation aegis128x2_soft_implementation;
+AEGIS_EXTERN struct aegis128x2_implementation aegis128x2_soft_implementation;
 
 #endif /* AEGIS128X2_SOFT_H */
 /*** End of #include "aegis128x2_soft.h" ***/
@@ -296418,6 +297368,7 @@ AEGIS_state_mac_clone(aegis128x2_mac_state *dst, const aegis128x2_mac_state *src
 /*** End of #include "aegis128x2_common.h" ***/
 
 
+AEGIS_API
 struct aegis128x2_implementation aegis128x2_soft_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -296558,7 +297509,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis128x4_implementation aegis128x4_soft_implementation;
+AEGIS_EXTERN struct aegis128x4_implementation aegis128x4_soft_implementation;
 
 #endif /* AEGIS128X4_SOFT_H */
 /*** End of #include "aegis128x4_soft.h" ***/
@@ -297536,6 +298487,7 @@ AEGIS_state_mac_clone(aegis128x4_mac_state *dst, const aegis128x4_mac_state *src
 /*** End of #include "aegis128x4_common.h" ***/
 
 
+AEGIS_API
 struct aegis128x4_implementation aegis128x4_soft_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -297676,7 +298628,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis256_implementation aegis256_soft_implementation;
+AEGIS_EXTERN struct aegis256_implementation aegis256_soft_implementation;
 
 #endif /* AEGIS256_SOFT_H */
 /*** End of #include "aegis256_soft.h" ***/
@@ -298501,6 +299453,7 @@ AEGIS_state_mac_clone(aegis256_mac_state *dst, const aegis256_mac_state *src)
 /*** End of #include "aegis256_common.h" ***/
 
 
+AEGIS_API
 struct aegis256_implementation aegis256_soft_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -298641,7 +299594,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis256x2_implementation aegis256x2_soft_implementation;
+AEGIS_EXTERN struct aegis256x2_implementation aegis256x2_soft_implementation;
 
 #endif /* AEGIS256X2_SOFT_H */
 /*** End of #include "aegis256x2_soft.h" ***/
@@ -299587,6 +300540,7 @@ AEGIS_state_mac_clone(aegis256x2_mac_state *dst, const aegis256x2_mac_state *src
 /*** End of #include "aegis256x2_common.h" ***/
 
 
+AEGIS_API
 struct aegis256x2_implementation aegis256x2_soft_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -299727,7 +300681,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis256x4_implementation aegis256x4_soft_implementation;
+AEGIS_EXTERN struct aegis256x4_implementation aegis256x4_soft_implementation;
 
 #endif /* AEGIS256X4_SOFT_H */
 /*** End of #include "aegis256x4_soft.h" ***/
@@ -300701,6 +301655,7 @@ AEGIS_state_mac_clone(aegis256x4_mac_state *dst, const aegis256x4_mac_state *src
 /*** End of #include "aegis256x4_common.h" ***/
 
 
+AEGIS_API
 struct aegis256x4_implementation aegis256x4_soft_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -300844,7 +301799,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis128l_implementation aegis128l_aesni_implementation;
+AEGIS_EXTERN struct aegis128l_implementation aegis128l_aesni_implementation;
 
 #endif /* AEGIS128L_AESNI_H */
 /*** End of #include "aegis128l_aesni.h" ***/
@@ -301697,6 +302652,7 @@ AEGIS_state_mac_clone(aegis128l_mac_state *dst, const aegis128l_mac_state *src)
 /*** End of #include "aegis128l_common.h" ***/
 
 
+AEGIS_API
 struct aegis128l_implementation aegis128l_aesni_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -301845,7 +302801,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis128x2_implementation aegis128x2_aesni_implementation;
+AEGIS_EXTERN struct aegis128x2_implementation aegis128x2_aesni_implementation;
 
 #endif /* AEGIS128X2_AESNI_H */
 /*** End of #include "aegis128x2_aesni.h" ***/
@@ -302812,6 +303768,7 @@ AEGIS_state_mac_clone(aegis128x2_mac_state *dst, const aegis128x2_mac_state *src
 /*** End of #include "aegis128x2_common.h" ***/
 
 
+AEGIS_API
 struct aegis128x2_implementation aegis128x2_aesni_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -302960,7 +303917,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis128x4_implementation aegis128x4_aesni_implementation;
+AEGIS_EXTERN struct aegis128x4_implementation aegis128x4_aesni_implementation;
 
 #endif /* AEGIS128X4_AESNI_H */
 /*** End of #include "aegis128x4_aesni.h" ***/
@@ -303950,6 +304907,7 @@ AEGIS_state_mac_clone(aegis128x4_mac_state *dst, const aegis128x4_mac_state *src
 /*** End of #include "aegis128x4_common.h" ***/
 
 
+AEGIS_API
 struct aegis128x4_implementation aegis128x4_aesni_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -304098,7 +305056,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis256_implementation aegis256_aesni_implementation;
+AEGIS_EXTERN struct aegis256_implementation aegis256_aesni_implementation;
 
 #endif /* AEGIS256_AESNI_H */
 /*** End of #include "aegis256_aesni.h" ***/
@@ -304933,6 +305891,7 @@ AEGIS_state_mac_clone(aegis256_mac_state *dst, const aegis256_mac_state *src)
 /*** End of #include "aegis256_common.h" ***/
 
 
+AEGIS_API
 struct aegis256_implementation aegis256_aesni_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -305081,7 +306040,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis256x2_implementation aegis256x2_aesni_implementation;
+AEGIS_EXTERN struct aegis256x2_implementation aegis256x2_aesni_implementation;
 
 #endif /* AEGIS256X2_AESNI_H */
 /*** End of #include "aegis256x2_aesni.h" ***/
@@ -306038,6 +306997,7 @@ AEGIS_state_mac_clone(aegis256x2_mac_state *dst, const aegis256x2_mac_state *src
 /*** End of #include "aegis256x2_common.h" ***/
 
 
+AEGIS_API
 struct aegis256x2_implementation aegis256x2_aesni_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -306186,7 +307146,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis256x4_implementation aegis256x4_aesni_implementation;
+AEGIS_EXTERN struct aegis256x4_implementation aegis256x4_aesni_implementation;
 
 #endif /* AEGIS256X4_AESNI_H */
 /*** End of #include "aegis256x4_aesni.h" ***/
@@ -307171,6 +308131,7 @@ AEGIS_state_mac_clone(aegis256x4_mac_state *dst, const aegis256x4_mac_state *src
 /*** End of #include "aegis256x4_common.h" ***/
 
 
+AEGIS_API
 struct aegis256x4_implementation aegis256x4_aesni_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -307322,7 +308283,7 @@ AEGIS_API_IMPL_LIST_MAC
 
 
 #ifdef HAVE_VAESINTRIN_H
-extern struct aegis128x2_implementation aegis128x2_avx2_implementation;
+AEGIS_EXTERN struct aegis128x2_implementation aegis128x2_avx2_implementation;
 #endif
 
 #endif /* AEGIS128X2_AVX2_H */
@@ -308285,6 +309246,7 @@ AEGIS_state_mac_clone(aegis128x2_mac_state *dst, const aegis128x2_mac_state *src
 /*** End of #include "aegis128x2_common.h" ***/
 
 
+AEGIS_API
 struct aegis128x2_implementation aegis128x2_avx2_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -308436,7 +309398,7 @@ AEGIS_API_IMPL_LIST_MAC
 
 
 #ifdef HAVE_VAESINTRIN_H
-extern struct aegis128x4_implementation aegis128x4_avx2_implementation;
+AEGIS_EXTERN struct aegis128x4_implementation aegis128x4_avx2_implementation;
 #endif
 
 #endif /* AEGIS128X4_AVX2_H */
@@ -309419,6 +310381,7 @@ AEGIS_state_mac_clone(aegis128x4_mac_state *dst, const aegis128x4_mac_state *src
 /*** End of #include "aegis128x4_common.h" ***/
 
 
+AEGIS_API
 struct aegis128x4_implementation aegis128x4_avx2_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -309570,7 +310533,7 @@ AEGIS_API_IMPL_LIST_MAC
 
 
 #ifdef HAVE_VAESINTRIN_H
-extern struct aegis256x2_implementation aegis256x2_avx2_implementation;
+AEGIS_EXTERN struct aegis256x2_implementation aegis256x2_avx2_implementation;
 #endif
 
 #endif /* AEGIS256X2_AVX2_H */
@@ -310523,6 +311486,7 @@ AEGIS_state_mac_clone(aegis256x2_mac_state *dst, const aegis256x2_mac_state *src
 /*** End of #include "aegis256x2_common.h" ***/
 
 
+AEGIS_API
 struct aegis256x2_implementation aegis256x2_avx2_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -310674,7 +311638,7 @@ AEGIS_API_IMPL_LIST_MAC
 
 
 #ifdef HAVE_VAESINTRIN_H
-extern struct aegis256x4_implementation aegis256x4_avx2_implementation;
+AEGIS_EXTERN struct aegis256x4_implementation aegis256x4_avx2_implementation;
 #endif
 
 #endif /* AEGIS256X4_AVX2_H */
@@ -311652,6 +312616,7 @@ AEGIS_state_mac_clone(aegis256x4_mac_state *dst, const aegis256x4_mac_state *src
 /*** End of #include "aegis256x4_common.h" ***/
 
 
+AEGIS_API
 struct aegis256x4_implementation aegis256x4_avx2_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -311805,7 +312770,7 @@ AEGIS_API_IMPL_LIST_MAC
 
 
 #ifdef HAVE_VAESINTRIN_H
-extern struct aegis128x4_implementation aegis128x4_avx512_implementation;
+AEGIS_EXTERN struct aegis128x4_implementation aegis128x4_avx512_implementation;
 #endif
 
 #endif /* AEGIS128X4_AVX512_H */
@@ -312799,6 +313764,7 @@ AEGIS_state_mac_clone(aegis128x4_mac_state *dst, const aegis128x4_mac_state *src
 /*** End of #include "aegis128x4_common.h" ***/
 
 
+AEGIS_API
 struct aegis128x4_implementation aegis128x4_avx512_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -312950,7 +313916,7 @@ AEGIS_API_IMPL_LIST_MAC
 
 
 #ifdef HAVE_VAESINTRIN_H
-extern struct aegis256x4_implementation aegis256x4_avx512_implementation;
+AEGIS_EXTERN struct aegis256x4_implementation aegis256x4_avx512_implementation;
 #endif
 
 #endif /* AEGIS256X4_AVX512_H */
@@ -313939,6 +314905,7 @@ AEGIS_state_mac_clone(aegis256x4_mac_state *dst, const aegis256x4_mac_state *src
 /*** End of #include "aegis256x4_common.h" ***/
 
 
+AEGIS_API
 struct aegis256x4_implementation aegis256x4_avx512_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -314091,7 +315058,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis128l_implementation aegis128l_altivec_implementation;
+AEGIS_EXTERN struct aegis128l_implementation aegis128l_altivec_implementation;
 
 #endif /* AEGIS128L_ALTIVEC_H */
 /*** End of #include "aegis128l_altivec.h" ***/
@@ -314940,6 +315907,7 @@ AEGIS_state_mac_clone(aegis128l_mac_state *dst, const aegis128l_mac_state *src)
 /*** End of #include "aegis128l_common.h" ***/
 
 
+AEGIS_API
 struct aegis128l_implementation aegis128l_altivec_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -315088,7 +316056,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis128x2_implementation aegis128x2_altivec_implementation;
+AEGIS_EXTERN struct aegis128x2_implementation aegis128x2_altivec_implementation;
 
 #endif /* AEGIS128X2_ALTIVEC_H */
 /*** End of #include "aegis128x2_altivec.h" ***/
@@ -316050,6 +317018,7 @@ AEGIS_state_mac_clone(aegis128x2_mac_state *dst, const aegis128x2_mac_state *src
 /*** End of #include "aegis128x2_common.h" ***/
 
 
+AEGIS_API
 struct aegis128x2_implementation aegis128x2_altivec_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -316198,7 +317167,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis128x4_implementation aegis128x4_altivec_implementation;
+AEGIS_EXTERN struct aegis128x4_implementation aegis128x4_altivec_implementation;
 
 #endif /* AEGIS128X4_ALTIVEC_H */
 /*** End of #include "aegis128x4_altivec.h" ***/
@@ -317182,6 +318151,7 @@ AEGIS_state_mac_clone(aegis128x4_mac_state *dst, const aegis128x4_mac_state *src
 /*** End of #include "aegis128x4_common.h" ***/
 
 
+AEGIS_API
 struct aegis128x4_implementation aegis128x4_altivec_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -317330,7 +318300,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis256_implementation aegis256_altivec_implementation;
+AEGIS_EXTERN struct aegis256_implementation aegis256_altivec_implementation;
 
 #endif /* AEGIS256_ALTIVEC_H */
 /*** End of #include "aegis256_altivec.h" ***/
@@ -318163,6 +319133,7 @@ AEGIS_state_mac_clone(aegis256_mac_state *dst, const aegis256_mac_state *src)
 /*** End of #include "aegis256_common.h" ***/
 
 
+AEGIS_API
 struct aegis256_implementation aegis256_altivec_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -318311,7 +319282,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis256x2_implementation aegis256x2_altivec_implementation;
+AEGIS_EXTERN struct aegis256x2_implementation aegis256x2_altivec_implementation;
 
 #endif /* AEGIS256X2_ALTIVEC_H */
 /*** End of #include "aegis256x2_altivec.h" ***/
@@ -319267,6 +320238,7 @@ AEGIS_state_mac_clone(aegis256x2_mac_state *dst, const aegis256x2_mac_state *src
 /*** End of #include "aegis256x2_common.h" ***/
 
 
+AEGIS_API
 struct aegis256x2_implementation aegis256x2_altivec_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -319415,7 +320387,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis256x4_implementation aegis256x4_altivec_implementation;
+AEGIS_EXTERN struct aegis256x4_implementation aegis256x4_altivec_implementation;
 
 #endif /* AEGIS256X4_ALTIVEC_H */
 /*** End of #include "aegis256x4_altivec.h" ***/
@@ -320397,6 +321369,7 @@ AEGIS_state_mac_clone(aegis256x4_mac_state *dst, const aegis256x4_mac_state *src
 /*** End of #include "aegis256x4_common.h" ***/
 
 
+AEGIS_API
 struct aegis256x4_implementation aegis256x4_altivec_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -320546,7 +321519,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis128l_implementation aegis128l_armcrypto_implementation;
+AEGIS_EXTERN struct aegis128l_implementation aegis128l_armcrypto_implementation;
 
 #endif /* AEGIS128L_ARMCRYPTO_H */
 /*** End of #include "aegis128l_armcrypto.h" ***/
@@ -321407,6 +322380,7 @@ AEGIS_state_mac_clone(aegis128l_mac_state *dst, const aegis128l_mac_state *src)
 /*** End of #include "aegis128l_common.h" ***/
 
 
+AEGIS_API
 struct aegis128l_implementation aegis128l_armcrypto_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -321553,7 +322527,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis128x2_implementation aegis128x2_armcrypto_implementation;
+AEGIS_EXTERN struct aegis128x2_implementation aegis128x2_armcrypto_implementation;
 
 #endif /* AEGIS128X2_ARMCRYPTO_H */
 /*** End of #include "aegis128x2_armcrypto.h" ***/
@@ -322527,6 +323501,7 @@ AEGIS_state_mac_clone(aegis128x2_mac_state *dst, const aegis128x2_mac_state *src
 /*** End of #include "aegis128x2_common.h" ***/
 
 
+AEGIS_API
 struct aegis128x2_implementation aegis128x2_armcrypto_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -322673,7 +323648,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis128x4_implementation aegis128x4_armcrypto_implementation;
+AEGIS_EXTERN struct aegis128x4_implementation aegis128x4_armcrypto_implementation;
 
 #endif /* AEGIS128X4_ARMCRYPTO_H */
 /*** End of #include "aegis128x4_armcrypto.h" ***/
@@ -323669,6 +324644,7 @@ AEGIS_state_mac_clone(aegis128x4_mac_state *dst, const aegis128x4_mac_state *src
 /*** End of #include "aegis128x4_common.h" ***/
 
 
+AEGIS_API
 struct aegis128x4_implementation aegis128x4_armcrypto_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -323815,7 +324791,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis256_implementation aegis256_armcrypto_implementation;
+AEGIS_EXTERN struct aegis256_implementation aegis256_armcrypto_implementation;
 
 #endif /* AEGIS256_ARMCRYPTO_H */
 /*** End of #include "aegis256_armcrypto.h" ***/
@@ -324660,6 +325636,7 @@ AEGIS_state_mac_clone(aegis256_mac_state *dst, const aegis256_mac_state *src)
 /*** End of #include "aegis256_common.h" ***/
 
 
+AEGIS_API
 struct aegis256_implementation aegis256_armcrypto_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -324806,7 +325783,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis256x2_implementation aegis256x2_armcrypto_implementation;
+AEGIS_EXTERN struct aegis256x2_implementation aegis256x2_armcrypto_implementation;
 
 #endif /* AEGIS256X2_ARMCRYPTO_H */
 /*** End of #include "aegis256x2_armcrypto.h" ***/
@@ -325773,6 +326750,7 @@ AEGIS_state_mac_clone(aegis256x2_mac_state *dst, const aegis256x2_mac_state *src
 /*** End of #include "aegis256x2_common.h" ***/
 
 
+AEGIS_API
 struct aegis256x2_implementation aegis256x2_armcrypto_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -325919,7 +326897,7 @@ AEGIS_API_IMPL_LIST_MAC
 /* #include "implementations.h" */
 
 
-extern struct aegis256x4_implementation aegis256x4_armcrypto_implementation;
+AEGIS_EXTERN struct aegis256x4_implementation aegis256x4_armcrypto_implementation;
 
 #endif /* AEGIS256X4_ARMCRYPTO_H */
 /*** End of #include "aegis256x4_armcrypto.h" ***/
@@ -326913,6 +327891,7 @@ AEGIS_state_mac_clone(aegis256x4_mac_state *dst, const aegis256x4_mac_state *src
 /*** End of #include "aegis256x4_common.h" ***/
 
 
+AEGIS_API
 struct aegis256x4_implementation aegis256x4_armcrypto_implementation = {
 /* #include "../common/func_table.h" */
 /*** Begin of #include "../common/func_table.h" ***/
@@ -328922,6 +329901,10 @@ aegis256x4_pick_best_implementation(void)
 #define ARGON2_API static
 #endif
 
+#ifndef ARGON2_EXTERN
+#define ARGON2_EXTERN static
+#endif
+
 #ifndef ARGON2_PRIVATE
 #define ARGON2_PRIVATE static
 #endif
@@ -329032,6 +330015,9 @@ extern "C" {
 #define ARGON2_LOCAL
 #endif
 #endif
+#ifndef ARGON2_EXTERN
+#define ARGON2_EXTERN extern
+#endif
 
 /*
  * Argon2 input parameter restrictions
@@ -329089,7 +330075,7 @@ extern "C" {
 
 /* Global flag to determine if we are wiping internal memory buffers. This flag
  * is defined in core.c and defaults to 1 (wipe internal memory). */
-extern int FLAG_clear_internal_memory;
+ARGON2_EXTERN int FLAG_clear_internal_memory;
 
 /* Error codes */
 typedef enum Argon2_ErrorCodes {
@@ -331098,6 +332084,7 @@ void NOT_OPTIMIZED _argon2_secure_wipe_memory(void *v, size_t n) {
 }
 
 /* Memory clear flag defaults to true. */
+ARGON2_PUBLIC
 int FLAG_clear_internal_memory = 1;
 
 ARGON2_PRIVATE
@@ -334689,6 +335676,11 @@ SQLITE_PRIVATE const CipherDescriptor mcRC4Descriptor =
 
 #define ASCON128_KDF_ITER_DEFAULT 64007
 
+/* Make ASCON code static unless told otherwise */
+#ifndef ASCON_API
+#define ASCON_API static
+#endif
+
 /* #include "ascon/prolog.h" */
 /*** Begin of #include "ascon/prolog.h" ***/
 /*
@@ -334713,6 +335705,43 @@ SQLITE_PRIVATE const CipherDescriptor mcRC4Descriptor =
 
 #include <stdint.h>
 #include <string.h>
+
+/* #include "api.h" */
+/*** Begin of #include "api.h" ***/
+/*
+** Name:        api.h
+** Purpose:     Definition of preprocessor symbols
+** Based on:    Public domain Ascon reference implementation
+**              and optimized variants for 32- and 64-bit
+**              (see https://github.com/ascon/ascon-c)
+** Remarks:     API functions adapted for use in SQLite3 Multiple Ciphers
+**              Combined symbols from AEAD and HASH
+** Modified by: Ulrich Telle
+** Copyright:   (c) 2023-2026 Ulrich Telle
+** License:     MIT
+*/
+
+#define CRYPTO_VERSION "1.2.7"
+#define CRYPTO_KEYBYTES 16
+#define CRYPTO_NSECBYTES 0
+#define CRYPTO_NPUBBYTES 16
+#define CRYPTO_ABYTES 16
+#define CRYPTO_NOOVERLAP 1
+#define ASCON_AEAD_RATE 8
+
+#define CRYPTO_BYTES 32
+#define ASCON_HASH_BYTES 32 /* HASH */
+#define ASCON_HASH_ROUNDS 12
+
+#define ASCON_AEAD_KEY_LEN CRYPTO_KEYBYTES
+#define ASCON_AEAD_NONCE_LEN CRYPTO_NPUBBYTES
+#define ASCON_AEAD_TAG_LEN CRYPTO_ABYTES
+#define ASCON_SALT_LEN CRYPTO_NPUBBYTES
+
+#ifndef ASCON_API
+#define ASCON_API
+#endif
+/*** End of #include "api.h" ***/
 
 /* #include "bendian.h" */
 /*** Begin of #include "bendian.h" ***/
@@ -334796,12 +335825,15 @@ typedef union {
 #define ASCON_LOAD(b, n) ASCON_LOADBYTES(b, n)
 #define ASCON_STORE(b, w, n) ASCON_STOREBYTES(b, w, n)
 
+ASCON_API
 forceinline uint64_t ASCON_ROR(uint64_t x, int n) { return x >> n | x << (-n & 63); }
 
+ASCON_API
 forceinline uint64_t ASCON_KEYROT(uint64_t lo2hi, uint64_t hi2lo) {
   return lo2hi << 32 | hi2lo >> 32;
 }
 
+ASCON_API
 forceinline int ASCON_NOTZERO(uint64_t a, uint64_t b) {
   uint64_t result = a | b;
   result |= result >> 32;
@@ -334810,29 +335842,36 @@ forceinline int ASCON_NOTZERO(uint64_t a, uint64_t b) {
   return ((((int)(result & 0xff) - 1) >> 8) & 1) - 1;
 }
 
+ASCON_API
 forceinline uint64_t ASCON_PAD(int i) { return 0x80ull << (56 - 8 * i); }
 
+ASCON_API
 forceinline uint64_t ASCON_DSEP() { return 0x01; }
 
+ASCON_API
 forceinline uint64_t ASCON_PRFS_MLEN(uint64_t len) { return len << 51; }
 
+ASCON_API
 forceinline uint64_t ASCON_CLEAR(uint64_t w, int n) {
   /* undefined for n == 0 */
   uint64_t mask = ~0ull >> (8 * n);
   return w & mask;
 }
 
+ASCON_API
 forceinline uint64_t ASCON_MASK(int n) {
   /* undefined for n == 0 */
   return ~0ull >> (64 - 8 * n);
 }
 
+ASCON_API
 forceinline uint64_t ASCON_LOADBYTES(const uint8_t* bytes, int n) {
   uint64_t x = 0;
   memcpy(&x, bytes, n);
   return ASCON_U64TOWORD(x);
 }
 
+ASCON_API
 forceinline void ASCON_STOREBYTES(uint8_t* bytes, uint64_t w, int n) {
   uint64_t x = ASCON_WORDTOU64(w);
   memcpy(bytes, &x, n);
@@ -334860,37 +335899,6 @@ forceinline void ASCON_STOREBYTES(uint8_t* bytes, uint64_t w, int n) {
 */
 
 /* #include "api.h" */
-/*** Begin of #include "api.h" ***/
-/*
-** Name:        api.h
-** Purpose:     Definition of preprocessor symbols
-** Based on:    Public domain Ascon reference implementation
-**              and optimized variants for 32- and 64-bit
-**              (see https://github.com/ascon/ascon-c)
-** Remarks:     API functions adapted for use in SQLite3 Multiple Ciphers
-**              Combined symbols from AEAD and HASH
-** Modified by: Ulrich Telle
-** Copyright:   (c) 2023-2023 Ulrich Telle
-** License:     MIT
-*/
-
-#define CRYPTO_VERSION "1.2.7"
-#define CRYPTO_KEYBYTES 16
-#define CRYPTO_NSECBYTES 0
-#define CRYPTO_NPUBBYTES 16
-#define CRYPTO_ABYTES 16
-#define CRYPTO_NOOVERLAP 1
-#define ASCON_AEAD_RATE 8
-
-#define CRYPTO_BYTES 32
-#define ASCON_HASH_BYTES 32 /* HASH */
-#define ASCON_HASH_ROUNDS 12
-
-#define ASCON_AEAD_KEY_LEN CRYPTO_KEYBYTES
-#define ASCON_AEAD_NONCE_LEN CRYPTO_NPUBBYTES
-#define ASCON_AEAD_TAG_LEN CRYPTO_ABYTES
-#define ASCON_SALT_LEN CRYPTO_NPUBBYTES
-/*** End of #include "api.h" ***/
 
 /* #include "ascon.h" */
 /*** Begin of #include "ascon.h" ***/
@@ -334943,14 +335951,20 @@ typedef union {
 
 #if !ASCON_INLINE_MODE
 
+ASCON_API
 void ascon_loadkey(ascon_key_t* key, const uint8_t* k);
+ASCON_API
 void ascon_initaead(ascon_state_t* s, const ascon_key_t* key,
                     const uint8_t* npub);
+ASCON_API
 void ascon_adata(ascon_state_t* s, const uint8_t* ad, uint64_t adlen);
+ASCON_API
 void ascon_encrypt(ascon_state_t* s, uint8_t* c, const uint8_t* m,
                    uint64_t mlen);
+ASCON_API
 void ascon_decrypt(ascon_state_t* s, uint8_t* m, const uint8_t* c,
                    uint64_t clen);
+ASCON_API
 void ascon_final(ascon_state_t* s, const ascon_key_t* k);
 
 #endif
@@ -334961,8 +335975,11 @@ void ascon_final(ascon_state_t* s, const ascon_key_t* k);
 
 #if !ASCON_INLINE_MODE
 
+ASCON_API
 void ascon_inithash(ascon_state_t* s);
+ASCON_API
 void ascon_absorb(ascon_state_t* s, const uint8_t* in, uint64_t inlen);
+ASCON_API
 void ascon_squeeze(ascon_state_t* s, uint8_t* out, uint64_t outlen);
 
 #endif
@@ -335155,7 +336172,9 @@ int ascon_aead_decrypt(uint8_t* mtext, const uint8_t* ctext, uint64_t clen,
 /* #include "word.h" */
 
 
+ASCON_API
 void ascon_printword(const char* text, const uint64_t x);
+ASCON_API
 void ascon_printstate(const char* text, const ascon_state_t* s);
 
 #else
@@ -335211,6 +336230,7 @@ void ascon_printstate(const char* text, const ascon_state_t* s);
 /* #include "word.h" */
 
 
+ASCON_API
 forceinline void ASCON_ROUND(ascon_state_t* s, uint8_t C) {
   ascon_state_t t;
   /* round constant */
@@ -335242,6 +336262,7 @@ forceinline void ASCON_ROUND(ascon_state_t* s, uint8_t C) {
   ascon_printstate(" round output", s);
 }
 
+ASCON_API
 forceinline void ASCON_PROUNDS(ascon_state_t* s, int nr) {
   int i = ASCON_START(nr);
   do {
@@ -335271,6 +336292,7 @@ forceinline void ASCON_PROUNDS(ascon_state_t* s, int nr) {
 /* #include "word.h" */
 
 
+ASCON_API
 forceinline void ASCON_ROUND(ascon_state_t* s, uint8_t C) {
   uint64_t xtemp;
   /* round constant */
@@ -335303,6 +336325,7 @@ forceinline void ASCON_ROUND(ascon_state_t* s, uint8_t C) {
   ascon_printstate(" round output", s);
 }
 
+ASCON_API
 forceinline void ASCON_PROUNDS(ascon_state_t* s, int nr) {
   int i = ASCON_START(nr);
   do {
@@ -335320,6 +336343,7 @@ forceinline void ASCON_PROUNDS(ascon_state_t* s, int nr) {
 /*** End of #include "round.h" ***/
 
 
+ASCON_API
 forceinline void ASCON_P12ROUNDS(ascon_state_t* s) {
   ASCON_ROUND(s, ASCON_RC0);
   ASCON_ROUND(s, ASCON_RC1);
@@ -335335,6 +336359,7 @@ forceinline void ASCON_P12ROUNDS(ascon_state_t* s) {
   ASCON_ROUND(s, ASCON_RCb);
 }
 
+ASCON_API
 forceinline void ASCON_P8ROUNDS(ascon_state_t* s) {
   ASCON_ROUND(s, ASCON_RC4);
   ASCON_ROUND(s, ASCON_RC5);
@@ -335346,6 +336371,7 @@ forceinline void ASCON_P8ROUNDS(ascon_state_t* s) {
   ASCON_ROUND(s, ASCON_RCb);
 }
 
+ASCON_API
 forceinline void ASCON_P6ROUNDS(ascon_state_t* s) {
   ASCON_ROUND(s, ASCON_RC6);
   ASCON_ROUND(s, ASCON_RC7);
@@ -335357,6 +336383,7 @@ forceinline void ASCON_P6ROUNDS(ascon_state_t* s) {
 
 #if ASCON_INLINE_PERM && ASCON_UNROLL_LOOPS
 
+ASCON_API
 forceinline void ASCON_P(ascon_state_t* s, int nr) {
   if (nr == 12) ASCON_P12ROUNDS(s);
   if (nr == 8) ASCON_P8ROUNDS(s);
@@ -335365,10 +336392,14 @@ forceinline void ASCON_P(ascon_state_t* s, int nr) {
 
 #elif !ASCON_INLINE_PERM && ASCON_UNROLL_LOOPS
 
+ASCON_API
 void ASCON_P12(ascon_state_t* s);
+ASCON_API
 void ASCON_P8(ascon_state_t* s);
+ASCON_API
 void ASCON_P6(ascon_state_t* s);
 
+ASCON_API
 forceinline void ASCON_P(ascon_state_t* s, int nr) {
   if (nr == 12) ASCON_P12(s);
   if (nr == 8) ASCON_P8(s);
@@ -335377,10 +336408,12 @@ forceinline void ASCON_P(ascon_state_t* s, int nr) {
 
 #elif ASCON_INLINE_PERM && !ASCON_UNROLL_LOOPS
 
+ASCON_API
 forceinline void ASCON_P(ascon_state_t* s, int nr) { ASCON_PROUNDS(s, nr); }
 
 #else /* !ASCON_INLINE_PERM && !ASCON_UNROLL_LOOPS */
 
+ASCON_API
 void ASCON_P(ascon_state_t* s, int nr);
 
 #endif
@@ -335398,6 +336431,7 @@ void ASCON_P(ascon_state_t* s, int nr);
 
 #ifdef ASCON_AEAD_RATE
 
+ASCON_API
 forceinline void ascon_loadkey(ascon_key_t* key, const uint8_t* k) {
 #if CRYPTO_KEYBYTES == 16
   key->x[0] = ASCON_LOAD(k, 8);
@@ -335409,6 +336443,7 @@ forceinline void ascon_loadkey(ascon_key_t* key, const uint8_t* k) {
 #endif
 }
 
+ASCON_API
 forceinline void ascon_initaead(ascon_state_t* s, const ascon_key_t* key,
                                 const uint8_t* npub) {
 #if CRYPTO_KEYBYTES == 16
@@ -335436,6 +336471,7 @@ forceinline void ascon_initaead(ascon_state_t* s, const ascon_key_t* key,
   ascon_printstate("init 2nd key xor", s);
 }
 
+ASCON_API
 forceinline void ascon_adata(ascon_state_t* s, const uint8_t* ad,
                              uint64_t adlen) {
   const int nr = (ASCON_AEAD_RATE == 8) ? 6 : 8;
@@ -335467,6 +336503,7 @@ forceinline void ascon_adata(ascon_state_t* s, const uint8_t* ad,
   ascon_printstate("domain separation", s);
 }
 
+ASCON_API
 forceinline void ascon_encrypt(ascon_state_t* s, uint8_t* c, const uint8_t* m,
                                uint64_t mlen) {
   const int nr = (ASCON_AEAD_RATE == 8) ? 6 : 8;
@@ -335502,6 +336539,7 @@ forceinline void ascon_encrypt(ascon_state_t* s, uint8_t* c, const uint8_t* m,
   ascon_printstate("pad plaintext", s);
 }
 
+ASCON_API
 forceinline void ascon_decrypt(ascon_state_t* s, uint8_t* m, const uint8_t* c,
                                uint64_t clen) {
   const int nr = (ASCON_AEAD_RATE == 8) ? 6 : 8;
@@ -335546,6 +336584,7 @@ forceinline void ascon_decrypt(ascon_state_t* s, uint8_t* m, const uint8_t* c,
   ascon_printstate("pad ciphertext", s);
 }
 
+ASCON_API
 forceinline void ascon_final(ascon_state_t* s, const ascon_key_t* key) {
 #if CRYPTO_KEYBYTES == 16
   if (ASCON_AEAD_RATE == 8) {
@@ -335691,6 +336730,7 @@ int ascon_hash(uint8_t* out, const uint8_t* in, uint64_t inlen);
 
 #ifdef ASCON_HASH_BYTES
 
+ASCON_API
 forceinline void ascon_inithash(ascon_state_t* s) {
   int i;
   /* initialize */
@@ -335725,6 +336765,7 @@ forceinline void ascon_inithash(ascon_state_t* s) {
   ascon_printstate("initialization", s);
 }
 
+ASCON_API
 forceinline void ascon_absorb(ascon_state_t* s, const uint8_t* in,
                               uint64_t inlen) {
   /* absorb full plaintext blocks */
@@ -335741,6 +336782,7 @@ forceinline void ascon_absorb(ascon_state_t* s, const uint8_t* in,
   ascon_printstate("pad plaintext", s);
 }
 
+ASCON_API
 forceinline void ascon_squeeze(ascon_state_t* s, uint8_t* out,
                                uint64_t outlen) {
   /* squeeze full output blocks */
@@ -340023,6 +341065,7 @@ SQLITE_PRIVATE void sqlite3mcInitMemoryMethods()
 */
 #ifdef SQLITE_ENABLE_EXTFUNC
 /* Prototype for initialization function of EXTENSIONFUNCTIONS extension */
+SQLITE_API
 int RegisterExtensionFunctions(sqlite3* db);
 /* #include "extensionfunctions.c" */
 /*** Begin of #include "extensionfunctions.c" ***/
@@ -340157,748 +341200,6 @@ Original code 2006 June 05 by relicoder.
 
 #ifdef COMPILE_SQLITE_EXTENSIONS_AS_LOADABLE_MODULE
 /* #include "sqlite3ext.h" */
-/*** Begin of #include "sqlite3ext.h" ***/
-/*
-** 2006 June 7
-**
-** The author disclaims copyright to this source code.  In place of
-** a legal notice, here is a blessing:
-**
-**    May you do good and not evil.
-**    May you find forgiveness for yourself and forgive others.
-**    May you share freely, never taking more than you give.
-**
-*************************************************************************
-** This header file defines the SQLite interface for use by
-** shared libraries that want to be imported as extensions into
-** an SQLite instance.  Shared libraries that intend to be loaded
-** as extensions by SQLite should #include this file instead of
-** sqlite3.h.
-*/
-#ifndef SQLITE3EXT_H
-#define SQLITE3EXT_H
-/* #include "sqlite3.h" */
-
-
-/*
-** The following structure holds pointers to all of the SQLite API
-** routines.
-**
-** WARNING:  In order to maintain backwards compatibility, add new
-** interfaces to the end of this structure only.  If you insert new
-** interfaces in the middle of this structure, then older different
-** versions of SQLite will not be able to load each other's shared
-** libraries!
-*/
-struct sqlite3_api_routines {
-  void * (*aggregate_context)(sqlite3_context*,int nBytes);
-  int  (*aggregate_count)(sqlite3_context*);
-  int  (*bind_blob)(sqlite3_stmt*,int,const void*,int n,void(*)(void*));
-  int  (*bind_double)(sqlite3_stmt*,int,double);
-  int  (*bind_int)(sqlite3_stmt*,int,int);
-  int  (*bind_int64)(sqlite3_stmt*,int,sqlite_int64);
-  int  (*bind_null)(sqlite3_stmt*,int);
-  int  (*bind_parameter_count)(sqlite3_stmt*);
-  int  (*bind_parameter_index)(sqlite3_stmt*,const char*zName);
-  const char * (*bind_parameter_name)(sqlite3_stmt*,int);
-  int  (*bind_text)(sqlite3_stmt*,int,const char*,int n,void(*)(void*));
-  int  (*bind_text16)(sqlite3_stmt*,int,const void*,int,void(*)(void*));
-  int  (*bind_value)(sqlite3_stmt*,int,const sqlite3_value*);
-  int  (*busy_handler)(sqlite3*,int(*)(void*,int),void*);
-  int  (*busy_timeout)(sqlite3*,int ms);
-  int  (*changes)(sqlite3*);
-  int  (*close)(sqlite3*);
-  int  (*collation_needed)(sqlite3*,void*,void(*)(void*,sqlite3*,
-                           int eTextRep,const char*));
-  int  (*collation_needed16)(sqlite3*,void*,void(*)(void*,sqlite3*,
-                             int eTextRep,const void*));
-  const void * (*column_blob)(sqlite3_stmt*,int iCol);
-  int  (*column_bytes)(sqlite3_stmt*,int iCol);
-  int  (*column_bytes16)(sqlite3_stmt*,int iCol);
-  int  (*column_count)(sqlite3_stmt*pStmt);
-  const char * (*column_database_name)(sqlite3_stmt*,int);
-  const void * (*column_database_name16)(sqlite3_stmt*,int);
-  const char * (*column_decltype)(sqlite3_stmt*,int i);
-  const void * (*column_decltype16)(sqlite3_stmt*,int);
-  double  (*column_double)(sqlite3_stmt*,int iCol);
-  int  (*column_int)(sqlite3_stmt*,int iCol);
-  sqlite_int64  (*column_int64)(sqlite3_stmt*,int iCol);
-  const char * (*column_name)(sqlite3_stmt*,int);
-  const void * (*column_name16)(sqlite3_stmt*,int);
-  const char * (*column_origin_name)(sqlite3_stmt*,int);
-  const void * (*column_origin_name16)(sqlite3_stmt*,int);
-  const char * (*column_table_name)(sqlite3_stmt*,int);
-  const void * (*column_table_name16)(sqlite3_stmt*,int);
-  const unsigned char * (*column_text)(sqlite3_stmt*,int iCol);
-  const void * (*column_text16)(sqlite3_stmt*,int iCol);
-  int  (*column_type)(sqlite3_stmt*,int iCol);
-  sqlite3_value* (*column_value)(sqlite3_stmt*,int iCol);
-  void * (*commit_hook)(sqlite3*,int(*)(void*),void*);
-  int  (*complete)(const char*sql);
-  int  (*complete16)(const void*sql);
-  int  (*create_collation)(sqlite3*,const char*,int,void*,
-                           int(*)(void*,int,const void*,int,const void*));
-  int  (*create_collation16)(sqlite3*,const void*,int,void*,
-                             int(*)(void*,int,const void*,int,const void*));
-  int  (*create_function)(sqlite3*,const char*,int,int,void*,
-                          void (*xFunc)(sqlite3_context*,int,sqlite3_value**),
-                          void (*xStep)(sqlite3_context*,int,sqlite3_value**),
-                          void (*xFinal)(sqlite3_context*));
-  int  (*create_function16)(sqlite3*,const void*,int,int,void*,
-                            void (*xFunc)(sqlite3_context*,int,sqlite3_value**),
-                            void (*xStep)(sqlite3_context*,int,sqlite3_value**),
-                            void (*xFinal)(sqlite3_context*));
-  int (*create_module)(sqlite3*,const char*,const sqlite3_module*,void*);
-  int  (*data_count)(sqlite3_stmt*pStmt);
-  sqlite3 * (*db_handle)(sqlite3_stmt*);
-  int (*declare_vtab)(sqlite3*,const char*);
-  int  (*enable_shared_cache)(int);
-  int  (*errcode)(sqlite3*db);
-  const char * (*errmsg)(sqlite3*);
-  const void * (*errmsg16)(sqlite3*);
-  int  (*exec)(sqlite3*,const char*,sqlite3_callback,void*,char**);
-  int  (*expired)(sqlite3_stmt*);
-  int  (*finalize)(sqlite3_stmt*pStmt);
-  void  (*free)(void*);
-  void  (*free_table)(char**result);
-  int  (*get_autocommit)(sqlite3*);
-  void * (*get_auxdata)(sqlite3_context*,int);
-  int  (*get_table)(sqlite3*,const char*,char***,int*,int*,char**);
-  int  (*global_recover)(void);
-  void  (*interruptx)(sqlite3*);
-  sqlite_int64  (*last_insert_rowid)(sqlite3*);
-  const char * (*libversion)(void);
-  int  (*libversion_number)(void);
-  void *(*malloc)(int);
-  char * (*mprintf)(const char*,...);
-  int  (*open)(const char*,sqlite3**);
-  int  (*open16)(const void*,sqlite3**);
-  int  (*prepare)(sqlite3*,const char*,int,sqlite3_stmt**,const char**);
-  int  (*prepare16)(sqlite3*,const void*,int,sqlite3_stmt**,const void**);
-  void * (*profile)(sqlite3*,void(*)(void*,const char*,sqlite_uint64),void*);
-  void  (*progress_handler)(sqlite3*,int,int(*)(void*),void*);
-  void *(*realloc)(void*,int);
-  int  (*reset)(sqlite3_stmt*pStmt);
-  void  (*result_blob)(sqlite3_context*,const void*,int,void(*)(void*));
-  void  (*result_double)(sqlite3_context*,double);
-  void  (*result_error)(sqlite3_context*,const char*,int);
-  void  (*result_error16)(sqlite3_context*,const void*,int);
-  void  (*result_int)(sqlite3_context*,int);
-  void  (*result_int64)(sqlite3_context*,sqlite_int64);
-  void  (*result_null)(sqlite3_context*);
-  void  (*result_text)(sqlite3_context*,const char*,int,void(*)(void*));
-  void  (*result_text16)(sqlite3_context*,const void*,int,void(*)(void*));
-  void  (*result_text16be)(sqlite3_context*,const void*,int,void(*)(void*));
-  void  (*result_text16le)(sqlite3_context*,const void*,int,void(*)(void*));
-  void  (*result_value)(sqlite3_context*,sqlite3_value*);
-  void * (*rollback_hook)(sqlite3*,void(*)(void*),void*);
-  int  (*set_authorizer)(sqlite3*,int(*)(void*,int,const char*,const char*,
-                         const char*,const char*),void*);
-  void  (*set_auxdata)(sqlite3_context*,int,void*,void (*)(void*));
-  char * (*xsnprintf)(int,char*,const char*,...);
-  int  (*step)(sqlite3_stmt*);
-  int  (*table_column_metadata)(sqlite3*,const char*,const char*,const char*,
-                                char const**,char const**,int*,int*,int*);
-  void  (*thread_cleanup)(void);
-  int  (*total_changes)(sqlite3*);
-  void * (*trace)(sqlite3*,void(*xTrace)(void*,const char*),void*);
-  int  (*transfer_bindings)(sqlite3_stmt*,sqlite3_stmt*);
-  void * (*update_hook)(sqlite3*,void(*)(void*,int ,char const*,char const*,
-                                         sqlite_int64),void*);
-  void * (*user_data)(sqlite3_context*);
-  const void * (*value_blob)(sqlite3_value*);
-  int  (*value_bytes)(sqlite3_value*);
-  int  (*value_bytes16)(sqlite3_value*);
-  double  (*value_double)(sqlite3_value*);
-  int  (*value_int)(sqlite3_value*);
-  sqlite_int64  (*value_int64)(sqlite3_value*);
-  int  (*value_numeric_type)(sqlite3_value*);
-  const unsigned char * (*value_text)(sqlite3_value*);
-  const void * (*value_text16)(sqlite3_value*);
-  const void * (*value_text16be)(sqlite3_value*);
-  const void * (*value_text16le)(sqlite3_value*);
-  int  (*value_type)(sqlite3_value*);
-  char *(*vmprintf)(const char*,va_list);
-  /* Added ??? */
-  int (*overload_function)(sqlite3*, const char *zFuncName, int nArg);
-  /* Added by 3.3.13 */
-  int (*prepare_v2)(sqlite3*,const char*,int,sqlite3_stmt**,const char**);
-  int (*prepare16_v2)(sqlite3*,const void*,int,sqlite3_stmt**,const void**);
-  int (*clear_bindings)(sqlite3_stmt*);
-  /* Added by 3.4.1 */
-  int (*create_module_v2)(sqlite3*,const char*,const sqlite3_module*,void*,
-                          void (*xDestroy)(void *));
-  /* Added by 3.5.0 */
-  int (*bind_zeroblob)(sqlite3_stmt*,int,int);
-  int (*blob_bytes)(sqlite3_blob*);
-  int (*blob_close)(sqlite3_blob*);
-  int (*blob_open)(sqlite3*,const char*,const char*,const char*,sqlite3_int64,
-                   int,sqlite3_blob**);
-  int (*blob_read)(sqlite3_blob*,void*,int,int);
-  int (*blob_write)(sqlite3_blob*,const void*,int,int);
-  int (*create_collation_v2)(sqlite3*,const char*,int,void*,
-                             int(*)(void*,int,const void*,int,const void*),
-                             void(*)(void*));
-  int (*file_control)(sqlite3*,const char*,int,void*);
-  sqlite3_int64 (*memory_highwater)(int);
-  sqlite3_int64 (*memory_used)(void);
-  sqlite3_mutex *(*mutex_alloc)(int);
-  void (*mutex_enter)(sqlite3_mutex*);
-  void (*mutex_free)(sqlite3_mutex*);
-  void (*mutex_leave)(sqlite3_mutex*);
-  int (*mutex_try)(sqlite3_mutex*);
-  int (*open_v2)(const char*,sqlite3**,int,const char*);
-  int (*release_memory)(int);
-  void (*result_error_nomem)(sqlite3_context*);
-  void (*result_error_toobig)(sqlite3_context*);
-  int (*sleep)(int);
-  void (*soft_heap_limit)(int);
-  sqlite3_vfs *(*vfs_find)(const char*);
-  int (*vfs_register)(sqlite3_vfs*,int);
-  int (*vfs_unregister)(sqlite3_vfs*);
-  int (*xthreadsafe)(void);
-  void (*result_zeroblob)(sqlite3_context*,int);
-  void (*result_error_code)(sqlite3_context*,int);
-  int (*test_control)(int, ...);
-  void (*randomness)(int,void*);
-  sqlite3 *(*context_db_handle)(sqlite3_context*);
-  int (*extended_result_codes)(sqlite3*,int);
-  int (*limit)(sqlite3*,int,int);
-  sqlite3_stmt *(*next_stmt)(sqlite3*,sqlite3_stmt*);
-  const char *(*sql)(sqlite3_stmt*);
-  int (*status)(int,int*,int*,int);
-  int (*backup_finish)(sqlite3_backup*);
-  sqlite3_backup *(*backup_init)(sqlite3*,const char*,sqlite3*,const char*);
-  int (*backup_pagecount)(sqlite3_backup*);
-  int (*backup_remaining)(sqlite3_backup*);
-  int (*backup_step)(sqlite3_backup*,int);
-  const char *(*compileoption_get)(int);
-  int (*compileoption_used)(const char*);
-  int (*create_function_v2)(sqlite3*,const char*,int,int,void*,
-                            void (*xFunc)(sqlite3_context*,int,sqlite3_value**),
-                            void (*xStep)(sqlite3_context*,int,sqlite3_value**),
-                            void (*xFinal)(sqlite3_context*),
-                            void(*xDestroy)(void*));
-  int (*db_config)(sqlite3*,int,...);
-  sqlite3_mutex *(*db_mutex)(sqlite3*);
-  int (*db_status)(sqlite3*,int,int*,int*,int);
-  int (*extended_errcode)(sqlite3*);
-  void (*log)(int,const char*,...);
-  sqlite3_int64 (*soft_heap_limit64)(sqlite3_int64);
-  const char *(*sourceid)(void);
-  int (*stmt_status)(sqlite3_stmt*,int,int);
-  int (*strnicmp)(const char*,const char*,int);
-  int (*unlock_notify)(sqlite3*,void(*)(void**,int),void*);
-  int (*wal_autocheckpoint)(sqlite3*,int);
-  int (*wal_checkpoint)(sqlite3*,const char*);
-  void *(*wal_hook)(sqlite3*,int(*)(void*,sqlite3*,const char*,int),void*);
-  int (*blob_reopen)(sqlite3_blob*,sqlite3_int64);
-  int (*vtab_config)(sqlite3*,int op,...);
-  int (*vtab_on_conflict)(sqlite3*);
-  /* Version 3.7.16 and later */
-  int (*close_v2)(sqlite3*);
-  const char *(*db_filename)(sqlite3*,const char*);
-  int (*db_readonly)(sqlite3*,const char*);
-  int (*db_release_memory)(sqlite3*);
-  const char *(*errstr)(int);
-  int (*stmt_busy)(sqlite3_stmt*);
-  int (*stmt_readonly)(sqlite3_stmt*);
-  int (*stricmp)(const char*,const char*);
-  int (*uri_boolean)(const char*,const char*,int);
-  sqlite3_int64 (*uri_int64)(const char*,const char*,sqlite3_int64);
-  const char *(*uri_parameter)(const char*,const char*);
-  char *(*xvsnprintf)(int,char*,const char*,va_list);
-  int (*wal_checkpoint_v2)(sqlite3*,const char*,int,int*,int*);
-  /* Version 3.8.7 and later */
-  int (*auto_extension)(void(*)(void));
-  int (*bind_blob64)(sqlite3_stmt*,int,const void*,sqlite3_uint64,
-                     void(*)(void*));
-  int (*bind_text64)(sqlite3_stmt*,int,const char*,sqlite3_uint64,
-                      void(*)(void*),unsigned char);
-  int (*cancel_auto_extension)(void(*)(void));
-  int (*load_extension)(sqlite3*,const char*,const char*,char**);
-  void *(*malloc64)(sqlite3_uint64);
-  sqlite3_uint64 (*msize)(void*);
-  void *(*realloc64)(void*,sqlite3_uint64);
-  void (*reset_auto_extension)(void);
-  void (*result_blob64)(sqlite3_context*,const void*,sqlite3_uint64,
-                        void(*)(void*));
-  void (*result_text64)(sqlite3_context*,const char*,sqlite3_uint64,
-                         void(*)(void*), unsigned char);
-  int (*strglob)(const char*,const char*);
-  /* Version 3.8.11 and later */
-  sqlite3_value *(*value_dup)(const sqlite3_value*);
-  void (*value_free)(sqlite3_value*);
-  int (*result_zeroblob64)(sqlite3_context*,sqlite3_uint64);
-  int (*bind_zeroblob64)(sqlite3_stmt*, int, sqlite3_uint64);
-  /* Version 3.9.0 and later */
-  unsigned int (*value_subtype)(sqlite3_value*);
-  void (*result_subtype)(sqlite3_context*,unsigned int);
-  /* Version 3.10.0 and later */
-  int (*status64)(int,sqlite3_int64*,sqlite3_int64*,int);
-  int (*strlike)(const char*,const char*,unsigned int);
-  int (*db_cacheflush)(sqlite3*);
-  /* Version 3.12.0 and later */
-  int (*system_errno)(sqlite3*);
-  /* Version 3.14.0 and later */
-  int (*trace_v2)(sqlite3*,unsigned,int(*)(unsigned,void*,void*,void*),void*);
-  char *(*expanded_sql)(sqlite3_stmt*);
-  /* Version 3.18.0 and later */
-  void (*set_last_insert_rowid)(sqlite3*,sqlite3_int64);
-  /* Version 3.20.0 and later */
-  int (*prepare_v3)(sqlite3*,const char*,int,unsigned int,
-                    sqlite3_stmt**,const char**);
-  int (*prepare16_v3)(sqlite3*,const void*,int,unsigned int,
-                      sqlite3_stmt**,const void**);
-  int (*bind_pointer)(sqlite3_stmt*,int,void*,const char*,void(*)(void*));
-  void (*result_pointer)(sqlite3_context*,void*,const char*,void(*)(void*));
-  void *(*value_pointer)(sqlite3_value*,const char*);
-  int (*vtab_nochange)(sqlite3_context*);
-  int (*value_nochange)(sqlite3_value*);
-  const char *(*vtab_collation)(sqlite3_index_info*,int);
-  /* Version 3.24.0 and later */
-  int (*keyword_count)(void);
-  int (*keyword_name)(int,const char**,int*);
-  int (*keyword_check)(const char*,int);
-  sqlite3_str *(*str_new)(sqlite3*);
-  char *(*str_finish)(sqlite3_str*);
-  void (*str_appendf)(sqlite3_str*, const char *zFormat, ...);
-  void (*str_vappendf)(sqlite3_str*, const char *zFormat, va_list);
-  void (*str_append)(sqlite3_str*, const char *zIn, int N);
-  void (*str_appendall)(sqlite3_str*, const char *zIn);
-  void (*str_appendchar)(sqlite3_str*, int N, char C);
-  void (*str_reset)(sqlite3_str*);
-  int (*str_errcode)(sqlite3_str*);
-  int (*str_length)(sqlite3_str*);
-  char *(*str_value)(sqlite3_str*);
-  /* Version 3.25.0 and later */
-  int (*create_window_function)(sqlite3*,const char*,int,int,void*,
-                            void (*xStep)(sqlite3_context*,int,sqlite3_value**),
-                            void (*xFinal)(sqlite3_context*),
-                            void (*xValue)(sqlite3_context*),
-                            void (*xInv)(sqlite3_context*,int,sqlite3_value**),
-                            void(*xDestroy)(void*));
-  /* Version 3.26.0 and later */
-  const char *(*normalized_sql)(sqlite3_stmt*);
-  /* Version 3.28.0 and later */
-  int (*stmt_isexplain)(sqlite3_stmt*);
-  int (*value_frombind)(sqlite3_value*);
-  /* Version 3.30.0 and later */
-  int (*drop_modules)(sqlite3*,const char**);
-  /* Version 3.31.0 and later */
-  sqlite3_int64 (*hard_heap_limit64)(sqlite3_int64);
-  const char *(*uri_key)(const char*,int);
-  const char *(*filename_database)(const char*);
-  const char *(*filename_journal)(const char*);
-  const char *(*filename_wal)(const char*);
-  /* Version 3.32.0 and later */
-  const char *(*create_filename)(const char*,const char*,const char*,
-                           int,const char**);
-  void (*free_filename)(const char*);
-  sqlite3_file *(*database_file_object)(const char*);
-  /* Version 3.34.0 and later */
-  int (*txn_state)(sqlite3*,const char*);
-  /* Version 3.36.1 and later */
-  sqlite3_int64 (*changes64)(sqlite3*);
-  sqlite3_int64 (*total_changes64)(sqlite3*);
-  /* Version 3.37.0 and later */
-  int (*autovacuum_pages)(sqlite3*,
-     unsigned int(*)(void*,const char*,unsigned int,unsigned int,unsigned int),
-     void*, void(*)(void*));
-  /* Version 3.38.0 and later */
-  int (*error_offset)(sqlite3*);
-  int (*vtab_rhs_value)(sqlite3_index_info*,int,sqlite3_value**);
-  int (*vtab_distinct)(sqlite3_index_info*);
-  int (*vtab_in)(sqlite3_index_info*,int,int);
-  int (*vtab_in_first)(sqlite3_value*,sqlite3_value**);
-  int (*vtab_in_next)(sqlite3_value*,sqlite3_value**);
-  /* Version 3.39.0 and later */
-  int (*deserialize)(sqlite3*,const char*,unsigned char*,
-                     sqlite3_int64,sqlite3_int64,unsigned);
-  unsigned char *(*serialize)(sqlite3*,const char *,sqlite3_int64*,
-                              unsigned int);
-  const char *(*db_name)(sqlite3*,int);
-  /* Version 3.40.0 and later */
-  int (*value_encoding)(sqlite3_value*);
-  /* Version 3.41.0 and later */
-  int (*is_interrupted)(sqlite3*);
-  /* Version 3.43.0 and later */
-  int (*stmt_explain)(sqlite3_stmt*,int);
-  /* Version 3.44.0 and later */
-  void *(*get_clientdata)(sqlite3*,const char*);
-  int (*set_clientdata)(sqlite3*, const char*, void*, void(*)(void*));
-  /* Version 3.50.0 and later */
-  int (*setlk_timeout)(sqlite3*,int,int);
-  /* Version 3.51.0 and later */
-  int (*set_errmsg)(sqlite3*,int,const char*);
-  int (*db_status64)(sqlite3*,int,sqlite3_int64*,sqlite3_int64*,int);
-  /* Version 3.52.0 and later */
-  void (*str_truncate)(sqlite3_str*,int);
-  void (*str_free)(sqlite3_str*);
-  int (*carray_bind)(sqlite3_stmt*,int,void*,int,int,void(*)(void*));
-  int (*carray_bind_v2)(sqlite3_stmt*,int,void*,int,int,void(*)(void*),void*);
-};
-
-/*
-** This is the function signature used for all extension entry points.  It
-** is also defined in the file "loadext.c".
-*/
-typedef int (*sqlite3_loadext_entry)(
-  sqlite3 *db,                       /* Handle to the database. */
-  char **pzErrMsg,                   /* Used to set error string on failure. */
-  const sqlite3_api_routines *pThunk /* Extension API function pointers. */
-);
-
-/*
-** The following macros redefine the API routines so that they are
-** redirected through the global sqlite3_api structure.
-**
-** This header file is also used by the loadext.c source file
-** (part of the main SQLite library - not an extension) so that
-** it can get access to the sqlite3_api_routines structure
-** definition.  But the main library does not want to redefine
-** the API.  So the redefinition macros are only valid if the
-** SQLITE_CORE macros is undefined.
-*/
-#if !defined(SQLITE_CORE) && !defined(SQLITE_OMIT_LOAD_EXTENSION)
-#define sqlite3_aggregate_context      sqlite3_api->aggregate_context
-#ifndef SQLITE_OMIT_DEPRECATED
-#define sqlite3_aggregate_count        sqlite3_api->aggregate_count
-#endif
-#define sqlite3_bind_blob              sqlite3_api->bind_blob
-#define sqlite3_bind_double            sqlite3_api->bind_double
-#define sqlite3_bind_int               sqlite3_api->bind_int
-#define sqlite3_bind_int64             sqlite3_api->bind_int64
-#define sqlite3_bind_null              sqlite3_api->bind_null
-#define sqlite3_bind_parameter_count   sqlite3_api->bind_parameter_count
-#define sqlite3_bind_parameter_index   sqlite3_api->bind_parameter_index
-#define sqlite3_bind_parameter_name    sqlite3_api->bind_parameter_name
-#define sqlite3_bind_text              sqlite3_api->bind_text
-#define sqlite3_bind_text16            sqlite3_api->bind_text16
-#define sqlite3_bind_value             sqlite3_api->bind_value
-#define sqlite3_busy_handler           sqlite3_api->busy_handler
-#define sqlite3_busy_timeout           sqlite3_api->busy_timeout
-#define sqlite3_changes                sqlite3_api->changes
-#define sqlite3_close                  sqlite3_api->close
-#define sqlite3_collation_needed       sqlite3_api->collation_needed
-#define sqlite3_collation_needed16     sqlite3_api->collation_needed16
-#define sqlite3_column_blob            sqlite3_api->column_blob
-#define sqlite3_column_bytes           sqlite3_api->column_bytes
-#define sqlite3_column_bytes16         sqlite3_api->column_bytes16
-#define sqlite3_column_count           sqlite3_api->column_count
-#define sqlite3_column_database_name   sqlite3_api->column_database_name
-#define sqlite3_column_database_name16 sqlite3_api->column_database_name16
-#define sqlite3_column_decltype        sqlite3_api->column_decltype
-#define sqlite3_column_decltype16      sqlite3_api->column_decltype16
-#define sqlite3_column_double          sqlite3_api->column_double
-#define sqlite3_column_int             sqlite3_api->column_int
-#define sqlite3_column_int64           sqlite3_api->column_int64
-#define sqlite3_column_name            sqlite3_api->column_name
-#define sqlite3_column_name16          sqlite3_api->column_name16
-#define sqlite3_column_origin_name     sqlite3_api->column_origin_name
-#define sqlite3_column_origin_name16   sqlite3_api->column_origin_name16
-#define sqlite3_column_table_name      sqlite3_api->column_table_name
-#define sqlite3_column_table_name16    sqlite3_api->column_table_name16
-#define sqlite3_column_text            sqlite3_api->column_text
-#define sqlite3_column_text16          sqlite3_api->column_text16
-#define sqlite3_column_type            sqlite3_api->column_type
-#define sqlite3_column_value           sqlite3_api->column_value
-#define sqlite3_commit_hook            sqlite3_api->commit_hook
-#define sqlite3_complete               sqlite3_api->complete
-#define sqlite3_complete16             sqlite3_api->complete16
-#define sqlite3_create_collation       sqlite3_api->create_collation
-#define sqlite3_create_collation16     sqlite3_api->create_collation16
-#define sqlite3_create_function        sqlite3_api->create_function
-#define sqlite3_create_function16      sqlite3_api->create_function16
-#define sqlite3_create_module          sqlite3_api->create_module
-#define sqlite3_create_module_v2       sqlite3_api->create_module_v2
-#define sqlite3_data_count             sqlite3_api->data_count
-#define sqlite3_db_handle              sqlite3_api->db_handle
-#define sqlite3_declare_vtab           sqlite3_api->declare_vtab
-#define sqlite3_enable_shared_cache    sqlite3_api->enable_shared_cache
-#define sqlite3_errcode                sqlite3_api->errcode
-#define sqlite3_errmsg                 sqlite3_api->errmsg
-#define sqlite3_errmsg16               sqlite3_api->errmsg16
-#define sqlite3_exec                   sqlite3_api->exec
-#ifndef SQLITE_OMIT_DEPRECATED
-#define sqlite3_expired                sqlite3_api->expired
-#endif
-#define sqlite3_finalize               sqlite3_api->finalize
-#define sqlite3_free                   sqlite3_api->free
-#define sqlite3_free_table             sqlite3_api->free_table
-#define sqlite3_get_autocommit         sqlite3_api->get_autocommit
-#define sqlite3_get_auxdata            sqlite3_api->get_auxdata
-#define sqlite3_get_table              sqlite3_api->get_table
-#ifndef SQLITE_OMIT_DEPRECATED
-#define sqlite3_global_recover         sqlite3_api->global_recover
-#endif
-#define sqlite3_interrupt              sqlite3_api->interruptx
-#define sqlite3_last_insert_rowid      sqlite3_api->last_insert_rowid
-#define sqlite3_libversion             sqlite3_api->libversion
-#define sqlite3_libversion_number      sqlite3_api->libversion_number
-#define sqlite3_malloc                 sqlite3_api->malloc
-#define sqlite3_mprintf                sqlite3_api->mprintf
-#define sqlite3_open                   sqlite3_api->open
-#define sqlite3_open16                 sqlite3_api->open16
-#define sqlite3_prepare                sqlite3_api->prepare
-#define sqlite3_prepare16              sqlite3_api->prepare16
-#define sqlite3_prepare_v2             sqlite3_api->prepare_v2
-#define sqlite3_prepare16_v2           sqlite3_api->prepare16_v2
-#define sqlite3_profile                sqlite3_api->profile
-#define sqlite3_progress_handler       sqlite3_api->progress_handler
-#define sqlite3_realloc                sqlite3_api->realloc
-#define sqlite3_reset                  sqlite3_api->reset
-#define sqlite3_result_blob            sqlite3_api->result_blob
-#define sqlite3_result_double          sqlite3_api->result_double
-#define sqlite3_result_error           sqlite3_api->result_error
-#define sqlite3_result_error16         sqlite3_api->result_error16
-#define sqlite3_result_int             sqlite3_api->result_int
-#define sqlite3_result_int64           sqlite3_api->result_int64
-#define sqlite3_result_null            sqlite3_api->result_null
-#define sqlite3_result_text            sqlite3_api->result_text
-#define sqlite3_result_text16          sqlite3_api->result_text16
-#define sqlite3_result_text16be        sqlite3_api->result_text16be
-#define sqlite3_result_text16le        sqlite3_api->result_text16le
-#define sqlite3_result_value           sqlite3_api->result_value
-#define sqlite3_rollback_hook          sqlite3_api->rollback_hook
-#define sqlite3_set_authorizer         sqlite3_api->set_authorizer
-#define sqlite3_set_auxdata            sqlite3_api->set_auxdata
-#define sqlite3_snprintf               sqlite3_api->xsnprintf
-#define sqlite3_step                   sqlite3_api->step
-#define sqlite3_table_column_metadata  sqlite3_api->table_column_metadata
-#define sqlite3_thread_cleanup         sqlite3_api->thread_cleanup
-#define sqlite3_total_changes          sqlite3_api->total_changes
-#define sqlite3_trace                  sqlite3_api->trace
-#ifndef SQLITE_OMIT_DEPRECATED
-#define sqlite3_transfer_bindings      sqlite3_api->transfer_bindings
-#endif
-#define sqlite3_update_hook            sqlite3_api->update_hook
-#define sqlite3_user_data              sqlite3_api->user_data
-#define sqlite3_value_blob             sqlite3_api->value_blob
-#define sqlite3_value_bytes            sqlite3_api->value_bytes
-#define sqlite3_value_bytes16          sqlite3_api->value_bytes16
-#define sqlite3_value_double           sqlite3_api->value_double
-#define sqlite3_value_int              sqlite3_api->value_int
-#define sqlite3_value_int64            sqlite3_api->value_int64
-#define sqlite3_value_numeric_type     sqlite3_api->value_numeric_type
-#define sqlite3_value_text             sqlite3_api->value_text
-#define sqlite3_value_text16           sqlite3_api->value_text16
-#define sqlite3_value_text16be         sqlite3_api->value_text16be
-#define sqlite3_value_text16le         sqlite3_api->value_text16le
-#define sqlite3_value_type             sqlite3_api->value_type
-#define sqlite3_vmprintf               sqlite3_api->vmprintf
-#define sqlite3_vsnprintf              sqlite3_api->xvsnprintf
-#define sqlite3_overload_function      sqlite3_api->overload_function
-#define sqlite3_prepare_v2             sqlite3_api->prepare_v2
-#define sqlite3_prepare16_v2           sqlite3_api->prepare16_v2
-#define sqlite3_clear_bindings         sqlite3_api->clear_bindings
-#define sqlite3_bind_zeroblob          sqlite3_api->bind_zeroblob
-#define sqlite3_blob_bytes             sqlite3_api->blob_bytes
-#define sqlite3_blob_close             sqlite3_api->blob_close
-#define sqlite3_blob_open              sqlite3_api->blob_open
-#define sqlite3_blob_read              sqlite3_api->blob_read
-#define sqlite3_blob_write             sqlite3_api->blob_write
-#define sqlite3_create_collation_v2    sqlite3_api->create_collation_v2
-#define sqlite3_file_control           sqlite3_api->file_control
-#define sqlite3_memory_highwater       sqlite3_api->memory_highwater
-#define sqlite3_memory_used            sqlite3_api->memory_used
-#define sqlite3_mutex_alloc            sqlite3_api->mutex_alloc
-#define sqlite3_mutex_enter            sqlite3_api->mutex_enter
-#define sqlite3_mutex_free             sqlite3_api->mutex_free
-#define sqlite3_mutex_leave            sqlite3_api->mutex_leave
-#define sqlite3_mutex_try              sqlite3_api->mutex_try
-#define sqlite3_open_v2                sqlite3_api->open_v2
-#define sqlite3_release_memory         sqlite3_api->release_memory
-#define sqlite3_result_error_nomem     sqlite3_api->result_error_nomem
-#define sqlite3_result_error_toobig    sqlite3_api->result_error_toobig
-#define sqlite3_sleep                  sqlite3_api->sleep
-#define sqlite3_soft_heap_limit        sqlite3_api->soft_heap_limit
-#define sqlite3_vfs_find               sqlite3_api->vfs_find
-#define sqlite3_vfs_register           sqlite3_api->vfs_register
-#define sqlite3_vfs_unregister         sqlite3_api->vfs_unregister
-#define sqlite3_threadsafe             sqlite3_api->xthreadsafe
-#define sqlite3_result_zeroblob        sqlite3_api->result_zeroblob
-#define sqlite3_result_error_code      sqlite3_api->result_error_code
-#define sqlite3_test_control           sqlite3_api->test_control
-#define sqlite3_randomness             sqlite3_api->randomness
-#define sqlite3_context_db_handle      sqlite3_api->context_db_handle
-#define sqlite3_extended_result_codes  sqlite3_api->extended_result_codes
-#define sqlite3_limit                  sqlite3_api->limit
-#define sqlite3_next_stmt              sqlite3_api->next_stmt
-#define sqlite3_sql                    sqlite3_api->sql
-#define sqlite3_status                 sqlite3_api->status
-#define sqlite3_backup_finish          sqlite3_api->backup_finish
-#define sqlite3_backup_init            sqlite3_api->backup_init
-#define sqlite3_backup_pagecount       sqlite3_api->backup_pagecount
-#define sqlite3_backup_remaining       sqlite3_api->backup_remaining
-#define sqlite3_backup_step            sqlite3_api->backup_step
-#define sqlite3_compileoption_get      sqlite3_api->compileoption_get
-#define sqlite3_compileoption_used     sqlite3_api->compileoption_used
-#define sqlite3_create_function_v2     sqlite3_api->create_function_v2
-#define sqlite3_db_config              sqlite3_api->db_config
-#define sqlite3_db_mutex               sqlite3_api->db_mutex
-#define sqlite3_db_status              sqlite3_api->db_status
-#define sqlite3_extended_errcode       sqlite3_api->extended_errcode
-#define sqlite3_log                    sqlite3_api->log
-#define sqlite3_soft_heap_limit64      sqlite3_api->soft_heap_limit64
-#define sqlite3_sourceid               sqlite3_api->sourceid
-#define sqlite3_stmt_status            sqlite3_api->stmt_status
-#define sqlite3_strnicmp               sqlite3_api->strnicmp
-#define sqlite3_unlock_notify          sqlite3_api->unlock_notify
-#define sqlite3_wal_autocheckpoint     sqlite3_api->wal_autocheckpoint
-#define sqlite3_wal_checkpoint         sqlite3_api->wal_checkpoint
-#define sqlite3_wal_hook               sqlite3_api->wal_hook
-#define sqlite3_blob_reopen            sqlite3_api->blob_reopen
-#define sqlite3_vtab_config            sqlite3_api->vtab_config
-#define sqlite3_vtab_on_conflict       sqlite3_api->vtab_on_conflict
-/* Version 3.7.16 and later */
-#define sqlite3_close_v2               sqlite3_api->close_v2
-#define sqlite3_db_filename            sqlite3_api->db_filename
-#define sqlite3_db_readonly            sqlite3_api->db_readonly
-#define sqlite3_db_release_memory      sqlite3_api->db_release_memory
-#define sqlite3_errstr                 sqlite3_api->errstr
-#define sqlite3_stmt_busy              sqlite3_api->stmt_busy
-#define sqlite3_stmt_readonly          sqlite3_api->stmt_readonly
-#define sqlite3_stricmp                sqlite3_api->stricmp
-#define sqlite3_uri_boolean            sqlite3_api->uri_boolean
-#define sqlite3_uri_int64              sqlite3_api->uri_int64
-#define sqlite3_uri_parameter          sqlite3_api->uri_parameter
-#define sqlite3_uri_vsnprintf          sqlite3_api->xvsnprintf
-#define sqlite3_wal_checkpoint_v2      sqlite3_api->wal_checkpoint_v2
-/* Version 3.8.7 and later */
-#define sqlite3_auto_extension         sqlite3_api->auto_extension
-#define sqlite3_bind_blob64            sqlite3_api->bind_blob64
-#define sqlite3_bind_text64            sqlite3_api->bind_text64
-#define sqlite3_cancel_auto_extension  sqlite3_api->cancel_auto_extension
-#define sqlite3_load_extension         sqlite3_api->load_extension
-#define sqlite3_malloc64               sqlite3_api->malloc64
-#define sqlite3_msize                  sqlite3_api->msize
-#define sqlite3_realloc64              sqlite3_api->realloc64
-#define sqlite3_reset_auto_extension   sqlite3_api->reset_auto_extension
-#define sqlite3_result_blob64          sqlite3_api->result_blob64
-#define sqlite3_result_text64          sqlite3_api->result_text64
-#define sqlite3_strglob                sqlite3_api->strglob
-/* Version 3.8.11 and later */
-#define sqlite3_value_dup              sqlite3_api->value_dup
-#define sqlite3_value_free             sqlite3_api->value_free
-#define sqlite3_result_zeroblob64      sqlite3_api->result_zeroblob64
-#define sqlite3_bind_zeroblob64        sqlite3_api->bind_zeroblob64
-/* Version 3.9.0 and later */
-#define sqlite3_value_subtype          sqlite3_api->value_subtype
-#define sqlite3_result_subtype         sqlite3_api->result_subtype
-/* Version 3.10.0 and later */
-#define sqlite3_status64               sqlite3_api->status64
-#define sqlite3_strlike                sqlite3_api->strlike
-#define sqlite3_db_cacheflush          sqlite3_api->db_cacheflush
-/* Version 3.12.0 and later */
-#define sqlite3_system_errno           sqlite3_api->system_errno
-/* Version 3.14.0 and later */
-#define sqlite3_trace_v2               sqlite3_api->trace_v2
-#define sqlite3_expanded_sql           sqlite3_api->expanded_sql
-/* Version 3.18.0 and later */
-#define sqlite3_set_last_insert_rowid  sqlite3_api->set_last_insert_rowid
-/* Version 3.20.0 and later */
-#define sqlite3_prepare_v3             sqlite3_api->prepare_v3
-#define sqlite3_prepare16_v3           sqlite3_api->prepare16_v3
-#define sqlite3_bind_pointer           sqlite3_api->bind_pointer
-#define sqlite3_result_pointer         sqlite3_api->result_pointer
-#define sqlite3_value_pointer          sqlite3_api->value_pointer
-/* Version 3.22.0 and later */
-#define sqlite3_vtab_nochange          sqlite3_api->vtab_nochange
-#define sqlite3_value_nochange         sqlite3_api->value_nochange
-#define sqlite3_vtab_collation         sqlite3_api->vtab_collation
-/* Version 3.24.0 and later */
-#define sqlite3_keyword_count          sqlite3_api->keyword_count
-#define sqlite3_keyword_name           sqlite3_api->keyword_name
-#define sqlite3_keyword_check          sqlite3_api->keyword_check
-#define sqlite3_str_new                sqlite3_api->str_new
-#define sqlite3_str_finish             sqlite3_api->str_finish
-#define sqlite3_str_appendf            sqlite3_api->str_appendf
-#define sqlite3_str_vappendf           sqlite3_api->str_vappendf
-#define sqlite3_str_append             sqlite3_api->str_append
-#define sqlite3_str_appendall          sqlite3_api->str_appendall
-#define sqlite3_str_appendchar         sqlite3_api->str_appendchar
-#define sqlite3_str_reset              sqlite3_api->str_reset
-#define sqlite3_str_errcode            sqlite3_api->str_errcode
-#define sqlite3_str_length             sqlite3_api->str_length
-#define sqlite3_str_value              sqlite3_api->str_value
-/* Version 3.25.0 and later */
-#define sqlite3_create_window_function sqlite3_api->create_window_function
-/* Version 3.26.0 and later */
-#define sqlite3_normalized_sql         sqlite3_api->normalized_sql
-/* Version 3.28.0 and later */
-#define sqlite3_stmt_isexplain         sqlite3_api->stmt_isexplain
-#define sqlite3_value_frombind         sqlite3_api->value_frombind
-/* Version 3.30.0 and later */
-#define sqlite3_drop_modules           sqlite3_api->drop_modules
-/* Version 3.31.0 and later */
-#define sqlite3_hard_heap_limit64      sqlite3_api->hard_heap_limit64
-#define sqlite3_uri_key                sqlite3_api->uri_key
-#define sqlite3_filename_database      sqlite3_api->filename_database
-#define sqlite3_filename_journal       sqlite3_api->filename_journal
-#define sqlite3_filename_wal           sqlite3_api->filename_wal
-/* Version 3.32.0 and later */
-#define sqlite3_create_filename        sqlite3_api->create_filename
-#define sqlite3_free_filename          sqlite3_api->free_filename
-#define sqlite3_database_file_object   sqlite3_api->database_file_object
-/* Version 3.34.0 and later */
-#define sqlite3_txn_state              sqlite3_api->txn_state
-/* Version 3.36.1 and later */
-#define sqlite3_changes64              sqlite3_api->changes64
-#define sqlite3_total_changes64        sqlite3_api->total_changes64
-/* Version 3.37.0 and later */
-#define sqlite3_autovacuum_pages       sqlite3_api->autovacuum_pages
-/* Version 3.38.0 and later */
-#define sqlite3_error_offset           sqlite3_api->error_offset
-#define sqlite3_vtab_rhs_value         sqlite3_api->vtab_rhs_value
-#define sqlite3_vtab_distinct          sqlite3_api->vtab_distinct
-#define sqlite3_vtab_in                sqlite3_api->vtab_in
-#define sqlite3_vtab_in_first          sqlite3_api->vtab_in_first
-#define sqlite3_vtab_in_next           sqlite3_api->vtab_in_next
-/* Version 3.39.0 and later */
-#ifndef SQLITE_OMIT_DESERIALIZE
-#define sqlite3_deserialize            sqlite3_api->deserialize
-#define sqlite3_serialize              sqlite3_api->serialize
-#endif
-#define sqlite3_db_name                sqlite3_api->db_name
-/* Version 3.40.0 and later */
-#define sqlite3_value_encoding         sqlite3_api->value_encoding
-/* Version 3.41.0 and later */
-#define sqlite3_is_interrupted         sqlite3_api->is_interrupted
-/* Version 3.43.0 and later */
-#define sqlite3_stmt_explain           sqlite3_api->stmt_explain
-/* Version 3.44.0 and later */
-#define sqlite3_get_clientdata         sqlite3_api->get_clientdata
-#define sqlite3_set_clientdata         sqlite3_api->set_clientdata
-/* Version 3.50.0 and later */
-#define sqlite3_setlk_timeout          sqlite3_api->setlk_timeout
-/* Version 3.51.0 and later */
-#define sqlite3_set_errmsg             sqlite3_api->set_errmsg
-#define sqlite3_db_status64            sqlite3_api->db_status64
-/* Version 3.52.0 and later */
-#define sqlite3_str_truncate           sqlite3_api->str_truncate
-#define sqlite3_str_free               sqlite3_api->str_free
-#define sqlite3_carray_bind            sqlite3_api->carray_bind
-#define sqlite3_carray_bind_v2         sqlite3_api->carray_bind_v2
-#endif /* !defined(SQLITE_CORE) && !defined(SQLITE_OMIT_LOAD_EXTENSION) */
-
-#if !defined(SQLITE_CORE) && !defined(SQLITE_OMIT_LOAD_EXTENSION)
-  /* This case when the file really is being compiled as a loadable
-  ** extension */
-# define SQLITE_EXTENSION_INIT1     const sqlite3_api_routines *sqlite3_api=0;
-# define SQLITE_EXTENSION_INIT2(v)  sqlite3_api=v;
-# define SQLITE_EXTENSION_INIT3     \
-    extern const sqlite3_api_routines *sqlite3_api;
-#else
-  /* This case when the file is being statically linked into the
-  ** application */
-# define SQLITE_EXTENSION_INIT1     /*no-op*/
-# define SQLITE_EXTENSION_INIT2(v)  (void)v; /* unused parameter */
-# define SQLITE_EXTENSION_INIT3     /*no-op*/
-#endif
-
-#endif /* SQLITE3EXT_H */
-/*** End of #include "sqlite3ext.h" ***/
 
 SQLITE_EXTENSION_INIT1
 #else
@@ -340958,34 +341259,34 @@ typedef struct map{
 /*
 ** creates a map given a comparison function
 */
-map map_make(cmp_func cmp);
+static map map_make(cmp_func cmp);
 
 /*
 ** inserts the element e into map m
 */
-void map_insert(map *m, void *e);
+static void map_insert(map *m, void *e);
 
 /*
 ** executes function iter over all elements in the map, in key increasing order
 */
-void map_iterate(map *m, map_iterator iter, void* p);
+static void map_iterate(map *m, map_iterator iter, void* p);
 
 /*
 ** frees all memory used by a map
 */
-void map_destroy(map *m);
+static void map_destroy(map *m);
 
 /*
 ** compares 2 integers
 ** to use with map_make
 */
-int int_cmp(const void *a, const void *b);
+static int int_cmp(const void *a, const void *b);
 
 /*
 ** compares 2 doubles
 ** to use with map_make
 */
-int double_cmp(const void *a, const void *b);
+static int double_cmp(const void *a, const void *b);
 
 #endif /* _MAP_H_ */
 
@@ -342527,6 +342828,7 @@ static void lastRowsFunc(sqlite3_context *context, int argc, sqlite3_value **arg
 ** functions.  This should be the only routine in this file with
 ** external linkage.
 */
+SQLITE_API
 int RegisterExtensionFunctions(sqlite3 *db){
   static const struct FuncDef {
      char *zName;
@@ -369475,5 +369777,112 @@ int SQLITE_CDECL TCLSH_MAIN(int argc, char **argv){
 }
 #endif /* TCLSH */
 /*** End of #include "tclsqlite.c" ***/
+
+#endif
+
+#ifdef SQLITE3MC_USE_DISPATCH_TABLE
+
+/*
+** Dispatch table
+*/
+
+static const sqlite3mc_core_routines sqlite3mcCoreApis =
+{
+  sqlite3_initialize,
+  sqlite3_shutdown,
+  sqlite3_config,
+  sqlite3_enable_load_extension,
+#ifndef SQLITE_OMIT_DEPRECATED
+  sqlite3_memory_alarm,
+#else
+  0,
+#endif
+#ifndef NDEBUG
+  sqlite3_mutex_held,
+  sqlite3_mutex_notheld,
+#else
+  0,
+  0,
+#endif
+  sqlite3_os_init,
+  sqlite3_os_end,
+
+#ifdef SQLITE_ENABLE_PREUPDATE_HOOK
+  sqlite3_preupdate_blobwrite,
+  sqlite3_preupdate_count,
+  sqlite3_preupdate_depth,
+  sqlite3_preupdate_hook,
+  sqlite3_preupdate_new,
+  sqlite3_preupdate_old,
+#else
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+#endif
+#ifdef SQLITE_ENABLE_SNAPSHOT
+  sqlite3_snapshot_cmp,
+  sqlite3_snapshot_free,
+  sqlite3_snapshot_get,
+  sqlite3_snapshot_open,
+  sqlite3_snapshot_recover,
+#else
+  0,
+  0,
+  0,
+  0,
+  0,
+#endif
+#ifdef SQLITE_ENABLE_STMT_SCANSTATUS
+  sqlite3_stmt_scanstatus,
+  sqlite3_stmt_scanstatus_v2,
+  sqlite3_stmt_scanstatus_reset,
+#else
+  0,
+  0,
+  0,
+#endif
+#if SQLITE_OS_WIN == 1
+  sqlite3_win32_set_directory,
+  sqlite3_win32_set_directory16,
+  sqlite3_win32_set_directory8,
+#else
+  0,
+  0,
+  0,
+#endif
+};
+
+static const sqlite3mc_api_routines sqlite3mcApis =
+{
+  sqlite3_activate_see,
+  sqlite3_key,
+  sqlite3_key_v2,
+  sqlite3_rekey,
+  sqlite3_rekey_v2,
+
+  sqlite3mc_version,
+  sqlite3mc_cipher_count,
+  sqlite3mc_cipher_index,
+  sqlite3mc_cipher_name,
+  sqlite3mc_cipher_name_copy,
+  sqlite3mc_config,
+  sqlite3mc_config_cipher,
+  sqlite3mc_codec_data,
+
+  sqlite3mc_vfs_create,
+  sqlite3mc_vfs_destroy,
+  sqlite3mc_vfs_shutdown,
+};
+
+/*
+** Global pointers to the dispatch tables
+*/
+
+const sqlite3_api_routines*    SQLITE3MC_API_TABLE_EXT  = &sqlite3Apis;
+const sqlite3mc_core_routines* SQLITE3MC_API_TABLE_CORE = &sqlite3mcCoreApis;
+const sqlite3mc_api_routines*  SQLITE3MC_API_TABLE_MC   = &sqlite3mcApis;
 
 #endif

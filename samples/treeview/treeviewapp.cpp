@@ -82,7 +82,7 @@ TreeviewSampleApp::OnInit()
 #if wxUSE_GIF
   wxImage::AddHandler(new wxGIFHandler);
 #endif
-  wxSQLite3Database::InitializeSQLite();
+  wxSQLite3::Database::InitializeSQLite();
   ok = InitializeDatabase();
   if (ok)
   {
@@ -102,15 +102,7 @@ TreeviewSampleApp::OnInit()
 int
 TreeviewSampleApp::OnExit()
 {
-  try
-  {
-    m_db.Close();
-  }
-  catch (wxSQLite3Exception& e)
-  {
-  }
-
-  wxSQLite3Database::ShutdownSQLite();
+  wxSQLite3::Database::ShutdownSQLite();
   return wxApp::OnExit();
 }
 
@@ -189,7 +181,7 @@ TreeviewSampleApp::InitializeDatabase()
       m_db.ExecuteUpdate("INSERT INTO folderprojects (fid, pid) SELECT 1, pid FROM projects;");
     }
   }
-  catch (wxSQLite3Exception& e)
+  catch (wxSQLite3::Exception& e)
   {
     wxString msg;
     if (state == 0) msg = wxString(wxT("Error on creating the Treeview Sample database\n"));

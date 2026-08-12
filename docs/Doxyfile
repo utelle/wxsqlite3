@@ -48,7 +48,7 @@ PROJECT_NAME           = wxSQLite3
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = 4.12.7
+PROJECT_NUMBER         = 5.0.0
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewers a
@@ -61,7 +61,7 @@ PROJECT_BRIEF          =
 # pixels and the maximum width should not exceed 200 pixels. Doxygen will copy
 # the logo to the output directory.
 
-PROJECT_LOGO           = E:/github/wxsqlite3-4.0.0/wxsqlite3.png
+PROJECT_LOGO           = E:/github/wxsqlite3-5.0.0/wxsqlite3.png
 
 # With the PROJECT_ICON tag one can specify an icon that is included in the tabs
 # when the HTML document is shown. Doxygen will copy the logo to the output
@@ -629,7 +629,7 @@ HIDE_UNDOC_CLASSES     = NO
 # option has no effect if EXTRACT_ALL is enabled.
 # The default value is: YES.
 
-HIDE_UNDOC_NAMESPACES  = YES
+HIDE_UNDOC_NAMESPACES  = NO
 
 # If the HIDE_FRIEND_COMPOUNDS tag is set to YES, Doxygen will hide all friend
 # declarations. If set to NO, these declarations will be included in the
@@ -1026,8 +1026,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = ../include \
-                         ../src
+INPUT                  = ../include
 
 # This tag can be used to specify the character encoding of the source files
 # that Doxygen parses. Internally Doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1857,7 +1856,7 @@ FULL_SIDEBAR           = NO
 # Minimum value: 0, maximum value: 20, default value: 4.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-ENUM_VALUES_PER_LINE   = 4
+ENUM_VALUES_PER_LINE   = 1
 
 # When the SHOW_ENUM_VALUES tag is set doxygen will show the specified
 # enumeration values besides the enumeration mnemonics.
@@ -2566,7 +2565,8 @@ INCLUDE_FILE_PATTERNS  =
 # recursively expanded use the := operator instead of the = operator.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-PREDEFINED             = WXSQLITE3_HAVE_METADATA \
+PREDEFINED             = WXSQLITE3_HAS_CXX17 \
+                         WXSQLITE3_HAVE_METADATA \
                          WXSQLITE3_HAVE_CODEC \
                          wxUSE_REGEX
 

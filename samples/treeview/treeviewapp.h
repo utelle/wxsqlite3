@@ -43,7 +43,7 @@ public:
   bool InitializeDatabase();
 
   TreeviewSample* m_mainFrameWindow;
-  wxSQLite3Database m_db;
+  wxSQLite3::Database m_db;
 };
 
 /*!

@@ -78,7 +78,7 @@ class TreeviewSample: public wxFrame
 public:
   /// Constructors
   TreeviewSample();
-  TreeviewSample( wxSQLite3Database* db, wxWindow* parent, wxWindowID id = SYMBOL_TREEVIEWSAMPLE_IDNAME, const wxString& caption = SYMBOL_TREEVIEWSAMPLE_TITLE, const wxPoint& pos = SYMBOL_TREEVIEWSAMPLE_POSITION, const wxSize& size = SYMBOL_TREEVIEWSAMPLE_SIZE, long style = SYMBOL_TREEVIEWSAMPLE_STYLE );
+  TreeviewSample( wxSQLite3::Database* db, wxWindow* parent, wxWindowID id = SYMBOL_TREEVIEWSAMPLE_IDNAME, const wxString& caption = SYMBOL_TREEVIEWSAMPLE_TITLE, const wxPoint& pos = SYMBOL_TREEVIEWSAMPLE_POSITION, const wxSize& size = SYMBOL_TREEVIEWSAMPLE_SIZE, long style = SYMBOL_TREEVIEWSAMPLE_STYLE );
 
   bool Create( wxWindow* parent, wxWindowID id = SYMBOL_TREEVIEWSAMPLE_IDNAME, const wxString& caption = SYMBOL_TREEVIEWSAMPLE_TITLE, const wxPoint& pos = SYMBOL_TREEVIEWSAMPLE_POSITION, const wxSize& size = SYMBOL_TREEVIEWSAMPLE_SIZE, long style = SYMBOL_TREEVIEWSAMPLE_STYLE );
 
@@ -214,7 +214,7 @@ public:
   ProjectListView* m_projectView;
   int              m_activeFolder;
 
-  wxSQLite3Database* m_db;
+  wxSQLite3::Database* m_db;
 };
 
 #endif

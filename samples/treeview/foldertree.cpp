@@ -110,7 +110,7 @@ FolderTreeCtrl::LoadFolderTree(int activeFolder)
 
   try
   {
-    wxSQLite3ResultSet q = m_db->ExecuteQuery(selcmd);
+    wxSQLite3::ResultSet q = m_db->ExecuteQuery(selcmd);
     while (q.NextRow())
     {
       nodeId      = q.GetInt(0);
@@ -147,7 +147,7 @@ FolderTreeCtrl::LoadFolderTree(int activeFolder)
     SelectItem(m_activeFolderId);
     EnsureVisible(m_activeFolderId);
   }
-  catch (wxSQLite3Exception e)
+  catch (wxSQLite3::Exception e)
   {
   }
 }
@@ -162,9 +162,9 @@ FolderTreeCtrl::GetFolderPath(int folder)
     wxString(wxT("  where c.descendant=? order by distance desc);"));
   try
   {
-    wxSQLite3Statement selectStatement = m_db->PrepareStatement(sqlFolderPathSelect);
+    wxSQLite3::Statement selectStatement = m_db->PrepareStatement(sqlFolderPathSelect);
     selectStatement.Bind(1, folder);
-    wxSQLite3ResultSet q = selectStatement.ExecuteQuery();
+    wxSQLite3::ResultSet q = selectStatement.ExecuteQuery();
     while (q.NextRow())
     {
       folderPath = q.GetString(0);
@@ -172,7 +172,7 @@ FolderTreeCtrl::GetFolderPath(int folder)
     folderPath = folderPath.Mid(4);
     if (folderPath.IsEmpty()) folderPath = wxT("/");
   }
-  catch (wxSQLite3Exception e)
+  catch (wxSQLite3::Exception e)
   {
   }
   return folderPath;
@@ -211,14 +211,14 @@ FolderTreeCtrl::HandleDraggedProjects(int sourceFolder, int targetFolder, const 
     }
     m_db->Commit();
   }
-  catch (wxSQLite3Exception e)
+  catch (wxSQLite3::Exception e)
   {
     wxLogError(wxString(_("Error: "))+e.GetMessage());
     try
     {
       m_db->Rollback();
     }
-    catch (wxSQLite3Exception& e2)
+    catch (wxSQLite3::Exception& e2)
     {
       wxUnusedVar(e2);
     }
@@ -257,14 +257,14 @@ FolderTreeCtrl::RemoveSelectedFolder()
         wxString sqlDeleteFolder = wxString(wxT("delete from folders where fid=?;"));
         try
         {
-          wxSQLite3Statement deleteStatement = m_db->PrepareStatement(sqlDeleteFolder);
+          wxSQLite3::Statement deleteStatement = m_db->PrepareStatement(sqlDeleteFolder);
           deleteStatement.Bind(1, folderNode->GetFolderId());
           deleteStatement.ExecuteUpdate();
 
           RemoveChildFolders(selectedFolderId);
           Delete(selectedFolderId);
         }
-        catch (wxSQLite3Exception e)
+        catch (wxSQLite3::Exception e)
         {
           wxLogError(wxString::Format(_("Removing the folder '%s' failed."), folderNode->GetFolderName().c_str()) + wxString(wxT("\n")) +
                      wxString(_("Database error")) + wxString(wxT(": ")) + e.GetMessage());
@@ -326,7 +326,7 @@ FolderTreeCtrl::AddSubfolder(const wxString& newFolderName)
         {
           m_db->Begin();
           int newFolderId = m_db->ExecuteScalar("select max(fid)+1 from folders");
-          wxSQLite3Statement insertStatement = m_db->PrepareStatement(sqlInsertFolder);
+          wxSQLite3::Statement insertStatement = m_db->PrepareStatement(sqlInsertFolder);
           insertStatement.Bind(1, newFolderId);
           insertStatement.Bind(2, folderNode->GetFolderId());
           insertStatement.Bind(3, newFolderName);
@@ -341,13 +341,13 @@ FolderTreeCtrl::AddSubfolder(const wxString& newFolderName)
           Expand(idParent);
           ok = true;
         }
-        catch (wxSQLite3Exception e)
+        catch (wxSQLite3::Exception e)
         {
           try
           {
             m_db->Rollback();
           }
-          catch (wxSQLite3Exception& e2)
+          catch (wxSQLite3::Exception& e2)
           {
             wxUnusedVar(e2);
           }
@@ -467,7 +467,7 @@ FolderTreeCtrl::OnEndLabelEdit(wxTreeEvent& treeEvent)
       wxString sqlUpdateFolderName = wxString(wxT("update folders set fname=? where fid=?;"));
       try
       {
-        wxSQLite3Statement updateStatement = m_db->PrepareStatement(sqlUpdateFolderName);
+        wxSQLite3::Statement updateStatement = m_db->PrepareStatement(sqlUpdateFolderName);
         updateStatement.Bind(1, newName);
         updateStatement.Bind(2, folderNode->GetFolderId());
         updateStatement.ExecuteUpdate();
@@ -476,7 +476,7 @@ FolderTreeCtrl::OnEndLabelEdit(wxTreeEvent& treeEvent)
         wxTreeItemId idParent = GetItemParent(idFolder);
         SortChildren(idParent);
       }
-      catch (wxSQLite3Exception e)
+      catch (wxSQLite3::Exception e)
       {
         treeEvent.Veto();
       }
@@ -534,7 +534,7 @@ FolderTreeCtrl::OnEndDrag(wxTreeEvent& treeEvent)
           wxString sqlUpdateFolder = wxString(wxT("update folders set fparent=? where fid=?;"));
           try
           {
-            wxSQLite3Statement updateStatement = m_db->PrepareStatement(sqlUpdateFolder);
+            wxSQLite3::Statement updateStatement = m_db->PrepareStatement(sqlUpdateFolder);
             updateStatement.Bind(1, targetFolderNode->GetFolderId());
             updateStatement.Bind(2, sourceFolderNode->GetFolderId());
             updateStatement.ExecuteUpdate();
@@ -544,7 +544,7 @@ FolderTreeCtrl::OnEndDrag(wxTreeEvent& treeEvent)
             Delete(sourceFolderId);
             SortChildren(targetFolderId);
           }
-          catch (wxSQLite3Exception e)
+          catch (wxSQLite3::Exception e)
           {
             wxLogError(wxString::Format(_("Moving folder '%s' failed."), sourceFolderNode->GetFolderName().c_str()) + wxString(wxT("\n")) +
                        wxString(_("Subfolder with same name already exists in target folder.")));
@@ -604,11 +604,11 @@ FolderTreeCtrl::GetProjectCount(const wxTreeItemId& folderId)
   wxString sqlProjectCount = wxString(wxT("select count(*) from folderprojects where fid in (select descendant from folderclosure where ancestor=?);"));
   try
   {
-    wxSQLite3Statement projectCountStatement = m_db->PrepareStatement(sqlProjectCount);
+    wxSQLite3::Statement projectCountStatement = m_db->PrepareStatement(sqlProjectCount);
     projectCountStatement.Bind(1,folderNode->GetFolderId());
     projectCount = projectCountStatement.ExecuteScalar();
   }
-  catch (wxSQLite3Exception e)
+  catch (wxSQLite3::Exception e)
   {
   }
   return projectCount;

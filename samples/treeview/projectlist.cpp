@@ -46,7 +46,7 @@ BEGIN_EVENT_TABLE(ProjectListView, wxListView)
 END_EVENT_TABLE()
 
 ProjectListView::ProjectListView(wxWindow* parent, wxWindowID id,
-                                 TreeviewSample* mainFrame, wxSQLite3Database* db, wxStatusBar *statusBar)
+                                 TreeviewSample* mainFrame, wxSQLite3::Database* db, wxStatusBar *statusBar)
   : wxListView(parent, id, wxDefaultPosition, wxSize(600, 450), wxLC_REPORT|wxLC_HRULES|wxLC_VRULES /*wxSIMPLE_BORDER|wxHSCROLL|wxVSCROLL)*/)
 {
   m_parent = parent;
@@ -155,9 +155,9 @@ ProjectListView::LoadProjectDescriptions(int sortColumn, bool descending)
   m_data.Empty();
   try
   {
-    wxSQLite3Statement stmt = m_db->PrepareStatement(selcmd);
+    wxSQLite3::Statement stmt = m_db->PrepareStatement(selcmd);
     stmt.Bind(1, activeFolder);
-    wxSQLite3ResultSet q = stmt.ExecuteQuery();
+    wxSQLite3::ResultSet q = stmt.ExecuteQuery();
     m_projectCount = 0;
     while (q.NextRow())
     {
@@ -168,7 +168,7 @@ ProjectListView::LoadProjectDescriptions(int sortColumn, bool descending)
       ++m_projectCount;
     }
   }
-  catch (wxSQLite3Exception e)
+  catch (wxSQLite3::Exception e)
   {
   }
 

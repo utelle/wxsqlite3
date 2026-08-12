@@ -10,7 +10,7 @@ BUILDDIR = _OPTIONS["builddir"] or "build"
 
 workspace "wxsqlite3"
   configurations { "Debug", "Release", "Debug_wxDLL", "Release_wxDLL", "Debug_DLL", "Release_DLL" }
-  platforms { "Win32", "Win64" }
+  platforms { "Win32", platform_win64 }
   location(BUILDDIR)
 
   if (is_msvc) then
@@ -31,6 +31,7 @@ workspace "wxsqlite3"
 project "wxsqlite3"
   location(BUILDDIR)
   language "C++"
+  cppdialect "C++17"
 
   if (is_msvc) then
     local prj = project()
@@ -92,6 +93,7 @@ project "wxsqlite3"
 project "minimal"
   location(BUILDDIR)
   language "C++"
+  cppdialect "C++17"
   kind "ConsoleApp"
 
   if (is_msvc) then
@@ -118,6 +120,7 @@ project "minimal"
 project "treeview"
   location(BUILDDIR)
   language "C++"
+  cppdialect "C++17"
   kind "WindowedApp"
 
   if (is_msvc) then

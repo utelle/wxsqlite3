@@ -37,7 +37,7 @@ public:
   FolderTreeCtrl(wxWindow* parent, wxWindowID id, const wxSize& size);
   virtual ~FolderTreeCtrl();
 
-  void SetDatabase(wxSQLite3Database* database) { m_db = database; }
+  void SetDatabase(wxSQLite3::Database* database) { m_db = database; }
 
   void SetFolderChangedEventId(wxWindowID folderChangedEventId ) { m_folderChangedEventId = folderChangedEventId; }
   void LoadFolderTree(int activeFolder);
@@ -89,7 +89,7 @@ private:
 
   bool            m_draggingProjects;
 
-  wxSQLite3Database* m_db;
+  wxSQLite3::Database* m_db;
 
   DECLARE_EVENT_TABLE()
 };

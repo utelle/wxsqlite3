@@ -6,7 +6,7 @@
 
 Since SQLite stores strings in UTF-8 encoding, the wxSQLite3 methods provide automatic conversion between wxStrings and UTF-8 strings. This works best for the Unicode builds of wxWidgets. In ANSI builds the current locale conversion object (wxConvCurrent) is used for conversion to/from UTF-8. Special care has to be taken if external administration tools are used to modify the database contents, since not all of these tools operate in Unicode or UTF-8 mode.
 
-Since version 1.7.0 **wxSQLite3** includes a key-based SQLite3 encryption extension using AES encryption. The decision whether to use 128 bit or 256 bit AES encryption had to be made at compile time. Starting with version 4.0.0 the encryption extension allows to select the cipher scheme at runtime.
+Since version 1.7.0 **wxSQLite3** includes a key-based SQLite3 encryption extension. Starting with version 4.0.0 the encryption extension allows to select the cipher scheme at runtime.
 
 Currently the following encryption schemes are supported:
 
@@ -20,6 +20,8 @@ Currently the following encryption schemes are supported:
 
 ## Important Notes
 
+Starting with wxSQLite3 version 3.5.0 the SQLite3 library is compiled as an integrated part of wxSQLite3. A separate SQLite3 DLL is not required.
+
 With the release of SQLite version 3.32.0 on May 22, 2020 critical changes to the public SQLite code finally took officially effect, although they weren't officially announced. They were introduced on Feb 7, 2020: ["Simplify the code by removing the unsupported and undocumented SQLITE_HAS_CODEC compile-time option"](https://www.sqlite.org/src/timeline?c=5a877221ce90e752). As a consequence, updating the _wxSQLite3 encryption extension_ to support SQLite version 3.32.0 and later was no longer possible.
 
 Since August 2020 a new implementation of an encryption extension, capable of supporting SQLite version 3.32.0 and later, is available as a separate project, [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers). Starting with the release of **wxSQLite3 4.6.0** this new implementation is used.
@@ -32,17 +34,32 @@ Currently the _CMake_ support is experimental and limited to Windows platforms (
 - [Installation](#install)
 - [Optional features](#optional)
 - [Key based database encryption support](#encryption)
-- [Static SQLite library](#sqlite-static)
 - [License](#license)
 - [Acknowledgements](#acknowledge)
 
 ## <a name="history"></a>Version history
 
-* 4.12.7 - *July 2026*
+* 5.0.0 - *August 2026*
 
-  - Upgrade to SQLite3 Multiple Ciphers version 2.4.0 (SQLite version 3.53.4)
+  - First release in the **5.x** series with a modernized C++ interface
+  - Based on [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers) version 2.5.0 ([SQLite version 3.53.4](https://sqlite.org/releaselog/3_53_4.html))
 
 For further version information please consult the [CHANGELOG](CHANGELOG.md).
+
+### Modern C++ API
+
+The wxSQLite3 API has been extended with several features aimed at modern C++ development:
+
+- Template-based methods for retrieving values from result sets
+- Template-based methods for binding values to prepared statements
+- Iterator support for `wxSQLite3::ResultSet`
+- Support for range-based `for` loops when processing result sets
+
+These features complement the existing wxSQLite3 API and allow result-set and prepared-statement code to be written in a more concise and type-oriented style.
+
+**wxSQLite3 5.x** is a major update with a modernized C++ API. It is not fully source-compatible with **wxSQLite3 4.x**. Therefore, **wxSQLite3 4.x** will receive maintenance updates, including updates to the bundled SQLite version, for a limited period following the release of 5.0.0. No new API features will be added. The **End-of-Life** date of version **4.x** will be announced separately.
+
+The documentation section  [Migrating from 4.x to 5.x](https://utelle.github.io/wxsqlite3/docs/5.x/migration.html) details the steps required to migrate from prior _wxSQLite3_ versions. The documentation section [Modern C++ Interface](https://utelle.github.io/wxsqlite3/docs/5.x/features.html) presents the new features.
 
 ## <a name="install" />Installation
 
@@ -144,22 +161,11 @@ In case of memory constraints it is of course possible to disable unneeded featu
 
 ## <a name="encryption" />Key based database encryption support
 
-The public release of SQLite contains hooks for key based database encryption, but the code for implementing this feature is not freely available. D. Richard Hipp offers a commercial solution (see [http://www.hwaci.com/sw/sqlite/prosupport.html#crypto](http://www.hwaci.com/sw/sqlite/prosupport.html#crypto)).
+There exist other SQLite encryption solutions, open-source as well as closed-source, among them:
 
-There exist other closed-source commercial solutions, among them:
-
-- [http://www.sqlcrypt.com](http://www.sqlcrypt.com)
-- [http://www.sqlite-crypt.com](http://www.sqlite-crypt.com)
-
-Both use a slightly different encryption API, which is currently _NOT_ supported by wxSQLite3.
-
-For Windows based systems there exists an open source solution: [System.Data.SQLite](http://System.Data.SQLite.org). For SQLite version 3.32.0 or higher encryption support has been dropped. However, the new encryption extension _SQLite3 Multiple Ciphers_ allows to use this encryption scheme on all supported platforms.
-
-**wxSQLite3** uses now the new encryption extension [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers). Precompiled binaries of the SQLite3 DLL and the SQLite3 shell  for Windows are now provided by this new separate project.
-
-## <a name="sqlite-static"></a>Using statically linked SQLite library on Windows
-
-Starting with wxSQLite3 version 3.5.0 the SQLite3 library is compiled as an integrated part of wxSQLite3. A separate SQLite3 DLL is not required any longer.
+- [SQLite Encryption Extension (SEE)](https://sqlite.org/see/) (commercial) by the SQLite Team (D. Richard Hipp et al)
+- [SQLiteCrypt](https://www.sqlite-crypt.com/) (commercial)
+- [SQLCipher](https://www.zetetic.net/sqlcipher/) (open-source / commercial)
 
 ## <a name="license" />License
 

@@ -4,7 +4,7 @@ dnl Copyright (C) 2017-2026 Ulrich Telle <github@telle-online.de>, Vadim Zeitlin
 dnl
 dnl This file is covered by the same licence as the entire wxSQLite3 package.
 
-AC_INIT([wxsqlite3], [4.12.7], [github@telle-online.de])
+AC_INIT([wxsqlite3], [5.0.0], [github@telle-online.de])
 
 dnl This is the version tested with, might work with earlier ones.
 AC_PREREQ([2.69])
@@ -23,7 +23,7 @@ AC_LANG(C++)
 
 AC_ARG_VAR(WX_CONFIG, [Path to wx-config script (default: search in PATH).])
 WX_CONFIG_OPTIONS
-WX_CONFIG_CHECK([2.8.0],
+WX_CONFIG_CHECK([3.0.0],
     [],
     [AC_MSG_FAILURE([wxWidgets required but not detected.])],
     [base,core]

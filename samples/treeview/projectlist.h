@@ -49,7 +49,7 @@ private:
   };
 
 public:
-  ProjectListView(wxWindow* parent, wxWindowID id, TreeviewSample* mainFrame, wxSQLite3Database* db, wxStatusBar *statusBar = 0);
+  ProjectListView(wxWindow* parent, wxWindowID id, TreeviewSample* mainFrame, wxSQLite3::Database* db, wxStatusBar *statusBar = 0);
   virtual ~ProjectListView();
 
   void SetProjectListFrame(TreeviewSample* projectListFrame) { m_mainFrame = projectListFrame; }
@@ -90,7 +90,7 @@ protected:
 
   wxWindow*          m_parent;
   TreeviewSample*    m_mainFrame;
-  wxSQLite3Database* m_db;
+  wxSQLite3::Database* m_db;
 
   ArrayOfProjectDescriptions m_data;
   wxString                   m_filter;
