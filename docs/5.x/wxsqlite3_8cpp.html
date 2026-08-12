@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.17.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>wxSQLite3: wxsqlite3.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="theme-round.css" rel="stylesheet" type="text/css"/>
+<link href="theme-robot.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/utelle/wxsqlite3" class="github-corner" title="View wxSQLite3 on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">wxSQLite3
+   &#160;<span id="projectnumber">5.0.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.17.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+  initMenu('',true);
+  init_search();
+});
+</script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1" style="position:absolute;right:8px;top:8px;height:36px;"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2" style="float:right">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('wxsqlite3_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">wxsqlite3.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Implementation of the <a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a> class.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;wx/wxprec.h&quot;</code><br />
+<code>#include &quot;wx/wx.h&quot;</code><br />
+<code>#include &quot;wx/dynarray.h&quot;</code><br />
+<code>#include &quot;wx/regex.h&quot;</code><br />
+<code>#include &quot;wx/thread.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="wxsqlite3_8h.html">wx/wxsqlite3.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wxsqlite3opt_8h.html">wx/wxsqlite3opt.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sqlite3mc__config_8h.html">sqlite3mc_config.h</a>&quot;</code><br />
+<code>#include &quot;sqlite3mc_amalgamation.h&quot;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;assert.h&gt;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:wxSQLite3_3A_3ADatabaseHandle" id="r_wxSQLite3_3A_3ADatabaseHandle"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_1_1_database_handle.html">wxSQLite3::DatabaseHandle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwx_s_q_lite3_1_1_database.html" title="Represents a SQLite3 database object.">Database</a> handle (internal).  <a href="classwx_s_q_lite3_1_1_database_handle.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3_3A_3AStatementHandle" id="r_wxSQLite3_3A_3AStatementHandle"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_1_1_statement_handle.html">wxSQLite3::StatementHandle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference counted statement object (internal).  <a href="classwx_s_q_lite3_1_1_statement_handle.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3_3A_3ABlobHandle" id="r_wxSQLite3_3A_3ABlobHandle"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_1_1_blob_handle.html">wxSQLite3::BlobHandle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference counted blob object (internal).  <a href="classwx_s_q_lite3_1_1_blob_handle.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3_3A_3Asqlite3_5Fintarray" id="r_wxSQLite3_3A_3Asqlite3_5Fintarray"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structwx_s_q_lite3_1_1sqlite3__intarray.html">wxSQLite3::sqlite3_intarray</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the <a class="el" href="structwx_s_q_lite3_1_1sqlite3__intarray.html" title="Definition of the sqlite3_intarray object (internal).">sqlite3_intarray</a> object (internal).  <a href="structwx_s_q_lite3_1_1sqlite3__intarray.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3_3A_3Aintarray_5Fvtab" id="r_wxSQLite3_3A_3Aintarray_5Fvtab"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structwx_s_q_lite3_1_1intarray__vtab.html">wxSQLite3::intarray_vtab</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of intarray table object (internal).  <a href="structwx_s_q_lite3_1_1intarray__vtab.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3_3A_3Aintarray_5Fcursor" id="r_wxSQLite3_3A_3Aintarray_5Fcursor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structwx_s_q_lite3_1_1intarray__cursor.html">wxSQLite3::intarray_cursor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of intarray cursor object (internal).  <a href="structwx_s_q_lite3_1_1intarray__cursor.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3_3A_3Asqlite3_5Fchararray" id="r_wxSQLite3_3A_3Asqlite3_5Fchararray"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structwx_s_q_lite3_1_1sqlite3__chararray.html">wxSQLite3::sqlite3_chararray</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the <a class="el" href="structwx_s_q_lite3_1_1sqlite3__chararray.html" title="Definition of the sqlite3_chararray object (internal).">sqlite3_chararray</a> object (internal).  <a href="structwx_s_q_lite3_1_1sqlite3__chararray.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3_3A_3Achararray_5Fvtab" id="r_wxSQLite3_3A_3Achararray_5Fvtab"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structwx_s_q_lite3_1_1chararray__vtab.html">wxSQLite3::chararray_vtab</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of chararray table object (internal).  <a href="structwx_s_q_lite3_1_1chararray__vtab.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3_3A_3Achararray_5Fcursor" id="r_wxSQLite3_3A_3Achararray_5Fcursor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structwx_s_q_lite3_1_1chararray__cursor.html">wxSQLite3::chararray_cursor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of chararray cursor object (internal).  <a href="structwx_s_q_lite3_1_1chararray__cursor.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:wxSQLite3" id="r_wxSQLite3"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a3a4bbbeedb4969ab717a100fc89c9e7d" id="r_a3a4bbbeedb4969ab717a100fc89c9e7d"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a3a4bbbeedb4969ab717a100fc89c9e7d">wxSQLite3::sqlite3_xauth</a> = int (*)(void*, int, const char*, const char*, const char*, const char*)</td></tr>
+<tr class="memitem:a4280e0928961e6a4c95bd5f7b860d5ed" id="r_a4280e0928961e6a4c95bd5f7b860d5ed"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">wxSQLite3::err_char_t</a> = wxChar</td></tr>
+<tr class="memitem:a1f300bfffdfc2024c7bc307a4dc18476" id="r_a1f300bfffdfc2024c7bc307a4dc18476"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a1f300bfffdfc2024c7bc307a4dc18476">wxSQLite3::intarray_vtab</a> = struct intarray_vtab</td></tr>
+<tr class="memitem:a41a8878d06309ddb54f2d20159c42e24" id="r_a41a8878d06309ddb54f2d20159c42e24"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a41a8878d06309ddb54f2d20159c42e24">wxSQLite3::intarray_cursor</a> = struct intarray_cursor</td></tr>
+<tr class="memitem:ad79247d721fc4518a26eb175e7d6d063" id="r_ad79247d721fc4518a26eb175e7d6d063"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ad79247d721fc4518a26eb175e7d6d063">wxSQLite3::chararray_vtab</a> = struct chararray_vtab</td></tr>
+<tr class="memitem:a0b95162bb67d8a14176c9df7a3b7a039" id="r_a0b95162bb67d8a14176c9df7a3b7a039"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a0b95162bb67d8a14176c9df7a3b7a039">wxSQLite3::chararray_cursor</a> = struct chararray_cursor</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a98e52b896bdc9c799ccc110a14feef59" id="r_a98e52b896bdc9c799ccc110a14feef59"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a98e52b896bdc9c799ccc110a14feef59">wxSQLite3::FunctionContextExecAuthorizer</a> (void *func, int type, const char *arg1, const char *arg2, const char *arg3, const char *arg4)</td></tr>
+<tr class="memitem:ae635eda13ea2abbfe309bfb7cfa91331" id="r_ae635eda13ea2abbfe309bfb7cfa91331"><td class="memItemLeft">static const char *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ae635eda13ea2abbfe309bfb7cfa91331">wxSQLite3::LocalMakePointerTypeCopy</a> (wxArrayPtrVoid &amp;ptrTypes, const wxString &amp;pointerType)</td></tr>
+<tr class="memitem:ae4a90ad3808774ed4d8a51a18afdf949" id="r_ae4a90ad3808774ed4d8a51a18afdf949"><td class="memItemLeft">static wxLongLong&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ae4a90ad3808774ed4d8a51a18afdf949">wxSQLite3::ConvertStringToLongLong</a> (const wxString &amp;str, wxLongLong defValue)</td></tr>
+<tr class="memitem:a7531b06eca2c682677436a43da96f998" id="r_a7531b06eca2c682677436a43da96f998"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a7531b06eca2c682677436a43da96f998">wxSQLite3::GetLastErrorMessage</a> (sqlite3 *db)</td></tr>
+<tr class="memitem:a62fe3fba6dc3eb51cb85668516ed2901" id="r_a62fe3fba6dc3eb51cb85668516ed2901"><td class="memItemLeft">static double&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a62fe3fba6dc3eb51cb85668516ed2901">wxSQLite3::AtoF</a> (const char *z)</td></tr>
+<tr class="memitem:a61f54192e0714068f5ca94bf257a51bb" id="r_a61f54192e0714068f5ca94bf257a51bb"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a61f54192e0714068f5ca94bf257a51bb">wxSQLite3::BackupRestoreCallback</a> (int total, int remaining, <a class="el" href="classwx_s_q_lite3_1_1_backup_progress.html">BackupProgress</a> *progressCallback)</td></tr>
+<tr class="memitem:ab0df33bd87a14ba198760a2690a7e118" id="r_ab0df33bd87a14ba198760a2690a7e118"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ab0df33bd87a14ba198760a2690a7e118">wxSQLite3::intarrayFree</a> (<a class="el" href="structwx_s_q_lite3_1_1sqlite3__intarray.html">sqlite3_intarray</a> *p)</td></tr>
+<tr class="memitem:aeecc677edd7603f1533043f9f1ccaf76" id="r_aeecc677edd7603f1533043f9f1ccaf76"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#aeecc677edd7603f1533043f9f1ccaf76">wxSQLite3::intarrayDestroy</a> (sqlite3_vtab *p)</td></tr>
+<tr class="memitem:a35898dc6ba99c6757821cb979391f638" id="r_a35898dc6ba99c6757821cb979391f638"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a35898dc6ba99c6757821cb979391f638">wxSQLite3::intarrayCreate</a> (sqlite3 *db, void *pAux, int, const char *const *, sqlite3_vtab **ppVtab, char **)</td></tr>
+<tr class="memitem:adf2065ce2f1f84b92d5cf02d5059e574" id="r_adf2065ce2f1f84b92d5cf02d5059e574"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#adf2065ce2f1f84b92d5cf02d5059e574">wxSQLite3::intarrayOpen</a> (sqlite3_vtab *, sqlite3_vtab_cursor **ppCursor)</td></tr>
+<tr class="memitem:aa2b0d2302a277f434c9c2e8930f68578" id="r_aa2b0d2302a277f434c9c2e8930f68578"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#aa2b0d2302a277f434c9c2e8930f68578">wxSQLite3::intarrayClose</a> (sqlite3_vtab_cursor *cur)</td></tr>
+<tr class="memitem:a0cab4a1ed173445ecf3164d2650ecc34" id="r_a0cab4a1ed173445ecf3164d2650ecc34"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a0cab4a1ed173445ecf3164d2650ecc34">wxSQLite3::intarrayColumn</a> (sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int)</td></tr>
+<tr class="memitem:ad0732c077de5ffd1ed10411791c07e0f" id="r_ad0732c077de5ffd1ed10411791c07e0f"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ad0732c077de5ffd1ed10411791c07e0f">wxSQLite3::intarrayRowid</a> (sqlite3_vtab_cursor *cur, sqlite_int64 *pRowid)</td></tr>
+<tr class="memitem:a50a10a03ac02646cfd960bc6d7ba2c93" id="r_a50a10a03ac02646cfd960bc6d7ba2c93"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a50a10a03ac02646cfd960bc6d7ba2c93">wxSQLite3::intarrayEof</a> (sqlite3_vtab_cursor *cur)</td></tr>
+<tr class="memitem:a48d6b2e12805623c2e9729451e359f72" id="r_a48d6b2e12805623c2e9729451e359f72"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a48d6b2e12805623c2e9729451e359f72">wxSQLite3::intarrayNext</a> (sqlite3_vtab_cursor *cur)</td></tr>
+<tr class="memitem:abab9f6124c937f55f9e1bc045a453eb8" id="r_abab9f6124c937f55f9e1bc045a453eb8"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#abab9f6124c937f55f9e1bc045a453eb8">wxSQLite3::intarrayFilter</a> (sqlite3_vtab_cursor *pVtabCursor, int, const char *, int, sqlite3_value **)</td></tr>
+<tr class="memitem:a0a8e63041cb88873da96a657ae2788d6" id="r_a0a8e63041cb88873da96a657ae2788d6"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a0a8e63041cb88873da96a657ae2788d6">wxSQLite3::intarrayBestIndex</a> (sqlite3_vtab *, sqlite3_index_info *)</td></tr>
+<tr class="memitem:a49be8f50fd5ac265246cb7b3107ecaaf" id="r_a49be8f50fd5ac265246cb7b3107ecaaf"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a49be8f50fd5ac265246cb7b3107ecaaf">wxSQLite3::chararrayFree</a> (<a class="el" href="structwx_s_q_lite3_1_1sqlite3__chararray.html">sqlite3_chararray</a> *p)</td></tr>
+<tr class="memitem:a06869a7f772ee0c8da785f2b3f8f52cf" id="r_a06869a7f772ee0c8da785f2b3f8f52cf"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a06869a7f772ee0c8da785f2b3f8f52cf">wxSQLite3::chararrayDestroy</a> (sqlite3_vtab *p)</td></tr>
+<tr class="memitem:a4f1e4cd96991a8efb71315b08bed074c" id="r_a4f1e4cd96991a8efb71315b08bed074c"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a4f1e4cd96991a8efb71315b08bed074c">wxSQLite3::chararrayCreate</a> (sqlite3 *db, void *pAux, int, const char *const *, sqlite3_vtab **ppVtab, char **)</td></tr>
+<tr class="memitem:ac127f150aa36e41ae54a5a3d26f3f395" id="r_ac127f150aa36e41ae54a5a3d26f3f395"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ac127f150aa36e41ae54a5a3d26f3f395">wxSQLite3::chararrayOpen</a> (sqlite3_vtab *, sqlite3_vtab_cursor **ppCursor)</td></tr>
+<tr class="memitem:a93f4bc64a902786fe53fbf954d905683" id="r_a93f4bc64a902786fe53fbf954d905683"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a93f4bc64a902786fe53fbf954d905683">wxSQLite3::chararrayClose</a> (sqlite3_vtab_cursor *cur)</td></tr>
+<tr class="memitem:a5805e87b0bc20a9111a32d7fec00acb9" id="r_a5805e87b0bc20a9111a32d7fec00acb9"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a5805e87b0bc20a9111a32d7fec00acb9">wxSQLite3::chararrayColumn</a> (sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int)</td></tr>
+<tr class="memitem:a725eea05c7843bf86e6229d1f9a274c9" id="r_a725eea05c7843bf86e6229d1f9a274c9"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a725eea05c7843bf86e6229d1f9a274c9">wxSQLite3::chararrayRowid</a> (sqlite3_vtab_cursor *cur, sqlite_int64 *pRowid)</td></tr>
+<tr class="memitem:a2df7e4c5ebdc3b845b8f15cfa33c8c79" id="r_a2df7e4c5ebdc3b845b8f15cfa33c8c79"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a2df7e4c5ebdc3b845b8f15cfa33c8c79">wxSQLite3::chararrayEof</a> (sqlite3_vtab_cursor *cur)</td></tr>
+<tr class="memitem:aa613fbb149781d7b90f051008e4c4846" id="r_aa613fbb149781d7b90f051008e4c4846"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#aa613fbb149781d7b90f051008e4c4846">wxSQLite3::chararrayNext</a> (sqlite3_vtab_cursor *cur)</td></tr>
+<tr class="memitem:a2b15fd74dcc97660e4d4070e24b49892" id="r_a2b15fd74dcc97660e4d4070e24b49892"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a2b15fd74dcc97660e4d4070e24b49892">wxSQLite3::chararrayFilter</a> (sqlite3_vtab_cursor *pVtabCursor, int, const char *, int, sqlite3_value **)</td></tr>
+<tr class="memitem:a2fe71fde54097040e19d358566d5f13e" id="r_a2fe71fde54097040e19d358566d5f13e"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a2fe71fde54097040e19d358566d5f13e">wxSQLite3::chararrayBestIndex</a> (sqlite3_vtab *, sqlite3_index_info *)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a88a4cadd45db2d8a10935e6943e0f6da" id="r_a88a4cadd45db2d8a10935e6943e0f6da"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a88a4cadd45db2d8a10935e6943e0f6da">wxSQLite3::wxERRMSG_NODB</a> = wxTRANSLATE(&quot;No <a class="el" href="classwx_s_q_lite3_1_1_database.html">Database</a> opened&quot;)</td></tr>
+<tr class="memitem:aa933072da6ebc06c130e33d12a94bc8d" id="r_aa933072da6ebc06c130e33d12a94bc8d"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#aa933072da6ebc06c130e33d12a94bc8d">wxSQLite3::wxERRMSG_NOSTMT</a> = wxTRANSLATE(&quot;Statement not accessible&quot;)</td></tr>
+<tr class="memitem:a771f7d6358c6459699856d4e222324e7" id="r_a771f7d6358c6459699856d4e222324e7"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a771f7d6358c6459699856d4e222324e7">wxSQLite3::wxERRMSG_NOMEM</a> = wxTRANSLATE(&quot;Out of memory&quot;)</td></tr>
+<tr class="memitem:a98c46960d6e831db8aa426b4087c552d" id="r_a98c46960d6e831db8aa426b4087c552d"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a98c46960d6e831db8aa426b4087c552d">wxSQLite3::wxERRMSG_INVALID_INDEX</a> = wxTRANSLATE(&quot;Invalid field index&quot;)</td></tr>
+<tr class="memitem:a630c7c6369040d5097a3364a8078109c" id="r_a630c7c6369040d5097a3364a8078109c"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a630c7c6369040d5097a3364a8078109c">wxSQLite3::wxERRMSG_INVALID_NAME</a> = wxTRANSLATE(&quot;Invalid field name&quot;)</td></tr>
+<tr class="memitem:a1f4288beae9c39bec17be5566235fdb4" id="r_a1f4288beae9c39bec17be5566235fdb4"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a1f4288beae9c39bec17be5566235fdb4">wxSQLite3::wxERRMSG_INVALID_ROW</a> = wxTRANSLATE(&quot;Invalid row index&quot;)</td></tr>
+<tr class="memitem:a28c7e23cdf2278e3d1e3755985a864c4" id="r_a28c7e23cdf2278e3d1e3755985a864c4"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a28c7e23cdf2278e3d1e3755985a864c4">wxSQLite3::wxERRMSG_INVALID_QUERY</a> = wxTRANSLATE(&quot;Invalid scalar query&quot;)</td></tr>
+<tr class="memitem:a49e7738f833882b672bd0cb628f1b802" id="r_a49e7738f833882b672bd0cb628f1b802"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a49e7738f833882b672bd0cb628f1b802">wxSQLite3::wxERRMSG_INVALID_BLOB</a> = wxTRANSLATE(&quot;Invalid BLOB handle&quot;)</td></tr>
+<tr class="memitem:aab5237491a62144a6d8054937c2c5241" id="r_aab5237491a62144a6d8054937c2c5241"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#aab5237491a62144a6d8054937c2c5241">wxSQLite3::wxERRMSG_NORESULT</a> = wxTRANSLATE(&quot;Null Results pointer&quot;)</td></tr>
+<tr class="memitem:a73a50c292b4f64365e3b6468d0891006" id="r_a73a50c292b4f64365e3b6468d0891006"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a73a50c292b4f64365e3b6468d0891006">wxSQLite3::wxERRMSG_BIND_STR</a> = wxTRANSLATE(&quot;Error binding string param&quot;)</td></tr>
+<tr class="memitem:af560d4c7e27cde68687561e3863bbb22" id="r_af560d4c7e27cde68687561e3863bbb22"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#af560d4c7e27cde68687561e3863bbb22">wxSQLite3::wxERRMSG_BIND_INT</a> = wxTRANSLATE(&quot;Error binding int param&quot;)</td></tr>
+<tr class="memitem:ad3ec007cc5f1dff705d10babfee5e26b" id="r_ad3ec007cc5f1dff705d10babfee5e26b"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ad3ec007cc5f1dff705d10babfee5e26b">wxSQLite3::wxERRMSG_BIND_INT64</a> = wxTRANSLATE(&quot;Error binding int64 param&quot;)</td></tr>
+<tr class="memitem:a3661863a607fdf5480ce69ae8a8c029b" id="r_a3661863a607fdf5480ce69ae8a8c029b"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a3661863a607fdf5480ce69ae8a8c029b">wxSQLite3::wxERRMSG_BIND_DBL</a> = wxTRANSLATE(&quot;Error binding double param&quot;)</td></tr>
+<tr class="memitem:ae9606ee2e29a2ef0ed5f8403b0d211a1" id="r_ae9606ee2e29a2ef0ed5f8403b0d211a1"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ae9606ee2e29a2ef0ed5f8403b0d211a1">wxSQLite3::wxERRMSG_BIND_BLOB</a> = wxTRANSLATE(&quot;Error binding blob param&quot;)</td></tr>
+<tr class="memitem:a7d987e236c406f953f8ba3a6825c47ca" id="r_a7d987e236c406f953f8ba3a6825c47ca"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a7d987e236c406f953f8ba3a6825c47ca">wxSQLite3::wxERRMSG_BIND_DATETIME</a> = wxTRANSLATE(&quot;Error binding date/time param&quot;)</td></tr>
+<tr class="memitem:a6ef2db55c7febcfc4b4866a12f43ce56" id="r_a6ef2db55c7febcfc4b4866a12f43ce56"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a6ef2db55c7febcfc4b4866a12f43ce56">wxSQLite3::wxERRMSG_BIND_NULL</a> = wxTRANSLATE(&quot;Error binding NULL param&quot;)</td></tr>
+<tr class="memitem:a6a4dc13232d5d78b6eaf47dc190e1668" id="r_a6a4dc13232d5d78b6eaf47dc190e1668"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a6a4dc13232d5d78b6eaf47dc190e1668">wxSQLite3::wxERRMSG_BIND_ZEROBLOB</a> = wxTRANSLATE(&quot;Error binding zero blob param&quot;)</td></tr>
+<tr class="memitem:a4e7c02be36312ea1a9e226efad5dedca" id="r_a4e7c02be36312ea1a9e226efad5dedca"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a4e7c02be36312ea1a9e226efad5dedca">wxSQLite3::wxERRMSG_BIND_POINTER</a> = wxTRANSLATE(&quot;Error binding pointer param&quot;)</td></tr>
+<tr class="memitem:ac0e22e62a481b9e5a474df6c16e708ff" id="r_ac0e22e62a481b9e5a474df6c16e708ff"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ac0e22e62a481b9e5a474df6c16e708ff">wxSQLite3::wxERRMSG_BIND_CLEAR</a> = wxTRANSLATE(&quot;Error clearing bindings&quot;)</td></tr>
+<tr class="memitem:a7dd77ab3d1c2f8d1d11d9adb52301fb4" id="r_a7dd77ab3d1c2f8d1d11d9adb52301fb4"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a7dd77ab3d1c2f8d1d11d9adb52301fb4">wxSQLite3::wxERRMSG_NOMETADATA</a> = wxTRANSLATE(&quot;Meta data support not available&quot;)</td></tr>
+<tr class="memitem:a9c154e728cea0e2d69e0dcb97c81b0c5" id="r_a9c154e728cea0e2d69e0dcb97c81b0c5"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a9c154e728cea0e2d69e0dcb97c81b0c5">wxSQLite3::wxERRMSG_NOLOADEXT</a> = wxTRANSLATE(&quot;Loadable extension support not available&quot;)</td></tr>
+<tr class="memitem:aa8dbc70c9e4bb29a682414529f056349" id="r_aa8dbc70c9e4bb29a682414529f056349"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#aa8dbc70c9e4bb29a682414529f056349">wxSQLite3::wxERRMSG_NOCOLLECTIONS</a> = wxTRANSLATE(&quot;Named collection support not available&quot;)</td></tr>
+<tr class="memitem:a500e65cd9af28a1deb7f6bb9bba7a10e" id="r_a500e65cd9af28a1deb7f6bb9bba7a10e"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a500e65cd9af28a1deb7f6bb9bba7a10e">wxSQLite3::wxERRMSG_SHARED_CACHE</a> = wxTRANSLATE(&quot;Setting SQLite shared cache mode failed&quot;)</td></tr>
+<tr class="memitem:a10815240df26999f935bfedf50ab3ca9" id="r_a10815240df26999f935bfedf50ab3ca9"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a10815240df26999f935bfedf50ab3ca9">wxSQLite3::wxERRMSG_INITIALIZE</a> = wxTRANSLATE(&quot;Initialization of SQLite failed&quot;)</td></tr>
+<tr class="memitem:a7dddd6282a5a48daaec3289528bb0cc1" id="r_a7dddd6282a5a48daaec3289528bb0cc1"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a7dddd6282a5a48daaec3289528bb0cc1">wxSQLite3::wxERRMSG_SHUTDOWN</a> = wxTRANSLATE(&quot;Shutdown of SQLite failed&quot;)</td></tr>
+<tr class="memitem:a51010a9caa1388ad59d742d459bb258e" id="r_a51010a9caa1388ad59d742d459bb258e"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a51010a9caa1388ad59d742d459bb258e">wxSQLite3::wxERRMSG_SOURCEDB_BUSY</a> = wxTRANSLATE(&quot;Source database is busy&quot;)</td></tr>
+<tr class="memitem:a5ac2bef58e407edc9de361c4589b423f" id="r_a5ac2bef58e407edc9de361c4589b423f"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a5ac2bef58e407edc9de361c4589b423f">wxSQLite3::wxERRMSG_DBOPEN_FAILED</a> = wxTRANSLATE(&quot;Database open failed&quot;)</td></tr>
+<tr class="memitem:a6962acd898419c56e3d3357fdd73e4a9" id="r_a6962acd898419c56e3d3357fdd73e4a9"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a6962acd898419c56e3d3357fdd73e4a9">wxSQLite3::wxERRMSG_DBASSIGN_FAILED</a> = wxTRANSLATE(&quot;Database assignment failed&quot;)</td></tr>
+<tr class="memitem:a4c95dbd7be2371bd2e67847c253e0d82" id="r_a4c95dbd7be2371bd2e67847c253e0d82"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a4c95dbd7be2371bd2e67847c253e0d82">wxSQLite3::wxERRMSG_FINALIZE_FAILED</a> = wxTRANSLATE(&quot;Finalize failed&quot;)</td></tr>
+<tr class="memitem:a74223b8ad3879b45b125d4a1580f5e2d" id="r_a74223b8ad3879b45b125d4a1580f5e2d"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a74223b8ad3879b45b125d4a1580f5e2d">wxSQLite3::wxERRMSG_CIPHER_APPLY_FAILED</a> = wxTRANSLATE(&quot;Application of cipher failed&quot;)</td></tr>
+<tr class="memitem:a2f1102cfe7be42b1b861da752e9a6667" id="r_a2f1102cfe7be42b1b861da752e9a6667"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a2f1102cfe7be42b1b861da752e9a6667">wxSQLite3::wxERRMSG_CIPHER_NOT_SUPPORTED</a> = wxTRANSLATE(&quot;Cipher not supported&quot;)</td></tr>
+<tr class="memitem:abe6a81fd93a6bed98e77f0ef8afcfbcd" id="r_abe6a81fd93a6bed98e77f0ef8afcfbcd"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#abe6a81fd93a6bed98e77f0ef8afcfbcd">wxSQLite3::wxERRMSG_INVALID_COLLECTION</a> = wxTRANSLATE(&quot;Collection instance not properly initialized&quot;)</td></tr>
+<tr class="memitem:af9264aa3fe02da0b678c5135400738a2" id="r_af9264aa3fe02da0b678c5135400738a2"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#af9264aa3fe02da0b678c5135400738a2">wxSQLite3::wxERRMSG_SCHEMANAME_UNKNOWN</a> = wxTRANSLATE(&quot;Schema name unknown&quot;)</td></tr>
+<tr class="memitem:af44d747e50ba7b552ae2d692ce199d05" id="r_af44d747e50ba7b552ae2d692ce199d05"><td class="memItemLeft">const <a class="el" href="namespacewx_s_q_lite3.html#a4280e0928961e6a4c95bd5f7b860d5ed">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#af44d747e50ba7b552ae2d692ce199d05">wxSQLite3::wxERRMSG_DBCONFIG_OPTION_UNKNOWN</a> = wxTRANSLATE(&quot;Database configuration option unknown&quot;)</td></tr>
+<tr class="memitem:a4d9e0a785cddfaa162bd741354d156bf" id="r_a4d9e0a785cddfaa162bd741354d156bf"><td class="memItemLeft">static const wxChar *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a4d9e0a785cddfaa162bd741354d156bf">wxSQLite3::limitCodeString</a> []</td></tr>
+<tr class="memitem:a2e01f96ed1faffa2af7a354312055060" id="r_a2e01f96ed1faffa2af7a354312055060"><td class="memItemLeft">static const wxChar *&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a2e01f96ed1faffa2af7a354312055060">wxSQLite3::authCodeString</a> []</td></tr>
+<tr class="memitem:ab41503bb39a920e39dd665426bb2897d" id="r_ab41503bb39a920e39dd665426bb2897d"><td class="memItemLeft">static sqlite3_module&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ab41503bb39a920e39dd665426bb2897d">wxSQLite3::intarrayModule</a></td></tr>
+<tr class="memitem:af770721b71156b439302363cf78dbda0" id="r_af770721b71156b439302363cf78dbda0"><td class="memItemLeft">static sqlite3_module&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#af770721b71156b439302363cf78dbda0">wxSQLite3::chararrayModule</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the <a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a> class. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="wxsqlite3_8cpp.html">wxsqlite3.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.17.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,1057 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.17.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>wxSQLite3: wxsqlite3.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="theme-round.css" rel="stylesheet" type="text/css"/>
+<link href="theme-robot.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/utelle/wxsqlite3" class="github-corner" title="View wxSQLite3 on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">wxSQLite3
+   &#160;<span id="projectnumber">4.12.7</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.17.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+  initMenu('',true);
+  init_search();
+});
+</script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1" style="position:absolute;right:8px;top:8px;height:36px;"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2" style="float:right">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('wxsqlite3_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">wxsqlite3.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Interface of the wxSQLite3 class.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;wx/arrstr.h&gt;</code><br />
+<code>#include &lt;wx/datetime.h&gt;</code><br />
+<code>#include &lt;wx/dynarray.h&gt;</code><br />
+<code>#include &lt;wx/buffer.h&gt;</code><br />
+<code>#include &lt;wx/hashmap.h&gt;</code><br />
+<code>#include &lt;wx/regex.h&gt;</code><br />
+<code>#include &lt;wx/string.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="wxsqlite3def_8h.html">wx/wxsqlite3def.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wxsqlite3__version_8h.html">wx/wxsqlite3_version.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:wxSQLite3Exception" id="r_wxSQLite3Exception"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_exception.html">wxSQLite3Exception</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">SQL exception.  <a href="classwx_s_q_lite3_exception.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3StatementBuffer" id="r_wxSQLite3StatementBuffer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_statement_buffer.html">wxSQLite3StatementBuffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">SQL statement buffer for use with SQLite3's printf method.  <a href="classwx_s_q_lite3_statement_buffer.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3Logger" id="r_wxSQLite3Logger"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_logger.html">wxSQLite3Logger</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">SQLite logging hook.  <a href="classwx_s_q_lite3_logger.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3FunctionContext" id="r_wxSQLite3FunctionContext"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_function_context.html">wxSQLite3FunctionContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context for user defined scalar or aggregate functions.  <a href="classwx_s_q_lite3_function_context.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3ScalarFunction" id="r_wxSQLite3ScalarFunction"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_scalar_function.html">wxSQLite3ScalarFunction</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for user defined scalar functions.  <a href="classwx_s_q_lite3_scalar_function.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3AggregateFunction" id="r_wxSQLite3AggregateFunction"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_aggregate_function.html">wxSQLite3AggregateFunction</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for user defined aggregate functions.  <a href="classwx_s_q_lite3_aggregate_function.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3WindowFunction" id="r_wxSQLite3WindowFunction"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_window_function.html">wxSQLite3WindowFunction</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for user defined aggregate window functions.  <a href="classwx_s_q_lite3_window_function.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3Authorizer" id="r_wxSQLite3Authorizer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_authorizer.html">wxSQLite3Authorizer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for a user defined authorizer function.  <a href="classwx_s_q_lite3_authorizer.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3Cipher" id="r_wxSQLite3Cipher"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_cipher.html">wxSQLite3Cipher</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher base class.  <a href="classwx_s_q_lite3_cipher.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3CipherAes128" id="r_wxSQLite3CipherAes128"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_cipher_aes128.html">wxSQLite3CipherAes128</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher class representing AES 128 bit encryption in CBC mode.  <a href="classwx_s_q_lite3_cipher_aes128.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3CipherAes256" id="r_wxSQLite3CipherAes256"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_cipher_aes256.html">wxSQLite3CipherAes256</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher class representing AES 256 bit encryption in CBC mode.  <a href="classwx_s_q_lite3_cipher_aes256.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3CipherChaCha20" id="r_wxSQLite3CipherChaCha20"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html">wxSQLite3CipherChaCha20</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher class representing ChaCha20 encryption with Poly1305 HMAC.  <a href="classwx_s_q_lite3_cipher_cha_cha20.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3CipherSQLCipher" id="r_wxSQLite3CipherSQLCipher"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html">wxSQLite3CipherSQLCipher</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher class representing SQLCipher encryption (AES 256 bit in CBC mode with SHA1 HMAC).  <a href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3CipherRC4" id="r_wxSQLite3CipherRC4"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_cipher_r_c4.html">wxSQLite3CipherRC4</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher class representing RC4 encryption (System.Data.SQLite).  <a href="classwx_s_q_lite3_cipher_r_c4.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3CipherAscon128" id="r_wxSQLite3CipherAscon128"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_cipher_ascon128.html">wxSQLite3CipherAscon128</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher class representing Ascon-128 encryption with Ascon tag.  <a href="classwx_s_q_lite3_cipher_ascon128.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3CipherAegis" id="r_wxSQLite3CipherAegis"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_cipher_aegis.html">wxSQLite3CipherAegis</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cipher class representing Aegis encryption with Ascon tag.  <a href="classwx_s_q_lite3_cipher_aegis.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3Hook" id="r_wxSQLite3Hook"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_hook.html">wxSQLite3Hook</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for a user defined hook function.  <a href="classwx_s_q_lite3_hook.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3BackupProgress" id="r_wxSQLite3BackupProgress"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_backup_progress.html">wxSQLite3BackupProgress</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for a user defined backup progress function.  <a href="classwx_s_q_lite3_backup_progress.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3Collation" id="r_wxSQLite3Collation"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_collation.html">wxSQLite3Collation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for a user defined collation sequence.  <a href="classwx_s_q_lite3_collation.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3ResultSet" id="r_wxSQLite3ResultSet"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_result_set.html">wxSQLite3ResultSet</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result set of a SQL query.  <a href="classwx_s_q_lite3_result_set.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3Table" id="r_wxSQLite3Table"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_table.html">wxSQLite3Table</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the complete result set of a SQL query.  <a href="classwx_s_q_lite3_table.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3Statement" id="r_wxSQLite3Statement"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_statement.html">wxSQLite3Statement</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a prepared SQL statement.  <a href="classwx_s_q_lite3_statement.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3Blob" id="r_wxSQLite3Blob"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_blob.html">wxSQLite3Blob</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a SQLite BLOB handle.  <a href="classwx_s_q_lite3_blob.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3NamedCollection" id="r_wxSQLite3NamedCollection"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_named_collection.html">wxSQLite3NamedCollection</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a named collection.  <a href="classwx_s_q_lite3_named_collection.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3IntegerCollection" id="r_wxSQLite3IntegerCollection"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_integer_collection.html">wxSQLite3IntegerCollection</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a named integer value collection.  <a href="classwx_s_q_lite3_integer_collection.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3StringCollection" id="r_wxSQLite3StringCollection"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_string_collection.html">wxSQLite3StringCollection</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a named string value collection.  <a href="classwx_s_q_lite3_string_collection.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3Database" id="r_wxSQLite3Database"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a SQLite3 database object.  <a href="classwx_s_q_lite3_database.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3Transaction" id="r_wxSQLite3Transaction"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_transaction.html">wxSQLite3Transaction</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII class for managing transactions.  <a href="classwx_s_q_lite3_transaction.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3RegExpOperator" id="r_wxSQLite3RegExpOperator"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_reg_exp_operator.html">wxSQLite3RegExpOperator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">User defined function for REGEXP operator.  <a href="classwx_s_q_lite3_reg_exp_operator.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a464a1fadb9e1e20444732b509e838884" id="r_a464a1fadb9e1e20444732b509e838884"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a464a1fadb9e1e20444732b509e838884">wxSQLITE3_VERSION_STRING</a>&#160;&#160;&#160;wxS(<a class="el" href="wxsqlite3__version_8h.html#a98269d7cb2c61d581fbc67c55a7e9afa">WXSQLITE3_VERSION_STRING</a>)</td></tr>
+<tr class="memdesc:a464a1fadb9e1e20444732b509e838884"><td class="mdescLeft">&#160;</td><td class="mdescRight">wxSQLite3 version string  <br /></td></tr>
+<tr class="memitem:a38c517d13ae7fb3bdff2e93896d78b7a" id="r_a38c517d13ae7fb3bdff2e93896d78b7a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a38c517d13ae7fb3bdff2e93896d78b7a">WXSQLITE_ERROR</a>&#160;&#160;&#160;1000</td></tr>
+<tr class="memitem:a0b239ba97324c21ee6a049c3f1dfd1b4" id="r_a0b239ba97324c21ee6a049c3f1dfd1b4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a0b239ba97324c21ee6a049c3f1dfd1b4">WXSQLITE_INTEGER</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:a6461668ec51a5afef3324f2245d8adf1" id="r_a6461668ec51a5afef3324f2245d8adf1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6461668ec51a5afef3324f2245d8adf1">WXSQLITE_FLOAT</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memitem:add160b782b9342cfd748b91021b31c7f" id="r_add160b782b9342cfd748b91021b31c7f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#add160b782b9342cfd748b91021b31c7f">WXSQLITE_TEXT</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memitem:ac6fb08c8f4adf3ba9e2cce82700e9273" id="r_ac6fb08c8f4adf3ba9e2cce82700e9273"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac6fb08c8f4adf3ba9e2cce82700e9273">WXSQLITE_BLOB</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memitem:af17fa7051609e89ada3d141d56ed6443" id="r_af17fa7051609e89ada3d141d56ed6443"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#af17fa7051609e89ada3d141d56ed6443">WXSQLITE_NULL</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memitem:a804681a102109e5925841c0bc08ab09d" id="r_a804681a102109e5925841c0bc08ab09d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a804681a102109e5925841c0bc08ab09d">WXSQLITE_OPEN_READONLY</a>&#160;&#160;&#160;0x00000001</td></tr>
+<tr class="memitem:ab704a8a198d449a0563fd9e3cf6a72e4" id="r_ab704a8a198d449a0563fd9e3cf6a72e4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab704a8a198d449a0563fd9e3cf6a72e4">WXSQLITE_OPEN_READWRITE</a>&#160;&#160;&#160;0x00000002</td></tr>
+<tr class="memitem:a642c9a75363105f0120853f4d19bef12" id="r_a642c9a75363105f0120853f4d19bef12"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a642c9a75363105f0120853f4d19bef12">WXSQLITE_OPEN_CREATE</a>&#160;&#160;&#160;0x00000004</td></tr>
+<tr class="memitem:afdc9019d3ac1c76e469c69ffed1258ea" id="r_afdc9019d3ac1c76e469c69ffed1258ea"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#afdc9019d3ac1c76e469c69ffed1258ea">WXSQLITE_OPEN_URI</a>&#160;&#160;&#160;0x00000040</td></tr>
+<tr class="memitem:acb475c46a785d5cee9266660da166e88" id="r_acb475c46a785d5cee9266660da166e88"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#acb475c46a785d5cee9266660da166e88">WXSQLITE_OPEN_MEMORY</a>&#160;&#160;&#160;0x00000080</td></tr>
+<tr class="memitem:ae2cab02d9c49c8347840046d66009bb8" id="r_ae2cab02d9c49c8347840046d66009bb8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae2cab02d9c49c8347840046d66009bb8">WXSQLITE_OPEN_NOMUTEX</a>&#160;&#160;&#160;0x00008000</td></tr>
+<tr class="memitem:ae2d199ae12764baca5d4e5d0e5317773" id="r_ae2d199ae12764baca5d4e5d0e5317773"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae2d199ae12764baca5d4e5d0e5317773">WXSQLITE_OPEN_FULLMUTEX</a>&#160;&#160;&#160;0x00010000</td></tr>
+<tr class="memitem:a97fbb929e530382ea75c0b734c6b357b" id="r_a97fbb929e530382ea75c0b734c6b357b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a97fbb929e530382ea75c0b734c6b357b">WXSQLITE_OPEN_SHAREDCACHE</a>&#160;&#160;&#160;0x00020000</td></tr>
+<tr class="memitem:a1688bc636c3e4d4659e940c003510f40" id="r_a1688bc636c3e4d4659e940c003510f40"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1688bc636c3e4d4659e940c003510f40">WXSQLITE_OPEN_PRIVATECACHE</a>&#160;&#160;&#160;0x00040000</td></tr>
+<tr class="memitem:a5a9313c3b4146d8febbd1f8b32e5860e" id="r_a5a9313c3b4146d8febbd1f8b32e5860e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a5a9313c3b4146d8febbd1f8b32e5860e">WXSQLITE_OPEN_NOFOLLOW</a>&#160;&#160;&#160;0x01000000</td></tr>
+<tr class="memitem:a34f63fbbcef73800a33501b43c6ae965" id="r_a34f63fbbcef73800a33501b43c6ae965"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a34f63fbbcef73800a33501b43c6ae965">WXSQLITE_CHECKPOINT_PASSIVE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a9ce6fb0b357fbfb7c5f102aab50b8ae9" id="r_a9ce6fb0b357fbfb7c5f102aab50b8ae9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9ce6fb0b357fbfb7c5f102aab50b8ae9">WXSQLITE_CHECKPOINT_FULL</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:ae8ea602118359b69ab2dc4b543367041" id="r_ae8ea602118359b69ab2dc4b543367041"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae8ea602118359b69ab2dc4b543367041">WXSQLITE_CHECKPOINT_RESTART</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memitem:a8fe6f26d11f5863aeda6f172551f081d" id="r_a8fe6f26d11f5863aeda6f172551f081d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a8fe6f26d11f5863aeda6f172551f081d">WXSQLITE_CHECKPOINT_TRUNCATE</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memitem:a2f4b3f24ea5a45684cef9d95344897b2" id="r_a2f4b3f24ea5a45684cef9d95344897b2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a2f4b3f24ea5a45684cef9d95344897b2">WXSQLITE_DETERMINISTIC</a>&#160;&#160;&#160;0x000000800</td></tr>
+<tr class="memitem:ad49f8bab61d2d13ec1aae629045e3ddd" id="r_ad49f8bab61d2d13ec1aae629045e3ddd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad49f8bab61d2d13ec1aae629045e3ddd">WXSQLITE_DIRECTONLY</a>&#160;&#160;&#160;0x000080000</td></tr>
+<tr class="memitem:a2b9f5d48083a85953d10ca8c04be6d2b" id="r_a2b9f5d48083a85953d10ca8c04be6d2b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a2b9f5d48083a85953d10ca8c04be6d2b">WXSQLITE_SUBTYPE</a>&#160;&#160;&#160;0x000100000</td></tr>
+<tr class="memitem:a3d61be2be227ec733330035d658f5204" id="r_a3d61be2be227ec733330035d658f5204"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a3d61be2be227ec733330035d658f5204">WXSQLITE_INNOCUOUS</a>&#160;&#160;&#160;0x000200000</td></tr>
+<tr class="memitem:a18b4bbffbcffa376ad574c3742e1f7d3" id="r_a18b4bbffbcffa376ad574c3742e1f7d3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a18b4bbffbcffa376ad574c3742e1f7d3">WXSQLITE_RESULT_SUBTYPE</a>&#160;&#160;&#160;0x001000000</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a861d8a16f5c18e7a6bfbc5f7405108c1" id="r_a861d8a16f5c18e7a6bfbc5f7405108c1"><td class="memItemLeft">typedef long long int&#160;</td><td class="memItemRight"><a class="el" href="#a861d8a16f5c18e7a6bfbc5f7405108c1">wxsqlite_int64</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:aaf4137ac9a105d08d3bbf95f2a1785a8" id="r_aaf4137ac9a105d08d3bbf95f2a1785a8"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a> { <br />
+&#160;&#160;<a class="el" href="#aaf4137ac9a105d08d3bbf95f2a1785a8ae0dc1072a0e87129f8fa45e68b76e5f1">WXSQLITE_CIPHER_UNKNOWN</a>
+, <br />
+&#160;&#160;<a class="el" href="#aaf4137ac9a105d08d3bbf95f2a1785a8a1e1a8ad4a82120a6f38328a536dea169">WXSQLITE_CIPHER_AES128</a>
+, <br />
+&#160;&#160;<a class="el" href="#aaf4137ac9a105d08d3bbf95f2a1785a8a09924c97302ec536c0b4feb7dce94abb">WXSQLITE_CIPHER_AES256</a>
+, <br />
+&#160;&#160;<a class="el" href="#aaf4137ac9a105d08d3bbf95f2a1785a8a8bdb5062149381a16f052a500f5f5870">WXSQLITE_CIPHER_CHACHA20</a>
+, <br />
+&#160;&#160;<a class="el" href="#aaf4137ac9a105d08d3bbf95f2a1785a8accbdfbcb956b86c32b64f028a3431109">WXSQLITE_CIPHER_SQLCIPHER</a>
+, <br />
+&#160;&#160;<a class="el" href="#aaf4137ac9a105d08d3bbf95f2a1785a8af77da565604dba69aa98d43785f33ee0">WXSQLITE_CIPHER_RC4</a>
+, <br />
+&#160;&#160;<a class="el" href="#aaf4137ac9a105d08d3bbf95f2a1785a8abfd5295a47dd386f1b82c56ad60728f7">WXSQLITE_CIPHER_ASCON128</a>
+, <br />
+&#160;&#160;<a class="el" href="#aaf4137ac9a105d08d3bbf95f2a1785a8a269d887e9a1c3ea219953e3c1f17de15">WXSQLITE_CIPHER_AEGIS</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:aaf4137ac9a105d08d3bbf95f2a1785a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of supported cipher types.  <a href="#aaf4137ac9a105d08d3bbf95f2a1785a8">More...</a><br /></td></tr>
+<tr class="memitem:af49cafcb237029e7e744a5b2076e2e5d" id="r_af49cafcb237029e7e744a5b2076e2e5d"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#af49cafcb237029e7e744a5b2076e2e5d">wxSQLite3TransactionType</a> { <br />
+&#160;&#160;<a class="el" href="#af49cafcb237029e7e744a5b2076e2e5dac6d4bc6033a2089a9a7263dece47fab2">WXSQLITE_TRANSACTION_DEFAULT</a>
+, <br />
+&#160;&#160;<a class="el" href="#af49cafcb237029e7e744a5b2076e2e5dac5c7ae9f14d939563e949c213fe09317">WXSQLITE_TRANSACTION_DEFERRED</a>
+, <br />
+&#160;&#160;<a class="el" href="#af49cafcb237029e7e744a5b2076e2e5da1eb3d0c899f7e63404d900f5323b78f1">WXSQLITE_TRANSACTION_IMMEDIATE</a>
+, <br />
+&#160;&#160;<a class="el" href="#af49cafcb237029e7e744a5b2076e2e5da8159d5d336472a387e921f885c79abb9">WXSQLITE_TRANSACTION_EXCLUSIVE</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:af49cafcb237029e7e744a5b2076e2e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of transaction types.  <a href="#af49cafcb237029e7e744a5b2076e2e5d">More...</a><br /></td></tr>
+<tr class="memitem:a7e374ef6aa338d31b05e4be5d5fe6661" id="r_a7e374ef6aa338d31b05e4be5d5fe6661"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a7e374ef6aa338d31b05e4be5d5fe6661">wxSQLite3TransactionState</a> { <br />
+&#160;&#160;<a class="el" href="#a7e374ef6aa338d31b05e4be5d5fe6661af861975b195280b5f4257ff7fab20826">WXSQLITE_TRANSACTION_INVALID</a>
+, <br />
+&#160;&#160;<a class="el" href="#a7e374ef6aa338d31b05e4be5d5fe6661a6a3f0341d90ebfcb15079e8780e407ba">WXSQLITE_TRANSACTION_NONE</a>
+, <br />
+&#160;&#160;<a class="el" href="#a7e374ef6aa338d31b05e4be5d5fe6661ae9359e729ef9577a1bea66097a030222">WXSQLITE_TRANSACTION_READ</a>
+, <br />
+&#160;&#160;<a class="el" href="#a7e374ef6aa338d31b05e4be5d5fe6661ac8f6d8baf26c396b6fc69559723d9feb">WXSQLITE_TRANSACTION_WRITE</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a7e374ef6aa338d31b05e4be5d5fe6661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of transaction state.  <a href="#a7e374ef6aa338d31b05e4be5d5fe6661">More...</a><br /></td></tr>
+<tr class="memitem:aec74080be17a473d33fa1a5933c236eb" id="r_aec74080be17a473d33fa1a5933c236eb"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#aec74080be17a473d33fa1a5933c236eb">wxSQLite3LimitType</a> { <br />
+&#160;&#160;<a class="el" href="#aec74080be17a473d33fa1a5933c236eba5f51c79e8e243e672746c8c21c976384">WXSQLITE_LIMIT_LENGTH</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="#aec74080be17a473d33fa1a5933c236ebadae2ade523bb2e1e60432412b6847900">WXSQLITE_LIMIT_SQL_LENGTH</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#aec74080be17a473d33fa1a5933c236eba3a8f7c37a375a87781431eeaeb2698af">WXSQLITE_LIMIT_COLUMN</a> = 2
+, <br />
+&#160;&#160;<a class="el" href="#aec74080be17a473d33fa1a5933c236eba24f60ed6368a16670077819529fd3b0b">WXSQLITE_LIMIT_EXPR_DEPTH</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="#aec74080be17a473d33fa1a5933c236ebacc3d4f895c32951beca93f3a8947b024">WXSQLITE_LIMIT_COMPOUND_SELECT</a> = 4
+, <br />
+&#160;&#160;<a class="el" href="#aec74080be17a473d33fa1a5933c236ebafca0abc501fecc9b7296e74ccb811a62">WXSQLITE_LIMIT_VDBE_OP</a> = 5
+, <br />
+&#160;&#160;<a class="el" href="#aec74080be17a473d33fa1a5933c236eba3dbb3a7e790ea389afc00137f15bc9b9">WXSQLITE_LIMIT_FUNCTION_ARG</a> = 6
+, <br />
+&#160;&#160;<a class="el" href="#aec74080be17a473d33fa1a5933c236eba681565cfae1834f53a7685dc4d42cb2e">WXSQLITE_LIMIT_ATTACHED</a> = 7
+, <br />
+&#160;&#160;<a class="el" href="#aec74080be17a473d33fa1a5933c236ebaa10d2576295764bf0547eb2542bba193">WXSQLITE_LIMIT_LIKE_PATTERN_LENGTH</a> = 8
+, <br />
+&#160;&#160;<a class="el" href="#aec74080be17a473d33fa1a5933c236ebafb90a49b91a94ff86e1a05225ee1f9ae">WXSQLITE_LIMIT_VARIABLE_NUMBER</a> = 9
+, <br />
+&#160;&#160;<a class="el" href="#aec74080be17a473d33fa1a5933c236eba90a09243392819db9b2a471c551327df">WXSQLITE_LIMIT_TRIGGER_DEPTH</a> = 10
+, <br />
+&#160;&#160;<a class="el" href="#aec74080be17a473d33fa1a5933c236ebaf36ee9e8b7396d2ad57040463ea82017">WXSQLITE_LIMIT_WORKER_THREADS</a> = 11
+<br />
+ }</td></tr>
+<tr class="memdesc:aec74080be17a473d33fa1a5933c236eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of SQLite limitation types.  <a href="#aec74080be17a473d33fa1a5933c236eb">More...</a><br /></td></tr>
+<tr class="memitem:a52c53c308acf457f59ea3ead44f29fdf" id="r_a52c53c308acf457f59ea3ead44f29fdf"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a52c53c308acf457f59ea3ead44f29fdf">wxSQLite3JournalMode</a> { <br />
+&#160;&#160;<a class="el" href="#a52c53c308acf457f59ea3ead44f29fdfad49a9aa06c52c52702bedc440b87b577">WXSQLITE_JOURNALMODE_DELETE</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="#a52c53c308acf457f59ea3ead44f29fdfa6a7bbaa54aa36e55906c7e7198b39a37">WXSQLITE_JOURNALMODE_PERSIST</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#a52c53c308acf457f59ea3ead44f29fdfa32ab1089d03781da64b13f4df81dbccb">WXSQLITE_JOURNALMODE_OFF</a> = 2
+, <br />
+&#160;&#160;<a class="el" href="#a52c53c308acf457f59ea3ead44f29fdfabbe53c7a3fae777ba42143a320587c72">WXSQLITE_JOURNALMODE_TRUNCATE</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="#a52c53c308acf457f59ea3ead44f29fdfa52f8f00b53106e595ce4378223097b6a">WXSQLITE_JOURNALMODE_MEMORY</a> = 4
+, <br />
+&#160;&#160;<a class="el" href="#a52c53c308acf457f59ea3ead44f29fdfa5a74c54ce69c1ee291eb8090bdfb0812">WXSQLITE_JOURNALMODE_WAL</a> = 5
+<br />
+ }</td></tr>
+<tr class="memdesc:a52c53c308acf457f59ea3ead44f29fdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of journal modes.  <a href="#a52c53c308acf457f59ea3ead44f29fdf">More...</a><br /></td></tr>
+<tr class="memitem:ae8ec729633cb94b85468fba5b91936ee" id="r_ae8ec729633cb94b85468fba5b91936ee"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#ae8ec729633cb94b85468fba5b91936ee">wxSQLite3StatementStatus</a> { <br />
+&#160;&#160;<a class="el" href="#ae8ec729633cb94b85468fba5b91936eeacaf2d41bdc4663f2150731ffab2ce549">WXSQLITE_STMTSTATUS_FULLSCAN_STEP</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#ae8ec729633cb94b85468fba5b91936eeaaf8ab15ef1b2aac6e25116de530c69ea">WXSQLITE_STMTSTATUS_SORT</a> = 2
+, <br />
+&#160;&#160;<a class="el" href="#ae8ec729633cb94b85468fba5b91936eeac42fcc2680b6a805bd61318adc526f2f">WXSQLITE_STMTSTATUS_AUTOINDEX</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="#ae8ec729633cb94b85468fba5b91936eea071cb99bfcf88da8dbae0bbecdd7a360">WXSQLITE_STMTSTATUS_VM_STEP</a> = 4
+, <br />
+&#160;&#160;<a class="el" href="#ae8ec729633cb94b85468fba5b91936eea9dc206619cdd11b303edcfb7d4d5d8c6">WXSQLITE_STMTSTATUS_REPREPARE</a> = 5
+, <br />
+&#160;&#160;<a class="el" href="#ae8ec729633cb94b85468fba5b91936eeaa02cf23588b7b97106ed4d088a35d02a">WXSQLITE_STMTSTATUS_RUN</a> = 6
+, <br />
+&#160;&#160;<a class="el" href="#ae8ec729633cb94b85468fba5b91936eeabc8fe09f5fd1e01177948c34bff8f0e5">WXSQLITE_STMTSTATUS_MEMUSED</a> = 99
+<br />
+ }</td></tr>
+<tr class="memdesc:ae8ec729633cb94b85468fba5b91936ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of statement status counters.  <a href="#ae8ec729633cb94b85468fba5b91936ee">More...</a><br /></td></tr>
+<tr class="memitem:ad52a48fbd0cc888a23adcd3033f463ba" id="r_ad52a48fbd0cc888a23adcd3033f463ba"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#ad52a48fbd0cc888a23adcd3033f463ba">wxSQLite3DbConfig</a> { <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baad1d1e7e9f2af659402c5e8d5e3db7a35">WXSQLITE_DBCONFIG_ENABLE_FKEY</a> = 1002
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa4231b3224e2d655b183ce557729cfe8c">WXSQLITE_DBCONFIG_ENABLE_TRIGGER</a> = 1003
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa13a8494fbfb10e10fffa40f05f020e79">WXSQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER</a> = 1004
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa5e5aa07f0ce7d4b447edf8795ee59739">WXSQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION</a> = 1005
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa5ba023e1e5f744ea07049543e7f78b49">WXSQLITE_DBCONFIG_NO_CKPT_ON_CLOSE</a> = 1006
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa0c19498db788a74a76e5bb49faaa7f11">WXSQLITE_DBCONFIG_ENABLE_QPSG</a> = 1007
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa5d602e3a871f2be7eae657ae52942267">WXSQLITE_DBCONFIG_TRIGGER_EQP</a> = 1008
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baae33d9a8fa904b1f01975d80db15fd839">WXSQLITE_DBCONFIG_RESET_DATABASE</a> = 1009
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa6fa7dc6c1b5de395f1c88a3b1309f5d4">WXSQLITE_DBCONFIG_DEFENSIVE</a> = 1010
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa2b5488533b835b8e9ad3a72b876619d3">WXSQLITE_DBCONFIG_WRITABLE_SCHEMA</a> = 1011
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baac910c59a47f1833c28fffcbe46fa9387">WXSQLITE_DBCONFIG_LEGACY_ALTER_TABLE</a> = 1012
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa128ae902a80506677db3176c81f714da">WXSQLITE_DBCONFIG_DQS_DML</a> = 1013
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa66821ae755ae062e4bde6a79af69e493">WXSQLITE_DBCONFIG_DQS_DDL</a> = 1014
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baadde472bcb963dca445a5a5dc2b59f289">WXSQLITE_DBCONFIG_ENABLE_VIEW</a> = 1015
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa89b1297fbee417751c2728deb3c720b8">WXSQLITE_DBCONFIG_LEGACY_FILE_FORMAT</a> = 1016
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa51e40b8dba143d377e252d3bc50b216e">WXSQLITE_DBCONFIG_TRUSTED_SCHEMA</a> = 1017
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa76eaead7050ece34944f65d84ecbb5a6">WXSQLITE_DBCONFIG_STMT_SCANSTATUS</a> = 1018
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baaa4daa8c697c03e9b4d83b6a94df1d984">WXSQLITE_DBCONFIG_REVERSE_SCANORDER</a> = 1019
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baad949247f3d043417652cc0caa029daa9">WXSQLITE_DBCONFIG_ENABLE_ATTACH_CREATE</a> = 1020
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baaecc4d0985738688e35db8f7105d2a972">WXSQLITE_DBCONFIG_ENABLE_ATTACH_WRITE</a> = 1021
+, <br />
+&#160;&#160;<a class="el" href="#ad52a48fbd0cc888a23adcd3033f463baa5cb89fd7a0074b566e2d76b42906fbbb">WXSQLITE_DBCONFIG_ENABLE_COMMENTS</a> = 1022
+<br />
+ }</td></tr>
+<tr class="memdesc:ad52a48fbd0cc888a23adcd3033f463ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of statement status counters.  <a href="#ad52a48fbd0cc888a23adcd3033f463ba">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:abe2b386d11e65e66bc5330513c7d33cd" id="r_abe2b386d11e65e66bc5330513c7d33cd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abe2b386d11e65e66bc5330513c7d33cd">operator++</a> (<a class="el" href="#aec74080be17a473d33fa1a5933c236eb">wxSQLite3LimitType</a> &amp;value)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ad98e2cdeede9fe0129fef341b69fc071" id="r_ad98e2cdeede9fe0129fef341b69fc071"><td class="memItemLeft">class <a class="el" href="wxsqlite3def_8h.html#adcb54a58c2c5cbf540194d76ad1860ed">WXDLLIMPEXP_FWD_SQLITE3</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad98e2cdeede9fe0129fef341b69fc071">wxSQLite3Database</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Interface of the wxSQLite3 class. </p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="a464a1fadb9e1e20444732b509e838884" name="a464a1fadb9e1e20444732b509e838884"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a464a1fadb9e1e20444732b509e838884">&#9670;&#160;</a></span>wxSQLITE3_VERSION_STRING</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define wxSQLITE3_VERSION_STRING&#160;&#160;&#160;wxS(<a class="el" href="wxsqlite3__version_8h.html#a98269d7cb2c61d581fbc67c55a7e9afa">WXSQLITE3_VERSION_STRING</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>wxSQLite3 version string </p>
+
+</div>
+</div>
+<a id="ac6fb08c8f4adf3ba9e2cce82700e9273" name="ac6fb08c8f4adf3ba9e2cce82700e9273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6fb08c8f4adf3ba9e2cce82700e9273">&#9670;&#160;</a></span>WXSQLITE_BLOB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_BLOB&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9ce6fb0b357fbfb7c5f102aab50b8ae9" name="a9ce6fb0b357fbfb7c5f102aab50b8ae9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ce6fb0b357fbfb7c5f102aab50b8ae9">&#9670;&#160;</a></span>WXSQLITE_CHECKPOINT_FULL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_CHECKPOINT_FULL&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34f63fbbcef73800a33501b43c6ae965" name="a34f63fbbcef73800a33501b43c6ae965"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34f63fbbcef73800a33501b43c6ae965">&#9670;&#160;</a></span>WXSQLITE_CHECKPOINT_PASSIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_CHECKPOINT_PASSIVE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae8ea602118359b69ab2dc4b543367041" name="ae8ea602118359b69ab2dc4b543367041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8ea602118359b69ab2dc4b543367041">&#9670;&#160;</a></span>WXSQLITE_CHECKPOINT_RESTART</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_CHECKPOINT_RESTART&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8fe6f26d11f5863aeda6f172551f081d" name="a8fe6f26d11f5863aeda6f172551f081d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fe6f26d11f5863aeda6f172551f081d">&#9670;&#160;</a></span>WXSQLITE_CHECKPOINT_TRUNCATE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_CHECKPOINT_TRUNCATE&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f4b3f24ea5a45684cef9d95344897b2" name="a2f4b3f24ea5a45684cef9d95344897b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f4b3f24ea5a45684cef9d95344897b2">&#9670;&#160;</a></span>WXSQLITE_DETERMINISTIC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_DETERMINISTIC&#160;&#160;&#160;0x000000800</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad49f8bab61d2d13ec1aae629045e3ddd" name="ad49f8bab61d2d13ec1aae629045e3ddd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad49f8bab61d2d13ec1aae629045e3ddd">&#9670;&#160;</a></span>WXSQLITE_DIRECTONLY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_DIRECTONLY&#160;&#160;&#160;0x000080000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a38c517d13ae7fb3bdff2e93896d78b7a" name="a38c517d13ae7fb3bdff2e93896d78b7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38c517d13ae7fb3bdff2e93896d78b7a">&#9670;&#160;</a></span>WXSQLITE_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_ERROR&#160;&#160;&#160;1000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6461668ec51a5afef3324f2245d8adf1" name="a6461668ec51a5afef3324f2245d8adf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6461668ec51a5afef3324f2245d8adf1">&#9670;&#160;</a></span>WXSQLITE_FLOAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_FLOAT&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3d61be2be227ec733330035d658f5204" name="a3d61be2be227ec733330035d658f5204"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d61be2be227ec733330035d658f5204">&#9670;&#160;</a></span>WXSQLITE_INNOCUOUS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_INNOCUOUS&#160;&#160;&#160;0x000200000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0b239ba97324c21ee6a049c3f1dfd1b4" name="a0b239ba97324c21ee6a049c3f1dfd1b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b239ba97324c21ee6a049c3f1dfd1b4">&#9670;&#160;</a></span>WXSQLITE_INTEGER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_INTEGER&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af17fa7051609e89ada3d141d56ed6443" name="af17fa7051609e89ada3d141d56ed6443"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af17fa7051609e89ada3d141d56ed6443">&#9670;&#160;</a></span>WXSQLITE_NULL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_NULL&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a642c9a75363105f0120853f4d19bef12" name="a642c9a75363105f0120853f4d19bef12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a642c9a75363105f0120853f4d19bef12">&#9670;&#160;</a></span>WXSQLITE_OPEN_CREATE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_OPEN_CREATE&#160;&#160;&#160;0x00000004</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae2d199ae12764baca5d4e5d0e5317773" name="ae2d199ae12764baca5d4e5d0e5317773"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2d199ae12764baca5d4e5d0e5317773">&#9670;&#160;</a></span>WXSQLITE_OPEN_FULLMUTEX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_OPEN_FULLMUTEX&#160;&#160;&#160;0x00010000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acb475c46a785d5cee9266660da166e88" name="acb475c46a785d5cee9266660da166e88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb475c46a785d5cee9266660da166e88">&#9670;&#160;</a></span>WXSQLITE_OPEN_MEMORY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_OPEN_MEMORY&#160;&#160;&#160;0x00000080</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5a9313c3b4146d8febbd1f8b32e5860e" name="a5a9313c3b4146d8febbd1f8b32e5860e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a9313c3b4146d8febbd1f8b32e5860e">&#9670;&#160;</a></span>WXSQLITE_OPEN_NOFOLLOW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_OPEN_NOFOLLOW&#160;&#160;&#160;0x01000000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae2cab02d9c49c8347840046d66009bb8" name="ae2cab02d9c49c8347840046d66009bb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2cab02d9c49c8347840046d66009bb8">&#9670;&#160;</a></span>WXSQLITE_OPEN_NOMUTEX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_OPEN_NOMUTEX&#160;&#160;&#160;0x00008000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1688bc636c3e4d4659e940c003510f40" name="a1688bc636c3e4d4659e940c003510f40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1688bc636c3e4d4659e940c003510f40">&#9670;&#160;</a></span>WXSQLITE_OPEN_PRIVATECACHE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_OPEN_PRIVATECACHE&#160;&#160;&#160;0x00040000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a804681a102109e5925841c0bc08ab09d" name="a804681a102109e5925841c0bc08ab09d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a804681a102109e5925841c0bc08ab09d">&#9670;&#160;</a></span>WXSQLITE_OPEN_READONLY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_OPEN_READONLY&#160;&#160;&#160;0x00000001</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab704a8a198d449a0563fd9e3cf6a72e4" name="ab704a8a198d449a0563fd9e3cf6a72e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab704a8a198d449a0563fd9e3cf6a72e4">&#9670;&#160;</a></span>WXSQLITE_OPEN_READWRITE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_OPEN_READWRITE&#160;&#160;&#160;0x00000002</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a97fbb929e530382ea75c0b734c6b357b" name="a97fbb929e530382ea75c0b734c6b357b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97fbb929e530382ea75c0b734c6b357b">&#9670;&#160;</a></span>WXSQLITE_OPEN_SHAREDCACHE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_OPEN_SHAREDCACHE&#160;&#160;&#160;0x00020000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afdc9019d3ac1c76e469c69ffed1258ea" name="afdc9019d3ac1c76e469c69ffed1258ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdc9019d3ac1c76e469c69ffed1258ea">&#9670;&#160;</a></span>WXSQLITE_OPEN_URI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_OPEN_URI&#160;&#160;&#160;0x00000040</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a18b4bbffbcffa376ad574c3742e1f7d3" name="a18b4bbffbcffa376ad574c3742e1f7d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18b4bbffbcffa376ad574c3742e1f7d3">&#9670;&#160;</a></span>WXSQLITE_RESULT_SUBTYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_RESULT_SUBTYPE&#160;&#160;&#160;0x001000000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2b9f5d48083a85953d10ca8c04be6d2b" name="a2b9f5d48083a85953d10ca8c04be6d2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b9f5d48083a85953d10ca8c04be6d2b">&#9670;&#160;</a></span>WXSQLITE_SUBTYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_SUBTYPE&#160;&#160;&#160;0x000100000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="add160b782b9342cfd748b91021b31c7f" name="add160b782b9342cfd748b91021b31c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add160b782b9342cfd748b91021b31c7f">&#9670;&#160;</a></span>WXSQLITE_TEXT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WXSQLITE_TEXT&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="a861d8a16f5c18e7a6bfbc5f7405108c1" name="a861d8a16f5c18e7a6bfbc5f7405108c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a861d8a16f5c18e7a6bfbc5f7405108c1">&#9670;&#160;</a></span>wxsqlite_int64</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef long long int <a class="el" href="#a861d8a16f5c18e7a6bfbc5f7405108c1">wxsqlite_int64</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="aaf4137ac9a105d08d3bbf95f2a1785a8" name="aaf4137ac9a105d08d3bbf95f2a1785a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf4137ac9a105d08d3bbf95f2a1785a8">&#9670;&#160;</a></span>wxSQLite3CipherType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enumeration of supported cipher types. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aaf4137ac9a105d08d3bbf95f2a1785a8ae0dc1072a0e87129f8fa45e68b76e5f1" name="aaf4137ac9a105d08d3bbf95f2a1785a8ae0dc1072a0e87129f8fa45e68b76e5f1"></a>WXSQLITE_CIPHER_UNKNOWN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaf4137ac9a105d08d3bbf95f2a1785a8a1e1a8ad4a82120a6f38328a536dea169" name="aaf4137ac9a105d08d3bbf95f2a1785a8a1e1a8ad4a82120a6f38328a536dea169"></a>WXSQLITE_CIPHER_AES128&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaf4137ac9a105d08d3bbf95f2a1785a8a09924c97302ec536c0b4feb7dce94abb" name="aaf4137ac9a105d08d3bbf95f2a1785a8a09924c97302ec536c0b4feb7dce94abb"></a>WXSQLITE_CIPHER_AES256&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaf4137ac9a105d08d3bbf95f2a1785a8a8bdb5062149381a16f052a500f5f5870" name="aaf4137ac9a105d08d3bbf95f2a1785a8a8bdb5062149381a16f052a500f5f5870"></a>WXSQLITE_CIPHER_CHACHA20&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaf4137ac9a105d08d3bbf95f2a1785a8accbdfbcb956b86c32b64f028a3431109" name="aaf4137ac9a105d08d3bbf95f2a1785a8accbdfbcb956b86c32b64f028a3431109"></a>WXSQLITE_CIPHER_SQLCIPHER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaf4137ac9a105d08d3bbf95f2a1785a8af77da565604dba69aa98d43785f33ee0" name="aaf4137ac9a105d08d3bbf95f2a1785a8af77da565604dba69aa98d43785f33ee0"></a>WXSQLITE_CIPHER_RC4&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaf4137ac9a105d08d3bbf95f2a1785a8abfd5295a47dd386f1b82c56ad60728f7" name="aaf4137ac9a105d08d3bbf95f2a1785a8abfd5295a47dd386f1b82c56ad60728f7"></a>WXSQLITE_CIPHER_ASCON128&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaf4137ac9a105d08d3bbf95f2a1785a8a269d887e9a1c3ea219953e3c1f17de15" name="aaf4137ac9a105d08d3bbf95f2a1785a8a269d887e9a1c3ea219953e3c1f17de15"></a>WXSQLITE_CIPHER_AEGIS&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ad52a48fbd0cc888a23adcd3033f463ba" name="ad52a48fbd0cc888a23adcd3033f463ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad52a48fbd0cc888a23adcd3033f463ba">&#9670;&#160;</a></span>wxSQLite3DbConfig</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#ad52a48fbd0cc888a23adcd3033f463ba">wxSQLite3DbConfig</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enumeration of statement status counters. </p>
+<table class="fieldtable">
+<tr><th colspan="3">Enumerator</th></tr><tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baad1d1e7e9f2af659402c5e8d5e3db7a35" name="ad52a48fbd0cc888a23adcd3033f463baad1d1e7e9f2af659402c5e8d5e3db7a35"></a>WXSQLITE_DBCONFIG_ENABLE_FKEY&#160;</td><td class="fieldinit">1002&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa4231b3224e2d655b183ce557729cfe8c" name="ad52a48fbd0cc888a23adcd3033f463baa4231b3224e2d655b183ce557729cfe8c"></a>WXSQLITE_DBCONFIG_ENABLE_TRIGGER&#160;</td><td class="fieldinit">1003&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa13a8494fbfb10e10fffa40f05f020e79" name="ad52a48fbd0cc888a23adcd3033f463baa13a8494fbfb10e10fffa40f05f020e79"></a>WXSQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER&#160;</td><td class="fieldinit">1004&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa5e5aa07f0ce7d4b447edf8795ee59739" name="ad52a48fbd0cc888a23adcd3033f463baa5e5aa07f0ce7d4b447edf8795ee59739"></a>WXSQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION&#160;</td><td class="fieldinit">1005&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa5ba023e1e5f744ea07049543e7f78b49" name="ad52a48fbd0cc888a23adcd3033f463baa5ba023e1e5f744ea07049543e7f78b49"></a>WXSQLITE_DBCONFIG_NO_CKPT_ON_CLOSE&#160;</td><td class="fieldinit">1006&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa0c19498db788a74a76e5bb49faaa7f11" name="ad52a48fbd0cc888a23adcd3033f463baa0c19498db788a74a76e5bb49faaa7f11"></a>WXSQLITE_DBCONFIG_ENABLE_QPSG&#160;</td><td class="fieldinit">1007&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa5d602e3a871f2be7eae657ae52942267" name="ad52a48fbd0cc888a23adcd3033f463baa5d602e3a871f2be7eae657ae52942267"></a>WXSQLITE_DBCONFIG_TRIGGER_EQP&#160;</td><td class="fieldinit">1008&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baae33d9a8fa904b1f01975d80db15fd839" name="ad52a48fbd0cc888a23adcd3033f463baae33d9a8fa904b1f01975d80db15fd839"></a>WXSQLITE_DBCONFIG_RESET_DATABASE&#160;</td><td class="fieldinit">1009&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa6fa7dc6c1b5de395f1c88a3b1309f5d4" name="ad52a48fbd0cc888a23adcd3033f463baa6fa7dc6c1b5de395f1c88a3b1309f5d4"></a>WXSQLITE_DBCONFIG_DEFENSIVE&#160;</td><td class="fieldinit">1010&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa2b5488533b835b8e9ad3a72b876619d3" name="ad52a48fbd0cc888a23adcd3033f463baa2b5488533b835b8e9ad3a72b876619d3"></a>WXSQLITE_DBCONFIG_WRITABLE_SCHEMA&#160;</td><td class="fieldinit">1011&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baac910c59a47f1833c28fffcbe46fa9387" name="ad52a48fbd0cc888a23adcd3033f463baac910c59a47f1833c28fffcbe46fa9387"></a>WXSQLITE_DBCONFIG_LEGACY_ALTER_TABLE&#160;</td><td class="fieldinit">1012&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa128ae902a80506677db3176c81f714da" name="ad52a48fbd0cc888a23adcd3033f463baa128ae902a80506677db3176c81f714da"></a>WXSQLITE_DBCONFIG_DQS_DML&#160;</td><td class="fieldinit">1013&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa66821ae755ae062e4bde6a79af69e493" name="ad52a48fbd0cc888a23adcd3033f463baa66821ae755ae062e4bde6a79af69e493"></a>WXSQLITE_DBCONFIG_DQS_DDL&#160;</td><td class="fieldinit">1014&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baadde472bcb963dca445a5a5dc2b59f289" name="ad52a48fbd0cc888a23adcd3033f463baadde472bcb963dca445a5a5dc2b59f289"></a>WXSQLITE_DBCONFIG_ENABLE_VIEW&#160;</td><td class="fieldinit">1015&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa89b1297fbee417751c2728deb3c720b8" name="ad52a48fbd0cc888a23adcd3033f463baa89b1297fbee417751c2728deb3c720b8"></a>WXSQLITE_DBCONFIG_LEGACY_FILE_FORMAT&#160;</td><td class="fieldinit">1016&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa51e40b8dba143d377e252d3bc50b216e" name="ad52a48fbd0cc888a23adcd3033f463baa51e40b8dba143d377e252d3bc50b216e"></a>WXSQLITE_DBCONFIG_TRUSTED_SCHEMA&#160;</td><td class="fieldinit">1017&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa76eaead7050ece34944f65d84ecbb5a6" name="ad52a48fbd0cc888a23adcd3033f463baa76eaead7050ece34944f65d84ecbb5a6"></a>WXSQLITE_DBCONFIG_STMT_SCANSTATUS&#160;</td><td class="fieldinit">1018&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baaa4daa8c697c03e9b4d83b6a94df1d984" name="ad52a48fbd0cc888a23adcd3033f463baaa4daa8c697c03e9b4d83b6a94df1d984"></a>WXSQLITE_DBCONFIG_REVERSE_SCANORDER&#160;</td><td class="fieldinit">1019&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baad949247f3d043417652cc0caa029daa9" name="ad52a48fbd0cc888a23adcd3033f463baad949247f3d043417652cc0caa029daa9"></a>WXSQLITE_DBCONFIG_ENABLE_ATTACH_CREATE&#160;</td><td class="fieldinit">1020&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baaecc4d0985738688e35db8f7105d2a972" name="ad52a48fbd0cc888a23adcd3033f463baaecc4d0985738688e35db8f7105d2a972"></a>WXSQLITE_DBCONFIG_ENABLE_ATTACH_WRITE&#160;</td><td class="fieldinit">1021&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad52a48fbd0cc888a23adcd3033f463baa5cb89fd7a0074b566e2d76b42906fbbb" name="ad52a48fbd0cc888a23adcd3033f463baa5cb89fd7a0074b566e2d76b42906fbbb"></a>WXSQLITE_DBCONFIG_ENABLE_COMMENTS&#160;</td><td class="fieldinit">1022&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a52c53c308acf457f59ea3ead44f29fdf" name="a52c53c308acf457f59ea3ead44f29fdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52c53c308acf457f59ea3ead44f29fdf">&#9670;&#160;</a></span>wxSQLite3JournalMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a52c53c308acf457f59ea3ead44f29fdf">wxSQLite3JournalMode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enumeration of journal modes. </p>
+<table class="fieldtable">
+<tr><th colspan="3">Enumerator</th></tr><tr><td class="fieldname"><a id="a52c53c308acf457f59ea3ead44f29fdfad49a9aa06c52c52702bedc440b87b577" name="a52c53c308acf457f59ea3ead44f29fdfad49a9aa06c52c52702bedc440b87b577"></a>WXSQLITE_JOURNALMODE_DELETE&#160;</td><td class="fieldinit">0&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a52c53c308acf457f59ea3ead44f29fdfa6a7bbaa54aa36e55906c7e7198b39a37" name="a52c53c308acf457f59ea3ead44f29fdfa6a7bbaa54aa36e55906c7e7198b39a37"></a>WXSQLITE_JOURNALMODE_PERSIST&#160;</td><td class="fieldinit">1&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a52c53c308acf457f59ea3ead44f29fdfa32ab1089d03781da64b13f4df81dbccb" name="a52c53c308acf457f59ea3ead44f29fdfa32ab1089d03781da64b13f4df81dbccb"></a>WXSQLITE_JOURNALMODE_OFF&#160;</td><td class="fieldinit">2&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a52c53c308acf457f59ea3ead44f29fdfabbe53c7a3fae777ba42143a320587c72" name="a52c53c308acf457f59ea3ead44f29fdfabbe53c7a3fae777ba42143a320587c72"></a>WXSQLITE_JOURNALMODE_TRUNCATE&#160;</td><td class="fieldinit">3&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a52c53c308acf457f59ea3ead44f29fdfa52f8f00b53106e595ce4378223097b6a" name="a52c53c308acf457f59ea3ead44f29fdfa52f8f00b53106e595ce4378223097b6a"></a>WXSQLITE_JOURNALMODE_MEMORY&#160;</td><td class="fieldinit">4&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a52c53c308acf457f59ea3ead44f29fdfa5a74c54ce69c1ee291eb8090bdfb0812" name="a52c53c308acf457f59ea3ead44f29fdfa5a74c54ce69c1ee291eb8090bdfb0812"></a>WXSQLITE_JOURNALMODE_WAL&#160;</td><td class="fieldinit">5&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="aec74080be17a473d33fa1a5933c236eb" name="aec74080be17a473d33fa1a5933c236eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec74080be17a473d33fa1a5933c236eb">&#9670;&#160;</a></span>wxSQLite3LimitType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#aec74080be17a473d33fa1a5933c236eb">wxSQLite3LimitType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enumeration of SQLite limitation types. </p>
+<table class="fieldtable">
+<tr><th colspan="3">Enumerator</th></tr><tr><td class="fieldname"><a id="aec74080be17a473d33fa1a5933c236eba5f51c79e8e243e672746c8c21c976384" name="aec74080be17a473d33fa1a5933c236eba5f51c79e8e243e672746c8c21c976384"></a>WXSQLITE_LIMIT_LENGTH&#160;</td><td class="fieldinit">0&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aec74080be17a473d33fa1a5933c236ebadae2ade523bb2e1e60432412b6847900" name="aec74080be17a473d33fa1a5933c236ebadae2ade523bb2e1e60432412b6847900"></a>WXSQLITE_LIMIT_SQL_LENGTH&#160;</td><td class="fieldinit">1&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aec74080be17a473d33fa1a5933c236eba3a8f7c37a375a87781431eeaeb2698af" name="aec74080be17a473d33fa1a5933c236eba3a8f7c37a375a87781431eeaeb2698af"></a>WXSQLITE_LIMIT_COLUMN&#160;</td><td class="fieldinit">2&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aec74080be17a473d33fa1a5933c236eba24f60ed6368a16670077819529fd3b0b" name="aec74080be17a473d33fa1a5933c236eba24f60ed6368a16670077819529fd3b0b"></a>WXSQLITE_LIMIT_EXPR_DEPTH&#160;</td><td class="fieldinit">3&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aec74080be17a473d33fa1a5933c236ebacc3d4f895c32951beca93f3a8947b024" name="aec74080be17a473d33fa1a5933c236ebacc3d4f895c32951beca93f3a8947b024"></a>WXSQLITE_LIMIT_COMPOUND_SELECT&#160;</td><td class="fieldinit">4&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aec74080be17a473d33fa1a5933c236ebafca0abc501fecc9b7296e74ccb811a62" name="aec74080be17a473d33fa1a5933c236ebafca0abc501fecc9b7296e74ccb811a62"></a>WXSQLITE_LIMIT_VDBE_OP&#160;</td><td class="fieldinit">5&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aec74080be17a473d33fa1a5933c236eba3dbb3a7e790ea389afc00137f15bc9b9" name="aec74080be17a473d33fa1a5933c236eba3dbb3a7e790ea389afc00137f15bc9b9"></a>WXSQLITE_LIMIT_FUNCTION_ARG&#160;</td><td class="fieldinit">6&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aec74080be17a473d33fa1a5933c236eba681565cfae1834f53a7685dc4d42cb2e" name="aec74080be17a473d33fa1a5933c236eba681565cfae1834f53a7685dc4d42cb2e"></a>WXSQLITE_LIMIT_ATTACHED&#160;</td><td class="fieldinit">7&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aec74080be17a473d33fa1a5933c236ebaa10d2576295764bf0547eb2542bba193" name="aec74080be17a473d33fa1a5933c236ebaa10d2576295764bf0547eb2542bba193"></a>WXSQLITE_LIMIT_LIKE_PATTERN_LENGTH&#160;</td><td class="fieldinit">8&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aec74080be17a473d33fa1a5933c236ebafb90a49b91a94ff86e1a05225ee1f9ae" name="aec74080be17a473d33fa1a5933c236ebafb90a49b91a94ff86e1a05225ee1f9ae"></a>WXSQLITE_LIMIT_VARIABLE_NUMBER&#160;</td><td class="fieldinit">9&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aec74080be17a473d33fa1a5933c236eba90a09243392819db9b2a471c551327df" name="aec74080be17a473d33fa1a5933c236eba90a09243392819db9b2a471c551327df"></a>WXSQLITE_LIMIT_TRIGGER_DEPTH&#160;</td><td class="fieldinit">10&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aec74080be17a473d33fa1a5933c236ebaf36ee9e8b7396d2ad57040463ea82017" name="aec74080be17a473d33fa1a5933c236ebaf36ee9e8b7396d2ad57040463ea82017"></a>WXSQLITE_LIMIT_WORKER_THREADS&#160;</td><td class="fieldinit">11&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ae8ec729633cb94b85468fba5b91936ee" name="ae8ec729633cb94b85468fba5b91936ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8ec729633cb94b85468fba5b91936ee">&#9670;&#160;</a></span>wxSQLite3StatementStatus</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#ae8ec729633cb94b85468fba5b91936ee">wxSQLite3StatementStatus</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enumeration of statement status counters. </p>
+<table class="fieldtable">
+<tr><th colspan="3">Enumerator</th></tr><tr><td class="fieldname"><a id="ae8ec729633cb94b85468fba5b91936eeacaf2d41bdc4663f2150731ffab2ce549" name="ae8ec729633cb94b85468fba5b91936eeacaf2d41bdc4663f2150731ffab2ce549"></a>WXSQLITE_STMTSTATUS_FULLSCAN_STEP&#160;</td><td class="fieldinit">1&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae8ec729633cb94b85468fba5b91936eeaaf8ab15ef1b2aac6e25116de530c69ea" name="ae8ec729633cb94b85468fba5b91936eeaaf8ab15ef1b2aac6e25116de530c69ea"></a>WXSQLITE_STMTSTATUS_SORT&#160;</td><td class="fieldinit">2&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae8ec729633cb94b85468fba5b91936eeac42fcc2680b6a805bd61318adc526f2f" name="ae8ec729633cb94b85468fba5b91936eeac42fcc2680b6a805bd61318adc526f2f"></a>WXSQLITE_STMTSTATUS_AUTOINDEX&#160;</td><td class="fieldinit">3&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae8ec729633cb94b85468fba5b91936eea071cb99bfcf88da8dbae0bbecdd7a360" name="ae8ec729633cb94b85468fba5b91936eea071cb99bfcf88da8dbae0bbecdd7a360"></a>WXSQLITE_STMTSTATUS_VM_STEP&#160;</td><td class="fieldinit">4&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae8ec729633cb94b85468fba5b91936eea9dc206619cdd11b303edcfb7d4d5d8c6" name="ae8ec729633cb94b85468fba5b91936eea9dc206619cdd11b303edcfb7d4d5d8c6"></a>WXSQLITE_STMTSTATUS_REPREPARE&#160;</td><td class="fieldinit">5&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae8ec729633cb94b85468fba5b91936eeaa02cf23588b7b97106ed4d088a35d02a" name="ae8ec729633cb94b85468fba5b91936eeaa02cf23588b7b97106ed4d088a35d02a"></a>WXSQLITE_STMTSTATUS_RUN&#160;</td><td class="fieldinit">6&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae8ec729633cb94b85468fba5b91936eeabc8fe09f5fd1e01177948c34bff8f0e5" name="ae8ec729633cb94b85468fba5b91936eeabc8fe09f5fd1e01177948c34bff8f0e5"></a>WXSQLITE_STMTSTATUS_MEMUSED&#160;</td><td class="fieldinit">99&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a7e374ef6aa338d31b05e4be5d5fe6661" name="a7e374ef6aa338d31b05e4be5d5fe6661"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e374ef6aa338d31b05e4be5d5fe6661">&#9670;&#160;</a></span>wxSQLite3TransactionState</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a7e374ef6aa338d31b05e4be5d5fe6661">wxSQLite3TransactionState</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enumeration of transaction state. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7e374ef6aa338d31b05e4be5d5fe6661af861975b195280b5f4257ff7fab20826" name="a7e374ef6aa338d31b05e4be5d5fe6661af861975b195280b5f4257ff7fab20826"></a>WXSQLITE_TRANSACTION_INVALID&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7e374ef6aa338d31b05e4be5d5fe6661a6a3f0341d90ebfcb15079e8780e407ba" name="a7e374ef6aa338d31b05e4be5d5fe6661a6a3f0341d90ebfcb15079e8780e407ba"></a>WXSQLITE_TRANSACTION_NONE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7e374ef6aa338d31b05e4be5d5fe6661ae9359e729ef9577a1bea66097a030222" name="a7e374ef6aa338d31b05e4be5d5fe6661ae9359e729ef9577a1bea66097a030222"></a>WXSQLITE_TRANSACTION_READ&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7e374ef6aa338d31b05e4be5d5fe6661ac8f6d8baf26c396b6fc69559723d9feb" name="a7e374ef6aa338d31b05e4be5d5fe6661ac8f6d8baf26c396b6fc69559723d9feb"></a>WXSQLITE_TRANSACTION_WRITE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="af49cafcb237029e7e744a5b2076e2e5d" name="af49cafcb237029e7e744a5b2076e2e5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af49cafcb237029e7e744a5b2076e2e5d">&#9670;&#160;</a></span>wxSQLite3TransactionType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#af49cafcb237029e7e744a5b2076e2e5d">wxSQLite3TransactionType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enumeration of transaction types. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af49cafcb237029e7e744a5b2076e2e5dac6d4bc6033a2089a9a7263dece47fab2" name="af49cafcb237029e7e744a5b2076e2e5dac6d4bc6033a2089a9a7263dece47fab2"></a>WXSQLITE_TRANSACTION_DEFAULT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af49cafcb237029e7e744a5b2076e2e5dac5c7ae9f14d939563e949c213fe09317" name="af49cafcb237029e7e744a5b2076e2e5dac5c7ae9f14d939563e949c213fe09317"></a>WXSQLITE_TRANSACTION_DEFERRED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af49cafcb237029e7e744a5b2076e2e5da1eb3d0c899f7e63404d900f5323b78f1" name="af49cafcb237029e7e744a5b2076e2e5da1eb3d0c899f7e63404d900f5323b78f1"></a>WXSQLITE_TRANSACTION_IMMEDIATE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af49cafcb237029e7e744a5b2076e2e5da8159d5d336472a387e921f885c79abb9" name="af49cafcb237029e7e744a5b2076e2e5da8159d5d336472a387e921f885c79abb9"></a>WXSQLITE_TRANSACTION_EXCLUSIVE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="abe2b386d11e65e66bc5330513c7d33cd" name="abe2b386d11e65e66bc5330513c7d33cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe2b386d11e65e66bc5330513c7d33cd">&#9670;&#160;</a></span>operator++()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void operator++ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#aec74080be17a473d33fa1a5933c236eb">wxSQLite3LimitType</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="ad98e2cdeede9fe0129fef341b69fc071" name="ad98e2cdeede9fe0129fef341b69fc071"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad98e2cdeede9fe0129fef341b69fc071">&#9670;&#160;</a></span>wxSQLite3Database</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">class <a class="el" href="wxsqlite3def_8h.html#adcb54a58c2c5cbf540194d76ad1860ed">WXDLLIMPEXP_FWD_SQLITE3</a> wxSQLite3Database</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="dir_dc6a119311012aa343ae6129826ee2ed.html">wx</a></li><li class="navelem"><a href="wxsqlite3_8h.html">wxsqlite3.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.17.0 </li>
+  </ul>
+</div>
+</body>
+</html>

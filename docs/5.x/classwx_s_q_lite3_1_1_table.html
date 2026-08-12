@@ -1,0 +1,1077 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.17.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>wxSQLite3: wxSQLite3::Table Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="theme-round.css" rel="stylesheet" type="text/css"/>
+<link href="theme-robot.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/utelle/wxsqlite3" class="github-corner" title="View wxSQLite3 on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">wxSQLite3
+   &#160;<span id="projectnumber">5.0.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.17.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+  initMenu('',true);
+  init_search();
+});
+</script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1" style="position:absolute;right:8px;top:8px;height:36px;"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2" style="float:right">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('classwx_s_q_lite3_1_1_table.html','','classwx_s_q_lite3_1_1_table-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">wxSQLite3::Table Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Holds the complete result set of a SQL query.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;wxsqlite3.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ab8123c3328367b4eab6352474b199e3c" id="r_ab8123c3328367b4eab6352474b199e3c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab8123c3328367b4eab6352474b199e3c">Table</a> ()</td></tr>
+<tr class="memdesc:ab8123c3328367b4eab6352474b199e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <br /></td></tr>
+<tr class="memitem:af8ee7f0408eff49537b9d7a85c86b702" id="r_af8ee7f0408eff49537b9d7a85c86b702"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af8ee7f0408eff49537b9d7a85c86b702">Table</a> (const Table &amp;table)</td></tr>
+<tr class="memitem:a6d47f9664cc5cf294993f061122c0540" id="r_a6d47f9664cc5cf294993f061122c0540"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6d47f9664cc5cf294993f061122c0540">Table</a> (char **results, int rows, int cols)</td></tr>
+<tr class="memitem:aed0bb5aec6ff2ea37a14432689fdd711" id="r_aed0bb5aec6ff2ea37a14432689fdd711"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="#aed0bb5aec6ff2ea37a14432689fdd711">~Table</a> ()</td></tr>
+<tr class="memitem:a5f512277428d216fb315e3e4a5e08313" id="r_a5f512277428d216fb315e3e4a5e08313"><td class="memItemLeft"><a class="el" href="#ab8123c3328367b4eab6352474b199e3c">Table</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a5f512277428d216fb315e3e4a5e08313">operator=</a> (const <a class="el" href="#ab8123c3328367b4eab6352474b199e3c">Table</a> &amp;table)</td></tr>
+<tr class="memitem:a9ec07e54a959bcbcfa871b0082b7df7a" id="r_a9ec07e54a959bcbcfa871b0082b7df7a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9ec07e54a959bcbcfa871b0082b7df7a">GetColumnCount</a> () const</td></tr>
+<tr class="memdesc:a9ec07e54a959bcbcfa871b0082b7df7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of columns in the result set.  <br /></td></tr>
+<tr class="memitem:aa41b2ad94e85d50dede5e425c3f3fd24" id="r_aa41b2ad94e85d50dede5e425c3f3fd24"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa41b2ad94e85d50dede5e425c3f3fd24">GetRowCount</a> () const</td></tr>
+<tr class="memdesc:aa41b2ad94e85d50dede5e425c3f3fd24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of rows in the result set.  <br /></td></tr>
+<tr class="memitem:a1257405ccfb86a2054470852924557f8" id="r_a1257405ccfb86a2054470852924557f8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a1257405ccfb86a2054470852924557f8">FindColumnIndex</a> (const wxString &amp;columnName) const</td></tr>
+<tr class="memdesc:a1257405ccfb86a2054470852924557f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the index of a column by name.  <br /></td></tr>
+<tr class="memitem:a1bbc8c68ae9b81899cd1b03fe8351f5e" id="r_a1bbc8c68ae9b81899cd1b03fe8351f5e"><td class="memItemLeft">wxString&#160;</td><td class="memItemRight"><a class="el" href="#a1bbc8c68ae9b81899cd1b03fe8351f5e">GetColumnName</a> (int columnIndex) const</td></tr>
+<tr class="memdesc:a1bbc8c68ae9b81899cd1b03fe8351f5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of a column.  <br /></td></tr>
+<tr class="memitem:a593d51411b8adeb1ea70a557a589546f" id="r_a593d51411b8adeb1ea70a557a589546f"><td class="memItemLeft">wxString&#160;</td><td class="memItemRight"><a class="el" href="#a593d51411b8adeb1ea70a557a589546f">GetAsString</a> (int columnIndex) const</td></tr>
+<tr class="memdesc:a593d51411b8adeb1ea70a557a589546f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a string using the column index.  <br /></td></tr>
+<tr class="memitem:abf504bd88881522006e40ee4811aef18" id="r_abf504bd88881522006e40ee4811aef18"><td class="memItemLeft">wxString&#160;</td><td class="memItemRight"><a class="el" href="#abf504bd88881522006e40ee4811aef18">GetAsString</a> (const wxString &amp;columnName) const</td></tr>
+<tr class="memdesc:abf504bd88881522006e40ee4811aef18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a string using the column name.  <br /></td></tr>
+<tr class="memitem:aaf89459e71ff0c05032f85fda61b507c" id="r_aaf89459e71ff0c05032f85fda61b507c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aaf89459e71ff0c05032f85fda61b507c">GetInt</a> (int columnIndex, int nullValue=0) const</td></tr>
+<tr class="memdesc:aaf89459e71ff0c05032f85fda61b507c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as an integer using the column index.  <br /></td></tr>
+<tr class="memitem:adef627fc3737254e9c574cc8781cea88" id="r_adef627fc3737254e9c574cc8781cea88"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#adef627fc3737254e9c574cc8781cea88">GetInt</a> (const wxString &amp;columnName, int nullValue=0) const</td></tr>
+<tr class="memdesc:adef627fc3737254e9c574cc8781cea88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as an integer using the column name.  <br /></td></tr>
+<tr class="memitem:a0fb05a5f25f7a41bc43d9bede110a061" id="r_a0fb05a5f25f7a41bc43d9bede110a061"><td class="memItemLeft">wxLongLong&#160;</td><td class="memItemRight"><a class="el" href="#a0fb05a5f25f7a41bc43d9bede110a061">GetInt64</a> (int columnIndex, wxLongLong nullValue=0) const</td></tr>
+<tr class="memdesc:a0fb05a5f25f7a41bc43d9bede110a061"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a 64-bit integer using the column index.  <br /></td></tr>
+<tr class="memitem:aa5f84f7a2fa8ea388b2a07a05c3df597" id="r_aa5f84f7a2fa8ea388b2a07a05c3df597"><td class="memItemLeft">wxLongLong&#160;</td><td class="memItemRight"><a class="el" href="#aa5f84f7a2fa8ea388b2a07a05c3df597">GetInt64</a> (const wxString &amp;columnName, wxLongLong nullValue=0) const</td></tr>
+<tr class="memdesc:aa5f84f7a2fa8ea388b2a07a05c3df597"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as an integer using the column name.  <br /></td></tr>
+<tr class="memitem:a948a35ca2455e98354d0fd9e2f7ede02" id="r_a948a35ca2455e98354d0fd9e2f7ede02"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a948a35ca2455e98354d0fd9e2f7ede02">GetDouble</a> (int columnIndex, double nullValue=0.0) const</td></tr>
+<tr class="memdesc:a948a35ca2455e98354d0fd9e2f7ede02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a double using the column index.  <br /></td></tr>
+<tr class="memitem:ae2bcd016f1bfb7196a7af301814e8702" id="r_ae2bcd016f1bfb7196a7af301814e8702"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ae2bcd016f1bfb7196a7af301814e8702">GetDouble</a> (const wxString &amp;columnName, double nullValue=0.0) const</td></tr>
+<tr class="memdesc:ae2bcd016f1bfb7196a7af301814e8702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a double using the column name.  <br /></td></tr>
+<tr class="memitem:a6a36a2cc41b8a4a9e0dd1d9bf948de27" id="r_a6a36a2cc41b8a4a9e0dd1d9bf948de27"><td class="memItemLeft">wxString&#160;</td><td class="memItemRight"><a class="el" href="#a6a36a2cc41b8a4a9e0dd1d9bf948de27">GetString</a> (int columnIndex, const wxString &amp;nullValue=wxEmptyString) const</td></tr>
+<tr class="memdesc:a6a36a2cc41b8a4a9e0dd1d9bf948de27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a string using the column index.  <br /></td></tr>
+<tr class="memitem:a55f46f2bd52d0714a73e1b147ca41975" id="r_a55f46f2bd52d0714a73e1b147ca41975"><td class="memItemLeft">wxString&#160;</td><td class="memItemRight"><a class="el" href="#a55f46f2bd52d0714a73e1b147ca41975">GetString</a> (const wxString &amp;columnName, const wxString &amp;nullValue=wxEmptyString) const</td></tr>
+<tr class="memdesc:a55f46f2bd52d0714a73e1b147ca41975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a string using the column name.  <br /></td></tr>
+<tr class="memitem:aaac52b82d4f69ab0f223803bea64cf26" id="r_aaac52b82d4f69ab0f223803bea64cf26"><td class="memItemLeft">wxDateTime&#160;</td><td class="memItemRight"><a class="el" href="#aaac52b82d4f69ab0f223803bea64cf26">GetDate</a> (int columnIndex) const</td></tr>
+<tr class="memdesc:aaac52b82d4f69ab0f223803bea64cf26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a date value using the column index.  <br /></td></tr>
+<tr class="memitem:a1d72b1d4a7295f84b19ea5e132881734" id="r_a1d72b1d4a7295f84b19ea5e132881734"><td class="memItemLeft">wxDateTime&#160;</td><td class="memItemRight"><a class="el" href="#a1d72b1d4a7295f84b19ea5e132881734">GetDate</a> (const wxString &amp;columnName) const</td></tr>
+<tr class="memdesc:a1d72b1d4a7295f84b19ea5e132881734"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a date value using the column name.  <br /></td></tr>
+<tr class="memitem:afbbf7432a017969a8a7f5529862d773a" id="r_afbbf7432a017969a8a7f5529862d773a"><td class="memItemLeft">wxDateTime&#160;</td><td class="memItemRight"><a class="el" href="#afbbf7432a017969a8a7f5529862d773a">GetTime</a> (int columnIndex) const</td></tr>
+<tr class="memdesc:afbbf7432a017969a8a7f5529862d773a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a time value using the column index.  <br /></td></tr>
+<tr class="memitem:aeaf86d3995bfd419cd1bdd18b4e83d40" id="r_aeaf86d3995bfd419cd1bdd18b4e83d40"><td class="memItemLeft">wxDateTime&#160;</td><td class="memItemRight"><a class="el" href="#aeaf86d3995bfd419cd1bdd18b4e83d40">GetTime</a> (const wxString &amp;columnName) const</td></tr>
+<tr class="memdesc:aeaf86d3995bfd419cd1bdd18b4e83d40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a time value using the column name.  <br /></td></tr>
+<tr class="memitem:ab7a2a2056248173073aac78fccc7cfb7" id="r_ab7a2a2056248173073aac78fccc7cfb7"><td class="memItemLeft">wxDateTime&#160;</td><td class="memItemRight"><a class="el" href="#ab7a2a2056248173073aac78fccc7cfb7">GetDateTime</a> (int columnIndex) const</td></tr>
+<tr class="memdesc:ab7a2a2056248173073aac78fccc7cfb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a date/time value using the column index.  <br /></td></tr>
+<tr class="memitem:a378c87a7e17f45918d180e5f1838f080" id="r_a378c87a7e17f45918d180e5f1838f080"><td class="memItemLeft">wxDateTime&#160;</td><td class="memItemRight"><a class="el" href="#a378c87a7e17f45918d180e5f1838f080">GetDateTime</a> (const wxString &amp;columnName) const</td></tr>
+<tr class="memdesc:a378c87a7e17f45918d180e5f1838f080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a date/time value using the column name.  <br /></td></tr>
+<tr class="memitem:a5d08e4b1c78fdfcc13e7a3c5fbdaa32e" id="r_a5d08e4b1c78fdfcc13e7a3c5fbdaa32e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5d08e4b1c78fdfcc13e7a3c5fbdaa32e">GetBool</a> (int columnIndex) const</td></tr>
+<tr class="memdesc:a5d08e4b1c78fdfcc13e7a3c5fbdaa32e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a boolean using the column index.  <br /></td></tr>
+<tr class="memitem:ad748116f9bc039e8ed2fad40dae6d05c" id="r_ad748116f9bc039e8ed2fad40dae6d05c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad748116f9bc039e8ed2fad40dae6d05c">GetBool</a> (const wxString &amp;columnName) const</td></tr>
+<tr class="memdesc:ad748116f9bc039e8ed2fad40dae6d05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a column as a boolean using the column name.  <br /></td></tr>
+<tr class="memitem:a3da1704e36ea205c5a8ac3d6d6af8fcd" id="r_a3da1704e36ea205c5a8ac3d6d6af8fcd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a3da1704e36ea205c5a8ac3d6d6af8fcd">IsNull</a> (int columnIndex) const</td></tr>
+<tr class="memdesc:a3da1704e36ea205c5a8ac3d6d6af8fcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the column selected by index is a NULL value.  <br /></td></tr>
+<tr class="memitem:a07bbe4c81fc59f0088f5c63025262bbb" id="r_a07bbe4c81fc59f0088f5c63025262bbb"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a07bbe4c81fc59f0088f5c63025262bbb">IsNull</a> (const wxString &amp;columnName) const</td></tr>
+<tr class="memdesc:a07bbe4c81fc59f0088f5c63025262bbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the column selected by name is a NULL value.  <br /></td></tr>
+<tr class="memitem:a138962a4800caee3565e241f99cb257b" id="r_a138962a4800caee3565e241f99cb257b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a138962a4800caee3565e241f99cb257b">SetRow</a> (int row)</td></tr>
+<tr class="memdesc:a138962a4800caee3565e241f99cb257b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the current row.  <br /></td></tr>
+<tr class="memitem:a865bada5f73b1c9b623ab0bfb605f124" id="r_a865bada5f73b1c9b623ab0bfb605f124"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a865bada5f73b1c9b623ab0bfb605f124">Finalize</a> ()</td></tr>
+<tr class="memdesc:a865bada5f73b1c9b623ab0bfb605f124"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize the result set.  <br /></td></tr>
+<tr class="memitem:ad12005ae5623e8e93cd991366527bf53" id="r_ad12005ae5623e8e93cd991366527bf53"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad12005ae5623e8e93cd991366527bf53">IsOk</a> () const</td></tr>
+<tr class="memdesc:ad12005ae5623e8e93cd991366527bf53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validate associated SQLite resultset.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Holds the complete result set of a SQL query. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab8123c3328367b4eab6352474b199e3c" name="ab8123c3328367b4eab6352474b199e3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8123c3328367b4eab6352474b199e3c">&#9670;&#160;</a></span>Table() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxSQLite3::Table::Table </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+
+</div>
+</div>
+<a id="af8ee7f0408eff49537b9d7a85c86b702" name="af8ee7f0408eff49537b9d7a85c86b702"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8ee7f0408eff49537b9d7a85c86b702">&#9670;&#160;</a></span>Table() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxSQLite3::Table::Table </td>
+          <td>(</td>
+          <td class="paramtype">const Table &amp;</td>          <td class="paramname"><span class="paramname"><em>table</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6d47f9664cc5cf294993f061122c0540" name="a6d47f9664cc5cf294993f061122c0540"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d47f9664cc5cf294993f061122c0540">&#9670;&#160;</a></span>Table() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxSQLite3::Table::Table </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>results</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rows</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cols</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aed0bb5aec6ff2ea37a14432689fdd711" name="aed0bb5aec6ff2ea37a14432689fdd711"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed0bb5aec6ff2ea37a14432689fdd711">&#9670;&#160;</a></span>~Table()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual wxSQLite3::Table::~Table </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a865bada5f73b1c9b623ab0bfb605f124" name="a865bada5f73b1c9b623ab0bfb605f124"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a865bada5f73b1c9b623ab0bfb605f124">&#9670;&#160;</a></span>Finalize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wxSQLite3::Table::Finalize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finalize the result set. </p>
+
+</div>
+</div>
+<a id="a1257405ccfb86a2054470852924557f8" name="a1257405ccfb86a2054470852924557f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1257405ccfb86a2054470852924557f8">&#9670;&#160;</a></span>FindColumnIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wxSQLite3::Table::FindColumnIndex </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>columnName</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find the index of a column by name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnName</td><td>name of the column </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the index of the column </dd></dl>
+
+</div>
+</div>
+<a id="abf504bd88881522006e40ee4811aef18" name="abf504bd88881522006e40ee4811aef18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf504bd88881522006e40ee4811aef18">&#9670;&#160;</a></span>GetAsString() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxString wxSQLite3::Table::GetAsString </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>columnName</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a string using the column name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnName</td><td>name of the column </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column as a string</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method returns values of type <code>double</code> always using the point character as the decimal separator. This is SQLite default behaviour. Use method <a class="el" href="#a948a35ca2455e98354d0fd9e2f7ede02" title="Get a column as a double using the column index.">Table::GetDouble</a> to apply correct conversion from <code>string</code> to <code>double</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a593d51411b8adeb1ea70a557a589546f" name="a593d51411b8adeb1ea70a557a589546f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a593d51411b8adeb1ea70a557a589546f">&#9670;&#160;</a></span>GetAsString() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxString wxSQLite3::Table::GetAsString </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columnIndex</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a string using the column index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnIndex</td><td>index of the column. Indices start with 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column as a string</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This method returns values of type <code>double</code> always using the point character as the decimal separator. This is SQLite default behaviour. Use method <a class="el" href="#a948a35ca2455e98354d0fd9e2f7ede02" title="Get a column as a double using the column index.">Table::GetDouble</a> to apply correct conversion from <code>string</code> to <code>double</code>. </dd></dl>
+
+</div>
+</div>
+<a id="ad748116f9bc039e8ed2fad40dae6d05c" name="ad748116f9bc039e8ed2fad40dae6d05c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad748116f9bc039e8ed2fad40dae6d05c">&#9670;&#160;</a></span>GetBool() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wxSQLite3::Table::GetBool </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>columnName</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a boolean using the column name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnName</td><td>name of the column </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="a5d08e4b1c78fdfcc13e7a3c5fbdaa32e" name="a5d08e4b1c78fdfcc13e7a3c5fbdaa32e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d08e4b1c78fdfcc13e7a3c5fbdaa32e">&#9670;&#160;</a></span>GetBool() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wxSQLite3::Table::GetBool </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columnIndex</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a boolean using the column index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnIndex</td><td>index of the column. Indices start with 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="a9ec07e54a959bcbcfa871b0082b7df7a" name="a9ec07e54a959bcbcfa871b0082b7df7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ec07e54a959bcbcfa871b0082b7df7a">&#9670;&#160;</a></span>GetColumnCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wxSQLite3::Table::GetColumnCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the number of columns in the result set. </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of columns </dd></dl>
+
+</div>
+</div>
+<a id="a1bbc8c68ae9b81899cd1b03fe8351f5e" name="a1bbc8c68ae9b81899cd1b03fe8351f5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bbc8c68ae9b81899cd1b03fe8351f5e">&#9670;&#160;</a></span>GetColumnName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxString wxSQLite3::Table::GetColumnName </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columnIndex</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the name of a column. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnIndex</td><td>index of the column. Indices start with 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>name of the column </dd></dl>
+
+</div>
+</div>
+<a id="a1d72b1d4a7295f84b19ea5e132881734" name="a1d72b1d4a7295f84b19ea5e132881734"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d72b1d4a7295f84b19ea5e132881734">&#9670;&#160;</a></span>GetDate() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxDateTime wxSQLite3::Table::GetDate </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>columnName</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a date value using the column name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnName</td><td>name of the column </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="aaac52b82d4f69ab0f223803bea64cf26" name="aaac52b82d4f69ab0f223803bea64cf26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaac52b82d4f69ab0f223803bea64cf26">&#9670;&#160;</a></span>GetDate() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxDateTime wxSQLite3::Table::GetDate </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columnIndex</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a date value using the column index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnIndex</td><td>index of the column. Indices start with 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="a378c87a7e17f45918d180e5f1838f080" name="a378c87a7e17f45918d180e5f1838f080"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a378c87a7e17f45918d180e5f1838f080">&#9670;&#160;</a></span>GetDateTime() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxDateTime wxSQLite3::Table::GetDateTime </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>columnName</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a date/time value using the column name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnName</td><td>name of the column </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="ab7a2a2056248173073aac78fccc7cfb7" name="ab7a2a2056248173073aac78fccc7cfb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7a2a2056248173073aac78fccc7cfb7">&#9670;&#160;</a></span>GetDateTime() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxDateTime wxSQLite3::Table::GetDateTime </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columnIndex</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a date/time value using the column index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnIndex</td><td>index of the column. Indices start with 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="ae2bcd016f1bfb7196a7af301814e8702" name="ae2bcd016f1bfb7196a7af301814e8702"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2bcd016f1bfb7196a7af301814e8702">&#9670;&#160;</a></span>GetDouble() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double wxSQLite3::Table::GetDouble </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>columnName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>nullValue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.0</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a double using the column name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnName</td><td>name of the column </td></tr>
+    <tr><td class="paramname">nullValue</td><td>value to be returned in case the column is NULL </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="a948a35ca2455e98354d0fd9e2f7ede02" name="a948a35ca2455e98354d0fd9e2f7ede02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a948a35ca2455e98354d0fd9e2f7ede02">&#9670;&#160;</a></span>GetDouble() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double wxSQLite3::Table::GetDouble </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columnIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>nullValue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.0</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a double using the column index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnIndex</td><td>index of the column. Indices start with 0. </td></tr>
+    <tr><td class="paramname">nullValue</td><td>value to be returned in case the column is NULL </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="adef627fc3737254e9c574cc8781cea88" name="adef627fc3737254e9c574cc8781cea88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adef627fc3737254e9c574cc8781cea88">&#9670;&#160;</a></span>GetInt() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wxSQLite3::Table::GetInt </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>columnName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nullValue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as an integer using the column name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnName</td><td>name of the column </td></tr>
+    <tr><td class="paramname">nullValue</td><td>value to be returned in case the column is NULL </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="aaf89459e71ff0c05032f85fda61b507c" name="aaf89459e71ff0c05032f85fda61b507c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf89459e71ff0c05032f85fda61b507c">&#9670;&#160;</a></span>GetInt() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wxSQLite3::Table::GetInt </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columnIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nullValue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as an integer using the column index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnIndex</td><td>index of the column. Indices start with 0. </td></tr>
+    <tr><td class="paramname">nullValue</td><td>value to be returned in case the column is NULL </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="aa5f84f7a2fa8ea388b2a07a05c3df597" name="aa5f84f7a2fa8ea388b2a07a05c3df597"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5f84f7a2fa8ea388b2a07a05c3df597">&#9670;&#160;</a></span>GetInt64() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxLongLong wxSQLite3::Table::GetInt64 </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>columnName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">wxLongLong</td>          <td class="paramname"><span class="paramname"><em>nullValue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as an integer using the column name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnName</td><td>name of the column </td></tr>
+    <tr><td class="paramname">nullValue</td><td>value to be returned in case the column is NULL </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="a0fb05a5f25f7a41bc43d9bede110a061" name="a0fb05a5f25f7a41bc43d9bede110a061"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fb05a5f25f7a41bc43d9bede110a061">&#9670;&#160;</a></span>GetInt64() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxLongLong wxSQLite3::Table::GetInt64 </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columnIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">wxLongLong</td>          <td class="paramname"><span class="paramname"><em>nullValue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a 64-bit integer using the column index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnIndex</td><td>index of the column. Indices start with 0. </td></tr>
+    <tr><td class="paramname">nullValue</td><td>value to be returned in case the column is NULL </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="aa41b2ad94e85d50dede5e425c3f3fd24" name="aa41b2ad94e85d50dede5e425c3f3fd24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa41b2ad94e85d50dede5e425c3f3fd24">&#9670;&#160;</a></span>GetRowCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wxSQLite3::Table::GetRowCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the number of rows in the result set. </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of rows </dd></dl>
+
+</div>
+</div>
+<a id="a55f46f2bd52d0714a73e1b147ca41975" name="a55f46f2bd52d0714a73e1b147ca41975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55f46f2bd52d0714a73e1b147ca41975">&#9670;&#160;</a></span>GetString() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxString wxSQLite3::Table::GetString </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>columnName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>nullValue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">wxEmptyString</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a string using the column name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnName</td><td>name of the column </td></tr>
+    <tr><td class="paramname">nullValue</td><td>value to be returned in case the column is NULL </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="a6a36a2cc41b8a4a9e0dd1d9bf948de27" name="a6a36a2cc41b8a4a9e0dd1d9bf948de27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a36a2cc41b8a4a9e0dd1d9bf948de27">&#9670;&#160;</a></span>GetString() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxString wxSQLite3::Table::GetString </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columnIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>nullValue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">wxEmptyString</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a string using the column index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnIndex</td><td>index of the column. Indices start with 0. </td></tr>
+    <tr><td class="paramname">nullValue</td><td>value to be returned in case the column is NULL </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="aeaf86d3995bfd419cd1bdd18b4e83d40" name="aeaf86d3995bfd419cd1bdd18b4e83d40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaf86d3995bfd419cd1bdd18b4e83d40">&#9670;&#160;</a></span>GetTime() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxDateTime wxSQLite3::Table::GetTime </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>columnName</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a time value using the column name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnName</td><td>name of the column </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="afbbf7432a017969a8a7f5529862d773a" name="afbbf7432a017969a8a7f5529862d773a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbbf7432a017969a8a7f5529862d773a">&#9670;&#160;</a></span>GetTime() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxDateTime wxSQLite3::Table::GetTime </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columnIndex</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a column as a time value using the column index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnIndex</td><td>index of the column. Indices start with 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the column </dd></dl>
+
+</div>
+</div>
+<a id="a07bbe4c81fc59f0088f5c63025262bbb" name="a07bbe4c81fc59f0088f5c63025262bbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07bbe4c81fc59f0088f5c63025262bbb">&#9670;&#160;</a></span>IsNull() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wxSQLite3::Table::IsNull </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>columnName</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check whether the column selected by name is a NULL value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnName</td><td>name of the column </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>TRUE if the value is NULL, FALSE otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a3da1704e36ea205c5a8ac3d6d6af8fcd" name="a3da1704e36ea205c5a8ac3d6d6af8fcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3da1704e36ea205c5a8ac3d6d6af8fcd">&#9670;&#160;</a></span>IsNull() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wxSQLite3::Table::IsNull </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columnIndex</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check whether the column selected by index is a NULL value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">columnIndex</td><td>index of the column. Indices start with 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>TRUE if the value is NULL, FALSE otherwise </dd></dl>
+
+</div>
+</div>
+<a id="ad12005ae5623e8e93cd991366527bf53" name="ad12005ae5623e8e93cd991366527bf53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad12005ae5623e8e93cd991366527bf53">&#9670;&#160;</a></span>IsOk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wxSQLite3::Table::IsOk </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Validate associated SQLite resultset. </p>
+<dl class="section return"><dt>Returns</dt><dd>TRUE if SQLite resultset is associated, FALSE otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a5f512277428d216fb315e3e4a5e08313" name="a5f512277428d216fb315e3e4a5e08313"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f512277428d216fb315e3e4a5e08313">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ab8123c3328367b4eab6352474b199e3c">Table</a> &amp; wxSQLite3::Table::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ab8123c3328367b4eab6352474b199e3c">Table</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>table</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a138962a4800caee3565e241f99cb257b" name="a138962a4800caee3565e241f99cb257b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a138962a4800caee3565e241f99cb257b">&#9670;&#160;</a></span>SetRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wxSQLite3::Table::SetRow </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>row</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the current row. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">row</td><td>index of the requested row. Indices start with 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="wxsqlite3_8h.html">wxsqlite3.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacewx_s_q_lite3.html">wxSQLite3</a></li><li class="navelem"><a href="classwx_s_q_lite3_1_1_table.html">Table</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.17.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>wxSQLite3 website</title>
+  <META NAME="keywords" CONTENT="Ulrich Telle, wxWidgets, wxSQLite3">
+  <link href="wxwidgets.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+<h1>wxSQLite3</h1>
+
+<table cellspacing="2" cellpadding="1" style="table-layout:fixed;" border="0">
+<tr><td valign="top" rowspan="5" width="175"><img src="wxsqlite3.png"></td>
+<td width="230"><b>Author:</b></td><td width=!100">Ulrich Telle</td><td rowspan="5" width="20">&nbsp;</td></tr>
+<tr><td><b>Current maintainer:</b></td><td>Ulrich Telle</td></tr>
+<tr><td><b>Latest version:</b></td><td>5.0.0</td></tr>
+<tr><td><b>Programming language:</b></td><td>C++</td></tr>
+<tr><td><b>External dependencies:</b></td><td>none</td></tr>
+
+<tr><td></td><td width="300"><b>wxWidgets supported ports:</b></td><td>wxMSW, wxGTK, wxMac</td></tr>
+<tr><td></td><td><b>wxWidgets supported versions:</b></td><td>3.x</td></tr>
+<tr><td></td><td><b>Build system:</b></td><td>Premake5 / autoconf</td></tr>
+<tr><td></td><td><b>Code repository:</b></td><td><a href="https://github.com/utelle/wxsqlite3">GitHub</a></td></tr>
+<tr><td></td><td><b>API documentation 5.x:</b></td><td><a href="docs/5.x/index.html">Doxygen (Version 5.x)</a></td></tr>
+<tr><td></td><td><b>API documentation 4.x:</b></td><td><a href="docs/4.x/index.html">Doxygen (Version 4.x)</a></td></tr>
+
+
+<tr><td colspan="4">
+
+<p><b>wxSQLite3</b> is a C++ wrapper around the public domain <a href="https://sqlite3.org">SQLite</a> 3.x database and is specifically designed for use in programs based on the wxWidgets library.</p>
+
+<p><b>wxSQLite3</b> does not try to hide the underlying database, in contrary almost all special features of the current <i>SQLite3</i> version are supported, like for example the creation of user defined scalar or aggregate functions.</p>
+
+<p>Since <i>SQLite</i> stores strings in UTF-8 encoding, the <i>wxSQLite3</i> methods provide automatic conversion between wxStrings and UTF-8 strings. Special care has to be taken if external administration tools are used to modify the database contents, since not all of these tools operate in Unicode or UTF-8 mode.</p>
+
+<p><b>wxSQLite3</b> includes a key-based SQLite3 encryption extension. Starting with version 4.0.0 the encryption extension allows to select the cipher scheme at runtime.</p>
+
+<p>Currently the following encryption schemes are supported:</p>
+
+<ul>
+<li>AES 128 Bit CBC - No HMAC (<a href="https://github.com/utelle/wxsqlite3"><i>wxSQLite3</i></a>)</li>
+<li>AES 256 Bit CBC - No HMAC (<a href="https://github.com/utelle/wxsqlite3"><i>wxSQLite3</i></a>)</li>
+<li>ChaCha20 - Poly1305 HMAC (<a href="https://github.com/resilar/sqleet"><i>sqleet</a>) (<b>default</b>)</li>
+<li>AES 256 Bit CBC - SHA1/SHA256/SHA512 HMAC (<a href="https://www.zetetic.net/sqlcipher/"><i>SQLCipher</i></a> versions 1 - 4)</li>
+<li>RC4 - No HMAC (<a href="https://system.data.sqlite.org/"><i>System.Data.SQLite</i></a>)</li>
+<li>Ascon 128 - Ascon Tag (<a href="https://ascon.iaik.tugraz.at/"><i>Ascon</i></a>) (since version 4.9.8)</li>
+<li>AEGIS - AEGIS Tag (<a href="https://cfrg.github.io/draft-irtf-cfrg-aegis-aead/draft-irtf-cfrg-aegis-aead.html"><i>AEGIS</i></a>) (since version 4.10.0)</li>
+</ul>
+</td></tr>
+</table>
+
+<p><b>Bugs</b> or other issues can be reported on the <a href="https://github.com/utelle/wxsqlite3/issues">wxSQLite3 issues page on GitHub</a>.</p>
+   
+<h1>Future enhancements</h1>
+
+<!--
+<p>Enhancements planned for one of the next versions:
+<ul>
+<li><p>...</p></li>
+</ul>
+</p>
+-->
+    
+<p>To submit a feature request please please create an issue on the <a href="https://github.com/utelle/wxsqlite3/issues">wxSQLite3 issues page on GitHub</a>.</p>
+
+<h1>Supporting further development</h1>
+
+<table><tr><td>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="image" src="https://www.paypal.com/de_DE/i/btn/x-click-but04.gif" border="0" name="submit" alt="Make a donation through PayPal - fast, free of charge and secure!">
+<img alt="" border="0" src="https://www.paypal.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+</form>
+</td><td valign="top"><p>If you find <b>wxSQLite3</b> useful and would like to support the further development of this <b>wxWidgets</b> component, you may make a <b>donation</b> by clicking on the button on the left.</p></td></tr></table>
+
+<hr>
+Copyright &copy; 2005-2026 Ulrich Telle
+
+</body>
+</html>

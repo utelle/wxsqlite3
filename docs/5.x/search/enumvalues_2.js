@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['dbconfig_5fdefensive_0',['DBCONFIG_DEFENSIVE',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba1e5949fb54ad378b61508401dd1f476c',1,'wxSQLite3']]],
+  ['dbconfig_5fdqs_5fddl_1',['DBCONFIG_DQS_DDL',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abab60e98e0034155b8c3c0a9120a829294',1,'wxSQLite3']]],
+  ['dbconfig_5fdqs_5fdml_2',['DBCONFIG_DQS_DML',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba0ee7d2306110ab4fe41e75bdf8431023',1,'wxSQLite3']]],
+  ['dbconfig_5fenable_5fattach_5fcreate_3',['DBCONFIG_ENABLE_ATTACH_CREATE',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abade092fa2ecbc903b86cca7dc2af8ea9e',1,'wxSQLite3']]],
+  ['dbconfig_5fenable_5fattach_5fwrite_4',['DBCONFIG_ENABLE_ATTACH_WRITE',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abaea0695bbf396952acaeeb4ed79a89b97',1,'wxSQLite3']]],
+  ['dbconfig_5fenable_5fcomments_5',['DBCONFIG_ENABLE_COMMENTS',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba6d96fd04aaed0e91471956e03258c9b0',1,'wxSQLite3']]],
+  ['dbconfig_5fenable_5ffkey_6',['DBCONFIG_ENABLE_FKEY',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba63dc32ab5201482a824d24160cb079bf',1,'wxSQLite3']]],
+  ['dbconfig_5fenable_5ffts3_5ftokenizer_7',['DBCONFIG_ENABLE_FTS3_TOKENIZER',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba5078cd5387803e023b05ae120d8be63f',1,'wxSQLite3']]],
+  ['dbconfig_5fenable_5fload_5fextension_8',['DBCONFIG_ENABLE_LOAD_EXTENSION',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abae4729f46be39c755e6b661892a454070',1,'wxSQLite3']]],
+  ['dbconfig_5fenable_5fqpsg_9',['DBCONFIG_ENABLE_QPSG',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abac8609bc1aed4abab3c8b676950356b9f',1,'wxSQLite3']]],
+  ['dbconfig_5fenable_5ftrigger_10',['DBCONFIG_ENABLE_TRIGGER',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba4b06c7aa9389adc94489d6dcbcf9c5ea',1,'wxSQLite3']]],
+  ['dbconfig_5fenable_5fview_11',['DBCONFIG_ENABLE_VIEW',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba26a7251f7a6eecdd0dc373cc23a9293b',1,'wxSQLite3']]],
+  ['dbconfig_5ffp_5fdigits_12',['DBCONFIG_FP_DIGITS',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abac218d09f2a3609002c5e291e801790c4',1,'wxSQLite3']]],
+  ['dbconfig_5flegacy_5falter_5ftable_13',['DBCONFIG_LEGACY_ALTER_TABLE',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba197474a524903964e0aaacf71afa9ecd',1,'wxSQLite3']]],
+  ['dbconfig_5flegacy_5ffile_5fformat_14',['DBCONFIG_LEGACY_FILE_FORMAT',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abaf56bbfe280f9ba601c6c769f4cd3073a',1,'wxSQLite3']]],
+  ['dbconfig_5fno_5fckpt_5fon_5fclose_15',['DBCONFIG_NO_CKPT_ON_CLOSE',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba52081fdd77a9f29ae952b91d89c85881',1,'wxSQLite3']]],
+  ['dbconfig_5freset_5fdatabase_16',['DBCONFIG_RESET_DATABASE',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9ababd12c07d851fd81fe9491d00d8359686',1,'wxSQLite3']]],
+  ['dbconfig_5freverse_5fscanorder_17',['DBCONFIG_REVERSE_SCANORDER',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abafe60fbe94a198ef1797b0e2e59c53394',1,'wxSQLite3']]],
+  ['dbconfig_5fstmt_5fscanstatus_18',['DBCONFIG_STMT_SCANSTATUS',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba0786f677880237c80365ccc0c3e69a05',1,'wxSQLite3']]],
+  ['dbconfig_5ftrigger_5feqp_19',['DBCONFIG_TRIGGER_EQP',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba6a4bee2b099015f0b2dd0701c4793072',1,'wxSQLite3']]],
+  ['dbconfig_5ftrusted_5fschema_20',['DBCONFIG_TRUSTED_SCHEMA',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba5494d9ec3acf2805777ff8fa106aec33',1,'wxSQLite3']]],
+  ['dbconfig_5fwritable_5fschema_21',['DBCONFIG_WRITABLE_SCHEMA',['../namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba9701d4a41be435f5620b2dcee62b2325',1,'wxSQLite3']]]
+];

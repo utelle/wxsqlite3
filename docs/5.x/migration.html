@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.17.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>wxSQLite3: Migration Guide</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="theme-round.css" rel="stylesheet" type="text/css"/>
+<link href="theme-robot.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/utelle/wxsqlite3" class="github-corner" title="View wxSQLite3 on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">wxSQLite3
+   &#160;<span id="projectnumber">5.0.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.17.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+  initMenu('',true);
+  init_search();
+});
+</script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1" style="position:absolute;right:8px;top:8px;height:36px;"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2" style="float:right">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('migration.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">Migration Guide </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p>This guide describes the source-level changes required when migrating existing applications from the previous <a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a> API (<em>version 4.x</em>) to the modernized API.</p>
+<p>The migration is primarily a matter of adapting class names and enumerations to the new C++ namespace and scoped-enumeration conventions. The underlying database API and its concepts remain largely unchanged.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md0"></a>
+1. Class names and the <span class="tt">wxSQLite3</span> namespace</h2>
+<p>All <em><a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a></em> classes are now contained in the <span class="tt"><a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a></span> namespace.</p>
+<p>In previous versions, the namespace was effectively encoded in the class names using the <span class="tt"><a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a></span> prefix. The prefix has been replaced by the namespace qualifier.</p>
+<p>For example:</p>
+<div class="fragment"><div class="line">wxSQLite3Database db;</div>
+<div class="line">wxSQLite3Statement stmt;</div>
+<div class="line">wxSQLite3ResultSet resultSet;</div>
+</div><!-- fragment --><p>becomes:</p>
+<div class="fragment"><div class="line"><a class="code hl_class" href="classwx_s_q_lite3_1_1_database.html">wxSQLite3::Database</a> db;</div>
+<div class="line"><a class="code hl_class" href="classwx_s_q_lite3_1_1_statement.html">wxSQLite3::Statement</a> stmt;</div>
+<div class="line"><a class="code hl_class" href="classwx_s_q_lite3_1_1_result_set.html">wxSQLite3::ResultSet</a> resultSet;</div>
+<div class="ttc" id="aclasswx_s_q_lite3_1_1_database_html"><div class="ttname"><a href="classwx_s_q_lite3_1_1_database.html">wxSQLite3::Database</a></div><div class="ttdoc">Represents a SQLite3 database object.</div><div class="ttdef"><b>Definition</b> wxsqlite3.h:3189</div></div>
+<div class="ttc" id="aclasswx_s_q_lite3_1_1_result_set_html"><div class="ttname"><a href="classwx_s_q_lite3_1_1_result_set.html">wxSQLite3::ResultSet</a></div><div class="ttdoc">Result set of a SQL query.</div><div class="ttdef"><b>Definition</b> wxsqlite3.h:1796</div></div>
+<div class="ttc" id="aclasswx_s_q_lite3_1_1_statement_html"><div class="ttname"><a href="classwx_s_q_lite3_1_1_statement.html">wxSQLite3::Statement</a></div><div class="ttdoc">Represents a prepared SQL statement.</div><div class="ttdef"><b>Definition</b> wxsqlite3.h:2562</div></div>
+</div><!-- fragment --><p>This change applies consistently to the <a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a> classes.</p>
+<p>Consequently, in most existing source code the required change is simply to replace the <span class="tt"><a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a></span> class-name prefix with <span class="tt"><a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a>::</span>.</p>
+<p>For applications that use many <em><a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a></em> classes, a namespace declaration can optionally be used to reduce the amount of qualification:</p>
+<div class="fragment"><div class="line"><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespacewx_s_q_lite3.html">wxSQLite3</a>;</div>
+<div class="ttc" id="anamespacewx_s_q_lite3_html"><div class="ttname"><a href="namespacewx_s_q_lite3.html">wxSQLite3</a></div><div class="ttdef"><b>Definition</b> wxsqlite3.h:65</div></div>
+</div><!-- fragment --><p>or, preferably when only selected types are required:</p>
+<div class="fragment"><div class="line"><span class="keyword">using </span><a class="code hl_class" href="classwx_s_q_lite3_1_1_database.html">wxSQLite3::Database</a>;</div>
+<div class="line"><span class="keyword">using </span><a class="code hl_class" href="classwx_s_q_lite3_1_1_statement.html">wxSQLite3::Statement</a>;</div>
+<div class="line"><span class="keyword">using </span><a class="code hl_class" href="classwx_s_q_lite3_1_1_result_set.html">wxSQLite3::ResultSet</a>;</div>
+</div><!-- fragment --><p>Using the namespace explicitly is generally recommended in headers and in code where avoiding name ambiguity is important.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
+2. Enumerations are now scoped enumerations</h2>
+<p>The <em><a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a></em> API now consistently uses C++11 scoped enumerations (<span class="tt">enum class</span>) instead of unscoped enumerations.</p>
+<p>As a consequence, enumeration values must normally be qualified with the corresponding enumeration type.</p>
+<p>For example, code using an unscoped enumeration such as:</p>
+<div class="fragment"><div class="line">db.<a class="code hl_function" href="classwx_s_q_lite3_1_1_database.html#aac1736d01cab25883fc42c0a75188f38">SetJournalMode</a>(WXSQLITE_JOURNALMODE_WAL);</div>
+<div class="ttc" id="aclasswx_s_q_lite3_1_1_database_html_aac1736d01cab25883fc42c0a75188f38"><div class="ttname"><a href="classwx_s_q_lite3_1_1_database.html#aac1736d01cab25883fc42c0a75188f38">wxSQLite3::Database::SetJournalMode</a></div><div class="ttdeci">JournalMode SetJournalMode(JournalMode mode, const wxString &amp;database=wxEmptyString)</div><div class="ttdoc">Set SQLite journal mode.</div></div>
+</div><!-- fragment --><p>must now use the scoped enumeration value:</p>
+<div class="fragment"><div class="line">db.<a class="code hl_function" href="classwx_s_q_lite3_1_1_database.html#aac1736d01cab25883fc42c0a75188f38">SetJournalMode</a>(<a class="code hl_enumvalue" href="namespacewx_s_q_lite3.html#a987b55da836b035430995875e4ceacb6aefc35a866162c838068ba83af8988da3">wxSQLite3::JournalMode::JOURNALMODE_WAL</a>);</div>
+<div class="ttc" id="anamespacewx_s_q_lite3_html_a987b55da836b035430995875e4ceacb6aefc35a866162c838068ba83af8988da3"><div class="ttname"><a href="namespacewx_s_q_lite3.html#a987b55da836b035430995875e4ceacb6aefc35a866162c838068ba83af8988da3">wxSQLite3::JournalMode::JOURNALMODE_WAL</a></div><div class="ttdeci">@ JOURNALMODE_WAL</div><div class="ttdoc">Use write-ahead logging.</div><div class="ttdef"><b>Definition</b> wxsqlite3.h:293</div></div>
+</div><!-- fragment --><p>The exact enumeration type and value names depend on the API being used.</p>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
+Renamed enumeration values</h3>
+<p>Enumeration values have also been renamed to make them more concise and consistent.</p>
+<p>Prefixes that were previously required to distinguish enumeration values in the global namespace have been removed. For example, prefixes such as <span class="tt">WXSQLITE_</span> are no longer part of the enumeration value names.</p>
+<p>Similarly, values that previously used names such as <span class="tt">SQLITE_...</span> have been adapted to the new scoped-enumeration naming convention.</p>
+<p>Therefore, migration of enumeration values generally requires two changes:</p>
+<ol type="1">
+<li>Add the enumeration type as a qualifier.</li>
+<li>Adapt the enumeration value name to its new, shorter form.</li>
+</ol>
+<p>For example:</p>
+<div class="fragment"><div class="line">old_enum_value</div>
+</div><!-- fragment --><p>becomes conceptually:</p>
+<div class="fragment"><div class="line">EnumType::NewValue</div>
+</div><!-- fragment --><p>The API documentation lists the current enumeration types and their available values.</p>
+<p>Because enumeration values are now scoped, they no longer implicitly convert to integers. Code that relied on such implicit conversions may therefore require an explicit conversion, for example:</p>
+<div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> value = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(enumValue);</div>
+</div><!-- fragment --><p>Where possible, however, it is preferable to keep values as their enumeration type rather than converting them to integers.</p>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+Tables with renaming rules</h3>
+<p>The following table shows the renaming rules for enumeration types:</p>
+<table border="0" cellpadding="5px">
+<tr bgcolor="#77aaee">
+<td style="color:#000000"><b>Type name: Old <b>&rArr;</b> New</b></td><td style="color:#000000"><b>Value: Old <b>&rArr;</b> New</b></td></tr>
+<tr bgcolor="#eeeeee">
+<td style="color:#000000">wxSQLite3CipherType<br  />
+&emsp;<b>&rArr;</b> <a class="el" href="namespacewx_s_q_lite3.html#a8ce5323f997e2685b2f71f0eb30747fb" title="Enumeration of supported cipher types.">wxSQLite3::CipherType</a></td><td style="color:#000000">WXSQLITE_CIPHER_*<br  />
+&emsp;<b>&rArr;</b> CipherType::*</td></tr>
+<tr bgcolor="#ddeeff">
+<td style="color:#000000">wxSQLite3TransactionType<br  />
+&emsp;<b>&rArr;</b> <a class="el" href="namespacewx_s_q_lite3.html#a30875a3a9e9cf2ea208362100f0c937f" title="Enumeration of transaction types.">wxSQLite3::TransactionType</a></td><td style="color:#000000">WXSQLITE_TRANSACTION_*<br  />
+&emsp;<b>&rArr;</b> TransactionType::TRANSACTION_*</td></tr>
+<tr bgcolor="#eeeeee">
+<td style="color:#000000">wxSQLite3TransactionState<br  />
+&emsp;<b>&rArr;</b> <a class="el" href="namespacewx_s_q_lite3.html#a119512476e500b42d58aea9a0ea71583" title="Enumeration of transaction states.">wxSQLite3::TransactionState</a></td><td style="color:#000000">WXSQLITE_TRANSACTION_*<br  />
+&emsp;<b>&rArr;</b> TransactionState::TRANSACTION_*</td></tr>
+<tr bgcolor="#ddeeff">
+<td style="color:#000000">wxSQLite3LimitType<br  />
+&emsp;<b>&rArr;</b> <a class="el" href="namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2" title="Enumeration of SQLite run-time limit categories.">wxSQLite3::LimitType</a></td><td style="color:#000000">WXSQLITE_LIMIT_*<br  />
+&emsp;<b>&rArr;</b> LimitType::LIMIT_*</td></tr>
+<tr bgcolor="#eeeeee">
+<td style="color:#000000">wxSQLite3JournalMode<br  />
+&emsp;<b>&rArr;</b> <a class="el" href="namespacewx_s_q_lite3.html#a987b55da836b035430995875e4ceacb6" title="Enumeration of journal modes.">wxSQLite3::JournalMode</a></td><td style="color:#000000">WXSQLITE_JOURNALMODE_*<br  />
+&emsp;<b>&rArr;</b> JournalMode::JOURNALMODE_*</td></tr>
+<tr bgcolor="#ddeeff">
+<td style="color:#000000">wxSQLite3StatementStatus<br  />
+&emsp;<b>&rArr;</b> <a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641" title="Enumeration of statement status counters.">wxSQLite3::StatementStatus</a></td><td style="color:#000000">WXSQLITE_STMTSTATUS_*<br  />
+&emsp;<b>&rArr;</b> StatementStatus::STMTSTATUS_*</td></tr>
+<tr bgcolor="#eeeeee">
+<td style="color:#000000">wxSQLite3DbConfig<br  />
+&emsp;<b>&rArr;</b> <a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9ab" title="Enumeration of database configuration options.">wxSQLite3::DbConfig</a></td><td style="color:#000000">WXSQLITE_DBCONFIG_*<br  />
+&emsp;<b>&rArr;</b> DbConfig::DBCONFIG_*</td></tr>
+<tr bgcolor="#ddeeff">
+<td style="color:#000000">wxSQLite3Authorizer::wxAuthorizationCode<br  />
+&emsp;<b>&rArr;</b> <a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630f" title="Authorizer action codes.">wxSQLite3::AuthorizationCode</a></td><td style="color:#000000">SQLITE_*<br  />
+&emsp;<b>&rArr;</b> AuthorizationCode::AUTH_*</td></tr>
+<tr bgcolor="#eeeeee">
+<td style="color:#000000">wxSQLite3Hook::wxUpdateType<br  />
+&emsp;<b>&rArr;</b> <a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630f" title="Authorizer action codes.">wxSQLite3::AuthorizationCode</a></td><td style="color:#000000">SQLITE_*<br  />
+&emsp;<b>&rArr;</b> AuthorizationCode::AUTH_*</td></tr>
+</table>
+<p>Many symbols were defined via preprocessor symbols using the <span class="tt">#define</span> preprocessor statements. These symbols were mostly replaced by <span class="tt">constexpr int</span> expressions. In that course symbol names were shortened by removing prefixes like <span class="tt">WXSQLITE</span> or <span class="tt">SQLITE</span>. The following table shows the renaming rules for those symbols:</p>
+<table border="0" cellpadding="5px">
+<tr bgcolor="#77aaee">
+<td style="color:#000000"><b>Description</b></td><td style="color:#000000"><b>Symbol: Old</b></td><td style="color:#000000"><b>&rArr; New</b></td></tr>
+<tr bgcolor="#eeeeee">
+<td style="color:#000000">Result codes</td><td style="color:#000000">SQLITE_*</td><td style="color:#000000">&emsp;<b>&rArr;</b> wxSQLite3::RC_*</td></tr>
+<tr bgcolor="#ddeeff">
+<td style="color:#000000">Data types</td><td style="color:#000000">SQLITE_REAL</td><td style="color:#000000">&emsp;<b>&rArr;</b> wxSQLite3::TYPE_REAL</td></tr>
+<tr bgcolor="#eeeeee">
+<td style="color:#000000">Open flags</td><td style="color:#000000">WXSQLITE_OPEN_*</td><td style="color:#000000">&emsp;<b>&rArr;</b> wxSQLite3::OPEN_*</td></tr>
+<tr bgcolor="#ddeeff">
+<td style="color:#000000">Checkpoint flags</td><td style="color:#000000">WXSQLITE_CHECKPOINT_*</td><td style="color:#000000">&emsp;<b>&rArr;</b> wxSQLite3::CHECKPOINT_*</td></tr>
+<tr bgcolor="#eeeeee">
+<td style="color:#000000">Function flags</td><td style="color:#000000">WXSQLITE_*</td><td style="color:#000000">&emsp;<b>&rArr;</b> wxSQLite3::FUNC_*</td></tr>
+</table>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
+3. Modern C++ features</h2>
+<p>Apart from the namespace and enumeration changes, the existing <a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a> API remains largely compatible. The modernized API adds several optional ways of working with result sets and prepared statements.</p>
+<p>These additions do not require existing code to be rewritten.</p>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+Template-based value access</h3>
+<p>Values can be retrieved from a result set using template-based <span class="tt">Get&lt;T&gt;()</span> methods. These methods use <span class="tt">std::optional&lt;T&gt;</span> to represent SQL <span class="tt">NULL</span> values.</p>
+<p>For example:</p>
+<div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> <span class="keywordtype">id</span> = resultSet.<a class="code hl_function" href="classwx_s_q_lite3_1_1_result_set.html#a2b23663a7335e0bbd5c893eb5380bbd2">Get</a>&lt;<span class="keywordtype">int</span>&gt;(0);</div>
+<div class="ttc" id="aclasswx_s_q_lite3_1_1_result_set_html_a2b23663a7335e0bbd5c893eb5380bbd2"><div class="ttname"><a href="classwx_s_q_lite3_1_1_result_set.html#a2b23663a7335e0bbd5c893eb5380bbd2">wxSQLite3::ResultSet::Get</a></div><div class="ttdeci">std::optional&lt; T &gt; Get(int columnIndex) const</div><div class="ttdoc">Get a column as a std::optional value using the column index.</div><div class="ttdef"><b>Definition</b> wxsqlite3.h:2241</div></div>
+</div><!-- fragment --><p>An empty <span class="tt">std::optional</span> indicates that the database value is SQL <span class="tt">NULL</span>.</p>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
+Template-based parameter binding</h3>
+<p>Prepared-statement parameters can similarly be bound using the template-based <span class="tt">Bind()</span> methods. <span class="tt">std::optional&lt;T&gt;</span> can be used to bind either a value or SQL <span class="tt">NULL</span>.</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> <span class="keywordtype">id</span> = std::optional&lt;int&gt;(4711);</div>
+<div class="line"><span class="keyword">auto</span> name = std::optional&lt;wxString&gt;(std::nullopt);</div>
+<div class="line">stmt.<a class="code hl_function" href="classwx_s_q_lite3_1_1_statement.html#ad182d972018f08ff52855f6f06ac9420">Bind</a>(1, <span class="keywordtype">id</span>);</div>
+<div class="line">stmt.<a class="code hl_function" href="classwx_s_q_lite3_1_1_statement.html#ad182d972018f08ff52855f6f06ac9420">Bind</a>(2, name);</div>
+<div class="ttc" id="aclasswx_s_q_lite3_1_1_statement_html_ad182d972018f08ff52855f6f06ac9420"><div class="ttname"><a href="classwx_s_q_lite3_1_1_statement.html#ad182d972018f08ff52855f6f06ac9420">wxSQLite3::Statement::Bind</a></div><div class="ttdeci">void Bind(int paramIndex, const wxString &amp;stringValue)</div><div class="ttdoc">Bind parameter to a string value.</div></div>
+</div><!-- fragment --><p>The existing type-specific methods remain available, so this is an optional modernization rather than a required migration step.</p>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
+Tuple-based access and binding</h3>
+<p><span class="tt">GetTuple()</span> and <span class="tt">BindTuple()</span> provide a convenient way to retrieve or bind several values as a group.</p>
+<p>Both methods are available in two forms:</p>
+<p>using consecutive column or parameter indices; using an array of explicitly specified indices.</p>
+<p>These methods are also optional and can be introduced incrementally into existing code.</p>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
+Iterator and range-based result-set processing</h3>
+<p><span class="tt"><a class="el" href="classwx_s_q_lite3_1_1_result_set.html" title="Result set of a SQL query.">wxSQLite3::ResultSet</a></span> can now be used with standard C++ iterators and range-based <span class="tt">for</span> loops.</p>
+<p>Existing cursor-based code such as:</p>
+<div class="fragment"><div class="line"><span class="keywordflow">while</span> (resultSet.<a class="code hl_function" href="classwx_s_q_lite3_1_1_result_set.html#ad3c8b98cb03550576a9967e4e08da80a">NextRow</a>())</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// Process row</span></div>
+<div class="line">}</div>
+<div class="ttc" id="aclasswx_s_q_lite3_1_1_result_set_html_ad3c8b98cb03550576a9967e4e08da80a"><div class="ttname"><a href="classwx_s_q_lite3_1_1_result_set.html#ad3c8b98cb03550576a9967e4e08da80a">wxSQLite3::ResultSet::NextRow</a></div><div class="ttdeci">bool NextRow()</div><div class="ttdoc">Retrieve next row of the result set.</div></div>
+</div><!-- fragment --><p>can therefore be written as:</p>
+<div class="fragment"><div class="line"><span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; row : resultSet)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// Process row</span></div>
+<div class="line">}</div>
+</div><!-- fragment --><p>The traditional cursor-based interface remains available, so existing result-set processing does not have to be changed as part of the migration.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
+Summary</h2>
+<p>For most applications, migration consists primarily of:</p>
+<ol type="1">
+<li>Replacing the old <span class="tt">wxSQLite3ClassName</span> class names with <span class="tt">wxSQLite3::ClassName</span>.</li>
+<li>Qualifying enumeration values with their <span class="tt">enum class</span> type.</li>
+<li>Updating enumeration value names to their new, shorter names.</li>
+<li>Optionally adopting the new template-based, tuple-based, and iterator/range-based interfaces.</li>
+</ol>
+<p>The first two changes are source-level compatibility changes. The modern C++ features are additions to the API and therefore do not require changes to existing code. </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.17.0 </li>
+  </ul>
+</div>
+</body>
+</html>

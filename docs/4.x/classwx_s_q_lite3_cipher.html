@@ -1,0 +1,1031 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.17.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>wxSQLite3: wxSQLite3Cipher Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="theme-round.css" rel="stylesheet" type="text/css"/>
+<link href="theme-robot.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/utelle/wxsqlite3" class="github-corner" title="View wxSQLite3 on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">wxSQLite3
+   &#160;<span id="projectnumber">4.12.7</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.17.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+  initMenu('',true);
+  init_search();
+});
+</script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1" style="position:absolute;right:8px;top:8px;height:36px;"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2" style="float:right">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('classwx_s_q_lite3_cipher.html','','classwx_s_q_lite3_cipher-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">wxSQLite3Cipher Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Cipher base class.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;wxsqlite3.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for wxSQLite3Cipher:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classwx_s_q_lite3_cipher.png" usemap="#wxSQLite3Cipher_map" alt=""/>
+  <map id="wxSQLite3Cipher_map" name="wxSQLite3Cipher_map">
+<area href="classwx_s_q_lite3_cipher_aegis.html" title="Cipher class representing Aegis encryption with Ascon tag." alt="wxSQLite3CipherAegis" shape="rect" coords="0,56,173,80"/>
+<area href="classwx_s_q_lite3_cipher_aes128.html" title="Cipher class representing AES 128 bit encryption in CBC mode." alt="wxSQLite3CipherAes128" shape="rect" coords="183,56,356,80"/>
+<area href="classwx_s_q_lite3_cipher_aes256.html" title="Cipher class representing AES 256 bit encryption in CBC mode." alt="wxSQLite3CipherAes256" shape="rect" coords="366,56,539,80"/>
+<area href="classwx_s_q_lite3_cipher_ascon128.html" title="Cipher class representing Ascon-128 encryption with Ascon tag." alt="wxSQLite3CipherAscon128" shape="rect" coords="549,56,722,80"/>
+<area href="classwx_s_q_lite3_cipher_cha_cha20.html" title="Cipher class representing ChaCha20 encryption with Poly1305 HMAC." alt="wxSQLite3CipherChaCha20" shape="rect" coords="732,56,905,80"/>
+<area href="classwx_s_q_lite3_cipher_r_c4.html" title="Cipher class representing RC4 encryption (System.Data.SQLite)." alt="wxSQLite3CipherRC4" shape="rect" coords="915,56,1088,80"/>
+<area href="classwx_s_q_lite3_cipher_s_q_l_cipher.html" title="Cipher class representing SQLCipher encryption (AES 256 bit in CBC mode with SHA1 HMAC)." alt="wxSQLite3CipherSQLCipher" shape="rect" coords="1098,56,1271,80"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a545dc652e5644bca279c02119326cc77" id="r_a545dc652e5644bca279c02119326cc77"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a545dc652e5644bca279c02119326cc77">wxSQLite3Cipher</a> ()</td></tr>
+<tr class="memdesc:a545dc652e5644bca279c02119326cc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <br /></td></tr>
+<tr class="memitem:a517761a5e2a72407731ff6c0668fd4b2" id="r_a517761a5e2a72407731ff6c0668fd4b2"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="#a517761a5e2a72407731ff6c0668fd4b2">~wxSQLite3Cipher</a> ()</td></tr>
+<tr class="memdesc:a517761a5e2a72407731ff6c0668fd4b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <br /></td></tr>
+<tr class="memitem:a4ea9fa75f4184db0ec156c511aa08342" id="r_a4ea9fa75f4184db0ec156c511aa08342"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#a4ea9fa75f4184db0ec156c511aa08342">InitializeFromGlobalDefault</a> ()</td></tr>
+<tr class="memdesc:a4ea9fa75f4184db0ec156c511aa08342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the cipher instance based on global default settings.  <br /></td></tr>
+<tr class="memitem:a3aacca2a3e98815e6e23bc38ad951db4" id="r_a3aacca2a3e98815e6e23bc38ad951db4"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#a3aacca2a3e98815e6e23bc38ad951db4">InitializeFromCurrent</a> (<a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;db)</td></tr>
+<tr class="memdesc:a3aacca2a3e98815e6e23bc38ad951db4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the cipher instance based on current settings.  <br /></td></tr>
+<tr class="memitem:a00929d603de6c0ce43ba755d8666a0c7" id="r_a00929d603de6c0ce43ba755d8666a0c7"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#a00929d603de6c0ce43ba755d8666a0c7">InitializeFromCurrentDefault</a> (<a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;db)</td></tr>
+<tr class="memdesc:a00929d603de6c0ce43ba755d8666a0c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the cipher instance based on current default settings.  <br /></td></tr>
+<tr class="memitem:aa915106538cb99a20fbb0837d593d306" id="r_aa915106538cb99a20fbb0837d593d306"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#aa915106538cb99a20fbb0837d593d306">Apply</a> (<a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;db) const</td></tr>
+<tr class="memdesc:aa915106538cb99a20fbb0837d593d306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the cipher parameters to a database connection.  <br /></td></tr>
+<tr class="memitem:a05e4dcfca7253a7f91109d39a5d4a8ae" id="r_a05e4dcfca7253a7f91109d39a5d4a8ae"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#a05e4dcfca7253a7f91109d39a5d4a8ae">Apply</a> (void *dbHandle) const</td></tr>
+<tr class="memitem:a3877fab8d815081980e37d45d6806ecb" id="r_a3877fab8d815081980e37d45d6806ecb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3877fab8d815081980e37d45d6806ecb">SetLegacyPageSize</a> (int pageSize)</td></tr>
+<tr class="memitem:a070ff1bec4d862075be194dd69ec8138" id="r_a070ff1bec4d862075be194dd69ec8138"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a070ff1bec4d862075be194dd69ec8138">GetLegacyPageSize</a> () const</td></tr>
+<tr class="memitem:a0ab726ae2f525a26d51d26568267a550" id="r_a0ab726ae2f525a26d51d26568267a550"><td class="memItemLeft"><a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0ab726ae2f525a26d51d26568267a550">GetCipherType</a> () const</td></tr>
+<tr class="memdesc:a0ab726ae2f525a26d51d26568267a550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the type of this cipher instance.  <br /></td></tr>
+<tr class="memitem:a768943808f2ded56c4e59f2c69597add" id="r_a768943808f2ded56c4e59f2c69597add"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a768943808f2ded56c4e59f2c69597add">IsOk</a> () const</td></tr>
+<tr class="memdesc:a768943808f2ded56c4e59f2c69597add"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the cipher instance is valid.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a32b0b5b3bdd491fad68b7eba8d1ef92f" id="r_a32b0b5b3bdd491fad68b7eba8d1ef92f"><td class="memItemLeft">static const wxString&#160;</td><td class="memItemRight"><a class="el" href="#a32b0b5b3bdd491fad68b7eba8d1ef92f">GetCipherName</a> (<a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a> cipherType)</td></tr>
+<tr class="memdesc:a32b0b5b3bdd491fad68b7eba8d1ef92f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert cipher type to string representation.  <br /></td></tr>
+<tr class="memitem:aa0ad93c3e750a403a64fb7b59fac015d" id="r_aa0ad93c3e750a403a64fb7b59fac015d"><td class="memItemLeft">static <a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa0ad93c3e750a403a64fb7b59fac015d">GetCipherType</a> (const wxString &amp;cipherName)</td></tr>
+<tr class="memdesc:aa0ad93c3e750a403a64fb7b59fac015d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert string representation to cipher type.  <br /></td></tr>
+<tr class="memitem:a0e8459dc32e59dfb2273c22e0d977268" id="r_a0e8459dc32e59dfb2273c22e0d977268"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a0e8459dc32e59dfb2273c22e0d977268">SetCipher</a> (<a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;db, <a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a> cipherType)</td></tr>
+<tr class="memdesc:a0e8459dc32e59dfb2273c22e0d977268"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the current cipher type for a database connection.  <br /></td></tr>
+<tr class="memitem:a092d6c8d97ac236604218f3c14c85d39" id="r_a092d6c8d97ac236604218f3c14c85d39"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a092d6c8d97ac236604218f3c14c85d39">SetCipherDefault</a> (<a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;db, <a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a> cipherType)</td></tr>
+<tr class="memdesc:a092d6c8d97ac236604218f3c14c85d39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the default cipher type for a database connection.  <br /></td></tr>
+<tr class="memitem:ac79d0589a4709f0197793b382eabfee5" id="r_ac79d0589a4709f0197793b382eabfee5"><td class="memItemLeft">static <a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac79d0589a4709f0197793b382eabfee5">GetCipher</a> (<a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;db)</td></tr>
+<tr class="memdesc:ac79d0589a4709f0197793b382eabfee5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current cipher type of a database connection.  <br /></td></tr>
+<tr class="memitem:a1f47c160b2ca22e5eaed196755f99e46" id="r_a1f47c160b2ca22e5eaed196755f99e46"><td class="memItemLeft">static <a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1f47c160b2ca22e5eaed196755f99e46">GetCipherDefault</a> (<a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;db)</td></tr>
+<tr class="memdesc:a1f47c160b2ca22e5eaed196755f99e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the default cipher type of a database connection.  <br /></td></tr>
+<tr class="memitem:aefc2e9b46754d40ca93ddfce4d261bd6" id="r_aefc2e9b46754d40ca93ddfce4d261bd6"><td class="memItemLeft">static <a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a>&#160;</td><td class="memItemRight"><a class="el" href="#aefc2e9b46754d40ca93ddfce4d261bd6">GetGlobalCipherDefault</a> ()</td></tr>
+<tr class="memdesc:aefc2e9b46754d40ca93ddfce4d261bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the globally defined default cipher type.  <br /></td></tr>
+<tr class="memitem:ae86e66369f12c03d6df9f9c0ad1bc9bb" id="r_ae86e66369f12c03d6df9f9c0ad1bc9bb"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#ae86e66369f12c03d6df9f9c0ad1bc9bb">GetCipherParameterMin</a> (const wxString &amp;cipherName, const wxString &amp;paramName)</td></tr>
+<tr class="memdesc:ae86e66369f12c03d6df9f9c0ad1bc9bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get minimum allowed cipher parameter value.  <br /></td></tr>
+<tr class="memitem:a38a1bf4074ac21dd02e8836ad4e649c7" id="r_a38a1bf4074ac21dd02e8836ad4e649c7"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a38a1bf4074ac21dd02e8836ad4e649c7">GetCipherParameterMax</a> (const wxString &amp;cipherName, const wxString &amp;paramName)</td></tr>
+<tr class="memdesc:a38a1bf4074ac21dd02e8836ad4e649c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get maximum allowed cipher parameter value.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a5c173c1795d9ea4006325c256e838fc4" id="r_a5c173c1795d9ea4006325c256e838fc4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5c173c1795d9ea4006325c256e838fc4">wxSQLite3Cipher</a> (<a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a> cipherType)</td></tr>
+<tr class="memdesc:a5c173c1795d9ea4006325c256e838fc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <br /></td></tr>
+<tr class="memitem:aeb406dfd0fda600509e91bc3d7fe90a2" id="r_aeb406dfd0fda600509e91bc3d7fe90a2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aeb406dfd0fda600509e91bc3d7fe90a2">wxSQLite3Cipher</a> (const <a class="el" href="classwx_s_q_lite3_cipher.html">wxSQLite3Cipher</a> &amp;cipher)</td></tr>
+<tr class="memdesc:aeb406dfd0fda600509e91bc3d7fe90a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <br /></td></tr>
+<tr class="memitem:a550e532d8f2c0425d16a14953fb6db55" id="r_a550e532d8f2c0425d16a14953fb6db55"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a550e532d8f2c0425d16a14953fb6db55">SetInitialized</a> (bool initialized)</td></tr>
+<tr class="memdesc:a550e532d8f2c0425d16a14953fb6db55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set initialization status of the cipher instance.  <br /></td></tr>
+<tr class="memitem:af1f94d28e8ca6c07b52995f073de0d1d" id="r_af1f94d28e8ca6c07b52995f073de0d1d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af1f94d28e8ca6c07b52995f073de0d1d">SetCipherType</a> (<a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a> cipherType)</td></tr>
+<tr class="memdesc:af1f94d28e8ca6c07b52995f073de0d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set type of the cipher instance.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pro-static-methods" class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
+Static Protected Member Functions</h2></td></tr>
+<tr class="memitem:ad0a5deeb2c500974c9ef938cca14cd8f" id="r_ad0a5deeb2c500974c9ef938cca14cd8f"><td class="memItemLeft">static void *&#160;</td><td class="memItemRight"><a class="el" href="#ad0a5deeb2c500974c9ef938cca14cd8f">GetDatabaseHandle</a> (<a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;db)</td></tr>
+<tr class="memdesc:ad0a5deeb2c500974c9ef938cca14cd8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the SQLite3 database handle of a database instance.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Cipher base class. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a545dc652e5644bca279c02119326cc77" name="a545dc652e5644bca279c02119326cc77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a545dc652e5644bca279c02119326cc77">&#9670;&#160;</a></span>wxSQLite3Cipher() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxSQLite3Cipher::wxSQLite3Cipher </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+
+</div>
+</div>
+<a id="a517761a5e2a72407731ff6c0668fd4b2" name="a517761a5e2a72407731ff6c0668fd4b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a517761a5e2a72407731ff6c0668fd4b2">&#9670;&#160;</a></span>~wxSQLite3Cipher()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual wxSQLite3Cipher::~wxSQLite3Cipher </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destructor. </p>
+
+</div>
+</div>
+<a id="a5c173c1795d9ea4006325c256e838fc4" name="a5c173c1795d9ea4006325c256e838fc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c173c1795d9ea4006325c256e838fc4">&#9670;&#160;</a></span>wxSQLite3Cipher() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxSQLite3Cipher::wxSQLite3Cipher </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a></td>          <td class="paramname"><span class="paramname"><em>cipherType</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cipherType</td><td>the type of the cipher </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aeb406dfd0fda600509e91bc3d7fe90a2" name="aeb406dfd0fda600509e91bc3d7fe90a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb406dfd0fda600509e91bc3d7fe90a2">&#9670;&#160;</a></span>wxSQLite3Cipher() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxSQLite3Cipher::wxSQLite3Cipher </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwx_s_q_lite3_cipher.html">wxSQLite3Cipher</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cipher</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copy constructor. </p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a05e4dcfca7253a7f91109d39a5d4a8ae" name="a05e4dcfca7253a7f91109d39a5d4a8ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05e4dcfca7253a7f91109d39a5d4a8ae">&#9670;&#160;</a></span>Apply() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wxSQLite3Cipher::Apply </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>dbHandle</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_aegis.html#a971e899c7f5a4ff631caac3b3547028f">wxSQLite3CipherAegis</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#aeb7f9c1814462b9e1fcaf96e003e03a9">wxSQLite3CipherAes128</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#a5d8bba15a4b939a5ef9c5ef590d81df4">wxSQLite3CipherAes256</a>, <a class="el" href="classwx_s_q_lite3_cipher_ascon128.html#ab96376a39b7523aeda6f98ba39a2a6b6">wxSQLite3CipherAscon128</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#a0f06073eaae9a8103362043581a61a48">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_r_c4.html#a53d7698338fd9a630ea6f0853f9c62a8">wxSQLite3CipherRC4</a>, and <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#a387f8584ba5f7ccb2df0cf17a3233e8c">wxSQLite3CipherSQLCipher</a>.</p>
+
+</div>
+</div>
+<a id="aa915106538cb99a20fbb0837d593d306" name="aa915106538cb99a20fbb0837d593d306"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa915106538cb99a20fbb0837d593d306">&#9670;&#160;</a></span>Apply() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wxSQLite3Cipher::Apply </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>db</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Apply the cipher parameters to a database connection. </p>
+<p>The parameters of the cipher instance are applied to the given database connection. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">db</td><td>database instance representing a database connection </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the cipher parameters could be applied successfully, false otherwise </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_aegis.html#abcc2af1e359c7fc03f9bf26b5f96c213">wxSQLite3CipherAegis</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#ac601c69fb6f2af8066ef1b2fca8dc9d8">wxSQLite3CipherAes128</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#ad82798b974c4163e143960d248521a07">wxSQLite3CipherAes256</a>, <a class="el" href="classwx_s_q_lite3_cipher_ascon128.html#a782f7a7abdac3df98ac8be1836e0a240">wxSQLite3CipherAscon128</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#a872c52fe7282c634e627f21074b53c88">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_r_c4.html#aa352fbcac9430069f2d3a3e063d94ad4">wxSQLite3CipherRC4</a>, and <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#a2cd230b693d9f6b026bfd47faf9c6132">wxSQLite3CipherSQLCipher</a>.</p>
+
+</div>
+</div>
+<a id="ac79d0589a4709f0197793b382eabfee5" name="ac79d0589a4709f0197793b382eabfee5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac79d0589a4709f0197793b382eabfee5">&#9670;&#160;</a></span>GetCipher()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a> wxSQLite3Cipher::GetCipher </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>db</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the current cipher type of a database connection. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">db</td><td>database instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the enum representation of the cipher type </dd></dl>
+
+</div>
+</div>
+<a id="a1f47c160b2ca22e5eaed196755f99e46" name="a1f47c160b2ca22e5eaed196755f99e46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f47c160b2ca22e5eaed196755f99e46">&#9670;&#160;</a></span>GetCipherDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a> wxSQLite3Cipher::GetCipherDefault </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>db</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the default cipher type of a database connection. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">db</td><td>database instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the enum representation of the cipher type </dd></dl>
+
+</div>
+</div>
+<a id="a32b0b5b3bdd491fad68b7eba8d1ef92f" name="a32b0b5b3bdd491fad68b7eba8d1ef92f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32b0b5b3bdd491fad68b7eba8d1ef92f">&#9670;&#160;</a></span>GetCipherName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const wxString wxSQLite3Cipher::GetCipherName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a></td>          <td class="paramname"><span class="paramname"><em>cipherType</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert cipher type to string representation. </p>
+<p>The given cipher type is converted to a string representation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cipherType</td><td>the type of a cipher </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string representation of the given cipher type </dd></dl>
+
+</div>
+</div>
+<a id="a38a1bf4074ac21dd02e8836ad4e649c7" name="a38a1bf4074ac21dd02e8836ad4e649c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38a1bf4074ac21dd02e8836ad4e649c7">&#9670;&#160;</a></span>GetCipherParameterMax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wxSQLite3Cipher::GetCipherParameterMax </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>cipherName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>paramName</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get maximum allowed cipher parameter value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cipherName</td><td>the name of the cipher to be queried </td></tr>
+    <tr><td class="paramname">paramName</td><td>the name of the parameter to be queried </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the maximum value for the given cipher parameter </dd></dl>
+
+</div>
+</div>
+<a id="ae86e66369f12c03d6df9f9c0ad1bc9bb" name="ae86e66369f12c03d6df9f9c0ad1bc9bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae86e66369f12c03d6df9f9c0ad1bc9bb">&#9670;&#160;</a></span>GetCipherParameterMin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wxSQLite3Cipher::GetCipherParameterMin </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>cipherName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>paramName</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get minimum allowed cipher parameter value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cipherName</td><td>the name of the cipher to be queried </td></tr>
+    <tr><td class="paramname">paramName</td><td>the name of the parameter to be queried </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the minimum value for the given cipher parameter </dd></dl>
+
+</div>
+</div>
+<a id="a0ab726ae2f525a26d51d26568267a550" name="a0ab726ae2f525a26d51d26568267a550"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ab726ae2f525a26d51d26568267a550">&#9670;&#160;</a></span>GetCipherType() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a> wxSQLite3Cipher::GetCipherType </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the type of this cipher instance. </p>
+<p>The type of the cipher instance is returned. </p><dl class="section return"><dt>Returns</dt><dd>the cipher type </dd></dl>
+
+</div>
+</div>
+<a id="aa0ad93c3e750a403a64fb7b59fac015d" name="aa0ad93c3e750a403a64fb7b59fac015d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0ad93c3e750a403a64fb7b59fac015d">&#9670;&#160;</a></span>GetCipherType() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a> wxSQLite3Cipher::GetCipherType </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>cipherName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert string representation to cipher type. </p>
+<p>The given string representation of a cipher is converted to the corresponding cipher type.. The parameters of the cipher instance are applied to the given database connection. WXSQLITE_CIPHER_UNKNOWN will be returned if the string representation is invalid. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cipherName</td><td>the string representation of a cipher type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>cipher type corresponding to the given string representation </dd></dl>
+
+</div>
+</div>
+<a id="ad0a5deeb2c500974c9ef938cca14cd8f" name="ad0a5deeb2c500974c9ef938cca14cd8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0a5deeb2c500974c9ef938cca14cd8f">&#9670;&#160;</a></span>GetDatabaseHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * wxSQLite3Cipher::GetDatabaseHandle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>db</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the SQLite3 database handle of a database instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">db</td><td>database instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>SQLite3 database handle </dd></dl>
+
+</div>
+</div>
+<a id="aefc2e9b46754d40ca93ddfce4d261bd6" name="aefc2e9b46754d40ca93ddfce4d261bd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefc2e9b46754d40ca93ddfce4d261bd6">&#9670;&#160;</a></span>GetGlobalCipherDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a> wxSQLite3Cipher::GetGlobalCipherDefault </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the globally defined default cipher type. </p>
+<dl class="section return"><dt>Returns</dt><dd>the enum representation of the cipher type </dd></dl>
+
+</div>
+</div>
+<a id="a070ff1bec4d862075be194dd69ec8138" name="a070ff1bec4d862075be194dd69ec8138"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a070ff1bec4d862075be194dd69ec8138">&#9670;&#160;</a></span>GetLegacyPageSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wxSQLite3Cipher::GetLegacyPageSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3aacca2a3e98815e6e23bc38ad951db4" name="a3aacca2a3e98815e6e23bc38ad951db4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aacca2a3e98815e6e23bc38ad951db4">&#9670;&#160;</a></span>InitializeFromCurrent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wxSQLite3Cipher::InitializeFromCurrent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>db</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initialize the cipher instance based on current settings. </p>
+<p>The parameters of the cipher instance are initialize with the current settings of the associated cipher type as defined in the given database connection. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">db</td><td>database instance representing a database connection </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the cipher instance could be initialized successfully, false otherwise </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_aegis.html#a0a7db6f0ff766c4558ce6a08feb709ed">wxSQLite3CipherAegis</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#aa216cb303cb3b5569af74aa723711480">wxSQLite3CipherAes128</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#aa614c5c544a4bb5f92e10769a2a3985f">wxSQLite3CipherAes256</a>, <a class="el" href="classwx_s_q_lite3_cipher_ascon128.html#a3c0a71eaf362f606c8b29c9216b21622">wxSQLite3CipherAscon128</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#acacbcbd8b4853a0f8679291fa58f92c4">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_r_c4.html#ac3581bd71d85b8dfd8a4535e7d96f3b4">wxSQLite3CipherRC4</a>, and <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#aaba9775e68936c06d02a33aae9bb1af7">wxSQLite3CipherSQLCipher</a>.</p>
+
+</div>
+</div>
+<a id="a00929d603de6c0ce43ba755d8666a0c7" name="a00929d603de6c0ce43ba755d8666a0c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00929d603de6c0ce43ba755d8666a0c7">&#9670;&#160;</a></span>InitializeFromCurrentDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wxSQLite3Cipher::InitializeFromCurrentDefault </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>db</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initialize the cipher instance based on current default settings. </p>
+<p>The parameters of the cipher instance are initialize with the current default settings of the associated cipher type as defined in the given database connection. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">db</td><td>database instance representing a database connection </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the cipher instance could be initialized successfully, false otherwise </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_aegis.html#acd29fbe2a4b382960345e0f3d46eaa30">wxSQLite3CipherAegis</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#ab1a9415341607408998481f7a6860786">wxSQLite3CipherAes128</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#a55ae7e72cc3011d597fe48dd0ff34c9f">wxSQLite3CipherAes256</a>, <a class="el" href="classwx_s_q_lite3_cipher_ascon128.html#abcd8562c688fb1388b6163ec809b2623">wxSQLite3CipherAscon128</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#a43837e0ae04db87310b40d6e41d7120d">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_r_c4.html#a65692259c486f6fe2e25f08c595cd9f2">wxSQLite3CipherRC4</a>, and <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#a4e43218b8ae2c6b9ac9f49782ba36c57">wxSQLite3CipherSQLCipher</a>.</p>
+
+</div>
+</div>
+<a id="a4ea9fa75f4184db0ec156c511aa08342" name="a4ea9fa75f4184db0ec156c511aa08342"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ea9fa75f4184db0ec156c511aa08342">&#9670;&#160;</a></span>InitializeFromGlobalDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wxSQLite3Cipher::InitializeFromGlobalDefault </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initialize the cipher instance based on global default settings. </p>
+<p>The parameters of the cipher instance are initialize with the global default settings of the associated cipher type. </p><dl class="section return"><dt>Returns</dt><dd>true if the cipher instance could be initialized successfully, false otherwise </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classwx_s_q_lite3_cipher_aegis.html#ac286870a962362105cc24802260a273b">wxSQLite3CipherAegis</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes128.html#ae25435dd37b220fde24b516f8e7d8a1c">wxSQLite3CipherAes128</a>, <a class="el" href="classwx_s_q_lite3_cipher_aes256.html#ab1d8ad2ffbf729f41790463a3593385a">wxSQLite3CipherAes256</a>, <a class="el" href="classwx_s_q_lite3_cipher_ascon128.html#a5a43d54b00aed7c510a5b9ba97b7a121">wxSQLite3CipherAscon128</a>, <a class="el" href="classwx_s_q_lite3_cipher_cha_cha20.html#ab1526cd42fc6873dcc286727ff966c12">wxSQLite3CipherChaCha20</a>, <a class="el" href="classwx_s_q_lite3_cipher_r_c4.html#af456b73c520e00ea08daf15cbf940aae">wxSQLite3CipherRC4</a>, and <a class="el" href="classwx_s_q_lite3_cipher_s_q_l_cipher.html#a3d3dbe4be6535ab65ee2de068be5664d">wxSQLite3CipherSQLCipher</a>.</p>
+
+</div>
+</div>
+<a id="a768943808f2ded56c4e59f2c69597add" name="a768943808f2ded56c4e59f2c69597add"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a768943808f2ded56c4e59f2c69597add">&#9670;&#160;</a></span>IsOk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wxSQLite3Cipher::IsOk </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check whether the cipher instance is valid. </p>
+<p>The method checks whether the cipher instance is initialized correctly. </p><dl class="section return"><dt>Returns</dt><dd>true if the cipher instance is valid, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a0e8459dc32e59dfb2273c22e0d977268" name="a0e8459dc32e59dfb2273c22e0d977268"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e8459dc32e59dfb2273c22e0d977268">&#9670;&#160;</a></span>SetCipher()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wxSQLite3Cipher::SetCipher </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>db</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a></td>          <td class="paramname"><span class="paramname"><em>cipherType</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the current cipher type for a database connection. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">db</td><td>database instance </td></tr>
+    <tr><td class="paramname">cipherType</td><td>the cipher type to be set </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the cipher type could be set, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a092d6c8d97ac236604218f3c14c85d39" name="a092d6c8d97ac236604218f3c14c85d39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a092d6c8d97ac236604218f3c14c85d39">&#9670;&#160;</a></span>SetCipherDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wxSQLite3Cipher::SetCipherDefault </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwx_s_q_lite3_database.html">wxSQLite3Database</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>db</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a></td>          <td class="paramname"><span class="paramname"><em>cipherType</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the default cipher type for a database connection. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">db</td><td>database instance </td></tr>
+    <tr><td class="paramname">cipherType</td><td>the cipher type to be set </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the cipher type could be set, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="af1f94d28e8ca6c07b52995f073de0d1d" name="af1f94d28e8ca6c07b52995f073de0d1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1f94d28e8ca6c07b52995f073de0d1d">&#9670;&#160;</a></span>SetCipherType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wxSQLite3Cipher::SetCipherType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="wxsqlite3_8h.html#aaf4137ac9a105d08d3bbf95f2a1785a8">wxSQLite3CipherType</a></td>          <td class="paramname"><span class="paramname"><em>cipherType</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set type of the cipher instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cipherType</td><td>the cipher type to be set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a550e532d8f2c0425d16a14953fb6db55" name="a550e532d8f2c0425d16a14953fb6db55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a550e532d8f2c0425d16a14953fb6db55">&#9670;&#160;</a></span>SetInitialized()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wxSQLite3Cipher::SetInitialized </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>initialized</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set initialization status of the cipher instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">initialized</td><td>the initialization status </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3877fab8d815081980e37d45d6806ecb" name="a3877fab8d815081980e37d45d6806ecb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3877fab8d815081980e37d45d6806ecb">&#9670;&#160;</a></span>SetLegacyPageSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wxSQLite3Cipher::SetLegacyPageSize </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pageSize</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="wxsqlite3_8h.html">wxsqlite3.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="classwx_s_q_lite3_cipher.html">wxSQLite3Cipher</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.17.0 </li>
+  </ul>
+</div>
+</body>
+</html>

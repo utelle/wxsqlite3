@@ -1,0 +1,50 @@
+body {
+  MARGIN-TOP: 0px; MARGIN-LEFT: 10px;
+  FONT-SIZE:12pt;
+  FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+  color: black;
+}
+p {
+  font-size:12pt; font-weight:normal;
+}
+h1 {
+  padding-left:10px; font-size:20pt; font-weight:bold; background-color:#99ccff;
+}
+h2 {
+  font-size:18pt; font-weight:bold; color:#324d94;
+}
+h3 {
+  font-size:16pt; font-weight:bold;
+}
+dl {
+  margin-left:20px;
+}
+dt {
+  margin:5px;
+  font-size:12pt;font-weight:bold;
+}
+dd {
+  font-size:12pt;font-weight:normal;
+}
+ul {
+  margin-left:30px;
+}
+ul li {
+  margin:5px; font-size:12pt; font-weight:normal;
+}
+.Text {
+  FONT-WEIGHT: normal; FONT-SIZE: 12px;
+  COLOR: #000000;
+  FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+}
+.Text_bigger {
+  FONT-WEIGHT: normal; FONT-SIZE: 14px;
+  FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+  COLOR: #000000;
+}
+.Text_smaller {
+  FONT-WEIGHT: normal; FONT-SIZE: 80%;
+  FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+  COLOR: #000000;
+}
+

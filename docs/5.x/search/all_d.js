@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['limit_5fattached_0',['LIMIT_ATTACHED',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2a716313541bed30d754ee63ce187e0a86',1,'wxSQLite3']]],
+  ['limit_5fcolumn_1',['LIMIT_COLUMN',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2a56a8884781e3e96ae58a3e4782d22726',1,'wxSQLite3']]],
+  ['limit_5fcompound_5fselect_2',['LIMIT_COMPOUND_SELECT',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2abbc6ff5e962ec57d24af99516f395527',1,'wxSQLite3']]],
+  ['limit_5fexpr_5fdepth_3',['LIMIT_EXPR_DEPTH',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2aecc794edffd02f90f71bde93502c0999',1,'wxSQLite3']]],
+  ['limit_5ffunction_5farg_4',['LIMIT_FUNCTION_ARG',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2ae6b05da879e63cd34fccc1f647b2c64d',1,'wxSQLite3']]],
+  ['limit_5flength_5',['LIMIT_LENGTH',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2aa4b6144f696c41f38d9ce4f522751c13',1,'wxSQLite3']]],
+  ['limit_5flike_5fpattern_5flength_6',['LIMIT_LIKE_PATTERN_LENGTH',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2a051eedb30e120727f14cb702ebacea81',1,'wxSQLite3']]],
+  ['limit_5fparser_5fdepth_7',['LIMIT_PARSER_DEPTH',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2aaca904f1ee87956b3c84842cddc89f78',1,'wxSQLite3']]],
+  ['limit_5fsql_5flength_8',['LIMIT_SQL_LENGTH',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2a0bbabb90d990ea3d890bed6ecc623c60',1,'wxSQLite3']]],
+  ['limit_5ftrigger_5fdepth_9',['LIMIT_TRIGGER_DEPTH',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2a1257250400ac88c996b5ec702cbdc67a',1,'wxSQLite3']]],
+  ['limit_5fvariable_5fnumber_10',['LIMIT_VARIABLE_NUMBER',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2a48055bca160ae6bd34b4c6ffe3c6d5a4',1,'wxSQLite3']]],
+  ['limit_5fvdbe_5fop_11',['LIMIT_VDBE_OP',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2a3821e649fc232e678bb15ad42578368a',1,'wxSQLite3']]],
+  ['limit_5fworker_5fthreads_12',['LIMIT_WORKER_THREADS',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2a165bcb7ab7a57c1f9e3f2789ece7a9f3',1,'wxSQLite3']]],
+  ['limittype_13',['LimitType',['../namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2',1,'wxSQLite3']]],
+  ['limittypetostring_14',['LimitTypeToString',['../classwx_s_q_lite3_1_1_database.html#a9e2f63755a5f1a5fb9d58d425a16f08d',1,'wxSQLite3::Database']]],
+  ['loadextension_15',['LoadExtension',['../classwx_s_q_lite3_1_1_database.html#a454d5d3016ab2b0bc9ad79f68e53325f',1,'wxSQLite3::Database']]],
+  ['logger_16',['Logger',['../classwx_s_q_lite3_1_1_logger.html',1,'wxSQLite3::Logger'],['../classwx_s_q_lite3_1_1_logger.html#ab92bf48caf38a74677e54254591a7c34',1,'wxSQLite3::Logger::Logger()']]]
+];

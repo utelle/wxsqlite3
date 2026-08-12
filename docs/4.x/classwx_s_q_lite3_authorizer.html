@@ -1,0 +1,488 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.17.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>wxSQLite3: wxSQLite3Authorizer Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="theme-round.css" rel="stylesheet" type="text/css"/>
+<link href="theme-robot.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/utelle/wxsqlite3" class="github-corner" title="View wxSQLite3 on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">wxSQLite3
+   &#160;<span id="projectnumber">4.12.7</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.17.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+  initMenu('',true);
+  init_search();
+});
+</script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1" style="position:absolute;right:8px;top:8px;height:36px;"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2" style="float:right">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('classwx_s_q_lite3_authorizer.html','','classwx_s_q_lite3_authorizer-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">wxSQLite3Authorizer Class Reference<span class="mlabels"><span class="mlabel abstract">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Interface for a user defined authorizer function.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;wxsqlite3.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:adf245bc8ba906a2440d8eddd11d2e449" id="r_adf245bc8ba906a2440d8eddd11d2e449"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449">wxAuthorizationCode</a> { <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a6858e65e3403171a3de13d9ae9d4c220">SQLITE_COPY</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449abec51bda784f3ca56e6b86a7906a0031">SQLITE_CREATE_INDEX</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449aa272f36fd13df1eb2ffa9f78c034262b">SQLITE_CREATE_TABLE</a> = 2
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449ada8b34e5811ebc17f87869cad9b2b634">SQLITE_CREATE_TEMP_INDEX</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a6d0a22cf0d457f074e7ccf1938f09401">SQLITE_CREATE_TEMP_TABLE</a> = 4
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a2963c7383564bba0ce4767acd65f2f9f">SQLITE_CREATE_TEMP_TRIGGER</a> = 5
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449ae345796cc1bed848f717a690c028705e">SQLITE_CREATE_TEMP_VIEW</a> = 6
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a94ee457d6311d72e8222eda2898b75af">SQLITE_CREATE_TRIGGER</a> = 7
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a912471d8e5d1d9b35a9af4b6d8bf4313">SQLITE_CREATE_VIEW</a> = 8
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449ab9b1eac6f94af9f3df7531bfd4ef81c0">SQLITE_DELETE</a> = 9
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a0056e3ab1fbd8d2f32b83e738f5974d3">SQLITE_DROP_INDEX</a> = 10
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a7cab6327f7ae644630cf0b249892a85a">SQLITE_DROP_TABLE</a> = 11
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449ad47a48cea12edba68a89a1829f483e67">SQLITE_DROP_TEMP_INDEX</a> = 12
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449ace01dd5f102a7be19211a095f63cacf0">SQLITE_DROP_TEMP_TABLE</a> = 13
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a515684d405b8f93ad139775e32c9b2b4">SQLITE_DROP_TEMP_TRIGGER</a> = 14
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a3f19a497ab669507d7d83a0bc99e9cab">SQLITE_DROP_TEMP_VIEW</a> = 15
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449ab0c83136df28ce4898ae2fb364d9ec27">SQLITE_DROP_TRIGGER</a> = 16
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449ac1458f33a2047523f98a40894f6a376b">SQLITE_DROP_VIEW</a> = 17
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a4ea9d8fed6c9c02164b87fab72e3cc0b">SQLITE_INSERT</a> = 18
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449add5cd0f00868dd34ff75ff1b9ee2eb02">SQLITE_PRAGMA</a> = 19
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a21d78c381488509e632c57a51b0362b9">SQLITE_READ</a> = 20
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a8e3be7d96c0c533a6f2a3f3e2918ca2e">SQLITE_SELECT</a> = 21
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449aec26527da7d827b1beb0f1d768fdd80e">SQLITE_TRANSACTION</a> = 22
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449aea7c9ecb1592af78243263e687ee83f0">SQLITE_UPDATE</a> = 23
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a9ef5fc18eec1087e11ac956463ccf4e6">SQLITE_ATTACH</a> = 24
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a68cdc6359f56b502990a55e433f6e113">SQLITE_DETACH</a> = 25
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a734168b42c3372b36143fe6afbf1045c">SQLITE_ALTER_TABLE</a> = 26
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a84fbbc6e1b4d17eb0e64610ee6d6b84f">SQLITE_REINDEX</a> = 27
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449aabd522af4bb0e1089b012f89bbc7bc87">SQLITE_ANALYZE</a> = 28
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a650da929b6b6497f5857bd24d07a5895">SQLITE_CREATE_VTABLE</a> = 29
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449ae33d2ea3287af411d042ad6fd3e2f72c">SQLITE_DROP_VTABLE</a> = 30
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a29e6e1a6ca7e21c9a348380e7e718b5e">SQLITE_FUNCTION</a> = 31
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a68f57e3f72e28f7e5e1a328f86ed8f1d">SQLITE_SAVEPOINT</a> = 32
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449a2a20085f9c8043a7dbe925eaa6c105ff">SQLITE_RECURSIVE</a> = 33
+, <br />
+&#160;&#160;<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449ab8e82faac9a1b6f1134410f9d251ec88">SQLITE_MAX_CODE</a> = SQLITE_RECURSIVE
+<br />
+ }</td></tr>
+<tr class="memdesc:adf245bc8ba906a2440d8eddd11d2e449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Codes identifying the command for which authorization is requested.  <a href="#adf245bc8ba906a2440d8eddd11d2e449">More...</a><br /></td></tr>
+<tr class="memitem:adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0" id="r_adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0">wxAuthorizationResult</a> { <br />
+&#160;&#160;<a class="el" href="#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0a1f82b212f21a22bab654b5983f0f6ccf">SQLITE_OK</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0a19a70cfdbafef198796469030fac240d">SQLITE_DENY</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0a9c257b2053949ce76bfa2f9effb2b21b">SQLITE_IGNORE</a> = 2
+<br />
+ }</td></tr>
+<tr class="memdesc:adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return codes of the authorizer.  <a href="#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a7071df74ab0c8a4ff25a2ebfd59806a3" id="r_a7071df74ab0c8a4ff25a2ebfd59806a3"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="#a7071df74ab0c8a4ff25a2ebfd59806a3">~wxSQLite3Authorizer</a> ()</td></tr>
+<tr class="memdesc:a7071df74ab0c8a4ff25a2ebfd59806a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor.  <br /></td></tr>
+<tr class="memitem:a6c13df8d9d36fcb0e6d3064e5356755f" id="r_a6c13df8d9d36fcb0e6d3064e5356755f"><td class="memItemLeft">virtual <a class="el" href="#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0">wxAuthorizationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6c13df8d9d36fcb0e6d3064e5356755f">Authorize</a> (<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449">wxAuthorizationCode</a> type, const wxString &amp;arg1, const wxString &amp;arg2, const wxString &amp;arg3, const wxString &amp;arg4, const wxString &amp;arg5)=0</td></tr>
+<tr class="memdesc:a6c13df8d9d36fcb0e6d3064e5356755f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the authorizer function.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a44a3f233c6686fe8142f0e4cc462de31" id="r_a44a3f233c6686fe8142f0e4cc462de31"><td class="memItemLeft">static wxString&#160;</td><td class="memItemRight"><a class="el" href="#a44a3f233c6686fe8142f0e4cc462de31">AuthorizationCodeToString</a> (<a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449">wxSQLite3Authorizer::wxAuthorizationCode</a> type)</td></tr>
+<tr class="memdesc:a44a3f233c6686fe8142f0e4cc462de31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert authorization code to string.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Interface for a user defined authorizer function. </p>
+</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
+<a id="adf245bc8ba906a2440d8eddd11d2e449" name="adf245bc8ba906a2440d8eddd11d2e449"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf245bc8ba906a2440d8eddd11d2e449">&#9670;&#160;</a></span>wxAuthorizationCode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449">wxSQLite3Authorizer::wxAuthorizationCode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Codes identifying the command for which authorization is requested. </p>
+<table class="fieldtable">
+<tr><th colspan="3">Enumerator</th></tr><tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a6858e65e3403171a3de13d9ae9d4c220" name="adf245bc8ba906a2440d8eddd11d2e449a6858e65e3403171a3de13d9ae9d4c220"></a>SQLITE_COPY&#160;</td><td class="fieldinit">0&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449abec51bda784f3ca56e6b86a7906a0031" name="adf245bc8ba906a2440d8eddd11d2e449abec51bda784f3ca56e6b86a7906a0031"></a>SQLITE_CREATE_INDEX&#160;</td><td class="fieldinit">1&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449aa272f36fd13df1eb2ffa9f78c034262b" name="adf245bc8ba906a2440d8eddd11d2e449aa272f36fd13df1eb2ffa9f78c034262b"></a>SQLITE_CREATE_TABLE&#160;</td><td class="fieldinit">2&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449ada8b34e5811ebc17f87869cad9b2b634" name="adf245bc8ba906a2440d8eddd11d2e449ada8b34e5811ebc17f87869cad9b2b634"></a>SQLITE_CREATE_TEMP_INDEX&#160;</td><td class="fieldinit">3&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a6d0a22cf0d457f074e7ccf1938f09401" name="adf245bc8ba906a2440d8eddd11d2e449a6d0a22cf0d457f074e7ccf1938f09401"></a>SQLITE_CREATE_TEMP_TABLE&#160;</td><td class="fieldinit">4&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a2963c7383564bba0ce4767acd65f2f9f" name="adf245bc8ba906a2440d8eddd11d2e449a2963c7383564bba0ce4767acd65f2f9f"></a>SQLITE_CREATE_TEMP_TRIGGER&#160;</td><td class="fieldinit">5&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449ae345796cc1bed848f717a690c028705e" name="adf245bc8ba906a2440d8eddd11d2e449ae345796cc1bed848f717a690c028705e"></a>SQLITE_CREATE_TEMP_VIEW&#160;</td><td class="fieldinit">6&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a94ee457d6311d72e8222eda2898b75af" name="adf245bc8ba906a2440d8eddd11d2e449a94ee457d6311d72e8222eda2898b75af"></a>SQLITE_CREATE_TRIGGER&#160;</td><td class="fieldinit">7&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a912471d8e5d1d9b35a9af4b6d8bf4313" name="adf245bc8ba906a2440d8eddd11d2e449a912471d8e5d1d9b35a9af4b6d8bf4313"></a>SQLITE_CREATE_VIEW&#160;</td><td class="fieldinit">8&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449ab9b1eac6f94af9f3df7531bfd4ef81c0" name="adf245bc8ba906a2440d8eddd11d2e449ab9b1eac6f94af9f3df7531bfd4ef81c0"></a>SQLITE_DELETE&#160;</td><td class="fieldinit">9&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a0056e3ab1fbd8d2f32b83e738f5974d3" name="adf245bc8ba906a2440d8eddd11d2e449a0056e3ab1fbd8d2f32b83e738f5974d3"></a>SQLITE_DROP_INDEX&#160;</td><td class="fieldinit">10&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a7cab6327f7ae644630cf0b249892a85a" name="adf245bc8ba906a2440d8eddd11d2e449a7cab6327f7ae644630cf0b249892a85a"></a>SQLITE_DROP_TABLE&#160;</td><td class="fieldinit">11&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449ad47a48cea12edba68a89a1829f483e67" name="adf245bc8ba906a2440d8eddd11d2e449ad47a48cea12edba68a89a1829f483e67"></a>SQLITE_DROP_TEMP_INDEX&#160;</td><td class="fieldinit">12&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449ace01dd5f102a7be19211a095f63cacf0" name="adf245bc8ba906a2440d8eddd11d2e449ace01dd5f102a7be19211a095f63cacf0"></a>SQLITE_DROP_TEMP_TABLE&#160;</td><td class="fieldinit">13&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a515684d405b8f93ad139775e32c9b2b4" name="adf245bc8ba906a2440d8eddd11d2e449a515684d405b8f93ad139775e32c9b2b4"></a>SQLITE_DROP_TEMP_TRIGGER&#160;</td><td class="fieldinit">14&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a3f19a497ab669507d7d83a0bc99e9cab" name="adf245bc8ba906a2440d8eddd11d2e449a3f19a497ab669507d7d83a0bc99e9cab"></a>SQLITE_DROP_TEMP_VIEW&#160;</td><td class="fieldinit">15&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449ab0c83136df28ce4898ae2fb364d9ec27" name="adf245bc8ba906a2440d8eddd11d2e449ab0c83136df28ce4898ae2fb364d9ec27"></a>SQLITE_DROP_TRIGGER&#160;</td><td class="fieldinit">16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449ac1458f33a2047523f98a40894f6a376b" name="adf245bc8ba906a2440d8eddd11d2e449ac1458f33a2047523f98a40894f6a376b"></a>SQLITE_DROP_VIEW&#160;</td><td class="fieldinit">17&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a4ea9d8fed6c9c02164b87fab72e3cc0b" name="adf245bc8ba906a2440d8eddd11d2e449a4ea9d8fed6c9c02164b87fab72e3cc0b"></a>SQLITE_INSERT&#160;</td><td class="fieldinit">18&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449add5cd0f00868dd34ff75ff1b9ee2eb02" name="adf245bc8ba906a2440d8eddd11d2e449add5cd0f00868dd34ff75ff1b9ee2eb02"></a>SQLITE_PRAGMA&#160;</td><td class="fieldinit">19&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a21d78c381488509e632c57a51b0362b9" name="adf245bc8ba906a2440d8eddd11d2e449a21d78c381488509e632c57a51b0362b9"></a>SQLITE_READ&#160;</td><td class="fieldinit">20&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a8e3be7d96c0c533a6f2a3f3e2918ca2e" name="adf245bc8ba906a2440d8eddd11d2e449a8e3be7d96c0c533a6f2a3f3e2918ca2e"></a>SQLITE_SELECT&#160;</td><td class="fieldinit">21&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449aec26527da7d827b1beb0f1d768fdd80e" name="adf245bc8ba906a2440d8eddd11d2e449aec26527da7d827b1beb0f1d768fdd80e"></a>SQLITE_TRANSACTION&#160;</td><td class="fieldinit">22&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449aea7c9ecb1592af78243263e687ee83f0" name="adf245bc8ba906a2440d8eddd11d2e449aea7c9ecb1592af78243263e687ee83f0"></a>SQLITE_UPDATE&#160;</td><td class="fieldinit">23&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a9ef5fc18eec1087e11ac956463ccf4e6" name="adf245bc8ba906a2440d8eddd11d2e449a9ef5fc18eec1087e11ac956463ccf4e6"></a>SQLITE_ATTACH&#160;</td><td class="fieldinit">24&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a68cdc6359f56b502990a55e433f6e113" name="adf245bc8ba906a2440d8eddd11d2e449a68cdc6359f56b502990a55e433f6e113"></a>SQLITE_DETACH&#160;</td><td class="fieldinit">25&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a734168b42c3372b36143fe6afbf1045c" name="adf245bc8ba906a2440d8eddd11d2e449a734168b42c3372b36143fe6afbf1045c"></a>SQLITE_ALTER_TABLE&#160;</td><td class="fieldinit">26&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a84fbbc6e1b4d17eb0e64610ee6d6b84f" name="adf245bc8ba906a2440d8eddd11d2e449a84fbbc6e1b4d17eb0e64610ee6d6b84f"></a>SQLITE_REINDEX&#160;</td><td class="fieldinit">27&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449aabd522af4bb0e1089b012f89bbc7bc87" name="adf245bc8ba906a2440d8eddd11d2e449aabd522af4bb0e1089b012f89bbc7bc87"></a>SQLITE_ANALYZE&#160;</td><td class="fieldinit">28&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a650da929b6b6497f5857bd24d07a5895" name="adf245bc8ba906a2440d8eddd11d2e449a650da929b6b6497f5857bd24d07a5895"></a>SQLITE_CREATE_VTABLE&#160;</td><td class="fieldinit">29&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449ae33d2ea3287af411d042ad6fd3e2f72c" name="adf245bc8ba906a2440d8eddd11d2e449ae33d2ea3287af411d042ad6fd3e2f72c"></a>SQLITE_DROP_VTABLE&#160;</td><td class="fieldinit">30&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a29e6e1a6ca7e21c9a348380e7e718b5e" name="adf245bc8ba906a2440d8eddd11d2e449a29e6e1a6ca7e21c9a348380e7e718b5e"></a>SQLITE_FUNCTION&#160;</td><td class="fieldinit">31&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a68f57e3f72e28f7e5e1a328f86ed8f1d" name="adf245bc8ba906a2440d8eddd11d2e449a68f57e3f72e28f7e5e1a328f86ed8f1d"></a>SQLITE_SAVEPOINT&#160;</td><td class="fieldinit">32&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449a2a20085f9c8043a7dbe925eaa6c105ff" name="adf245bc8ba906a2440d8eddd11d2e449a2a20085f9c8043a7dbe925eaa6c105ff"></a>SQLITE_RECURSIVE&#160;</td><td class="fieldinit">33&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf245bc8ba906a2440d8eddd11d2e449ab8e82faac9a1b6f1134410f9d251ec88" name="adf245bc8ba906a2440d8eddd11d2e449ab8e82faac9a1b6f1134410f9d251ec88"></a>SQLITE_MAX_CODE&#160;</td><td class="fieldinit">SQLITE_RECURSIVE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0" name="adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0">&#9670;&#160;</a></span>wxAuthorizationResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0">wxSQLite3Authorizer::wxAuthorizationResult</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return codes of the authorizer. </p>
+<table class="fieldtable">
+<tr><th colspan="3">Enumerator</th></tr><tr><td class="fieldname"><a id="adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0a1f82b212f21a22bab654b5983f0f6ccf" name="adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0a1f82b212f21a22bab654b5983f0f6ccf"></a>SQLITE_OK&#160;</td><td class="fieldinit">0&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0a19a70cfdbafef198796469030fac240d" name="adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0a19a70cfdbafef198796469030fac240d"></a>SQLITE_DENY&#160;</td><td class="fieldinit">1&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0a9c257b2053949ce76bfa2f9effb2b21b" name="adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0a9c257b2053949ce76bfa2f9effb2b21b"></a>SQLITE_IGNORE&#160;</td><td class="fieldinit">2&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a7071df74ab0c8a4ff25a2ebfd59806a3" name="a7071df74ab0c8a4ff25a2ebfd59806a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7071df74ab0c8a4ff25a2ebfd59806a3">&#9670;&#160;</a></span>~wxSQLite3Authorizer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual wxSQLite3Authorizer::~wxSQLite3Authorizer </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Virtual destructor. </p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a44a3f233c6686fe8142f0e4cc462de31" name="a44a3f233c6686fe8142f0e4cc462de31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44a3f233c6686fe8142f0e4cc462de31">&#9670;&#160;</a></span>AuthorizationCodeToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxString wxSQLite3Authorizer::AuthorizationCodeToString </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449">wxSQLite3Authorizer::wxAuthorizationCode</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert authorization code to string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td><a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449" title="Codes identifying the command for which authorization is requested.">wxAuthorizationCode</a>. The value signifies what kind of operation is to be authorized. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6c13df8d9d36fcb0e6d3064e5356755f" name="a6c13df8d9d36fcb0e6d3064e5356755f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c13df8d9d36fcb0e6d3064e5356755f">&#9670;&#160;</a></span>Authorize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0">wxAuthorizationResult</a> wxSQLite3Authorizer::Authorize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449">wxAuthorizationCode</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>arg1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>arg2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>arg3</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>arg4</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>arg5</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Execute the authorizer function. </p>
+<p>Please refer to the SQLite documentation for further information about the meaning of the parameters.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td><a class="el" href="#adf245bc8ba906a2440d8eddd11d2e449" title="Codes identifying the command for which authorization is requested.">wxAuthorizationCode</a>. The value signifies what kind of operation is to be authorized. </td></tr>
+    <tr><td class="paramname">arg1</td><td>first argument (value depends on "type") </td></tr>
+    <tr><td class="paramname">arg2</td><td>second argument (value depends on "type") </td></tr>
+    <tr><td class="paramname">arg3</td><td>third argument (name of database if applicable) </td></tr>
+    <tr><td class="paramname">arg4</td><td>fourth argument (name of trigger or view if applicable) </td></tr>
+    <tr><td class="paramname">arg5</td><td>fifth argument (name of authorized user or empty if user authentication is not activated) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="#adf7e1ec5f97c7c0d7cf8e2bcaadeb5d0" title="Return codes of the authorizer.">wxAuthorizationResult</a>, i.e. SQLITE_OK, SQLITE_DENY or SQLITE_IGNORE </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="wxsqlite3_8h.html">wxsqlite3.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="classwx_s_q_lite3_authorizer.html">wxSQLite3Authorizer</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.17.0 </li>
+  </ul>
+</div>
+</body>
+</html>

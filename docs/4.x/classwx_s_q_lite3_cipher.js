@@ -1,0 +1,28 @@
+var classwx_s_q_lite3_cipher =
+[
+    [ "wxSQLite3Cipher", "classwx_s_q_lite3_cipher.html#a545dc652e5644bca279c02119326cc77", null ],
+    [ "~wxSQLite3Cipher", "classwx_s_q_lite3_cipher.html#a517761a5e2a72407731ff6c0668fd4b2", null ],
+    [ "wxSQLite3Cipher", "classwx_s_q_lite3_cipher.html#a5c173c1795d9ea4006325c256e838fc4", null ],
+    [ "wxSQLite3Cipher", "classwx_s_q_lite3_cipher.html#aeb406dfd0fda600509e91bc3d7fe90a2", null ],
+    [ "Apply", "classwx_s_q_lite3_cipher.html#a05e4dcfca7253a7f91109d39a5d4a8ae", null ],
+    [ "Apply", "classwx_s_q_lite3_cipher.html#aa915106538cb99a20fbb0837d593d306", null ],
+    [ "GetCipher", "classwx_s_q_lite3_cipher.html#ac79d0589a4709f0197793b382eabfee5", null ],
+    [ "GetCipherDefault", "classwx_s_q_lite3_cipher.html#a1f47c160b2ca22e5eaed196755f99e46", null ],
+    [ "GetCipherName", "classwx_s_q_lite3_cipher.html#a32b0b5b3bdd491fad68b7eba8d1ef92f", null ],
+    [ "GetCipherParameterMax", "classwx_s_q_lite3_cipher.html#a38a1bf4074ac21dd02e8836ad4e649c7", null ],
+    [ "GetCipherParameterMin", "classwx_s_q_lite3_cipher.html#ae86e66369f12c03d6df9f9c0ad1bc9bb", null ],
+    [ "GetCipherType", "classwx_s_q_lite3_cipher.html#a0ab726ae2f525a26d51d26568267a550", null ],
+    [ "GetCipherType", "classwx_s_q_lite3_cipher.html#aa0ad93c3e750a403a64fb7b59fac015d", null ],
+    [ "GetDatabaseHandle", "classwx_s_q_lite3_cipher.html#ad0a5deeb2c500974c9ef938cca14cd8f", null ],
+    [ "GetGlobalCipherDefault", "classwx_s_q_lite3_cipher.html#aefc2e9b46754d40ca93ddfce4d261bd6", null ],
+    [ "GetLegacyPageSize", "classwx_s_q_lite3_cipher.html#a070ff1bec4d862075be194dd69ec8138", null ],
+    [ "InitializeFromCurrent", "classwx_s_q_lite3_cipher.html#a3aacca2a3e98815e6e23bc38ad951db4", null ],
+    [ "InitializeFromCurrentDefault", "classwx_s_q_lite3_cipher.html#a00929d603de6c0ce43ba755d8666a0c7", null ],
+    [ "InitializeFromGlobalDefault", "classwx_s_q_lite3_cipher.html#a4ea9fa75f4184db0ec156c511aa08342", null ],
+    [ "IsOk", "classwx_s_q_lite3_cipher.html#a768943808f2ded56c4e59f2c69597add", null ],
+    [ "SetCipher", "classwx_s_q_lite3_cipher.html#a0e8459dc32e59dfb2273c22e0d977268", null ],
+    [ "SetCipherDefault", "classwx_s_q_lite3_cipher.html#a092d6c8d97ac236604218f3c14c85d39", null ],
+    [ "SetCipherType", "classwx_s_q_lite3_cipher.html#af1f94d28e8ca6c07b52995f073de0d1d", null ],
+    [ "SetInitialized", "classwx_s_q_lite3_cipher.html#a550e532d8f2c0425d16a14953fb6db55", null ],
+    [ "SetLegacyPageSize", "classwx_s_q_lite3_cipher.html#a3877fab8d815081980e37d45d6806ecb", null ]
+];

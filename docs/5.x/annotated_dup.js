@@ -1,0 +1,34 @@
+var annotated_dup =
+[
+    [ "wxSQLite3", "namespacewx_s_q_lite3.html", [
+      [ "Exception", "classwx_s_q_lite3_1_1_exception.html", "classwx_s_q_lite3_1_1_exception" ],
+      [ "StatementBuffer", "classwx_s_q_lite3_1_1_statement_buffer.html", "classwx_s_q_lite3_1_1_statement_buffer" ],
+      [ "Logger", "classwx_s_q_lite3_1_1_logger.html", "classwx_s_q_lite3_1_1_logger" ],
+      [ "FunctionContext", "classwx_s_q_lite3_1_1_function_context.html", "classwx_s_q_lite3_1_1_function_context" ],
+      [ "ScalarFunction", "classwx_s_q_lite3_1_1_scalar_function.html", "classwx_s_q_lite3_1_1_scalar_function" ],
+      [ "AggregateFunction", "classwx_s_q_lite3_1_1_aggregate_function.html", "classwx_s_q_lite3_1_1_aggregate_function" ],
+      [ "WindowFunction", "classwx_s_q_lite3_1_1_window_function.html", "classwx_s_q_lite3_1_1_window_function" ],
+      [ "Authorizer", "classwx_s_q_lite3_1_1_authorizer.html", "classwx_s_q_lite3_1_1_authorizer" ],
+      [ "Cipher", "classwx_s_q_lite3_1_1_cipher.html", "classwx_s_q_lite3_1_1_cipher" ],
+      [ "CipherAes128", "classwx_s_q_lite3_1_1_cipher_aes128.html", "classwx_s_q_lite3_1_1_cipher_aes128" ],
+      [ "CipherAes256", "classwx_s_q_lite3_1_1_cipher_aes256.html", "classwx_s_q_lite3_1_1_cipher_aes256" ],
+      [ "CipherChaCha20", "classwx_s_q_lite3_1_1_cipher_cha_cha20.html", "classwx_s_q_lite3_1_1_cipher_cha_cha20" ],
+      [ "CipherSQLCipher", "classwx_s_q_lite3_1_1_cipher_s_q_l_cipher.html", "classwx_s_q_lite3_1_1_cipher_s_q_l_cipher" ],
+      [ "CipherRC4", "classwx_s_q_lite3_1_1_cipher_r_c4.html", "classwx_s_q_lite3_1_1_cipher_r_c4" ],
+      [ "CipherAscon128", "classwx_s_q_lite3_1_1_cipher_ascon128.html", "classwx_s_q_lite3_1_1_cipher_ascon128" ],
+      [ "CipherAegis", "classwx_s_q_lite3_1_1_cipher_aegis.html", "classwx_s_q_lite3_1_1_cipher_aegis" ],
+      [ "Hook", "classwx_s_q_lite3_1_1_hook.html", "classwx_s_q_lite3_1_1_hook" ],
+      [ "BackupProgress", "classwx_s_q_lite3_1_1_backup_progress.html", "classwx_s_q_lite3_1_1_backup_progress" ],
+      [ "Collation", "classwx_s_q_lite3_1_1_collation.html", "classwx_s_q_lite3_1_1_collation" ],
+      [ "ResultSet", "classwx_s_q_lite3_1_1_result_set.html", "classwx_s_q_lite3_1_1_result_set" ],
+      [ "Table", "classwx_s_q_lite3_1_1_table.html", "classwx_s_q_lite3_1_1_table" ],
+      [ "Statement", "classwx_s_q_lite3_1_1_statement.html", "classwx_s_q_lite3_1_1_statement" ],
+      [ "Blob", "classwx_s_q_lite3_1_1_blob.html", "classwx_s_q_lite3_1_1_blob" ],
+      [ "NamedCollection", "classwx_s_q_lite3_1_1_named_collection.html", "classwx_s_q_lite3_1_1_named_collection" ],
+      [ "IntegerCollection", "classwx_s_q_lite3_1_1_integer_collection.html", "classwx_s_q_lite3_1_1_integer_collection" ],
+      [ "StringCollection", "classwx_s_q_lite3_1_1_string_collection.html", "classwx_s_q_lite3_1_1_string_collection" ],
+      [ "Database", "classwx_s_q_lite3_1_1_database.html", "classwx_s_q_lite3_1_1_database" ],
+      [ "Transaction", "classwx_s_q_lite3_1_1_transaction.html", "classwx_s_q_lite3_1_1_transaction" ],
+      [ "RegExpOperator", "classwx_s_q_lite3_1_1_reg_exp_operator.html", "classwx_s_q_lite3_1_1_reg_exp_operator" ]
+    ] ]
+];
