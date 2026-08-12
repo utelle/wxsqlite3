@@ -385,10 +385,10 @@ int Minimal::OnRun()
     }
 
     int cfgResult;
-    db.Configure(WXSQLITE_DBCONFIG_DEFENSIVE, 1, cfgResult);
+    db.Configure(wxSQLite3::DBCONFIG_DEFENSIVE, 1, cfgResult);
     cout << "SQLite3 Configuration: Defensive mode is " << ((cfgResult != 0) ? "enabled" : "disabled") << endl;
 
-    cout << "SQLite3 Journal Mode: " << (const char*) wxSQLite3Database::ConvertJournalMode(db.GetJournalMode()).mb_str(wxConvUTF8) << endl;
+    cout << "SQLite3 Journal Mode: " << (const char*) wxSQLite3::Database::ConvertJournalMode(db.GetJournalMode()).mb_str(wxConvUTF8) << endl;
 
     // Check status of support for foreign key constraints
     bool foreignKeysEnabled = db.EnableForeignKeySupport(true);
