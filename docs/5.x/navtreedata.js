@@ -34,12 +34,11 @@ var NAVTREE =
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
+        [ "All", "namespacemembers.html", null ],
         [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
         [ "Typedefs", "namespacemembers_type.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ],
-        [ "Enumerator", "namespacemembers_eval.html", null ]
+        [ "Enumerations", "namespacemembers_enum.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -51,7 +50,6 @@ var NAVTREE =
         [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
-        [ "Enumerator", "functions_eval.html", null ],
         [ "Related Symbols", "functions_rela.html", null ]
       ] ]
     ] ],
@@ -59,6 +57,7 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
+        [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
@@ -73,8 +72,7 @@ var NAVTREEINDEX =
 "classwx_s_q_lite3_1_1_database.html#a81258e5065a8c78f8ec9c6536cef2239",
 "classwx_s_q_lite3_1_1_logger.html",
 "classwx_s_q_lite3_1_1_statement.html#a8620f5ecc7b14a7fe1de7d86dd334fd7",
-"namespacewx_s_q_lite3.html#a13b6839cdc9f05660d9280f28c8f4ec7",
-"wxsqlite3__version_8h.html#a61b0968acd1f1390d383436193c20728"
+"namespacewx_s_q_lite3.html#a26398b46162a61b8a53a66f5978928f2a165bcb7ab7a57c1f9e3f2789ece7a9f3"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

@@ -15,6 +15,10 @@ var hierarchy =
     ] ],
     [ "wxSQLite3::Collation", "classwx_s_q_lite3_1_1_collation.html", null ],
     [ "wxSQLite3::Database", "classwx_s_q_lite3_1_1_database.html", null ],
+    [ "std::false_type", null, [
+      [ "is_optional< std::optional< T > >", "structis__optional_3_01std_1_1optional_3_01_t_01_4_01_4.html", null ],
+      [ "is_optional< T >", "structis__optional.html", null ]
+    ] ],
     [ "wxSQLite3::FunctionContext", "classwx_s_q_lite3_1_1_function_context.html", null ],
     [ "wxSQLite3::Hook", "classwx_s_q_lite3_1_1_hook.html", null ],
     [ "wxSQLite3::ResultSet::Iterator", "classwx_s_q_lite3_1_1_result_set_1_1_iterator.html", null ],
@@ -34,5 +38,8 @@ var hierarchy =
     [ "wxSQLite3::StatementBuffer", "classwx_s_q_lite3_1_1_statement_buffer.html", null ],
     [ "wxSQLite3::Table", "classwx_s_q_lite3_1_1_table.html", null ],
     [ "wxSQLite3::Transaction", "classwx_s_q_lite3_1_1_transaction.html", null ],
+    [ "std::true_type", null, [
+      [ "is_optional< std::optional< T > >", "structis__optional_3_01std_1_1optional_3_01_t_01_4_01_4.html", null ]
+    ] ],
     [ "wxSQLite3::WindowFunction", "classwx_s_q_lite3_1_1_window_function.html", null ]
 ];

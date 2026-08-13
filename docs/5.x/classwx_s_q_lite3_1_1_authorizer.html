@@ -62,7 +62,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">5.0.0</span>
+   &#160;<span id="projectnumber">5.0.1</span>
    </div>
   </td>
  </tr>
@@ -166,22 +166,22 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classwx_s_q_li
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a7a841b48455191a73375322ae9c3d004" id="r_a7a841b48455191a73375322ae9c3d004"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a7a841b48455191a73375322ae9c3d004">wxAuthorizationResult</a> { <br />
-&#160;&#160;<a class="el" href="#a7a841b48455191a73375322ae9c3d004a7b46b377dda35696ba1d60cc6d76e93d">SQLITE_OK</a> = 0
+<tr class="memitem:acbe512ce2374fa7b61e7a4f3cb435425" id="r_acbe512ce2374fa7b61e7a4f3cb435425"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#acbe512ce2374fa7b61e7a4f3cb435425">AuthorizationResult</a> { <br />
+&#160;&#160;<a class="el" href="#acbe512ce2374fa7b61e7a4f3cb435425a4a674d0134f6bf674060a74e2540b4c7">SQLITE_OK</a> = 0
 , <br />
-&#160;&#160;<a class="el" href="#a7a841b48455191a73375322ae9c3d004af76a2b7f903a7e3f61f75edd2fc15564">SQLITE_DENY</a> = 1
+&#160;&#160;<a class="el" href="#acbe512ce2374fa7b61e7a4f3cb435425aeb1951010396d910cdbf1bdaf41a5512">SQLITE_DENY</a> = 1
 , <br />
-&#160;&#160;<a class="el" href="#a7a841b48455191a73375322ae9c3d004a778801f5b7b2dcb046b07ed42c8f89b9">SQLITE_IGNORE</a> = 2
+&#160;&#160;<a class="el" href="#acbe512ce2374fa7b61e7a4f3cb435425a7c3aa494aed11fc171e51c21e969b6c9">SQLITE_IGNORE</a> = 2
 <br />
  }</td></tr>
-<tr class="memdesc:a7a841b48455191a73375322ae9c3d004"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return codes of the authorizer.  <a href="#a7a841b48455191a73375322ae9c3d004">More...</a><br /></td></tr>
+<tr class="memdesc:acbe512ce2374fa7b61e7a4f3cb435425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return codes of the authorizer.  <a href="#acbe512ce2374fa7b61e7a4f3cb435425">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aef391f5334da3f76735a2a7fb7774238" id="r_aef391f5334da3f76735a2a7fb7774238"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="#aef391f5334da3f76735a2a7fb7774238">~Authorizer</a> ()</td></tr>
 <tr class="memdesc:aef391f5334da3f76735a2a7fb7774238"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor.  <br /></td></tr>
-<tr class="memitem:aefd54c105cbcc36d8b4e5c78955de24b" id="r_aefd54c105cbcc36d8b4e5c78955de24b"><td class="memItemLeft">virtual <a class="el" href="#a7a841b48455191a73375322ae9c3d004">wxAuthorizationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#aefd54c105cbcc36d8b4e5c78955de24b">Authorize</a> (<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630f">AuthorizationCode</a> type, const wxString &amp;arg1, const wxString &amp;arg2, const wxString &amp;arg3, const wxString &amp;arg4, const wxString &amp;arg5)=0</td></tr>
-<tr class="memdesc:aefd54c105cbcc36d8b4e5c78955de24b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the authorizer function.  <br /></td></tr>
+<tr class="memitem:afcf16c7e2c9aa912c0d9850710e7df28" id="r_afcf16c7e2c9aa912c0d9850710e7df28"><td class="memItemLeft">virtual <a class="el" href="#acbe512ce2374fa7b61e7a4f3cb435425">AuthorizationResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#afcf16c7e2c9aa912c0d9850710e7df28">Authorize</a> (<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630f">AuthorizationCode</a> type, const wxString &amp;arg1, const wxString &amp;arg2, const wxString &amp;arg3, const wxString &amp;arg4, const wxString &amp;arg5)=0</td></tr>
+<tr class="memdesc:afcf16c7e2c9aa912c0d9850710e7df28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the authorizer function.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -191,23 +191,31 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for a user defined authorizer function. </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
-<a id="a7a841b48455191a73375322ae9c3d004" name="a7a841b48455191a73375322ae9c3d004"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a841b48455191a73375322ae9c3d004">&#9670;&#160;</a></span>wxAuthorizationResult</h2>
+<a id="acbe512ce2374fa7b61e7a4f3cb435425" name="acbe512ce2374fa7b61e7a4f3cb435425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbe512ce2374fa7b61e7a4f3cb435425">&#9670;&#160;</a></span>AuthorizationResult</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="#a7a841b48455191a73375322ae9c3d004">wxSQLite3::Authorizer::wxAuthorizationResult</a></td>
+          <td class="memname">enum class <a class="el" href="#acbe512ce2374fa7b61e7a4f3cb435425">wxSQLite3::Authorizer::AuthorizationResult</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Return codes of the authorizer. </p>
 <table class="fieldtable">
-<tr><th colspan="3">Enumerator</th></tr><tr><td class="fieldname"><a id="a7a841b48455191a73375322ae9c3d004a7b46b377dda35696ba1d60cc6d76e93d" name="a7a841b48455191a73375322ae9c3d004a7b46b377dda35696ba1d60cc6d76e93d"></a>SQLITE_OK&#160;</td><td class="fieldinit">0&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7a841b48455191a73375322ae9c3d004af76a2b7f903a7e3f61f75edd2fc15564" name="a7a841b48455191a73375322ae9c3d004af76a2b7f903a7e3f61f75edd2fc15564"></a>SQLITE_DENY&#160;</td><td class="fieldinit">1&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7a841b48455191a73375322ae9c3d004a778801f5b7b2dcb046b07ed42c8f89b9" name="a7a841b48455191a73375322ae9c3d004a778801f5b7b2dcb046b07ed42c8f89b9"></a>SQLITE_IGNORE&#160;</td><td class="fieldinit">2&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="3">Enumerator</th></tr><tr><td class="fieldname"><a id="acbe512ce2374fa7b61e7a4f3cb435425a4a674d0134f6bf674060a74e2540b4c7" name="acbe512ce2374fa7b61e7a4f3cb435425a4a674d0134f6bf674060a74e2540b4c7"></a>SQLITE_OK&#160;</td><td class="fieldinit">0&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acbe512ce2374fa7b61e7a4f3cb435425aeb1951010396d910cdbf1bdaf41a5512" name="acbe512ce2374fa7b61e7a4f3cb435425aeb1951010396d910cdbf1bdaf41a5512"></a>SQLITE_DENY&#160;</td><td class="fieldinit">1&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acbe512ce2374fa7b61e7a4f3cb435425a7c3aa494aed11fc171e51c21e969b6c9" name="acbe512ce2374fa7b61e7a4f3cb435425a7c3aa494aed11fc171e51c21e969b6c9"></a>SQLITE_IGNORE&#160;</td><td class="fieldinit">2&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -274,8 +282,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aefd54c105cbcc36d8b4e5c78955de24b" name="aefd54c105cbcc36d8b4e5c78955de24b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefd54c105cbcc36d8b4e5c78955de24b">&#9670;&#160;</a></span>Authorize()</h2>
+<a id="afcf16c7e2c9aa912c0d9850710e7df28" name="afcf16c7e2c9aa912c0d9850710e7df28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcf16c7e2c9aa912c0d9850710e7df28">&#9670;&#160;</a></span>Authorize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -284,7 +292,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="#a7a841b48455191a73375322ae9c3d004">wxAuthorizationResult</a> wxSQLite3::Authorizer::Authorize </td>
+          <td class="memname">virtual <a class="el" href="#acbe512ce2374fa7b61e7a4f3cb435425">AuthorizationResult</a> wxSQLite3::Authorizer::Authorize </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630f">AuthorizationCode</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
         </tr>
@@ -334,7 +342,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="#a7a841b48455191a73375322ae9c3d004" title="Return codes of the authorizer.">wxAuthorizationResult</a>, i.e. SQLITE_OK, SQLITE_DENY or SQLITE_IGNORE </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a wxAuthorizationResult, i.e. SQLITE_OK, SQLITE_DENY or SQLITE_IGNORE </dd></dl>
 
 </div>
 </div>

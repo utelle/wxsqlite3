@@ -30,5 +30,7 @@ var annotated_dup =
       [ "Database", "classwx_s_q_lite3_1_1_database.html", "classwx_s_q_lite3_1_1_database" ],
       [ "Transaction", "classwx_s_q_lite3_1_1_transaction.html", "classwx_s_q_lite3_1_1_transaction" ],
       [ "RegExpOperator", "classwx_s_q_lite3_1_1_reg_exp_operator.html", "classwx_s_q_lite3_1_1_reg_exp_operator" ]
-    ] ]
+    ] ],
+    [ "is_optional", "structis__optional.html", null ],
+    [ "is_optional&lt; std::optional&lt; T &gt; &gt;", "structis__optional_3_01std_1_1optional_3_01_t_01_4_01_4.html", null ]
 ];

@@ -62,7 +62,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">5.0.0</span>
+   &#160;<span id="projectnumber">5.0.1</span>
    </div>
   </td>
  </tr>
@@ -178,10 +178,11 @@ The section <a class="el" href="migration.html" title="Migration Guide">Migratio
 <h1 class="doxsection"><a class="anchor" id="version"></a>
 Current Version</h1>
 <dl>
-<dt><b>5.0.0</b> - <em>August 2026</em> </dt>
-<dd><p class="startdd">First release in the <b>5.x</b> series with a modernized C++ interface, based on <a href="https://github.com/utelle/SQLite3MultipleCiphers">SQLite3 Multiple Ciphers</a> version 2.5.0 (<a href="https://sqlite.org/releaselog/3_53_4.html">SQLite version 3.53.4</a>)</p>
-<p class="enddd"></p>
-</dd>
+<dt><b>5.0.1</b> - <em>August 2026</em> </dt>
+<dd>Enhanced template <span class="tt">Get</span> and <span class="tt">Bind</span> methods to handle integral types in general (like <span class="tt">int8_t</span>, <span class="tt">uint16</span>, <span class="tt">enum</span> and so on)<br  />
+ Enhanced template <span class="tt">Bind</span> methods to handle direct types instead of <span class="tt">std::optional</span> only<br  />
+ Added <span class="tt">class</span> attribute to <span class="tt">enum</span> enumerations where it was still missing<br  />
+ Adjusted minimal sample  </dd>
 </dl>
 <p>For further version information please consult the <a href="https://github.com/utelle/wxsqlite3/blob/main/CHANGELOG.md">CHANGELOG</a>.</p>
 <dl class="section author"><dt>Author</dt><dd>Ulrich Telle (github DOT telle MINUS online DOT de)</dd></dl>

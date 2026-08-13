@@ -62,7 +62,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">5.0.0</span>
+   &#160;<span id="projectnumber">5.0.1</span>
    </div>
   </td>
  </tr>
@@ -182,6 +182,8 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('wxsqlite3_8h.h
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:is_5Foptional_3C_20T_20_3E" id="r_is_5Foptional_3C_20T_20_3E"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structis__optional.html">is_optional&lt; T &gt;</a></td></tr>
+<tr class="memitem:is_5Foptional_3C_20std_3A_3Aoptional_3C_20T_20_3E_20_3E" id="r_is_5Foptional_3C_20std_3A_3Aoptional_3C_20T_20_3E_20_3E"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structis__optional_3_01std_1_1optional_3_01_t_01_4_01_4.html">is_optional&lt; std::optional&lt; T &gt; &gt;</a></td></tr>
 <tr class="memitem:wxSQLite3_3A_3AException" id="r_wxSQLite3_3A_3AException"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_1_1_exception.html">wxSQLite3::Exception</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">SQL exception.  <a href="classwx_s_q_lite3_1_1_exception.html#details">More...</a><br /></td></tr>
 <tr class="memitem:wxSQLite3_3A_3AStatementBuffer" id="r_wxSQLite3_3A_3AStatementBuffer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_1_1_statement_buffer.html">wxSQLite3::StatementBuffer</a></td></tr>
@@ -346,144 +348,144 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:a987b55da836b035430995875e4ceacb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of journal modes.  <a href="namespacewx_s_q_lite3.html#a987b55da836b035430995875e4ceacb6">More...</a><br /></td></tr>
-<tr class="memitem:a30b83aa949f8b7de988b08db41648641" id="r_a30b83aa949f8b7de988b08db41648641"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641">wxSQLite3::StatementStatus</a> { <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641abf219f9be61a83c44c2f1b6aefaab0bd">wxSQLite3::STMTSTATUS_FULLSCAN_STEP</a> = 1
+<tr class="memitem:a30b83aa949f8b7de988b08db41648641" id="r_a30b83aa949f8b7de988b08db41648641"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641">wxSQLite3::StatementStatus</a> { <br />
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641af2b243b4b539c627e219a72563df9628">wxSQLite3::STMTSTATUS_FULLSCAN_STEP</a> = 1
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a096db1d950c18793a0b57f0e2055a883">wxSQLite3::STMTSTATUS_SORT</a> = 2
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a3646c494e7f769b0ab606a8405d7e158">wxSQLite3::STMTSTATUS_SORT</a> = 2
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a874792719d1fb86539bdc73bb1e604ab">wxSQLite3::STMTSTATUS_AUTOINDEX</a> = 3
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a9fe3c848158cce0aefda622070c3da09">wxSQLite3::STMTSTATUS_AUTOINDEX</a> = 3
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a962a5af2a6eefb727fae49db7bc0bfab">wxSQLite3::STMTSTATUS_VM_STEP</a> = 4
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a8f13d78d2544741a476435fe3a14a045">wxSQLite3::STMTSTATUS_VM_STEP</a> = 4
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a06cd8f57568095e22d66feaf0b0f08b7">wxSQLite3::STMTSTATUS_REPREPARE</a> = 5
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a7afc39c6def860cbf2be645f20519d23">wxSQLite3::STMTSTATUS_REPREPARE</a> = 5
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a4bef4548dfbd0eb4a71a9990889541db">wxSQLite3::STMTSTATUS_RUN</a> = 6
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641aa0a68f6513dae9fba18b828d8ac5a784">wxSQLite3::STMTSTATUS_RUN</a> = 6
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a18195f14bfbc3658df5db68c43827ecc">wxSQLite3::STMTSTATUS_FILTER_MISS</a> = 7
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a373214b91ed5cf4a20cdd9dad6d53015">wxSQLite3::STMTSTATUS_FILTER_MISS</a> = 7
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641accbf75e531264d3b809969ea27dd664f">wxSQLite3::STMTSTATUS_FILTER_HIT</a> = 8
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a6fc54d7661f25f3bc7997a0b77632b9a">wxSQLite3::STMTSTATUS_FILTER_HIT</a> = 8
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a1d6f8417f7fb427fa36482f7f5538bc8">wxSQLite3::STMTSTATUS_MEMUSED</a> = 99
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641a7ada710aa2d1056c27ef13f7bd888510">wxSQLite3::STMTSTATUS_MEMUSED</a> = 99
 <br />
  }</td></tr>
 <tr class="memdesc:a30b83aa949f8b7de988b08db41648641"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of statement status counters.  <a href="namespacewx_s_q_lite3.html#a30b83aa949f8b7de988b08db41648641">More...</a><br /></td></tr>
-<tr class="memitem:ae14af267cd4d69dd56757ea858aad9ab" id="r_ae14af267cd4d69dd56757ea858aad9ab"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9ab">wxSQLite3::DbConfig</a> { <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba63dc32ab5201482a824d24160cb079bf">wxSQLite3::DBCONFIG_ENABLE_FKEY</a> = 1002
+<tr class="memitem:ae14af267cd4d69dd56757ea858aad9ab" id="r_ae14af267cd4d69dd56757ea858aad9ab"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9ab">wxSQLite3::DbConfig</a> { <br />
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abad293afe726d53d0dc3fb5481b16f5b29">wxSQLite3::DBCONFIG_ENABLE_FKEY</a> = 1002
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba4b06c7aa9389adc94489d6dcbcf9c5ea">wxSQLite3::DBCONFIG_ENABLE_TRIGGER</a> = 1003
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba847e2b55c73f28c1af217ac47adacf4b">wxSQLite3::DBCONFIG_ENABLE_TRIGGER</a> = 1003
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba5078cd5387803e023b05ae120d8be63f">wxSQLite3::DBCONFIG_ENABLE_FTS3_TOKENIZER</a> = 1004
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abaa363a8eda33d587588aa8c6089b600fa">wxSQLite3::DBCONFIG_ENABLE_FTS3_TOKENIZER</a> = 1004
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abae4729f46be39c755e6b661892a454070">wxSQLite3::DBCONFIG_ENABLE_LOAD_EXTENSION</a> = 1005
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba3d125492135139443e7f5ad8bd8dcce5">wxSQLite3::DBCONFIG_ENABLE_LOAD_EXTENSION</a> = 1005
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba52081fdd77a9f29ae952b91d89c85881">wxSQLite3::DBCONFIG_NO_CKPT_ON_CLOSE</a> = 1006
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abaa58715140676bd1aa27a75e38c281571">wxSQLite3::DBCONFIG_NO_CKPT_ON_CLOSE</a> = 1006
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abac8609bc1aed4abab3c8b676950356b9f">wxSQLite3::DBCONFIG_ENABLE_QPSG</a> = 1007
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba67b1745a59968f768838814e55137f15">wxSQLite3::DBCONFIG_ENABLE_QPSG</a> = 1007
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba6a4bee2b099015f0b2dd0701c4793072">wxSQLite3::DBCONFIG_TRIGGER_EQP</a> = 1008
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba11b0c7a5bbab7ddf53fb50becb32f4dd">wxSQLite3::DBCONFIG_TRIGGER_EQP</a> = 1008
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9ababd12c07d851fd81fe9491d00d8359686">wxSQLite3::DBCONFIG_RESET_DATABASE</a> = 1009
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abafcece26ffd1c474f91376b4161b23b56">wxSQLite3::DBCONFIG_RESET_DATABASE</a> = 1009
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba1e5949fb54ad378b61508401dd1f476c">wxSQLite3::DBCONFIG_DEFENSIVE</a> = 1010
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba275f6031c1b2380801618370fc0d4470">wxSQLite3::DBCONFIG_DEFENSIVE</a> = 1010
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba9701d4a41be435f5620b2dcee62b2325">wxSQLite3::DBCONFIG_WRITABLE_SCHEMA</a> = 1011
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abae4da2b81ce762f3ff6643962bfe3cb8f">wxSQLite3::DBCONFIG_WRITABLE_SCHEMA</a> = 1011
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba197474a524903964e0aaacf71afa9ecd">wxSQLite3::DBCONFIG_LEGACY_ALTER_TABLE</a> = 1012
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abacf85fc025e36df1bf2bb83ebbf83148a">wxSQLite3::DBCONFIG_LEGACY_ALTER_TABLE</a> = 1012
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba0ee7d2306110ab4fe41e75bdf8431023">wxSQLite3::DBCONFIG_DQS_DML</a> = 1013
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abab1bb88682de45e3e9d9f3e41b7a464a4">wxSQLite3::DBCONFIG_DQS_DML</a> = 1013
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abab60e98e0034155b8c3c0a9120a829294">wxSQLite3::DBCONFIG_DQS_DDL</a> = 1014
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba6dbc19c50da45c1888cf68b1e8c93506">wxSQLite3::DBCONFIG_DQS_DDL</a> = 1014
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba26a7251f7a6eecdd0dc373cc23a9293b">wxSQLite3::DBCONFIG_ENABLE_VIEW</a> = 1015
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abaf5d867643030d6048bb6d101274d296c">wxSQLite3::DBCONFIG_ENABLE_VIEW</a> = 1015
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abaf56bbfe280f9ba601c6c769f4cd3073a">wxSQLite3::DBCONFIG_LEGACY_FILE_FORMAT</a> = 1016
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abad2697abc5841180a506a8a4284b3fcea">wxSQLite3::DBCONFIG_LEGACY_FILE_FORMAT</a> = 1016
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba5494d9ec3acf2805777ff8fa106aec33">wxSQLite3::DBCONFIG_TRUSTED_SCHEMA</a> = 1017
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abacdee8e36c9fa7e01ed763a6846d8a3fd">wxSQLite3::DBCONFIG_TRUSTED_SCHEMA</a> = 1017
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba0786f677880237c80365ccc0c3e69a05">wxSQLite3::DBCONFIG_STMT_SCANSTATUS</a> = 1018
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba261b3ff922a311bbe65a7bb9ce6047d3">wxSQLite3::DBCONFIG_STMT_SCANSTATUS</a> = 1018
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abafe60fbe94a198ef1797b0e2e59c53394">wxSQLite3::DBCONFIG_REVERSE_SCANORDER</a> = 1019
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba82b0e03e6f171a7866fe3e655973599e">wxSQLite3::DBCONFIG_REVERSE_SCANORDER</a> = 1019
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abade092fa2ecbc903b86cca7dc2af8ea9e">wxSQLite3::DBCONFIG_ENABLE_ATTACH_CREATE</a> = 1020
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abafa3a6caa4d5761ccef2d279ffc6e649b">wxSQLite3::DBCONFIG_ENABLE_ATTACH_CREATE</a> = 1020
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abaea0695bbf396952acaeeb4ed79a89b97">wxSQLite3::DBCONFIG_ENABLE_ATTACH_WRITE</a> = 1021
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba833c6008f0f9e375a6681ddc97756fa6">wxSQLite3::DBCONFIG_ENABLE_ATTACH_WRITE</a> = 1021
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba6d96fd04aaed0e91471956e03258c9b0">wxSQLite3::DBCONFIG_ENABLE_COMMENTS</a> = 1022
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abac5fe2fa0188ff2e08cecc9c306974c7f">wxSQLite3::DBCONFIG_ENABLE_COMMENTS</a> = 1022
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9abac218d09f2a3609002c5e291e801790c4">wxSQLite3::DBCONFIG_FP_DIGITS</a> = 1023
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9aba2b5f1c23080329f04747a4d6f54c41d9">wxSQLite3::DBCONFIG_FP_DIGITS</a> = 1023
 <br />
  }</td></tr>
 <tr class="memdesc:ae14af267cd4d69dd56757ea858aad9ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of database configuration options.  <a href="namespacewx_s_q_lite3.html#ae14af267cd4d69dd56757ea858aad9ab">More...</a><br /></td></tr>
-<tr class="memitem:adf5d8e2e8c0536f27486358d9ac9630f" id="r_adf5d8e2e8c0536f27486358d9ac9630f"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630f">wxSQLite3::AuthorizationCode</a> { <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa404ee5449e24ceac82bc315ba101beca">wxSQLite3::AUTH_COPY</a> = 0
+<tr class="memitem:adf5d8e2e8c0536f27486358d9ac9630f" id="r_adf5d8e2e8c0536f27486358d9ac9630f"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630f">wxSQLite3::AuthorizationCode</a> { <br />
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630face16616da4949492fd4f6d7b429d7403">wxSQLite3::AUTH_COPY</a> = 0
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faf358dc196ac4123c91aea0b259003e9e">wxSQLite3::AUTH_CREATE_INDEX</a> = 1
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa5a7566fe23a71bb98f36cb5404570ea9">wxSQLite3::AUTH_CREATE_INDEX</a> = 1
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faec77f81dce16f162fc06e932435802d6">wxSQLite3::AUTH_CREATE_TABLE</a> = 2
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fad1c3382dda2a3ab4eadc2565be33861c">wxSQLite3::AUTH_CREATE_TABLE</a> = 2
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa6a9577d938091be1a911f744c769ea05">wxSQLite3::AUTH_CREATE_TEMP_INDEX</a> = 3
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa47724dd7de1679765a71df8400deb14f">wxSQLite3::AUTH_CREATE_TEMP_INDEX</a> = 3
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa3b664489c7c9364c4c4be20744dedcad">wxSQLite3::AUTH_CREATE_TEMP_TABLE</a> = 4
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa41ca1b5e1ac3630385716c01a334a773">wxSQLite3::AUTH_CREATE_TEMP_TABLE</a> = 4
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faa68fddecd20cb16030c8037d3345182e">wxSQLite3::AUTH_CREATE_TEMP_TRIGGER</a> = 5
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa7875494c917c0a555ead0c6de840b84d">wxSQLite3::AUTH_CREATE_TEMP_TRIGGER</a> = 5
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa1edfaf9ca680eed62327c2a59c7fa2c2">wxSQLite3::AUTH_CREATE_TEMP_VIEW</a> = 6
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa8d4ed82c8b07eedac120228efb88d993">wxSQLite3::AUTH_CREATE_TEMP_VIEW</a> = 6
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa4d02d6ff6f37edcac6bdd7f2c38ab790">wxSQLite3::AUTH_CREATE_TRIGGER</a> = 7
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa33407dbb6e673dbd36fad30a9aa1392c">wxSQLite3::AUTH_CREATE_TRIGGER</a> = 7
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa75a8c725c280b86b8418ebb2c6ef401b">wxSQLite3::AUTH_CREATE_VIEW</a> = 8
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faaa2a071b7f7f35717390c1014fe849cd">wxSQLite3::AUTH_CREATE_VIEW</a> = 8
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa6a2a04175924932c3f50f74200a297b9">wxSQLite3::AUTH_DELETE</a> = 9
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fad96a6fdbbd0cba92ea5cdd6362973149">wxSQLite3::AUTH_DELETE</a> = 9
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faf761b887f77774527592cbdc82057f76">wxSQLite3::AUTH_DROP_INDEX</a> = 10
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fae67e1c85bbb78a1ecfcefd3409392a83">wxSQLite3::AUTH_DROP_INDEX</a> = 10
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa664d68a8741fd34a98e2412af6a52c8e">wxSQLite3::AUTH_DROP_TABLE</a> = 11
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fafbc3ad329ee95de5ab5895d5a61890c9">wxSQLite3::AUTH_DROP_TABLE</a> = 11
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faf7198466122cd26c88f247b86f3c21a7">wxSQLite3::AUTH_DROP_TEMP_INDEX</a> = 12
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faf9da030474973d27defed63955e50f16">wxSQLite3::AUTH_DROP_TEMP_INDEX</a> = 12
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fae1f1b30d13b594c301e8b08814d90fdf">wxSQLite3::AUTH_DROP_TEMP_TABLE</a> = 13
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa6106294aef2e3b42b23afbe1d4727efe">wxSQLite3::AUTH_DROP_TEMP_TABLE</a> = 13
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa76c304f929212c15227a3f63e74063ca">wxSQLite3::AUTH_DROP_TEMP_TRIGGER</a> = 14
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa5e08fb49a1b9a5ffe916ac59d79fa21b">wxSQLite3::AUTH_DROP_TEMP_TRIGGER</a> = 14
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fae89924190cd151221e02ed0227ae31e7">wxSQLite3::AUTH_DROP_TEMP_VIEW</a> = 15
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faf3b71931c8aedb47953c7a2ce514e53f">wxSQLite3::AUTH_DROP_TEMP_VIEW</a> = 15
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fafdddf63525fad538f1eceeed96557e11">wxSQLite3::AUTH_DROP_TRIGGER</a> = 16
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa36939358479ed35b58ce08e5568d6c09">wxSQLite3::AUTH_DROP_TRIGGER</a> = 16
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa46b9d31c08a3d153d40cb647bff6c4d2">wxSQLite3::AUTH_DROP_VIEW</a> = 17
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa49dae270e2d09fce6da9370e9604a008">wxSQLite3::AUTH_DROP_VIEW</a> = 17
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa2b477a5dae4b83d6e109f25549ddebc3">wxSQLite3::AUTH_INSERT</a> = 18
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa8fec8764e279e44f4a3a06cb9975ea50">wxSQLite3::AUTH_INSERT</a> = 18
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa33c85aa6e12794b1127348b89171253b">wxSQLite3::AUTH_PRAGMA</a> = 19
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa05cc43fae1c238e467ad7b771f0c2a8d">wxSQLite3::AUTH_PRAGMA</a> = 19
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faca87a2ae8386a9ed2e8a08ed95247fab">wxSQLite3::AUTH_READ</a> = 20
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa913767024ee74dfd0c766d823098b370">wxSQLite3::AUTH_READ</a> = 20
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa9467dc524245e93b27ecb08ef2860431">wxSQLite3::AUTH_SELECT</a> = 21
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa09b55c9529d7ccd3ee646c47cdd6fd07">wxSQLite3::AUTH_SELECT</a> = 21
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa09e279e1660fe2163a2e895a5c1898d3">wxSQLite3::AUTH_TRANSACTION</a> = 22
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa34079cf634ae6c74bd0c972eeb715c01">wxSQLite3::AUTH_TRANSACTION</a> = 22
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa979b137b02dc91d3063e7093a128515e">wxSQLite3::AUTH_UPDATE</a> = 23
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faee1444d98274c43e29afa9ae3389b49f">wxSQLite3::AUTH_UPDATE</a> = 23
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fad8c551cb638703ca239c55ff6836b325">wxSQLite3::AUTH_ATTACH</a> = 24
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630facb979be706bbb247bcaef4a3d4b67a2c">wxSQLite3::AUTH_ATTACH</a> = 24
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa62add472dabd8467b5d2b310d1b12924">wxSQLite3::AUTH_DETACH</a> = 25
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa01dc27423dd18bf4ace8f8d4a0d3a29a">wxSQLite3::AUTH_DETACH</a> = 25
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faa6f162416c040e1788eb24a9d525a327">wxSQLite3::AUTH_ALTER_TABLE</a> = 26
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa1e4168922e1aa9394a85c342d4077e79">wxSQLite3::AUTH_ALTER_TABLE</a> = 26
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faafffd311bf26499633dc2c10235319cb">wxSQLite3::AUTH_REINDEX</a> = 27
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fab3aa3c3a9ff47c40dbb05e276cdb0774">wxSQLite3::AUTH_REINDEX</a> = 27
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fafbeda40b37f78a75b82899d92122e550">wxSQLite3::AUTH_ANALYZE</a> = 28
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa42fa25e366319dc7e1d8d82322959c76">wxSQLite3::AUTH_ANALYZE</a> = 28
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa8c9feea95d62ba617324c978c9bbeb70">wxSQLite3::AUTH_CREATE_VTABLE</a> = 29
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa9cab221ed5a00e7d8ff06f2c328c568b">wxSQLite3::AUTH_CREATE_VTABLE</a> = 29
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa1330452d5f888d1dbc09acc23c5d480d">wxSQLite3::AUTH_DROP_VTABLE</a> = 30
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa8a64a28f0f200b491143582d590bf391">wxSQLite3::AUTH_DROP_VTABLE</a> = 30
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fae14c042fbc7be9b63fce0d3db47c55b5">wxSQLite3::AUTH_FUNCTION</a> = 31
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa83290fd3a7c78746c66b26ccdd332f2e">wxSQLite3::AUTH_FUNCTION</a> = 31
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa65ab35ad70f01036779312e3b7b14d81">wxSQLite3::AUTH_SAVEPOINT</a> = 32
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fa7a92156bfc19138ecb33398ef0065e69">wxSQLite3::AUTH_SAVEPOINT</a> = 32
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fae74b83dbf59aa8f8e4a870a41aaf5f02">wxSQLite3::AUTH_RECURSIVE</a> = 33
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630fab4da2362ce2591e1fafaeb95f7ace224">wxSQLite3::AUTH_RECURSIVE</a> = 33
 , <br />
-&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faa54d318a111b97ee5a95142208a5e7b8">wxSQLite3::AUTH_MAX_CODE</a> = AUTH_RECURSIVE
+&#160;&#160;<a class="el" href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630faed8ebf724d0f965f372c71a1908e581c">wxSQLite3::AUTH_MAX_CODE</a> = AUTH_RECURSIVE
 <br />
  }</td></tr>
 <tr class="memdesc:adf5d8e2e8c0536f27486358d9ac9630f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwx_s_q_lite3_1_1_authorizer.html" title="Interface for a user defined authorizer function.">Authorizer</a> action codes.  <a href="namespacewx_s_q_lite3.html#adf5d8e2e8c0536f27486358d9ac9630f">More...</a><br /></td></tr>
@@ -494,6 +496,8 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:afdd4e2cac96a8f9e072a86d5a08a384e" id="r_afdd4e2cac96a8f9e072a86d5a08a384e"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:afdd4e2cac96a8f9e072a86d5a08a384e template"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#afdd4e2cac96a8f9e072a86d5a08a384e">is_optional_v</a> = <a class="el" href="structis__optional.html">is_optional</a>&lt;T&gt;::value</td></tr>
 <tr class="memitem:a645c84325a63df940f5ce04e25ef5f8f" id="r_a645c84325a63df940f5ce04e25ef5f8f"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#a645c84325a63df940f5ce04e25ef5f8f">wxSQLite3::WXSQLITE_ERROR</a> = 1000</td></tr>
 <tr class="memdesc:a645c84325a63df940f5ce04e25ef5f8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic <a class="el" href="namespacewx_s_q_lite3.html">wxSQLite3</a> error.  <br /></td></tr>
 <tr class="memitem:ab71ca98938352200b509705dce2bf8cd" id="r_ab71ca98938352200b509705dce2bf8cd"><td class="memItemLeft">class <a class="el" href="wxsqlite3def_8h.html#adcb54a58c2c5cbf540194d76ad1860ed">WXDLLIMPEXP_FWD_SQLITE3</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacewx_s_q_lite3.html#ab71ca98938352200b509705dce2bf8cd">wxSQLite3::Database</a></td></tr>
@@ -718,6 +722,31 @@ Variables</h2></td></tr>
           <td class="memname">using <a class="el" href="#a6bcdb339d005aecb8077b6a1f5eea6b1">wxsqlite_int64</a> = long long int</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="afdd4e2cac96a8f9e072a86d5a08a384e" name="afdd4e2cac96a8f9e072a86d5a08a384e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdd4e2cac96a8f9e072a86d5a08a384e">&#9670;&#160;</a></span>is_optional_v</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_optional_v = <a class="el" href="structis__optional.html">is_optional</a>&lt;T&gt;::value</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

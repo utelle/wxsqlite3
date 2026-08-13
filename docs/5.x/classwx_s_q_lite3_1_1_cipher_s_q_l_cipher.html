@@ -62,7 +62,7 @@
   <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">wxSQLite3
-   &#160;<span id="projectnumber">5.0.0</span>
+   &#160;<span id="projectnumber">5.0.1</span>
    </div>
   </td>
  </tr>
@@ -175,12 +175,12 @@ Inheritance diagram for wxSQLite3::CipherSQLCipher:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a660e3e34f1f37f7e2c29263d15626e78" id="r_a660e3e34f1f37f7e2c29263d15626e78"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a660e3e34f1f37f7e2c29263d15626e78">Algorithm</a> { <br />
-&#160;&#160;<a class="el" href="#a660e3e34f1f37f7e2c29263d15626e78ad693ef8756c36541c11db1ca6c69e76b">ALGORITHM_SHA1</a>
+<tr class="memitem:a660e3e34f1f37f7e2c29263d15626e78" id="r_a660e3e34f1f37f7e2c29263d15626e78"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a660e3e34f1f37f7e2c29263d15626e78">Algorithm</a> { <br />
+&#160;&#160;<a class="el" href="#a660e3e34f1f37f7e2c29263d15626e78a72fb585c0f9ac7bc24ce48da50de303d">ALGORITHM_SHA1</a>
 , <br />
-&#160;&#160;<a class="el" href="#a660e3e34f1f37f7e2c29263d15626e78a173a69e1293d6b79b796aead56a5f59c">ALGORITHM_SHA256</a>
+&#160;&#160;<a class="el" href="#a660e3e34f1f37f7e2c29263d15626e78ab341a44499138456e4c0a12f4d3e380c">ALGORITHM_SHA256</a>
 , <br />
-&#160;&#160;<a class="el" href="#a660e3e34f1f37f7e2c29263d15626e78af2aac98b0de97de93e6e25f1ed1c6807">ALGORITHM_SHA512</a>
+&#160;&#160;<a class="el" href="#a660e3e34f1f37f7e2c29263d15626e78a99a14cf2290cec196208792fdc8c395e">ALGORITHM_SHA512</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a660e3e34f1f37f7e2c29263d15626e78"><td class="mdescLeft">&#160;</td><td class="mdescRight">KDF and HMAC algorithm types.  <a href="#a660e3e34f1f37f7e2c29263d15626e78">More...</a><br /></td></tr>
@@ -292,18 +292,26 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="#a660e3e34f1f37f7e2c29263d15626e78">wxSQLite3::CipherSQLCipher::Algorithm</a></td>
+          <td class="memname">enum class <a class="el" href="#a660e3e34f1f37f7e2c29263d15626e78">wxSQLite3::CipherSQLCipher::Algorithm</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>KDF and HMAC algorithm types. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a660e3e34f1f37f7e2c29263d15626e78ad693ef8756c36541c11db1ca6c69e76b" name="a660e3e34f1f37f7e2c29263d15626e78ad693ef8756c36541c11db1ca6c69e76b"></a>ALGORITHM_SHA1&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a660e3e34f1f37f7e2c29263d15626e78a173a69e1293d6b79b796aead56a5f59c" name="a660e3e34f1f37f7e2c29263d15626e78a173a69e1293d6b79b796aead56a5f59c"></a>ALGORITHM_SHA256&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a660e3e34f1f37f7e2c29263d15626e78af2aac98b0de97de93e6e25f1ed1c6807" name="a660e3e34f1f37f7e2c29263d15626e78af2aac98b0de97de93e6e25f1ed1c6807"></a>ALGORITHM_SHA512&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a660e3e34f1f37f7e2c29263d15626e78a72fb585c0f9ac7bc24ce48da50de303d" name="a660e3e34f1f37f7e2c29263d15626e78a72fb585c0f9ac7bc24ce48da50de303d"></a>ALGORITHM_SHA1&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a660e3e34f1f37f7e2c29263d15626e78ab341a44499138456e4c0a12f4d3e380c" name="a660e3e34f1f37f7e2c29263d15626e78ab341a44499138456e4c0a12f4d3e380c"></a>ALGORITHM_SHA256&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a660e3e34f1f37f7e2c29263d15626e78a99a14cf2290cec196208792fdc8c395e" name="a660e3e34f1f37f7e2c29263d15626e78a99a14cf2290cec196208792fdc8c395e"></a>ALGORITHM_SHA512&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
