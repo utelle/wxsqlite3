@@ -39,10 +39,12 @@ Currently the _CMake_ support is experimental and limited to Windows platforms (
 
 ## <a name="history"></a>Version history
 
-* 5.0.0 - *August 2026*
+* 5.0.1 - *August 2026*
 
-  - First release in the **5.x** series with a modernized C++ interface
-  - Based on [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers) version 2.5.0 ([SQLite version 3.53.4](https://sqlite.org/releaselog/3_53_4.html))
+  - Enhance template `Get` and `Bind` methods to handle integral types in general (like `int8_t`, `uint16`, `enum` and so on)
+  - Enhance template `Bind` methods to handle direct types instead of `std::optional` only
+  - Add `class` attribute to `enum` enumerations where it was still missing
+  - Adjust minimal sample
 
 For further version information please consult the [CHANGELOG](CHANGELOG.md).
 

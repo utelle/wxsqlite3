@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.1] - 2026-08-13
+
+- Enhance template `Get` and `Bind` methods to handle integral types in general (like `int8_t`, `uint16`, `enum` and so on)
+- Enhance template `Bind` methods to handle direct types instead of `std::optional` only
+- Add `class` attribute to `enum` enumerations where it was still missing
+- Adjust minimal sample
+
 ## [5.0.0] - 2026-08-12
 
 - First release of modernized C++ interface
@@ -39,6 +46,6 @@ See [Modern C++ Interface](https://utelle.github.io/wxsqlite3/docs/5.x/features.
 
 See [Change Log 4.x](https://github.com/utelle/wxsqlite3/blob/4.x/CHANGELOG.md)
 
-[Unreleased]: ../../compare/v5.0.0...HEAD
+[Unreleased]: ../../compare/v5.0.1...HEAD
 [5.0.1]: ../../compare/v5.0.0...v5.0.1
 [5.0.0]:

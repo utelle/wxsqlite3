@@ -79,10 +79,12 @@
 
 <dl>
 
-<dt><b>5.0.0</b> - <i>August 2026</i></dt>
+<dt><b>5.0.1</b> - <i>August 2026</i></dt>
 <dd>
-First release in the **5.x** series with a modernized C++ interface, based on [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers) version 2.5.0 ([SQLite version 3.53.4](https://sqlite.org/releaselog/3_53_4.html))
-
+Enhanced template `Get` and `Bind` methods to handle integral types in general (like `int8_t`, `uint16`, `enum` and so on)<br>
+Enhanced template `Bind` methods to handle direct types instead of `std::optional` only<br>
+Added `class` attribute to `enum` enumerations where it was still missing<br>
+Adjusted minimal sample
 </dd>
 </dl>
 
@@ -106,6 +108,14 @@ The following people have contributed to wxSQLite3:
 /** \page history Version History
 
 <dl>
+
+<dt><b>5.0.1</b> - <i>August 2026</i></dt>
+<dd>
+Enhanced template `Get` and `Bind` methods to handle integral types in general (like `int8_t`, `uint16`, `enum` and so on)<br>
+Enhanced template `Bind` methods to handle direct types instead of `std::optional` only<br>
+Added `class` attribute to `enum` enumerations where it was still missing<br>
+Adjusted minimal sample
+</dd>
 
 <dt><b>5.0.0</b> - <i>August 2026</i></dt>
 <dd>

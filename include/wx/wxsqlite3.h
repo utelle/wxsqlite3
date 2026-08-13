@@ -51,11 +51,24 @@
 
 #if WXSQLITE3_HAS_CXX17
 #include <optional>
+
+// Trait to detect std::optional<T>
+template<typename T>
+struct is_optional : std::false_type {};
+
+template<typename T>
+struct is_optional<std::optional<T>> : std::true_type {};
+
+template<typename T>
+inline constexpr bool is_optional_v = is_optional<T>::value;
+
 #endif
 
 /// wxSQLite3 version string
 #define wxSQLITE3_VERSION_STRING   wxS(WXSQLITE3_VERSION_STRING)
 
+// A SQLite callback function needs the following type definition.
+// Define it here, so that we don't need to include sqlite3.h for it.
 #if defined(_MSC_VER) || defined(__BORLANDC__)
   using wxsqlite_int64 = __int64;
 #else
@@ -301,7 +314,7 @@ enum class JournalMode
  * See the [SQLite documentation](https://sqlite.org/c3ref/c_stmtstatus_counter.html)
  * for additional information.
  */
-enum StatementStatus
+enum class StatementStatus
 {
   STMTSTATUS_FULLSCAN_STEP = 1,
   STMTSTATUS_SORT          = 2,
@@ -322,7 +335,7 @@ enum StatementStatus
  * See the [SQLite documentation](https://sqlite.org/c3ref/c_dbconfig_defensive.html)
  * for additional information.
  */
-enum DbConfig
+enum class DbConfig
 {
   DBCONFIG_ENABLE_FKEY           = 1002,
   DBCONFIG_ENABLE_TRIGGER        = 1003,
@@ -415,7 +428,7 @@ constexpr int FUNC_SELFORDER1      = 0x02000000;
  * See the [SQLite documentation](https://sqlite.org/c3ref/c_alter_table.html)
  * for additional information.
  */
-enum AuthorizationCode
+enum class AuthorizationCode
 {                                  // arg1 =          arg2 =
   AUTH_COPY                = 0,    // Table Name      File Name
   AUTH_CREATE_INDEX        = 1,    // Index Name      Table Name
@@ -929,7 +942,7 @@ class WXDLLIMPEXP_SQLITE3 Authorizer
 {
 public:
   /// Return codes of the authorizer
-  enum wxAuthorizationResult
+  enum class AuthorizationResult
   {
     SQLITE_OK     = 0,   // Allow access
     SQLITE_DENY   = 1,   // Abort the SQL statement with an error
@@ -952,10 +965,10 @@ public:
   * \param arg5 fifth argument (name of authorized user or empty if user authentication is not activated)
   * \return a wxAuthorizationResult, i.e. SQLITE_OK, SQLITE_DENY or SQLITE_IGNORE
   */
-  virtual wxAuthorizationResult Authorize(AuthorizationCode type,
-                                          const wxString& arg1, const wxString& arg2,
-                                          const wxString& arg3, const wxString& arg4,
-                                          const wxString& arg5) = 0;
+  virtual AuthorizationResult Authorize(AuthorizationCode type,
+                                        const wxString& arg1, const wxString& arg2,
+                                        const wxString& arg3, const wxString& arg4,
+                                        const wxString& arg5) = 0;
   /// Convert authorization code to string
   /**
   * \param type AuthorizationCode. The value signifies what kind of operation is to be authorized.
@@ -1421,7 +1434,7 @@ public:
   int GetHmacSaltMask() const { return m_hmacSaltMask; }
 
   /// KDF and HMAC algorithm types
-  enum Algorithm
+  enum class Algorithm
   {
     ALGORITHM_SHA1,
     ALGORITHM_SHA256,
@@ -2243,18 +2256,20 @@ public:
     if (IsNull(columnIndex))
       return std::nullopt;
 
-    if constexpr (std::is_same_v<T, int>)
-      return GetInt(columnIndex);
-    else if constexpr (std::is_same_v<T, wxLongLong>)
-      return GetInt64(columnIndex);
-    else if constexpr (std::is_same_v<T, double>)
-      return GetDouble(columnIndex);
+    if constexpr (std::is_same_v<T, bool>)
+      return GetBool(columnIndex);
     else if constexpr (std::is_same_v<T, wxString>)
       return GetString(columnIndex);
+    else if constexpr (std::is_same_v<T, double> || std::is_same_v<T, float>)
+      return static_cast<T>(GetDouble(columnIndex));
     else if constexpr (std::is_same_v<T, wxDateTime>)
       return GetAutomaticDateTime(columnIndex);
-    else if constexpr (std::is_same_v<T, bool>)
-      return GetBool(columnIndex);
+    else if constexpr (std::is_same_v<T, wxLongLong>)
+      return GetInt64(columnIndex);
+    else if constexpr (std::is_integral_v<T>)
+      return GetRawInteger<T>(columnIndex, this);
+    else if constexpr (std::is_enum_v<T>)
+      return static_cast<T>(GetRawInteger<std::underlying_type_t<T>>(columnIndex, this));
     else
       static_assert(
         std::is_same_v<T, void>,
@@ -2302,6 +2317,15 @@ private:
   void CheckStmt() const;
 
 #if WXSQLITE3_HAS_CXX17
+
+  template<typename Raw>
+  static Raw GetRawInteger(int columnIndex, const ResultSet* self)
+  {
+    if constexpr (sizeof(Raw) <= sizeof(int))
+      return static_cast<Raw>(self->GetInt(columnIndex));
+    else
+      return static_cast<Raw>(self->GetInt64(columnIndex).GetValue());
+  }
 
   template<typename... T, std::size_t... I>
   std::tuple<std::optional<T>...> GetTupleImpl(std::index_sequence<I...>) const
@@ -2843,7 +2867,7 @@ public:
   void Bind(int paramIndex, std::optional<T> const& value)
   {
     if (value)
-      Bind(paramIndex, *value);
+      BindValue(paramIndex, *value);
     else
       BindNull(paramIndex);
   }
@@ -2888,12 +2912,65 @@ private:
 
 #if WXSQLITE3_HAS_CXX17
 
+  // Central dispatch logic for single, non-optional values
+  template<typename T>
+  void BindValue(int paramIndex, T const& value)
+  {
+    if constexpr (std::is_same_v<T, bool>)
+      Bind(paramIndex, value);
+    else if constexpr (std::is_same_v<T, wxString>)
+      Bind(paramIndex, value);
+    else if constexpr (std::is_same_v<T, char*> || std::is_same_v<T, const char*>)
+      Bind(paramIndex, value);
+    else if constexpr (std::is_same_v<T, double> || std::is_same_v<T, float>)
+      Bind(paramIndex, static_cast<double>(value));
+    else if constexpr (std::is_same_v<T, wxDateTime>)
+      Bind(paramIndex, value);
+    else if constexpr (std::is_same_v<T, wxLongLong>)
+      Bind(paramIndex, value);
+    else if constexpr (std::is_integral_v<T>)
+    {
+      if constexpr (sizeof(T) <= sizeof(int))
+        Bind(paramIndex, static_cast<int>(value));
+      else
+        Bind(paramIndex, wxLongLong(static_cast<int64_t>(value)));
+    }
+    else if constexpr (std::is_enum_v<T>)
+    {
+      using Underlying = std::underlying_type_t<T>;
+      if constexpr (sizeof(Underlying) <= sizeof(int))
+        Bind(paramIndex, static_cast<int>(value));
+      else
+        Bind(paramIndex, wxLongLong(static_cast<int64_t>(value)));
+    }
+    else
+      static_assert(
+        std::is_same_v<T, void>,
+        "Unsupported type for ResultSet::BindValue<T>()");
+  }
+
+  template<typename U>
+  void BindTupleElement(int paramIndex, U const& value)
+  {
+    if constexpr (is_optional_v<U>)
+    {
+      if (value)
+        BindValue(paramIndex, *value);
+      else
+        BindNull(paramIndex);
+    }
+    else
+    {
+      BindValue(paramIndex, value);
+    }
+  }
+
   template<typename Tuple, std::size_t... I>
   void BindTupleImpl(
     Tuple const& values,
     std::index_sequence<I...>)
   {
-    (Bind(static_cast<int>(I + 1), std::get<I>(values)), ...);
+    (BindTupleElement(static_cast<int>(I + 1), std::get<I>(values)), ...);
   }
 
   template<typename Tuple, std::size_t... I>
@@ -2902,7 +2979,7 @@ private:
     const std::array<int, std::tuple_size_v<Tuple>>& parameters,
     std::index_sequence<I...>)
   {
-    (Bind(parameters[I], std::get<I>(values)), ...);
+    (BindTupleElement(parameters[I], std::get<I>(values)), ...);
   }
 
 #endif

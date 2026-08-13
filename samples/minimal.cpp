@@ -169,7 +169,7 @@ public:
 class MyAuthorizer : public wxSQLite3::Authorizer
 {
 public:
-  virtual wxAuthorizationResult Authorize(wxSQLite3::AuthorizationCode type, 
+  virtual AuthorizationResult Authorize(wxSQLite3::AuthorizationCode type, 
                                           const wxString& arg1, const wxString& arg2, 
                                           const wxString& arg3, const wxString& arg4,
                                           const wxString& arg5)
@@ -181,7 +181,7 @@ public:
          << (const char*) arg3.mb_str(wxConvUTF8) << ","
          << (const char*) arg4.mb_str(wxConvUTF8) << ","
          << (const char*) arg5.mb_str(wxConvUTF8) << endl;
-    return wxSQLite3::Authorizer::SQLITE_OK;
+    return AuthorizationResult::SQLITE_OK;
   }
 };
 
@@ -207,13 +207,13 @@ public:
     cout << "Here is the UPDATE callback" << endl;
     switch (type)
     {
-    case wxSQLite3::AUTH_DELETE:
+    case wxSQLite3::AuthorizationCode::AUTH_DELETE:
         strType = "DELETE row ";
         break;
-    case wxSQLite3::AUTH_INSERT:
+    case wxSQLite3::AuthorizationCode::AUTH_INSERT:
         strType = "INSERT row ";
         break;
-    case wxSQLite3::AUTH_UPDATE:
+    case wxSQLite3::AuthorizationCode::AUTH_UPDATE:
         strType = "UPDATE row ";
         break;
       default:
@@ -385,7 +385,7 @@ int Minimal::OnRun()
     }
 
     int cfgResult;
-    db.Configure(wxSQLite3::DBCONFIG_DEFENSIVE, 1, cfgResult);
+    db.Configure(wxSQLite3::DbConfig::DBCONFIG_DEFENSIVE, 1, cfgResult);
     cout << "SQLite3 Configuration: Defensive mode is " << ((cfgResult != 0) ? "enabled" : "disabled") << endl;
 
     cout << "SQLite3 Journal Mode: " << (const char*) wxSQLite3::Database::ConvertJournalMode(db.GetJournalMode()).mb_str(wxConvUTF8) << endl;
@@ -719,9 +719,13 @@ int Minimal::OnRun()
     {
       char buf[16];
       snprintf(buf, 16, "EmpName%06d", i);
+#if WXSQLITE3_HAS_CXX17
+      stmt2.BindTuple(std::make_tuple(i, buf, (i+0.5)));
+#else
       stmt2.Bind(1, i);
       stmt2.Bind(2, buf);
       stmt2.Bind(3, (double) (i + 0.5));
+#endif
       stmt2.ExecuteUpdate();
       stmt2.Reset();
     }

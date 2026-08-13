@@ -3209,7 +3209,7 @@ void Database::Configure(DbConfig cfgType, int cfgValue, int& cfgResult)
   int localCfgType = static_cast<int>(cfgType);
   if (localCfgType >= SQLITE_DBCONFIG_ENABLE_FKEY && localCfgType <= SQLITE_DBCONFIG_ENABLE_COMMENTS)
   {
-    rc = sqlite3_db_config(m_db->Get(), cfgType, cfgValue, &cfgResult);
+    rc = sqlite3_db_config(m_db->Get(), static_cast<int>(cfgType), cfgValue, &cfgResult);
     if (rc != SQLITE_OK)
     {
       const char* localError = GetLastErrorMessage(m_db->Get());
@@ -4178,9 +4178,9 @@ static const wxChar* authCodeString[] =
 wxString Authorizer::AuthorizationCodeToString(AuthorizationCode type)
 {
   wxString authString(wxS("Unknown"));
-  if (type >= AUTH_COPY && type <= AUTH_MAX_CODE)
+  if (type >= AuthorizationCode::AUTH_COPY && type <= AuthorizationCode::AUTH_MAX_CODE)
   {
-    authString = authCodeString[type];
+    authString = authCodeString[static_cast<int>(type)];
   }
   return authString;
 }
@@ -5381,7 +5381,7 @@ CipherChaCha20::Apply(void* dbHandle) const
 CipherSQLCipher::CipherSQLCipher()
   : Cipher(CipherType::SQLCIPHER), m_legacy(false), m_legacyVersion(0), m_kdfIter(256000),
                     m_fastKdfIter(2), m_hmacUse(true), m_hmacPgNo(1), m_hmacSaltMask(0x3a),
-                    m_kdfAlgorithm(ALGORITHM_SHA512), m_hmacAlgorithm(ALGORITHM_SHA512)
+                    m_kdfAlgorithm(Algorithm::ALGORITHM_SHA512), m_hmacAlgorithm(Algorithm::ALGORITHM_SHA512)
 {
   SetInitialized(true);
 }
@@ -5530,8 +5530,8 @@ CipherSQLCipher::InitializeVersionDefault(int version)
       m_hmacUse = false;
       m_hmacPgNo = 1;
       m_hmacSaltMask = 0x3a;
-      m_kdfAlgorithm = ALGORITHM_SHA1;
-      m_hmacAlgorithm = ALGORITHM_SHA1;
+      m_kdfAlgorithm = Algorithm::ALGORITHM_SHA1;
+      m_hmacAlgorithm = Algorithm::ALGORITHM_SHA1;
       SetLegacyPageSize(1024);
       break;
     case 2:
@@ -5542,8 +5542,8 @@ CipherSQLCipher::InitializeVersionDefault(int version)
       m_hmacUse = true;
       m_hmacPgNo = 1;
       m_hmacSaltMask = 0x3a;
-      m_kdfAlgorithm = ALGORITHM_SHA1;
-      m_hmacAlgorithm = ALGORITHM_SHA1;
+      m_kdfAlgorithm = Algorithm::ALGORITHM_SHA1;
+      m_hmacAlgorithm = Algorithm::ALGORITHM_SHA1;
       SetLegacyPageSize(1024);
       break;
     case 3:
@@ -5554,8 +5554,8 @@ CipherSQLCipher::InitializeVersionDefault(int version)
       m_hmacUse = true;
       m_hmacPgNo = 1;
       m_hmacSaltMask = 0x3a;
-      m_kdfAlgorithm = ALGORITHM_SHA1;
-      m_hmacAlgorithm = ALGORITHM_SHA1;
+      m_kdfAlgorithm = Algorithm::ALGORITHM_SHA1;
+      m_hmacAlgorithm = Algorithm::ALGORITHM_SHA1;
       SetLegacyPageSize(1024);
       break;
     case 4:
@@ -5567,8 +5567,8 @@ CipherSQLCipher::InitializeVersionDefault(int version)
       m_hmacUse = true;
       m_hmacPgNo = 1;
       m_hmacSaltMask = 0x3a;
-      m_kdfAlgorithm = ALGORITHM_SHA512;
-      m_hmacAlgorithm = ALGORITHM_SHA512;
+      m_kdfAlgorithm = Algorithm::ALGORITHM_SHA512;
+      m_hmacAlgorithm = Algorithm::ALGORITHM_SHA512;
       SetLegacyPageSize(4096);
       break;
   }
