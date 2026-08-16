@@ -5877,4 +5877,43 @@ CipherAegis::Apply(void* dbHandle) const
 #endif
 }
 
+// Workaround for GCC bug
+
+#if defined(__GNUC__) && !defined(__clang__)
+
+#include <new>
+#include <utility>
+
+namespace {
+  // Workaround for a GCC bug in the interaction between LTO (-flto)
+  // and materialization of explicitly defaulted special member
+  // functions: if such a function is only reached from an
+  // infrequently executed code path (e.g. exception cleanup), GCC's
+  // LTO whole-program analysis may fail to emit a callable
+  // definition anywhere, resulting in "undefined reference" at
+  // final link time. Confirmed to affect operator=(ResultSet&&);
+  // the other three special member functions are safeguarded here
+  // as well, since the exact trigger condition could not be fully
+  // isolated (see GCC PR <insert number once assigned>).
+  // Forcing a real, non-optimizable use of each function's address
+  // (or, for constructors, an actual call) ensures the compiler
+  // keeps a materialized definition available to the linker.
+  // TODO: remove once the GCC bug has been fixed.
+
+  [[maybe_unused]] volatile auto force_link_ResultSet_copy_ctor =
+      static_cast<void(*)(void*, const ResultSet&)>(
+          [](void* p, const ResultSet& other) { new (p) ResultSet(other); });
+
+  [[maybe_unused]] volatile auto force_link_ResultSet_copy_assign =
+      static_cast<ResultSet&(ResultSet::*)(const ResultSet&)>(&ResultSet::operator=);
+
+  [[maybe_unused]] volatile auto force_link_ResultSet_move_ctor =
+      static_cast<void(*)(void*, ResultSet&&)>(
+          [](void* p, ResultSet&& other) { new (p) ResultSet(std::move(other)); });
+
+  [[maybe_unused]] volatile auto force_link_ResultSet_move_assign =
+      static_cast<ResultSet&(ResultSet::*)(ResultSet&&)>(&ResultSet::operator=);
+}
+#endif
+
 }  // namespace wxSQLite3

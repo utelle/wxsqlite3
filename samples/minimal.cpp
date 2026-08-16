@@ -38,22 +38,22 @@ using namespace std;
 
 static wxSQLite3::Database* initDB(void)
 {
-	wxString testDBName = wxGetCwd() + wxS("/test2.db");
-	if (wxFileExists(testDBName))
-	{
-		wxRemoveFile(testDBName);
-	}
-	wxSQLite3::Database* db = new wxSQLite3::Database();
-	db->Open(testDBName);
-	db->ExecuteUpdate(wxS("CREATE TABLE test (col1 INTEGER)"));
-	return db;
+  wxString testDBName = wxGetCwd() + wxS("/test2.db");
+  if (wxFileExists(testDBName))
+  {
+    wxRemoveFile(testDBName);
+  }
+  wxSQLite3::Database* db = new wxSQLite3::Database();
+  db->Open(testDBName);
+  db->ExecuteUpdate(wxS("CREATE TABLE test (col1 INTEGER)"));
+  return db;
 }
 
 static void clearDB(wxSQLite3::Database* db)
 {
-	assert(db != NULL);
-	db->Close();
-	delete db;
+  assert(db != NULL);
+  db->Close();
+  delete db;
 }
 
 static void testTransaction()
@@ -62,68 +62,68 @@ static void testTransaction()
   wxSQLite3::Database* db = initDB();
   try
   {
-		wxSQLite3::Transaction t(db);
+    wxSQLite3::Transaction t(db);
     cout << "AutoCommit? " << !db->GetAutoCommit() << endl;
-		cout << "Transaction active? " << t.IsActive() << endl;
-		db->ExecuteUpdate(wxS("INSERT INTO test (col1) VALUES (2)"));
+    cout << "Transaction active? " << t.IsActive() << endl;
+    db->ExecuteUpdate(wxS("INSERT INTO test (col1) VALUES (2)"));
     wxSQLite3::TransactionState txnState = db->QueryTransactionState();
-		t.Commit();
+    t.Commit();
     cout << "AutoCommit? " << db->GetAutoCommit() << endl;
-		cout << "Transaction not active? " << !t.IsActive() << endl;
-	}
+    cout << "Transaction not active? " << !t.IsActive() << endl;
+  }
   catch (...)
   {
-		cout << "Exception should not happen here" << endl;
-	}
-	// Check whether value exists in table
-	wxSQLite3::ResultSet set = db->ExecuteQuery(wxS("SELECT * FROM test"));
-	
-	int count = 0;
-	while (set.NextRow())
-	{
-		wxString s = set.GetAsString(0);
-		count++;
-	}
-	set.Finalize();
-	cout << "Is count == 1? " << (count == 1) << endl;
-		
-	// failed transaction
-	try
-	{
-		wxSQLite3::Transaction t(db);
-		db->ExecuteUpdate(wxS("INSERT INTO test (col1) VALUES (3)"));
+    cout << "Exception should not happen here" << endl;
+  }
+  // Check whether value exists in table
+  wxSQLite3::ResultSet set = db->ExecuteQuery(wxS("SELECT * FROM test"));
+  
+  int count = 0;
+  while (set.NextRow())
+  {
+    wxString s = set.GetAsString(0);
+    count++;
+  }
+  set.Finalize();
+  cout << "Is count == 1? " << (count == 1) << endl;
+    
+  // failed transaction
+  try
+  {
+    wxSQLite3::Transaction t(db);
+    db->ExecuteUpdate(wxS("INSERT INTO test (col1) VALUES (3)"));
 
-		throw "Abort commit";
+    throw "Abort commit";
 //  ...
 //  t.Commit();
-	}
+  }
   catch (...)
   {
-		exceptionCaught = true;
-	}
-	if (exceptionCaught)
+    exceptionCaught = true;
+  }
+  if (exceptionCaught)
   {
-		// check whether the value 3 exists in table
+    // check whether the value 3 exists in table
     // (it shouldn't since the transaction was aborted)
-		set = db->ExecuteQuery(wxS("SELECT * FROM test"));
-	
-		int count = 0;
-		while (set.NextRow())
-		{
-			++count;
+    set = db->ExecuteQuery(wxS("SELECT * FROM test"));
+  
+    int count = 0;
+    while (set.NextRow())
+    {
+      ++count;
       if (set.GetInt(0) ==3)
       {
         cout << "Error! 3 must not exist in table." << endl;
       }
-		}
-		set.Finalize();
-		cout << "Is count == 1? " << (count==1) << endl;
-	}
+    }
+    set.Finalize();
+    cout << "Is count == 1? " << (count==1) << endl;
+  }
   else
   {
-		cout << "Exception not caught" << endl;
-	}
-	clearDB(db);
+    cout << "Exception not caught" << endl;
+  }
+  clearDB(db);
 }
 
 // User defined aggregate function
