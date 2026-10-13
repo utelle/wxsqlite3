@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.2] - 2026-10-13
+
+- Upgrade to SQLite3 Multiple Ciphers version 2.6.1 (SQLite version 3.54.0)
+
 ## [5.0.1] - 2026-08-13
 
 - Enhance template `Get` and `Bind` methods to handle integral types in general (like `int8_t`, `uint16`, `enum` and so on)
@@ -46,6 +50,7 @@ See [Modern C++ Interface](https://utelle.github.io/wxsqlite3/docs/5.x/features.
 
 See [Change Log 4.x](https://github.com/utelle/wxsqlite3/blob/4.x/CHANGELOG.md)
 
-[Unreleased]: ../../compare/v5.0.1...HEAD
+[Unreleased]: ../../compare/v5.0.2...HEAD
+[5.0.2]: ../../compare/v5.0.1...v5.0.2
 [5.0.1]: ../../compare/v5.0.0...v5.0.1
 [5.0.0]:

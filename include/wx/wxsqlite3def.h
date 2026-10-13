@@ -79,18 +79,15 @@
 
 <dl>
 
-<dt><b>5.0.1</b> - <i>August 2026</i></dt>
+<dt><b>5.0.2</b> - <i>October 2026</i></dt>
 <dd>
-Enhanced template `Get` and `Bind` methods to handle integral types in general (like `int8_t`, `uint16`, `enum` and so on)<br>
-Enhanced template `Bind` methods to handle direct types instead of `std::optional` only<br>
-Added `class` attribute to `enum` enumerations where it was still missing<br>
-Adjusted minimal sample
+Update to [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers) version [2.6.1](https://github.com/utelle/SQLite3MultipleCiphers/releases/tag/v2.6.1) ([SQLite version 3.54.0](https://sqlite.org/releaselog/3_54_0.html))</i>
 </dd>
 </dl>
 
 For further version information please consult the [CHANGELOG](https://github.com/utelle/wxsqlite3/blob/main/CHANGELOG.md).
 
-\author Ulrich Telle (github DOT telle MINUS online DOT de)
+\author Ulrich Telle (github AT telle MINUS online DOT de)
 
 \section ackn Acknowledgments
 
@@ -108,6 +105,11 @@ The following people have contributed to wxSQLite3:
 /** \page history Version History
 
 <dl>
+
+<dt><b>5.0.2</b> - <i>October 2026</i></dt>
+<dd>
+Update to [SQLite3 Multiple Ciphers](https://github.com/utelle/SQLite3MultipleCiphers) version [2.6.1](https://github.com/utelle/SQLite3MultipleCiphers/releases/tag/v2.6.1) ([SQLite version 3.54.0](https://sqlite.org/releaselog/3_54_0.html))</i>
+</dd>
 
 <dt><b>5.0.1</b> - <i>August 2026</i></dt>
 <dd>
