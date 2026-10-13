@@ -1,0 +1,2040 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.17.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>wxSQLite3: wxsqlite3.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="theme-round.css" rel="stylesheet" type="text/css"/>
+<link href="theme-robot.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/utelle/wxsqlite3" class="github-corner" title="View wxSQLite3 on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wxsqlite3.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">wxSQLite3
+   &#160;<span id="projectnumber">4.12.7</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+<div id="theme-selection">
+ <label for="theme-select">Theme:</label>
+ <select id="theme-select">
+  <option value="theme-default">Default</option>
+  <option value="theme-round">Round</option>
+  <option value="theme-robot">Robot</option>
+ </select>
+</div>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.17.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+  initMenu('',true);
+  init_search();
+});
+</script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1" style="position:absolute;right:8px;top:8px;height:36px;"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2" style="float:right">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('wxsqlite3_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">wxsqlite3.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Implementation of the wxSQLite3 class.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;wx/wxprec.h&quot;</code><br />
+<code>#include &quot;wx/wx.h&quot;</code><br />
+<code>#include &quot;wx/dynarray.h&quot;</code><br />
+<code>#include &quot;wx/regex.h&quot;</code><br />
+<code>#include &quot;wx/thread.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="wxsqlite3_8h.html">wx/wxsqlite3.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wxsqlite3opt_8h.html">wx/wxsqlite3opt.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sqlite3mc__config_8h.html">sqlite3mc_config.h</a>&quot;</code><br />
+<code>#include &quot;sqlite3mc_amalgamation.h&quot;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;assert.h&gt;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:wxSQLite3DatabaseReference" id="r_wxSQLite3DatabaseReference"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_database_reference.html">wxSQLite3DatabaseReference</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference counted database object (internal).  <a href="classwx_s_q_lite3_database_reference.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3StatementReference" id="r_wxSQLite3StatementReference"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_statement_reference.html">wxSQLite3StatementReference</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference counted statement object (internal).  <a href="classwx_s_q_lite3_statement_reference.html#details">More...</a><br /></td></tr>
+<tr class="memitem:wxSQLite3BlobReference" id="r_wxSQLite3BlobReference"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classwx_s_q_lite3_blob_reference.html">wxSQLite3BlobReference</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference counted blob object (internal).  <a href="classwx_s_q_lite3_blob_reference.html#details">More...</a><br /></td></tr>
+<tr class="memitem:sqlite3_5Fintarray" id="r_sqlite3_5Fintarray"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structsqlite3__intarray.html">sqlite3_intarray</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the <a class="el" href="structsqlite3__intarray.html" title="Definition of the sqlite3_intarray object (internal).">sqlite3_intarray</a> object (internal).  <a href="structsqlite3__intarray.html#details">More...</a><br /></td></tr>
+<tr class="memitem:intarray_5Fvtab" id="r_intarray_5Fvtab"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structintarray__vtab.html">intarray_vtab</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of intarray table object (internal).  <a href="structintarray__vtab.html#details">More...</a><br /></td></tr>
+<tr class="memitem:intarray_5Fcursor" id="r_intarray_5Fcursor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structintarray__cursor.html">intarray_cursor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of intarray cursor object (internal).  <a href="structintarray__cursor.html#details">More...</a><br /></td></tr>
+<tr class="memitem:sqlite3_5Fchararray" id="r_sqlite3_5Fchararray"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structsqlite3__chararray.html">sqlite3_chararray</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the <a class="el" href="structsqlite3__chararray.html" title="Definition of the sqlite3_chararray object (internal).">sqlite3_chararray</a> object (internal).  <a href="structsqlite3__chararray.html#details">More...</a><br /></td></tr>
+<tr class="memitem:chararray_5Fvtab" id="r_chararray_5Fvtab"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structchararray__vtab.html">chararray_vtab</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of chararray table object (internal).  <a href="structchararray__vtab.html#details">More...</a><br /></td></tr>
+<tr class="memitem:chararray_5Fcursor" id="r_chararray_5Fcursor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structchararray__cursor.html">chararray_cursor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of chararray cursor object (internal).  <a href="structchararray__cursor.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ac1bb22e5e099a8a88ca733305dc500a4" id="r_ac1bb22e5e099a8a88ca733305dc500a4"><td class="memItemLeft">typedef int(*&#160;</td><td class="memItemRight"><a class="el" href="#ac1bb22e5e099a8a88ca733305dc500a4">sqlite3_xauth</a>) (void *, int, const char *, const char *, const char *, const char *)</td></tr>
+<tr class="memitem:a8c893cdbe8160b1646b2ace75280cce6" id="r_a8c893cdbe8160b1646b2ace75280cce6"><td class="memItemLeft">typedef wxChar&#160;</td><td class="memItemRight"><a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a></td></tr>
+<tr class="memitem:a0fe4a88a18b6bd47f8d5380b7226a411" id="r_a0fe4a88a18b6bd47f8d5380b7226a411"><td class="memItemLeft">typedef struct intarray_vtab&#160;</td><td class="memItemRight"><a class="el" href="#a0fe4a88a18b6bd47f8d5380b7226a411">intarray_vtab</a></td></tr>
+<tr class="memitem:a87831dc5417ee72909498549bc6eeffc" id="r_a87831dc5417ee72909498549bc6eeffc"><td class="memItemLeft">typedef struct intarray_cursor&#160;</td><td class="memItemRight"><a class="el" href="#a87831dc5417ee72909498549bc6eeffc">intarray_cursor</a></td></tr>
+<tr class="memitem:a3217eed8c28791e3c88d425bd4c9b8a5" id="r_a3217eed8c28791e3c88d425bd4c9b8a5"><td class="memItemLeft">typedef struct chararray_vtab&#160;</td><td class="memItemRight"><a class="el" href="#a3217eed8c28791e3c88d425bd4c9b8a5">chararray_vtab</a></td></tr>
+<tr class="memitem:a368cd5eb9ad613af4d9e65dc4c2359e9" id="r_a368cd5eb9ad613af4d9e65dc4c2359e9"><td class="memItemLeft">typedef struct chararray_cursor&#160;</td><td class="memItemRight"><a class="el" href="#a368cd5eb9ad613af4d9e65dc4c2359e9">chararray_cursor</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a786c347eddb9bb33b9bba6d40ef96141" id="r_a786c347eddb9bb33b9bba6d40ef96141"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a786c347eddb9bb33b9bba6d40ef96141">wxSQLite3FunctionContextExecAuthorizer</a> (void *func, int type, const char *arg1, const char *arg2, const char *arg3, const char *arg4)</td></tr>
+<tr class="memitem:a6b6b1aabd8999b0243010549b481f2c9" id="r_a6b6b1aabd8999b0243010549b481f2c9"><td class="memItemLeft">static const char *&#160;</td><td class="memItemRight"><a class="el" href="#a6b6b1aabd8999b0243010549b481f2c9">LocalMakePointerTypeCopy</a> (wxArrayPtrVoid &amp;ptrTypes, const wxString &amp;pointerType)</td></tr>
+<tr class="memitem:abb292c14fef128e6d2f6d3ceee8b459f" id="r_abb292c14fef128e6d2f6d3ceee8b459f"><td class="memItemLeft">wxLongLong&#160;</td><td class="memItemRight"><a class="el" href="#abb292c14fef128e6d2f6d3ceee8b459f">ConvertStringToLongLong</a> (const wxString &amp;str, wxLongLong defValue)</td></tr>
+<tr class="memitem:a072edbe987d5ac16234fecbfd5b44405" id="r_a072edbe987d5ac16234fecbfd5b44405"><td class="memItemLeft">static double&#160;</td><td class="memItemRight"><a class="el" href="#a072edbe987d5ac16234fecbfd5b44405">wxSQLite3AtoF</a> (const char *z)</td></tr>
+<tr class="memitem:ad32c0e0f9512515471f85fa9a542333c" id="r_ad32c0e0f9512515471f85fa9a542333c"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#ad32c0e0f9512515471f85fa9a542333c">BackupRestoreCallback</a> (int total, int remaining, <a class="el" href="classwx_s_q_lite3_backup_progress.html">wxSQLite3BackupProgress</a> *progressCallback)</td></tr>
+<tr class="memitem:a8c026406c547bfce36fc11c279a38110" id="r_a8c026406c547bfce36fc11c279a38110"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a8c026406c547bfce36fc11c279a38110">intarrayFree</a> (<a class="el" href="structsqlite3__intarray.html">sqlite3_intarray</a> *p)</td></tr>
+<tr class="memitem:a528eeaa88fc8bef9f273fe5da45e63e0" id="r_a528eeaa88fc8bef9f273fe5da45e63e0"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a528eeaa88fc8bef9f273fe5da45e63e0">intarrayDestroy</a> (sqlite3_vtab *p)</td></tr>
+<tr class="memitem:a294e264af696db287860e7d1b1020592" id="r_a294e264af696db287860e7d1b1020592"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a294e264af696db287860e7d1b1020592">intarrayCreate</a> (sqlite3 *db, void *pAux, int, const char *const *, sqlite3_vtab **ppVtab, char **)</td></tr>
+<tr class="memitem:a5ef338e8071d5b7b6ab29822da8d6919" id="r_a5ef338e8071d5b7b6ab29822da8d6919"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a5ef338e8071d5b7b6ab29822da8d6919">intarrayOpen</a> (sqlite3_vtab *, sqlite3_vtab_cursor **ppCursor)</td></tr>
+<tr class="memitem:aacb559d3371b534dc5255d189eaf7036" id="r_aacb559d3371b534dc5255d189eaf7036"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#aacb559d3371b534dc5255d189eaf7036">intarrayClose</a> (sqlite3_vtab_cursor *cur)</td></tr>
+<tr class="memitem:a7aef64fb60709077ed1f3569855a6014" id="r_a7aef64fb60709077ed1f3569855a6014"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a7aef64fb60709077ed1f3569855a6014">intarrayColumn</a> (sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int)</td></tr>
+<tr class="memitem:a61f3b49a229d527804696ddb3266137f" id="r_a61f3b49a229d527804696ddb3266137f"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a61f3b49a229d527804696ddb3266137f">intarrayRowid</a> (sqlite3_vtab_cursor *cur, sqlite_int64 *pRowid)</td></tr>
+<tr class="memitem:aa19d2a8e5898a8bf9960c80dbd2e5e46" id="r_aa19d2a8e5898a8bf9960c80dbd2e5e46"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#aa19d2a8e5898a8bf9960c80dbd2e5e46">intarrayEof</a> (sqlite3_vtab_cursor *cur)</td></tr>
+<tr class="memitem:a21401b955e0bd4a1e4745c5249a9592f" id="r_a21401b955e0bd4a1e4745c5249a9592f"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a21401b955e0bd4a1e4745c5249a9592f">intarrayNext</a> (sqlite3_vtab_cursor *cur)</td></tr>
+<tr class="memitem:ac80cc8cafc9445fd047c5d50935586e3" id="r_ac80cc8cafc9445fd047c5d50935586e3"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#ac80cc8cafc9445fd047c5d50935586e3">intarrayFilter</a> (sqlite3_vtab_cursor *pVtabCursor, int, const char *, int, sqlite3_value **)</td></tr>
+<tr class="memitem:a4be4098759315243604b841484deca1e" id="r_a4be4098759315243604b841484deca1e"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a4be4098759315243604b841484deca1e">intarrayBestIndex</a> (sqlite3_vtab *, sqlite3_index_info *)</td></tr>
+<tr class="memitem:accefdc7ba261d5a3d10621a005bce66d" id="r_accefdc7ba261d5a3d10621a005bce66d"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#accefdc7ba261d5a3d10621a005bce66d">chararrayFree</a> (<a class="el" href="structsqlite3__chararray.html">sqlite3_chararray</a> *p)</td></tr>
+<tr class="memitem:ad2ac66a80447a4f17b7326c39e096a53" id="r_ad2ac66a80447a4f17b7326c39e096a53"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#ad2ac66a80447a4f17b7326c39e096a53">chararrayDestroy</a> (sqlite3_vtab *p)</td></tr>
+<tr class="memitem:afac9d8839634ee9670661edb08b3b6d5" id="r_afac9d8839634ee9670661edb08b3b6d5"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#afac9d8839634ee9670661edb08b3b6d5">chararrayCreate</a> (sqlite3 *db, void *pAux, int, const char *const *, sqlite3_vtab **ppVtab, char **)</td></tr>
+<tr class="memitem:a45d3a6006e05c1d7fa2dcaa1339b36a6" id="r_a45d3a6006e05c1d7fa2dcaa1339b36a6"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a45d3a6006e05c1d7fa2dcaa1339b36a6">chararrayOpen</a> (sqlite3_vtab *, sqlite3_vtab_cursor **ppCursor)</td></tr>
+<tr class="memitem:a2bdaa3e0345b08de898d1ada3837e49d" id="r_a2bdaa3e0345b08de898d1ada3837e49d"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a2bdaa3e0345b08de898d1ada3837e49d">chararrayClose</a> (sqlite3_vtab_cursor *cur)</td></tr>
+<tr class="memitem:aa287d3f89eed3102148dd8a4037a14c6" id="r_aa287d3f89eed3102148dd8a4037a14c6"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#aa287d3f89eed3102148dd8a4037a14c6">chararrayColumn</a> (sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int)</td></tr>
+<tr class="memitem:a69eab81d4ca6a0578f1ba73e9c21bd82" id="r_a69eab81d4ca6a0578f1ba73e9c21bd82"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a69eab81d4ca6a0578f1ba73e9c21bd82">chararrayRowid</a> (sqlite3_vtab_cursor *cur, sqlite_int64 *pRowid)</td></tr>
+<tr class="memitem:a69b9d10a733d24e552eeb2e7ca3916bc" id="r_a69b9d10a733d24e552eeb2e7ca3916bc"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a69b9d10a733d24e552eeb2e7ca3916bc">chararrayEof</a> (sqlite3_vtab_cursor *cur)</td></tr>
+<tr class="memitem:a281bb852d750a9c5e745d74e732d958b" id="r_a281bb852d750a9c5e745d74e732d958b"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a281bb852d750a9c5e745d74e732d958b">chararrayNext</a> (sqlite3_vtab_cursor *cur)</td></tr>
+<tr class="memitem:ae21b3c5da72d3a1dd6e206beda91bf1d" id="r_ae21b3c5da72d3a1dd6e206beda91bf1d"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#ae21b3c5da72d3a1dd6e206beda91bf1d">chararrayFilter</a> (sqlite3_vtab_cursor *pVtabCursor, int, const char *, int, sqlite3_value **)</td></tr>
+<tr class="memitem:a6cea2b59e8e610584becc237ed78f1b3" id="r_a6cea2b59e8e610584becc237ed78f1b3"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a6cea2b59e8e610584becc237ed78f1b3">chararrayBestIndex</a> (sqlite3_vtab *, sqlite3_index_info *)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a0153abe08544d108a9016f204eda1c0b" id="r_a0153abe08544d108a9016f204eda1c0b"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a0153abe08544d108a9016f204eda1c0b">wxERRMSG_NODB</a> = wxTRANSLATE(&quot;No Database opened&quot;)</td></tr>
+<tr class="memitem:aaf6dcd478ceb07da0cba307e18b16b3b" id="r_aaf6dcd478ceb07da0cba307e18b16b3b"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aaf6dcd478ceb07da0cba307e18b16b3b">wxERRMSG_NOSTMT</a> = wxTRANSLATE(&quot;Statement not accessible&quot;)</td></tr>
+<tr class="memitem:a34248d8a4e806a905cac3b8cc5f44b08" id="r_a34248d8a4e806a905cac3b8cc5f44b08"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a34248d8a4e806a905cac3b8cc5f44b08">wxERRMSG_NOMEM</a> = wxTRANSLATE(&quot;Out of memory&quot;)</td></tr>
+<tr class="memitem:af3b7ac9de3cb1775e36d9870f25a6bec" id="r_af3b7ac9de3cb1775e36d9870f25a6bec"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af3b7ac9de3cb1775e36d9870f25a6bec">wxERRMSG_DECODE</a> = wxTRANSLATE(&quot;Cannot decode binary&quot;)</td></tr>
+<tr class="memitem:ac340c3f98ed2bef7422e3534df53c425" id="r_ac340c3f98ed2bef7422e3534df53c425"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac340c3f98ed2bef7422e3534df53c425">wxERRMSG_INVALID_INDEX</a> = wxTRANSLATE(&quot;Invalid field index&quot;)</td></tr>
+<tr class="memitem:a3e2387f0f818bf7132ef0e59cc4d3cae" id="r_a3e2387f0f818bf7132ef0e59cc4d3cae"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a3e2387f0f818bf7132ef0e59cc4d3cae">wxERRMSG_INVALID_NAME</a> = wxTRANSLATE(&quot;Invalid field name&quot;)</td></tr>
+<tr class="memitem:a4342b941075427da47c7b9cd53249426" id="r_a4342b941075427da47c7b9cd53249426"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a4342b941075427da47c7b9cd53249426">wxERRMSG_INVALID_ROW</a> = wxTRANSLATE(&quot;Invalid row index&quot;)</td></tr>
+<tr class="memitem:a9f5d4f34866eedff3d9fe6915b271623" id="r_a9f5d4f34866eedff3d9fe6915b271623"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a9f5d4f34866eedff3d9fe6915b271623">wxERRMSG_INVALID_QUERY</a> = wxTRANSLATE(&quot;Invalid scalar query&quot;)</td></tr>
+<tr class="memitem:a94d1966643383b8dda3ef0075cbb8f45" id="r_a94d1966643383b8dda3ef0075cbb8f45"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a94d1966643383b8dda3ef0075cbb8f45">wxERRMSG_INVALID_BLOB</a> = wxTRANSLATE(&quot;Invalid BLOB handle&quot;)</td></tr>
+<tr class="memitem:a2fa84e3e44b6129b0442699e8b9dea5c" id="r_a2fa84e3e44b6129b0442699e8b9dea5c"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a2fa84e3e44b6129b0442699e8b9dea5c">wxERRMSG_NORESULT</a> = wxTRANSLATE(&quot;Null Results pointer&quot;)</td></tr>
+<tr class="memitem:a9731ff48001105b7136d296aa1682e62" id="r_a9731ff48001105b7136d296aa1682e62"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a9731ff48001105b7136d296aa1682e62">wxERRMSG_BIND_STR</a> = wxTRANSLATE(&quot;Error binding string param&quot;)</td></tr>
+<tr class="memitem:a987b4027c7c9fd9071cd7438f7f9a2ae" id="r_a987b4027c7c9fd9071cd7438f7f9a2ae"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a987b4027c7c9fd9071cd7438f7f9a2ae">wxERRMSG_BIND_INT</a> = wxTRANSLATE(&quot;Error binding int param&quot;)</td></tr>
+<tr class="memitem:aa0efaee693ad6bfeee1935f40631c65c" id="r_aa0efaee693ad6bfeee1935f40631c65c"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa0efaee693ad6bfeee1935f40631c65c">wxERRMSG_BIND_INT64</a> = wxTRANSLATE(&quot;Error binding int64 param&quot;)</td></tr>
+<tr class="memitem:ac57e2cbf8514e3c5523deb2437d9ae87" id="r_ac57e2cbf8514e3c5523deb2437d9ae87"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac57e2cbf8514e3c5523deb2437d9ae87">wxERRMSG_BIND_DBL</a> = wxTRANSLATE(&quot;Error binding double param&quot;)</td></tr>
+<tr class="memitem:a35d1824fd92d509227c6da66dc9f2a17" id="r_a35d1824fd92d509227c6da66dc9f2a17"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a35d1824fd92d509227c6da66dc9f2a17">wxERRMSG_BIND_BLOB</a> = wxTRANSLATE(&quot;Error binding blob param&quot;)</td></tr>
+<tr class="memitem:ae33800b0facf3e1426f13dbe7ef62cf5" id="r_ae33800b0facf3e1426f13dbe7ef62cf5"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae33800b0facf3e1426f13dbe7ef62cf5">wxERRMSG_BIND_DATETIME</a> = wxTRANSLATE(&quot;Error binding date/time param&quot;)</td></tr>
+<tr class="memitem:a4eb7c8f5b9d2fefbb303f3809b6521f8" id="r_a4eb7c8f5b9d2fefbb303f3809b6521f8"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a4eb7c8f5b9d2fefbb303f3809b6521f8">wxERRMSG_BIND_NULL</a> = wxTRANSLATE(&quot;Error binding NULL param&quot;)</td></tr>
+<tr class="memitem:aaf69e2f6ec7f67234f4b0a05d810b097" id="r_aaf69e2f6ec7f67234f4b0a05d810b097"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aaf69e2f6ec7f67234f4b0a05d810b097">wxERRMSG_BIND_ZEROBLOB</a> = wxTRANSLATE(&quot;Error binding zero blob param&quot;)</td></tr>
+<tr class="memitem:a04d30e0b64631693fa76165285d5cc68" id="r_a04d30e0b64631693fa76165285d5cc68"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a04d30e0b64631693fa76165285d5cc68">wxERRMSG_BIND_POINTER</a> = wxTRANSLATE(&quot;Error binding pointer param&quot;)</td></tr>
+<tr class="memitem:a5b92d45f153282016ebe8f3a19da59e8" id="r_a5b92d45f153282016ebe8f3a19da59e8"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a5b92d45f153282016ebe8f3a19da59e8">wxERRMSG_BIND_CLEAR</a> = wxTRANSLATE(&quot;Error clearing bindings&quot;)</td></tr>
+<tr class="memitem:a8988a4635e7e91d3183c433fadb9d598" id="r_a8988a4635e7e91d3183c433fadb9d598"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a8988a4635e7e91d3183c433fadb9d598">wxERRMSG_NOMETADATA</a> = wxTRANSLATE(&quot;Meta data support not available&quot;)</td></tr>
+<tr class="memitem:a7dd81d0666456907ea0bffb79ed2b492" id="r_a7dd81d0666456907ea0bffb79ed2b492"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a7dd81d0666456907ea0bffb79ed2b492">wxERRMSG_NOCODEC</a> = wxTRANSLATE(&quot;Encryption support not available&quot;)</td></tr>
+<tr class="memitem:ab5f3825a2fe04f4debf187a4f866532d" id="r_ab5f3825a2fe04f4debf187a4f866532d"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ab5f3825a2fe04f4debf187a4f866532d">wxERRMSG_NOLOADEXT</a> = wxTRANSLATE(&quot;Loadable extension support not available&quot;)</td></tr>
+<tr class="memitem:afe2cec77a695daed0ded9968673aa6d6" id="r_afe2cec77a695daed0ded9968673aa6d6"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#afe2cec77a695daed0ded9968673aa6d6">wxERRMSG_NOINCBLOB</a> = wxTRANSLATE(&quot;Incremental BLOB support not available&quot;)</td></tr>
+<tr class="memitem:a20f149ef1e0d4b385e6bc44bd637edc5" id="r_a20f149ef1e0d4b385e6bc44bd637edc5"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a20f149ef1e0d4b385e6bc44bd637edc5">wxERRMSG_NOBLOBREBIND</a> = wxTRANSLATE(&quot;Rebind BLOB support not available&quot;)</td></tr>
+<tr class="memitem:a793af38cb3d777bd3d85614931b251c0" id="r_a793af38cb3d777bd3d85614931b251c0"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a793af38cb3d777bd3d85614931b251c0">wxERRMSG_NOPOINTER</a> = wxTRANSLATE(&quot;Pointer parameter support not available&quot;)</td></tr>
+<tr class="memitem:a02c6ecaa85e28d5c3ab3fc7d523ca2e5" id="r_a02c6ecaa85e28d5c3ab3fc7d523ca2e5"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a02c6ecaa85e28d5c3ab3fc7d523ca2e5">wxERRMSG_NOSAVEPOINT</a> = wxTRANSLATE(&quot;Savepoint support not available&quot;)</td></tr>
+<tr class="memitem:a706b3c0af45dba32982d9db6107c3b52" id="r_a706b3c0af45dba32982d9db6107c3b52"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a706b3c0af45dba32982d9db6107c3b52">wxERRMSG_NOBACKUP</a> = wxTRANSLATE(&quot;Backup/restore support not available&quot;)</td></tr>
+<tr class="memitem:a7e2759c8170c14840bee11adfdda6e20" id="r_a7e2759c8170c14840bee11adfdda6e20"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a7e2759c8170c14840bee11adfdda6e20">wxERRMSG_NOWAL</a> = wxTRANSLATE(&quot;Write Ahead Log support not available&quot;)</td></tr>
+<tr class="memitem:a099771ef32732cc60923ea090a008678" id="r_a099771ef32732cc60923ea090a008678"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a099771ef32732cc60923ea090a008678">wxERRMSG_NOCOLLECTIONS</a> = wxTRANSLATE(&quot;Named collection support not available&quot;)</td></tr>
+<tr class="memitem:ae808478ce4952dfa97727fde02e4a82b" id="r_ae808478ce4952dfa97727fde02e4a82b"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae808478ce4952dfa97727fde02e4a82b">wxERRMSG_SHARED_CACHE</a> = wxTRANSLATE(&quot;Setting SQLite shared cache mode failed&quot;)</td></tr>
+<tr class="memitem:a6d9f47aeff0d0cd89f7a80aa63f5500a" id="r_a6d9f47aeff0d0cd89f7a80aa63f5500a"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a6d9f47aeff0d0cd89f7a80aa63f5500a">wxERRMSG_INITIALIZE</a> = wxTRANSLATE(&quot;Initialization of SQLite failed&quot;)</td></tr>
+<tr class="memitem:afb7c08554b0a578a23814716e8b013f4" id="r_afb7c08554b0a578a23814716e8b013f4"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#afb7c08554b0a578a23814716e8b013f4">wxERRMSG_SHUTDOWN</a> = wxTRANSLATE(&quot;Shutdown of SQLite failed&quot;)</td></tr>
+<tr class="memitem:ad9285a32f9f2ccf52e53b4e859b50c45" id="r_ad9285a32f9f2ccf52e53b4e859b50c45"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad9285a32f9f2ccf52e53b4e859b50c45">wxERRMSG_TEMPDIR</a> = wxTRANSLATE(&quot;Setting temporary directory failed&quot;)</td></tr>
+<tr class="memitem:aa44a338014a813146d88f28c6e462219" id="r_aa44a338014a813146d88f28c6e462219"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa44a338014a813146d88f28c6e462219">wxERRMSG_SOURCEDB_BUSY</a> = wxTRANSLATE(&quot;Source database is busy&quot;)</td></tr>
+<tr class="memitem:adb1d01ee917a5a4b8486f1c96e67efe7" id="r_adb1d01ee917a5a4b8486f1c96e67efe7"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#adb1d01ee917a5a4b8486f1c96e67efe7">wxERRMSG_DBOPEN_FAILED</a> = wxTRANSLATE(&quot;Database open failed&quot;)</td></tr>
+<tr class="memitem:a29e082817d0d0253d71495911d227042" id="r_a29e082817d0d0253d71495911d227042"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a29e082817d0d0253d71495911d227042">wxERRMSG_DBCLOSE_FAILED</a> = wxTRANSLATE(&quot;Database close failed&quot;)</td></tr>
+<tr class="memitem:a34a149be72e8f65208e98e7df1ba28be" id="r_a34a149be72e8f65208e98e7df1ba28be"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a34a149be72e8f65208e98e7df1ba28be">wxERRMSG_DBASSIGN_FAILED</a> = wxTRANSLATE(&quot;Database assignment failed&quot;)</td></tr>
+<tr class="memitem:a807e11b2d387434bce3d378d1dc710a7" id="r_a807e11b2d387434bce3d378d1dc710a7"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a807e11b2d387434bce3d378d1dc710a7">wxERRMSG_FINALIZE_FAILED</a> = wxTRANSLATE(&quot;Finalize failed&quot;)</td></tr>
+<tr class="memitem:a43e7be0336018cc588862f36b7fe7db0" id="r_a43e7be0336018cc588862f36b7fe7db0"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a43e7be0336018cc588862f36b7fe7db0">wxERRMSG_CIPHER_APPLY_FAILED</a> = wxTRANSLATE(&quot;Application of cipher failed&quot;)</td></tr>
+<tr class="memitem:af12712fe5aa83dc2d94a7af0752e2ae3" id="r_af12712fe5aa83dc2d94a7af0752e2ae3"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af12712fe5aa83dc2d94a7af0752e2ae3">wxERRMSG_CIPHER_NOT_SUPPORTED</a> = wxTRANSLATE(&quot;Cipher not supported&quot;)</td></tr>
+<tr class="memitem:affa080c795759610d7875f853f479013" id="r_affa080c795759610d7875f853f479013"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#affa080c795759610d7875f853f479013">wxERRMSG_INVALID_COLLECTION</a> = wxTRANSLATE(&quot;Collection instance not properly initialized&quot;)</td></tr>
+<tr class="memitem:a66c7aa483266433c39f5d7ec8ce62c02" id="r_a66c7aa483266433c39f5d7ec8ce62c02"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a66c7aa483266433c39f5d7ec8ce62c02">wxERRMSG_SCHEMANAME_UNKNOWN</a> = wxTRANSLATE(&quot;Schema name unknown&quot;)</td></tr>
+<tr class="memitem:a263bb69206941c08e8106221077727fb" id="r_a263bb69206941c08e8106221077727fb"><td class="memItemLeft">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a263bb69206941c08e8106221077727fb">wxERRMSG_DBCONFIG_OPTION_UNKNOWN</a> = wxTRANSLATE(&quot;Database configuration option unknown&quot;)</td></tr>
+<tr class="memitem:ae9bf53c1fd9ca12883b0f63a184fb5fe" id="r_ae9bf53c1fd9ca12883b0f63a184fb5fe"><td class="memItemLeft">static const wxChar *&#160;</td><td class="memItemRight"><a class="el" href="#ae9bf53c1fd9ca12883b0f63a184fb5fe">limitCodeString</a> []</td></tr>
+<tr class="memitem:af1d772e0c0f927a2a83746e5c1204dad" id="r_af1d772e0c0f927a2a83746e5c1204dad"><td class="memItemLeft">static const wxChar *&#160;</td><td class="memItemRight"><a class="el" href="#af1d772e0c0f927a2a83746e5c1204dad">authCodeString</a> []</td></tr>
+<tr class="memitem:a275d3d4f6868dc445a1660205e8cd096" id="r_a275d3d4f6868dc445a1660205e8cd096"><td class="memItemLeft">static sqlite3_module&#160;</td><td class="memItemRight"><a class="el" href="#a275d3d4f6868dc445a1660205e8cd096">intarrayModule</a></td></tr>
+<tr class="memitem:a731cc0fd49e63a16b1faeff60937b11e" id="r_a731cc0fd49e63a16b1faeff60937b11e"><td class="memItemLeft">static sqlite3_module&#160;</td><td class="memItemRight"><a class="el" href="#a731cc0fd49e63a16b1faeff60937b11e">chararrayModule</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the wxSQLite3 class. </p>
+</div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="a368cd5eb9ad613af4d9e65dc4c2359e9" name="a368cd5eb9ad613af4d9e65dc4c2359e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a368cd5eb9ad613af4d9e65dc4c2359e9">&#9670;&#160;</a></span>chararray_cursor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct chararray_cursor chararray_cursor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3217eed8c28791e3c88d425bd4c9b8a5" name="a3217eed8c28791e3c88d425bd4c9b8a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3217eed8c28791e3c88d425bd4c9b8a5">&#9670;&#160;</a></span>chararray_vtab</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct chararray_vtab chararray_vtab</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8c893cdbe8160b1646b2ace75280cce6" name="a8c893cdbe8160b1646b2ace75280cce6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c893cdbe8160b1646b2ace75280cce6">&#9670;&#160;</a></span>err_char_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef wxChar <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87831dc5417ee72909498549bc6eeffc" name="a87831dc5417ee72909498549bc6eeffc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87831dc5417ee72909498549bc6eeffc">&#9670;&#160;</a></span>intarray_cursor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct intarray_cursor intarray_cursor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0fe4a88a18b6bd47f8d5380b7226a411" name="a0fe4a88a18b6bd47f8d5380b7226a411"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fe4a88a18b6bd47f8d5380b7226a411">&#9670;&#160;</a></span>intarray_vtab</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct intarray_vtab intarray_vtab</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac1bb22e5e099a8a88ca733305dc500a4" name="ac1bb22e5e099a8a88ca733305dc500a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1bb22e5e099a8a88ca733305dc500a4">&#9670;&#160;</a></span>sqlite3_xauth</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int(* sqlite3_xauth) (void *, int, const char *, const char *, const char *, const char *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ad32c0e0f9512515471f85fa9a542333c" name="ad32c0e0f9512515471f85fa9a542333c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad32c0e0f9512515471f85fa9a542333c">&#9670;&#160;</a></span>BackupRestoreCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool BackupRestoreCallback </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>total</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>remaining</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwx_s_q_lite3_backup_progress.html">wxSQLite3BackupProgress</a> *</td>          <td class="paramname"><span class="paramname"><em>progressCallback</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6cea2b59e8e610584becc237ed78f1b3" name="a6cea2b59e8e610584becc237ed78f1b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cea2b59e8e610584becc237ed78f1b3">&#9670;&#160;</a></span>chararrayBestIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int chararrayBestIndex </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab *</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_index_info *</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2bdaa3e0345b08de898d1ada3837e49d" name="a2bdaa3e0345b08de898d1ada3837e49d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bdaa3e0345b08de898d1ada3837e49d">&#9670;&#160;</a></span>chararrayClose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int chararrayClose </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab_cursor *</td>          <td class="paramname"><span class="paramname"><em>cur</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa287d3f89eed3102148dd8a4037a14c6" name="aa287d3f89eed3102148dd8a4037a14c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa287d3f89eed3102148dd8a4037a14c6">&#9670;&#160;</a></span>chararrayColumn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int chararrayColumn </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab_cursor *</td>          <td class="paramname"><span class="paramname"><em>cur</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_context *</td>          <td class="paramname"><span class="paramname"><em>ctx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afac9d8839634ee9670661edb08b3b6d5" name="afac9d8839634ee9670661edb08b3b6d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afac9d8839634ee9670661edb08b3b6d5">&#9670;&#160;</a></span>chararrayCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int chararrayCreate </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3 *</td>          <td class="paramname"><span class="paramname"><em>db</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>pAux</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *const *</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_vtab **</td>          <td class="paramname"><span class="paramname"><em>ppVtab</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad2ac66a80447a4f17b7326c39e096a53" name="ad2ac66a80447a4f17b7326c39e096a53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ac66a80447a4f17b7326c39e096a53">&#9670;&#160;</a></span>chararrayDestroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int chararrayDestroy </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab *</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a69b9d10a733d24e552eeb2e7ca3916bc" name="a69b9d10a733d24e552eeb2e7ca3916bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69b9d10a733d24e552eeb2e7ca3916bc">&#9670;&#160;</a></span>chararrayEof()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int chararrayEof </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab_cursor *</td>          <td class="paramname"><span class="paramname"><em>cur</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae21b3c5da72d3a1dd6e206beda91bf1d" name="ae21b3c5da72d3a1dd6e206beda91bf1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae21b3c5da72d3a1dd6e206beda91bf1d">&#9670;&#160;</a></span>chararrayFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int chararrayFilter </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab_cursor *</td>          <td class="paramname"><span class="paramname"><em>pVtabCursor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_value **</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="accefdc7ba261d5a3d10621a005bce66d" name="accefdc7ba261d5a3d10621a005bce66d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accefdc7ba261d5a3d10621a005bce66d">&#9670;&#160;</a></span>chararrayFree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void chararrayFree </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsqlite3__chararray.html">sqlite3_chararray</a> *</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a281bb852d750a9c5e745d74e732d958b" name="a281bb852d750a9c5e745d74e732d958b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a281bb852d750a9c5e745d74e732d958b">&#9670;&#160;</a></span>chararrayNext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int chararrayNext </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab_cursor *</td>          <td class="paramname"><span class="paramname"><em>cur</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a45d3a6006e05c1d7fa2dcaa1339b36a6" name="a45d3a6006e05c1d7fa2dcaa1339b36a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45d3a6006e05c1d7fa2dcaa1339b36a6">&#9670;&#160;</a></span>chararrayOpen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int chararrayOpen </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab *</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_vtab_cursor **</td>          <td class="paramname"><span class="paramname"><em>ppCursor</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a69eab81d4ca6a0578f1ba73e9c21bd82" name="a69eab81d4ca6a0578f1ba73e9c21bd82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69eab81d4ca6a0578f1ba73e9c21bd82">&#9670;&#160;</a></span>chararrayRowid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int chararrayRowid </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab_cursor *</td>          <td class="paramname"><span class="paramname"><em>cur</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite_int64 *</td>          <td class="paramname"><span class="paramname"><em>pRowid</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb292c14fef128e6d2f6d3ceee8b459f" name="abb292c14fef128e6d2f6d3ceee8b459f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb292c14fef128e6d2f6d3ceee8b459f">&#9670;&#160;</a></span>ConvertStringToLongLong()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">wxLongLong ConvertStringToLongLong </td>
+          <td>(</td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>str</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">wxLongLong</td>          <td class="paramname"><span class="paramname"><em>defValue</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4be4098759315243604b841484deca1e" name="a4be4098759315243604b841484deca1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4be4098759315243604b841484deca1e">&#9670;&#160;</a></span>intarrayBestIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int intarrayBestIndex </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab *</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_index_info *</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aacb559d3371b534dc5255d189eaf7036" name="aacb559d3371b534dc5255d189eaf7036"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacb559d3371b534dc5255d189eaf7036">&#9670;&#160;</a></span>intarrayClose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int intarrayClose </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab_cursor *</td>          <td class="paramname"><span class="paramname"><em>cur</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7aef64fb60709077ed1f3569855a6014" name="a7aef64fb60709077ed1f3569855a6014"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7aef64fb60709077ed1f3569855a6014">&#9670;&#160;</a></span>intarrayColumn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int intarrayColumn </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab_cursor *</td>          <td class="paramname"><span class="paramname"><em>cur</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_context *</td>          <td class="paramname"><span class="paramname"><em>ctx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a294e264af696db287860e7d1b1020592" name="a294e264af696db287860e7d1b1020592"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a294e264af696db287860e7d1b1020592">&#9670;&#160;</a></span>intarrayCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int intarrayCreate </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3 *</td>          <td class="paramname"><span class="paramname"><em>db</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>pAux</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *const *</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_vtab **</td>          <td class="paramname"><span class="paramname"><em>ppVtab</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a528eeaa88fc8bef9f273fe5da45e63e0" name="a528eeaa88fc8bef9f273fe5da45e63e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a528eeaa88fc8bef9f273fe5da45e63e0">&#9670;&#160;</a></span>intarrayDestroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int intarrayDestroy </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab *</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa19d2a8e5898a8bf9960c80dbd2e5e46" name="aa19d2a8e5898a8bf9960c80dbd2e5e46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa19d2a8e5898a8bf9960c80dbd2e5e46">&#9670;&#160;</a></span>intarrayEof()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int intarrayEof </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab_cursor *</td>          <td class="paramname"><span class="paramname"><em>cur</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac80cc8cafc9445fd047c5d50935586e3" name="ac80cc8cafc9445fd047c5d50935586e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac80cc8cafc9445fd047c5d50935586e3">&#9670;&#160;</a></span>intarrayFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int intarrayFilter </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab_cursor *</td>          <td class="paramname"><span class="paramname"><em>pVtabCursor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_value **</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8c026406c547bfce36fc11c279a38110" name="a8c026406c547bfce36fc11c279a38110"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c026406c547bfce36fc11c279a38110">&#9670;&#160;</a></span>intarrayFree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void intarrayFree </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsqlite3__intarray.html">sqlite3_intarray</a> *</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a21401b955e0bd4a1e4745c5249a9592f" name="a21401b955e0bd4a1e4745c5249a9592f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21401b955e0bd4a1e4745c5249a9592f">&#9670;&#160;</a></span>intarrayNext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int intarrayNext </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab_cursor *</td>          <td class="paramname"><span class="paramname"><em>cur</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5ef338e8071d5b7b6ab29822da8d6919" name="a5ef338e8071d5b7b6ab29822da8d6919"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ef338e8071d5b7b6ab29822da8d6919">&#9670;&#160;</a></span>intarrayOpen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int intarrayOpen </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab *</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite3_vtab_cursor **</td>          <td class="paramname"><span class="paramname"><em>ppCursor</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a61f3b49a229d527804696ddb3266137f" name="a61f3b49a229d527804696ddb3266137f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61f3b49a229d527804696ddb3266137f">&#9670;&#160;</a></span>intarrayRowid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int intarrayRowid </td>
+          <td>(</td>
+          <td class="paramtype">sqlite3_vtab_cursor *</td>          <td class="paramname"><span class="paramname"><em>cur</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sqlite_int64 *</td>          <td class="paramname"><span class="paramname"><em>pRowid</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6b6b1aabd8999b0243010549b481f2c9" name="a6b6b1aabd8999b0243010549b481f2c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b6b1aabd8999b0243010549b481f2c9">&#9670;&#160;</a></span>LocalMakePointerTypeCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * LocalMakePointerTypeCopy </td>
+          <td>(</td>
+          <td class="paramtype">wxArrayPtrVoid &amp;</td>          <td class="paramname"><span class="paramname"><em>ptrTypes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wxString &amp;</td>          <td class="paramname"><span class="paramname"><em>pointerType</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a072edbe987d5ac16234fecbfd5b44405" name="a072edbe987d5ac16234fecbfd5b44405"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a072edbe987d5ac16234fecbfd5b44405">&#9670;&#160;</a></span>wxSQLite3AtoF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double wxSQLite3AtoF </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>z</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a786c347eddb9bb33b9bba6d40ef96141" name="a786c347eddb9bb33b9bba6d40ef96141"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a786c347eddb9bb33b9bba6d40ef96141">&#9670;&#160;</a></span>wxSQLite3FunctionContextExecAuthorizer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wxSQLite3FunctionContextExecAuthorizer </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>func</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>arg1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>arg2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>arg3</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>arg4</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="af1d772e0c0f927a2a83746e5c1204dad" name="af1d772e0c0f927a2a83746e5c1204dad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1d772e0c0f927a2a83746e5c1204dad">&#9670;&#160;</a></span>authCodeString</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const wxChar* authCodeString[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                   =</div>
+<div class="line"> </div>
+<div class="line">{ wxS(<span class="stringliteral">&quot;SQLITE_COPY&quot;</span>),              wxS(<span class="stringliteral">&quot;SQLITE_CREATE_INDEX&quot;</span>),      wxS(<span class="stringliteral">&quot;SQLITE_CREATE_TABLE&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_CREATE_TEMP_INDEX&quot;</span>), wxS(<span class="stringliteral">&quot;SQLITE_CREATE_TEMP_TABLE&quot;</span>), wxS(<span class="stringliteral">&quot;SQLITE_CREATE_TEMP_TRIGGER&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_CREATE_TEMP_VIEW&quot;</span>),  wxS(<span class="stringliteral">&quot;SQLITE_CREATE_TRIGGER&quot;</span>),    wxS(<span class="stringliteral">&quot;SQLITE_CREATE_VIEW&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_DELETE&quot;</span>),            wxS(<span class="stringliteral">&quot;SQLITE_DROP_INDEX&quot;</span>),        wxS(<span class="stringliteral">&quot;SQLITE_DROP_TABLE&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_DROP_TEMP_INDEX&quot;</span>),   wxS(<span class="stringliteral">&quot;SQLITE_DROP_TEMP_TABLE&quot;</span>),   wxS(<span class="stringliteral">&quot;SQLITE_DROP_TEMP_TRIGGER&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_DROP_TEMP_VIEW&quot;</span>),    wxS(<span class="stringliteral">&quot;SQLITE_DROP_TRIGGER&quot;</span>),      wxS(<span class="stringliteral">&quot;SQLITE_DROP_VIEW&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_INSERT&quot;</span>),            wxS(<span class="stringliteral">&quot;SQLITE_PRAGMA&quot;</span>),            wxS(<span class="stringliteral">&quot;SQLITE_READ&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_SELECT&quot;</span>),            wxS(<span class="stringliteral">&quot;SQLITE_TRANSACTION&quot;</span>),       wxS(<span class="stringliteral">&quot;SQLITE_UPDATE&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_ATTACH&quot;</span>),            wxS(<span class="stringliteral">&quot;SQLITE_DETACH&quot;</span>),            wxS(<span class="stringliteral">&quot;SQLITE_ALTER_TABLE&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_REINDEX&quot;</span>),           wxS(<span class="stringliteral">&quot;SQLITE_ANALYZE&quot;</span>),           wxS(<span class="stringliteral">&quot;SQLITE_CREATE_VTABLE&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_DROP_VTABLE&quot;</span>),       wxS(<span class="stringliteral">&quot;SQLITE_FUNCTION&quot;</span>),          wxS(<span class="stringliteral">&quot;SQLITE_SAVEPOINT&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_RECURSIVE&quot;</span>)</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a731cc0fd49e63a16b1faeff60937b11e" name="a731cc0fd49e63a16b1faeff60937b11e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a731cc0fd49e63a16b1faeff60937b11e">&#9670;&#160;</a></span>chararrayModule</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sqlite3_module chararrayModule</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                      =</div>
+<div class="line">{</div>
+<div class="line">  0,                           </div>
+<div class="line">  <a class="code hl_function" href="#afac9d8839634ee9670661edb08b3b6d5">chararrayCreate</a>,             </div>
+<div class="line">  <a class="code hl_function" href="#afac9d8839634ee9670661edb08b3b6d5">chararrayCreate</a>,             </div>
+<div class="line">  <a class="code hl_function" href="#a6cea2b59e8e610584becc237ed78f1b3">chararrayBestIndex</a>,          </div>
+<div class="line">  <a class="code hl_function" href="#ad2ac66a80447a4f17b7326c39e096a53">chararrayDestroy</a>,            </div>
+<div class="line">  <a class="code hl_function" href="#ad2ac66a80447a4f17b7326c39e096a53">chararrayDestroy</a>,            </div>
+<div class="line">  <a class="code hl_function" href="#a45d3a6006e05c1d7fa2dcaa1339b36a6">chararrayOpen</a>,               </div>
+<div class="line">  <a class="code hl_function" href="#a2bdaa3e0345b08de898d1ada3837e49d">chararrayClose</a>,              </div>
+<div class="line">  <a class="code hl_function" href="#ae21b3c5da72d3a1dd6e206beda91bf1d">chararrayFilter</a>,             </div>
+<div class="line">  <a class="code hl_function" href="#a281bb852d750a9c5e745d74e732d958b">chararrayNext</a>,               </div>
+<div class="line">  <a class="code hl_function" href="#a69b9d10a733d24e552eeb2e7ca3916bc">chararrayEof</a>,                </div>
+<div class="line">  <a class="code hl_function" href="#aa287d3f89eed3102148dd8a4037a14c6">chararrayColumn</a>,             </div>
+<div class="line">  <a class="code hl_function" href="#a69eab81d4ca6a0578f1ba73e9c21bd82">chararrayRowid</a>,              </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0                            </div>
+<div class="line">}</div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a281bb852d750a9c5e745d74e732d958b"><div class="ttname"><a href="#a281bb852d750a9c5e745d74e732d958b">chararrayNext</a></div><div class="ttdeci">static int chararrayNext(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5254</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a2bdaa3e0345b08de898d1ada3837e49d"><div class="ttname"><a href="#a2bdaa3e0345b08de898d1ada3837e49d">chararrayClose</a></div><div class="ttdeci">static int chararrayClose(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5219</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a45d3a6006e05c1d7fa2dcaa1339b36a6"><div class="ttname"><a href="#a45d3a6006e05c1d7fa2dcaa1339b36a6">chararrayOpen</a></div><div class="ttdeci">static int chararrayOpen(sqlite3_vtab *, sqlite3_vtab_cursor **ppCursor)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5205</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a69b9d10a733d24e552eeb2e7ca3916bc"><div class="ttname"><a href="#a69b9d10a733d24e552eeb2e7ca3916bc">chararrayEof</a></div><div class="ttdeci">static int chararrayEof(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5246</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a69eab81d4ca6a0578f1ba73e9c21bd82"><div class="ttname"><a href="#a69eab81d4ca6a0578f1ba73e9c21bd82">chararrayRowid</a></div><div class="ttdeci">static int chararrayRowid(sqlite3_vtab_cursor *cur, sqlite_int64 *pRowid)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5239</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a6cea2b59e8e610584becc237ed78f1b3"><div class="ttname"><a href="#a6cea2b59e8e610584becc237ed78f1b3">chararrayBestIndex</a></div><div class="ttdeci">static int chararrayBestIndex(sqlite3_vtab *, sqlite3_index_info *)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5272</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_aa287d3f89eed3102148dd8a4037a14c6"><div class="ttname"><a href="#aa287d3f89eed3102148dd8a4037a14c6">chararrayColumn</a></div><div class="ttdeci">static int chararrayColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5227</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_ad2ac66a80447a4f17b7326c39e096a53"><div class="ttname"><a href="#ad2ac66a80447a4f17b7326c39e096a53">chararrayDestroy</a></div><div class="ttdeci">static int chararrayDestroy(sqlite3_vtab *p)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5176</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_ae21b3c5da72d3a1dd6e206beda91bf1d"><div class="ttname"><a href="#ae21b3c5da72d3a1dd6e206beda91bf1d">chararrayFilter</a></div><div class="ttdeci">static int chararrayFilter(sqlite3_vtab_cursor *pVtabCursor, int, const char *, int, sqlite3_value **)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5262</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_afac9d8839634ee9670661edb08b3b6d5"><div class="ttname"><a href="#afac9d8839634ee9670661edb08b3b6d5">chararrayCreate</a></div><div class="ttdeci">static int chararrayCreate(sqlite3 *db, void *pAux, int, const char *const *, sqlite3_vtab **ppVtab, char **)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5184</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a275d3d4f6868dc445a1660205e8cd096" name="a275d3d4f6868dc445a1660205e8cd096"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a275d3d4f6868dc445a1660205e8cd096">&#9670;&#160;</a></span>intarrayModule</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sqlite3_module intarrayModule</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                     =</div>
+<div class="line">{</div>
+<div class="line">  0,                           </div>
+<div class="line">  <a class="code hl_function" href="#a294e264af696db287860e7d1b1020592">intarrayCreate</a>,              </div>
+<div class="line">  <a class="code hl_function" href="#a294e264af696db287860e7d1b1020592">intarrayCreate</a>,              </div>
+<div class="line">  <a class="code hl_function" href="#a4be4098759315243604b841484deca1e">intarrayBestIndex</a>,           </div>
+<div class="line">  <a class="code hl_function" href="#a528eeaa88fc8bef9f273fe5da45e63e0">intarrayDestroy</a>,             </div>
+<div class="line">  <a class="code hl_function" href="#a528eeaa88fc8bef9f273fe5da45e63e0">intarrayDestroy</a>,             </div>
+<div class="line">  <a class="code hl_function" href="#a5ef338e8071d5b7b6ab29822da8d6919">intarrayOpen</a>,                </div>
+<div class="line">  <a class="code hl_function" href="#aacb559d3371b534dc5255d189eaf7036">intarrayClose</a>,               </div>
+<div class="line">  <a class="code hl_function" href="#ac80cc8cafc9445fd047c5d50935586e3">intarrayFilter</a>,              </div>
+<div class="line">  <a class="code hl_function" href="#a21401b955e0bd4a1e4745c5249a9592f">intarrayNext</a>,                </div>
+<div class="line">  <a class="code hl_function" href="#aa19d2a8e5898a8bf9960c80dbd2e5e46">intarrayEof</a>,                 </div>
+<div class="line">  <a class="code hl_function" href="#a7aef64fb60709077ed1f3569855a6014">intarrayColumn</a>,              </div>
+<div class="line">  <a class="code hl_function" href="#a61f3b49a229d527804696ddb3266137f">intarrayRowid</a>,               </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line"> </div>
+<div class="line">  0,                           </div>
+<div class="line">  0,                           </div>
+<div class="line">  0                            </div>
+<div class="line"> </div>
+<div class="line">}</div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a21401b955e0bd4a1e4745c5249a9592f"><div class="ttname"><a href="#a21401b955e0bd4a1e4745c5249a9592f">intarrayNext</a></div><div class="ttdeci">static int intarrayNext(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5081</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a294e264af696db287860e7d1b1020592"><div class="ttname"><a href="#a294e264af696db287860e7d1b1020592">intarrayCreate</a></div><div class="ttdeci">static int intarrayCreate(sqlite3 *db, void *pAux, int, const char *const *, sqlite3_vtab **ppVtab, char **)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5011</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a4be4098759315243604b841484deca1e"><div class="ttname"><a href="#a4be4098759315243604b841484deca1e">intarrayBestIndex</a></div><div class="ttdeci">static int intarrayBestIndex(sqlite3_vtab *, sqlite3_index_info *)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5099</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a528eeaa88fc8bef9f273fe5da45e63e0"><div class="ttname"><a href="#a528eeaa88fc8bef9f273fe5da45e63e0">intarrayDestroy</a></div><div class="ttdeci">static int intarrayDestroy(sqlite3_vtab *p)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5003</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a5ef338e8071d5b7b6ab29822da8d6919"><div class="ttname"><a href="#a5ef338e8071d5b7b6ab29822da8d6919">intarrayOpen</a></div><div class="ttdeci">static int intarrayOpen(sqlite3_vtab *, sqlite3_vtab_cursor **ppCursor)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5032</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a61f3b49a229d527804696ddb3266137f"><div class="ttname"><a href="#a61f3b49a229d527804696ddb3266137f">intarrayRowid</a></div><div class="ttdeci">static int intarrayRowid(sqlite3_vtab_cursor *cur, sqlite_int64 *pRowid)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5066</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_a7aef64fb60709077ed1f3569855a6014"><div class="ttname"><a href="#a7aef64fb60709077ed1f3569855a6014">intarrayColumn</a></div><div class="ttdeci">static int intarrayColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5054</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_aa19d2a8e5898a8bf9960c80dbd2e5e46"><div class="ttname"><a href="#aa19d2a8e5898a8bf9960c80dbd2e5e46">intarrayEof</a></div><div class="ttdeci">static int intarrayEof(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5073</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_aacb559d3371b534dc5255d189eaf7036"><div class="ttname"><a href="#aacb559d3371b534dc5255d189eaf7036">intarrayClose</a></div><div class="ttdeci">static int intarrayClose(sqlite3_vtab_cursor *cur)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5046</div></div>
+<div class="ttc" id="awxsqlite3_8cpp_html_ac80cc8cafc9445fd047c5d50935586e3"><div class="ttname"><a href="#ac80cc8cafc9445fd047c5d50935586e3">intarrayFilter</a></div><div class="ttdeci">static int intarrayFilter(sqlite3_vtab_cursor *pVtabCursor, int, const char *, int, sqlite3_value **)</div><div class="ttdef"><b>Definition</b> wxsqlite3.cpp:5089</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae9bf53c1fd9ca12883b0f63a184fb5fe" name="ae9bf53c1fd9ca12883b0f63a184fb5fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9bf53c1fd9ca12883b0f63a184fb5fe">&#9670;&#160;</a></span>limitCodeString</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const wxChar* limitCodeString[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                    =</div>
+<div class="line"> </div>
+<div class="line">{ wxS(<span class="stringliteral">&quot;SQLITE_LIMIT_LENGTH&quot;</span>),              wxS(<span class="stringliteral">&quot;SQLITE_LIMIT_SQL_LENGTH&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_LIMIT_COLUMN&quot;</span>),              wxS(<span class="stringliteral">&quot;SQLITE_LIMIT_EXPR_DEPTH&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_LIMIT_COMPOUND_SELECT&quot;</span>),     wxS(<span class="stringliteral">&quot;SQLITE_LIMIT_VDBE_OP&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_LIMIT_FUNCTION_ARG&quot;</span>),        wxS(<span class="stringliteral">&quot;SQLITE_LIMIT_ATTACHED&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_LIMIT_LIKE_PATTERN_LENGTH&quot;</span>), wxS(<span class="stringliteral">&quot;SQLITE_LIMIT_VARIABLE_NUMBER&quot;</span>),</div>
+<div class="line">  wxS(<span class="stringliteral">&quot;SQLITE_LIMIT_TRIGGER_DEPTH&quot;</span>),       wxS(<span class="stringliteral">&quot;SQLITE_LIMIT_WORKER_THREADS&quot;</span>)</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a35d1824fd92d509227c6da66dc9f2a17" name="a35d1824fd92d509227c6da66dc9f2a17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35d1824fd92d509227c6da66dc9f2a17">&#9670;&#160;</a></span>wxERRMSG_BIND_BLOB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_BIND_BLOB = wxTRANSLATE(&quot;Error binding blob param&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5b92d45f153282016ebe8f3a19da59e8" name="a5b92d45f153282016ebe8f3a19da59e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b92d45f153282016ebe8f3a19da59e8">&#9670;&#160;</a></span>wxERRMSG_BIND_CLEAR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_BIND_CLEAR = wxTRANSLATE(&quot;Error clearing bindings&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae33800b0facf3e1426f13dbe7ef62cf5" name="ae33800b0facf3e1426f13dbe7ef62cf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae33800b0facf3e1426f13dbe7ef62cf5">&#9670;&#160;</a></span>wxERRMSG_BIND_DATETIME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_BIND_DATETIME = wxTRANSLATE(&quot;Error binding date/time param&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac57e2cbf8514e3c5523deb2437d9ae87" name="ac57e2cbf8514e3c5523deb2437d9ae87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac57e2cbf8514e3c5523deb2437d9ae87">&#9670;&#160;</a></span>wxERRMSG_BIND_DBL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_BIND_DBL = wxTRANSLATE(&quot;Error binding double param&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a987b4027c7c9fd9071cd7438f7f9a2ae" name="a987b4027c7c9fd9071cd7438f7f9a2ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a987b4027c7c9fd9071cd7438f7f9a2ae">&#9670;&#160;</a></span>wxERRMSG_BIND_INT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_BIND_INT = wxTRANSLATE(&quot;Error binding int param&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa0efaee693ad6bfeee1935f40631c65c" name="aa0efaee693ad6bfeee1935f40631c65c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0efaee693ad6bfeee1935f40631c65c">&#9670;&#160;</a></span>wxERRMSG_BIND_INT64</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_BIND_INT64 = wxTRANSLATE(&quot;Error binding int64 param&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4eb7c8f5b9d2fefbb303f3809b6521f8" name="a4eb7c8f5b9d2fefbb303f3809b6521f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eb7c8f5b9d2fefbb303f3809b6521f8">&#9670;&#160;</a></span>wxERRMSG_BIND_NULL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_BIND_NULL = wxTRANSLATE(&quot;Error binding NULL param&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a04d30e0b64631693fa76165285d5cc68" name="a04d30e0b64631693fa76165285d5cc68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04d30e0b64631693fa76165285d5cc68">&#9670;&#160;</a></span>wxERRMSG_BIND_POINTER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_BIND_POINTER = wxTRANSLATE(&quot;Error binding pointer param&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9731ff48001105b7136d296aa1682e62" name="a9731ff48001105b7136d296aa1682e62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9731ff48001105b7136d296aa1682e62">&#9670;&#160;</a></span>wxERRMSG_BIND_STR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_BIND_STR = wxTRANSLATE(&quot;Error binding string param&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaf69e2f6ec7f67234f4b0a05d810b097" name="aaf69e2f6ec7f67234f4b0a05d810b097"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf69e2f6ec7f67234f4b0a05d810b097">&#9670;&#160;</a></span>wxERRMSG_BIND_ZEROBLOB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_BIND_ZEROBLOB = wxTRANSLATE(&quot;Error binding zero blob param&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a43e7be0336018cc588862f36b7fe7db0" name="a43e7be0336018cc588862f36b7fe7db0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43e7be0336018cc588862f36b7fe7db0">&#9670;&#160;</a></span>wxERRMSG_CIPHER_APPLY_FAILED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_CIPHER_APPLY_FAILED = wxTRANSLATE(&quot;Application of cipher failed&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af12712fe5aa83dc2d94a7af0752e2ae3" name="af12712fe5aa83dc2d94a7af0752e2ae3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af12712fe5aa83dc2d94a7af0752e2ae3">&#9670;&#160;</a></span>wxERRMSG_CIPHER_NOT_SUPPORTED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_CIPHER_NOT_SUPPORTED = wxTRANSLATE(&quot;Cipher not supported&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34a149be72e8f65208e98e7df1ba28be" name="a34a149be72e8f65208e98e7df1ba28be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34a149be72e8f65208e98e7df1ba28be">&#9670;&#160;</a></span>wxERRMSG_DBASSIGN_FAILED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_DBASSIGN_FAILED = wxTRANSLATE(&quot;Database assignment failed&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29e082817d0d0253d71495911d227042" name="a29e082817d0d0253d71495911d227042"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29e082817d0d0253d71495911d227042">&#9670;&#160;</a></span>wxERRMSG_DBCLOSE_FAILED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_DBCLOSE_FAILED = wxTRANSLATE(&quot;Database close failed&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a263bb69206941c08e8106221077727fb" name="a263bb69206941c08e8106221077727fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a263bb69206941c08e8106221077727fb">&#9670;&#160;</a></span>wxERRMSG_DBCONFIG_OPTION_UNKNOWN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_DBCONFIG_OPTION_UNKNOWN = wxTRANSLATE(&quot;Database configuration option unknown&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adb1d01ee917a5a4b8486f1c96e67efe7" name="adb1d01ee917a5a4b8486f1c96e67efe7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb1d01ee917a5a4b8486f1c96e67efe7">&#9670;&#160;</a></span>wxERRMSG_DBOPEN_FAILED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_DBOPEN_FAILED = wxTRANSLATE(&quot;Database open failed&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af3b7ac9de3cb1775e36d9870f25a6bec" name="af3b7ac9de3cb1775e36d9870f25a6bec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3b7ac9de3cb1775e36d9870f25a6bec">&#9670;&#160;</a></span>wxERRMSG_DECODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_DECODE = wxTRANSLATE(&quot;Cannot decode binary&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a807e11b2d387434bce3d378d1dc710a7" name="a807e11b2d387434bce3d378d1dc710a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a807e11b2d387434bce3d378d1dc710a7">&#9670;&#160;</a></span>wxERRMSG_FINALIZE_FAILED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_FINALIZE_FAILED = wxTRANSLATE(&quot;Finalize failed&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6d9f47aeff0d0cd89f7a80aa63f5500a" name="a6d9f47aeff0d0cd89f7a80aa63f5500a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d9f47aeff0d0cd89f7a80aa63f5500a">&#9670;&#160;</a></span>wxERRMSG_INITIALIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_INITIALIZE = wxTRANSLATE(&quot;Initialization of SQLite failed&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a94d1966643383b8dda3ef0075cbb8f45" name="a94d1966643383b8dda3ef0075cbb8f45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94d1966643383b8dda3ef0075cbb8f45">&#9670;&#160;</a></span>wxERRMSG_INVALID_BLOB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_INVALID_BLOB = wxTRANSLATE(&quot;Invalid BLOB handle&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="affa080c795759610d7875f853f479013" name="affa080c795759610d7875f853f479013"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affa080c795759610d7875f853f479013">&#9670;&#160;</a></span>wxERRMSG_INVALID_COLLECTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_INVALID_COLLECTION = wxTRANSLATE(&quot;Collection instance not properly initialized&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac340c3f98ed2bef7422e3534df53c425" name="ac340c3f98ed2bef7422e3534df53c425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac340c3f98ed2bef7422e3534df53c425">&#9670;&#160;</a></span>wxERRMSG_INVALID_INDEX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_INVALID_INDEX = wxTRANSLATE(&quot;Invalid field index&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3e2387f0f818bf7132ef0e59cc4d3cae" name="a3e2387f0f818bf7132ef0e59cc4d3cae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e2387f0f818bf7132ef0e59cc4d3cae">&#9670;&#160;</a></span>wxERRMSG_INVALID_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_INVALID_NAME = wxTRANSLATE(&quot;Invalid field name&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9f5d4f34866eedff3d9fe6915b271623" name="a9f5d4f34866eedff3d9fe6915b271623"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f5d4f34866eedff3d9fe6915b271623">&#9670;&#160;</a></span>wxERRMSG_INVALID_QUERY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_INVALID_QUERY = wxTRANSLATE(&quot;Invalid scalar query&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4342b941075427da47c7b9cd53249426" name="a4342b941075427da47c7b9cd53249426"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4342b941075427da47c7b9cd53249426">&#9670;&#160;</a></span>wxERRMSG_INVALID_ROW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_INVALID_ROW = wxTRANSLATE(&quot;Invalid row index&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a706b3c0af45dba32982d9db6107c3b52" name="a706b3c0af45dba32982d9db6107c3b52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a706b3c0af45dba32982d9db6107c3b52">&#9670;&#160;</a></span>wxERRMSG_NOBACKUP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NOBACKUP = wxTRANSLATE(&quot;Backup/restore support not available&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a20f149ef1e0d4b385e6bc44bd637edc5" name="a20f149ef1e0d4b385e6bc44bd637edc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20f149ef1e0d4b385e6bc44bd637edc5">&#9670;&#160;</a></span>wxERRMSG_NOBLOBREBIND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NOBLOBREBIND = wxTRANSLATE(&quot;Rebind BLOB support not available&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7dd81d0666456907ea0bffb79ed2b492" name="a7dd81d0666456907ea0bffb79ed2b492"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dd81d0666456907ea0bffb79ed2b492">&#9670;&#160;</a></span>wxERRMSG_NOCODEC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NOCODEC = wxTRANSLATE(&quot;Encryption support not available&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a099771ef32732cc60923ea090a008678" name="a099771ef32732cc60923ea090a008678"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a099771ef32732cc60923ea090a008678">&#9670;&#160;</a></span>wxERRMSG_NOCOLLECTIONS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NOCOLLECTIONS = wxTRANSLATE(&quot;Named collection support not available&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0153abe08544d108a9016f204eda1c0b" name="a0153abe08544d108a9016f204eda1c0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0153abe08544d108a9016f204eda1c0b">&#9670;&#160;</a></span>wxERRMSG_NODB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NODB = wxTRANSLATE(&quot;No Database opened&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afe2cec77a695daed0ded9968673aa6d6" name="afe2cec77a695daed0ded9968673aa6d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe2cec77a695daed0ded9968673aa6d6">&#9670;&#160;</a></span>wxERRMSG_NOINCBLOB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NOINCBLOB = wxTRANSLATE(&quot;Incremental BLOB support not available&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab5f3825a2fe04f4debf187a4f866532d" name="ab5f3825a2fe04f4debf187a4f866532d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5f3825a2fe04f4debf187a4f866532d">&#9670;&#160;</a></span>wxERRMSG_NOLOADEXT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NOLOADEXT = wxTRANSLATE(&quot;Loadable extension support not available&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34248d8a4e806a905cac3b8cc5f44b08" name="a34248d8a4e806a905cac3b8cc5f44b08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34248d8a4e806a905cac3b8cc5f44b08">&#9670;&#160;</a></span>wxERRMSG_NOMEM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NOMEM = wxTRANSLATE(&quot;Out of memory&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8988a4635e7e91d3183c433fadb9d598" name="a8988a4635e7e91d3183c433fadb9d598"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8988a4635e7e91d3183c433fadb9d598">&#9670;&#160;</a></span>wxERRMSG_NOMETADATA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NOMETADATA = wxTRANSLATE(&quot;Meta data support not available&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a793af38cb3d777bd3d85614931b251c0" name="a793af38cb3d777bd3d85614931b251c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a793af38cb3d777bd3d85614931b251c0">&#9670;&#160;</a></span>wxERRMSG_NOPOINTER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NOPOINTER = wxTRANSLATE(&quot;Pointer parameter support not available&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2fa84e3e44b6129b0442699e8b9dea5c" name="a2fa84e3e44b6129b0442699e8b9dea5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fa84e3e44b6129b0442699e8b9dea5c">&#9670;&#160;</a></span>wxERRMSG_NORESULT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NORESULT = wxTRANSLATE(&quot;Null Results pointer&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a02c6ecaa85e28d5c3ab3fc7d523ca2e5" name="a02c6ecaa85e28d5c3ab3fc7d523ca2e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02c6ecaa85e28d5c3ab3fc7d523ca2e5">&#9670;&#160;</a></span>wxERRMSG_NOSAVEPOINT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NOSAVEPOINT = wxTRANSLATE(&quot;Savepoint support not available&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaf6dcd478ceb07da0cba307e18b16b3b" name="aaf6dcd478ceb07da0cba307e18b16b3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf6dcd478ceb07da0cba307e18b16b3b">&#9670;&#160;</a></span>wxERRMSG_NOSTMT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NOSTMT = wxTRANSLATE(&quot;Statement not accessible&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7e2759c8170c14840bee11adfdda6e20" name="a7e2759c8170c14840bee11adfdda6e20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e2759c8170c14840bee11adfdda6e20">&#9670;&#160;</a></span>wxERRMSG_NOWAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_NOWAL = wxTRANSLATE(&quot;Write Ahead Log support not available&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a66c7aa483266433c39f5d7ec8ce62c02" name="a66c7aa483266433c39f5d7ec8ce62c02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66c7aa483266433c39f5d7ec8ce62c02">&#9670;&#160;</a></span>wxERRMSG_SCHEMANAME_UNKNOWN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_SCHEMANAME_UNKNOWN = wxTRANSLATE(&quot;Schema name unknown&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae808478ce4952dfa97727fde02e4a82b" name="ae808478ce4952dfa97727fde02e4a82b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae808478ce4952dfa97727fde02e4a82b">&#9670;&#160;</a></span>wxERRMSG_SHARED_CACHE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_SHARED_CACHE = wxTRANSLATE(&quot;Setting SQLite shared cache mode failed&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afb7c08554b0a578a23814716e8b013f4" name="afb7c08554b0a578a23814716e8b013f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb7c08554b0a578a23814716e8b013f4">&#9670;&#160;</a></span>wxERRMSG_SHUTDOWN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_SHUTDOWN = wxTRANSLATE(&quot;Shutdown of SQLite failed&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa44a338014a813146d88f28c6e462219" name="aa44a338014a813146d88f28c6e462219"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa44a338014a813146d88f28c6e462219">&#9670;&#160;</a></span>wxERRMSG_SOURCEDB_BUSY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_SOURCEDB_BUSY = wxTRANSLATE(&quot;Source database is busy&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9285a32f9f2ccf52e53b4e859b50c45" name="ad9285a32f9f2ccf52e53b4e859b50c45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9285a32f9f2ccf52e53b4e859b50c45">&#9670;&#160;</a></span>wxERRMSG_TEMPDIR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#a8c893cdbe8160b1646b2ace75280cce6">err_char_t</a>* wxERRMSG_TEMPDIR = wxTRANSLATE(&quot;Setting temporary directory failed&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="wxsqlite3_8cpp.html">wxsqlite3.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.17.0 </li>
+  </ul>
+</div>
+</body>
+</html>
